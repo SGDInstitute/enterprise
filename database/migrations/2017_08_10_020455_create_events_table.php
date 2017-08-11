@@ -23,7 +23,7 @@ class CreateEventsTable extends Migration
             $table->text('slug');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->dateTime('open_at')->nullable();
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
     }

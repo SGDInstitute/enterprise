@@ -27,7 +27,7 @@ class EventsSeeder extends Seeder
             'slug' => 'mblgtacc-2018',
             'start' => '2018-02-16 19:00:00',
             'end' => '2018-02-18 19:30:00',
-            'open_at' => \Carbon\Carbon::now()->subMonth(),
+            'published_at' => \Carbon\Carbon::now()->subMonth(),
         ]);
 
         $event->ticket_types()->createMany([
@@ -61,7 +61,7 @@ class EventsSeeder extends Seeder
             'slug' => 'music-fest',
             'start' => \Carbon\Carbon::parse("last saturday of june {$nextYear}"),
             'end' => $end,
-            'open_at' => \Carbon\Carbon::now()->subMonth(),
+            'published_at' => \Carbon\Carbon::now()->subMonth(),
         ]);
 
         $event->ticket_types()->createMany([
