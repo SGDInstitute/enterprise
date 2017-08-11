@@ -5,6 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <p>{{ $event->title }}</p>
             <p>{{ $event->subtitle }}</p>
             <p>{{ $event->start->format('D, M j') }}</p>
             <p>{{ $event->end->format('D, M j') }}</p>
