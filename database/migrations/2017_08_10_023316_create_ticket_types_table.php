@@ -19,8 +19,8 @@ class CreateTicketTypesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('cost');
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->dateTime('availability_start');
+            $table->dateTime('availability_end');
             $table->timestamps();
 
             $table->foreign('event_id')->references('id')->on('events');
