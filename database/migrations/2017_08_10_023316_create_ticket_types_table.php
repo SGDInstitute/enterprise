@@ -17,10 +17,10 @@ class CreateTicketTypesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('event_id');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('cost');
-            $table->dateTime('availability_start');
-            $table->dateTime('availability_end');
+            $table->dateTime('availability_start')->nullable();
+            $table->dateTime('availability_end')->nullable();
             $table->timestamps();
 
             $table->foreign('event_id')->references('id')->on('events');
