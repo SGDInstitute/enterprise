@@ -12,4 +12,9 @@ class Event extends Model
     {
         return self::where('slug', $slug)->firstOrFail();
     }
+
+    public function ticket_types()
+    {
+        return $this->hasMany(TicketType::class);
+    }
 }
