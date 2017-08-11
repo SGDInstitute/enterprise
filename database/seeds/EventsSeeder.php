@@ -21,7 +21,6 @@ class EventsSeeder extends Seeder
         $event = Event::create([
             'title' => 'MBLGTACC 2018',
             'subtitle' => 'All Roads Lead to Intersectionality',
-            'description' => '',
             'timezone' => 'America/Chicago',
             'location' => 'Omaha, Nebraska',
             'slug' => 'mblgtacc-2018',
@@ -55,7 +54,6 @@ class EventsSeeder extends Seeder
 
         $event = Event::create([
             'title' => 'Music Fest',
-            'description' => '',
             'timezone' => 'America/New_York',
             'location' => 'Indianapolis, Indiana',
             'slug' => 'music-fest',
