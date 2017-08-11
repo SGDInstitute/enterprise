@@ -40,7 +40,7 @@
                 </div>
             </li>
             <li>
-                <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Events </span><span
+                <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Events </span><span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>
