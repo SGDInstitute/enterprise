@@ -8,20 +8,18 @@
                     </span>
                     <div class="m-t-sm">
                         <span class="pull-left m-r-sm">
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
+                            <img alt="image" class="img-circle" width="48px" src="{{ Auth::user()->image }}"/>
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold">David Williams</strong>
+                                    <strong class="font-bold">{{ Auth::user()->name }}</strong>
                                     <span class="text-muted text-xs"><b class="caret"></b></span>
                                 </span>
                             </span>
                         </a>
                         <ul class="dropdown-menu animated fadeIn m-t-xs">
                             <li><a href="profile">Profile</a></li>
-                            <li><a href="contacts">Contacts</a></li>
-                            <li><a href="mailbox">Mailbox</a></li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}"
@@ -42,11 +40,11 @@
                 </div>
             </li>
             <li>
-                <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Menu Levels </span><span
+                <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Events </span><span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>
-                        <a href="#" id="damian">Third Level <span class="fa arrow"></span></a>
+                        <a href="#" id="damian">Orders <span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
                             <li>
                                 <a href="#">Third Level Item</a>
