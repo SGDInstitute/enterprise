@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>event.name</title>
+        <title>@yield('title')</title>
         <meta name="description" content="event.discription">
         <meta name="title" content="event.name">
         <meta name="author" content="MBLGTACC 2018, Midwest Institute for Sexuality and Gender Diversity">
@@ -24,7 +24,7 @@
 
         @include('components.header')
 
-        @section('content')
+        @yield('content')
 
         @include('components.footer')
 

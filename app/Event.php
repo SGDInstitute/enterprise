@@ -10,6 +10,10 @@ class Event extends Model
 
     protected $dates = ['start', 'end', 'published_at'];
 
+    protected $casts = [
+        'links' => 'array'
+    ];
+
     public static function findBySlug($slug)
     {
         return self::where('slug', $slug)->firstOrFail();
