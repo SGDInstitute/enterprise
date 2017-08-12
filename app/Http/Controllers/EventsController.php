@@ -16,9 +16,7 @@ class EventsController extends Controller
      */
     public function show($slug)
     {
-        $event = Event::whereNotNull('published_at')
-            ->whereDate('published_at', '<', Carbon::now())
-            ->where('slug', $slug)->firstOrFail();
+        $event = Event::published()->findBySlug($slug);
         return view('events.show', [
             'event' => $event,
         ]);
