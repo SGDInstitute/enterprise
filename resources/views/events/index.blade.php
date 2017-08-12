@@ -20,13 +20,15 @@
                 @endif
             </div>
             <div class="col-md-4">
-                @foreach($event->ticket_types as $ticket)
+                @forelse($event->ticket_types as $ticket)
                     <p>${{ number_format($ticket->cost/100, 2) }}</p>
                     <p>{{ $ticket->name }}</p>
                     @if($ticket->description)
                         <p>{{ $ticket->description }}</p>
                     @endif
-                @endforeach
+                @empty
+                    <p>No tickets available at this time.</p>
+                @endforelse
             </div>
         </div>
     </div>

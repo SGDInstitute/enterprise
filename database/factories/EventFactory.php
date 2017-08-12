@@ -8,7 +8,7 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'slug' => 'leadership-conference',
         'subtitle' => 'Learn something new every day',
         'description' => '',
-        'timezone' => 'America\Mountain',
+        'timezone' => 'America/Denver',
         'place' => 'University of Colorado',
         'location' => 'Denver, CO',
         'start' => Carbon\Carbon::now()->addYear(),

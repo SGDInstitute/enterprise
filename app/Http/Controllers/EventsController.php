@@ -15,8 +15,9 @@ class EventsController extends Controller
      */
     public function index($slug)
     {
+        $event = Event::whereNotNull('published_at')->where('slug', $slug)->firstOrFail();
         return view('events.index', [
-            'event' => Event::findBySlug($slug),
+            'event' => $event,
         ]);
     }
 

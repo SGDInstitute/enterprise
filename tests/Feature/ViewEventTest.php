@@ -64,4 +64,17 @@ class ViewEventTest extends TestCase
         $response->assertSee('Late Ticket');
         $response->assertSee('You are not guaranteed to receive a conference T-shirt, program, or other memorabilia.');
     }
+
+    /** @test */
+    function cannot_view_unpublished_event()
+    {
+        $event = factory(Event::class)->create([
+            'published_at' => NULL
+        ]);
+        $event->ticket_types()->save(factory(TicketType::class)->make());
+
+        $response = $this->get("/events/{$event->slug}");
+
+        $response->assertStatus(404);
+    }
 }
