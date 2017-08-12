@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/events/{slug}', 'EventsController@index');
+Route::get('/events/{slug}', 'EventsController@show');
 Route::post('/events/{slug}/orders', 'EventOrdersController@store');
 
 Route::get('/admin', function() {
