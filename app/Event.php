@@ -15,14 +15,14 @@ class Event extends Model
         'links' => 'array',
     ];
 
-    public static function findBySlug($slug)
-    {
-        return self::where('slug', $slug)->firstOrFail();
-    }
-
     public function ticket_types()
     {
         return $this->hasMany(TicketType::class);
+    }
+
+    public function scopeFindBySlug($query, $slug)
+    {
+        return $query->where('slug', $slug)->firstOrFail();
     }
 
     public function scopePublished($query)

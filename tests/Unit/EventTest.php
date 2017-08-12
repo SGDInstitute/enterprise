@@ -28,6 +28,16 @@ class EventTest extends TestCase
     }
 
     /** @test */
+    function can_find_event_by_slug()
+    {
+        factory(Event::class)->create(['slug' => 'hello-world']);
+
+        $event = Event::findBySlug('hello-world');
+
+        $this->assertNotNull($event);
+    }
+
+    /** @test */
     function can_view_formatted_start()
     {
         $event = factory(Event::class)->make([
