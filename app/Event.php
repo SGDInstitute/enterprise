@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Event extends Model
 {
@@ -22,6 +23,12 @@ class Event extends Model
     public function ticket_types()
     {
         return $this->hasMany(TicketType::class);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at')
+            ->whereDate('published_at', '<', Carbon::now());
     }
 
     public function getFormattedStartAttribute()

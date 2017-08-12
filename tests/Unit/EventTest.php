@@ -9,6 +9,24 @@ use Carbon\Carbon;
 
 class EventTest extends TestCase
 {
+    use RefreshDatabase;
+
+    /** @test */
+    function events_with_a_published_at_date_in_the_past_are_published()
+    {
+        $publishedEventA = factory(Event::class)->create(['published_at' => Carbon::parse('-1 week')]);
+        $publishedEventB = factory(Event::class)->create(['published_at' => Carbon::now()]);
+        $unpublishedEventA = factory(Event::class)->create(['published_at' => NULL]);
+        $unpublishedEventB = factory(Event::class)->create(['published_at' => Carbon::parse('+1 week')]);
+
+        $publishedEvents = Event::published()->get();
+
+        $this->assertTrue($publishedEvents->contains($publishedEventA));
+        $this->assertTrue($publishedEvents->contains($publishedEventB));
+        $this->assertFalse($publishedEvents->contains($unpublishedEventA));
+        $this->assertFalse($publishedEvents->contains($unpublishedEventB));
+    }
+
     /** @test */
     function can_view_formatted_start()
     {
