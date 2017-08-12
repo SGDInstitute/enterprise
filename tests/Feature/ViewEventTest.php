@@ -36,10 +36,9 @@ class ViewEventTest extends TestCase
             'name' => 'Regular Ticket',
         ]);
         $late = factory(TicketType::class)->make([
-            'cost' => 6500,
+            'cost' => 8500,
             'name' => 'Late Ticket',
-            'description' => 'You are not guaranteed to receive a conference
-T-shirt, program, or other memorabilia.',
+            'description' => 'You are not guaranteed to receive a conference T-shirt, program, or other memorabilia.',
         ]);
 
         $event->ticket_types()->save($regular);
@@ -59,5 +58,10 @@ T-shirt, program, or other memorabilia.',
         $response->assertSee('https://twitter.com/mblgtacc');
         $response->assertSee('https://instagram.com/mblgtacc');
         $response->assertSee('https://mblgtacc.org');
+        $response->assertSee('$65.00');
+        $response->assertSee('Regular Ticket');
+        $response->assertSee('$85.00');
+        $response->assertSee('Late Ticket');
+        $response->assertSee('You are not guaranteed to receive a conference T-shirt, program, or other memorabilia.');
     }
 }
