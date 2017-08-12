@@ -20,6 +20,11 @@ class Event extends Model
         return $this->hasMany(TicketType::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function scopeFindBySlug($query, $slug)
     {
         return $query->where('slug', $slug)->firstOrFail();
@@ -45,5 +50,14 @@ class Event extends Model
     {
         return $this->start->timezone($this->timezone)->format('l F j, Y g:i A')
             . " to " . $this->end->timezone($this->timezone)->format('l F j, Y g:i A T');
+    }
+
+    public function hasOrderFor($customerEmail)
+    {
+        return $this->orders()->where('email', $customerEmail)->count() > 0;
+    }
+    public function ordersFor($customerEmail)
+    {
+        return $this->orders()->where('email', $customerEmail)->get();
     }
 }

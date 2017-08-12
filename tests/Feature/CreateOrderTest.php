@@ -20,7 +20,7 @@ class CreateOrderTest extends TestCase
             'email' => 'john@example.com'
         ]);
         $event = factory(Event::class)->create([
-            'name' => 'MBLGTACC',
+            'title' => 'MBLGTACC',
             'slug' => 'mblgtacc'
         ]);
         $ticket_type = factory(TicketType::class)->make([
@@ -44,6 +44,7 @@ class CreateOrderTest extends TestCase
         $this->assertTrue($event->hasOrderFor('john@example.com'));
 
         $order = $event->ordersFor('john@example.com')->first();
-        $this->assertEquals(3, $order->ticketQuantity());
+        $this->assertEquals(2, $order->ticketQuantity());
     }
+
 }
