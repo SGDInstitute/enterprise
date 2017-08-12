@@ -15,7 +15,7 @@ class ViewEventTest extends TestCase
     /** @test */
     function user_can_view_published_event()
     {
-        $event = factory(Event::class)->create([
+        $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC 2018',
             'slug' => 'mblgtacc-2018',
             'subtitle' => 'All Roads Lead to Intersectionality',
@@ -31,7 +31,6 @@ class ViewEventTest extends TestCase
                 'instagram' => 'https://instagram.com/mblgtacc',
                 'external-link' => 'https://mblgtacc.org',
             ],
-            'published_at' => Carbon::parse('-1 week'),
         ]);
         $regular = factory(TicketType::class)->make([
             'cost' => 6500,

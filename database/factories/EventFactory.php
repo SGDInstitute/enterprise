@@ -21,3 +21,9 @@ $factory->define(App\Event::class, function (Faker $faker) {
         ],
     ];
 });
+
+$factory->state(App\Event::class, 'published', function (Faker $faker) {
+    return [
+        'published_at' => \Carbon\Carbon::parse('-1 week'),
+    ];
+});
