@@ -79,4 +79,17 @@ class ViewEventTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    /** @test */
+    function cannot_view_event_with_published_at_date_in_future()
+    {
+        $event = factory(Event::class)->create([
+            'published_at' => Carbon::parse('+1 week'),
+        ]);
+        $event->ticket_types()->save(factory(TicketType::class)->make());
+
+        $response = $this->get("/events/{$event->slug}");
+
+        $response->assertStatus(404);
+    }
 }
