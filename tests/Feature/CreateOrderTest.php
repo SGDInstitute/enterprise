@@ -37,14 +37,10 @@ class CreateOrderTest extends TestCase
         ]);
 
         $response->assertStatus(201);
-        $response->assertJson([
-            'amount' => 10000
-        ]);
 
-        $this->assertTrue($event->hasOrderFor('john@example.com'));
-
-        $order = $event->ordersFor('john@example.com')->first();
-        $this->assertEquals(2, $order->ticketQuantity());
+        $order = $event->orders()->where('user_id', $user->id)->first();
+        $this->assertNotNull($order);
+        $this->assertEquals(2, $order->tickets->count());
     }
 
 }
