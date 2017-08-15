@@ -1,0 +1,19 @@
+.media-card {
+  background-color: white;
+  border: 1px solid hsl(0,0%,85%);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+.media-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.media-card__content {
+  padding: 1rem;
+}
+.media-card__title {
+  margin-top: 10px;
+}

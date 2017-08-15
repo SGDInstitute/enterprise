@@ -15,20 +15,13 @@
                 <p>{{ $event->duration }}</p>
                 @if($event->links)
                     @foreach($event->links as $icon => $link)
-                        <a href="{{ $link }}" target="_blank"><i class="fa fa-{{ $icon  }}" aria-label="{{ $icon }}"></i></a>
+                        <a href="{{ $link }}" target="_blank"><i class="fa fa-{{ $icon  }}"
+                                                                 aria-label="{{ $icon }}"></i></a>
                     @endforeach
                 @endif
             </div>
             <div class="col-md-4">
-                @forelse($event->ticket_types as $ticket)
-                    <p>${{ number_format($ticket->cost/100, 2) }}</p>
-                    <p>{{ $ticket->name }}</p>
-                    @if($ticket->description)
-                        <p>{{ $ticket->description }}</p>
-                    @endif
-                @empty
-                    <p>No tickets available at this time.</p>
-                @endforelse
+                <start-order :ticket_types="{{ $event->ticket_types }}"></start-order>
             </div>
         </div>
     </div>
