@@ -11,15 +11,7 @@ class EventOrdersController extends Controller
     {
         $event = Event::findBySlug($slug);
 
-        $order = $event->orders()->create(['user_id' => request()->user()->id]);
-
-        foreach (request('tickets') as $type => $quantity) {
-            foreach (range(1, $quantity) as $i) {
-                $order->tickets()->create([
-                    'ticket_type_id' => $type
-                ]);
-            }
-        }
+        $order = $event->orderTickets(request()->user(), request('tickets'));
 
         return response()->json([], 201);
     }

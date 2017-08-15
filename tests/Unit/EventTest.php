@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\TicketType;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Event;
@@ -35,6 +37,23 @@ class EventTest extends TestCase
         $event = Event::findBySlug('hello-world');
 
         $this->assertNotNull($event);
+    }
+
+    /** @test */
+    function can_order_concert_tickets()
+    {
+        $event = factory(Event::class)->create();
+        $user = factory(User::class)->create();
+        $ticket_type = factory(TicketType::class)->make([
+            'name' => 'Regular Ticket',
+            'cost' => 5000
+        ]);
+        $event->ticket_types()->save($ticket_type);
+
+        $order = $event->orderTickets($user, [$ticket_type->id => 4]);
+
+        $this->assertEquals($user->id, $order->user->id);
+        $this->assertEquals(4, $order->tickets()->count());
     }
 
     /** @test */

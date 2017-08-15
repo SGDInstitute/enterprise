@@ -60,4 +60,19 @@ class Event extends Model
     {
         return $this->orders()->where('email', $customerEmail)->get();
     }
+
+    public function orderTickets($user, $tickets)
+    {
+        $order = $this->orders()->create(['user_id' => $user->id]);
+
+        foreach ($tickets as $type => $quantity) {
+            foreach (range(1, $quantity) as $i) {
+                $order->tickets()->create([
+                    'ticket_type_id' => $type
+                ]);
+            }
+        }
+
+        return $order;
+    }
 }
