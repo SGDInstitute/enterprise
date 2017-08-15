@@ -21,13 +21,16 @@ class EventsSeeder extends Seeder
         $event = Event::create([
             'title' => 'MBLGTACC 2018',
             'subtitle' => 'All Roads Lead to Intersectionality',
-            'website' => 'https://mblgtacc.org',
             'timezone' => 'America/Chicago',
+            'place' => 'University of Nebraska',
             'location' => 'Omaha, Nebraska',
             'slug' => 'mblgtacc-2018',
             'start' => '2018-02-16 19:00:00',
             'end' => '2018-02-18 19:30:00',
             'published_at' => \Carbon\Carbon::now()->subMonth(),
+            'links' => [
+                'website' => 'https://mblgtacc.org',
+            ]
         ]);
 
         $event->ticket_types()->createMany([
@@ -55,13 +58,16 @@ class EventsSeeder extends Seeder
 
         $event = Event::create([
             'title' => 'Music Fest',
-            'website' => 'https://sgdinstitute.org',
             'timezone' => 'America/New_York',
+            'place' => 'Dome',
             'location' => 'Indianapolis, Indiana',
             'slug' => 'music-fest',
             'start' => \Carbon\Carbon::parse("last saturday of june {$nextYear}"),
             'end' => $end,
             'published_at' => \Carbon\Carbon::now()->subMonth(),
+            'links' => [
+                'website' => 'https://mblgtacc.org',
+            ]
         ]);
 
         $event->ticket_types()->createMany([
