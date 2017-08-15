@@ -32,7 +32,9 @@ class CreateOrderTest extends TestCase
         $response = $this->withoutExceptionHandling()
             ->actingAs($user)
             ->json('POST', "/events/{$event->slug}/orders", [
-                'tickets' => [$ticket_type->id => 2],
+                'tickets' => [
+                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 2,]
+                ],
         ]);
 
         $response->assertStatus(201);
@@ -67,8 +69,8 @@ class CreateOrderTest extends TestCase
             ->actingAs($user)
             ->json('POST', "/events/{$event->slug}/orders", [
                 'tickets' => [
-                    $regular->id => 2,
-                    $pro->id => 4
+                    ['ticket_type_id' => $regular->id, 'quantity' => 2,],
+                    ['ticket_type_id' => $pro->id, 'quantity' => 4,],
                 ],
             ]);
 

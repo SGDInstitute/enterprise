@@ -46,11 +46,13 @@ class EventTest extends TestCase
         $user = factory(User::class)->create();
         $ticket_type = factory(TicketType::class)->make([
             'name' => 'Regular Ticket',
-            'cost' => 5000
+            'cost' => 5000,
         ]);
         $event->ticket_types()->save($ticket_type);
 
-        $order = $event->orderTickets($user, [$ticket_type->id => 4]);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticket_type->id, 'quantity' => 4],
+        ]);
 
         $this->assertEquals($user->id, $order->user->id);
         $this->assertEquals(4, $order->tickets()->count());
