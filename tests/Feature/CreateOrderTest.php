@@ -82,4 +82,24 @@ class CreateOrderTest extends TestCase
         $this->assertEquals(2, $order->tickets->where('ticket_type_id', $regular->id)->count());
         $this->assertEquals(4, $order->tickets->where('ticket_type_id', $pro->id)->count());
     }
+
+    /** @test */
+    function cannot_create_order_for_unpublished_event()
+    {
+        $user = factory(User::class)->create();
+        $event = factory(Event::class)->states('unpublished')->create();
+        $ticket_type = factory(TicketType::class)->make();
+        $event->ticket_types()->save($ticket_type);
+
+        $response = $this->actingAs($user)
+            ->json('POST', "/events/{$event->slug}/orders", [
+                'tickets' => [
+                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 2,]
+                ],
+            ]);
+
+        $response->assertStatus(404);
+        $this->assertEquals(0, $event->orders()->count());
+    }
+
 }

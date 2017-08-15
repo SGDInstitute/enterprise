@@ -9,7 +9,7 @@ class EventOrdersController extends Controller
 {
     public function store($slug)
     {
-        $event = Event::findBySlug($slug);
+        $event = Event::published()->findBySlug($slug);
 
         $order = $event->orderTickets(request()->user(), request('tickets'));
 

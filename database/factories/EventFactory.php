@@ -26,3 +26,15 @@ $factory->state(App\Event::class, 'published', function (Faker $faker) {
         'published_at' => \Carbon\Carbon::parse('-1 week'),
     ];
 });
+
+$factory->state(App\Event::class, 'unpublished', function (Faker $faker) {
+    return [
+        'published_at' => null,
+    ];
+});
+
+$factory->state(App\Event::class, 'future', function (Faker $faker) {
+    return [
+        'published_at' => \Carbon\Carbon::parse('+1 month'),
+    ];
+});
