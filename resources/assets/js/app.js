@@ -21,3 +21,5 @@ Vue.component('start-order', require('./components/StartOrder.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+$('[data-toggle="tooltip"]').tooltip();
