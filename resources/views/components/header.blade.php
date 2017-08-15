@@ -10,14 +10,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @if($event)
+                @if(isset($event))
                     <a class="navbar-brand" href="/">{{ $event->title }}</a>
                 @endif
             </div>
 
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    @if($event)
+                    @if(isset($event))
                         <li><a class="navbar-link" target="_blank" href="{{ $event->links['website'] }}">Event
                                 Website</a></li>
                     @endif
