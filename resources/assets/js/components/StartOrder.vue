@@ -13,6 +13,14 @@
                 <p v-show="type.description" class="text-muted">{{ type.description }}</p>
             </div>
         </div>
+        <div class="media-card">
+            <div class="media-card__content">
+                <h2 class="media-card__title">Subtotal
+                    <small class="pull-right">${{ total }}</small>
+                </h2>
+                <button type="button" class="btn btn-primary btn-block">Save Order</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -29,6 +37,16 @@
         methods: {
             formatDate(date) {
                 return moment().format('MM/DD/YY');
+            }
+        },
+        computed: {
+            total() {
+                let total = 0;
+                let self = this;
+                this.tickets.forEach(function(quantity, type) {
+                    total += self.ticket_types.find(x => x.id === parseInt(type)).cost * quantity;
+                });
+                return (total/100).toFixed(2);
             }
         }
     }
