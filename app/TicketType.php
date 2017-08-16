@@ -16,6 +16,10 @@ class TicketType extends Model
 
     public function getIsOpenAttribute()
     {
+        if(is_null($this->availability_start) && is_null($this->availability_end)) {
+            return true;
+        }
+
         $now = Carbon::now();
         return $this->availability_start < $now && $now < $this->availability_end;
     }

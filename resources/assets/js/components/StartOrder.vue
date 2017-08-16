@@ -18,6 +18,20 @@
         </div>
         <div class="media-card">
             <div class="media-card__content">
+                <h4 class="ticket-price ticket-child">Promotional Code</h4>
+                <span class="ticket-name ticket-child">If you have a promotional code, enter it below.</span>
+
+                <label for="promo" class="sr-only">Promotional Code</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="promo" placeholder="Add promo code here...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Apply</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div>
+        </div>
+        <div class="media-card">
+            <div class="media-card__content">
                 <h2 class="media-card__title">Subtotal
                     <small class="pull-right">${{ total }}</small>
                 </h2>

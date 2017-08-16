@@ -30,8 +30,13 @@ class TicketTypeTest extends TestCase
             'availability_start' => Carbon::parse('+1 week'),
             'availability_end' => Carbon::parse('+1 month')
         ]);
+        $alwaysOpenTicket = factory(TicketType::class)->make([
+            'availability_start' => null,
+            'availability_end' => null
+        ]);
 
         $this->assertTrue($openTicket->is_open);
         $this->assertFalse($closedTicket->is_open);
+        $this->assertTrue($alwaysOpenTicket->is_open);
     }
 }

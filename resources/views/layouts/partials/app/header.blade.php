@@ -1,23 +1,29 @@
 <header class="header">
-  <!-- Nav -->
-    <nav id="layout-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">event.name</a>
+    <!-- Nav -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @if(isset($event))
+                    <a class="navbar-brand" href="/">{{ $event->title }}</a>
+                @endif
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    @if(isset($event))
+                        <li><a class="navbar-link" target="_blank" href="{{ $event->links['external-link'] }}">Event
+                                Website</a></li>
+                    @endif
+                    <li><a class="navbar-link" href="/login">Login</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="collapse navbar-collapse navbar-main-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a class="navbar-link" href="event.website">Event Website</a></li>
-                <li><a class="navbar-link" href="/login">login</a></li>
-            </ul>
-        </div>
-      </div>
     </nav>
-  </div>
 </header>
