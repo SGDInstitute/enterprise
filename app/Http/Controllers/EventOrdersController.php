@@ -13,6 +13,6 @@ class EventOrdersController extends Controller
 
         $order = $event->orderTickets(request()->user(), request('tickets'));
 
-        return response()->json([], 201);
+        return response()->json(compact('order'), 201);
     }
 }

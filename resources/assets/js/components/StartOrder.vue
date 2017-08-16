@@ -5,7 +5,8 @@
                 <h2 class="media-card__title">{{ type.formatted_cost }}
                     <span v-if="type.is_open" class="pull-right col-md-6 pr-0">
                         <label for="ticket_quantity" class="sr-only">Ticket Quantity</label>
-                        <input type="number" id="ticket_quantity" class="form-control" v-model="form.tickets[index].quantity"
+                        <input type="number" id="ticket_quantity" class="form-control"
+                               v-model="form.tickets[index].quantity"
                                placeholder="Quantity">
                     </span>
                     <small class="pull-right" v-else data-toggle="tooltip" data-placement="top"
@@ -35,7 +36,7 @@
                 <h2 class="media-card__title">Subtotal
                     <small class="pull-right">${{ total }}</small>
                 </h2>
-                <button type="submit" class="btn btn-primary btn-block">Save Order</button>
+                <button type="submit" class="btn btn-primary btn-block" :disabled="form.processing">Save Order</button>
             </div>
         </div>
     </form>
@@ -65,7 +66,12 @@
                 return moment().format('MM/DD/YY');
             },
             submit() {
-                this.form.post('/events/' + this.event.slug + '/orders')
+                this.form.post('/events/' + this.event.slug + '/orders', {
+                    resetOnSuccess: true,
+                })
+                    .then(response => {
+                        location.href = '/orders/' + response.order.id;
+                    })
             }
         },
         computed: {
