@@ -19,7 +19,7 @@ class CreateOrderTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'john@example.com'
         ]);
-        $event = factory(Event::class)->create([
+        $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC',
             'slug' => 'mblgtacc'
         ]);
@@ -50,7 +50,7 @@ class CreateOrderTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'john@example.com'
         ]);
-        $event = factory(Event::class)->create([
+        $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC',
             'slug' => 'mblgtacc'
         ]);
