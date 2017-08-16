@@ -29,7 +29,7 @@ class ViewEventTest extends TestCase
                 'facebook' => 'https://facebook.com/mblgtacc',
                 'twitter' => 'https://twitter.com/mblgtacc',
                 'instagram' => 'https://instagram.com/mblgtacc',
-                'external-link' => 'https://mblgtacc.org',
+                'website' => 'https://mblgtacc.org',
             ],
         ]);
         $regular = factory(TicketType::class)->make([
