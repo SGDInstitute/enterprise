@@ -19,6 +19,10 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('styles')
+
+    <script>
+        window.Institute = {}
+    </script>
 </head>
 <body>
 <div id="app">
