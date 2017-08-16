@@ -48,14 +48,49 @@ class EventTest extends TestCase
             'name' => 'Regular Ticket',
             'cost' => 5000,
         ]);
+        $ticket_type2 = factory(TicketType::class)->make([
+            'name' => 'Late Ticket',
+            'cost' => 10000,
+        ]);
         $event->ticket_types()->save($ticket_type);
+        $event->ticket_types()->save($ticket_type2);
 
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticket_type->id, 'quantity' => 4],
+            ['ticket_type_id' => $ticket_type2->id, 'quantity' => 1],
         ]);
 
         $this->assertEquals($user->id, $order->user->id);
-        $this->assertEquals(4, $order->tickets()->count());
+        $this->assertEquals(5, $order->tickets()->count());
+        $this->assertEquals(4, $order->tickets()->where('ticket_type_id', $ticket_type->id)->count());
+        $this->assertEquals(1, $order->tickets()->where('ticket_type_id', $ticket_type2->id)->count());
+    }
+
+    /** @test */
+    function can_order_concert_tickets_without_getting_multiple_ticket_types()
+    {
+        $event = factory(Event::class)->create();
+        $user = factory(User::class)->create();
+        $ticket_type = factory(TicketType::class)->make([
+            'name' => 'Regular Ticket',
+            'cost' => 5000,
+        ]);
+        $ticket_type2 = factory(TicketType::class)->make([
+            'name' => 'Late Ticket',
+            'cost' => 10000,
+        ]);
+        $event->ticket_types()->save($ticket_type);
+        $event->ticket_types()->save($ticket_type2);
+
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticket_type->id, 'quantity' => 2],
+            ['ticket_type_id' => $ticket_type2->id, 'quantity' => 0],
+        ]);
+
+        $this->assertEquals($user->id, $order->user->id);
+        $this->assertEquals(2, $order->tickets()->count());
+        $this->assertEquals(2, $order->tickets()->where('ticket_type_id', $ticket_type->id)->count());
+        $this->assertEquals(0, $order->tickets()->where('ticket_type_id', $ticket_type2->id)->count());
     }
 
     /** @test */

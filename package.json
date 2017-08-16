@@ -23,6 +23,7 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
+    "form-backend-validation": "^1.7.0",
     "moment": "^2.18.1"
   }
 }
