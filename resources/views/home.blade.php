@@ -1,5 +1,30 @@
 @extends('layouts.app')
 
+@section('hero')
+<section class="hero">
+  <div class="container">
+    <div class="hero-titles">
+      <h1>Event Title</h1>
+      <h2>Event SubTitle</h2>
+    </div>
+  </div>
+  <div class="hero-bar clearfix">
+    <div class="container">
+      <div class="pull-left">
+        Start at
+        <br />
+        End at
+      </div>
+      <div class="pull-right">
+        Location
+        <br />
+        City, State
+      </div>
+    </div>
+  </div>
+</section>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
