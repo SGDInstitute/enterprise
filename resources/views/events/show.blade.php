@@ -45,7 +45,7 @@
 
                 @if($event->links)
                     @foreach($event->links as $icon => $link)
-                        @if($link === 'website')
+                        @if($icon === 'website')
                             <a href="{{ $link }}" target="_blank"><i class="fa fa-external-link"
                                                                      aria-label="External Link"></i></a>
                         @else
