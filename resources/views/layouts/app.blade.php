@@ -24,6 +24,8 @@
 <div id="app">
     @include('layouts.partials.app.header')
 
+    @yield('hero')
+
     @yield('content')
 
     @include('layouts.partials.app.footer')
