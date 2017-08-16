@@ -36,6 +36,7 @@
                 <h2 class="media-card__title">Subtotal
                     <small class="pull-right">${{ total }}</small>
                 </h2>
+                <div class="alert alert-danger" role="alert" v-show="errorsHave('tickets')">{{ getError('tickets') }}</div>
                 <button type="submit" class="btn btn-primary btn-block" :disabled="form.processing">Save Order</button>
             </div>
         </div>
@@ -53,6 +54,7 @@
                 form: new Form({
                     tickets: []
                 }),
+                errors: [],
             }
         },
         created() {
@@ -67,11 +69,25 @@
             },
             submit() {
                 this.form.post('/events/' + this.event.slug + '/orders', {
-                    resetOnSuccess: true,
-                })
+                        resetOnSuccess: true,
+                    })
                     .then(response => {
                         location.href = '/orders/' + response.order.id;
                     })
+                    .catch(response => {
+                        this.errors = response.data.errors;
+                    })
+            },
+            errorsHave(field) {
+                return this.errors.hasOwnProperty(field);
+            },
+            getError(field) {
+                if (this.errors[field]) {
+                    if (typeof this.errors[field] === 'string') {
+                        return this.errors[field];
+                    }
+                    return this.errors[field][0];
+                }
             }
         },
         computed: {

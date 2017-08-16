@@ -102,4 +102,37 @@ class CreateOrderTest extends TestCase
         $this->assertEquals(0, $event->orders()->count());
     }
 
+    /** @test */
+    function cannot_create_order_without_ticket_quantity()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'john@example.com'
+        ]);
+        $event = factory(Event::class)->states('published')->create([
+            'title' => 'MBLGTACC',
+            'slug' => 'mblgtacc'
+        ]);
+        $ticket_type = factory(TicketType::class)->make([
+            'name' => 'Regular Ticket',
+            'cost' => 5000
+        ]);
+        $ticket_type2 = factory(TicketType::class)->make([
+            'name' => 'Pro Ticket',
+            'cost' => 5000
+        ]);
+        $event->ticket_types()->save($ticket_type);
+        $event->ticket_types()->save($ticket_type2);
+
+        $response = $this
+            ->actingAs($user)
+            ->json('POST', "/events/{$event->slug}/orders", [
+                'tickets' => [
+                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 0,],
+                    ['ticket_type_id' => $ticket_type2->id, 'quantity' => 0,]
+                ],
+            ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonHasErrors(['tickets']);
+    }
 }
