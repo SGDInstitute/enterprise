@@ -22,11 +22,13 @@
 </head>
 <body>
 <div id="app">
-    @include('components.header')
+    @include('layouts.partials.app.header')
+
+    @yield('hero')
 
     @yield('content')
 
-    @include('components.footer')
+    @include('layouts.partials.app.footer')
 </div>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

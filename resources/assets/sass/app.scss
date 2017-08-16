@@ -5,9 +5,16 @@
 // Variables
 @import "variables";
 
-// Bootstrap
+// Vendors
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/font-awesome/scss/font-awesome";
 
 // Components
+@import "components/description";
+@import "components/fontawesome-overrides";
+@import "components/footer";
+@import "components/header";
+@import "components/hero";
 @import "components/media_card";
+@import "components/tickets";
 @import "components/utils";

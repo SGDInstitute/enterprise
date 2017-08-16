@@ -1,0 +1,34 @@
+.tickets {
+  padding: 10px;
+  background-color: $brand-ash-grey;
+
+  .ticket-box {
+    margin: 10px 0px;
+    padding: 20px 10px;
+    background-color: #ffffff;
+    &:first-of-type, &:last-of-type {
+      margin: 0px;
+    }
+    .ticket-child {
+      display: block;
+    }
+    .ticket-num {
+      border: 1px solid $brand-ash-grey;
+      border-radius: 5px;
+      padding: 5px;
+      color: $brand-ash-grey;
+    }
+    .ticket-price {
+      font-size: 1.5em;
+    }
+    .ticket-name {
+      color: $brand-ash-grey;
+    }
+    .ticket-description {
+      color: $brand-ash-grey;
+    }
+    form {
+      margin-top: 5px;
+    }
+  }
+}
