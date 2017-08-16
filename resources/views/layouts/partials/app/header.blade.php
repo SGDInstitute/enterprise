@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     @if(isset($event))
-                        <li><a class="navbar-link" target="_blank" href="{{ $event->links['external-link'] }}">Event
+                        <li><a class="navbar-link" target="_blank" href="{{ $event->links['website'] }}">Event
                                 Website</a></li>
                     @endif
                     <li><a class="navbar-link" href="/login">Login</a></li>
