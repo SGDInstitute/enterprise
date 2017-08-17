@@ -44,11 +44,13 @@
                 @if($event->links)
                     @foreach($event->links as $icon => $link)
                         @if($icon === 'website')
-                            <a href="{{ $link }}" target="_blank"><i class="fa fa-external-link"
-                                                                     aria-label="External Link"></i></a>
+                            <a href="{{ $link }}" target="_blank">
+                                <i class="fa fa-external-link" aria-label="External Link"></i>
+                            </a>
                         @else
-                        <a href="{{ $link }}" target="_blank"><i class="fa fa-{{ $icon  }}"
-                                                                 aria-label="{{ $icon }}"></i></a>
+                            <a href="{{ $link }}" target="_blank">
+                                <i class="fa fa-{{ $icon }}" aria-label="{{ $icon }}"></i>
+                            </a>
                         @endif
                     @endforeach
                 @endif
