@@ -21,7 +21,7 @@
     @yield('styles')
 
     <script>
-        window.Institute = {}
+        window.Spark = {}
     </script>
 </head>
 <body>
