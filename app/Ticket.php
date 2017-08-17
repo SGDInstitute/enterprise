@@ -12,4 +12,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(TicketType::class);
     }
+
+    public function scopeFilled($query)
+    {
+        return $query->whereNotNull('user_id');
+    }
 }
