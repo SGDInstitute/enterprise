@@ -17,8 +17,10 @@
                                 <i class="fa-li fa fa-map-marker"></i> {{ $order->event->place }} {{ $order->event->location }}
                             </li>
                         </ul>
-                        <a href="/events/{{ $order->event->slug }}" class="btn btn-outline-light pull-right btn-sm">VIEW
-                            EVENT</a>
+                        @component('components.app.links', ['links' => $order->event->links])
+                            <a href="/events/{{ $order->event->slug }}" class="btn btn-outline-light pull-right btn-sm">VIEW
+                                EVENT</a>
+                        @endcomponent
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">{{ '$' . number_format($order->amount/100, 2) }}</h4>

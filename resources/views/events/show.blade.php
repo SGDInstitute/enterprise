@@ -41,19 +41,8 @@
                     </div>
                 @endif
 
-                @if($event->links)
-                    @foreach($event->links as $icon => $link)
-                        @if($icon === 'website')
-                            <a href="{{ $link }}" target="_blank">
-                                <i class="fa fa-external-link" aria-label="External Link"></i>
-                            </a>
-                        @else
-                            <a href="{{ $link }}" target="_blank">
-                                <i class="fa fa-{{ $icon }}" aria-label="{{ $icon }}"></i>
-                            </a>
-                        @endif
-                    @endforeach
-                @endif
+                @component('components.app.links', ['links' => $event->links])
+                @endcomponent
             </div>
             <div class="col-4">
                 <div class="tickets card-list">
