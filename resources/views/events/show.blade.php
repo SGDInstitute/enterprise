@@ -17,10 +17,8 @@
                     <br/>
                     {{ $event->formatted_end }}
                 </div>
-                <div class="pull-right">
-                    {{ $event->place }}
-                    <br/>
-                    {{ $event->location }}
+                <div class="pull-right text-right">
+                    {{ $event->place }}<br/>{{ $event->location }}
                 </div>
             </div>
         </div>
