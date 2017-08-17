@@ -2,4 +2,4 @@
 {{ $order->event->place }}
 {{ $order->event->location }}
 {{ $order->event->duration }}
-{{ $order->amount }}
+{{ '$' . number_format($order->amount/100, 2) }}

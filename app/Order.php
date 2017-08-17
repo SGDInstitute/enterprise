@@ -22,4 +22,11 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getAmountAttribute()
+    {
+        return $this->tickets->map(function ($ticket) {
+            return $ticket->ticket_type->cost;
+        })->sum();
+    }
 }
