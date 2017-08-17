@@ -1,5 +1,5 @@
 .hero {
-  margin-top: 50px;
+  margin-top: $navbar-height - $fixed-nav-padding;
   background-color: $brand-mint;
   color: #ffffff;
   .hero-titles {
