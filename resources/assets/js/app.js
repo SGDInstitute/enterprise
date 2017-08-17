@@ -33,4 +33,7 @@ const app = new Vue({
     el: '#app'
 });
 
-$('[data-toggle="tooltip"]').tooltip();
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
+});

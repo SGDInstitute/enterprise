@@ -1,0 +1,9 @@
+.card-list {
+  .card {
+    margin-bottom: 1em;
+  }
+
+  .card:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -6,19 +6,25 @@
 @import "variables";
 
 // Vendors
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
 
 // Components
+@import "components/cards";
 @import "components/description";
 @import "components/fontawesome-overrides";
 @import "components/footer";
-@import "components/header";
 @import "components/hero";
 @import "components/media_card";
 @import "components/tickets";
 @import "components/utils";
 
 body {
-  padding-top: 70px;
+  padding-top: 55px;
+  background-color: $brand-ash-grey;
+}
+
+.content {
+  background-color: #ffffff;
+  padding: 2em 0;
 }

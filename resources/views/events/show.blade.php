@@ -26,9 +26,9 @@
 @endsection
 
 @section('content')
-    <div class="container mt-20 mb-20">
+    <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-8">
                 <h3 class="description-title">Event Description</h3>
                 <ul class="fa-ul">
                     <li><i class="fa-li fa fa-clock-o" aria-hidden="true"></i>{{ $event->duration }}</li>
@@ -55,8 +55,8 @@
                     @endforeach
                 @endif
             </div>
-            <div class="col-md-4">
-                <div class="tickets">
+            <div class="col-4">
+                <div class="tickets card-list">
                     <start-order :ticket_types="{{ $event->ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
                 </div>
             </div>

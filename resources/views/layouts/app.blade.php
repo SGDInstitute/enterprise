@@ -6,7 +6,7 @@
     <meta name="description" content="event.discription">
     <meta name="title" content="event.name">
     <meta name="author" content="MBLGTACC 2018, Midwest Institute for Sexuality and Gender Diversity">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
@@ -30,7 +30,9 @@
 
     @yield('hero')
 
-    @yield('content')
+    <section class="content">
+        @yield('content')
+    </section>
 
     @include('layouts.partials.app.footer')
 

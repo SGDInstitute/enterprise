@@ -1,8 +1,8 @@
 <template>
     <form @submit.prevent="submit">
-        <div class="media-card" v-for="(type, index) in ticket_types">
-            <div class="media-card__content">
-                <h2 class="media-card__title">{{ type.formatted_cost }}
+        <div class="card" v-for="(type, index) in ticket_types">
+            <div class="card-body">
+                <h2 class="card-title">{{ type.formatted_cost }}
                     <span v-if="type.is_open" class="pull-right col-md-6 pr-0">
                         <label for="ticket_quantity" class="sr-only">Ticket Quantity</label>
                         <input type="number" id="ticket_quantity" class="form-control"
@@ -13,14 +13,14 @@
                            :title="'Opens on ' + formatDate(type.availability_start)">Closed
                     </small>
                 </h2>
-                <p>{{ type.name }}</p>
-                <p v-show="type.description" class="text-muted">{{ type.description }}</p>
+                <p class="card-text">{{ type.name }}</p>
+                <p v-if="type.description" class="card-text text-muted">{{ type.description }}</p>
             </div>
         </div>
-        <div class="media-card">
-            <div class="media-card__content">
-                <h4 class="ticket-price ticket-child">Promotional Code</h4>
-                <span class="ticket-name ticket-child">If you have a promotional code, enter it below.</span>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Promotional Code</h4>
+                <p class="card-text text-muted">If you have a promotional code, enter it below.</p>
 
                 <label for="promo" class="sr-only">Promotional Code</label>
                 <div class="input-group">
@@ -31,9 +31,9 @@
                 </div><!-- /input-group -->
             </div>
         </div>
-        <div class="media-card">
-            <div class="media-card__content">
-                <h2 class="media-card__title">Subtotal
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Subtotal
                     <small class="pull-right">${{ total }}</small>
                 </h2>
                 <div class="alert alert-danger" role="alert" v-show="form.errors.has('tickets')">
