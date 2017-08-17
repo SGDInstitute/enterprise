@@ -66,7 +66,7 @@
         },
         methods: {
             formatDate(date) {
-                return moment().format('MM/DD/YY');
+                return moment(date).format('M/D/YY');
             },
             submit() {
                 Spark.post('/events/' + this.event.slug + '/orders', this.form)
