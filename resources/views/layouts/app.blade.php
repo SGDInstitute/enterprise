@@ -33,6 +33,8 @@
     @yield('content')
 
     @include('layouts.partials.app.footer')
+
+    <login-or-register v-on:></login-or-register>
 </div>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

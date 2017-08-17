@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-4">
                 <div class="tickets">
-                    <start-order :ticket_types="{{ $event->ticket_types }}" :event="{{ $event }}"></start-order>
+                    <start-order :ticket_types="{{ $event->ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
                 </div>
             </div>
         </div>

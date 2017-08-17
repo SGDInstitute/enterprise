@@ -49,13 +49,13 @@
     import moment from 'moment';
 
     export default {
-        props: ['ticket_types', 'event'],
+        props: ['ticket_types', 'event', 'user'],
         data() {
             return {
                 form: new SparkForm({
-                    tickets: []
+                    tickets: [],
+                    user: []
                 }),
-                errors: [],
             }
         },
         created() {
@@ -63,18 +63,29 @@
             this.ticket_types.forEach(function (item) {
                 self.form.tickets.push({quantity: 0, ticket_type_id: item.id});
             });
+            this.form.user = this.user;
+
+            this.eventHub.$on('updatedUser', function(user) {
+                self.form.user = user;
+                self.submit();
+            })
         },
         methods: {
             formatDate(date) {
                 return moment(date).format('M/D/YY');
             },
             submit() {
-                Spark.post('/events/' + this.event.slug + '/orders', this.form)
-                    .then(response => {
-                        location.href = '/orders/' + response.order.id;
-                    })
-                    .catch(response => {
-                    })
+                if(this.form.user === null) {
+                    this.eventHub.$emit('showLoginRegister');
+                }
+                else {
+                    Spark.post('/events/' + this.event.slug + '/orders', this.form)
+                        .then(response => {
+                            location.href = '/orders/' + response.order.id;
+                        })
+                        .catch(response => {
+                        })
+                }
             }
         },
         computed: {
