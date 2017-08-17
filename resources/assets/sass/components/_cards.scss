@@ -10,7 +10,12 @@
 
 .card-top {
   padding: 1.25rem;
-  background: #000;
   border-top-left-radius: $card-inner-border-radius;
   border-top-right-radius: $card-inner-border-radius;
+  background-position: center;
+  background-size: cover;
+
+  .btn-outline-light:hover {
+    color: $gray-800;
+  }
 }
