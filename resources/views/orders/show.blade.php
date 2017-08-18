@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col mt-sm-4 mt-xs-4">
+            <div class="col">
                 <button class="btn btn-primary pull-right btn-sm">Fill Out Ticket</button>
                 <h4>Ticket Details</h4>
                 <table class="table">
