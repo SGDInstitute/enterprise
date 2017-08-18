@@ -1,5 +1,5 @@
 <header class="header">
-    <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light">
         <div class="container">
             @if(isset($event))
                 <a class="navbar-brand" href="/">{{ $event->title }}</a>
