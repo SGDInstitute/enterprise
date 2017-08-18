@@ -38,7 +38,7 @@ class ViewOrderTest extends TestCase
         $response->assertSee('Leadership Conference');
         $response->assertSee('University of Nebraska');
         $response->assertSee('Omaha, Nebraska');
-        $response->assertSee('Friday February 16, 2018 1:00 PM to Sunday February 18, 2018 1:30 PM CST');
+        $response->assertSee('Fri, Feb 16 - Sun, Feb 18');
         $response->assertSee('$100.00');
         $response->assertSee('0 of 2');
     }
