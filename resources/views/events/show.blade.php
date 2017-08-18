@@ -6,7 +6,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-titles">
-                <h1>{{ $event->title }}</h1>
+                <h1 class="display-3">{{ $event->title }}</h1>
                 <h2>{{ $event->subtitle }}</h2>
             </div>
         </div>
