@@ -3,6 +3,10 @@
         <div class="container">
             @if(isset($event))
                 <a class="navbar-brand" href="/">{{ $event->title }}</a>
+            @else
+                <a class="navbar-brand" href="/">
+                    <img src="{{ asset('img/logo.png') }}" width="265px" alt="Institute Logo">
+                </a>
             @endif
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
