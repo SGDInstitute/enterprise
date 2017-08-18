@@ -45,7 +45,7 @@
                 @endcomponent
             </div>
             <div class="col-4">
-                <div class="tickets card-list">
+                <div class="tickets card-list rounded">
                     <start-order :ticket_types="{{ $event->ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
                 </div>
             </div>
