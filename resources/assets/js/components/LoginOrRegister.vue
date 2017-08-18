@@ -3,17 +3,16 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h5 class="modal-title">Please Login or Create and Account</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Please Login or Create and Account</h4>
                 </div>
                 <div class="modal-body">
-
                     <div class="row">
-                        <form class="col-md-6 form-horizontal" @submit.prevent="login">
-                            <h3>Login</h3>
-                            <div class="form-group" :class="{'has-error': loginForm.errors.has('email')}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <form class="col-md-6" @submit.prevent="login">
+                            <h4>Login</h4>
+                            <div class="row form-group" :class="{'has-error': loginForm.errors.has('email')}">
+                                <label for="email" class="col-md-4 col-form-label">E-Mail</label>
 
                                 <div class="col-md-8">
                                     <input id="email" type="email" class="form-control" name="email"
@@ -25,8 +24,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" :class="{'has-error': loginForm.errors.has('password')}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
+                            <div class="row form-group" :class="{'has-error': loginForm.errors.has('password')}">
+                                <label for="password" class="col-md-4 col-form-label">Password</label>
 
                                 <div class="col-md-8">
                                     <input id="password" type="password" class="form-control" name="password"
@@ -38,8 +37,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
+                            <div class="row form-group">
+                                <div class="col-md-8 ml-auto">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="remember" v-model="loginForm.remember">
@@ -49,19 +48,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
+                            <div class="row form-group">
+                                <div class="col-md-8 ml-auto">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-btn fa-sign-in"></i> Login
                                     </button>
                                 </div>
                             </div>
                         </form>
-                        <form class="col-md-6 form-horizontal" @submit.prevent="register">
-                            <h3>Register</h3>
+                        <form class="col-md-6" @submit.prevent="register">
+                            <h4>Register</h4>
 
-                            <div class="form-group" :class="{'has-error': registrationForm.errors.has('name')}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                            <div class="row form-group" :class="{'has-error': registrationForm.errors.has('name')}">
+                                <label for="name" class="col-md-4 col-form-label">Name</label>
 
                                 <div class="col-md-8">
                                     <input id="name" type="text" class="form-control" name="name"
@@ -73,8 +72,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" :class="{'has-error': registrationForm.errors.has('email')}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <div class="row form-group" :class="{'has-error': registrationForm.errors.has('email')}">
+                                <label for="email" class="col-md-4 col-form-label">E-Mail</label>
 
                                 <div class="col-md-8">
                                     <input id="regsiter_email" type="email" class="form-control" name="email"
@@ -86,8 +85,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" :class="{'has-error': registrationForm.errors.has('password')}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
+                            <div class="row form-group" :class="{'has-error': registrationForm.errors.has('password')}">
+                                <label for="password" class="col-md-4 col-form-label">Password</label>
 
                                 <div class="col-md-8">
                                     <div class="input-group">
@@ -105,9 +104,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group"
+                            <div class="row form-group"
                                  :class="{'has-error': registrationForm.errors.has('password_confirmation')}">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                                <label for="password-confirm" class="col-md-4 col-form-label">Confirm Password</label>
 
                                 <div class="col-md-8">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -121,8 +120,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
+                            <div class="row form-group">
+                                <div class="col-md-8 ml-auto">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-btn fa-user"></i> Create an Account
                                     </button>
@@ -130,9 +129,6 @@
                             </div>
                         </form>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
