@@ -28,6 +28,14 @@
                             <span class="pull-right">{{ $order->tickets()->filled()->count() }}
                                 of {{ $order->tickets->count() }}</span></p>
                     </div>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Pay with Card</a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-money fa-fw" aria-hidden="true"></i> Pay with Check</a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Invoice</a>
+                    </div>
                 </div>
             </div>
             <div class="col mt-sm-4 mt-xs-4">
