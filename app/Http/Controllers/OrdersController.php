@@ -11,6 +11,8 @@ class OrdersController extends Controller
     {
         $order = Order::with(['event', 'tickets'])->findOrFail($id);
 
+        $this->authorize('view', $order);
+
         return view('orders.show', compact('order'));
     }
 }

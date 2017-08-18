@@ -42,4 +42,32 @@ class ViewOrderTest extends TestCase
         $response->assertSee('$100.00');
         $response->assertSee('0 of 2');
     }
+
+    /** @test */
+    function cannot_view_another_users_order()
+    {
+        $event = factory(Event::class)->states('published')->create([
+            'title' => 'Leadership Conference',
+            'slug' => 'leadership-conference',
+            'start' => '2018-02-16 19:00:00',
+            'end' => '2018-02-18 19:30:00',
+            'timezone' => 'America/Chicago',
+            'place' => 'University of Nebraska',
+            'location' => 'Omaha, Nebraska',
+        ]);
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+            'cost' => 5000,
+            'name' => 'Regular Ticket',
+        ]));
+        $user = factory(User::class)->create();
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $notAllowedUser = factory(User::class)->create();
+
+        $response = $this->actingAs($notAllowedUser)->get("/orders/{$order->id}");
+
+        $response->assertStatus(403);
+    }
 }
