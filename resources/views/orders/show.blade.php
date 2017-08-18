@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-top text-white"
                          style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url(https://www.unomaha.edu/college-of-public-affairs-and-community-service/criminology-and-criminal-justice/_files/images/arts-and-sciences-fall.jpg)">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col mt-sm-4 mt-xs-4">
                 <button class="btn btn-primary pull-right btn-sm">Fill Out Ticket</button>
                 <h4>Ticket Details</h4>
                 <table class="table">
