@@ -28,7 +28,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col-md-8">
                 <h3 class="description-title">Event Description</h3>
                 <ul class="fa-ul">
                     <li><i class="fa-li fa fa-clock-o" aria-hidden="true"></i>{{ $event->duration }}</li>
@@ -44,7 +44,7 @@
                 @component('components.app.links', ['links' => $event->links])
                 @endcomponent
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
                 <div class="tickets card-list rounded">
                     <start-order :ticket_types="{{ $event->ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
                 </div>
