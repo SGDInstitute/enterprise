@@ -36,4 +36,19 @@ const app = new Vue({
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
+
+    if (document.getElementsByClassName('hero-bar')) {
+        var $heroBar = $('.hero-bar'),
+            heroBottomTop = $heroBar.offset().top - 55;
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > heroBottomTop) {
+                $heroBar.addClass('sticky').css('top', $('.navbar').outerHeight());
+                $('body').css('padding-top', $('.navbar').outerHeight() + $heroBar.outerHeight());
+            } else {
+                $heroBar.removeClass('sticky');
+                $('body').css('padding-top', $('.navbar').outerHeight());
+            }
+        });
+    }
 });
