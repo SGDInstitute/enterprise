@@ -37,7 +37,7 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
 
-    if (document.getElementsByClassName('hero-bar')) {
+    if (document.getElementsByClassName('hero-bar') === []) {
         var $heroBar = $('.hero-bar'),
             heroBottomTop = $heroBar.offset().top - 55;
 
