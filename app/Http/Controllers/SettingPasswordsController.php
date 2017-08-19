@@ -20,6 +20,8 @@ class SettingPasswordsController extends Controller
             ]
         ]);
 
-        request()->user()->changePassword($data['old_password'], $data['password']);
+        request()->user()->changePassword($data['password']);
+
+        return response()->json(['success' => true], 200);
     }
 }
