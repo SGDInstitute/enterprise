@@ -28,11 +28,14 @@ class ViewOrderTest extends TestCase
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $order = $event->orderTickets(factory(User::class)->create(), [
+        $user = factory(User::class)->create();
+        $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
         ]);
 
-        $response = $this->withoutExceptionHandling()->get("/orders/{$order->id}");
+        $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
+            ->get("/orders/{$order->id}");
 
         $response->assertStatus(200);
         $response->assertSee('Leadership Conference');
