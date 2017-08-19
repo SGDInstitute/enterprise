@@ -28,6 +28,8 @@ Vue.mixin({
 
 Vue.component('start-order', require('./components/StartOrder.vue'));
 Vue.component('login-or-register', require('./components/LoginOrRegister.vue'));
+Vue.component('edit-profile', require('./components/EditProfile.vue'));
+Vue.component('edit-password', require('./components/EditPassword.vue'));
 
 const app = new Vue({
     el: '#app'

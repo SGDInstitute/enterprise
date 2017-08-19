@@ -24,6 +24,9 @@ Route::post('/events/{slug}/orders', 'EventOrdersController@store');
 
 Route::get('/orders/{id}', 'OrdersController@show');
 
+Route::get('/settings', 'SettingsController@edit');
+Route::post('/settings/password', 'SettingPasswordsController@store');
+
 Route::get('/admin', function() {
     return view('admin.index');
 });

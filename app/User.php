@@ -31,4 +31,17 @@ class User extends Authenticatable
     {
         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function changePassword($new)
+    {
+        $this->password = bcrypt($new);
+        $this->save();
+
+        return $this;
+    }
 }
