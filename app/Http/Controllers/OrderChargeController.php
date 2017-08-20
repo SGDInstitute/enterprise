@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Billing\PaymentGateway;
+use App\Exceptions\PaymentFailedException;
 use App\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,9 +19,14 @@ class OrderChargeController extends Controller
 
     public function store(Order $order)
     {
-        $order->transaction_id = $this->paymentGateway->charge($order->amount, request('payment_token'));
-        $order->transaction_date = Carbon::now();
-        $order->save();
-        return response()->json(['order' => $order], 201);
+        try {
+            $order->markAsPaid($this->paymentGateway->charge($order->amount, request('payment_token')));
+
+            return response()->json(['order' => $order], 201);
+        }
+        catch (PaymentFailedException $e) {
+            return response()->json([], 422);
+        }
+
     }
 }

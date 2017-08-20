@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -28,5 +29,12 @@ class Order extends Model
         return $this->tickets->map(function ($ticket) {
             return $ticket->ticket_type->cost;
         })->sum();
+    }
+
+    public function markAsPaid($transactionId)
+    {
+        $this->transaction_id = $transactionId;
+        $this->transaction_date = Carbon::now();
+        $this->save();
     }
 }

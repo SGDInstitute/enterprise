@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Event;
+use App\Order;
 use App\TicketType;
 use App\User;
 use Tests\TestCase;
@@ -33,5 +34,17 @@ class OrderTest extends TestCase
         ]);
 
         $this->assertEquals(10000, $order->amount);
+    }
+
+    /** @test */
+    public function can_mark_as_paid()
+    {
+        $order = factory(Order::class)->create();
+
+        $order->markAsPaid('charge_id');
+
+        $order->refresh();
+        $this->assertEquals('charge_id', $order->transaction_id);
+        $this->assertNotNull($order->transaction_date);
     }
 }
