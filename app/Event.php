@@ -77,4 +77,14 @@ class Event extends Model
 
         return $order;
     }
+
+    public function getPublicKey()
+    {
+        return config("{$this->stripe}.stripe.key");
+    }
+
+    public function getSecretKey()
+    {
+        return config("{$this->stripe}.stripe.secret");
+    }
 }
