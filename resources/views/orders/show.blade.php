@@ -53,7 +53,17 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                        @forelse ($order->tickets()->filled() as $ticket)
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3">Looks like you don't have any tickets filled out! Want to do that now?</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
