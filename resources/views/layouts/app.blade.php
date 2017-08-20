@@ -39,6 +39,7 @@
     <login-or-register v-on:></login-or-register>
 </div>
 <!-- Scripts -->
+@yield('beforeScripts')
 <script src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')
 

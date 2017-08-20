@@ -30,6 +30,7 @@ Vue.component('start-order', require('./components/StartOrder.vue'));
 Vue.component('login-or-register', require('./components/LoginOrRegister.vue'));
 Vue.component('edit-profile', require('./components/EditProfile.vue'));
 Vue.component('edit-password', require('./components/EditPassword.vue'));
+Vue.component('pay-with-card', require('./components/PayWithCard.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -9,6 +9,8 @@ class Order extends Model
 {
     protected $fillable = ['user_id'];
 
+    protected $appends = ['amount'];
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class);

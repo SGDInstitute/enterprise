@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Event extends Model
 {
-    protected $fillable = ['name', 'description', 'location', 'slug', 'start', 'end', 'published_at'];
+    protected $fillable = ['name', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
 
     protected $dates = ['start', 'end', 'published_at'];
 

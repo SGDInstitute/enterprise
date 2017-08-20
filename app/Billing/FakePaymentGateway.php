@@ -34,4 +34,9 @@ class FakePaymentGateway implements PaymentGateway
     {
         return $this->charges->sum();
     }
+
+    public function setApiKey()
+    {
+        
+    }
 }

@@ -22,7 +22,7 @@ class StripePaymentGatewayTest extends TestCase
     {
         parent::setUp();
 
-        $this->apiKey = config('institute.stripe.key');
+        $this->apiKey = config('institute.stripe.secret');
         $this->lastCharge = $this->lastCharge();
     }
 
@@ -81,5 +81,15 @@ class StripePaymentGatewayTest extends TestCase
         }
 
         $this->fail('Payment did not fail with an invalid payment token');
+    }
+
+    /** @test */
+    function can_set_api_key()
+    {
+        $paymentGateway = new StripePaymentGateway(config('institute.stripe.secret'));
+
+        $paymentGateway->setApiKey(config('mblgtacc.stripe.secret'));
+
+        $this->assertEquals(config('mblgtacc.stripe.secret'), $paymentGateway->getApiKey());
     }
 }

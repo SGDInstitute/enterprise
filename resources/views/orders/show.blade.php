@@ -31,8 +31,7 @@
                         </p>
                     </div>
                     <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Pay with Card</a>
+                        <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
                         <a href="#" class="list-group-item list-group-item-action">
                             <i class="fa fa-money fa-fw" aria-hidden="true"></i> Pay with Check</a>
                         <a href="#" class="list-group-item list-group-item-action">
@@ -59,4 +58,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('beforeScripts')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
 @endsection

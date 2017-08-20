@@ -9,7 +9,7 @@ class OrdersController extends Controller
 {
     public function show($id)
     {
-        $order = Order::with(['event', 'tickets'])->findOrFail($id);
+        $order = Order::with(['event', 'tickets', 'user'])->findOrFail($id);
 
         $this->authorize('view', $order);
 

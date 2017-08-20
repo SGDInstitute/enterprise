@@ -20,7 +20,8 @@ class OrderChargeController extends Controller
     public function store(Order $order)
     {
         try {
-            $order->markAsPaid($this->paymentGateway->charge($order->amount, request('payment_token')));
+            $this->paymentGateway->setApiKey($order->event->getSecretKey());
+            $order->markAsPaid($this->paymentGateway->charge($order->amount, request('stripeToken'))->id);
 
             return response()->json(['order' => $order], 201);
         }

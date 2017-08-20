@@ -30,4 +30,15 @@ class StripePaymentGateway implements PaymentGateway
             throw new PaymentFailedException;
         }
     }
+
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
 }
