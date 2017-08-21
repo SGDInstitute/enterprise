@@ -11,3 +11,10 @@ $factory->define(Order::class, function (Faker $faker) {
         'user_id' => factory(User::class)->create()->id,
     ];
 });
+
+$factory->state(Order::class, 'paid', function (Faker $faker) {
+    return [
+        'transaction_id' => 'charge_id',
+        'transaction_date' => \Carbon\Carbon::now(),
+    ];
+});

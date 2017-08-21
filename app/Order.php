@@ -39,4 +39,9 @@ class Order extends Model
         $this->transaction_date = Carbon::now();
         $this->save();
     }
+
+    public function isPaid()
+    {
+        return !is_null($this->transaction_id);
+    }
 }

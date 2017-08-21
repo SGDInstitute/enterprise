@@ -47,4 +47,12 @@ class OrderTest extends TestCase
         $this->assertEquals('charge_id', $order->transaction_id);
         $this->assertNotNull($order->transaction_date);
     }
+
+    /** @test */
+    function is_order_paid()
+    {
+        $order = factory(Order::class)->states('paid')->make();
+
+        $this->assertTrue($order->isPaid());
+    }
 }
