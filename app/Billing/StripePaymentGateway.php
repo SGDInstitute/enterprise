@@ -6,6 +6,7 @@ namespace App\Billing;
 use App\Exceptions\PaymentFailedException;
 use Stripe\Charge;
 use Stripe\Error\InvalidRequest;
+use Stripe\Token;
 
 class StripePaymentGateway implements PaymentGateway
 {
@@ -25,10 +26,21 @@ class StripePaymentGateway implements PaymentGateway
                 "currency" => "usd",
                 "source" => $token,
             ], ['api_key' => $this->apiKey]);
-        }
-        catch (InvalidRequest $e) {
+        } catch (InvalidRequest $e) {
             throw new PaymentFailedException;
         }
+    }
+
+    public function getValidTestToken()
+    {
+        return Token::create([
+            "card" => [
+                "number" => "4242424242424242",
+                "exp_month" => 1,
+                "exp_year" => date('Y') + 1,
+                "cvc" => "123",
+            ],
+        ], ['api_key' => $this->apiKey]);
     }
 
     public function setApiKey($apiKey)
@@ -39,6 +51,33 @@ class StripePaymentGateway implements PaymentGateway
     public function getApiKey()
     {
         return $this->apiKey;
+    }
+
+    public function newChargesDuring($callback)
+    {
+        $latestCharge = $this->lastCharge();
+        $callback($this);
+        return $this->newChargesSince($latestCharge)->pluck('amount');
+    }
+
+    private function lastCharge()
+    {
+        return array_first(Charge::all(
+            ['limit' => 1],
+            ['api_key' => $this->apiKey]
+        )['data']);
+    }
+
+    private function newChargesSince($charge = null)
+    {
+        $newCharges = Charge::all(
+            [
+                'ending_before' => $charge ? $charge->id : null,
+            ],
+            ['api_key' => $this->apiKey]
+        )['data'];
+
+        return collect($newCharges);
     }
 
 }
