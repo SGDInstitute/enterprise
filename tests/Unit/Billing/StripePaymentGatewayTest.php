@@ -15,6 +15,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class StripePaymentGatewayTest extends TestCase
 {
 
+    use PaymentGatewayContractTests;
+
     protected $lastCharge;
     protected $apiKey;
 
@@ -47,19 +49,6 @@ class StripePaymentGatewayTest extends TestCase
             ],
             ['api_key' => $this->apiKey]
         )['data'];
-    }
-
-    /** @test */
-    function charges_with_a_valid_payment_token_are_successful()
-    {
-        $paymentGateway = $this->getPaymentGateway();
-
-        $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway) {
-            $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
-        });
-
-        $this->assertCount(1, $newCharges);
-        $this->assertEquals(2500, $newCharges->sum());
     }
 
     /** @test */
