@@ -9,6 +9,8 @@ class FakePaymentGateway implements PaymentGateway
 {
     private $charges;
 
+    private $apiKey;
+
     public function __construct()
     {
         $this->charges = collect();
@@ -42,8 +44,13 @@ class FakePaymentGateway implements PaymentGateway
         return $this->charges->sum();
     }
 
-    public function setApiKey()
+    public function setApiKey($apiKey)
     {
-        
+        $this->apiKey = $apiKey;
+    }
+
+    public function getApiKey()
+    {
+        return $this->apiKey;
     }
 }
