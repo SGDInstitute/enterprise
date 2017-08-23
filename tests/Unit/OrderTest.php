@@ -55,4 +55,16 @@ class OrderTest extends TestCase
 
         $this->assertTrue($order->isPaid());
     }
+
+    /** @test */
+    function can_mark_as_unpiad()
+    {
+        $order = factory(Order::class)->states('paid')->create();
+
+        $order->markAsUnpaid();
+
+        $order->refresh();
+        $this->assertNull($order->transaction_id);
+        $this->assertNull($order->transaction_date);
+    }
 }

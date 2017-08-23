@@ -40,6 +40,13 @@ class Order extends Model
         $this->save();
     }
 
+    public function markAsUnpaid()
+    {
+        $this->transaction_id = null;
+        $this->transaction_date = null;
+        $this->save();
+    }
+
     public function isPaid()
     {
         return !is_null($this->transaction_id);
