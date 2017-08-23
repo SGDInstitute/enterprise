@@ -42,7 +42,15 @@ class ChargeOrderTest extends TestCase
                 'stripeToken' => $this->paymentGateway->getValidTestToken()
             ]);
 
-        $response->assertStatus(201);
+        $response
+            ->assertStatus(201)
+            ->assertJsonStructure([
+                'created',
+                'order'
+            ])
+            ->assertJson([
+                'created' => true
+            ]);
         $order->refresh();
         $this->assertEquals(10000, $paymentGateway->totalCharges());
         $this->assertNotNull($order->transaction_id);
@@ -56,10 +64,15 @@ class ChargeOrderTest extends TestCase
 
         $response = $this->withoutExceptionHandling()
             ->json('POST', "/orders/{$order->id}/charge", [
-                'payment_token' => 'invalid-payment-token',
+                'stripeToken' => 'invalid-payment-token',
             ]);
 
-        $response->assertStatus(422);
+        $response
+            ->assertStatus(422)
+            ->assertJsonStructure([
+                'created',
+                'message'
+            ]);
         $order->refresh();
         $this->assertNull($order->transaction_id);
         $this->assertNull($order->transaction_date);

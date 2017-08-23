@@ -23,10 +23,16 @@ class OrderChargeController extends Controller
             $this->paymentGateway->setApiKey($order->event->getSecretKey());
             $order->markAsPaid($this->paymentGateway->charge($order->amount, request('stripeToken'))->id);
 
-            return response()->json(['order' => $order], 201);
+            return response()->json([
+                'created' => true,
+                'order' => $order
+            ], 201);
         }
         catch (PaymentFailedException $e) {
-            return response()->json([], 422);
+            return response()->json([
+                'created' => false,
+                'message' => $e->getMessage(),
+            ], 422);
         }
 
     }
