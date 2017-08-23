@@ -11,27 +11,29 @@
                     <div class="row">
                         <form class="col-md-6" @submit.prevent="login">
                             <h4>Login</h4>
-                            <div class="row form-group" :class="{'has-error': loginForm.errors.has('email')}">
+                            <div class="row form-group">
                                 <label for="email" class="col-md-4 col-form-label">E-Mail</label>
 
                                 <div class="col-md-8">
-                                    <input id="email" type="email" class="form-control" name="email"
+                                    <input id="email" type="email" class="form-control"
+                                           :class="{'is-invalid': loginForm.errors.has('email')}" name="email"
                                            v-model="loginForm.email">
 
-                                    <span class="help-block" v-show="loginForm.errors.has('email')">
+                                    <span class="invalid-feedback" v-show="loginForm.errors.has('email')">
                                         {{ loginForm.errors.get('email') }}
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="row form-group" :class="{'has-error': loginForm.errors.has('password')}">
+                            <div class="row form-group" >
                                 <label for="password" class="col-md-4 col-form-label">Password</label>
 
                                 <div class="col-md-8">
-                                    <input id="password" type="password" class="form-control" name="password"
+                                    <input id="password" type="password" class="form-control"
+                                           :class="{'is-invalid': loginForm.errors.has('password')}" name="password"
                                            v-model="loginForm.password">
 
-                                    <span class="help-block" v-show="loginForm.errors.has('password')">
+                                    <span class="invalid-feedback" v-show="loginForm.errors.has('password')">
                                         {{ loginForm.errors.get('password') }}
                                     </span>
                                 </div>
@@ -59,38 +61,41 @@
                         <form class="col-md-6" @submit.prevent="register">
                             <h4>Register</h4>
 
-                            <div class="row form-group" :class="{'has-error': registrationForm.errors.has('name')}">
+                            <div class="row form-group">
                                 <label for="name" class="col-md-4 col-form-label">Name</label>
 
                                 <div class="col-md-8">
-                                    <input id="name" type="text" class="form-control" name="name"
+                                    <input id="name" type="text" class="form-control"
+                                           :class="{'is-invalid': registrationForm.errors.has('name')}" name="name"
                                            v-model="registrationForm.name">
 
-                                    <span class="help-block" v-show="registrationForm.errors.has('name')">
+                                    <span class="invalid-feedback" v-show="registrationForm.errors.has('name')">
                                         {{ registrationForm.errors.get('name') }}
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="row form-group" :class="{'has-error': registrationForm.errors.has('email')}">
+                            <div class="row form-group">
                                 <label for="email" class="col-md-4 col-form-label">E-Mail</label>
 
                                 <div class="col-md-8">
-                                    <input id="regsiter_email" type="email" class="form-control" name="email"
+                                    <input id="regsiter_email" type="email" class="form-control"
+                                           :class="{'is-invalid': registrationForm.errors.has('email')}" name="email"
                                            v-model="registrationForm.email">
 
-                                    <span class="help-block" v-show="registrationForm.errors.has('email')">
+                                    <span class="invalid-feedback" v-show="registrationForm.errors.has('email')">
                                         {{ registrationForm.errors.get('email') }}
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="row form-group" :class="{'has-error': registrationForm.errors.has('password')}">
+                            <div class="row form-group">
                                 <label for="password" class="col-md-4 col-form-label">Password</label>
 
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <input id="register_password" type="password" class="form-control"
+                                               :class="{'is-invalid': registrationForm.errors.has('password')}"
                                                name="password" v-model="registrationForm.password">
                                         <span class="input-group-addon" data-container="body" data-toggle="popover"
                                               data-placement="top"
@@ -98,22 +103,22 @@
                                               data-content="Your password must be at least 8 characters in length, with at least 3 of 4 of the following: upper case letter, lower case letter, number, or special character.">
                                                 <i class="fa fa-info"></i></span>
                                     </div>
-                                    <span class="help-block" v-show="registrationForm.errors.has('password')">
+                                    <span class="invalid-feedback" v-show="registrationForm.errors.has('password')">
                                         {{ registrationForm.errors.get('password') }}
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="row form-group"
-                                 :class="{'has-error': registrationForm.errors.has('password_confirmation')}">
+                            <div class="row form-group">
                                 <label for="password-confirm" class="col-md-4 col-form-label">Confirm Password</label>
 
                                 <div class="col-md-8">
                                     <input id="password-confirm" type="password" class="form-control"
+                                           :class="{'is-invalid': registrationForm.errors.has('password_confirmation')}"
                                            name="password_confirmation"
                                            v-model="registrationForm.password_confirmation">
 
-                                    <span class="help-block"
+                                    <span class="invalid-feedback"
                                           v-show="registrationForm.errors.has('password_confirmation')">
                                         {{ registrationForm.errors.get('password_confirmation') }}
                                     </span>
