@@ -15,7 +15,13 @@
             </div>
             <div class="col">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">...</div>
+                    <div class="tab-pane fade show active" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
+                        <ul>
+                            @foreach($orders as $order)
+                                <li><a href="/orders/{{ $order->id }}">{{ $order->id }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-donations" role="tabpanel" aria-labelledby="v-pills-donations-tab">...</div>
                     <div class="tab-pane fade" id="v-pills-workshops" role="tabpanel" aria-labelledby="v-pills-workshops-tab">...</div>
                     <div class="tab-pane fade" id="v-pills-volunteering" role="tabpanel" aria-labelledby="v-pills-volunteering-tab">...</div>
