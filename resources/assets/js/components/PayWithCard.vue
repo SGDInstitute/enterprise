@@ -37,13 +37,13 @@
 
                         Spark.post('/orders/' + this.order.id + '/charge', this.form)
                             .then(response => {
-                                if(response.success === true) {
-                                    location.href = response.redirect;
+                                if(response.created === true) {
+                                    location.href = '/orders/' + this.order.id;
                                 }
                             })
                             .catch(response => {
-                                if(response.success === false) {
-                                    alert(response.status);
+                                if(response.created === false) {
+                                    alert(response.message);
                                 }
                             })
                     }
