@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Billing\PaymentGateway;
 use App\Exceptions\PaymentFailedException;
+use App\Mail\ReceiptEmail;
 use App\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderChargeController extends Controller
 {
@@ -24,6 +26,9 @@ class OrderChargeController extends Controller
             $order->markAsPaid($this->paymentGateway->charge($order->amount, request('stripeToken'))->id);
 
             flash('You successfully paid for this order, you will receive a confirmation email with a receipt shortly.')->success();
+
+            Mail::to($order->user->email)->send(new ReceiptEmail($order));
+
             return response()->json([
                 'created' => true,
                 'order' => $order

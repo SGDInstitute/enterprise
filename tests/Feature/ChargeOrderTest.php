@@ -5,9 +5,11 @@ namespace Tests\Feature;
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use App\Event;
+use App\Mail\ReceiptEmail;
 use App\Order;
 use App\TicketType;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -25,6 +27,8 @@ class ChargeOrderTest extends TestCase
     /** @test */
     function customer_can_pay_for_order_with_card()
     {
+        Mail::fake();
+
         $paymentGateway = new FakePaymentGateway;
         $this->app->instance(PaymentGateway::class, $paymentGateway);
 
@@ -32,7 +36,7 @@ class ChargeOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
             'cost' => 5000,
         ]));
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
         ]);
@@ -56,6 +60,11 @@ class ChargeOrderTest extends TestCase
         $this->assertEquals(10000, $paymentGateway->totalCharges());
         $this->assertNotNull($order->transaction_id);
         $this->assertNotNull($order->transaction_date);
+
+        Mail::assertSent(ReceiptEmail::class, function($mail) use ($order) {
+            return $mail->hasTo('jo@example.com')
+                && $mail->order->id === $order->id;
+        });
     }
 
     /** @test */
