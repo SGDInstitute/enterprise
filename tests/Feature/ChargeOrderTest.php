@@ -44,6 +44,7 @@ class ChargeOrderTest extends TestCase
 
         $response
             ->assertStatus(201)
+            ->assertSessionHas('flash_notification')
             ->assertJsonStructure([
                 'created',
                 'order'

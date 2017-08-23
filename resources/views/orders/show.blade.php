@@ -45,6 +45,8 @@
                 </div>
             </div>
             <div class="col">
+                @include('flash::message')
+
                 <button class="btn btn-primary pull-right btn-sm">Fill Out Ticket</button>
                 <h4>Ticket Details</h4>
                 <table class="table">
