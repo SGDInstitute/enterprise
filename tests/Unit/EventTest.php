@@ -92,6 +92,18 @@ class EventTest extends TestCase
         $this->assertEquals(2, $order->tickets()->where('ticket_type_id', $ticket_type->id)->count());
         $this->assertEquals(0, $order->tickets()->where('ticket_type_id', $ticket_type2->id)->count());
     }
+    
+    /** @test */
+    function can_get_stripe_keys_from_event()
+    {
+        $mblgtaccEvent = factory(Event::class)->create(['stripe' => 'mblgtacc']);
+        $instituteEvent = factory(Event::class)->create(['stripe' => 'institute']);
+
+        $this->assertNotNull($mblgtaccEvent->getPublicKey());
+        $this->assertNotNull($mblgtaccEvent->getSecretKey());
+        $this->assertNotNull($instituteEvent->getPublicKey());
+        $this->assertNotNull($instituteEvent->getSecretKey());
+    }
 
     /** @test */
     function can_view_formatted_start()

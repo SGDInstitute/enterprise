@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
     protected $fillable = ['user_id'];
+
+    protected $appends = ['amount'];
 
     public function tickets()
     {
@@ -28,5 +31,24 @@ class Order extends Model
         return $this->tickets->map(function ($ticket) {
             return $ticket->ticket_type->cost;
         })->sum();
+    }
+
+    public function markAsPaid($transactionId)
+    {
+        $this->transaction_id = $transactionId;
+        $this->transaction_date = Carbon::now();
+        $this->save();
+    }
+
+    public function markAsUnpaid()
+    {
+        $this->transaction_id = null;
+        $this->transaction_date = null;
+        $this->save();
+    }
+
+    public function isPaid()
+    {
+        return !is_null($this->transaction_id);
     }
 }

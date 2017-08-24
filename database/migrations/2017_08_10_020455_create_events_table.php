@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->text('description')->nullable();
             $table->string('timezone');
             $table->string('place');
+            $table->string('stripe');
             $table->text('location');
             $table->text('slug');
             $table->dateTime('start');

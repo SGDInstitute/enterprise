@@ -6,6 +6,7 @@ $factory->define(App\Event::class, function (Faker $faker) {
     return [
         'title' => 'Leadership Conference',
         'slug' => 'leadership-conference',
+        'stripe' => 'institute',
         'subtitle' => 'Learn something new every day',
         'timezone' => 'America/Denver',
         'place' => 'University of Colorado',

@@ -31,16 +31,22 @@
                         </p>
                     </div>
                     <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Pay with Card</a>
+                        @if($order->isPaid())
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Receipt</a>
+                        @else
+                        <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
                         <a href="#" class="list-group-item list-group-item-action">
                             <i class="fa fa-money fa-fw" aria-hidden="true"></i> Pay with Check</a>
                         <a href="#" class="list-group-item list-group-item-action">
                             <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Invoice</a>
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="col">
+                @include('flash::message')
+
                 <button class="btn btn-primary pull-right btn-sm">Fill Out Ticket</button>
                 <h4>Ticket Details</h4>
                 <table class="table">
@@ -69,4 +75,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('beforeScripts')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
 @endsection
