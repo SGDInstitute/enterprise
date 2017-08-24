@@ -26,6 +26,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
+
     public function getAmountAttribute()
     {
         return $this->tickets->map(function ($ticket) {
