@@ -9,12 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicons/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicons/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('favicons/favicon-16x16.png') }}" sizes="16x16">
     <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
-    <link rel="mask-icon" color="#5bbad5" href="{{ asset('favicons/safari-pinned-tab.svg') }}">
+    <link rel="mask-icon" href="{{ asset('favicons/manifest.json') }}" color="#38afad">
     <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
     <meta name="msapplication-config" content="{{ asset('favicons/browserconfig.xml') }}">
+    <meta name="theme-color" content="#ffffff">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
