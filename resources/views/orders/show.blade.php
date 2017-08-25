@@ -35,11 +35,9 @@
                             <a href="#" class="list-group-item list-group-item-action">
                                 <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Receipt</a>
                         @else
-                        <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fa fa-money fa-fw" aria-hidden="true"></i> Pay with Check</a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Invoice</a>
+                            <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
+                            <pay-with-check :order="{{ $order }}"></pay-with-check>
+                            <download-invoice :order="{{ $order }}"></download-invoice>
                         @endif
                     </div>
                 </div>
@@ -74,6 +72,8 @@
                 </table>
             </div>
         </div>
+
+        <create-invoice-modal></create-invoice-modal>
     </div>
 @endsection
 
