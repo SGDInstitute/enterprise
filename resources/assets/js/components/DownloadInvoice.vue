@@ -13,11 +13,11 @@
             }
         },
         created() {
-            this.action = (typeof this.order.invoice === 'undefined') ? 'Create' : 'Download';
+            this.action = (this.order.invoice === null) ? 'Create' : 'Download';
         },
         methods: {
             download() {
-                if (typeof this.order.invoice === 'undefined') {
+                if (this.order.invoice === null) {
                     this.eventHub.$emit('showCreateInvoice', this.order.id);
                 }
             }
