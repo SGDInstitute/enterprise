@@ -56,4 +56,15 @@ class Order extends Model
     {
         return !is_null($this->transaction_id);
     }
+
+    public function getTicketsWithNameAndAmount()
+    {
+        return $this->tickets->groupBy('ticket_type_id')->map(function($item) {
+            return [
+                'name' => $item[0]->ticket_type->name,
+                'count' => $item->count(),
+                'amount' => $item[0]->ticket_type->cost * $item->count()
+            ];
+        });
+    }
 }
