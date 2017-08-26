@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -30,6 +31,9 @@ class InvoiceEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.invoice');
+        $pdf = PDF::loadView('pdf.invoice', compact('order'));
+
+        return $this->view('emails.invoice')
+                ->attachData($pdf->output(), 'invoice.pdf');
     }
 }

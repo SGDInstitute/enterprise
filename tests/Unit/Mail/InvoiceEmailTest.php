@@ -23,4 +23,15 @@ class InvoiceEmailTest extends TestCase
 
         $this->assertContains(url('/orders/' . $order->id), $email);
     }
+
+    /** @test */
+    function email_contains_invoice_attachment()
+    {
+        $order = factory(Order::class)->create();
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+
+        $email = (new InvoiceEmail($order))->build();
+
+        $this->assertNotNull($email->rawAttachments);
+    }
 }
