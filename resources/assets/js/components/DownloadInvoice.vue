@@ -20,6 +20,9 @@
                 if (this.order.invoice === null) {
                     this.eventHub.$emit('showCreateInvoice', this.order.id);
                 }
+                else {
+                    this.eventHub.$emit('showViewInvoice', this.order.id);
+                }
             }
         }
     }

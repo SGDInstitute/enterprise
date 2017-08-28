@@ -24,6 +24,7 @@ Route::post('/events/{slug}/orders', 'EventOrdersController@store');
 
 Route::get('/orders/{id}', 'OrdersController@show');
 Route::post('/orders/{order}/charge', 'OrderChargeController@store');
+Route::get('/orders/{order}/invoices', 'OrderInvoicesController@show');
 Route::post('/orders/{order}/invoices', 'OrderInvoicesController@store');
 
 Route::get('/settings', 'SettingsController@edit');

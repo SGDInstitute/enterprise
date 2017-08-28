@@ -85,7 +85,7 @@ class OrderTest extends TestCase
             'name' => 'Regular Ticket',
         ]));
         $ticketType2 = $event->ticket_types()->save(factory(TicketType::class)->make([
-            'cost' => 5000,
+            'cost' => 6000,
             'name' => 'Pro Ticket',
         ]));
         $user = factory(User::class)->create();
@@ -97,8 +97,8 @@ class OrderTest extends TestCase
         $tickets = $order->getTicketsWithNameAndAmount();
 
         $this->assertEquals([
-            ["name" => "Regular Ticket", "count" => 2, "amount" => 10000],
-            ["name" => "Pro Ticket", "count" => 3, "amount" => 15000]
+            ["name" => "Regular Ticket", "count" => 2, "cost" => 5000, "amount" => 10000],
+            ["name" => "Pro Ticket", "count" => 3, "cost" => 6000,  "amount" => 18000]
         ], $tickets->values()->all());
     }
 }

@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderInvoicesController extends Controller
 {
+    public function show(Order $order)
+    {
+        if (request()->ajax()) {
+            return ['invoice' => view('pdf.invoice', compact('order'))->render()];
+        }
+
+        return view('pdf.invoice', compact('order'));
+    }
+
     public function store(Order $order)
     {
         $order->invoice()->create([

@@ -74,6 +74,7 @@
         </div>
 
         <create-invoice-modal></create-invoice-modal>
+        <view-invoice-modal></view-invoice-modal>
     </div>
 @endsection
 

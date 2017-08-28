@@ -21,12 +21,12 @@
             text-align: left;
         }
 
-        table.collapse {
+        table.collapsed {
             border-collapse: collapse;
             border: 1pt solid black;
         }
 
-        table.collapse td, table.collapse th {
+        table.collapsed td, table.collapsed th {
             border: 1pt solid black;
         }
 
@@ -82,18 +82,19 @@
             </td>
         </tr>
     </table>
-    <table class="collapse">
+    <table class="collapsed">
         <tr>
             <th>Item</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th></th>
+            <th>Total</th>
         </tr>
         @foreach($order->getTicketsWithNameAndAmount() as $ticket)
             <tr>
-                <td>{{ $ticket['name'] }} for {{ $order->event->name }}</td>
+                <td>{{ $ticket['name'] }} for {{ $order->event->title }}</td>
                 <td>{{ $ticket['count'] }}</td>
-                <td>{{ $ticket['amount'] }}</td>
+                <td>${{ number_format($ticket['cost']/100, 2) }}</td>
+                <td>${{ number_format($ticket['amount']/100, 2) }}</td>
             </tr>
         @endforeach
         <tr>

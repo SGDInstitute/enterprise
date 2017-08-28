@@ -63,6 +63,7 @@ class Order extends Model
             return [
                 'name' => $item[0]->ticket_type->name,
                 'count' => $item->count(),
+                'cost' => $item[0]->ticket_type->cost,
                 'amount' => $item[0]->ticket_type->cost * $item->count()
             ];
         });
