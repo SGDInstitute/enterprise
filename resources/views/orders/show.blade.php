@@ -73,8 +73,8 @@
             </div>
         </div>
 
-        <create-invoice-modal></create-invoice-modal>
-        <view-invoice-modal></view-invoice-modal>
+        <create-invoice-modal :order="{{ $order }}"></create-invoice-modal>
+        <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
     </div>
 @endsection
 

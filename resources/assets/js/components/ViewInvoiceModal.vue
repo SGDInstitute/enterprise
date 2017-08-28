@@ -20,19 +20,18 @@
 
 <script>
     export default {
+        props: ['order'],
         data() {
             return {
-                order_id: '',
                 invoice: '',
             }
         },
         created() {
             self = this;
-            this.eventHub.$on('showViewInvoice', function (id) {
+            this.eventHub.$on('showViewInvoice', function () {
                 $('#viewInvoiceModal').modal('show');
-                self.order_id = id;
 
-                axios.get('/orders/' + id + '/invoices')
+                axios.get('/orders/' + self.order.id + '/invoices')
                     .then(function (response) {
                         self.invoice = response.data.invoice;
                     });

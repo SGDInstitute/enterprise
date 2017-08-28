@@ -98,6 +98,7 @@
 
 <script>
     export default {
+        props: ['order'],
         data() {
             return {
                 form: new SparkForm({
@@ -106,31 +107,23 @@
                     city: '',
                     state: '',
                     zip: ''
-                }),
-                order_id: 0
+                })
             }
         },
         created() {
             self = this;
-            this.eventHub.$on('showCreateInvoice', function (id) {
+            this.eventHub.$on('showCreateInvoice', function () {
                 $('#createInvoiceModal').modal('show');
-                self.order_id = id;
             });
-            this.eventHub.$on('updatedUser', function () {
-                $('#createInvoiceModal').modal('hide');
-            })
         },
         methods: {
             create() {
-                Spark.post('/orders/' + this.order_id + '/invoices', this.form)
+                Spark.post('/orders/' + this.order.id + '/invoices', this.form)
                     .then(response => {
-                        this.eventHub.$emit('createdInvoice', response.invoice);
                         $('#createInvoiceModal').modal('hide');
                     })
                     .catch(response => {
-                        if (response.success === false) {
-                            alert(response.status);
-                        }
+                        alert(response.status);
                     })
             }
         }

@@ -18,10 +18,10 @@
         methods: {
             download() {
                 if (this.order.invoice === null) {
-                    this.eventHub.$emit('showCreateInvoice', this.order.id);
+                    this.eventHub.$emit('showCreateInvoice');
                 }
                 else {
-                    this.eventHub.$emit('showViewInvoice', this.order.id);
+                    this.eventHub.$emit('showViewInvoice');
                 }
             }
         }
