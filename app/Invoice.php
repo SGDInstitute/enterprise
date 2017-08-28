@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected $fillable = ['address', 'address_2', 'city', 'state', 'zip',];
+    protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip',];
 
     public function order()
     {

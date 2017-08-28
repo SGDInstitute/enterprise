@@ -13,6 +13,8 @@ class OrderInvoicesController extends Controller
     public function store(Order $order)
     {
         $order->invoice()->create([
+            'name' => request()->name,
+            'email' => request()->email,
             'address' => request()->address,
             'address_2' => request()->address_2,
             'city' => request()->city,

@@ -30,6 +30,8 @@ class CreateInvoiceForOrderTest extends TestCase
 
         $response = $this->withoutExceptionHandling()
             ->json('POST', "/orders/{$order->id}/invoices", [
+                'name' => 'Phoenix Johnson',
+                'email' => 'pjohnson@hogwarts.edu',
                 'address' => '123 Main',
                 'address_2' => 'Suite 123',
                 'city' => 'Chicago',
@@ -41,6 +43,8 @@ class CreateInvoiceForOrderTest extends TestCase
 
         $order->refresh();
         $this->assertNotNull($order->invoice);
+        $this->assertEquals('Phoenix Johnson', $order->invoice->name);
+        $this->assertEquals('pjohnson@hogwarts.edu', $order->invoice->email);
         $this->assertEquals('123 Main', $order->invoice->address);
         $this->assertEquals('Suite 123', $order->invoice->address_2);
         $this->assertEquals('Chicago', $order->invoice->city);

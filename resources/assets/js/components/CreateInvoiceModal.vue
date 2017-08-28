@@ -9,6 +9,17 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="create">
+                        <p>This information will be used to fill the "Bill To" section of the invoice.</p>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputName" class="col-form-label">Name</label>
+                                <input type="text" class="form-control" id="inputName" v-model="form.name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail" class="col-form-label">Email</label>
+                                <input type="text" class="form-control" id="inputEmail" v-model="form.email">
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputAddress" class="col-form-label">Address</label>
@@ -102,6 +113,8 @@
         data() {
             return {
                 form: new SparkForm({
+                    name: '',
+                    email: '',
                     address: '',
                     address_2: '',
                     city: '',
