@@ -31,7 +31,7 @@
             this.eventHub.$on('showViewInvoice', function () {
                 $('#viewInvoiceModal').modal('show');
 
-                axios.get('/orders/' + self.order.id + '/invoices')
+                axios.get('/invoices/' + self.order.invoice.id)
                     .then(function (response) {
                         self.invoice = response.data.invoice;
                     });

@@ -27,7 +27,7 @@ class ViewInvoiceTest extends TestCase
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $response = $this->withoutExceptionHandling()
-            ->get("/orders/{$order->id}/invoices");
+            ->get("/invoices/{$invoice->id}");
 
         $response->assertStatus(200)
             ->assertSee('Invoice');
