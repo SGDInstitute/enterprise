@@ -11,7 +11,7 @@
                     <div v-html="invoice"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" @click.prevent="create">Save</button>
+                    <a :href="'/invoices/' + order.invoice.id + '/download'" class="btn btn-primary">Download</a>
                 </div>
             </div>
         </div>

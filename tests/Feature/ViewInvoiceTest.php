@@ -32,4 +32,24 @@ class ViewInvoiceTest extends TestCase
         $response->assertStatus(200)
             ->assertSee('Invoice');
     }
+
+    /** @test */
+    function can_download_invoice()
+    {
+        $event = factory(Event::class)->states('published')->create([
+            'stripe' => 'institute'
+        ]);
+        $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create();
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType1->id, 'quantity' => 2]
+        ]);
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+
+        $response = $this->withoutExceptionHandling()
+            ->get("/invoices/{$invoice->id}/download");
+
+        $response->assertStatus(200)
+            ->assertHeader('content-type', 'application/pdf');
+    }
 }
