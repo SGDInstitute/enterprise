@@ -1,6 +1,6 @@
 <template>
-    <a href="#" class="list-group-item list-group-item-action" @click.prevent="pay">
-        <i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Pay with Card
+    <a href="#" class="list-group-item list-group-item-primary" @click.prevent="pay">
+        <i class="fa fa-credit-card fa-fw ml-4" aria-hidden="true"></i> Pay with Card
     </a>
 </template>
 

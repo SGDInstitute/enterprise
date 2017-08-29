@@ -41,13 +41,65 @@
                         <a href="#" class="list-group-item list-group-item-action">
                             <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Invoice</a>
                         @endif
+                        <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapseExample">
+                            <i class="fa fa-money fa-fw" aria-hidden="true"></i> Pay Now
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                            <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
+                            <a href="#" class="list-group-item list-group-item-primary">
+                                <i class="fa fa-usd fa-fw ml-4" aria-hidden="true"></i> Pay with Check
+                            </a>
+                        </div>
+                        <download-invoice :order="{{ $order }}"></download-invoice>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Request W-9
+                        </a>
+                        {{--@if($order->isPaid())--}}
+                            {{--<a href="#" class="list-group-item list-group-item-action">--}}
+                                {{--<i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Receipt</a>--}}
+                        {{--@else--}}
+
+                            {{--<pay-with-check :order="{{ $order }}"></pay-with-check>--}}
+
+                        {{--@endif--}}
                     </div>
                 </div>
             </div>
             <div class="col">
                 @include('flash::message')
 
-                <button class="btn btn-primary pull-right btn-sm">Fill Out Ticket</button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you ready to tell us who’s attending {{ $order->event->title }}?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Great! There are two options to do so. How do you want to proceed?</p>
+
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                        Fill out attendee information manually
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                        Invite attendees to fill out their own information
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <h4>Ticket Details</h4>
                 <table class="table">
                     <thead>
@@ -67,7 +119,10 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">Looks like you don't have any tickets filled out! Want to do that now?</td>
+                                <td colspan="3" class="text-center">Looks like you don't have any tickets filled out!<br><br>
+                                    <button type="button" class="btn btn-primary border-dark" data-toggle="modal" data-target="#exampleModal">
+                                        Add Attendee Information Now
+                                    </button></td>
                             </tr>
                         @endforelse
                     </tbody>
