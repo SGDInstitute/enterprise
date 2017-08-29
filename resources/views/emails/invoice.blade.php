@@ -1,0 +1,1 @@
+<a href="{{ url("/orders/{$order->id}") }}">View Order</a>

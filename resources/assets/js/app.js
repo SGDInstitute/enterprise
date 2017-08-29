@@ -31,6 +31,10 @@ Vue.component('login-or-register', require('./components/LoginOrRegister.vue'));
 Vue.component('edit-profile', require('./components/EditProfile.vue'));
 Vue.component('edit-password', require('./components/EditPassword.vue'));
 Vue.component('pay-with-card', require('./components/PayWithCard.vue'));
+Vue.component('pay-with-check', require('./components/PayWithCheck.vue'));
+Vue.component('download-invoice', require('./components/DownloadInvoice.vue'));
+Vue.component('create-invoice-modal', require('./components/CreateInvoiceModal.vue'));
+Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
 
 const app = new Vue({
     el: '#app'

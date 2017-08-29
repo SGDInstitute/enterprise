@@ -26,6 +26,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
+
     public function getAmountAttribute()
     {
         return $this->tickets->map(function ($ticket) {
@@ -50,5 +55,17 @@ class Order extends Model
     public function isPaid()
     {
         return !is_null($this->transaction_id);
+    }
+
+    public function getTicketsWithNameAndAmount()
+    {
+        return $this->tickets->groupBy('ticket_type_id')->map(function($item) {
+            return [
+                'name' => $item[0]->ticket_type->name,
+                'count' => $item->count(),
+                'cost' => $item[0]->ticket_type->cost,
+                'amount' => $item[0]->ticket_type->cost * $item->count()
+            ];
+        });
     }
 }
