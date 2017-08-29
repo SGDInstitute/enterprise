@@ -31,22 +31,12 @@
                         </p>
                     </div>
                     <div class="list-group list-group-flush">
-                        @if($order->isPaid())
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Get Receipt</a>
-                        @else
-                            <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
-                            <pay-with-check :order="{{ $order }}"></pay-with-check>
-                            <download-invoice :order="{{ $order }}"></download-invoice>
-                        @endif
                         <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapseExample">
                             <i class="fa fa-money fa-fw" aria-hidden="true"></i> Pay Now
                         </a>
-                        <div class="collapse" id="collapseExample">
+                        <div class="collapse list-sub-group" id="collapseExample">
                             <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
-                            <a href="#" class="list-group-item list-group-item-primary">
-                                <i class="fa fa-usd fa-fw ml-4" aria-hidden="true"></i> Pay with Check
-                            </a>
+                            <pay-with-check :order="{{ $order }}"></pay-with-check>
                         </div>
                         <download-invoice :order="{{ $order }}"></download-invoice>
                         <a href="#" class="list-group-item list-group-item-action">
