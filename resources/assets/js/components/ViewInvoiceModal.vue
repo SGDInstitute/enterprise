@@ -11,6 +11,7 @@
                     <div v-html="invoice"></div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @click.prevent="resend">Resend Email</button>
                     <a :href="'/invoices/' + order.invoice.id + '/download'" class="btn btn-primary">Download</a>
                 </div>
             </div>
@@ -36,6 +37,14 @@
                         self.invoice = response.data.invoice;
                     });
             });
+        },
+        methods: {
+            resend() {
+                axios.get('/invoices/' + self.order.invoice.id + '/resend')
+                    .then(function() {
+                        alert('Email sent!');
+                    });
+            }
         }
     }
 </script>

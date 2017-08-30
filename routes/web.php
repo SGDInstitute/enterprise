@@ -28,6 +28,7 @@ Route::post('/orders/{order}/invoices', 'OrderInvoicesController@store');
 
 Route::get('/invoices/{invoice}', 'InvoicesController@show');
 Route::get('/invoices/{invoice}/download', 'InvoicesDownloadController@index');
+Route::get('/invoices/{invoice}/resend', 'InvoicesResendController@index');
 
 Route::get('/settings', 'SettingsController@edit');
 Route::post('/settings/password', 'SettingPasswordsController@store');
