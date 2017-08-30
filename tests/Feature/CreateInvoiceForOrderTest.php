@@ -20,9 +20,7 @@ class CreateInvoiceForOrderTest extends TestCase
         Mail::fake();
 
         $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
-            'cost' => 5000,
-        ]));
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
@@ -56,5 +54,98 @@ class CreateInvoiceForOrderTest extends TestCase
                 && $mail->order->id === $order->id
                 && $mail->order->invoice->id = $order->invoice->id;
         });
+    }
+
+    /** @test */
+    function cannot_create_invoice_without_name()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $response = $this
+            ->json('POST', "/orders/{$order->id}/invoices", [
+                'email' => 'pjohnson@hogwarts.edu',
+                'address' => '123 Main',
+                'address_2' => 'Suite 123',
+                'city' => 'Chicago',
+                'state' => 'IL',
+                'zip' => '60660'
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors(['name']);
+    }
+
+    /** @test */
+    function cannot_create_invoice_without_email()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $response = $this
+            ->json('POST', "/orders/{$order->id}/invoices", [
+                'name' => 'Jo Johnson',
+                'address' => '123 Main',
+                'address_2' => 'Suite 123',
+                'city' => 'Chicago',
+                'state' => 'IL',
+                'zip' => '60660'
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors(['email']);
+    }
+
+    /** @test */
+    function cannot_create_invoice_without_valid_zip()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $response = $this
+            ->json('POST', "/orders/{$order->id}/invoices", [
+                'name' => 'Jo Johnson',
+                'email' => 'pjohnson@hogwarts.edu',
+                'address' => '123 Main',
+                'address_2' => 'Suite 123',
+                'city' => 'Chicago',
+                'state' => 'IL',
+                'zip' => 'abcdef'
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors(['zip']);
+    }
+
+    /** @test */
+    function can_create_invoice_without_address()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $response = $this
+            ->withoutExceptionHandling()
+            ->json('POST', "/orders/{$order->id}/invoices", [
+                'name' => 'Phoenix Johnson',
+                'email' => 'pjohnson@hogwarts.edu',
+            ]);
+
+        $response->assertStatus(201);
     }
 }

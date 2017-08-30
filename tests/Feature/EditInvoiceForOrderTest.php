@@ -24,7 +24,7 @@ class EditInvoiceForOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jdoe@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
         $invoice = $order->invoice()->save(factory(Invoice::class)->make([
             'name' => 'Phoenix Johnson',
@@ -33,7 +33,7 @@ class EditInvoiceForOrderTest extends TestCase
             'address_2' => 'Suite 123',
             'city' => 'Chicago',
             'state' => 'IL',
-            'zip' => '60660'
+            'zip' => '60660',
         ]));
 
         $response = $this->withoutExceptionHandling()->actingAs($user)
@@ -44,7 +44,7 @@ class EditInvoiceForOrderTest extends TestCase
                 'address_2' => 'Suite 1234',
                 'city' => 'Downers Grove',
                 'state' => 'IL',
-                'zip' => '60516'
+                'zip' => '60516',
             ]);
 
         $response->assertStatus(200);
@@ -56,9 +56,123 @@ class EditInvoiceForOrderTest extends TestCase
         $this->assertEquals('IL', $order->invoice->state);
         $this->assertEquals('60516', $order->invoice->zip);
 
-        Mail::assertSent(InvoiceEmail::class, function($mail) use ($invoice) {
+        Mail::assertSent(InvoiceEmail::class, function ($mail) use ($invoice) {
             return $mail->hasTo('jdoe@example.com')
                 && $mail->hasCc('jo@example.com');
         });
+    }
+
+    /** @test */
+    function cannot_edit_invoice_without_name()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+
+        $response = $this
+            ->json('PATCH', "/invoices/{$invoice->id}", [
+                'email' => 'pjohnson@hogwarts.edu',
+                'address' => '123 Main',
+                'address_2' => 'Suite 123',
+                'city' => 'Chicago',
+                'state' => 'IL',
+                'zip' => '60660',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors(['name']);
+    }
+
+    /** @test */
+    function cannot_edit_invoice_without_email()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+
+        $response = $this
+            ->json('PATCH', "/invoices/{$invoice->id}", [
+                'name' => 'Jo Johnson',
+                'address' => '123 Main',
+                'address_2' => 'Suite 123',
+                'city' => 'Chicago',
+                'state' => 'IL',
+                'zip' => '60660',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors(['email']);
+    }
+
+    /** @test */
+    function cannot_create_invoice_without_valid_zip()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+
+        $response = $this
+            ->json('PATCH', "/invoices/{$invoice->id}", [
+                'name' => 'Jo Johnson',
+                'email' => 'pjohnson@hogwarts.edu',
+                'address' => '123 Main',
+                'address_2' => 'Suite 123',
+                'city' => 'Chicago',
+                'state' => 'IL',
+                'zip' => 'abcdef',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors(['zip']);
+    }
+
+    /** @test */
+    function can_remove_address_from_invoice()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make([
+            'address' => '123 Main',
+            'address_2' => 'Suite 123',
+            'city' => 'Chicago',
+            'state' => 'IL',
+            'zip' => '60660',
+        ]));
+
+        $response = $this
+            ->json('PATCH', "/invoices/{$invoice->id}", [
+                'name' => 'Jo Johnson',
+                'email' => 'pjohnson@hogwarts.edu',
+                'address' => "",
+                "address_2" => "",
+                "city" => "",
+                'state' => "",
+                'zip' => ""
+            ]);
+
+        $response->assertStatus(200);
+
+        $invoice->refresh();
+        $this->assertNull($invoice->address);
+        $this->assertNull($invoice->address_2);
+        $this->assertNull($invoice->city);
+        $this->assertNull($invoice->state);
+        $this->assertNull($invoice->zip);
     }
 }

@@ -18,11 +18,11 @@ class CreateInvoicesTable extends Migration
             $table->unsignedInteger('order_id');
             $table->string('name');
             $table->string('email');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('address_2')->nullable();
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip')->nullable();
             $table->timestamps();
         });
     }
