@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <create-invoice-modal :order="{{ $order }}"></create-invoice-modal>
+        <create-invoice-modal :order="{{ $order }}" :user="{{ Auth::user() }}"></create-invoice-modal>
         <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
     </div>
 @endsection

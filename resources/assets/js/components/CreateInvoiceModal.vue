@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="create">
-                        <p>This information will be used to fill the "Bill To" section of the invoice.</p>
+                        <p>This information will be used to fill the "Bill To" section of the invoice. It will be emailed to you, as well as the email you specify below (if they are different). You will also be able to download a pdf invoice at any time.</p>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputName" class="col-form-label">Name</label>
@@ -109,7 +109,7 @@
 
 <script>
     export default {
-        props: ['order'],
+        props: ['order', 'user'],
         data() {
             return {
                 form: new SparkForm({
@@ -124,6 +124,9 @@
             }
         },
         created() {
+            this.form.name = this.user.name;
+            this.form.email = this.user.email;
+
             self = this;
             this.eventHub.$on('showCreateInvoice', function () {
                 $('#createInvoiceModal').modal('show');
