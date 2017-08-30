@@ -1,6 +1,6 @@
 <template>
     <a href="#" class="list-group-item list-group-item-action" @click.prevent="download">
-        <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> {{ action }} Invoice
+        <i class="fa fa-fw" :class="this.icon" aria-hidden="true"></i> {{ action }} Invoice
     </a>
 </template>
 
@@ -9,11 +9,13 @@
         props: ['order'],
         data() {
             return {
-                action: 'Create'
+                action: 'Create',
+                icon: 'fa-plus-circle'
             }
         },
         created() {
             this.action = (this.order.invoice === null) ? 'Create' : 'Download';
+            this.icon = (this.order.invoice === null) ? 'fa-plus-circle' : 'fa-arrow-circle-down';
         },
         methods: {
             download() {

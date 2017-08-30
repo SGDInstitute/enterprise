@@ -72,6 +72,8 @@
     <table>
         <tr>
             <td class="sixty">
+                {{ $order->invoice->name }}<br>
+                {{ $order->invoice->email }}<br>
                 {{ $order->invoice->address }} {{ $order->invoice->address_2 }}<br>
                 {{ $order->invoice->city }}, {{ $order->invoice->state }} {{ $order->invoice->zip }}
             </td>
@@ -105,7 +107,7 @@
     <table>
         <tr>
             <td>
-                <p>For any concerns or questions regarding payment, the invoice, or for a W-9, please contact <a
+                <p>Payment must be postmarked by <strong>{{ $order->invoice->created_at->addDays(60)->toFormattedDateString() }}</strong>. For any concerns or questions regarding payment or the invoice please contact <a
                             href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>.
                     Include your issue or concern, invoice and order numbers, and best method of contact.</p>
                 <p>Please mail payment to: {{ config($order->event->stripe . ".address") }}</p>
