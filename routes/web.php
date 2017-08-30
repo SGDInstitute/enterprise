@@ -27,6 +27,7 @@ Route::post('/orders/{order}/charge', 'OrderChargeController@store');
 Route::post('/orders/{order}/invoices', 'OrderInvoicesController@store');
 
 Route::get('/invoices/{invoice}', 'InvoicesController@show');
+Route::patch('/invoices/{invoice}', 'InvoicesController@update');
 Route::get('/invoices/{invoice}/download', 'InvoicesDownloadController@index');
 Route::get('/invoices/{invoice}/resend', 'InvoicesResendController@index');
 

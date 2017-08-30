@@ -11,6 +11,7 @@
                     <div v-html="invoice"></div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-link" @click.prevent="edit">Edit Invoice</button>
                     <button type="button" class="btn btn-secondary" @click.prevent="resend">Resend Email</button>
                     <a :href="'/invoices/' + order.invoice.id + '/download'" class="btn btn-primary">Download</a>
                 </div>
@@ -44,6 +45,11 @@
                     .then(function() {
                         alert('Email sent!');
                     });
+            },
+            edit() {
+                $('#viewInvoiceModal').modal('hide');
+
+                this.eventHub.$emit('showInvoiceForm', 'edit');
             }
         }
     }

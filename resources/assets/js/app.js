@@ -33,7 +33,7 @@ Vue.component('edit-password', require('./components/EditPassword.vue'));
 Vue.component('pay-with-card', require('./components/PayWithCard.vue'));
 Vue.component('pay-with-check', require('./components/PayWithCheck.vue'));
 Vue.component('invoice-button', require('./components/InvoiceButton.vue'));
-Vue.component('create-invoice-modal', require('./components/CreateInvoiceModal.vue'));
+Vue.component('invoice-form', require('./components/InvoiceForm.vue'));
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
 
 const app = new Vue({

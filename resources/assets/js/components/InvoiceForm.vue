@@ -1,9 +1,9 @@
 <template>
-    <div class="modal fade" id="createInvoiceModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="invoiceForm" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create Invoice</h5>
+                    <h5 class="modal-title">{{ title }} Invoice</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -100,7 +100,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" @click.prevent="create">Save</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="submit">Save</button>
                 </div>
             </div>
         </div>
@@ -120,27 +120,65 @@
                     city: '',
                     state: '',
                     zip: ''
-                })
+                }),
+                method: '',
             }
         },
         created() {
-            this.form.name = this.user.name;
-            this.form.email = this.user.email;
+            this.fillForm();
 
-            self = this;
-            this.eventHub.$on('showCreateInvoice', function () {
-                $('#createInvoiceModal').modal('show');
+            let self = this;
+            this.eventHub.$on('showInvoiceForm', function (type) {
+                self.method = type;
+                $('#invoiceForm').modal('show');
             });
         },
         methods: {
-            create() {
+            submit() {
+                if(this.method === 'create') {
+                    this.store();
+                }
+                else {
+                    this.update();
+                }
+            },
+            store() {
                 Spark.post('/orders/' + this.order.id + '/invoices', this.form)
                     .then(response => {
-                        $('#createInvoiceModal').modal('hide');
+                        $('#invoiceForm').modal('hide');
                     })
                     .catch(response => {
                         alert(response.status);
                     })
+            },
+            update() {
+                Spark.patch('/invoices/' + this.order.invoice.id, this.form)
+                    .then(response => {
+                        $('#invoiceForm').modal('hide');
+                    })
+                    .catch(response => {
+                        alert(response.status);
+                    })
+            },
+            fillForm() {
+                if(this.method === 'create') {
+                    this.form.name = this.user.name;
+                    this.form.email = this.user.email;
+                }
+                else {
+                    this.form.name = this.order.invoice.name;
+                    this.form.email = this.order.invoice.email;
+                    this.form.address = this.order.invoice.address;
+                    this.form.address_2 = this.order.invoice.address_2;
+                    this.form.city = this.order.invoice.city;
+                    this.form.state = this.order.invoice.state;
+                    this.form.zip = this.order.invoice.zip;
+                }
+            }
+        },
+        computed: {
+            title() {
+                return this.method.charAt(0).toUpperCase() + this.method.slice(1)
             }
         }
     }

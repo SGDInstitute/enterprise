@@ -20,7 +20,7 @@
         methods: {
             show() {
                 if (this.order.invoice === null) {
-                    this.eventHub.$emit('showCreateInvoice');
+                    this.eventHub.$emit('showInvoiceForm', 'create');
                 }
                 else {
                     this.eventHub.$emit('showViewInvoice');
