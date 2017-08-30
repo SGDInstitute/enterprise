@@ -1,5 +1,5 @@
 <template>
-    <a href="#" class="list-group-item list-group-item-action" @click.prevent="download">
+    <a href="#" class="list-group-item list-group-item-action" @click.prevent="show">
         <i class="fa fa-fw" :class="this.icon" aria-hidden="true"></i> {{ action }} Invoice
     </a>
 </template>
@@ -18,7 +18,7 @@
             this.icon = (this.order.invoice === null) ? 'fa-plus-circle' : 'fa-arrow-circle-down';
         },
         methods: {
-            download() {
+            show() {
                 if (this.order.invoice === null) {
                     this.eventHub.$emit('showCreateInvoice');
                 }

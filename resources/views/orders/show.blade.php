@@ -38,7 +38,7 @@
                             <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
                             <pay-with-check :order="{{ $order }}"></pay-with-check>
                         </div>
-                        <download-invoice :order="{{ $order }}"></download-invoice>
+                        <invoice-button :order="{{ $order }}"></invoice-button>
                         <a href="{{ asset('/documents/SGD-Institute-W9.pdf') }}" target="_blank" class="list-group-item list-group-item-action">
                             <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Request W-9
                         </a>
