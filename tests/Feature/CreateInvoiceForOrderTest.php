@@ -15,7 +15,7 @@ class CreateInvoiceForOrderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function customer_can_download_invoice()
+    function customer_can_create_invoice()
     {
         Mail::fake();
 
