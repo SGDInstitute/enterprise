@@ -16,7 +16,7 @@ class ResendInvoiceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function can_resend_invoice()
+    function can_resend_invoice_email()
     {
         Mail::fake();
 
