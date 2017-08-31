@@ -121,7 +121,7 @@
                     state: '',
                     zip: ''
                 }),
-                method: '',
+                method: 'create',
             }
         },
         created() {
