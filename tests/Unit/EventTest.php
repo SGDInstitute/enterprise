@@ -139,4 +139,30 @@ class EventTest extends TestCase
         $this->assertEquals('Friday August 11, 2017 5:00 PM to Sunday August 13, 2017 5:00 PM CDT',
             $event->duration);
     }
+
+    /** @test */
+    function can_upcoming_events()
+    {
+        $upcomingEvent1 = factory(Event::class)->states('published')->create([
+            'start' => Carbon::now()->addMonth(2),
+        ]);
+        $upcomingEvent2 = factory(Event::class)->states('published')->create([
+            'start' => Carbon::now()->addMonth(5),
+        ]);
+        $pastEvent = factory(Event::class)->states('published')->create([
+            'start' => Carbon::now()->subMonth(2),
+        ]);
+        $unpublishedEvent = factory(Event::class)->states('unpublished')->create([
+            'start' => Carbon::now()->addYear(),
+        ]);
+
+        $upcoming = Event::upcoming()->get();
+
+        $this->assertCount(3, $upcoming);
+        $this->assertTrue($upcoming->contains($upcomingEvent1));
+        $this->assertTrue($upcoming->contains($upcomingEvent2));
+        $this->assertFalse($upcoming->contains($pastEvent));
+        $this->assertTrue($upcoming->contains($unpublishedEvent));
+    }
+
 }

@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        'upcomingEvents' => App\Event::published()->upcoming()->get()
+    ]);
 });
 
 Auth::routes();

@@ -36,6 +36,11 @@ class Event extends Model
             ->whereDate('published_at', '<', Carbon::now());
     }
 
+    public function scopeUpcoming($query)
+    {
+        $query->whereDate('start', '>', Carbon::now());
+    }
+
     public function getFormattedStartAttribute()
     {
         return $this->start->timezone($this->timezone)->format('D, M j');
