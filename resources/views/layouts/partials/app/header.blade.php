@@ -22,7 +22,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     @if(isset($event))
-                        <li class="nav-item"><a class="nav-link" target="_blank" href="{{ $event->links['website'] }}">Event
+                        <li class="nav-item"><a class="nav-link" target="_blank" href="{{ collect($event->links)->where('icon', 'website')->first()['link'] }}">Event
                                 Website</a></li>
                     @endif
 

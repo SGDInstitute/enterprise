@@ -30,7 +30,11 @@ class EventsSeeder extends Seeder
             'end' => '2018-02-18 19:30:00',
             'published_at' => \Carbon\Carbon::now()->subMonth(),
             'links' => [
-                'website' => 'https://mblgtacc.org',
+                ['icon' => 'twitter', 'link' => 'https://twitter.com/mblgtacc', 'order' => 1],
+                ['icon' => 'facebook', 'link' => 'https://www.facebook.com/mblgtacc/', 'order' => 2],
+                ['icon' => 'instagram', 'link' => 'https://www.instagram.com/mblgtacc', 'order' => 3],
+                ['icon' => 'snapchat-ghost', 'link' => 'https://www.snapchat.com/add/mblgtacc', 'order' => 4],
+                ['icon' => 'website', 'link' => 'https://mblgtacc.org', 'order' => 5],
             ],
             'image' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg',
             'logo_light' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_White.png',

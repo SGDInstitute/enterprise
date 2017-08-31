@@ -45,7 +45,7 @@
                     </div>
                 @endif
 
-                @component('components.app.links', ['links' => $event->links])
+                @component('components.app.links', ['links' => collect($event->links)->sortBy('order')])
                 @endcomponent
             </div>
             <div class="col-md-4">
