@@ -8,7 +8,7 @@
             @endif
             <ul class="fa-ul">
                 <li><i class="fa-li fa fa-clock-o"></i>
-                    {{ $order->event->formatted_start }} - {{ $order->event->formatted_end }}</li>
+                    {{ $order->event->formatted_start }} - {{ $order->event->formatted_end }}, {{ $order->event->end->format('Y') }}</li>
                 <li>
                     <i class="fa-li fa fa-map-marker"></i> {{ $order->event->place }} {{ $order->event->location }}
                 </li>
