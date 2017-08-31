@@ -1,5 +1,6 @@
 .hero {
-  background-color: $brand-mint;
+  background: $brand-mint linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)) url(/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg) fixed center;
+  background-size: cover;
   color: #ffffff;
 
   .hero-titles {

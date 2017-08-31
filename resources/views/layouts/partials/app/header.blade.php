@@ -2,7 +2,13 @@
     <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light">
         <div class="container">
             @if(isset($event))
-                <a class="navbar-brand" href="/">{{ $event->title }}</a>
+                <a class="navbar-brand" href="/">
+                    @if(isset($event->logo_dark))
+                        <img src="{{ $event->logo_dark }}" alt="{{ $event->title }} Logo" class="img-fluid" style="max-width: 35%">
+                    @else
+                        {{ $event->title }}
+                    @endif
+                </a>
             @else
                 <a class="navbar-brand" href="/">
                     <img src="{{ asset('img/logo.png') }}" width="265px" alt="Institute Logo">

@@ -8,8 +8,12 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-top text-white"
-                         style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url(https://www.unomaha.edu/college-of-public-affairs-and-community-service/criminology-and-criminal-justice/_files/images/arts-and-sciences-fall.jpg)">
-                        <h4 class="card-title">{{ $order->event->title }}</h4>
+                         style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ $order->event->image }})">
+                        @if(isset($order->event->logo_light))
+                            <img src="{{ $order->event->logo_light }}" alt="{{ $order->event->title }} Logo" style="width: 75%; margin-bottom: .5em;">
+                        @else
+                            <h4 class="card-title">{{ $order->event->title }}</h4>
+                        @endif
                         <ul class="fa-ul">
                             <li><i class="fa-li fa fa-clock-o"></i>
                                 {{ $order->event->formatted_start }} - {{ $order->event->formatted_end }}</li>

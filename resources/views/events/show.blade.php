@@ -3,10 +3,14 @@
 @section('title', $event->title)
 
 @section('hero')
-    <section class="hero">
+    <section class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ $event->image }})">
         <div class="container">
             <div class="hero-titles">
-                <h1 class="display-3">{{ $event->title }}</h1>
+                @if(isset($event->logo_light))
+                    <img src="{{ $event->logo_light }}" alt="{{ $event->title }} Logo" style="min-width: 250px; width: 50%;">
+                @else
+                    <h1 class="display-3">{{ $event->title }}</h1>
+                @endif
                 <h2>{{ $event->subtitle }}</h2>
             </div>
         </div>

@@ -31,7 +31,10 @@ class EventsSeeder extends Seeder
             'published_at' => \Carbon\Carbon::now()->subMonth(),
             'links' => [
                 'website' => 'https://mblgtacc.org',
-            ]
+            ],
+            'image' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg',
+            'logo_light' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_White.png',
+            'logo_dark' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_Gray.png',
         ]);
 
         $event->ticket_types()->createMany([

@@ -31,6 +31,9 @@ class ViewEventTest extends TestCase
                 'instagram' => 'https://instagram.com/mblgtacc',
                 'website' => 'https://mblgtacc.org',
             ],
+            'image' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg',
+            'logo_light' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_White.png',
+            'logo_dark' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_Gray.png',
         ]);
         $regular = factory(TicketType::class)->make([
             'cost' => 6500,
@@ -64,13 +67,16 @@ class ViewEventTest extends TestCase
         $response->assertSee('$85.00');
         $response->assertSee('Late Ticket');
         $response->assertSee('You are not guaranteed to receive a conference T-shirt, program, or other memorabilia.');
+        $response->assertSee('https://mblgtacc.org/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg');
+        $response->assertSee('https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_White.png');
+        $response->assertSee('https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_Gray.png');
     }
 
     /** @test */
     function cannot_view_unpublished_event()
     {
         $event = factory(Event::class)->create([
-            'published_at' => NULL
+            'published_at' => NULL,
         ]);
         $event->ticket_types()->save(factory(TicketType::class)->make());
 
