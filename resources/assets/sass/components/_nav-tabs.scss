@@ -1,0 +1,30 @@
+.material-tabs {
+  border-bottom: 1px solid $gray-300;
+  margin-bottom: 1em;
+
+  .nav-link {
+    color: $gray-700;
+    position: relative;
+
+    &::after {
+      content: "";
+      background: theme-color("primary");
+      height: 2px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      transition: all 250ms ease 0s;
+      transform: scale(0);
+    }
+
+    &.active,
+    &:hover {
+      color: theme-color("primary");
+
+      &::after {
+        transform: scale(1);
+      }
+    }
+  }
+}
