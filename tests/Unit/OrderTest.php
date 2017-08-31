@@ -6,6 +6,7 @@ use App\Event;
 use App\Order;
 use App\TicketType;
 use App\User;
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -100,5 +101,57 @@ class OrderTest extends TestCase
             ["name" => "Regular Ticket", "count" => 2, "cost" => 5000, "amount" => 10000],
             ["name" => "Pro Ticket", "count" => 3, "cost" => 6000,  "amount" => 18000]
         ], $tickets->values()->all());
+    }
+
+    /** @test */
+    function can_get_orders_with_upcoming_events()
+    {
+        $user = factory(User::class)->create();
+        $upcomingEvent = factory(Event::class)->states('published')->create([
+            'start' => Carbon::now()->addMonth(2),
+        ]);
+        $ticketType = $upcomingEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $order = $upcomingEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $pastEvent = factory(Event::class)->states('published')->create([
+            'start' => Carbon::now()->subMonth(2),
+        ]);
+        $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $order = $pastEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $upcoming = $user->orders()->upcoming()->get();
+
+        $this->assertCount(1, $upcoming);
+        $this->assertEquals($upcomingEvent->id, $upcoming[0]->id);
+    }
+
+    /** @test */
+    function can_get_orders_with_past_events()
+    {
+        $user = factory(User::class)->create();
+        $upcomingEvent = factory(Event::class)->states('published')->create([
+            'start' => Carbon::now()->addMonth(2),
+        ]);
+        $ticketType = $upcomingEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $order = $upcomingEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $pastEvent = factory(Event::class)->states('published')->create([
+            'start' => Carbon::now()->subMonth(2),
+        ]);
+        $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $order = $pastEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $past = $user->orders()->past()->get();
+
+        $this->assertCount(1, $past);
+        $this->assertEquals($pastEvent->id, $past[0]->id);
     }
 }

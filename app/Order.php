@@ -38,6 +38,18 @@ class Order extends Model
         })->sum();
     }
 
+    public function scopeUpcoming($query)
+    {
+        return $query->join('events', 'orders.event_id', '=', 'events.id')
+            ->whereDate('start', '>', Carbon::now());
+    }
+
+    public function scopePast($query)
+    {
+        return $query->join('events', 'orders.event_id', '=', 'events.id')
+            ->whereDate('start', '<', Carbon::now());
+    }
+
     public function markAsPaid($transactionId)
     {
         $this->transaction_id = $transactionId;
