@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light">
         <div class="container">
             @if(isset($event))
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="{{ Auth::guest() ? '/' : '/home' }}">
                     @if(isset($event->logo_dark))
                         <img src="{{ $event->logo_dark }}" alt="{{ $event->title }} Logo" class="img-fluid" style="max-width: 35%">
                     @else
@@ -10,7 +10,7 @@
                     @endif
                 </a>
             @else
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="{{ Auth::guest() ? '/' : '/home' }}">
                     <img src="{{ asset('img/logo.png') }}" width="265px" alt="Institute Logo">
                 </a>
             @endif
