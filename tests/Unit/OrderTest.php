@@ -15,7 +15,7 @@ class OrderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function can_get_amount()
+    function can_get_amount_for_unpaid_order()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'Leadership Conference',
@@ -38,15 +38,35 @@ class OrderTest extends TestCase
     }
 
     /** @test */
+    function can_get_amount_for_paid_order()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+            'cost' => 5000,
+            'name' => 'Regular Ticket',
+        ]));
+        $order = $event->orderTickets(factory(User::class)->create(), [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 1]
+        ]);
+
+        $order->markAsPaid('charge_id', 5000);
+        $ticketType->cost = 7500;
+        $ticketType->save();
+
+        $this->assertEquals(5000, $order->amount);
+    }
+
+    /** @test */
     public function can_mark_as_paid()
     {
         $order = factory(Order::class)->create();
 
-        $order->markAsPaid('charge_id');
+        $order->markAsPaid('charge_id', 5000);
 
         $order->refresh();
         $this->assertEquals('charge_id', $order->transaction_id);
         $this->assertNotNull($order->transaction_date);
+        $this->assertEquals(5000, $order->amount);
     }
 
     /** @test */
@@ -64,9 +84,11 @@ class OrderTest extends TestCase
 
         $order->markAsUnpaid();
 
-        $order->refresh();
+        $order->fresh();
+
         $this->assertNull($order->transaction_id);
         $this->assertNull($order->transaction_date);
+        $this->assertNull($order->getOriginal('amount'));
     }
 
     /** @test */

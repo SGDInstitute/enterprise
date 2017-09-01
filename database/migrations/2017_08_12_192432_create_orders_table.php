@@ -20,6 +20,8 @@ class CreateOrdersTable extends Migration
             $table->string('transaction_id')->nullable();
             $table->dateTime('transaction_date')->nullable();
             $table->string('confirmation_number')->nullable();
+            $table->string('card_last_four')->nullable();
+            $table->integer('amount')->nullable();
             $table->timestamps();
         });
     }

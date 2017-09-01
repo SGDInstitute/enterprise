@@ -16,5 +16,6 @@ $factory->state(Order::class, 'paid', function (Faker $faker) {
     return [
         'transaction_id' => 'charge_id',
         'transaction_date' => \Carbon\Carbon::now(),
+        'amount' => 2500
     ];
 });

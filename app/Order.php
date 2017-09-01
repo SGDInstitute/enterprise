@@ -31,8 +31,12 @@ class Order extends Model
         return $this->hasOne(Invoice::class);
     }
 
-    public function getAmountAttribute()
+    public function getAmountAttribute($amount)
     {
+        if($this->isPaid()) {
+            return $amount;
+        }
+
         return $this->tickets->map(function ($ticket) {
             return $ticket->ticket_type->cost;
         })->sum();
@@ -50,10 +54,11 @@ class Order extends Model
             ->whereDate('start', '<', Carbon::now());
     }
 
-    public function markAsPaid($transactionId)
+    public function markAsPaid($transactionId, $amount)
     {
         $this->transaction_id = $transactionId;
         $this->transaction_date = Carbon::now();
+        $this->amount = $amount;
         $this->save();
     }
 
@@ -61,6 +66,7 @@ class Order extends Model
     {
         $this->transaction_id = null;
         $this->transaction_date = null;
+        $this->amount = null;
         $this->save();
     }
 

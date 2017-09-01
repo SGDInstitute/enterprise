@@ -35,6 +35,7 @@
                         </p>
                         @if($order->isPaid())
                             <p class="card-text">Confirmation Number: {{ join('-', str_split($order->confirmation_number, 4)) }}</p>
+                            <p class="card-text">Billed to Card #: ****-****-****-{{ $order->card_last_four }}</p>
                         @endif
                     </div>
                     <div class="list-group list-group-flush">

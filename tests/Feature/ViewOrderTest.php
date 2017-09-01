@@ -76,7 +76,7 @@ class ViewOrderTest extends TestCase
     }
 
     /** @test */
-    function user_can_view_order_confirmation()
+    function user_can_view_payment_details()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -85,6 +85,8 @@ class ViewOrderTest extends TestCase
             'event_id' => $event->id,
             'user_id' => $user->id,
             'confirmation_number' => '1234123412341234',
+            'card_last_four' => '4242',
+            'amount' => '5000'
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -92,5 +94,7 @@ class ViewOrderTest extends TestCase
             ->get("/orders/{$order->id}");
 
         $response->assertSee('1234-1234-1234-1234');
+        $response->assertSee('****-****-****-4242');
+        $response->assertSee('$50.00');
     }
 }
