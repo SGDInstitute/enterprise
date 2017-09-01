@@ -28,6 +28,7 @@ class EventsSeeder extends Seeder
             'stripe' => 'mblgtacc',
             'start' => '2018-02-16 19:00:00',
             'end' => '2018-02-18 19:30:00',
+            'description' => 'The Midwest Bisexual Lesbian Gay Transgender Ally College Conference (MBLGTACC) is an annual conference held to connect, educate, and empower LGBTQIA+ college students, faculty, and staff around the Midwest and beyond. It has attracted advocates and thought leaders including Angela Davis, Robyn Ochs, Janet Mock, Laverne Cox, Kate Bornstein, Faisal Alam, and LZ Granderson; and entertainers and artists including RuPaul, Margaret Cho, J Mase III, Chely Wright, and Loren Cameron.',
             'published_at' => \Carbon\Carbon::now()->subMonth(),
             'links' => [
                 ['icon' => 'twitter', 'link' => 'https://twitter.com/mblgtacc', 'order' => 1],
@@ -44,14 +45,14 @@ class EventsSeeder extends Seeder
         $event->ticket_types()->createMany([
             [
                 'name' => 'Regular Ticket',
-                'cost' => 6500,
+                'cost' => 7500,
                 'availability_start' => \Carbon\Carbon::now()->subMonth(),
                 'availability_end' => \Carbon\Carbon::parse('2018-02-16 19:00:00')->subMonth(),
             ],
             [
                 'name' => 'Late Ticket',
                 'description' => 'You are not guarenteed special items such as T-Shirts, Program Books, etc. Extras will be available on Sunday after the closing ceremony.',
-                'cost' => 6500,
+                'cost' => 7500,
                 'availability_start' => \Carbon\Carbon::parse('2018-02-17 19:00:00')->subMonth(),
                 'availability_end' => '2018-02-18 19:30:00',
             ],
