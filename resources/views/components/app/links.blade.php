@@ -1,5 +1,5 @@
 @if($links)
-    <div class="social-links">
+    <div class="social-links {{ $class or '' }}">
         @foreach($links as $link)
             @if($link['icon'] === 'website')
                 <a href="{{ $link['link'] }}" target="_blank">
