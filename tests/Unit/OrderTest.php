@@ -67,6 +67,7 @@ class OrderTest extends TestCase
         $this->assertEquals('charge_id', $order->transaction_id);
         $this->assertNotNull($order->transaction_date);
         $this->assertEquals(5000, $order->amount);
+        $this->assertNotNull($order->confirmation_number);
     }
 
     /** @test */
@@ -89,6 +90,7 @@ class OrderTest extends TestCase
         $this->assertNull($order->transaction_id);
         $this->assertNull($order->transaction_date);
         $this->assertNull($order->getOriginal('amount'));
+        $this->assertNull($order->confirmation_number);
     }
 
     /** @test */

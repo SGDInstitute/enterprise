@@ -16,6 +16,7 @@ $factory->state(Order::class, 'paid', function (Faker $faker) {
     return [
         'transaction_id' => 'charge_id',
         'transaction_date' => \Carbon\Carbon::now(),
-        'amount' => 2500
+        'amount' => 2500,
+        'confirmation_number' => Facades\App\ConfirmationNumber::generate()
     ];
 });

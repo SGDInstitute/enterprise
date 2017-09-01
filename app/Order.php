@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Facades\App\ConfirmationNumber;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -59,6 +60,7 @@ class Order extends Model
         $this->transaction_id = $transactionId;
         $this->transaction_date = Carbon::now();
         $this->amount = $amount;
+        $this->confirmation_number = ConfirmationNumber::generate();
         $this->save();
     }
 
@@ -67,6 +69,7 @@ class Order extends Model
         $this->transaction_id = null;
         $this->transaction_date = null;
         $this->amount = null;
+        $this->confirmation_number = null;
         $this->save();
     }
 
