@@ -29,7 +29,7 @@ class FakePaymentGateway implements PaymentGateway
 
         $this->charges[] = $amount;
 
-        return (object) ['id' => 'charge_id'];
+        return (object) ['id' => 'charge_id', 'amount' => $amount, 'last4' => '1234'];
     }
 
     public function newChargesDuring($callback)

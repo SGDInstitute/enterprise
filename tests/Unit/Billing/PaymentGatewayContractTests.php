@@ -66,4 +66,16 @@ trait PaymentGatewayContractTests
 
         $this->assertEquals(config('mblgtacc.stripe.secret'), $paymentGateway->getApiKey());
     }
+
+    /** @test */
+    function charge_returns_object_with_id_amount_and_card_last_four()
+    {
+        $paymentGateway = $this->getPaymentGateway();
+
+        $charge = $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
+
+        $this->assertEquals(2500, $charge->amount);
+        $this->assertNotNull($charge->id);
+        $this->assertNotNull($charge->last4);
+    }
 }
