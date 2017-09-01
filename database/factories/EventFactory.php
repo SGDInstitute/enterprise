@@ -14,10 +14,11 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'start' => Carbon\Carbon::now()->addYear(),
         'end' => Carbon\Carbon::now()->addYear()->addDay(2),
         'links' => [
-            'facebook' => 'https://facebook.com/leadership',
-            'twitter' => 'https://twitter.com/leadership',
-            'instagram' => 'https://instagram.com/leadership',
-            'external-link' => 'https://leadership.org',
+            ['icon' => 'twitter', 'link' => 'https://twitter.com/leadership', 'order' => 1],
+            ['icon' => 'facebook', 'link' => 'https://www.facebook.com/leadership/', 'order' => 2],
+            ['icon' => 'instagram', 'link' => 'https://www.instagram.com/leadership', 'order' => 3],
+            ['icon' => 'snapchat-ghost', 'link' => 'https://www.snapchat.com/add/leadership', 'order' => 4],
+            ['icon' => 'website', 'link' => 'https://leadership.org', 'order' => 5],
         ],
     ];
 });
