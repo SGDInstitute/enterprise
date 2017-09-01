@@ -33,6 +33,9 @@
                                 {{ $order->tickets()->filled()->count() }} of {{ $order->tickets->count() }}
                             </span>
                         </p>
+                        @if($order->isPaid())
+                            <p class="card-text">Confirmation Number: {{ join('-', str_split($order->confirmation_number, 4)) }}</p>
+                        @endif
                     </div>
                     <div class="list-group list-group-flush">
                         <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapseExample">

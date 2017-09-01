@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Event;
+use App\Order;
 use App\TicketType;
 use App\User;
 use Tests\TestCase;
@@ -72,5 +73,24 @@ class ViewOrderTest extends TestCase
         $response = $this->actingAs($notAllowedUser)->get("/orders/{$order->id}");
 
         $response->assertStatus(403);
+    }
+
+    /** @test */
+    function user_can_view_order_confirmation()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create();
+        $order = factory(Order::class)->states('paid')->create([
+            'event_id' => $event->id,
+            'user_id' => $user->id,
+            'confirmation_number' => '1234123412341234',
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
+            ->get("/orders/{$order->id}");
+
+        $response->assertSee('1234-1234-1234-1234');
     }
 }
