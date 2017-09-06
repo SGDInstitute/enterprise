@@ -12,6 +12,7 @@
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "petecoop/laravel-inky": "dev-master",
         "stripe/stripe-php": "^5.1"
     },
     "require-dev": {
@@ -33,6 +34,12 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/andreamswick/laravel-inky"
+        }
+    ],
     "extra": {
         "laravel": {
             "dont-discover": [
