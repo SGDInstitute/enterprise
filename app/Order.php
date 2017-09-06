@@ -78,6 +78,16 @@ class Order extends Model
         return !is_null($this->transaction_id);
     }
 
+    public function isCheck()
+    {
+        return starts_with($this->transaction_id, '#');
+    }
+
+    public function isCard()
+    {
+        return starts_with($this->transaction_id, 'ch');
+    }
+
     public function getTicketsWithNameAndAmount()
     {
         return $this->tickets->groupBy('ticket_type_id')->map(function($item) {

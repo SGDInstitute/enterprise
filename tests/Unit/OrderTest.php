@@ -178,4 +178,20 @@ class OrderTest extends TestCase
         $this->assertCount(1, $past);
         $this->assertEquals($pastEvent->id, $past[0]->id);
     }
+
+    /** @test */
+    function can_see_if_order_was_paid_with_check()
+    {
+        $order = factory(Order::class)->states(['paid', 'check'])->make();
+
+        $this->assertTrue($order->isCheck());
+    }
+
+    /** @test */
+    function can_see_if_order_was_paid_with_card()
+    {
+        $order = factory(Order::class)->states(['paid'])->make();
+
+        $this->assertTrue($order->isCard());
+    }
 }
