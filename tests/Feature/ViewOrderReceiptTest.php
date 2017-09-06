@@ -32,11 +32,4 @@ class ViewOrderReceiptTest extends TestCase
         $response->assertStatus(200)
             ->assertSee('receipt');
     }
-
-    function charge($amount = 5000) {
-        $paymentGateway = new FakePaymentGateway;
-        $this->app->instance(PaymentGateway::class, $paymentGateway);
-
-        return $paymentGateway->charge($amount, $paymentGateway->getValidTestToken());
-    }
 }

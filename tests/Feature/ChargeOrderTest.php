@@ -83,7 +83,6 @@ class ChargeOrderTest extends TestCase
                 'message'
             ]);
         $order->refresh();
-        $this->assertNull($order->transaction_id);
-        $this->assertNull($order->transaction_date);
+        $this->assertNull($order->receipt);
     }
 }

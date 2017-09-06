@@ -199,11 +199,4 @@ class OrderTest extends TestCase
 
         $this->assertTrue($order->refresh()->isCard());
     }
-
-    function charge($amount = 5000) {
-        $paymentGateway = new FakePaymentGateway;
-        $this->app->instance(PaymentGateway::class, $paymentGateway);
-
-        return $paymentGateway->charge($amount, $paymentGateway->getValidTestToken());
-    }
 }

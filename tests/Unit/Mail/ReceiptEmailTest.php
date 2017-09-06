@@ -18,6 +18,7 @@ class ReceiptEmailTest extends TestCase
     function email_contains_link_to_order_page()
     {
         $order = factory(Order::class)->create();
+        $order->markAsPaid($this->charge());
 
         $email = (new ReceiptEmail($order))->render();
 
@@ -35,6 +36,7 @@ class ReceiptEmailTest extends TestCase
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
         ]);
+        $order->markAsPaid($this->charge());
 
         $email = (new ReceiptEmail($order))->render();
 
