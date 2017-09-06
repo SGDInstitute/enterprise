@@ -1,0 +1,32 @@
+@import 'email/settings';
+@import 'email/template';
+
+.text-center {
+  text-align: center;
+}
+
+.header a {
+  color: #ffffff;
+}
+
+.header .browser-link {
+  font-size: 12px;
+}
+
+.logo-row {
+  background: #e7ebed !important;
+}
+
+.footer {
+  background: #546163 !important;
+  color: #ffffff;
+
+  a {
+    color: #ffffff;
+  }
+
+  p {
+    color: #ffffff;
+    font-size: 10px;
+  }
+}
