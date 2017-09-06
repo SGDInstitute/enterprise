@@ -14,7 +14,6 @@ $factory->define(Order::class, function (Faker $faker) {
 });
 
 $factory->state(Order::class, 'paid', function (Faker $faker) {
-    $this->receipt()->create(factory(Receipt::class)->make());
     return [
         'confirmation_number' => Facades\App\ConfirmationNumber::generate()
     ];

@@ -30,9 +30,9 @@
             <p class="card-text">Confirmation
                 Number:<br> {{ join('-', str_split($order->confirmation_number, 4)) }}</p>
             @if($order->isCard())
-                <p class="card-text">Billed to Card: ****-****-****-{{ $order->card_last_four }}</p>
+                <p class="card-text">Billed to Card: ****-****-****-{{ $order->receipt->card_last_four }}</p>
             @else
-                <p class="card-text">Check Number: {{ $order->transaction_id }}</p>
+                <p class="card-text">Check Number: {{ $order->receipt->transaction_id }}</p>
             @endif
         @endif
     </div>

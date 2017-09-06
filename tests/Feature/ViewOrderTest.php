@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Event;
 use App\Order;
+use App\Receipt;
 use App\TicketType;
 use App\User;
 use Tests\TestCase;
@@ -85,9 +86,11 @@ class ViewOrderTest extends TestCase
             'event_id' => $event->id,
             'user_id' => $user->id,
             'confirmation_number' => '1234123412341234',
+        ]);
+        $order->receipt()->save(factory(Receipt::class)->make([
             'card_last_four' => '4242',
             'amount' => '5000'
-        ]);
+        ]));
 
         $response = $this->withoutExceptionHandling()
             ->actingAs($user)
