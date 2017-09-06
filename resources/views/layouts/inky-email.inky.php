@@ -31,7 +31,7 @@
                                  src="https://sgdinstitute.org/storage/app/media/emails/logo-dark-text.png"/>
                         </columns>
                         <columns large="8">
-
+                            @yield('header')
                         </columns>
                     </row>
                 </container>
@@ -56,7 +56,7 @@
                                  src="https://sgdinstitute.org/storage/app/media/emails/logo-footer.png"/>
                         </columns>
                         <columns large="8">
-
+                            @yield('footer')
                         </columns>
                     </row>
                 </container>
