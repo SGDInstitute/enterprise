@@ -1,4 +1,4 @@
-@extends('layouts.inky-email')
+@extends('layouts.email')
 
 @section('header')
     <div class="text-right">

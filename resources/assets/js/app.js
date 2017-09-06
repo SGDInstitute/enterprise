@@ -34,7 +34,9 @@ Vue.component('pay-with-card', require('./components/PayWithCard.vue'));
 Vue.component('pay-with-check', require('./components/PayWithCheck.vue'));
 Vue.component('invoice-button', require('./components/InvoiceButton.vue'));
 Vue.component('invoice-form', require('./components/InvoiceForm.vue'));
+Vue.component('receipt-button', require('./components/ReceiptButton.vue'));
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
+Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue'));
 
 const app = new Vue({
     el: '#app'

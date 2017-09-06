@@ -22,6 +22,8 @@ class ViewOrderReceiptTest extends TestCase
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
         ]);
 
+        $order->markAsPaid('ch_12341234', $order->amount);
+
         $response = $this->withoutExceptionHandling()
             ->get("/orders/{$order->id}/receipt");
 
