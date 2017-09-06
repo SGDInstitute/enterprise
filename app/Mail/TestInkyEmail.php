@@ -11,6 +11,8 @@ class TestInkyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $theme = 'default';
+
     /**
      * Create a new message instance.
      *
