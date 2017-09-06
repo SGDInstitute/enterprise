@@ -2,6 +2,7 @@
 
 use App\Event;
 use App\Order;
+use App\Receipt;
 use App\User;
 use Faker\Generator as Faker;
 
@@ -13,10 +14,8 @@ $factory->define(Order::class, function (Faker $faker) {
 });
 
 $factory->state(Order::class, 'paid', function (Faker $faker) {
+    $this->receipt()->create(factory(Receipt::class)->make());
     return [
-        'transaction_id' => 'charge_id',
-        'transaction_date' => \Carbon\Carbon::now(),
-        'amount' => 2500,
         'confirmation_number' => Facades\App\ConfirmationNumber::generate()
     ];
 });

@@ -37,10 +37,10 @@ class Order extends Model
         return $this->hasOne(Receipt::class);
     }
 
-    public function getAmountAttribute($amount)
+    public function getAmountAttribute()
     {
         if($this->isPaid()) {
-            return $amount;
+            return $this->receipt->amount;
         }
 
         return $this->tickets->map(function ($ticket) {
@@ -63,9 +63,9 @@ class Order extends Model
     public function markAsPaid($charge)
     {
         $this->receipt()->create([
-            'transaction_id' => $charge->id,
-            'amount' => $charge->amount,
-            'card_last_four' => $charge->last4,
+            'transaction_id' => $charge->get('id'),
+            'amount' => $charge->get('amount'),
+            'card_last_four' => $charge->get('last4'),
         ]);
 
         $this->confirmation_number = ConfirmationNumber::generate();
@@ -74,26 +74,24 @@ class Order extends Model
 
     public function markAsUnpaid()
     {
-        $this->transaction_id = null;
-        $this->transaction_date = null;
-        $this->amount = null;
+        $this->receipt->delete();
         $this->confirmation_number = null;
         $this->save();
     }
 
     public function isPaid()
     {
-        return !is_null($this->transaction_id);
+        return !is_null($this->receipt);
     }
 
     public function isCheck()
     {
-        return starts_with($this->transaction_id, '#');
+        return starts_with($this->receipt->transaction_id, '#');
     }
 
     public function isCard()
     {
-        return starts_with($this->transaction_id, 'ch');
+        return starts_with($this->receipt->transaction_id, 'ch');
     }
 
     public function getTicketsWithNameAndAmount()

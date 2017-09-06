@@ -51,7 +51,7 @@ class OrderTest extends TestCase
             ['ticket_type_id' => $ticketType->id, 'quantity' => 1]
         ]);
 
-        $order->markAsPaid('charge_id', 5000);
+        $order->markAsPaid($this->charge());
         $ticketType->cost = 7500;
         $ticketType->save();
 
@@ -59,16 +59,11 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    public function can_mark_as_paid()
+    function can_mark_as_paid()
     {
         $order = factory(Order::class)->create();
 
-        $paymentGateway = new FakePaymentGateway;
-        $this->app->instance(PaymentGateway::class, $paymentGateway);
-
-        $charge = $paymentGateway->charge(5000, $paymentGateway->getValidTestToken());
-
-        $order->markAsPaid($charge);
+        $order->markAsPaid($this->charge());
 
         $order->refresh();
         $this->assertEquals('charge_id', $order->receipt->transaction_id);
@@ -80,23 +75,24 @@ class OrderTest extends TestCase
     /** @test */
     function is_order_paid()
     {
-        $order = factory(Order::class)->states('paid')->make();
+        $order = factory(Order::class)->create();
+        $order->markAsPaid($this->charge());
 
         $this->assertTrue($order->isPaid());
+        $this->assertNotNull($order->receipt);
     }
 
     /** @test */
     function can_mark_as_unpiad()
     {
-        $order = factory(Order::class)->states('paid')->create();
+        $order = factory(Order::class)->create();
+        $order->markAsPaid($this->charge());
 
         $order->markAsUnpaid();
 
-        $order->fresh();
+        $order->refresh();
 
-        $this->assertNull($order->transaction_id);
-        $this->assertNull($order->transaction_date);
-        $this->assertNull($order->getOriginal('amount'));
+        $this->assertNull($order->receipt);
         $this->assertNull($order->confirmation_number);
     }
 
@@ -189,16 +185,25 @@ class OrderTest extends TestCase
     /** @test */
     function can_see_if_order_was_paid_with_check()
     {
-        $order = factory(Order::class)->states(['paid', 'check'])->make();
+        $order = factory(Order::class)->create();
+        $order->markAsPaid(collect(['id' => '#1234', 'amount' => $order->amount]));
 
-        $this->assertTrue($order->isCheck());
+        $this->assertTrue($order->refresh()->isCheck());
     }
 
     /** @test */
     function can_see_if_order_was_paid_with_card()
     {
-        $order = factory(Order::class)->states(['paid'])->make();
+        $order = factory(Order::class)->create();
+        $order->markAsPaid($this->charge());
 
-        $this->assertTrue($order->isCard());
+        $this->assertTrue($order->refresh()->isCard());
+    }
+
+    function charge($amount = 5000) {
+        $paymentGateway = new FakePaymentGateway;
+        $this->app->instance(PaymentGateway::class, $paymentGateway);
+
+        return $paymentGateway->charge($amount, $paymentGateway->getValidTestToken());
     }
 }

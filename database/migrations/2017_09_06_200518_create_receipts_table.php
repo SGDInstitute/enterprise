@@ -18,7 +18,7 @@ class CreateReceiptsTable extends Migration
             $table->unsignedInteger('order_id');
             $table->string('transaction_id');
             $table->integer('amount');
-            $table->integer('card_last_four');
+            $table->integer('card_last_four')->nullable();
             $table->timestamps();
         });
     }
