@@ -74,8 +74,8 @@ trait PaymentGatewayContractTests
 
         $charge = $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
 
-        $this->assertEquals(2500, $charge->amount);
-        $this->assertNotNull($charge->id);
-        $this->assertNotNull($charge->last4);
+        $this->assertEquals(2500, $charge->get('amount'));
+        $this->assertNotNull($charge->get('id'));
+        $this->assertNotNull($charge->get('last4'));
     }
 }
