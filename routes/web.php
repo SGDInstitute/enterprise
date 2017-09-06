@@ -42,7 +42,3 @@ Route::post('/settings/password', 'SettingPasswordsController@store');
 Route::get('/admin', function() {
     return view('admin.index');
 });
-
-Route::get('/test', function() {
-    Mail::to('andreamswick@gmail.com')->send(new \App\Mail\TestInkyEmail());
-});
