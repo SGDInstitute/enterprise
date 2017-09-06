@@ -32,6 +32,11 @@ class Order extends Model
         return $this->hasOne(Invoice::class);
     }
 
+    public function receipt()
+    {
+        return $this->hasOne(Receipt::class);
+    }
+
     public function getAmountAttribute($amount)
     {
         if($this->isPaid()) {
@@ -55,11 +60,14 @@ class Order extends Model
             ->whereDate('start', '<', Carbon::now());
     }
 
-    public function markAsPaid($transactionId, $amount)
+    public function markAsPaid($charge)
     {
-        $this->transaction_id = $transactionId;
-        $this->transaction_date = Carbon::now();
-        $this->amount = $amount;
+        $this->receipt()->create([
+            'transaction_id' => $charge->id,
+            'amount' => $charge->amount,
+            'card_last_four' => $charge->last4,
+        ]);
+
         $this->confirmation_number = ConfirmationNumber::generate();
         $this->save();
     }

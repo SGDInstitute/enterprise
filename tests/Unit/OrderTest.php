@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\Billing\FakePaymentGateway;
+use App\Billing\PaymentGateway;
 use App\Event;
 use App\Order;
 use App\TicketType;
@@ -61,12 +63,17 @@ class OrderTest extends TestCase
     {
         $order = factory(Order::class)->create();
 
-        $order->markAsPaid('charge_id', 5000);
+        $paymentGateway = new FakePaymentGateway;
+        $this->app->instance(PaymentGateway::class, $paymentGateway);
+
+        $charge = $paymentGateway->charge(5000, $paymentGateway->getValidTestToken());
+
+        $order->markAsPaid($charge);
 
         $order->refresh();
-        $this->assertEquals('charge_id', $order->transaction_id);
-        $this->assertNotNull($order->transaction_date);
-        $this->assertEquals(5000, $order->amount);
+        $this->assertEquals('charge_id', $order->receipt->transaction_id);
+        $this->assertNotNull($order->receipt->created_at);
+        $this->assertEquals(5000, $order->receipt->amount);
         $this->assertNotNull($order->confirmation_number);
     }
 
