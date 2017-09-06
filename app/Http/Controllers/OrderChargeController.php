@@ -23,7 +23,7 @@ class OrderChargeController extends Controller
     {
         try {
             $this->paymentGateway->setApiKey($order->event->getSecretKey());
-            $order->markAsPaid($this->paymentGateway->charge($order->amount, request('stripeToken'))->id, $order->amount);
+            $order->markAsPaid($this->paymentGateway->charge($order->amount, request('stripeToken')));
 
             flash('You successfully paid for this order, you will receive a confirmation email with a receipt shortly.')->success();
 

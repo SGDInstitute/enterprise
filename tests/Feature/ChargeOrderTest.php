@@ -58,8 +58,7 @@ class ChargeOrderTest extends TestCase
             ]);
         $order->refresh();
         $this->assertEquals(10000, $paymentGateway->totalCharges());
-        $this->assertNotNull($order->transaction_id);
-        $this->assertNotNull($order->transaction_date);
+        $this->assertNotNull($order->receipt->transaction_id);
 
         Mail::assertSent(ReceiptEmail::class, function($mail) use ($order) {
             return $mail->hasTo('jo@example.com')
