@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Billing\FakePaymentGateway;
+use App\Billing\PaymentGateway;
 use App\Event;
 use App\TicketType;
 use App\User;
@@ -22,12 +24,19 @@ class ViewOrderReceiptTest extends TestCase
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
         ]);
 
-        $order->markAsPaid('ch_12341234', $order->amount);
+        $order->markAsPaid($this->charge());
 
         $response = $this->withoutExceptionHandling()
             ->get("/orders/{$order->id}/receipt");
 
         $response->assertStatus(200)
             ->assertSee('receipt');
+    }
+
+    function charge($amount = 5000) {
+        $paymentGateway = new FakePaymentGateway;
+        $this->app->instance(PaymentGateway::class, $paymentGateway);
+
+        return $paymentGateway->charge($amount, $paymentGateway->getValidTestToken());
     }
 }

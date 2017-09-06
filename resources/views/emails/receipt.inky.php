@@ -18,14 +18,14 @@
 
     @if($order->isCard())
         <p>This purchase will appear as “[Credit Card Statement Name]” on your credit card statement for your
-            [credit_card_brand] ending in {{ $order->card_last_four }}.</p>
+            [credit_card_brand] ending in {{ $order->receipt->card_last_four }}.</p>
     @else
-        <p>The check we received ({{ $order->transaction_id }}) has been deposited, and your records should reflect this
+        <p>The check we received ({{ $order->receipt->transaction_id }}) has been deposited, and your records should reflect this
             very soon.</p>
     @endif
 
     <p><strong>Confirmation Number: </strong> {{ join('-', str_split($order->confirmation_number, 4)) }}</p>
-    <p><strong>Transaction Date: </strong> {{ $order->transaction_date->toFormattedDateString() }}</p>
+    <p><strong>Transaction Date: </strong> {{ $order->receipt->created_at->toFormattedDateString() }}</p>
 
     <spacer size="16"></spacer>
 
