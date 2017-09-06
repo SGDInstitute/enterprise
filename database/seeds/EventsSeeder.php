@@ -78,8 +78,12 @@ class EventsSeeder extends Seeder
             'end' => $end,
             'published_at' => \Carbon\Carbon::now()->subMonth(),
             'links' => [
-                'website' => 'https://mblgtacc.org',
-            ]
+                ['icon' => 'twitter', 'link' => 'https://twitter.com/musicfest', 'order' => 1],
+                ['icon' => 'facebook', 'link' => 'https://www.facebook.com/musicfest/', 'order' => 2],
+                ['icon' => 'instagram', 'link' => 'https://www.instagram.com/musicfest', 'order' => 3],
+                ['icon' => 'snapchat-ghost', 'link' => 'https://www.snapchat.com/add/musicfest', 'order' => 4],
+                ['icon' => 'website', 'link' => 'https://musicfest.org', 'order' => 5],
+            ],
         ]);
 
         $event->ticket_types()->createMany([
