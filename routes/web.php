@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Mail;
+
 Route::get('/', function () {
     return view('welcome', [
         'upcomingEvents' => App\Event::published()->upcoming()->get()
@@ -39,4 +41,8 @@ Route::post('/settings/password', 'SettingPasswordsController@store');
 
 Route::get('/admin', function() {
     return view('admin.index');
+});
+
+Route::get('/test', function() {
+    Mail::to('andreamswick@gmail.com')->send(new \App\Mail\TestInkyEmail());
 });
