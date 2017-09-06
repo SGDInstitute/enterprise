@@ -165,4 +165,18 @@ class EventTest extends TestCase
         $this->assertTrue($upcoming->contains($unpublishedEvent));
     }
 
+    /** @test */
+    function can_change_ticket_string()
+    {
+        $event = factory(Event::class)->make([
+            'ticket_string' => 'ticket'
+        ]);
+
+        $this->assertEquals('Ticket', $event->ticket_string);
+
+        $event->ticket_string = 'attendee';
+        $event->save();
+
+        $this->assertEquals('Attendee', $event->fresh()->ticket_string);
+    }
 }

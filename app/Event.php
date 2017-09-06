@@ -57,6 +57,11 @@ class Event extends Model
             . " to " . $this->end->timezone($this->timezone)->format('l F j, Y g:i A T');
     }
 
+    public function getTicketStringAttribute($ticketString)
+    {
+        return ucwords($ticketString);
+    }
+
     public function hasOrderFor($customerEmail)
     {
         return $this->orders()->where('email', $customerEmail)->count() > 0;
