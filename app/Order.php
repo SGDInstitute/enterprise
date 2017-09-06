@@ -10,7 +10,7 @@ class Order extends Model
 {
     protected $fillable = ['user_id'];
 
-    protected $appends = ['amount'];
+    protected $dates = ['transaction_date'];
 
     public function tickets()
     {
