@@ -36,6 +36,8 @@ Route::patch('/invoices/{invoice}', 'InvoicesController@update');
 Route::get('/invoices/{invoice}/download', 'InvoicesDownloadController@index');
 Route::get('/invoices/{invoice}/resend', 'InvoicesResendController@index');
 
+Route::get('/receipts/{receipt}/resend', 'ReceiptsResendController@index');
+
 Route::get('/settings', 'SettingsController@edit');
 Route::post('/settings/password', 'SettingPasswordsController@store');
 
