@@ -24,6 +24,11 @@ class MagicLoginController extends Controller
 
         $user = User::findByEmail($data['email']);
 
+        if (!$user) {
+            flash()->error('User not found, please register.');
+            return redirect('/login/magic');
+        }
+
         $user->createToken();
 
         Mail::to($user->email)->send(new MagicLoginEmail($user));

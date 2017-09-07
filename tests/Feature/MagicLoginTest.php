@@ -44,4 +44,13 @@ class MagicLoginTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonHasErrors(['email']);
     }
+
+    /** @test */
+    function error_is_shown_if_user_does_not_exist()
+    {
+        $response = $this->post('/login/magic', ['email' => 'jo@example.com']);
+
+        $response->assertRedirect('/login/magic')
+            ->assertSessionHas('flash_notification');
+    }
 }

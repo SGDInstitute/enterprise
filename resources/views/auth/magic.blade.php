@@ -9,6 +9,8 @@
             <div class="card">
                 <div class="card-header">Magic Login</div>
                 <div class="card-body">
+                    @include('flash::message')
+
                     <form method="POST" action="/login/magic">
                         {{ csrf_field() }}
 
