@@ -98,11 +98,4 @@ class RegisterController extends Controller
 
         return redirect()->intended($this->redirectPath());
     }
-
-    public function confirm(UserToken $token)
-    {
-        $token->user->confirm();
-
-        return redirect()->intended($this->redirectPath());
-    }
 }

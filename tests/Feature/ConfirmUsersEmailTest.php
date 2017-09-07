@@ -50,4 +50,24 @@ class ConfirmUsersEmailTest extends TestCase
         $this->assertNotNull($user->fresh()->confirmed_at);
         $this->assertNull($user->emailToken);
     }
+
+    /** @test */
+    function can_resend_email()
+    {
+        Mail::fake();
+
+        $user = factory(User::class)->create([
+            'email' => 'jo@example.com'
+        ]);
+        $user->createToken('email');
+
+        $response = $this->withoutExceptionHandling()->actingAs($user)->get("/register/email/");
+
+        $response->assertStatus(302);
+
+        Mail::assertSent(UserConfirmationEmail::class, function($mail) {
+            return $mail->hasTo('jo@example.com')
+                && $mail->user->id === User::findByEmail('jo@example.com')->id;
+        });
+    }
 }

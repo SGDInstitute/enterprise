@@ -24,7 +24,8 @@ Auth::routes();
 Route::get('/login/magic', 'Auth\MagicLoginController@show')->name('login.magic');
 Route::post('/login/magic', 'Auth\MagicLoginController@sendToken');
 Route::get('/login/magic/{token}', 'Auth\MagicLoginController@authenticate');
-Route::get('/register/verify/{token}', 'Auth\RegisterController@confirm');
+Route::get('/register/verify/{token}', 'Auth\UserConfirmationController@store');
+Route::get('/register/email', 'Auth\UserConfirmationController@create');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
