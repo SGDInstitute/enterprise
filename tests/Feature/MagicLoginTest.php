@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Mail\MagicLoginEmail;
 use App\User;
+use App\UserToken;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
@@ -70,5 +72,22 @@ class MagicLoginTest extends TestCase
         $response->assertRedirect('/home');
         $this->assertEquals($user->id, Auth::user()->id);
         $this->assertNull($user->token);
+    }
+
+    /** @test */
+    function clicking_on_expired_link_shows_error()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'jo@example.com'
+        ]);
+        $expiredToken = $user->token()->save(factory(UserToken::class)->make(['created_at' => Carbon::now()->subMinutes(11)]));
+
+        $response = $this->withoutExceptionHandling()
+            ->get("/login/magic/{$user->token->token}?email=jo@example.com");
+
+        $response
+            ->assertRedirect('/login/magic/')
+            ->assertSessionHas('flash_notification');
+        $this->assertNull($user->fresh()->token);
     }
 }

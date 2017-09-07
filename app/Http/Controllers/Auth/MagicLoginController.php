@@ -41,6 +41,12 @@ class MagicLoginController extends Controller
 
     public function authenticate(UserToken $token)
     {
+        if ($token->isExpired()) {
+            $token->delete();
+            flash()->error('That magic link has expired.');
+            return redirect('/login/magic');
+        }
+
         Auth::login($token->user, request('remember'));
         $token->delete();
         return redirect('/home');
