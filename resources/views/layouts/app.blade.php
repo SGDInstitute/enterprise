@@ -33,6 +33,14 @@
     @yield('hero')
 
     <section class="content">
+        @if(Auth::user() && !Auth::user()->isConfirmed())
+            <div class="container">
+                <div class="alert alert-danger">
+                    Please confirm your email. Didn't get the confirmation email? <a href="/register/email">Lets try again!</a>
+                </div>
+            </div>
+        @endif
+
         @yield('content')
     </section>
 
