@@ -10,19 +10,29 @@ class ProfileController extends Controller
 {
     public function update()
     {
-        request()->validate([
+        $user = request()->validate([
             'name' => 'required',
             'email' => 'required'
         ]);
 
+        $profile = request()->validate([
+            'pronouns' => '',
+            'sexuality' => '',
+            'gender' => '',
+            'race' => '',
+            'college' => '',
+            'tshirt' => '',
+            'accommodation' => ''
+        ]);
+
         $oldEmail = request()->user()->email;
 
-        request()->user()->update(request()->all());
+        request()->user()->update($user);
 
         if(request('email') !== $oldEmail) {
             request()->user()->sendConfirmationEmail();
         }
 
-        request()->user()->profile()->update(request()->except('name', 'email'));
+        request()->user()->profile()->update($profile);
     }
 }
