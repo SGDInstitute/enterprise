@@ -33,7 +33,7 @@ class OrderTest extends TestCase
             'name' => 'Regular Ticket',
         ]));
         $order = $event->orderTickets(factory(User::class)->create(), [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $this->assertEquals(10000, $order->amount);
@@ -48,7 +48,7 @@ class OrderTest extends TestCase
             'name' => 'Regular Ticket',
         ]));
         $order = $event->orderTickets(factory(User::class)->create(), [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 1]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 1],
         ]);
 
         $order->markAsPaid($this->charge());
@@ -119,14 +119,14 @@ class OrderTest extends TestCase
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
-            ['ticket_type_id' => $ticketType2->id, 'quantity' => 3]
+            ['ticket_type_id' => $ticketType2->id, 'quantity' => 3],
         ]);
 
         $tickets = $order->getTicketsWithNameAndAmount();
 
         $this->assertEquals([
             ["name" => "Regular Ticket", "count" => 2, "cost" => 5000, "amount" => 10000],
-            ["name" => "Pro Ticket", "count" => 3, "cost" => 6000,  "amount" => 18000]
+            ["name" => "Pro Ticket", "count" => 3, "cost" => 6000, "amount" => 18000],
         ], $tickets->values()->all());
     }
 
@@ -138,8 +138,14 @@ class OrderTest extends TestCase
             'start' => Carbon::now()->addMonth(2),
         ]);
         $ticketType = $upcomingEvent->ticket_types()->save(factory(TicketType::class)->make());
-        $order = $upcomingEvent->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        $order1 = $upcomingEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $order2 = $upcomingEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $order3 = $upcomingEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $pastEvent = factory(Event::class)->states('published')->create([
@@ -147,13 +153,15 @@ class OrderTest extends TestCase
         ]);
         $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
         $order = $pastEvent->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
-        $upcoming = $user->orders()->upcoming()->get();
+        $upcoming = $user->orders()->upcoming()->get()->pluck('id');
 
-        $this->assertCount(1, $upcoming);
-        $this->assertEquals($upcomingEvent->id, $upcoming[0]->id);
+        $this->assertCount(3, $upcoming);
+        $this->assertContains($order1->id, $upcoming);
+        $this->assertContains($order2->id, $upcoming);
+        $this->assertContains($order3->id, $upcoming);
     }
 
     /** @test */
@@ -165,21 +173,29 @@ class OrderTest extends TestCase
         ]);
         $ticketType = $upcomingEvent->ticket_types()->save(factory(TicketType::class)->make());
         $order = $upcomingEvent->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $pastEvent = factory(Event::class)->states('published')->create([
             'start' => Carbon::now()->subMonth(2),
         ]);
         $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
-        $order = $pastEvent->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        $order1 = $pastEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $order2 = $pastEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+        $order3 = $pastEvent->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
-        $past = $user->orders()->past()->get();
+        $past = $user->orders()->past()->get()->pluck('id');
 
-        $this->assertCount(1, $past);
-        $this->assertEquals($pastEvent->id, $past[0]->id);
+        $this->assertCount(3, $past);
+        $this->assertContains($order1->id, $past);
+        $this->assertContains($order2->id, $past);
+        $this->assertContains($order3->id, $past);
     }
 
     /** @test */

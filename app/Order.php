@@ -50,13 +50,16 @@ class Order extends Model
 
     public function scopeUpcoming($query)
     {
-        return $query->join('events', 'orders.event_id', '=', 'events.id')
+        return $query->select('orders.*', 'events.start')
+            ->join('events', 'orders.event_id', '=', 'events.id')
             ->whereDate('start', '>', Carbon::now());
     }
 
     public function scopePast($query)
     {
-        return $query->join('events', 'orders.event_id', '=', 'events.id')
+        return $query
+            ->select('orders.*', 'events.start')
+            ->join('events', 'orders.event_id', '=', 'events.id')
             ->whereDate('start', '<', Carbon::now());
     }
 
