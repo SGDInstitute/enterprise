@@ -1016,27 +1016,27 @@ h6 {
 }
 
 h1 {
-  font-size: 34px;
+  font-size: 25px;
 }
 
 h2 {
-  font-size: 30px;
-}
-
-h3 {
-  font-size: 28px;
-}
-
-h4 {
-  font-size: 24px;
-}
-
-h5 {
   font-size: 20px;
 }
 
+h3 {
+  font-size: 16px;
+}
+
+h4 {
+  font-size: 14px;
+}
+
+h5 {
+  font-size: 12px;
+}
+
 h6 {
-  font-size: 18px;
+  font-size: 12px;
 }
 
 body,
@@ -1074,20 +1074,20 @@ small {
 }
 
 a {
-  color: #2199e8;
+  color: #38afad;
   text-decoration: none;
 }
 
 a:hover {
-  color: #147dc2;
+  color: #2c8887;
 }
 
 a:active {
-  color: #147dc2;
+  color: #2c8887;
 }
 
 a:visited {
-  color: #2199e8;
+  color: #38afad;
 }
 
 h1 a,
@@ -1102,7 +1102,7 @@ h5 a,
 h5 a:visited,
 h6 a,
 h6 a:visited {
-  color: #2199e8;
+  color: #38afad;
 }
 
 pre {
@@ -1173,8 +1173,8 @@ table.button {
 table.button table td {
   text-align: left;
   color: #fefefe;
-  background: #2199e8;
-  border: 2px solid #2199e8;
+  background: #38afad;
+  border: 2px solid #38afad;
 }
 
 table.button table td a {
@@ -1185,7 +1185,7 @@ table.button table td a {
   text-decoration: none;
   display: inline-block;
   padding: 8px 16px 8px 16px;
-  border: 0 solid #2199e8;
+  border: 0 solid #38afad;
   border-radius: 3px;
 }
 
@@ -1261,14 +1261,14 @@ table.button.expanded center {
 table.button:hover table td,
 table.button:visited table td,
 table.button:active table td {
-  background: #147dc2;
+  background: #2c8887;
   color: #fefefe;
 }
 
 table.button:hover table a,
 table.button:visited table a,
 table.button:active table a {
-  border: 0 solid #147dc2;
+  border: 0 solid #2c8887;
 }
 
 table.button.secondary table td {
@@ -1338,20 +1338,20 @@ table.button.alert:hover table a {
 }
 
 table.button.warning table td {
-  background: #ffae00;
-  border: 0px solid #ffae00;
+  background: #f2b716;
+  border: 0px solid #f2b716;
 }
 
 table.button.warning table a {
-  border: 0px solid #ffae00;
+  border: 0px solid #f2b716;
 }
 
 table.button.warning:hover table td {
-  background: #cc8b00;
+  background: #ca970b;
 }
 
 table.button.warning:hover table a {
-  border: 0px solid #cc8b00;
+  border: 0px solid #ca970b;
 }
 
 table.callout {
@@ -1367,7 +1367,7 @@ th.callout-inner {
 }
 
 th.callout-inner.primary {
-  background: #def0fc;
+  background: #dff5f4;
   border: 1px solid #444444;
   color: #0a0a0a;
 }
@@ -1385,8 +1385,8 @@ th.callout-inner.success {
 }
 
 th.callout-inner.warning {
-  background: #fff3d9;
-  border: 1px solid #996800;
+  background: #fdf4dc;
+  border: 1px solid #997309;
   color: #fefefe;
 }
 
@@ -1413,8 +1413,8 @@ th.callout-inner.alert {
 
 .thumbnail:hover,
 .thumbnail:focus {
-  -webkit-box-shadow: 0 0 6px 1px rgba(33, 153, 232, 0.5);
-          box-shadow: 0 0 6px 1px rgba(33, 153, 232, 0.5);
+  -webkit-box-shadow: 0 0 6px 1px rgba(56, 175, 173, 0.5);
+          box-shadow: 0 0 6px 1px rgba(56, 175, 173, 0.5);
 }
 
 table.menu {
@@ -1429,7 +1429,7 @@ table.menu th.menu-item {
 
 table.menu td.menu-item a,
 table.menu th.menu-item a {
-  color: #2199e8;
+  color: #38afad;
 }
 
 table.menu.vertical td.menu-item,
@@ -1818,29 +1818,5 @@ p {
   -webkit-hyphens: none;
       -ms-hyphens: none;
           hyphens: none;
-}
-
-h1 {
-  color: #2F3133;
-  font-size: 19px;
-  font-weight: bold;
-  margin-top: 0;
-  text-align: left;
-}
-
-h2 {
-  color: #2F3133;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 0;
-  text-align: left;
-}
-
-h3 {
-  color: #2F3133;
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 0;
-  text-align: left;
 }
 
