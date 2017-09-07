@@ -34,6 +34,9 @@ class MagicLoginController extends Controller
         $user->createToken();
 
         Mail::to($user->email)->send(new MagicLoginEmail($user, $data));
+
+        flash()->success("We've sent you a magic link! The link expires in 5 minutes.");
+        return redirect()->back();
     }
 
     public function authenticate(UserToken $token)
