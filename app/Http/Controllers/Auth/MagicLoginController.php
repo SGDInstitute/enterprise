@@ -17,6 +17,11 @@ class MagicLoginController extends Controller
     
     public function sendToken()
     {
+        $data = request()->validate([
+            'email' => 'required',
+            'remember' => '',
+        ]);
+
         $user = User::findByEmail(request('email'));
 
         $user->createToken();

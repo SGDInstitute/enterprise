@@ -31,4 +31,17 @@ class MagicLoginTest extends TestCase
                 && $mail->user->id === $user->id;
         });
     }
+
+    /** @test */
+    function email_is_required()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'jo@example.com'
+        ]);
+
+        $response = $this->json("post", '/login/magic');
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors(['email']);
+    }
 }
