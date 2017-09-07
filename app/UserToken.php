@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserToken extends Model
 {
-    protected $fillable = ['token'];
+    protected $fillable = ['token', 'type'];
 
     /**
      * A token belongs to a registered user.

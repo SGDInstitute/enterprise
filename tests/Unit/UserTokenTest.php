@@ -46,4 +46,15 @@ class UserTokenTest extends TestCase
         $this->assertTrue($token->belongsToUser('jo@example.com'));
         $this->assertFalse($token->belongsToUser('phoenix@example.com'));
     }
+
+    /** @test */
+    function can_get_type_of_token()
+    {
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $emailToken = $user->token()->save(factory(UserToken::class)->make(['type' => 'email']));
+        $magicToken = $user->token()->save(factory(UserToken::class)->make(['type' => 'magic']));
+
+        $this->assertEquals($emailToken->token, $user->emailToken->token);
+        $this->assertEquals($magicToken->token, $user->magicToken->token);
+    }
 }

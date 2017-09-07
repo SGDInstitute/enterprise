@@ -53,6 +53,16 @@ class User extends Authenticatable
         return $this->hasOne(UserToken::class);
     }
 
+    public function emailToken()
+    {
+        return $this->hasOne(UserToken::class)->where('type', 'email');
+    }
+
+    public function magicToken()
+    {
+        return $this->hasOne(UserToken::class)->where('type', 'magic');
+    }
+
     public function changePassword($new)
     {
         $this->password = bcrypt($new);
@@ -61,8 +71,11 @@ class User extends Authenticatable
         return $this;
     }
 
-    public function createToken()
+    public function createToken($type)
     {
-        $this->token()->create(['token' => str_random(50)]);
+        return $this->token()->create([
+            'token' => str_random(50),
+            'type' => $type,
+        ]);
     }
 }
