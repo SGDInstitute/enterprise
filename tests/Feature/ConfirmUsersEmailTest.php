@@ -32,4 +32,22 @@ class ConfirmUsersEmailTest extends TestCase
                 && $mail->user->id === User::findByEmail('phoenix@example.com')->id;
         });
     }
+
+    /** @test */
+    function clicking_on_confirmation_link_confirms_user()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'jo@example.com'
+        ]);
+        $user->createToken('email');
+
+        $response = $this->withoutExceptionHandling()
+            ->get("/register/verify/{$user->emailToken->token}?email=jo@example.com");
+
+        $user->refresh();
+        $response->assertRedirect('/home');
+
+        $this->assertNotNull($user->fresh()->confirmed_at);
+        $this->assertNull($user->emailToken);
+    }
 }

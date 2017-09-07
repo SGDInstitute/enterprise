@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Mail\UserConfirmationEmail;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\UserToken;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -94,6 +96,14 @@ class RegisterController extends Controller
             return response()->json(compact('user'), 200);
         }
 
+        return redirect()->intended($this->redirectPath());
+    }
+
+    public function confirm(UserToken $token)
+    {
+        $token->user->confirmed_at = Carbon::now();
+        $token->user->save();
+        $token->delete();
         return redirect()->intended($this->redirectPath());
     }
 }
