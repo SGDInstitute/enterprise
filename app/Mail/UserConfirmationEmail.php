@@ -20,11 +20,11 @@ class UserConfirmationEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($user, $data)
+    public function __construct($user)
     {
         $this->user = $user;
-        $this->url = url("/register/verify/{$user->token->token}") . '?' . http_build_query([
-                'email' => array_get($data, 'email'),
+        $this->url = url("/register/verify/{$user->emailToken->token}") . '?' . http_build_query([
+                'email' => $user->email,
             ]);
     }
 
