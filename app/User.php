@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Mail\UserConfirmationEmail;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -91,5 +93,11 @@ class User extends Authenticatable
     public function isConfirmed()
     {
         return ! is_null($this->confirmed_at);
+    }
+
+    public function sendConfirmationEmail()
+    {
+        $this->createToken('email');
+        Mail::to($this)->send(new UserConfirmationEmail($this));
     }
 }

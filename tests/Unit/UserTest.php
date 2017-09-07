@@ -2,8 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Mail\UserConfirmationEmail;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -85,5 +87,24 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->isConfirmed());
         $this->assertNull($user->fresh()->emailToken);
+    }
+
+    /** @test */
+    function can_send_confirmation_email()
+    {
+        Mail::fake();
+
+        $user = factory(User::class)->create(['email' => 'phoenix@example.com']);
+        $this->assertNull($user->confirmed_at);
+
+        $user->sendConfirmationEmail();
+
+        $this->assertNull($user->confirmed_at);
+        $this->assertNotNull($user->emailToken);
+
+        Mail::assertSent(UserConfirmationEmail::class, function($mail) {
+            return $mail->hasTo('phoenix@example.com')
+                && $mail->user->id === User::findByEmail('phoenix@example.com')->id;
+        });
     }
 }
