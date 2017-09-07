@@ -12,10 +12,10 @@
                         <form class="col-md-6" @submit.prevent="login">
                             <h4>Login</h4>
                             <div class="row form-group">
-                                <label for="email" class="col-md-4 col-form-label">E-Mail</label>
+                                <label for="login-modal-email" class="col-md-4 col-form-label">E-Mail</label>
 
                                 <div class="col-md-8">
-                                    <input id="email" type="email" class="form-control"
+                                    <input id="login-modal-email" type="email" class="form-control"
                                            :class="{'is-invalid': loginForm.errors.has('email')}" name="email"
                                            v-model="loginForm.email">
 
@@ -26,10 +26,10 @@
                             </div>
 
                             <div class="row form-group" >
-                                <label for="password" class="col-md-4 col-form-label">Password</label>
+                                <label for="login-form-password" class="col-md-4 col-form-label">Password</label>
 
                                 <div class="col-md-8">
-                                    <input id="password" type="password" class="form-control"
+                                    <input id="login-form-password" type="password" class="form-control"
                                            :class="{'is-invalid': loginForm.errors.has('password')}" name="password"
                                            v-model="loginForm.password">
 
@@ -62,10 +62,10 @@
                             <h4>Register</h4>
 
                             <div class="row form-group">
-                                <label for="name" class="col-md-4 col-form-label">Name</label>
+                                <label for="register-modal-name" class="col-md-4 col-form-label">Name</label>
 
                                 <div class="col-md-8">
-                                    <input id="name" type="text" class="form-control"
+                                    <input id="register-modal-name" type="text" class="form-control"
                                            :class="{'is-invalid': registrationForm.errors.has('name')}" name="name"
                                            v-model="registrationForm.name">
 
@@ -76,10 +76,10 @@
                             </div>
 
                             <div class="row form-group">
-                                <label for="email" class="col-md-4 col-form-label">E-Mail</label>
+                                <label for="register-modal-email" class="col-md-4 col-form-label">E-Mail</label>
 
                                 <div class="col-md-8">
-                                    <input id="regsiter_email" type="email" class="form-control"
+                                    <input id="register-modal-email" type="email" class="form-control"
                                            :class="{'is-invalid': registrationForm.errors.has('email')}" name="email"
                                            v-model="registrationForm.email">
 
@@ -90,11 +90,11 @@
                             </div>
 
                             <div class="row form-group">
-                                <label for="password" class="col-md-4 col-form-label">Password</label>
+                                <label for="register-modal-password" class="col-md-4 col-form-label">Password</label>
 
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input id="register_password" type="password" class="form-control"
+                                        <input id="register-modal-password" type="password" class="form-control"
                                                :class="{'is-invalid': registrationForm.errors.has('password')}"
                                                name="password" v-model="registrationForm.password">
                                         <span class="input-group-addon" data-container="body" data-toggle="popover"
@@ -110,10 +110,10 @@
                             </div>
 
                             <div class="row form-group">
-                                <label for="password-confirm" class="col-md-4 col-form-label">Confirm Password</label>
+                                <label for="register-modal-password-confirm" class="col-md-4 col-form-label">Confirm Password</label>
 
                                 <div class="col-md-8">
-                                    <input id="password-confirm" type="password" class="form-control"
+                                    <input id="register-modal-password-confirm" type="password" class="form-control"
                                            :class="{'is-invalid': registrationForm.errors.has('password_confirmation')}"
                                            name="password_confirmation"
                                            v-model="registrationForm.password_confirmation">
