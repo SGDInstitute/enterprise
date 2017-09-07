@@ -27,6 +27,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected static function findByEmail($value)
+    {
+        $user = self::where('email', $value)->first();
+        return $user;
+    }
+
     public function getImageAttribute()
     {
         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
@@ -42,11 +48,21 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function token()
+    {
+        return $this->hasOne(UserToken::class);
+    }
+
     public function changePassword($new)
     {
         $this->password = bcrypt($new);
         $this->save();
 
         return $this;
+    }
+
+    public function createToken()
+    {
+        $this->token()->create(['token' => str_random(50)]);
     }
 }

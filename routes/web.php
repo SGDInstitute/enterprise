@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/login/magic', 'Auth\MagicLoginController@show')->name('login.magic');
+Route::post('/login/magic', 'Auth\MagicLoginController@sendToken');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/events/{slug}', 'EventsController@show');
