@@ -16,10 +16,10 @@
 // 1. Global
 // ---------
 
-$primary-color: #2199e8;
+$primary-color: $brand-mint;
 $secondary-color: #777777;
 $success-color: #3adb76;
-$warning-color: #ffae00;
+$warning-color: $brand-yellow;
 $alert-color: #ec5840;
 $light-gray: #f3f3f3;
 $medium-gray: #cacaca;
@@ -63,12 +63,12 @@ $global-font-size: 16px;
 $body-line-height: $global-line-height;
 $header-font-family: $body-font-family;
 $header-font-weight: $global-font-weight;
-$h1-font-size: 34px;
-$h2-font-size: 30px;
-$h3-font-size: 28px;
-$h4-font-size: 24px;
-$h5-font-size: 20px;
-$h6-font-size: 18px;
+$h1-font-size: 25px;
+$h2-font-size: 20px;
+$h3-font-size: 16px;
+$h4-font-size: 14px;
+$h5-font-size: 12px;
+$h6-font-size: 12px;
 $header-margin-bottom: 10px;
 $paragraph-margin-bottom: 10px;
 $small-font-size: 80%;

@@ -1,3 +1,4 @@
+@import "brand-variables";
 @import 'email/settings';
 @import 'email/foundation-emails';
 @import 'email/template';
@@ -58,28 +59,4 @@
 
 p {
   hyphens: none;
-}
-
-h1 {
-  color: #2F3133;
-  font-size: 19px;
-  font-weight: bold;
-  margin-top: 0;
-  text-align: left;
-}
-
-h2 {
-  color: #2F3133;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 0;
-  text-align: left;
-}
-
-h3 {
-  color: #2F3133;
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 0;
-  text-align: left;
 }
