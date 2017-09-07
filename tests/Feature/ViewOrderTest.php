@@ -134,4 +134,20 @@ class ViewOrderTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    /** @test */
+    function cannot_delete_paid_order()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create();
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+        $order->markAsPaid($this->charge());
+
+        $response = $this->actingAs($user)->delete("/orders/{$order->id}");
+
+        $response->assertStatus(412);
+    }
 }

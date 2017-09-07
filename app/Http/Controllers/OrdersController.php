@@ -20,8 +20,13 @@ class OrdersController extends Controller
     {
         $this->authorize('delete', $order);
 
-        $order->delete();
+        if(! $order->isPaid()) {
+            $order->delete();
 
-        return redirect('/home');
+            return redirect('/home');
+        }
+
+        flash()->error('Cannot delete an order that has been paid.');
+        return response([], 412);
     }
 }
