@@ -32,7 +32,7 @@
                             <div class="col-md-9 ml-auto">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox"> Remember Me
+                                        <input class="form-check-input" type="checkbox" name="remember"> Remember Me
                                     </label>
                                 </div>
                             </div>

@@ -19,11 +19,15 @@ class MagicLoginEmail extends Mailable
      * Create a new message instance.
      *
      * @param $user
+     * @param $data
      */
-    public function __construct($user)
+    public function __construct($user, $data)
     {
         $this->user = $user;
-        $this->url = url("/login/magiclink/{$user->token->token}");
+        $this->url = url("/login/magiclink/{$user->token->token}") . '?' . http_build_query([
+                'email' => array_get($data, 'email'),
+                'remember' => array_get($data, 'remember'),
+            ]);
     }
 
     /**
