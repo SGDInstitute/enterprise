@@ -8,3 +8,21 @@ $factory->define(\App\UserToken::class, function (Faker $faker) {
         'type' => 'magic'
     ];
 });
+
+$factory->state(App\UserToken::class, 'expired', function (Faker $faker) {
+    return [
+        'created_at' => Carbon\Carbon::now()->subMinutes(30),
+    ];
+});
+
+$factory->state(App\UserToken::class, 'magic', function (Faker $faker) {
+    return [
+        'type' => 'magic'
+    ];
+});
+
+$factory->state(App\UserToken::class, 'email', function (Faker $faker) {
+    return [
+        'type' => 'email'
+    ];
+});

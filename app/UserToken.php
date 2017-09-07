@@ -33,10 +33,12 @@ class UserToken extends Model
     {
         $user = User::findByEmail($email);
 
-        if(!$user || $user->token == null) {
+        $tokenType = "{$this->type}Token";
+
+        if(!$user || $user->$tokenType == null) {
             return false;
         }
 
-        return ($this->token === $user->token->token);
+        return ($this->token === $user->$tokenType->token);
     }
 }

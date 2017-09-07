@@ -28,9 +28,9 @@ class UserTokenTest extends TestCase
     function can_see_if_token_is_expired()
     {
         $user1 = factory(User::class)->create();
-        $notExpiredToken = $user1->token()->save(factory(UserToken::class)->make(['created_at' => Carbon::now()]));
+        $notExpiredToken = $user1->tokens()->save(factory(UserToken::class)->make());
         $user2 = factory(User::class)->create();
-        $expiredToken = $user2->token()->save(factory(UserToken::class)->make(['created_at' => Carbon::now()->subMinutes(11)]));
+        $expiredToken = $user2->tokens()->save(factory(UserToken::class)->states('expired')->make());
 
         $this->assertFalse($notExpiredToken->isExpired());
         $this->assertTrue($expiredToken->isExpired());
@@ -40,7 +40,7 @@ class UserTokenTest extends TestCase
     function can_see_if_token_belongs_to_user()
     {
         $user1 = factory(User::class)->create(['email' => 'jo@example.com']);
-        $token = $user1->token()->save(factory(UserToken::class)->make());
+        $token = $user1->tokens()->save(factory(UserToken::class)->make());
         $user2 = factory(User::class)->create(['email' => 'phoenix@example.com']);
 
         $this->assertTrue($token->belongsToUser('jo@example.com'));
@@ -48,11 +48,11 @@ class UserTokenTest extends TestCase
     }
 
     /** @test */
-    function can_get_type_of_token()
+    function can_get_token_by_type()
     {
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
-        $emailToken = $user->token()->save(factory(UserToken::class)->make(['type' => 'email']));
-        $magicToken = $user->token()->save(factory(UserToken::class)->make(['type' => 'magic']));
+        $emailToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'email']));
+        $magicToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic']));
 
         $this->assertEquals($emailToken->token, $user->emailToken->token);
         $this->assertEquals($magicToken->token, $user->magicToken->token);

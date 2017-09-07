@@ -75,7 +75,7 @@ class User extends Authenticatable
     public function createToken($type)
     {
         $this->tokens()->where('type', $type)->delete();
-        
+
         return $this->tokens()->create([
             'token' => str_random(50),
             'type' => $type,

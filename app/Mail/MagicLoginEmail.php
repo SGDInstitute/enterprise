@@ -24,7 +24,7 @@ class MagicLoginEmail extends Mailable
     public function __construct($user, $data)
     {
         $this->user = $user;
-        $this->url = url("/login/magic/{$user->token->token}") . '?' . http_build_query([
+        $this->url = url("/login/magic/{$user->magicToken->token}") . '?' . http_build_query([
                 'email' => array_get($data, 'email'),
                 'remember' => array_get($data, 'remember'),
             ]);

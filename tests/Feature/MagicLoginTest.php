@@ -63,7 +63,7 @@ class MagicLoginTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $user->createToken('magic');
+        $token = $user->createToken('magic');
 
         $response = $this->withoutExceptionHandling()
             ->get("/login/magic/{$user->magicToken->token}?email=jo@example.com");
@@ -71,7 +71,7 @@ class MagicLoginTest extends TestCase
         $user->refresh();
         $response->assertRedirect('/home');
         $this->assertEquals($user->id, Auth::user()->id);
-        $this->assertNull($user->token);
+        $this->assertNull($user->magicToken);
     }
 
     /** @test */
@@ -80,7 +80,7 @@ class MagicLoginTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $expiredToken = $user->token()->save(factory(UserToken::class)->make(['type' => 'magic','created_at' => Carbon::now()->subMinutes(11)]));
+        $expiredToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic','created_at' => Carbon::now()->subMinutes(11)]));
 
         $response = $this->withoutExceptionHandling()
             ->get("/login/magic/{$user->magicToken->token}?email=jo@example.com");
@@ -97,7 +97,7 @@ class MagicLoginTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $token = $user->token()->save(factory(UserToken::class)->make(['type' => 'magic']));
+        $token = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic']));
         $hacker = factory(User::class)->create([
             'email' => 'phoenix@example.com'
         ]);

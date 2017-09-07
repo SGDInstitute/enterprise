@@ -38,19 +38,6 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_create_user_token()
-    {
-        $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
-        ]);
-
-        $token = $user->createToken('email');
-
-        $this->assertNotNull($user->token);
-        $this->assertNotNull($token);
-    }
-
-    /** @test */
     function can_get_email_token()
     {
         $user = factory(User::class)->create([
@@ -60,6 +47,9 @@ class UserTest extends TestCase
         $token = $user->createToken('email');
 
         $this->assertNotNull($user->emailToken);
+        $this->assertEquals($token->token, $user->emailToken->token);
+        $this->assertEquals($user->id, $token->user_id);
+        $this->assertEquals($user->id, $user->emailToken->user_id);
     }
 
     /** @test */
@@ -72,6 +62,9 @@ class UserTest extends TestCase
         $token = $user->createToken('magic');
 
         $this->assertNotNull($user->magicToken);
+        $this->assertEquals($token->token, $user->magicToken->token);
+        $this->assertEquals($user->id, $token->user_id);
+        $this->assertEquals($user->id, $user->magicToken->user_id);
     }
 
     /** @test */

@@ -22,7 +22,7 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains($user->token->token, $email);
+        $this->assertContains($user->magicToken->token, $email);
     }
 
     /** @test */
