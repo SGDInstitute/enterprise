@@ -44,7 +44,14 @@
                             <label for="password" class="col-md-4 col-form-label">Password</label>
 
                             <div class="col-md-8">
-                                <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password" required>
+                                <div class="input-group">
+                                    <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password" required>
+                                    <span class="input-group-addon" data-container="body" data-toggle="popover"
+                                          data-placement="top"
+                                          title="Password Requirements"
+                                          data-content="Your password must be at least 8 characters in length, with at least 3 of 4 of the following: upper case letter, lower case letter, number, or special character.">
+                                                <i class="fa fa-info"></i></span>
+                                </div>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback">
