@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click.prevent="resend">Resend Email</button>
-                    <a :href="'/orders/' + order.id + '/receipt/download'" class="btn btn-primary">Download</a>
+                    <a :href="'/orders/' + order.id + '/receipt?print=true'" target="_blank" class="btn btn-primary">Download</a>
                 </div>
             </div>
         </div>

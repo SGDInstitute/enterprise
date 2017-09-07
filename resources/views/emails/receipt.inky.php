@@ -74,3 +74,12 @@
         @endif
         {{ config('institute.long_name') }} Team</p>
 @endsection
+
+@section('scripts')
+<script>
+    console.log(location);
+    if(location.search.indexOf('print=true')>=0) {
+        window.print();
+    }
+</script>
+@endsection
