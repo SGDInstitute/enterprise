@@ -90,4 +90,24 @@ class MagicLoginTest extends TestCase
             ->assertSessionHas('flash_notification');
         $this->assertNull($user->fresh()->token);
     }
+
+    /** @test */
+    function check_that_token_belongs_to_user()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'jo@example.com'
+        ]);
+        $token = $user->token()->save(factory(UserToken::class)->make());
+        $hacker = factory(User::class)->create([
+            'email' => 'phoenix@example.com'
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+            ->get("/login/magic/{$user->token->token}?email=phoenix@example.com");
+
+        $response
+            ->assertRedirect('/login/magic/')
+            ->assertSessionHas('flash_notification');
+        $this->assertNull($user->fresh()->token);
+    }
 }

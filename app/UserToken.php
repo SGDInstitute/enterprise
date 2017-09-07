@@ -28,4 +28,15 @@ class UserToken extends Model
     {
         return $this->created_at->diffInMinutes(Carbon::now()) > 10;
     }
+
+    public function belongsToUser($email)
+    {
+        $user = User::findByEmail($email);
+
+        if(!$user || $user->token == null) {
+            return false;
+        }
+
+        return ($this->token === $user->token->token);
+    }
 }

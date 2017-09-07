@@ -47,6 +47,12 @@ class MagicLoginController extends Controller
             return redirect('/login/magic');
         }
 
+        if (!$token->belongsToUser(request('email'))) {
+            $token->delete();
+            flash()->error('Invalid magic link.');
+            return redirect('/login/magic');
+        }
+
         Auth::login($token->user, request('remember'));
         $token->delete();
         return redirect('/home');

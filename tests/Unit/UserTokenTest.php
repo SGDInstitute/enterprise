@@ -35,4 +35,15 @@ class UserTokenTest extends TestCase
         $this->assertFalse($notExpiredToken->isExpired());
         $this->assertTrue($expiredToken->isExpired());
     }
+
+    /** @test */
+    function can_see_if_token_belongs_to_user()
+    {
+        $user1 = factory(User::class)->create(['email' => 'jo@example.com']);
+        $token = $user1->token()->save(factory(UserToken::class)->make());
+        $user2 = factory(User::class)->create(['email' => 'phoenix@example.com']);
+
+        $this->assertTrue($token->belongsToUser('jo@example.com'));
+        $this->assertFalse($token->belongsToUser('phoenix@example.com'));
+    }
 }
