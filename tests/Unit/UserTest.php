@@ -73,4 +73,12 @@ class UserTest extends TestCase
 
         $this->assertNotNull($user->magicToken);
     }
+
+    /** @test */
+    function can_see_if_user_is_confirmed()
+    {
+        $user = factory(User::class)->states('confirmed')->make();
+
+        $this->assertTrue($user->isConfirmed());
+    }
 }

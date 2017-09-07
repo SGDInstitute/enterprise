@@ -78,4 +78,9 @@ class User extends Authenticatable
             'type' => $type,
         ]);
     }
+
+    public function isConfirmed()
+    {
+        return ! is_null($this->confirmed_at);
+    }
 }
