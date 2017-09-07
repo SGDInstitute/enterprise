@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\UserConfirmationEmail;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -85,6 +87,8 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
+        Mail::to($user)->send(new UserConfirmationEmail($user));
+
         if($request->ajax() || $request->isJson()) {
             return response()->json(compact('user'), 200);
         }
