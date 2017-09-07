@@ -10,7 +10,14 @@ class ProfileController extends Controller
 {
     public function update()
     {
+        $oldEmail = request()->user()->email;
+
         request()->user()->update(request()->all());
+
+        if(request('email') !== $oldEmail) {
+            request()->user()->sendConfirmationEmail();
+        }
+
         request()->user()->profile()->update(request()->except('name', 'email'));
     }
 }
