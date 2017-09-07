@@ -17,7 +17,7 @@ class MagicLoginEmailTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $user->createToken();
+        $user->createToken('magic');
         $data = ['email' => $user->email, 'remember' => 'on'];
 
         $email = (new MagicLoginEmail($user, $data))->render();
@@ -31,7 +31,7 @@ class MagicLoginEmailTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $user->createToken();
+        $user->createToken('magic');
         $data = ['email' => $user->email, 'remember' => 'on'];
 
         $email = (new MagicLoginEmail($user, $data))->render();
@@ -43,7 +43,7 @@ class MagicLoginEmailTest extends TestCase
     function email_has_remember()
     {
         $user = factory(User::class)->create();
-        $user->createToken();
+        $user->createToken('magic');
         $data = ['email' => $user->email, 'remember' => 'on'];
 
         $email = (new MagicLoginEmail($user, $data))->render();
@@ -55,7 +55,7 @@ class MagicLoginEmailTest extends TestCase
     function email_doesnt_have_remember()
     {
         $user = factory(User::class)->create();
-        $user->createToken();
+        $user->createToken('magic');
         $data = ['email' => $user->email];
 
         $email = (new MagicLoginEmail($user, $data))->render();
@@ -67,7 +67,7 @@ class MagicLoginEmailTest extends TestCase
     function url_is_correct()
     {
         $user = factory(User::class)->create();
-        $user->createToken();
+        $user->createToken('magic');
         $data = ['email' => $user->email];
 
         $email = (new MagicLoginEmail($user, $data))->render();
