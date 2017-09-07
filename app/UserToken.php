@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class UserToken extends Model
@@ -21,5 +22,10 @@ class UserToken extends Model
     public function getRouteKeyName()
     {
         return 'token';
+    }
+
+    public function isExpired()
+    {
+        return $this->created_at->diffInMinutes(Carbon::now()) > 10;
     }
 }
