@@ -22,7 +22,7 @@ class MagicLoginController extends Controller
             'remember' => '',
         ]);
 
-        $user = User::findByEmail(request('email'));
+        $user = User::findByEmail($data['email']);
 
         $user->createToken();
 
