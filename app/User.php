@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\UserCreated;
 use App\Mail\UserConfirmationEmail;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -28,6 +29,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
     ];
 
     protected static function findByEmail($value)

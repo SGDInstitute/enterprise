@@ -20,7 +20,7 @@ class UserProfileTest extends TestCase
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
         ]);
-        $profile = $user->profile()->save(factory(Profile::class)->make([
+        $profile = $user->profile()->update([
             'pronouns' => 'he, him, his',
             'sexuality' => 'Straight',
             'gender' => 'Male',
@@ -28,7 +28,7 @@ class UserProfileTest extends TestCase
             'college' => 'Hogwarts',
             'tshirt' => 'M',
             'accommodation' => 'My scar hurts sometimes.'
-        ]));
+        ]);
 
         $response = $this->withExceptionHandling()->actingAs($user)->get('/settings');
 
@@ -160,5 +160,13 @@ class UserProfileTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJsonHasErrors('email');
+    }
+
+    /** @test */
+    function profile_is_created_when_user_is()
+    {
+        $user = factory(User::class)->create();
+
+        $this->assertNotNull($user->profile);
     }
 }
