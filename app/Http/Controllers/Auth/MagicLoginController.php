@@ -31,6 +31,6 @@ class MagicLoginController extends Controller
 
         $user->createToken();
 
-        Mail::to($user->email)->send(new MagicLoginEmail($user));
+        Mail::to($user->email)->send(new MagicLoginEmail($user, $data));
     }
 }
