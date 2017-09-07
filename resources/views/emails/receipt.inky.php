@@ -66,7 +66,7 @@
     </row>
 
     <p>If you have any questions about this receipt, simply reply to this email or reach out to our <a
-                href="[support_url]">support team</a> for help.</p>
+                href="https://support.sgdinstitute.org">support team</a> for help.</p>
     <p>Thanks,
         <br>
         @if($order->event->stripe !== 'institute')
