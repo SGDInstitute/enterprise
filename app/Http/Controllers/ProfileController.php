@@ -34,5 +34,7 @@ class ProfileController extends Controller
         }
 
         request()->user()->profile()->update($profile);
+
+        return response()->json(['success' => true], 200);
     }
 }
