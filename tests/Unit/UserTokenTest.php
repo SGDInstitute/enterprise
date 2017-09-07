@@ -16,12 +16,12 @@ class UserTokenTest extends TestCase
     function can_get_user_token_by_token()
     {
         $user = factory(User::class)->create();
-        $user->createToken();
+        $magicToken = $user->createToken('magic');
 
-        $userToken =  (new UserToken)->resolveRouteBinding($user->token->token);
+        $userToken =  (new UserToken)->resolveRouteBinding($magicToken->token);
 
         $this->assertNotNull($userToken);
-        $this->assertEquals($user->token->token, $userToken->token);
+        $this->assertEquals($magicToken->token, $userToken->token);
     }
 
     /** @test */
