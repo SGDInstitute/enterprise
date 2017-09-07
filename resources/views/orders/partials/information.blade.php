@@ -55,5 +55,16 @@
            class="list-group-item list-group-item-action">
             <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Request W-9
         </a>
+        @if(!$order->isPaid())
+            <a href="#" class="list-group-item list-group-item-action"
+               onclick="event.preventDefault(); document.getElementById('delete-order-form').submit();">
+                <i class="fa fa-trash fa-fw" aria-hidden="true"></i> Delete Order
+            </a>
+
+            <form id="delete-order-form" action="/orders/{{ $order->id }}" method="post" style="display: none;">
+                {{ method_field('DELETE') }}
+                {{ csrf_field() }}
+            </form>
+        @endif
     </div>
 </div>

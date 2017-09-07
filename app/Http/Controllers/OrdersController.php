@@ -15,4 +15,13 @@ class OrdersController extends Controller
 
         return view('orders.show', compact('order'));
     }
+
+    public function destroy(Order $order)
+    {
+        $this->authorize('delete', $order);
+
+        $order->delete();
+
+        return redirect('/home');
+    }
 }

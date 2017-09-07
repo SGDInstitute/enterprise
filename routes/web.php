@@ -27,6 +27,7 @@ Route::get('/events/{slug}', 'EventsController@show');
 Route::post('/events/{slug}/orders', 'EventOrdersController@store');
 
 Route::get('/orders/{id}', 'OrdersController@show');
+Route::delete('/orders/{order}', 'OrdersController@destroy');
 Route::post('/orders/{order}/charge', 'OrderChargeController@store');
 Route::post('/orders/{order}/invoices', 'OrderInvoicesController@store');
 Route::get('/orders/{order}/receipt', 'OrderReceiptController@show');

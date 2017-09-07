@@ -100,4 +100,38 @@ class ViewOrderTest extends TestCase
         $response->assertSee('****-****-****-4242');
         $response->assertSee('$50.00');
     }
+
+    /** @test */
+    function user_can_delete_order()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create();
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
+            ->delete("/orders/{$order->id}");
+
+        $response->assertRedirect('/home');
+    }
+
+    /** @test */
+    function cannot_delete_another_users_order()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create();
+        $order = $event->orderTickets($user, [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+        ]);
+
+        $notAllowedUser = factory(User::class)->create();
+
+        $response = $this->actingAs($notAllowedUser)->delete("/orders/{$order->id}");
+
+        $response->assertStatus(403);
+    }
 }

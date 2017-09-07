@@ -54,6 +54,6 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order)
     {
-        //
+        return $user->id == $order->user_id;
     }
 }
