@@ -43,7 +43,7 @@
         },
         methods: {
             resend() {
-                axios.get('/orders/' + self.order.id + '/receipt/resend')
+                axios.get('/receipts/' + self.order.receipt.id + '/resend')
                     .then(function() {
                         alert('Email sent!');
                     });
