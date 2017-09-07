@@ -1,10 +1,10 @@
 <nav class="nav material-tabs" id="myTab" role="tablist">
     <a class="nav-item nav-link active" id="nav-upcoming-tab" data-toggle="tab" href="#nav-upcoming" role="tab"
-       aria-controls="nav-upcoming" aria-expanded="true">Upcoming Events
+       aria-controls="nav-upcoming" aria-expanded="true">Orders for Upcoming Events
         <span class="badge badge-pill badge-secondary">{{ $orders['upcoming']->count() }}</span>
     </a>
     <a class="nav-item nav-link" id="nav-past-tab" data-toggle="tab" href="#nav-past" role="tab"
-       aria-controls="nav-past">Past Events
+       aria-controls="nav-past">Orders for Past Events
         <span class="badge badge-pill badge-secondary">{{ $orders['past']->count() }}</span>
     </a>
 </nav>
