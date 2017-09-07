@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Mail\MagicLoginEmail;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -52,5 +53,22 @@ class MagicLoginTest extends TestCase
 
         $response->assertRedirect('/login/magic')
             ->assertSessionHas('flash_notification');
+    }
+
+    /** @test */
+    function clicking_on_magic_link_logs_in_user()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'jo@example.com'
+        ]);
+        $user->createToken();
+
+        $response = $this->withoutExceptionHandling()
+            ->get("/login/magic/{$user->token->token}?email=jo@example.com");
+
+        $user->refresh();
+        $response->assertRedirect('/home');
+        $this->assertEquals($user->id, Auth::user()->id);
+        $this->assertNull($user->token);
     }
 }

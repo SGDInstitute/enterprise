@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Mail\MagicLoginEmail;
 use App\User;
+use App\UserToken;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MagicLoginController extends Controller
@@ -32,5 +34,12 @@ class MagicLoginController extends Controller
         $user->createToken();
 
         Mail::to($user->email)->send(new MagicLoginEmail($user, $data));
+    }
+
+    public function authenticate(UserToken $token)
+    {
+        Auth::login($token->user, request('remember'));
+        $token->delete();
+        return redirect('/home');
     }
 }

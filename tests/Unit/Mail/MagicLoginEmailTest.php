@@ -62,4 +62,16 @@ class MagicLoginEmailTest extends TestCase
 
         $this->assertNotContains('remember=on', $email);
     }
+
+    /** @test */
+    function url_is_correct()
+    {
+        $user = factory(User::class)->create();
+        $user->createToken();
+        $data = ['email' => $user->email];
+
+        $email = (new MagicLoginEmail($user, $data))->render();
+
+        $this->assertContains('login/magic/', $email);
+    }
 }
