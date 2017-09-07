@@ -89,8 +89,7 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        $user->createToken('email');
-        Mail::to($user)->send(new UserConfirmationEmail($user));
+        $user->sendConfirmationEmail();
 
         if($request->ajax() || $request->isJson()) {
             return response()->json(compact('user'), 200);
