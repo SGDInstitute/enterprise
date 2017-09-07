@@ -49,9 +49,9 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function token()
+    public function tokens()
     {
-        return $this->hasOne(UserToken::class);
+        return $this->hasMany(UserToken::class);
     }
 
     public function emailToken()
@@ -74,7 +74,9 @@ class User extends Authenticatable
 
     public function createToken($type)
     {
-        return $this->token()->create([
+        $this->tokens()->where('type', $type)->delete();
+        
+        return $this->tokens()->create([
             'token' => str_random(50),
             'type' => $type,
         ]);
