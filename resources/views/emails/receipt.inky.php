@@ -13,8 +13,7 @@
 
 @section('content')
     <h1>Hi {{ $order->user->name }},</h1>
-    <p>Thanks for purchasing tickets to {{ $order->event->title }}. This email is the receipt for your purchase. No
-        payment is due.</p>
+    <p>Thanks for purchasing tickets to {{ $order->event->title }}. This email is the receipt for your purchase confirming that your order is paid in full.</p>
 
     @if($order->isCard())
         <p>This purchase will appear as “[Credit Card Statement Name]” on your credit card statement for your
@@ -60,6 +59,8 @@
         </tr>
     </table>
 
+    <button href="/orders/{{ $order->id }}" class="radius text-center">View Order</button>
+
     <p>If you have any questions about this receipt, simply reply to this email or reach out to our <a
                 href="[support_url]">support team</a> for help.</p>
     <p>Thanks,
@@ -68,5 +69,4 @@
         The {{ $order->event->title }} and the
         @endif
         {{ config('institute.long_name') }} Team</p>
-    <a href="/orders/{{ $order->id }}">View Order</a>
 @endsection
