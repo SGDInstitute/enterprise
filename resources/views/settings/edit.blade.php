@@ -16,7 +16,7 @@
             <div class="col">
                 <div class="tab-content" id="tabContent">
                     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <edit-profile :user="{{ $user }}" :profile="{{ $user->profile or new \App\Profile() }}"></edit-profile>
+                        <edit-profile :user="{{ $user }}" :profile="{{ $user->profile }}"></edit-profile>
                     </div>
                     <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                         <edit-password></edit-password>

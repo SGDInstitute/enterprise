@@ -22,8 +22,7 @@ class UserConfirmationController extends Controller
     public function create()
     {
         if(request()->user()) {
-            request()->user()->createToken('email');
-            Mail::to(request()->user())->send(new UserConfirmationEmail(request()->user()));
+            request()->user()->sendConfirmationEmail();
         }
 
         return redirect()->back();

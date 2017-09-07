@@ -47,6 +47,7 @@ Route::get('/receipts/{receipt}/resend', 'ReceiptsResendController@index');
 
 Route::get('/settings', 'SettingsController@edit');
 Route::post('/settings/password', 'SettingPasswordsController@store');
+Route::patch('/profile', 'ProfileController@update');
 
 Route::get('/admin', function() {
     return view('admin.index');
