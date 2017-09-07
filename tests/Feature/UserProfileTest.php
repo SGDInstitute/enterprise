@@ -140,4 +140,25 @@ class UserProfileTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonHasErrors('name');
     }
+
+    /** @test */
+    function email_is_required_to_update()
+    {
+        $user = factory(User::class)->create();
+        $profile = $user->profile()->save(factory(Profile::class)->make());
+
+        $response = $this->actingAs($user)->json("patch", "/profile", [
+            'name' => 'Harry Potter',
+            'pronouns' => 'he, him, his',
+            'sexuality' => 'Straight',
+            'gender' => 'Male',
+            'race' => 'White',
+            'college' => 'Hogwarts',
+            'tshirt' => 'M',
+            'accommodation' => 'My scar hurts sometimes.'
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors('email');
+    }
 }
