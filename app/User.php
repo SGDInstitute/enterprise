@@ -97,6 +97,8 @@ class User extends Authenticatable
 
     public function sendConfirmationEmail()
     {
+        $this->confirmed_at = null;
+        $this->save();
         $this->createToken('email');
         Mail::to($this)->send(new UserConfirmationEmail($this));
     }

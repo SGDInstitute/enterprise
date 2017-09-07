@@ -94,8 +94,8 @@ class UserTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create(['email' => 'phoenix@example.com']);
-        $this->assertNull($user->confirmed_at);
+        $user = factory(User::class)->states('confirmed')->create(['email' => 'phoenix@example.com']);
+        $this->assertNotNull($user->confirmed_at);
 
         $user->sendConfirmationEmail();
 
