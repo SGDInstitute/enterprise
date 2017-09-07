@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -77,6 +78,12 @@ class User extends Authenticatable
             'token' => str_random(50),
             'type' => $type,
         ]);
+    }
+
+    public function confirm() {
+        $this->confirmed_at = Carbon::now();
+        $this->save();
+        $this->emailToken->delete();
     }
 
     public function isConfirmed()

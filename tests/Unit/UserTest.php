@@ -81,4 +81,16 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->isConfirmed());
     }
+
+    /** @test */
+    function can_confirm_user()
+    {
+        $user = factory(User::class)->create();
+        $user->createToken('email');
+
+        $user->confirm();
+
+        $this->assertTrue($user->isConfirmed());
+        $this->assertNull($user->fresh()->emailToken);
+    }
 }

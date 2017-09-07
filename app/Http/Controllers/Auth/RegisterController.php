@@ -101,9 +101,8 @@ class RegisterController extends Controller
 
     public function confirm(UserToken $token)
     {
-        $token->user->confirmed_at = Carbon::now();
-        $token->user->save();
-        $token->delete();
+        $token->user->confirm();
+
         return redirect()->intended($this->redirectPath());
     }
 }
