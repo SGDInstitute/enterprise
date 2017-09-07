@@ -59,7 +59,11 @@
         </tr>
     </table>
 
-    <button href="/orders/{{ $order->id }}" class="radius text-center">View Order</button>
+    <row>
+        <columns class="btn-column">
+            <button href="/orders/{{ $order->id }}" class="radius text-center">View Order</button>
+        </columns>
+    </row>
 
     <p>If you have any questions about this receipt, simply reply to this email or reach out to our <a
                 href="[support_url]">support team</a> for help.</p>
