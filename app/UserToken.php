@@ -17,4 +17,9 @@ class UserToken extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'token';
+    }
 }
