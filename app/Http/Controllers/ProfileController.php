@@ -10,6 +10,10 @@ class ProfileController extends Controller
 {
     public function update()
     {
+        request()->validate([
+            'name' => 'required'
+        ]);
+
         $oldEmail = request()->user()->email;
 
         request()->user()->update(request()->all());
