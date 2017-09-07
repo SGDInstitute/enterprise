@@ -27,7 +27,7 @@ class MagicLoginTest extends TestCase
         $response = $this->withoutExceptionHandling()
             ->post('/login/magic', ['email' => 'jo@example.com']);
 
-        $this->assertNotNull($user->token);
+        $this->assertNotNull($user->magicToken);
 
         Mail::assertSent(MagicLoginEmail::class, function($mail) use ($user) {
             return $mail->hasTo('jo@example.com')
@@ -63,10 +63,10 @@ class MagicLoginTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $user->createToken();
+        $user->createToken('magic');
 
         $response = $this->withoutExceptionHandling()
-            ->get("/login/magic/{$user->token->token}?email=jo@example.com");
+            ->get("/login/magic/{$user->magicToken->token}?email=jo@example.com");
 
         $user->refresh();
         $response->assertRedirect('/home');
@@ -80,10 +80,10 @@ class MagicLoginTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $expiredToken = $user->token()->save(factory(UserToken::class)->make(['created_at' => Carbon::now()->subMinutes(11)]));
+        $expiredToken = $user->token()->save(factory(UserToken::class)->make(['type' => 'magic','created_at' => Carbon::now()->subMinutes(11)]));
 
         $response = $this->withoutExceptionHandling()
-            ->get("/login/magic/{$user->token->token}?email=jo@example.com");
+            ->get("/login/magic/{$user->magicToken->token}?email=jo@example.com");
 
         $response
             ->assertRedirect('/login/magic/')
@@ -97,13 +97,13 @@ class MagicLoginTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $token = $user->token()->save(factory(UserToken::class)->make());
+        $token = $user->token()->save(factory(UserToken::class)->make(['type' => 'magic']));
         $hacker = factory(User::class)->create([
             'email' => 'phoenix@example.com'
         ]);
 
         $response = $this->withoutExceptionHandling()
-            ->get("/login/magic/{$user->token->token}?email=phoenix@example.com");
+            ->get("/login/magic/{$user->magicToken->token}?email=phoenix@example.com");
 
         $response
             ->assertRedirect('/login/magic/')
