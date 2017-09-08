@@ -9,6 +9,22 @@ class Ticket extends Model
 {
     protected $fillable = ['ticket_type_id'];
 
+    /**
+     * Boot function for using with User Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model)
+        {
+            $model->hash = Hashids::encode($model->id);
+            $model->save();
+        });
+    }
+
     public function ticket_type()
     {
         return $this->belongsTo(TicketType::class);
@@ -24,8 +40,8 @@ class Ticket extends Model
         return $query->whereNotNull('user_id');
     }
 
-    public function getHashAttribute()
-    {
-        return Hashids::encode($this->id);
-    }
+//    public function getHashAttribute()
+//    {
+//        return Hashids::encode($this->id);
+//    }
 }

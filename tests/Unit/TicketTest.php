@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Event;
+use App\Ticket;
 use App\TicketType;
 use App\User;
 use Tests\TestCase;
@@ -33,5 +34,13 @@ class TicketTest extends TestCase
         ]);
 
         $this->assertEquals(0, $order->tickets()->filled()->count());
+    }
+
+    /** @test */
+    function hash_is_added_when_creating()
+    {
+        $ticket = factory(Ticket::class)->create();
+
+        $this->assertGreaterThanOrEqual(5, strlen($ticket->fresh()->hash));
     }
 }

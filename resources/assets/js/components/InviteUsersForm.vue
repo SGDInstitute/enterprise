@@ -13,8 +13,8 @@
                     <p>You can fill out the email fields below to invite users to fill out their own information,
                         you can fill as many or as little as you would like.</p>
 
-                    <div class="form-group row" v-for="(ticket, index) in tickets">
-                        <label :for="'email' + index" class="col-sm-3 col-form-label">Email {{ index+1 }}</label>
+                    <div class="form-group row" v-for="ticket in tickets">
+                        <label :for="'email' + index" class="col-sm-3 col-form-label">Email for #{{ ticket.hash }}</label>
                         <div class="col-sm-9">
                             <input type="email" class="form-control" :id="'email' + index" placeholder="Email">
                         </div>
