@@ -20,4 +20,15 @@ class InviteUserEmailTest extends TestCase
 
         $this->assertContains(url('/password/reset/'), $email);
     }
+
+    /** @test */
+    function email_contains_user_who_invited_them()
+    {
+        $invitee = factory(User::class)->create();
+        $host = factory(User::class)->create(['name' => 'Harry Potter']);
+
+        $email = (new InviteUserEmail($invitee, $host))->render();
+
+        $this->assertContains('Harry Potter', $email);
+    }
 }
