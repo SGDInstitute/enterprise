@@ -14,8 +14,8 @@
                         you can fill as many or as little as you would like.</p>
 
                     <div class="form-group row" v-for="ticket in tickets">
-                        <label :for="'email' + index" class="col-sm-3 col-form-label">Email for #{{ ticket.hash }}</label>
-                        <div class="col-sm-9">
+                        <label :for="'email' + index" class="col-md-4 col-form-label">Email for <small>#{{ ticket.hash }}</small></label>
+                        <div class="col-sm-8">
                             <input type="email" class="form-control" :id="'email' + index" placeholder="Email">
                         </div>
                     </div>
