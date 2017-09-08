@@ -4,15 +4,9 @@
         <h4 class="card-title">{{ $ticket->user->name }}</h4>
 
         <a href="mailto:{{ $ticket->user->email }}" class="card-link">{{ $ticket->user->email }}</a>
-        @if(! is_null($ticket->user->profile->tshirt))
-            <span class="card-link">{{ $ticket->user->profile->tshirt }}</span>
-        @endif
-        @if(! is_null($ticket->user->profile->pronouns))
-            <span class="card-link">{{ $ticket->user->profile->pronouns }}</span>
-        @endif
 
         @if(Auth::user()->id === $ticket->user->id)
-            <a href="#" class="card-link">Update my information</a>
+            <a href="/settings" class="card-link">Update my information</a>
         @endif
     </div>
 </div>
