@@ -14,7 +14,7 @@ class InviteUserEmail extends Mailable
 
     public $user;
 
-    public $host;
+    public $coordinator;
 
     public $url;
 
@@ -22,12 +22,12 @@ class InviteUserEmail extends Mailable
      * Create a new message instance.
      *
      * @param $invitee
-     * @param $host
+     * @param $coordinator
      */
-    public function __construct($invitee, $host)
+    public function __construct($invitee, $coordinator)
     {
         $this->user = $invitee;
-        $this->host = $host;
+        $this->coordinator = $coordinator;
         $this->url = $this->generateUrl($invitee);
     }
 
