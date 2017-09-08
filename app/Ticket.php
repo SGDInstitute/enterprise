@@ -35,6 +35,11 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
     public function scopeFilled($query)
     {
         return $query->whereNotNull('user_id');

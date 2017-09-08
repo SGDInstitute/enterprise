@@ -2,7 +2,10 @@
 
 namespace Tests\Unit\Mail;
 
+use App\Event;
 use App\Mail\InviteUserEmail;
+use App\Order;
+use App\Ticket;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,7 +21,11 @@ class InviteUserEmailTest extends TestCase
         $invitee = factory(User::class)->create();
         $coordinator = factory(User::class)->create(['name' => 'Harry Potter']);
 
-        $this->email = (new InviteUserEmail($invitee, $coordinator))->render();
+        $event = factory(Event::class)->states('published')->create(['title' => 'Quidditch World Cup']);
+        $order = factory(Order::class)->create(['event_id' => $event->id]);
+        $ticket = factory(Ticket::class)->create(['order_id' => $order->id]);
+
+        $this->email = (new InviteUserEmail($invitee, $coordinator, $ticket))->render();
     }
 
     /** @test */
@@ -31,5 +38,11 @@ class InviteUserEmailTest extends TestCase
     function email_contains_user_who_invited_them()
     {
         $this->assertContains('Harry Potter', $this->email);
+    }
+
+    /** @test */
+    function email_contains_event()
+    {
+        $this->assertContains('Quidditch World Cup', $this->email);
     }
 }
