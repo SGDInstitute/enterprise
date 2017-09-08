@@ -21,10 +21,10 @@
     </div>
     <div class="card-body">
         <h4 class="card-title">{{ '$' . number_format($order->amount/100, 2) }}</h4>
-        <p class="card-text text-muted">Number of Tickets
+        <p class="card-text text-muted">Number of {{ str_plural($order->event->ticket_string) }} Filled
             <span class="pull-right">
-                                {{ $order->tickets()->filled()->count() }} of {{ $order->tickets->count() }}
-                            </span>
+                {{ $order->tickets()->filled()->count() }} of {{ $order->tickets->count() }}
+            </span>
         </p>
         @if($order->isPaid())
             <p class="card-text">Confirmation
