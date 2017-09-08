@@ -19,7 +19,7 @@
                             <input type="email" class="form-control" :id="ticket.hash" placeholder="Email" v-model="form.emails[ticket.hash]">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="message">Add a note to email:</label>
                         <textarea class="form-control" id="message" name="message" rows="3"></textarea>
