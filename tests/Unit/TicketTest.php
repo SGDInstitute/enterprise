@@ -3,9 +3,11 @@
 namespace Tests\Unit;
 
 use App\Event;
+use App\Mail\InviteUserEmail;
 use App\Ticket;
 use App\TicketType;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -42,5 +44,22 @@ class TicketTest extends TestCase
         $ticket = factory(Ticket::class)->create();
 
         $this->assertGreaterThanOrEqual(5, strlen($ticket->fresh()->hash));
+    }
+
+    /** @test */
+    function can_invite_user()
+    {
+        Mail::fake();
+
+        $ticket = factory(Ticket::class)->create(['user_id' => null]);
+
+        $ticket->invite('hpotter@hogwarts.edu');
+
+        $ticket->fresh();
+        $this->assertNotNull($ticket->user_id);
+
+        Mail::assertSent(InviteUserEmail::class, function($mail) {
+            return $mail->hasTo('hpotter@hogwarts.edu');
+        });
     }
 }

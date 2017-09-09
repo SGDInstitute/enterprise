@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 use Vinkla\Hashids\Facades\Hashids;
 
 class Ticket extends Model
@@ -45,8 +47,17 @@ class Ticket extends Model
         return $query->whereNotNull('user_id');
     }
 
-//    public function getHashAttribute()
-//    {
-//        return Hashids::encode($this->id);
-//    }
+    public function invite($email)
+    {
+        $invitee = User::findByEmail($email);
+
+        if (is_null($invitee)) {
+            $invitee = User::create(['email' => $email, 'password' => str_random(50)]);
+        }
+
+        $this->user_id = $invitee->id;
+        $this->save();
+
+        Mail::to($invitee->email)->send(new InviteUserEmail($invitee, request()->user(), $this, request('message')));
+    }
 }

@@ -15,17 +15,7 @@ class OrderTicketsController extends Controller
     public function update(Order $order)
     {
         foreach (request('emails') as $hash => $email) {
-            $invitee = User::findByEmail($email);
-
-            if (is_null($invitee)) {
-                $invitee = User::create(['email' => $email, 'password' => str_random(50)]);
-            }
-
-            $ticket = Ticket::find(Hashids::decode($hash));
-
-            $ticket->user_id = $invitee->id;
-
-            Mail::to($invitee->email)->send(new InviteUserEmail($invitee, request()->user(), $ticket, request('message')));
+            Ticket::find(Hashids::decode($hash))->first()->invite($email);
         }
     }
 }
