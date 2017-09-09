@@ -11,7 +11,12 @@ class TicketsController extends Controller
     {
         $ticket = Ticket::findByHash($hash);
 
-        $ticket->user_id = request('user_id');
-        $ticket->save();
+        if (request()->has('user_id')) {
+            $ticket->user_id = request('user_id');
+            $ticket->save();
+        }
+        else {
+            $ticket->fillManually(request()->all());
+        }
     }
 }
