@@ -27,12 +27,12 @@ class AddUsersToTicketsTest extends TestCase
         $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $user->id]);
         $ticket1 = factory(Ticket::class)->create([
             'order_id' => $order->id,
-            'user_id' => $user->id,
+            'user_id' => null,
             'ticket_type_id' => $ticketType->id
         ]);
         $ticket2 = factory(Ticket::class)->create([
             'order_id' => $order->id,
-            'user_id' => $user->id,
+            'user_id' => null,
             'ticket_type_id' => $ticketType->id
         ]);
 
@@ -45,6 +45,8 @@ class AddUsersToTicketsTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertEquals(2, $order->tickets()->filled()->count());
+        $this->assertEquals($ticket1->fresh()->user_id, User::findByEmail('hpotter@hogwarts.edu')->id);
+        $this->assertEquals($ticket2->fresh()->user_id, User::findByEmail('hgranger@hogwarts.edu')->id);
 
         Mail::assertSent(InviteUserEmail::class, function($mail) {
             return $mail->hasTo('hpotter@hogwarts.edu');
