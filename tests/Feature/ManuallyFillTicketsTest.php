@@ -124,6 +124,31 @@ class ManuallyFillTicketsTest extends TestCase
     }
 
     /** @test */
+    function email_must_not_be_in_users_table()
+    {
+        $ticket = factory(Ticket::class)->create([
+            'user_id' => null
+        ]);
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+
+        $response = $this->actingAs($user)
+            ->json("patch", "/tickets/{$ticket->hash}", [
+                'name' => 'Harry Potter',
+                'email' => 'jo@example.com',
+                'pronouns' => 'he, him, his',
+                'sexuality' => 'Straight',
+                'gender' => 'Male',
+                'race' => 'White',
+                'college' => 'Hogwarts',
+                'tshirt' => 'L',
+                'accommodation' => 'My scar hurts sometimes'
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors('email');
+    }
+
+    /** @test */
     function tshirt_is_required()
     {
         $ticket = factory(Ticket::class)->create([

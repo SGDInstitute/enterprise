@@ -18,7 +18,7 @@ class TicketsController extends Controller
         else {
             $data = request()->validate([
                 'name' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:users',
                 'tshirt' => 'required',
                 'pronouns' => 'nullable',
                 'sexuality' => 'nullable',
