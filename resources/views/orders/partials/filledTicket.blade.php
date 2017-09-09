@@ -10,5 +10,8 @@
         @if(Auth::user()->id === $ticket->user->id)
             <a href="/settings" class="card-link">Update my information</a>
         @endif
+        <modal-button class="card-link" event="showViewProfileModal" payload="{{ $ticket->hash }}">
+            View Details
+        </modal-button>
     </div>
 </div>

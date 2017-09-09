@@ -41,6 +41,7 @@ Vue.component('modal-button', require('./components/ModalButton.vue'));
 Vue.component('receipt-button', require('./components/ReceiptButton.vue'));
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue'));
+Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -30,6 +30,7 @@
             <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
         @endif
         <view-receipt-modal :order="{{ $order }}"></view-receipt-modal>
+        <view-profile-modal :tickets="{{ $order->tickets }}"></view-profile-modal>
     </div>
 @endsection
 
