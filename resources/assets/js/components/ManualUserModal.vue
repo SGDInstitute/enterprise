@@ -118,7 +118,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" @click.prevent="submit">Save</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="submit" :disabled="form.busy">Save</button>
                 </div>
             </div>
         </div>
@@ -140,17 +140,19 @@
                     zip: ''
                 }),
                 method: 'create',
+                ticket: '',
             }
         },
         created() {
             let self = this;
-            this.eventHub.$on('showManualUserModal', function () {
+            this.eventHub.$on('showManualUserModal', function (ticket) {
+                self.ticket = ticket;
                 $('#manualUserModal').modal('show');
             });
         },
         methods: {
             submit() {
-
+                Spark.patch('/tickets/' + this.ticket, this.form)
             },
         }
     }

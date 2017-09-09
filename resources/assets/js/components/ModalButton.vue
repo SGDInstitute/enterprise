@@ -6,10 +6,10 @@
 
 <script>
     export default {
-        props: ['event'],
+        props: ['event', 'payload'],
         methods: {
             show() {
-                this.eventHub.$emit(this.event);
+                this.eventHub.$emit(this.event, this.payload);
             }
         }
     }

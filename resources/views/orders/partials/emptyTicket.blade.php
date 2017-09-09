@@ -6,7 +6,7 @@
         @if(! $order->tickets->pluck('user_id')->contains(Auth::user()->id))
             <a href="#" class="card-link">Add my information</a>
         @endif
-        <modal-button class="card-link" event="showManualUserModal">
+        <modal-button class="card-link" event="showManualUserModal" payload="{{ $ticket->hash }}">
             Manually add information
         </modal-button>
         <modal-button class="card-link" event="showInviteUsers">
