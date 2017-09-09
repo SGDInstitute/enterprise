@@ -20,8 +20,7 @@ class Ticket extends Model
     {
         parent::boot();
 
-        static::created(function ($model)
-        {
+        static::created(function ($model) {
             $model->hash = Hashids::encode($model->id);
             $model->save();
         });
@@ -64,5 +63,19 @@ class Ticket extends Model
         $this->save();
 
         Mail::to($invitee->email)->send(new InviteUserEmail($invitee, request()->user(), $this, $note));
+    }
+
+    public function fillManually($data)
+    {
+        $user = User::create([
+            'name' => array_get($data, 'name'),
+            'email' => array_get($data, 'email'),
+            'password' => str_random(50),
+        ]);
+
+        $this->user_id = $user->id;
+        $this->save();
+
+        $user->profile->update($data);
     }
 }

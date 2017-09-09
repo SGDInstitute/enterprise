@@ -65,6 +65,36 @@ class TicketTest extends TestCase
     }
 
     /** @test */
+    function can_fill_ticket()
+    {
+        $ticket = factory(Ticket::class)->create(['user_id' => null]);
+
+        $ticket->fillManually([
+            'name' => 'Harry Potter',
+            'email' => 'hpotter@hogwarts.edu',
+            'pronouns' => 'he, him, his',
+            'sexuality' => 'Straight',
+            'gender' => 'Male',
+            'race' => 'White',
+            'college' => 'Hogwarts',
+            'tshirt' => 'L',
+            'accommodation' => 'My scar hurts sometimes'
+        ]);
+
+        $ticket->fresh();
+        $this->assertNotNull($ticket->user_id);
+        $this->assertEquals('Harry Potter', $ticket->user->name);
+        $this->assertEquals('hpotter@hogwarts.edu', $ticket->user->email);
+        $this->assertEquals('he, him, his', $ticket->user->profile->pronouns);
+        $this->assertEquals('Straight', $ticket->user->profile->sexuality);
+        $this->assertEquals('Male', $ticket->user->profile->gender);
+        $this->assertEquals('White', $ticket->user->profile->race);
+        $this->assertEquals('Hogwarts', $ticket->user->profile->college);
+        $this->assertEquals('L', $ticket->user->profile->tshirt);
+        $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
+    }
+
+    /** @test */
     function can_find_by_hash()
     {
         $ticket = factory(Ticket::class)->create();
