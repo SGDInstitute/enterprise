@@ -22,7 +22,9 @@
                         </div>
 
                         <div class="alert alert-danger" v-if="form.errors.hasErrors()">
-                            At least one email needs to be filled out.
+                            <ul class="mb-0">
+                                <li v-for="error in form.errors.all()">{{ error[0] }}</li>
+                            </ul>
                         </div>
 
                         <div class="form-group">

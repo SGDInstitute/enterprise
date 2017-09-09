@@ -16,6 +16,7 @@ class OrderTicketsController extends Controller
     {
         request()->validate($this->buildRules(), [
             'emails.*.required_without_all' => 'At least one email needs to be filled out.',
+            'emails.*.email' => 'The email must be a valid email address.',
         ]);
 
         foreach (request('emails') as $hash => $email) {
