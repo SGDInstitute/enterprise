@@ -25,7 +25,9 @@ class InviteUserEmailTest extends TestCase
         $order = factory(Order::class)->create(['event_id' => $event->id]);
         $ticket = factory(Ticket::class)->create(['order_id' => $order->id]);
 
-        $this->email = (new InviteUserEmail($invitee, $coordinator, $ticket))->render();
+        $message = 'Hello world!';
+
+        $this->email = (new InviteUserEmail($invitee, $coordinator, $ticket, $message))->render();
     }
 
     /** @test */
@@ -44,5 +46,11 @@ class InviteUserEmailTest extends TestCase
     function email_contains_event()
     {
         $this->assertContains('Quidditch World Cup', $this->email);
+    }
+
+    /** @test */
+    function email_contains_message_if_set()
+    {
+        $this->assertContains('Hello world!', $this->email);
     }
 }

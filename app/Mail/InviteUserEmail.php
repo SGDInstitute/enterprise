@@ -18,6 +18,8 @@ class InviteUserEmail extends Mailable
 
     public $ticket;
 
+    public $note;
+
     public $url;
 
     /**
@@ -26,12 +28,14 @@ class InviteUserEmail extends Mailable
      * @param $invitee
      * @param $coordinator
      * @param $ticket
+     * @param $message
      */
-    public function __construct($invitee, $coordinator, $ticket)
+    public function __construct($invitee, $coordinator, $ticket, $message = null)
     {
         $this->user = $invitee;
         $this->coordinator = $coordinator;
         $this->ticket = $ticket;
+        $this->note = $message;
         $this->url = $this->generateUrl($invitee);
     }
 
