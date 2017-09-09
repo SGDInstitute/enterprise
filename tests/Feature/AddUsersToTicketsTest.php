@@ -170,7 +170,7 @@ class AddUsersToTicketsTest extends TestCase
     }
 
     /** @test */
-    function mannually_add_information()
+    function manually_add_information()
     {
         $ticket = factory(Ticket::class)->create([
             'user_id' => null
