@@ -63,4 +63,14 @@ class TicketTest extends TestCase
                 && $mail->note === 'Hello world!';
         });
     }
+
+    /** @test */
+    function can_find_by_hash()
+    {
+        $ticket = factory(Ticket::class)->create();
+
+        $foundTicket = Ticket::findByHash($ticket->hash);
+
+        $this->assertEquals($ticket->id, $foundTicket->id);
+    }
 }

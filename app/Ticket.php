@@ -42,6 +42,11 @@ class Ticket extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public static function findByHash($hash)
+    {
+        return self::where('hash', $hash)->first();
+    }
+
     public function scopeFilled($query)
     {
         return $query->whereNotNull('user_id');
