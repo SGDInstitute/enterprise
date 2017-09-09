@@ -21,6 +21,10 @@
                             </div>
                         </div>
 
+                        <div class="alert alert-danger" v-if="form.errors.hasErrors()">
+                            At least one email needs to be filled out.
+                        </div>
+
                         <div class="form-group">
                             <label for="message">Add a note to email:</label>
                             <textarea class="form-control" id="message" name="message" rows="3"></textarea>
@@ -29,7 +33,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click.prevent="submit">Send invitation email</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="submit" :disabled="form.busy">Send invitation email</button>
                 </div>
             </div>
         </div>
