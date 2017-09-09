@@ -37,14 +37,10 @@
 
                         Spark.post('/orders/' + this.order.id + '/charge', this.form)
                             .then(response => {
-                                if(response.created === true) {
-                                    location.reload();
-                                }
+                                location.reload();
                             })
                             .catch(response => {
-                                if(response.created === false) {
-                                    alert(response.message);
-                                }
+                                alert(response.message);
                             })
                     }
                 });
