@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="tshirt" class="col-md-3 col-form-label">T-Shirt Size</label>
+                            <label for="tshirt" class="col-md-3 col-form-label">T-Shirt Size*</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" id="tshirt"
                                        :class="{'is-invalid': form.errors.has('tshirt')}"
@@ -134,7 +134,6 @@
                     tshirt: '',
                     accommodation: ''
                 }),
-                method: 'create',
                 ticket: '',
             }
         },
