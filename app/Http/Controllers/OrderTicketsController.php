@@ -20,7 +20,7 @@ class OrderTicketsController extends Controller
 
         foreach (request('emails') as $hash => $email) {
             if (!empty($email)) {
-                Ticket::find(Hashids::decode($hash))->first()->invite($email, request('message'));
+                Ticket::findByHash($hash)->invite($email, request('message'));
             }
         }
     }
