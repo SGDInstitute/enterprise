@@ -14,8 +14,36 @@ class OrderTicketsController extends Controller
 {
     public function update(Order $order)
     {
+        request()->validate($this->buildRules(), [
+            'emails.*.required_without_all' => 'At least one email needs to be filled out.',
+        ]);
+
         foreach (request('emails') as $hash => $email) {
-            Ticket::find(Hashids::decode($hash))->first()->invite($email, request('message'));
+            if (!empty($email)) {
+                Ticket::find(Hashids::decode($hash))->first()->invite($email, request('message'));
+            }
         }
+    }
+
+    private function buildRules()
+    {
+        $rules = [];
+        foreach (request('emails') as $hash => $email) {
+            $rules["emails.{$hash}"] = 'required_without_all:' . $this->buildString($hash, request('emails'));
+        }
+
+        return $rules;
+    }
+
+    private function buildString($hash, $emails)
+    {
+        return collect($emails)->keys()
+            ->filter(function ($email) use ($hash) {
+                return $email !== $hash;
+            })
+            ->map(function($email) {
+                return "emails." . $email;
+            })
+            ->implode(',');
     }
 }
