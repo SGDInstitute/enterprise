@@ -146,6 +146,7 @@
                 Spark.post('/orders/' + this.order.id + '/invoices', this.form)
                     .then(response => {
                         $('#invoiceForm').modal('hide');
+                        location.reload();
                     })
                     .catch(response => {
                         alert(response.status);
