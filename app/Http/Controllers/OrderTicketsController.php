@@ -15,17 +15,17 @@ class OrderTicketsController extends Controller
     public function update(Order $order)
     {
         foreach (request('emails') as $hash => $email) {
-            $user = User::findByEmail($email);
+            $invitee = User::findByEmail($email);
 
-            if (is_null($user)) {
-                $user = User::create(['email' => $email, 'password' => str_random(50)]);
+            if (is_null($invitee)) {
+                $invitee = User::create(['email' => $email, 'password' => str_random(50)]);
             }
 
             $ticket = Ticket::find(Hashids::decode($hash));
 
-            $ticket->user_id = $user->id;
+            $ticket->user_id = $invitee->id;
 
-            Mail::to($user->email)->send(new InviteUserEmail($user));
+            Mail::to($invitee->email)->send(new InviteUserEmail($invitee, request()->user(), $ticket, request('message')));
         }
     }
 }
