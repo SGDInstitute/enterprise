@@ -13,21 +13,23 @@
                     <p>You can fill out the email fields below to invite users to fill out their own information,
                         you can fill as many or as little as you would like.</p>
 
-                    <div class="form-group row" v-for="ticket in tickets">
-                        <label :for="ticket.hash" class="col-md-4 col-form-label">Email for <small>#{{ ticket.hash }}</small></label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control" :id="ticket.hash" placeholder="Email" v-model="form.emails[ticket.hash]">
+                    <form action="" @submit.prevent="submit">
+                        <div class="form-group row" v-for="ticket in tickets">
+                            <label :for="ticket.hash" class="col-md-4 col-form-label">Email for <small>#{{ ticket.hash }}</small></label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" :id="ticket.hash" placeholder="Email" v-model="form.emails[ticket.hash]">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="message">Add a note to email:</label>
-                        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
-                    </div>
+                        <div class="form-group">
+                            <label for="message">Add a note to email:</label>
+                            <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send invitation email</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="submit">Send invitation email</button>
                 </div>
             </div>
         </div>
@@ -36,7 +38,7 @@
 
 <script>
     export default {
-        props: ['tickets'],
+        props: ['order', 'tickets'],
         data() {
             return {
                 form: new SparkForm({
@@ -54,7 +56,7 @@
         },
         methods: {
             submit() {
-
+                Spark.patch('/orders/' + this.order.id + '/tickets', this.form)
             },
             formFill() {
                 let self = this;

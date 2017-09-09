@@ -23,10 +23,12 @@
             </div>
         </div>
 
-        <invite-users-form :tickets="{{ $order->tickets->where('user_id', null) }}"></invite-users-form>
+        <invite-users-form :order="{{ $order }}" :tickets="{{ $order->tickets->where('user_id', null) }}"></invite-users-form>
         <invoice-form :order="{{ $order }}" :user="{{ Auth::user() }}"></invoice-form>
         <manual-user-modal></manual-user-modal>
-        <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
+        @if($order->invoice !== null)
+            <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
+        @endif
         <view-receipt-modal :order="{{ $order }}"></view-receipt-modal>
     </div>
 @endsection
