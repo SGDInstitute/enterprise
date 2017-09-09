@@ -108,13 +108,6 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert"
-                             v-show="form.successful">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            Successfully updated profile
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -155,6 +148,9 @@
         methods: {
             submit() {
                 Spark.patch('/tickets/' + this.ticket, this.form)
+                    .then(response => {
+                        location.reload();
+                    })
             },
         }
     }
