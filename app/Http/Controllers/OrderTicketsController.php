@@ -15,7 +15,7 @@ class OrderTicketsController extends Controller
     public function update(Order $order)
     {
         foreach (request('emails') as $hash => $email) {
-            Ticket::find(Hashids::decode($hash))->first()->invite($email);
+            Ticket::find(Hashids::decode($hash))->first()->invite($email, request('message'));
         }
     }
 }

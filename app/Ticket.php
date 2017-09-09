@@ -47,7 +47,7 @@ class Ticket extends Model
         return $query->whereNotNull('user_id');
     }
 
-    public function invite($email)
+    public function invite($email, $note = null)
     {
         $invitee = User::findByEmail($email);
 
@@ -58,6 +58,6 @@ class Ticket extends Model
         $this->user_id = $invitee->id;
         $this->save();
 
-        Mail::to($invitee->email)->send(new InviteUserEmail($invitee, request()->user(), $this, request('message')));
+        Mail::to($invitee->email)->send(new InviteUserEmail($invitee, request()->user(), $this, $note));
     }
 }

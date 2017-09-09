@@ -53,13 +53,14 @@ class TicketTest extends TestCase
 
         $ticket = factory(Ticket::class)->create(['user_id' => null]);
 
-        $ticket->invite('hpotter@hogwarts.edu');
+        $ticket->invite('hpotter@hogwarts.edu', 'Hello world!');
 
         $ticket->fresh();
         $this->assertNotNull($ticket->user_id);
 
         Mail::assertSent(InviteUserEmail::class, function($mail) {
-            return $mail->hasTo('hpotter@hogwarts.edu');
+            return $mail->hasTo('hpotter@hogwarts.edu')
+                && $mail->note === 'Hello world!';
         });
     }
 }
