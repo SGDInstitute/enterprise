@@ -4,7 +4,7 @@
         <h4 class="card-title">{{ $ticket->ticket_type->name }}</h4>
 
         @if(! $order->tickets->pluck('user_id')->contains(Auth::user()->id))
-            <a href="#" class="card-link">Add my information</a>
+            <add-user-button class="card-link" ticket="{{ $ticket->hash }}" user="{{ Auth::user()->id }}"></add-user-button>
         @endif
         <modal-button class="card-link" event="showManualUserModal" payload="{{ $ticket->hash }}">
             Manually add information

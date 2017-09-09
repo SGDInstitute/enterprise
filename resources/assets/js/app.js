@@ -26,6 +26,7 @@ Vue.mixin({
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('add-user-button', require('./components/AddUserToTicketButton.vue'));
 Vue.component('start-order', require('./components/StartOrder.vue'));
 Vue.component('login-or-register', require('./components/LoginOrRegister.vue'));
 Vue.component('edit-profile', require('./components/EditProfile.vue'));
