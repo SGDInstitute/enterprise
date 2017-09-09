@@ -61,6 +61,9 @@
         methods: {
             submit() {
                 Spark.patch('/orders/' + this.order.id + '/tickets', this.form)
+                    .then(response => {
+                        location.reload();
+                    })
             },
             formFill() {
                 let self = this;
