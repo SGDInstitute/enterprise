@@ -29,7 +29,7 @@ class OrderTicketsController extends Controller
     {
         $rules = [];
         foreach (request('emails') as $hash => $email) {
-            $rules["emails.{$hash}"] = 'required_without_all:' . $this->buildString($hash, request('emails'));
+            $rules["emails.{$hash}"] = 'email|nullable|required_without_all:' . $this->buildString($hash, request('emails'));
         }
 
         return $rules;

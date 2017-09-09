@@ -168,4 +168,28 @@ class AddUsersToTicketsTest extends TestCase
 
         $this->assertEquals($ticket->fresh()->user_id, $user->id);
     }
+    /** @test */
+    function email_must_be_email()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $user->id]);
+        $ticket = factory(Ticket::class)->create([
+            'order_id' => $order->id,
+            'user_id' => null,
+            'ticket_type_id' => $ticketType->id
+        ]);
+
+        $response = $this->actingAs($user)
+            ->json("patch", "/orders/{$order->id}/tickets", [
+                'emails' => [
+                    $ticket->hash => 'asdfasdf',
+                ],
+                'message' => "You're invited to this awesome event!"
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonHasErrors();
+    }
 }
