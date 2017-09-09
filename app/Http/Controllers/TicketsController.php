@@ -16,7 +16,19 @@ class TicketsController extends Controller
             $ticket->save();
         }
         else {
-            $ticket->fillManually(request()->all());
+            $data = request()->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'tshirt' => 'required',
+                'pronouns' => 'nullable',
+                'sexuality' => 'nullable',
+                'gender' => 'nullable',
+                'race' => 'nullable',
+                'college' => 'nullable',
+                'accommodation' => 'nullable',
+            ]);
+
+            $ticket->fillManually($data);
         }
     }
 }
