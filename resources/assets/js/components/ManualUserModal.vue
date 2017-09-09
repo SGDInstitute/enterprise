@@ -133,11 +133,13 @@
                 form: new SparkForm({
                     name: '',
                     email: '',
-                    address: '',
-                    address_2: '',
-                    city: '',
-                    state: '',
-                    zip: ''
+                    pronouns: '',
+                    sexuality: '',
+                    gender: '',
+                    race: '',
+                    college: '',
+                    tshirt: '',
+                    accommodation: ''
                 }),
                 method: 'create',
                 ticket: '',
