@@ -1,4 +1,4 @@
-<div class="col-md-6 mb-4">
+<div class="col-lg-6 mb-4">
     <a href="/orders/{{ $order->id }}" class="card card-background-image" style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ $order->event->image }})">
         <div class="card-body text-white">
             @if(isset($order->event->logo_light))
