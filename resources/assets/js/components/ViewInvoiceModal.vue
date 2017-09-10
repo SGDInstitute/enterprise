@@ -32,7 +32,7 @@
             }
         },
         created() {
-            self = this;
+            let self = this;
             this.eventHub.$on('showViewInvoice', function () {
                 $('#viewInvoiceModal').modal('show');
 
