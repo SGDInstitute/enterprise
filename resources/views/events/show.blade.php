@@ -32,7 +32,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-lg-8">
                 <h3 class="description-title">Event Description</h3>
                 <ul class="fa-ul">
                     <li><i class="fa-li fa fa-clock-o" aria-hidden="true"></i>{{ $event->duration }}</li>
@@ -48,7 +48,7 @@
                 @component('components.app.links', ['class' => 'h3 mt-4', 'links' => collect($event->links)->sortBy('order')])
                 @endcomponent
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <div class="tickets card-list rounded mt-sm-4 mt-xs-4">
                     <start-order :ticket_types="{{ $event->ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
                 </div>

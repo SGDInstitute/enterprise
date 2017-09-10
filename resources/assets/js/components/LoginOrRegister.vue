@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <form class="col-md-6" @submit.prevent="login">
+                        <form class="col-lg-6" @submit.prevent="login">
                             <h4>Login</h4>
                             <div class="row form-group">
                                 <label for="login-modal-email" class="col-md-4 col-form-label">E-Mail</label>
@@ -58,7 +58,8 @@
                                 </div>
                             </div>
                         </form>
-                        <form class="col-md-6" @submit.prevent="register">
+                        <hr>
+                        <form class="col-lg-6" @submit.prevent="register">
                             <h4>Register</h4>
 
                             <div class="row form-group">
