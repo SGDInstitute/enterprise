@@ -49,7 +49,7 @@
                                     <span class="input-group-addon" data-container="body" data-toggle="popover"
                                           data-placement="top"
                                           title="Password Requirements"
-                                          data-content="Your password must be at least 8 characters in length, with at least 3 of 4 of the following: upper case letter, lower case letter, number, or special character.">
+                                          data-content="Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.">
                                                 <i class="fa fa-info"></i></span>
                                 </div>
 
