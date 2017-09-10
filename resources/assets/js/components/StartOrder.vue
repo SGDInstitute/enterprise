@@ -17,20 +17,19 @@
                 <small v-if="type.description" class="card-text text-muted">{{ type.description }}</small>
             </div>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Promotional Code</h4>
-                <small class="card-text text-muted">If you have a promo code, enter it below.</small>
-
-                <label for="promo" class="sr-only">Promotional Code</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="promo">
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button">Apply</button>
-                    </span>
-                </div>
-            </div>
-        </div>
+        <!--<div class="card">-->
+            <!--<div class="card-body">-->
+                <!--<h4 class="card-title">Promotional Code</h4>-->
+                <!--<small class="card-text text-muted">If you have a promo code, enter it below.</small>-->
+                <!--<label for="promo" class="sr-only">Promotional Code</label>-->
+                <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control" id="promo">-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button class="btn btn-secondary" type="button">Apply</button>-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title">Subtotal
