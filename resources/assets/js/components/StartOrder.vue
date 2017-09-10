@@ -39,7 +39,7 @@
                 <div class="alert alert-danger" role="alert" v-show="form.errors.has('tickets')">
                     {{ form.errors.get('tickets') }}
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" :disabled="form.busy">Save Order</button>
+                <button type="submit" class="btn btn-primary btn-block" :disabled="form.busy">Next</button>
             </div>
         </div>
     </form>
