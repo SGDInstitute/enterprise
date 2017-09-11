@@ -52,7 +52,7 @@
                     <row>
                         <columns>
                             <p>
-                                &copy; [currentyear]
+                                &copy; {{ date('Y') }}
                                 <a href="https://sgdinstitute.org/" target="_blank">Midwest Institute for Sexuality and
                                     Gender Diversity</a> |
                                 PO Box 1053, East Lansing, MI, 48826 |
