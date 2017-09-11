@@ -29,7 +29,7 @@
 
                         <div class="form-group">
                             <label for="message">Add a note to email:</label>
-                            <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                            <textarea class="form-control" id="message" name="message" rows="3" v-model="form.message"></textarea>
                         </div>
                     </form>
                 </div>

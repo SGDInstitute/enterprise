@@ -49,11 +49,13 @@ class InviteUsersToFillTicketsTest extends TestCase
         $this->assertEquals($ticket2->fresh()->user_id, User::findByEmail('hgranger@hogwarts.edu')->id);
 
         Mail::assertSent(InviteUserEmail::class, function ($mail) {
-            return $mail->hasTo('hpotter@hogwarts.edu');
+            return $mail->hasTo('hpotter@hogwarts.edu')
+                && $mail->note === 'You\'re invited to this awesome event!';
         });
 
         Mail::assertSent(InviteUserEmail::class, function ($mail) {
-            return $mail->hasTo('hgranger@hogwarts.edu');
+            return $mail->hasTo('hgranger@hogwarts.edu')
+                && $mail->note === 'You\'re invited to this awesome event!';
         });
     }
 
