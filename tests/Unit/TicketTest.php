@@ -92,6 +92,7 @@ class TicketTest extends TestCase
         $this->assertEquals('Hogwarts', $ticket->user->profile->college);
         $this->assertEquals('L', $ticket->user->profile->tshirt);
         $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
+        $this->assertEquals('manual', $ticket->type);
     }
 
     /** @test */

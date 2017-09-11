@@ -74,6 +74,7 @@ class Ticket extends Model
         ]);
 
         $this->user_id = $user->id;
+        $this->type = 'manual';
         $this->save();
 
         $user->profile->update($data);
