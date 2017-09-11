@@ -5,15 +5,16 @@ namespace App;
 use Facades\App\ConfirmationNumber;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = ['user_id'];
 
-    protected $dates = ['transaction_date'];
+    protected $dates = ['transaction_date', 'deleted_at'];
 
     public function tickets()
     {

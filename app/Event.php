@@ -4,15 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Event extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
 
-    protected $dates = ['start', 'end', 'published_at'];
+    protected $dates = ['start', 'end', 'published_at', 'deleted_at'];
 
     protected $casts = [
         'links' => 'array',

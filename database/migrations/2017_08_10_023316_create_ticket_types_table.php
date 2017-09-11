@@ -22,6 +22,7 @@ class CreateTicketTypesTable extends Migration
             $table->dateTime('availability_start')->nullable();
             $table->dateTime('availability_end')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('event_id')->references('id')->on('events');
         });

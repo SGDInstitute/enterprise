@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('confirmation_number')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

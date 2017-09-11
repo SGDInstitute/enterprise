@@ -4,13 +4,16 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class TicketType extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $appends = ['formatted_cost', 'is_open'];
+
+    protected $dates = ['deleted_at'];
 
     public function getFormattedCostAttribute()
     {

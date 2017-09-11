@@ -31,7 +31,9 @@ class CreateEventsTable extends Migration
             $table->text('logo_dark')->nullable();
             $table->string('ticket_string')->nullable();
             $table->dateTime('published_at')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

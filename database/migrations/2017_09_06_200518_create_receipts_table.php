@@ -20,6 +20,7 @@ class CreateReceiptsTable extends Migration
             $table->integer('amount');
             $table->integer('card_last_four')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

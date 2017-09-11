@@ -24,6 +24,7 @@ class CreateProfilesTable extends Migration
             $table->string('tshirt')->nullable();
             $table->text('accommodation')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

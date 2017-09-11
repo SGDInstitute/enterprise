@@ -19,6 +19,7 @@ class CreateUserTokensTable extends Migration
             $table->string('token');
             $table->string('type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

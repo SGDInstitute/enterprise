@@ -4,15 +4,18 @@ namespace App;
 
 use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Vinkla\Hashids\Facades\Hashids;
 
 class Ticket extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = ['ticket_type_id'];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * Boot function for using with User Events

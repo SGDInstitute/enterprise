@@ -21,6 +21,7 @@ class CreateTicketsTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

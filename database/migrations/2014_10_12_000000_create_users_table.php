@@ -20,7 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->dateTime('confirmed_at')->nullable();
             $table->rememberToken();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

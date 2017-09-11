@@ -24,6 +24,7 @@ class CreateInvoicesTable extends Migration
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
