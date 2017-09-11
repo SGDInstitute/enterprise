@@ -24,11 +24,11 @@
 </callout>
 @endif
 
-<p>Click below to submit your personal information so you can receive your personalized name tag and a t-shirt at the conference!</p>
+<p>Click below to submit your personal information so you can receive your personalized name tag and a t-shirt at the
+    conference!</p>
 
 <button href="{{ $url }}" class="radius text-center">Set Your Account Password</button>
 
-<p>Looking forward to seeing you,
-    <br>
-    The {{ $ticket->order->event->title }} Team
+<p>Looking forward to seeing you,<br>
+    The {{ $ticket->order->event->title }} Team</p>
 @endsection
