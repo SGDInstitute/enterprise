@@ -62,6 +62,8 @@ class RegisterController extends Controller
                 'min:8',
                 'regex:/^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?\d)(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?\d)(?=.*?[^a-zA-Z0-9])).{8,}$/',
             ]
+        ], [
+            'password.regex' => 'Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.'
         ]);
     }
 

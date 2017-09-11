@@ -54,7 +54,7 @@
                                 </div>
 
                                 @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
+                                    <span class="invalid-feedback" style="display: block;">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
