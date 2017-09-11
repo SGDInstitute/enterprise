@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserCreated' => [
             'App\Listeners\CreateProfileForUser',
         ],
+        'App\Events\TicketCreating' => [
+            'App\Listeners\CreateHashForTicket',
+        ],
     ];
 
     /**

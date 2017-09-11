@@ -11,49 +11,26 @@
             <div class="col">
                 @include('flash::message')
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Are you ready to tell us who’s
-                                    attending {{ $order->event->title }}?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Great! There are two options to do so. How do you want to proceed?</p>
+                {{--@include('orders.partials.ticket_information')--}}
 
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="exampleRadios"
-                                               id="exampleRadios1" value="option1">
-                                        Fill out attendee information manually
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="exampleRadios"
-                                               id="exampleRadios2" value="option2">
-                                        Invite attendees to fill out their own information
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary">Continue</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <modal-button class="btn btn-primary pull-right btn-sm" event="showInviteUsers">
+                    Invite users to fill out information
+                </modal-button>
 
-                @include('orders.partials.ticket_information')
+                <h2>{{ $order->event->ticket_string }} Details</h2>
+
+                @include('orders.partials.tickets')
             </div>
         </div>
 
+        <invite-users-form :order="{{ $order }}" :tickets="{{ $order->tickets->where('user_id', null) }}"></invite-users-form>
         <invoice-form :order="{{ $order }}" :user="{{ Auth::user() }}"></invoice-form>
-        <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
+        <manual-user-modal></manual-user-modal>
+        @if($order->invoice !== null)
+            <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
+        @endif
         <view-receipt-modal :order="{{ $order }}"></view-receipt-modal>
+        <view-profile-modal :tickets="{{ $order->tickets }}"></view-profile-modal>
     </div>
 @endsection
 

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserConfirmationEmail;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
-    public function update()
+    public function update(User $user = null)
     {
-        $user = request()->validate([
+        $userData = request()->validate([
             'name' => 'required',
             'email' => 'required'
         ]);
@@ -25,15 +26,19 @@ class ProfileController extends Controller
             'accommodation' => ''
         ]);
 
-        $oldEmail = request()->user()->email;
-
-        request()->user()->update($user);
-
-        if(request('email') !== $oldEmail) {
-            request()->user()->sendConfirmationEmail();
+        if(is_null($user)) {
+            $user = request()->user();
         }
 
-        request()->user()->profile()->update($profile);
+        $oldEmail = $user->email;
+
+        $user->update($userData);
+
+        if(request('email') !== $oldEmail) {
+            $user->sendConfirmationEmail();
+        }
+
+        $user->profile()->update($profile);
 
         return response()->json(['success' => true], 200);
     }

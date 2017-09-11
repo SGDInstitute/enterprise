@@ -13,21 +13,11 @@
 
 @section('content')
 <h1>Hi {{ $order->user->name }},</h1>
-<p>Thanks for purchasing tickets to {{ $order->event->title }}. This email is the receipt for your purchase confirming
-    that your order is paid in full.</p>
-
-@if($order->isCard())
-<p>This purchase will appear as “{{ config("{$order->event->stripe}.stripe.statement") }}” on your credit card statement for your
-    card ending in {{ $order->receipt->card_last_four }}.</p>
-@else
-<p>The check we received ({{ $order->receipt->transaction_id }}) has been deposited, and your records should reflect
-    this very soon.</p>
-@endif
-
-<p><strong>Confirmation Number: </strong> {{ join('-', str_split($order->confirmation_number, 4)) }}</p>
-<p><strong>Transaction Date: </strong> {{ $order->receipt->created_at->toFormattedDateString() }}</p>
+<p>Thanks for creating an invoice for {{ $order->event->title }}, you will find the invoice as an attachment.</p>
 
 <spacer size="16"></spacer>
+
+<p>Order details:</p>
 
 <table class="table" width="100%" cellpadding="0" cellspacing="0">
     <tr>
@@ -66,17 +56,9 @@
     </columns>
 </row>
 
-<p>If you have any questions about this receipt, simply reply to this email or reach out to our <a
+<p>If you have any questions about this invoice, simply reply to this email or reach out to our <a
             href="https://support.sgdinstitute.org">support team</a> for help.</p>
 
 <p>Looking forward to seeing you,<br>
     The {{ $order->event->title }} Team</p>
-@endsection
-
-@section('scripts')
-<script>
-    if (location.search.indexOf('print=true') >= 0) {
-        window.print();
-    }
-</script>
 @endsection

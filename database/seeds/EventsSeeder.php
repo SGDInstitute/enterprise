@@ -45,13 +45,13 @@ class EventsSeeder extends Seeder
 
         $event->ticket_types()->createMany([
             [
-                'name' => 'Regular Ticket',
+                'name' => 'Regular Registration',
                 'cost' => 7500,
                 'availability_start' => \Carbon\Carbon::now()->subMonth(),
                 'availability_end' => \Carbon\Carbon::parse('2018-02-16 19:00:00')->subMonth(),
             ],
             [
-                'name' => 'Late Ticket',
+                'name' => 'Late Registration',
                 'description' => 'You are not guarenteed special items such as T-Shirts, Program Books, etc. Extras will be available on Sunday after the closing ceremony.',
                 'cost' => 7500,
                 'availability_start' => \Carbon\Carbon::parse('2018-02-17 19:00:00')->subMonth(),

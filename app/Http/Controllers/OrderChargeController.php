@@ -27,7 +27,7 @@ class OrderChargeController extends Controller
 
             flash('You successfully paid for this order, you will receive a confirmation email with a receipt shortly.')->success();
 
-            Mail::to($order->user->email)->send(new ReceiptEmail($order));
+            Mail::to($order->user->email)->send(new ReceiptEmail($order->fresh()));
 
             return response()->json([
                 'created' => true,
