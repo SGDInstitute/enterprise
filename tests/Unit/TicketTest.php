@@ -95,6 +95,45 @@ class TicketTest extends TestCase
     }
 
     /** @test */
+    function filling_ticket_sends_email_if_specified()
+    {
+        Mail::fake();
+
+        $ticket = factory(Ticket::class)->create(['user_id' => null]);
+
+        $ticket->fillManually([
+            'name' => 'Harry Potter',
+            'email' => 'hpotter@hogwarts.edu',
+            'pronouns' => 'he, him, his',
+            'sexuality' => 'Straight',
+            'gender' => 'Male',
+            'race' => 'White',
+            'college' => 'Hogwarts',
+            'tshirt' => 'L',
+            'accommodation' => 'My scar hurts sometimes',
+            'send_email' => true,
+            'message' => 'Hello world!',
+        ]);
+
+        $ticket->fresh();
+        $this->assertNotNull($ticket->user_id);
+        $this->assertEquals('Harry Potter', $ticket->user->name);
+        $this->assertEquals('hpotter@hogwarts.edu', $ticket->user->email);
+        $this->assertEquals('he, him, his', $ticket->user->profile->pronouns);
+        $this->assertEquals('Straight', $ticket->user->profile->sexuality);
+        $this->assertEquals('Male', $ticket->user->profile->gender);
+        $this->assertEquals('White', $ticket->user->profile->race);
+        $this->assertEquals('Hogwarts', $ticket->user->profile->college);
+        $this->assertEquals('L', $ticket->user->profile->tshirt);
+        $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
+
+        Mail::assertSent(InviteUserEmail::class, function($mail) {
+            return $mail->hasTo('hpotter@hogwarts.edu')
+                && $mail->note === 'Hello world!';
+        });
+    }
+
+    /** @test */
     function can_find_by_hash()
     {
         $ticket = factory(Ticket::class)->create();

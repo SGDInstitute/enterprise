@@ -77,5 +77,9 @@ class Ticket extends Model
         $this->save();
 
         $user->profile->update($data);
+
+        if(isset($data['send_email']) && $data['send_email']) {
+            Mail::to($user->email)->send(new InviteUserEmail($user, request()->user(), $this, array_get($data, 'message')));
+        }
     }
 }

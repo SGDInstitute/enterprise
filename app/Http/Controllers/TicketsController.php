@@ -26,6 +26,8 @@ class TicketsController extends Controller
                 'race' => 'nullable',
                 'college' => 'nullable',
                 'accommodation' => 'nullable',
+                'send_email' => 'nullable',
+                'message' => 'nullable',
             ]);
 
             $ticket->fillManually($data);
