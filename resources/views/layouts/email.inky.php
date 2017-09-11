@@ -46,20 +46,6 @@
                     </row>
                 </container>
 
-                <container class="logo-row">
-                    <spacer size="16"></spacer>
-
-                    <row>
-                        <columns large="4">
-                            <img alt="Midwest Institute for Sexuality and Gender Diversity"
-                                 src="https://sgdinstitute.org/storage/app/media/emails/logo-footer.png"/>
-                        </columns>
-                        <columns large="8">
-                            @yield('footer')
-                        </columns>
-                    </row>
-                </container>
-
                 <container class="footer">
                     <spacer size="16"></spacer>
 
