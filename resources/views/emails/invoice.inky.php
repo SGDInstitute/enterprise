@@ -52,7 +52,7 @@
 
 <row>
     <columns class="btn-column">
-        <button href="/orders/{{ $order->id }}" class="radius text-center">View Order</button>
+        <button href="{{ $url }}" class="radius text-center">View Order</button>
     </columns>
 </row>
 

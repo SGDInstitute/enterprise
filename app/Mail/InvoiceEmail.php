@@ -14,6 +14,8 @@ class InvoiceEmail extends Mailable
 
     public $order;
 
+    public $url;
+
     /**
      * Create a new message instance.
      *
@@ -22,6 +24,7 @@ class InvoiceEmail extends Mailable
     public function __construct($order)
     {
         $this->order = $order;
+        $this->url = url("/orders/{$order->id}");
     }
 
     /**
