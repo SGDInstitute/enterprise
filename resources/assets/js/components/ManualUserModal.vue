@@ -108,6 +108,27 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <div class="col-md-9 ml-auto">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="true" v-model="form.send_email">
+                                        Send email to user notifying them of the event and allowing them to update their information if necessary.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" v-show="form.send_email">
+                            <label for="message" class="col-md-3 col-form-label">Optional Message</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="message"
+                                          :class="{'is-invalid': form.errors.has('message')}"
+                                          v-model="form.message"></textarea>
+                                <span class="invalid-feedback" v-show="form.errors.has('message')">
+                                    {{ form.errors.get('message') }}
+                                </span>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -132,7 +153,9 @@
                     race: '',
                     college: '',
                     tshirt: '',
-                    accommodation: ''
+                    accommodation: '',
+                    send_email: false,
+                    message: ''
                 }),
                 ticket: '',
             }
