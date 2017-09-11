@@ -4,9 +4,12 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class TicketType extends Model
 {
+    use LogsActivity;
+
     protected $appends = ['formatted_cost', 'is_open'];
 
     public function getFormattedCostAttribute()

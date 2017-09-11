@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Event extends Model
 {
+    use LogsActivity;
+
     protected $fillable = ['name', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
 
     protected $dates = ['start', 'end', 'published_at'];

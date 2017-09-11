@@ -5,9 +5,12 @@ namespace App;
 use Facades\App\ConfirmationNumber;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
 {
+    use LogsActivity;
+
     protected $fillable = ['user_id'];
 
     protected $dates = ['transaction_date'];

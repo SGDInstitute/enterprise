@@ -8,10 +8,11 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, LogsActivity;
 
     /**
      * The attributes that are mass assignable.

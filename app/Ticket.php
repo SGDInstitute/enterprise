@@ -5,10 +5,13 @@ namespace App;
 use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Vinkla\Hashids\Facades\Hashids;
 
 class Ticket extends Model
 {
+    use LogsActivity;
+
     protected $fillable = ['ticket_type_id'];
 
     /**
