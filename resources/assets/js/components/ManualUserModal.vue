@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="manualUserModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Manually enter user information</h5>
@@ -11,7 +11,7 @@
                     <form action="" @submit.prevent="submit">
                         <div class="form-group row">
                             <label for="name" class="col-md-3 col-form-label">Name*</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="name"
                                        :class="{'is-invalid': form.errors.has('name')}"
                                        v-model="form.name">
@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="email" class="col-md-3 col-form-label">Email*</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="email" class="form-control" id="email"
                                        :class="{'is-invalid': form.errors.has('email')}"
                                        v-model="form.email">
@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="pronouns" class="col-md-3 col-form-label">Pronouns</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="pronouns"
                                        :class="{'is-invalid': form.errors.has('pronouns')}"
                                        v-model="form.pronouns">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="sexuality" class="col-md-3 col-form-label">Sexuality</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="sexuality"
                                        :class="{'is-invalid': form.errors.has('sexuality')}"
                                        v-model="form.sexuality">
@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="gender" class="col-md-3 col-form-label">Gender</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="gender"
                                        :class="{'is-invalid': form.errors.has('gender')}"
                                        v-model="form.gender">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="race" class="col-md-3 col-form-label">Race</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="race"
                                        :class="{'is-invalid': form.errors.has('race')}"
                                        v-model="form.race">
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="college" class="col-md-3 col-form-label">College</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="college"
                                        :class="{'is-invalid': form.errors.has('college')}"
                                        v-model="form.college">
@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="tshirt" class="col-md-3 col-form-label">T-Shirt Size*</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="tshirt"
                                        :class="{'is-invalid': form.errors.has('tshirt')}"
                                        v-model="form.tshirt">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="accommodation" class="col-md-3 col-form-label">Accommodation</label>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <textarea class="form-control" id="accommodation"
                                           :class="{'is-invalid': form.errors.has('accommodation')}"
                                           v-model="form.accommodation"></textarea>
