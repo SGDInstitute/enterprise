@@ -141,7 +141,6 @@
 
 <script>
     export default {
-        props: ['order', 'user'],
         data() {
             return {
                 form: new SparkForm({
@@ -158,6 +157,7 @@
                     message: ''
                 }),
                 ticket: '',
+                user: {},
             }
         },
         created() {
@@ -166,14 +166,41 @@
                 self.ticket = ticket;
                 $('#manualUserModal').modal('show');
             });
+
+            this.eventHub.$on('editProfileModal', function (user) {
+                self.user = JSON.parse(user);
+                self.fillForm(JSON.parse(user));
+                $('#manualUserModal').modal('show');
+            });
         },
         methods: {
             submit() {
-                Spark.patch('/tickets/' + this.ticket, this.form)
-                    .then(response => {
-                        location.reload();
-                    })
+                if(this.ticket === '') {
+                    Spark.patch('/profile/' + this.user.id, this.form)
+                        .then(response => {
+                            location.reload();
+                        })
+                }
+                else {
+                    Spark.patch('/tickets/' + this.ticket, this.form)
+                        .then(response => {
+                            location.reload();
+                        })
+                }
             },
+            fillForm(user) {
+                this.form.name = user.name;
+                this.form.email = user.email;
+                this.form.pronouns = user.profile.pronouns;
+                this.form.sexuality = user.profile.sexuality;
+                this.form.gender = user.profile.gender;
+                this.form.race = user.profile.race;
+                this.form.college = user.profile.college;
+                this.form.tshirt = user.profile.tshirt;
+                this.form.accommodation = user.profile.accommodation;
+                this.form.send_email = user.profile.send_email;
+                this.form.message = user.profile.message;
+            }
         }
     }
 </script>
