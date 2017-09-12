@@ -1,80 +1,57 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title') | Midwest Institute for Sexuality and Gender Diversity</title>
+    <meta name="description" content="event.discription">
+    <meta name="title" content="event.name">
+    <meta name="author" content="MBLGTACC 2018, Midwest Institute for Sexuality and Gender Diversity">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- CSRF Token -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicons/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('favicons/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
+    <link rel="mask-icon" href="{{ asset('favicons/manifest.json') }}" color="#38afad">
+    <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
+    <meta name="msapplication-config" content="{{ asset('favicons/browserconfig.xml') }}">
+    <meta name="theme-color" content="#ffffff">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
+
+    <script>
+        window.Spark = {}
+    </script>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+<div id="app">
+    @include('layouts.partials.app.header')
+
+    @yield('hero')
+
+    <section class="content">
+        @if(Auth::user() && !Auth::user()->isConfirmed())
             <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
+                <div class="alert alert-danger">
+                    Please confirm your email. Didn't get the confirmation email? <a href="/register/email">Lets try again!</a>
                 </div>
             </div>
-        </nav>
+        @endif
 
         @yield('content')
-    </div>
+    </section>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @include('layouts.partials.app.footer')
+
+    <login-or-register v-on:></login-or-register>
+</div>
+<!-- Scripts -->
+@yield('beforeScripts')
+<script src="{{ asset('js/app.js') }}"></script>
+@yield('scripts')
+
 </body>
 </html>

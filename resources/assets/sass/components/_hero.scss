@@ -1,0 +1,20 @@
+.hero {
+  background: $brand-mint linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)) url(/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg) fixed center;
+  background-size: cover;
+  color: #ffffff;
+
+  .hero-titles {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  .hero-bar {
+    background-color: rgba(0, 0, 0, .3);
+    padding: 10px;
+    transition: all .5s;
+
+    &.sticky {
+      background-color: $brand-mint;
+    }
+  }
+}

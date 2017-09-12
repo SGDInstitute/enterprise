@@ -6,9 +6,16 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "barryvdh/laravel-dompdf": "^0.8.0",
         "fideloper/proxy": "~3.3",
+        "guzzlehttp/guzzle": "^6.3",
+        "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "petecoop/laravel-inky": "dev-master",
+        "spatie/laravel-activitylog": "^2.1",
+        "stripe/stripe-php": "^5.1",
+        "vinkla/hashids": "^3.3"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -29,6 +36,12 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/andreamswick/laravel-inky"
+        }
+    ],
     "extra": {
         "laravel": {
             "dont-discover": [

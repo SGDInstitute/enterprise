@@ -23,6 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', [
+            'orders' => [
+                'upcoming' => request()->user()->orders()->upcoming()->get(),
+                'past' => request()->user()->orders()->past()->get(),
+            ]
+        ]);
     }
 }

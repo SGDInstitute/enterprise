@@ -3,7 +3,42 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
-@import "variables";
+@import "brand-variables";
+@import "app-variables";
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// Vendors
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/font-awesome/scss/font-awesome";
+
+// Components
+@import "components/cards";
+@import "components/description";
+@import "components/fontawesome-overrides";
+@import "components/footer";
+@import "components/hero";
+@import "components/list-group";
+@import "components/nav-tabs";
+@import "components/media_card";
+@import "components/tickets";
+@import "components/utils";
+
+body {
+  padding-top: 78px;
+  background-color: $brand-ash-grey;
+}
+
+.content {
+  background-color: #ffffff;
+  padding: 2em 0;
+}
+
+.table th {
+  border-top: none;
+}
+.navbar {
+  height: 78px;
+}
+
+.social-links a {
+  padding: .25rem;
+}

@@ -1,0 +1,62 @@
+@import "brand-variables";
+@import 'email/settings';
+@import 'email/foundation-emails';
+@import 'email/template';
+
+.text-center {
+  text-align: center;
+}
+
+.header a {
+  color: #ffffff;
+}
+
+.header .browser-link {
+  font-size: 12px;
+}
+
+.logo-row {
+  background: #e7ebed !important;
+}
+
+.footer {
+  background: #546163 !important;
+  color: #ffffff;
+
+  a {
+    color: #ffffff;
+  }
+
+  p {
+    color: #ffffff;
+    font-size: 10px;
+  }
+}
+
+.table table {
+  margin: 30px auto;
+  width: 100%;
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  -premailer-width: 100%;
+}
+
+.table th {
+  border-bottom: 1px solid #EDEFF2;
+  padding-bottom: 8px;
+}
+
+.table td {
+  color: #74787E;
+  font-size: 15px;
+  line-height: 18px;
+  padding: 10px 0;
+}
+
+.content-cell {
+  padding: 35px;
+}
+
+p {
+  hyphens: none;
+}
