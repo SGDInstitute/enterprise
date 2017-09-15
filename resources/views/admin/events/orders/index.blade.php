@@ -15,6 +15,7 @@
                                     <tr>
                                         <th>User</th>
                                         <th>Is Paid</th>
+                                        <th>Amount</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -23,6 +24,7 @@
                                         <tr>
                                             <td>{{ $order->user->name }}</td>
                                             <td>{{ $order->isPaid() ? 'Yes' : 'No' }}</td>
+                                            <td>${{ number_format($order->amount/100, 2) }}</td>
                                             <td><a href="/admin/orders/{{ $order->id }}" class="btn btn-default btn-sm">View Order</a></td>
                                         </tr>
                                     @endforeach
