@@ -25,7 +25,7 @@ class CreateEventsTable extends Migration
             $table->text('slug');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->json('links');
+            $table->text('links');
             $table->text('image')->nullable();
             $table->text('logo_light')->nullable();
             $table->text('logo_dark')->nullable();
