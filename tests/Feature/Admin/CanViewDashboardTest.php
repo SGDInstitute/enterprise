@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdminsCanViewDashboardTest extends TestCase
+class CanViewDashboardTest extends TestCase
 {
     use RefreshDatabase;
 
