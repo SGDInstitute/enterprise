@@ -8,7 +8,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Order::class, function (Faker $faker) {
     return [
-        'event_id' => factory(Event::class)->create()->id,
+        'event_id' => function() {
+            return factory(Event::class)->create()->id;
+        },
         'user_id' => factory(User::class)->create()->id,
     ];
 });
