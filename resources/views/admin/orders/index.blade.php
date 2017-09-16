@@ -10,9 +10,10 @@
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <div class="table">
-                            <table class="table">
+                            <table class="table datatables">
                                 <thead>
                                     <tr>
+                                        <th>Created At</th>
                                         <th>User</th>
                                         <th>Is Paid</th>
                                         <th>Amount</th>
@@ -22,6 +23,7 @@
                                 <tbody>
                                     @foreach($orders as $order)
                                         <tr>
+                                            <td>{{ $order->created_at->toFormattedDateString() }}</td>
                                             <td>{{ $order->user->name }}</td>
                                             <td>{{ $order->isPaid() ? 'Yes' : 'No' }}</td>
                                             <td>${{ number_format($order->amount/100, 2) }}</td>

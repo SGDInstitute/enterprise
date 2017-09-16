@@ -12,7 +12,7 @@ class EventOrdersController extends Controller
     {
         $event = Event::findBySlug($slug);
 
-        return view('admin.events.orders.index', [
+        return view('admin.orders.index', [
             'orders' => $event->orders,
             'event' => $event,
         ]);
