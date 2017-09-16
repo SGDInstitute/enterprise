@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-responsive" src="img/enterprise.png"/>
+                        <img alt="image" class="img-responsive" src="/img/enterprise.png"/>
                     </span>
                     <div class="m-t-sm">
                         <span class="pull-left m-r-sm">
