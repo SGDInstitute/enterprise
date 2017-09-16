@@ -10,5 +10,10 @@ require('./bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
 require('../vendor/inspinia/js/inspinia');
+require('../vendor/datatables/datatables');
 let pace = require('pace');
 pace.start();
+
+$(document).ready(function(){
+    $('.datatables').DataTable();
+});
