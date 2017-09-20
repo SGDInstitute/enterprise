@@ -15,7 +15,10 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->hasPermissionTo('view dashboard')) {
+        if($request->user() === null) {
+            return redirect('/login');
+        }
+        elseif ($request->user()->hasPermissionTo('view dashboard')) {
             return $next($request);
         } else {
             return redirect('/home');
