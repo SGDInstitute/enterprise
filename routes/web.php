@@ -47,6 +47,8 @@ Route::get('/invoices/{invoice}/resend', 'InvoicesResendController@index');
 
 Route::get('/receipts/{receipt}/resend', 'ReceiptsResendController@index');
 
+Route::post('/donations', 'DonationsController@store');
+
 Route::get('/settings', 'SettingsController@edit');
 Route::post('/settings/password', 'SettingPasswordsController@store');
 Route::patch('/profile/{user?}', 'ProfileController@update');
