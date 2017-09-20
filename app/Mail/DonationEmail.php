@@ -13,6 +13,7 @@ class DonationEmail extends Mailable
     use Queueable, SerializesModels;
 
     public $donation;
+    public $url;
 
     /**
      * Create a new message instance.
@@ -22,6 +23,7 @@ class DonationEmail extends Mailable
     public function __construct(Donation $donation)
     {
         $this->donation = $donation;
+        $this->url = url("/donations/" . $donation->id);
     }
 
     /**
@@ -31,6 +33,6 @@ class DonationEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('emails.donation');
     }
 }
