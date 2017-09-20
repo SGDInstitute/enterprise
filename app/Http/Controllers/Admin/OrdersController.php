@@ -11,7 +11,7 @@ class OrdersController extends Controller
     public function show($id)
     {
         return view('admin.orders.show', [
-            'order' => Order::with(['receipt', 'event', 'user'])->findOrFail($id),
+            'order' => Order::with(['receipt', 'event', 'user', 'tickets.user'])->findOrFail($id),
         ]);
     }
 }
