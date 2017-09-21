@@ -15,8 +15,7 @@ class CreateReceiptsTable extends Migration
     {
         Schema::create('receipts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('order_id')->nullable();
-            $table->unsignedInteger('donation_id')->nullable();
+            $table->unsignedInteger('order_id');
             $table->string('transaction_id');
             $table->integer('amount');
             $table->integer('card_last_four')->nullable();
