@@ -15,6 +15,7 @@ class CreateDonationsTable extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('hash')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->integer('amount');
             $table->string('name');

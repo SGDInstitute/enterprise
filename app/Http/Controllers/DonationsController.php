@@ -51,6 +51,6 @@ class DonationsController extends Controller
             return response()->json(['created' => false, 'message' => $e->getMessage()], 422);
         }
 
-        return response()->json([], 201);
+        return response()->json(['donation' => $donation, 'redirect' => url("/donations/{$donation->hash}")], 201);
     }
 }

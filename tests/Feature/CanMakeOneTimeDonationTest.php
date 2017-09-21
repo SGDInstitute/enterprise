@@ -37,7 +37,10 @@ class CanMakeOneTimeDonationTest extends TestCase
                 'stripeToken' => $this->paymentGateway->getValidTestToken(),
             ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'donation', 'redirect'
+            ]);
 
         $donation = Donation::where('email', 'hpotter@hogwarts.edu')->first();
 
@@ -46,8 +49,9 @@ class CanMakeOneTimeDonationTest extends TestCase
         $this->assertEquals(1500, $donation->amount);
         $this->assertEquals('Harry Potter', $donation->name);
         $this->assertEquals('hpotter@hogwarts.edu', $donation->email);
-        $this->assertNotNull($donation->receipt->transaction_id);
+        $this->assertNotNull($donation->hash);
         $this->assertNull($donation->user_id);
+        $this->assertNotNull($donation->receipt->transaction_id);
 
         Mail::assertSent(DonationEmail::class, function ($mail) use ($donation) {
             return $mail->hasTo('hpotter@hogwarts.edu')
