@@ -18,6 +18,11 @@ class DonationsController extends Controller
         $this->paymentGateway = $paymentGateway;
     }
 
+    public function create()
+    {
+        return view('donations.create');
+    }
+
     public function store()
     {
         $data = request()->validate([
