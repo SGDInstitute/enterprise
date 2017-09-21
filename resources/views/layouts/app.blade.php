@@ -23,7 +23,12 @@
     @yield('styles')
 
     <script>
-        window.Spark = {}
+        window.Spark = {};
+
+        window.SGDInstitute = {
+            mblgtaccStripe: "{{ getStripeKey('mblgtacc') }}",
+            instituteStripe: "{{ getStripeKey('institute') }}"
+        };
     </script>
 </head>
 <body>
