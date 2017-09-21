@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class CanMakeOneTimeDonationTest extends TestCase
+class OneTimeDonationTest extends TestCase
 {
     use RefreshDatabase;
 
