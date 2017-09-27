@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,7 +28,8 @@ class HomeController extends Controller
             'orders' => [
                 'upcoming' => request()->user()->orders()->upcoming()->get(),
                 'past' => request()->user()->orders()->past()->get(),
-            ]
+            ],
+            'upcomingEvents' => Event::published()->upcoming()->get(),
         ]);
     }
 }
