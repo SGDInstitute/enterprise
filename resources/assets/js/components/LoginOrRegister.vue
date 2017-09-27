@@ -60,7 +60,7 @@
                         </form>
                         <hr>
                         <form class="col-lg-6" @submit.prevent="register">
-                            <h4>Register</h4>
+                            <h4>Create an Account</h4>
 
                             <div class="row form-group">
                                 <label for="register-modal-name" class="col-md-4 col-form-label">Name</label>
