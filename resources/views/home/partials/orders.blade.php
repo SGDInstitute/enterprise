@@ -28,7 +28,9 @@
 
                 <div class="row">
                     @foreach($upcomingEvents as $event)
-                        @include("components.app.event", ['event' => $event])
+                        <div class="col-md-6">
+                            @include("components.app.event", ['event' => $event])
+                        </div>
                     @endforeach
                 </div>
             @endif

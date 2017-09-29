@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-responsive" src="img/enterprise.png"/>
+                        <img alt="image" class="img-responsive" src="/img/enterprise.png"/>
                     </span>
                     <div class="m-t-sm">
                         <span class="pull-left m-r-sm">
@@ -43,26 +43,20 @@
                 <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Events </span><span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li>
-                        <a href="#" id="damian">Orders <span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a href="#">Third Level Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Third Level Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Third Level Item</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li><a href="#">Second Level Item</a></li>
-                    <li>
-                        <a href="#">Second Level Item</a></li>
-                    <li>
-                        <a href="#">Second Level Item</a></li>
+                    <li><a href="#">View All</a></li>
+                    @foreach($events as $event)
+                        <li>
+                            <a href="#" id="damian">{{ $event->title }} <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li>
+                                    <a href="/admin/events/{{ $event->slug }}">View Event</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/events/{{ $event->slug }}/orders">View Orders</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endforeach
                 </ul>
             </li>
             <li>

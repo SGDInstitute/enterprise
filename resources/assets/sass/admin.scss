@@ -4,5 +4,13 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
+
+// Bootstrap 4 Components
+@import "node_modules/bootstrap/scss/mixins/border-radius";
+@import "node_modules/bootstrap/scss/mixins/hover";
+@import "components/admin/cards";
+@import "components/cards";
+
+@import "../vendor/datatables/datatables";
 @import "../vendor/animate/animate";
 @import "../vendor/inspinia/scss/inspinia";

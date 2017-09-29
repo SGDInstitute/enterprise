@@ -10,7 +10,9 @@
 
                 <div class="row">
                     @foreach($upcomingEvents as $upcoming)
-                        @include("components.app.event", ['event' => $upcoming])
+                        <div class="col-md-6">
+                            @include("components.app.event", ['event' => $upcoming])
+                        </div>
                     @endforeach
                 </div>
             </div>

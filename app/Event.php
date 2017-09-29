@@ -11,7 +11,7 @@ class Event extends Model
 {
     use LogsActivity, SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
+    protected $fillable = ['title', 'subtitle', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
 
     protected $dates = ['start', 'end', 'published_at', 'deleted_at'];
 

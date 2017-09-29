@@ -12,11 +12,13 @@ class DeveloperSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'name' => 'Andrea Swick',
             'email' => 'andrea@sgdinstitute.org',
             'password' => bcrypt('Password1'),
             'confirmed_at' => Carbon\Carbon::now(),
         ]);
+
+        $user->givePermissionTo('view dashboard');
     }
 }
