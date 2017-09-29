@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     public function tokens()
     {
         return $this->hasMany(UserToken::class);
@@ -110,5 +115,14 @@ class User extends Authenticatable
         $this->save();
         $this->createToken('email');
         Mail::to($this)->send(new UserConfirmationEmail($this));
+    }
+
+    public function upcomingOrdersAndTickets()
+    {
+        return $this->orders()->upcoming()->get()
+            ->merge($this->tickets()->upcoming()->get()
+                ->map(function($ticket) {
+                    return $ticket->order;
+                }));
     }
 }

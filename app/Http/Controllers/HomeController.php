@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         return view('home', [
             'orders' => [
-                'upcoming' => request()->user()->orders()->upcoming()->get(),
+                'upcoming' => request()->user()->upcomingOrdersAndTickets(),
                 'past' => request()->user()->orders()->past()->get(),
             ],
             'upcomingEvents' => Event::published()->upcoming()->get(),
