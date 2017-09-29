@@ -124,4 +124,20 @@ class UserTest extends TestCase
         $this->assertContains($ownedOrder->id, $orders->pluck('id'));
         $this->assertContains($invitedOrder->id, $orders->pluck('id'));
     }
+
+    /** @test */
+    function can_get_orders_and_tickets_for_past_events()
+    {
+        $user = factory(User::class)->create();
+        $pastEvent1 = factory(Event::class)->states('past')->create();
+        $ownedOrder = factory(Order::class)->create(['event_id' => $pastEvent1->id, 'user_id' => $user]);
+        $pastEvent2 = factory(Event::class)->states('past')->create();
+        $invitedOrder = factory(Order::class)->create(['event_id' => $pastEvent2->id]);
+        $invitedOrder->tickets()->save(factory(Ticket::class)->make(['user_id' => $user->id]));
+
+        $orders = $user->pastOrdersAndTickets();
+
+        $this->assertContains($ownedOrder->id, $orders->pluck('id'));
+        $this->assertContains($invitedOrder->id, $orders->pluck('id'));
+    }
 }
