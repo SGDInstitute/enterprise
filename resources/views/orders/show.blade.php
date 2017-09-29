@@ -11,11 +11,11 @@
             <div class="col">
                 @include('flash::message')
 
-                {{--@include('orders.partials.ticket_information')--}}
-
-                <modal-button class="btn btn-primary pull-right btn-sm" event="showInviteUsers">
-                    Invite users to fill out information
-                </modal-button>
+                @if(Auth::user()->can('update', $order))
+                    <modal-button class="btn btn-primary pull-right btn-sm" event="showInviteUsers">
+                        Invite users to fill out information
+                    </modal-button>
+                @endif
 
                 <h2>{{ $order->event->ticket_string }} Details</h2>
 

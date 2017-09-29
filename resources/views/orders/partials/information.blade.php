@@ -29,14 +29,17 @@
         @if($order->isPaid())
             <p class="card-text">Confirmation
                 Number:<br> {{ join('-', str_split($order->confirmation_number, 4)) }}</p>
-            @if($order->isCard())
-                <p class="card-text">Billed to Card: ****-****-****-{{ $order->receipt->card_last_four }}</p>
-            @else
-                <p class="card-text">Check Number: {{ $order->receipt->transaction_id }}</p>
+            @if(Auth::user()->can('update', $order))
+                @if($order->isCard())
+                    <p class="card-text">Billed to Card: ****-****-****-{{ $order->receipt->card_last_four }}</p>
+                @else
+                    <p class="card-text">Check Number: {{ $order->receipt->transaction_id }}</p>
+                @endif
             @endif
         @endif
     </div>
-    <div class="list-group list-group-flush">
+    @if(Auth::user()->can('update', $order))
+        <div class="list-group list-group-flush">
         @if($order->isPaid())
             <receipt-button :order="{{ $order }}"></receipt-button>
         @else
@@ -67,4 +70,5 @@
             </form>
         @endif
     </div>
+    @endif
 </div>
