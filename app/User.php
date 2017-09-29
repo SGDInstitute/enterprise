@@ -126,4 +126,13 @@ class User extends Authenticatable
                     return $ticket->order;
                 }));
     }
+
+    public function pastOrdersAndTickets()
+    {
+        return $this->orders()->past()->get()
+            ->merge($this->tickets()->past()->get()
+                ->map(function($ticket) {
+                    return $ticket->order;
+                }));
+    }
 }
