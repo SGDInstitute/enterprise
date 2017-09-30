@@ -1,8 +1,8 @@
 <template>
     <form class="form-horizontal">
         <div class="form-group row" :class="{'has-error': form.errors.has('amount')}">
-            <label for="amount" class="col-sm-3 control-label">Amount*</label>
-            <div class="col-sm-6">
+            <label for="amount" class="col-sm-4 control-label">Amount*</label>
+            <div class="col-sm-8">
                 <div class="input-group">
                     <div class="input-group-addon">$</div>
                     <input type="number" class="form-control" name="amount" id="amount" v-model="form.amount">
@@ -15,8 +15,8 @@
         </div>
 
         <div class="form-group row" :class="{'has-error': form.errors.has('subscription')}">
-            <label for="subscription" class="col-sm-3 control-label">Would you like to repeat this gift?*</label>
-            <div class="col-sm-6">
+            <label for="subscription" class="col-sm-4 control-label">Would you like to repeat this gift?*</label>
+            <div class="col-sm-8">
                 <select name="subscription" id="subscription" class="form-control" v-model="form.subscription">
                     <option value="no">No, this is one time only</option>
                     <option value="monthly">Yes, repeat this gift monthly</option>
@@ -32,8 +32,8 @@
         <input type="hidden" name="group" value="institute">
 
         <div class="form-group row" :class="{'has-error': form.errors.has('name')}">
-            <label for="name" class="col-sm-3 control-label">Your Name*</label>
-            <div class="col-sm-6">
+            <label for="name" class="col-sm-4 control-label">Your Name*</label>
+            <div class="col-sm-8">
                 <input type="text" class="form-control" placeholder="Harvey Milk" name="name" id="name" v-model="form.name">
                 <span class="help-block" v-show="form.errors.has('name')">
                     {{ form.errors.get('name') }}
@@ -42,8 +42,8 @@
         </div>
 
         <div class="form-group row" :class="{'has-error': form.errors.has('email')}">
-            <label for="email" class="col-sm-3 control-label">Your Email*</label>
-            <div class="col-sm-6">
+            <label for="email" class="col-sm-4 control-label">Your Email*</label>
+            <div class="col-sm-8">
                 <input type="email" class="form-control" placeholder="HarveyMilk@gmail.com" name="email" id="email"
                        v-model="form.email">
                 <span class="help-block" v-show="form.errors.has('email')">
@@ -53,7 +53,7 @@
         </div>
 
         <div class="form-group row" >
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="ml-auto col-sm-8">
                 <div class="checkbox">
                     <label>
                         <input name="newsletter" v-model="form.newsletter" type="checkbox"> Keep me up to date on the
@@ -64,7 +64,7 @@
         </div>
 
         <div class="form-group row">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="ml-auto col-sm-8">
                 <div class="checkbox">
                     <label>
                         <input name="is_company" v-model="form.is_company" type="checkbox"> Are you donating on behalf of a company?
@@ -75,8 +75,8 @@
 
         <div v-show="form.is_company">
             <div class="form-group row" :class="{'has-error': form.errors.has('company')}">
-                <label for="company" class="col-sm-3 control-label">Company Name*</label>
-                <div class="col-sm-6">
+                <label for="company" class="col-sm-4 control-label">Company Name*</label>
+                <div class="col-sm-8">
                     <input type="text" class="form-control" name="company" id="company" v-model="form.company">
                     <span class="help-block" v-show="form.errors.has('company')">
                         {{ form.errors.get('company') }}
@@ -85,8 +85,8 @@
             </div>
 
             <div class="form-group row" :class="{'has-error': form.errors.has('tax_id')}">
-                <label for="tax_id" class="col-sm-3 control-label">Tax ID*</label>
-                <div class="col-sm-6">
+                <label for="tax_id" class="col-sm-4 control-label">Tax ID*</label>
+                <div class="col-sm-8">
                     <input type="text" class="form-control" name="tax_id" id="tax_id" v-model="form.tax_id">
                     <span class="help-block" v-show="form.errors.has('tax_id')">
                         {{ form.errors.get('tax_id') }}
@@ -96,7 +96,7 @@
         </div>
 
         <div class="form-group row">
-            <div class="col-sm-9 ml-auto">
+            <div class="col-sm-8 ml-auto">
                 <button type="submit" class="btn btn-primary" @click.prevent="donate" :disabled="form.busy">Donate Now</button>
             </div>
         </div>
