@@ -35,20 +35,7 @@ class DonationsController extends Controller
 
         try {
             $charge = $this->paymentGateway->charge($data['amount'] * 100, request('stripeToken'));
-            $donation = Donation::create([
-                'amount' => $data['amount'] * 100,
-                'user_id' => request()->user() ? request()->user()->id : null,
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'company' => array_get($data, 'company'),
-                'tax_id' => array_get($data, 'tax_id'),
-            ]);
-
-            $donation->receipt()->create([
-                'transaction_id' => $charge->get('id'),
-                'amount' => $charge->get('amount'),
-                'card_last_four' => $charge->get('last4'),
-            ]);
+            $donation = Donation::createOneTime($data, $charge);
 
             Mail::to(request('email'))->send(new DonationEmail($donation));
         }
