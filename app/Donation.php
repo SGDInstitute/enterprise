@@ -72,6 +72,11 @@ class Donation extends Model
         return $donation;
     }
 
+    public static function findByHash($hash)
+    {
+        return self::where('hash', $hash)->firstOrFail();
+    }
+
     public function receipt()
     {
         return $this->hasOne(Receipt::class);

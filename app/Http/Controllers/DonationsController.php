@@ -8,6 +8,8 @@ use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
 use App\Mail\DonationEmail;
 use Illuminate\Support\Facades\Mail;
+use Stripe\Charge;
+use Stripe\Subscription;
 
 class DonationsController extends Controller
 {
@@ -56,5 +58,22 @@ class DonationsController extends Controller
         }
 
         return response()->json(['donation' => $donation, 'redirect' => url("/donations/{$donation->hash}")], 201);
+    }
+
+    public function show($hash)
+    {
+        $donation = Donation::findByHash($hash);
+
+        if ($donation->subscription !== null && $donation->subscription->isActive()) {
+            $subscription = Subscription::retrieve(
+                $donation->subscription->subscription_id,
+                ['api_key' => getStripeSecret($donation->group)]);
+        } elseif($donation->charge_id) {
+            $charge = Charge::retrieve(
+                $donation->charge_id,
+                ['api_key' => getStripeSecret($donation->group)]);
+        }
+
+        return view('donations.show', compact('donation', 'charge', 'subscription'));
     }
 }

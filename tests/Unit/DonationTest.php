@@ -73,4 +73,14 @@ class DonationTest extends TestCase
         $this->assertNotNull($donation->receipt->transaction_id);
         $this->assertEquals($user->id, $donation->user_id);
     }
+
+    /** @test */
+    function find_by_hash()
+    {
+        $donation = factory(Donation::class)->create();
+
+        $foundDonation = Donation::findByHash($donation->hash);
+
+        $this->assertEquals($donation->id, $foundDonation->id);
+    }
 }

@@ -49,6 +49,7 @@ Route::get('/receipts/{receipt}/resend', 'ReceiptsResendController@index');
 
 Route::get('/donations/create', 'DonationsController@create');
 Route::post('/donations', 'DonationsController@store');
+Route::get('/donations/{hash}', 'DonationsController@show');
 
 Route::get('/settings', 'SettingsController@edit');
 Route::post('/settings/password', 'SettingPasswordsController@store');
