@@ -4,6 +4,7 @@ namespace App\Billing;
 
 
 use App\Exceptions\PaymentFailedException;
+use App\Exceptions\SubscriptionFailedException;
 
 class FakePaymentGateway implements PaymentGateway
 {
@@ -40,7 +41,7 @@ class FakePaymentGateway implements PaymentGateway
     public function subscribe($plan, $customer)
     {
         if($customer !== $this->getValidTestCustomer()) {
-            throw new PaymentFailedException();
+            throw new SubscriptionFailedException();
         }
 
         $this->charges[] = ['plan' => $plan, 'customer' => $customer];

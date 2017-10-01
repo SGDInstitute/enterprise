@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Billing\PaymentGateway;
 use App\Donation;
 use App\Exceptions\PaymentFailedException;
+use App\Exceptions\SubscriptionFailedException;
 use App\Mail\DonationEmail;
 use Illuminate\Support\Facades\Mail;
 
@@ -38,12 +39,18 @@ class DonationsController extends Controller
                 $charge = $this->paymentGateway->charge($data['amount'] * 100, request('stripeToken'));
                 $donation = Donation::createOneTime($data, $charge);
             } else {
+                if (!request()->user()->isCustomer(request()->group)) {
+                    request()->user()->createCustomer(request()->group, request()->stripeToken);
+                }
+
                 $subscription = $this->paymentGateway->subscribe("{$data['subscription']}-{$data['amount']}", request()->user()->institute_stripe_id);
                 $donation = Donation::createWithSubscription($data, $subscription);
             }
 
             Mail::to(request('email'))->send(new DonationEmail($donation));
         } catch (PaymentFailedException $e) {
+            return response()->json(['created' => false, 'message' => $e->getMessage()], 422);
+        } catch (SubscriptionFailedException $e) {
             return response()->json(['created' => false, 'message' => $e->getMessage()], 422);
         }
 

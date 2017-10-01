@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
+use App\Billing\StripePaymentGateway;
 use App\Donation;
 use App\Mail\DonationEmail;
 use App\User;
@@ -21,12 +22,12 @@ class SubscriptionDonationTest extends TestCase
     {
         parent::setUp();
 
-        $this->paymentGateway = new FakePaymentGateway;
+        $this->paymentGateway = new StripePaymentGateway(getStripeSecret('institute'));
         $this->app->instance(PaymentGateway::class, $this->paymentGateway);
     }
 
     /** @test */
-    function user_can_make_one_subscription_donation()
+    function user_can_make_subscription_donation()
     {
         Mail::fake();
 
@@ -41,6 +42,7 @@ class SubscriptionDonationTest extends TestCase
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
                 'subscription' => 'monthly',
+                'group' => 'institute',
                 'stripeToken' => $this->paymentGateway->getValidTestToken(),
             ]);
 

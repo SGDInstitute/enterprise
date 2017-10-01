@@ -3,6 +3,7 @@
 namespace Tests\Unit\Billing;
 
 use App\Exceptions\PaymentFailedException;
+use App\Exceptions\SubscriptionFailedException;
 
 trait PaymentGatewayContractTests
 {
@@ -84,30 +85,26 @@ trait PaymentGatewayContractTests
     {
         $paymentGateway = $this->getPaymentGateway();
 
-        $newSubscriptions = $paymentGateway->newChargesDuring(function ($paymentGateway) {
-            $paymentGateway->subscribe('monthly-25', $paymentGateway->getValidTestCustomer());
-        });
+        $subscription = $paymentGateway->subscribe('monthly-25', $paymentGateway->getValidTestCustomer());
 
-        $this->assertCount(1, $newSubscriptions);
-        $this->assertEquals('monthly-25', $newSubscriptions[0]['plan']);
+        $this->assertNotNull($subscription->get('id'));
+        $this->assertEquals('monthly-25', $subscription->get('plan'));
+        $this->assertNotNull($subscription->get('last4'));
     }
 
     /** @test */
-    function subscriptions_with_an_invalid_payment_token_fail()
+    function subscriptions_with_an_invalid_customer_fail()
     {
         $paymentGateway = $this->getPaymentGateway();
 
-        $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway) {
-            try {
-                $paymentGateway->subscribe('monthly-25', 'invalid-customer');
-            } catch (PaymentFailedException $e) {
-                return;
-            }
+        try {
+            $paymentGateway->subscribe('monthly-25', 'invalid-customer');
+        } catch (SubscriptionFailedException $e) {
+            $this->assertNotNull($e);
+            return;
+        }
 
-            $this->fail('Payment did not fail with an invalid payment token');
-        });
-
-        $this->assertCount(0, $newCharges);
+        $this->fail('Payment did not fail with an invalid payment token');
     }
 
     /** @test */
