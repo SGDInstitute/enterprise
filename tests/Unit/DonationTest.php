@@ -29,6 +29,7 @@ class DonationTest extends TestCase
     {
         $request = [
             'amount' => 25,
+            'group' => 'institute',
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
             'subscription' => 'no',
@@ -51,6 +52,7 @@ class DonationTest extends TestCase
         Auth::login($user);
         $request = [
             'amount' => 25,
+            'group' => 'institute',
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
             'subscription' => 'monthly',

@@ -30,6 +30,7 @@ class DonationsController extends Controller
             'name' => 'required',
             'email' => 'required',
             'subscription' => 'required',
+            'group' => 'required',
             'company' => 'nullable|required_if:is_company,true',
             'tax_id' => 'nullable|required_if:is_company,true',
         ]);

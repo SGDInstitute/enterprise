@@ -30,6 +30,7 @@ class Donation extends Model
         $donation = self::create([
             'amount' => $data['amount'] * 100,
             'user_id' => request()->user() ? request()->user()->id : null,
+            'group' => $data['group'],
             'name' => $data['name'],
             'email' => $data['email'],
             'company' => array_get($data, 'company'),
@@ -50,6 +51,7 @@ class Donation extends Model
         $donation = self::create([
             'amount' => $data['amount'] * 100,
             'user_id' => Auth::user()->id,
+            'group' => $data['group'],
             'name' => $data['name'],
             'email' => $data['email'],
             'company' => array_get($data, 'company'),

@@ -18,6 +18,7 @@ class CreateDonationsTable extends Migration
             $table->string('hash')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->integer('amount');
+            $table->string('group');
             $table->string('name');
             $table->string('email');
             $table->string('company')->nullable();
