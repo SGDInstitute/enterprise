@@ -39,6 +39,10 @@ class FakePaymentGateway implements PaymentGateway
 
     public function subscribe($plan, $customer)
     {
+        if($customer !== $this->getValidTestCustomer()) {
+            throw new PaymentFailedException();
+        }
+
         $this->charges[] = ['plan' => $plan, 'customer' => $customer];
 
         return collect(['id' => 'subscription_id', 'plan' => $plan, 'last4' => '1234']);

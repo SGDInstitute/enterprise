@@ -31,6 +31,24 @@ class FakePaymentGatewayTest extends TestCase
     }
 
     /** @test */
+    function subscriptions_with_an_invalid_payment_token_fail()
+    {
+        $paymentGateway = $this->getPaymentGateway();
+
+        $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway) {
+            try {
+                $paymentGateway->subscribe('monthly-25', 'invalid-customer');
+            } catch (PaymentFailedException $e) {
+                return;
+            }
+
+            $this->fail('Payment did not fail with an invalid payment token');
+        });
+
+        $this->assertCount(0, $newCharges);
+    }
+
+    /** @test */
     function subscription_returns_object_with_id_amount_and_card_last_four()
     {
         $paymentGateway = $this->getPaymentGateway();
