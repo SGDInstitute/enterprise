@@ -128,18 +128,32 @@
             this.form.email = this.user !== null ? this.user.email : '';
 
             this.configure();
+
+            let self = this;
+            this.eventHub.$on('updatedUser', function(user) {
+                self.user = user;
+                self.form.name = user.name;
+                self.form.email = user.email;
+                self.donate();
+            })
         },
         methods: {
             donate() {
-                this.stripe.open({
-                    name: 'Donation',
-                    description: 'Some donation from an awesome human!',
-                    zipCode: true,
-                    email: this.form.email,
-                    amount: this.form.amount * 100,
-                    panelLabel: this.panelLabel,
-                    allowRememberMe: false
-                });
+                console.log(this.form.subscription, this.user, this.form.subscription !== 'no' && this.user === null);
+                if(this.form.subscription !== 'no' && this.user === null) {
+                    this.eventHub.$emit('showLoginRegister');
+                }
+                else {
+                    this.stripe.open({
+                        name: 'Donation',
+                        description: 'Some donation from an awesome human!',
+                        zipCode: true,
+                        email: this.form.email,
+                        amount: this.form.amount * 100,
+                        panelLabel: this.panelLabel,
+                        allowRememberMe: false
+                    });
+                }
             },
             configure() {
                 this.stripe = StripeCheckout.configure({
@@ -188,13 +202,6 @@
                 }
 
                 return SGDInstitute.instituteStripe;
-            }
-        },
-        watch: {
-            'form.subscription': function() {
-                if(this.form.subscription !== 'no' && this.user === null) {
-                    $('#loginOrRegisterModal').modal('show');
-                }
             }
         }
     }
