@@ -20,7 +20,7 @@ class CreateSubscriptionsTable extends Migration
             $table->string('subscription_id');
             $table->boolean('active')->default(true);
             $table->timestamp('ended_at')->nullable();
-            $table->foreign('donation_id')->references('id')->on('sponsorship_donations')->onDelete('cascade');
+            $table->foreign('donation_id')->references('id')->on('donations')->onDelete('cascade');
             $table->timestamps();
         });
     }
