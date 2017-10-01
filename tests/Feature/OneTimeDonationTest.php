@@ -34,6 +34,7 @@ class OneTimeDonationTest extends TestCase
                 'amount' => 15,
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
+                'subscription' => 'no',
                 'stripeToken' => $this->paymentGateway->getValidTestToken(),
             ]);
 
@@ -74,6 +75,7 @@ class OneTimeDonationTest extends TestCase
                 'amount' => 25,
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
+                'subscription' => 'no',
                 'stripeToken' => $this->paymentGateway->getValidTestToken(),
             ]);
 
@@ -104,6 +106,7 @@ class OneTimeDonationTest extends TestCase
             'amount' => 15,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'company' => 'Hogwarts School of Witchcraft and Wizardry',
             'tax_id' => 123123123,
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
@@ -130,6 +133,7 @@ class OneTimeDonationTest extends TestCase
             'amount' => 15,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'stripeToken' => 'invalid-payment-token',
         ]);
 
@@ -149,6 +153,7 @@ class OneTimeDonationTest extends TestCase
         $response = $this->json("post", "/donations", [
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
         ]);
 
@@ -163,6 +168,7 @@ class OneTimeDonationTest extends TestCase
             'amount' => 4,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
         ]);
 
@@ -177,6 +183,7 @@ class OneTimeDonationTest extends TestCase
             'amount' => 1000000,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
         ]);
 
@@ -190,6 +197,7 @@ class OneTimeDonationTest extends TestCase
         $response = $this->json("post", "/donations", [
             'amount' => 10,
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
         ]);
 
@@ -203,6 +211,7 @@ class OneTimeDonationTest extends TestCase
         $response = $this->json("post", "/donations", [
             'amount' => 10,
             'name' => 'Harry Potter',
+            'subscription' => 'no',
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
         ]);
 
@@ -217,6 +226,7 @@ class OneTimeDonationTest extends TestCase
             'amount' => 10,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'is_company' => true,
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
         ]);

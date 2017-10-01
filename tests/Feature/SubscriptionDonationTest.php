@@ -49,7 +49,6 @@ class SubscriptionDonationTest extends TestCase
         $donation = Donation::where('email', 'hpotter@hogwarts.edu')->first();
 
         $this->assertNotNull($donation);
-        $this->assertEquals(2500, $this->paymentGateway->totalSubscriptions());
         $this->assertNotNull($donation->hash);
         $this->assertEquals(2500, $donation->amount);
         $this->assertEquals('Harry Potter', $donation->name);

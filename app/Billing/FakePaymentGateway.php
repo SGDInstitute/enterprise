@@ -21,6 +21,11 @@ class FakePaymentGateway implements PaymentGateway
         return 'valid-token';
     }
 
+    public function getValidTestCustomer()
+    {
+        return 'valid-customer';
+    }
+
     public function charge($amount, $token)
     {
         if($token !== $this->getValidTestToken()) {
@@ -30,6 +35,13 @@ class FakePaymentGateway implements PaymentGateway
         $this->charges[] = $amount;
 
         return collect(['id' => 'charge_id', 'amount' => $amount, 'last4' => '1234']);
+    }
+
+    public function subscribe($plan, $customer)
+    {
+        $this->charges[] = ['plan' => $plan, 'customer' => $customer];
+
+        return collect(['id' => 'subscription_id', 'plan' => $plan, 'last4' => '1234']);
     }
 
     public function newChargesDuring($callback)

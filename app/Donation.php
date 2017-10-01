@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Vinkla\Hashids\Facades\Hashids;
 
 class Donation extends Model
@@ -44,8 +45,38 @@ class Donation extends Model
         return $donation;
     }
 
+    public static function createWithSubscription($data, $subscription)
+    {
+        $donation = self::create([
+            'amount' => $data['amount'] * 100,
+            'user_id' => Auth::user()->id,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'company' => array_get($data, 'company'),
+            'tax_id' => array_get($data, 'tax_id'),
+        ]);
+
+        $donation->receipt()->create([
+            'transaction_id' => $subscription->get('id'),
+            'amount' => $data['amount'] * 100,
+            'card_last_four' => $subscription->get('last4'),
+        ]);
+
+        $donation->subscription()->create([
+            'plan' => $subscription->get('plan'),
+            'subscription_id' => $subscription->get('id'),
+        ]);
+
+        return $donation;
+    }
+
     public function receipt()
     {
         return $this->hasOne(Receipt::class);
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
     }
 }

@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use App\Donation;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -29,6 +31,7 @@ class DonationTest extends TestCase
             'amount' => 25,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
             'stripeToken' => $this->paymentGateway->getValidTestToken(),
         ];
 
@@ -39,5 +42,33 @@ class DonationTest extends TestCase
         $this->assertEquals('Harry Potter', $donation->name);
         $this->assertEquals('hpotter@hogwarts.edu', $donation->email);
         $this->assertNotNull($donation->receipt->transaction_id);
+    }
+
+    /** @test */
+    function can_make_donation_with_subscription()
+    {
+        $user = factory(User::class)->create();
+        Auth::login($user);
+        $request = [
+            'amount' => 25,
+            'name' => 'Harry Potter',
+            'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'monthly',
+            'stripeToken' => $this->paymentGateway->getValidTestToken(),
+        ];
+        $subscription = $this->paymentGateway->subscribe("{$request['subscription']}-{$request['amount']}", $this->paymentGateway->getValidTestCustomer());
+
+        $donation = Donation::createWithSubscription($request, $subscription);
+
+        $this->assertNotNull($donation);
+        $this->assertEquals(2500, $donation->amount);
+        $this->assertEquals('Harry Potter', $donation->name);
+        $this->assertEquals('hpotter@hogwarts.edu', $donation->email);
+        $this->assertNotNull($donation->receipt->transaction_id);
+        $this->assertEquals('monthly-25', $donation->subscription->plan);
+        $this->assertTrue($donation->subscription->active);
+        $this->assertNotNull($donation->subscription->subscription_id);
+        $this->assertNotNull($donation->receipt->transaction_id);
+        $this->assertEquals($user->id, $donation->user_id);
     }
 }
