@@ -27,18 +27,19 @@ Vue.mixin({
  */
 
 Vue.component('add-user-button', require('./components/AddUserToTicketButton.vue'));
-Vue.component('start-order', require('./components/StartOrder.vue'));
-Vue.component('login-or-register', require('./components/LoginOrRegister.vue'));
+Vue.component('donation-form', require('./components/DonationForm.vue'));
 Vue.component('edit-profile', require('./components/EditProfile.vue'));
 Vue.component('edit-password', require('./components/EditPassword.vue'));
-Vue.component('pay-with-card', require('./components/PayWithCard.vue'));
-Vue.component('pay-with-check', require('./components/PayWithCheck.vue'));
 Vue.component('invoice-button', require('./components/InvoiceButton.vue'));
 Vue.component('invoice-form', require('./components/InvoiceForm.vue'));
 Vue.component('invite-users-form', require('./components/InviteUsersForm.vue'));
+Vue.component('login-or-register', require('./components/LoginOrRegister.vue'));
 Vue.component('manual-user-modal', require('./components/ManualUserModal.vue'));
 Vue.component('modal-button', require('./components/ModalButton.vue'));
+Vue.component('pay-with-card', require('./components/PayWithCard.vue'));
+Vue.component('pay-with-check', require('./components/PayWithCheck.vue'));
 Vue.component('receipt-button', require('./components/ReceiptButton.vue'));
+Vue.component('start-order', require('./components/StartOrder.vue'));
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue'));
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue'));

@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'default' => 'main',
+    'default' => 'tickets',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,9 +39,15 @@ return [
 
     'connections' => [
 
-        'main' => [
+        'tickets' => [
             'salt' => 'TGE2Wu0wNPZxKB6FfPAQr3THbbRE3A119VJVOy2mhzJJwO7gZV',
             'length' => '5',
+            'alphabet' => 'ABCDEFGHJKLMNPQRSTUVWXYZ2345789'
+        ],
+
+        'donations' => [
+            'salt' => 'm8sxWjB5ld9bmIYrAgclcjD5NI5dG6FC01GMgLvhcdZmW8Bamr',
+            'length' => '8',
             'alphabet' => 'ABCDEFGHJKLMNPQRSTUVWXYZ2345789'
         ],
 

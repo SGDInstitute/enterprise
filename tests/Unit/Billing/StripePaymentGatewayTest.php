@@ -21,5 +21,4 @@ class StripePaymentGatewayTest extends TestCase
     {
         return new StripePaymentGateway(config('institute.stripe.secret'));
     }
-
 }
