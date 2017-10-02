@@ -5,6 +5,7 @@ namespace App\Billing;
 
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
+use Carbon\Carbon;
 
 class FakePaymentGateway implements PaymentGateway
 {
@@ -46,7 +47,12 @@ class FakePaymentGateway implements PaymentGateway
 
         $this->charges[] = ['plan' => $plan, 'customer' => $customer];
 
-        return collect(['id' => 'subscription_id', 'plan' => $plan, 'last4' => '1234']);
+        return collect([
+            'id' => 'subscription_id',
+            'plan' => $plan,
+            'last4' => '1234',
+            'next_charge' => Carbon::now()->addMonth()
+        ]);
     }
 
     public function newChargesDuring($callback)

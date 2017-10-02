@@ -8,6 +8,7 @@ use App\Billing\StripePaymentGateway;
 use App\Donation;
 use App\Mail\DonationEmail;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -56,6 +57,7 @@ class SubscriptionDonationTest extends TestCase
         $this->assertEquals('Harry Potter', $donation->name);
         $this->assertEquals('hpotter@hogwarts.edu', $donation->email);
         $this->assertEquals('monthly-25', $donation->subscription->plan);
+        $this->assertNotNull($donation->subscription->next_charge);
         $this->assertTrue($donation->subscription->active);
         $this->assertNotNull($donation->subscription->subscription_id);
         $this->assertNotNull($donation->receipt->transaction_id);

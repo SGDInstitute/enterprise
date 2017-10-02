@@ -67,6 +67,7 @@ class Donation extends Model
         $donation->subscription()->create([
             'plan' => $subscription->get('plan'),
             'subscription_id' => $subscription->get('id'),
+            'next_charge' => $subscription->get('next_charge'),
         ]);
 
         return $donation;

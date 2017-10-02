@@ -5,6 +5,7 @@ namespace App\Billing;
 
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
+use Illuminate\Support\Carbon;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Error\InvalidRequest;
@@ -54,7 +55,8 @@ class StripePaymentGateway implements PaymentGateway
             return collect([
                 'id' => $subscription->id,
                 'plan' => $subscription->plan->id,
-                'last4' => $customer->sources['data'][0]['last4']
+                'last4' => $customer->sources['data'][0]['last4'],
+                'next_charge' => Carbon::parse($subscription->current_period_end)->toDateTimeString(),
             ]);
         } catch (InvalidRequest $e) {
             throw new SubscriptionFailedException;

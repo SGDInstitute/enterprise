@@ -6,6 +6,7 @@ use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use App\Donation;
 use App\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -68,6 +69,7 @@ class DonationTest extends TestCase
         $this->assertEquals('hpotter@hogwarts.edu', $donation->email);
         $this->assertNotNull($donation->receipt->transaction_id);
         $this->assertEquals('monthly-25', $donation->subscription->plan);
+        $this->assertNotNull($donation->subscription->next_charge);
         $this->assertTrue($donation->subscription->active);
         $this->assertNotNull($donation->subscription->subscription_id);
         $this->assertNotNull($donation->receipt->transaction_id);

@@ -17,6 +17,7 @@ class CreateSubscriptionsTable extends Migration
             $table->increments('id');
             $table->integer('donation_id')->unsigned();
             $table->string('plan');
+            $table->dateTime('next_charge');
             $table->string('subscription_id');
             $table->boolean('active')->default(true);
             $table->timestamp('ended_at')->nullable();

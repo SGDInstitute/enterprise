@@ -108,7 +108,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function subscription_returns_object_with_id_plan_and_card_last_four()
+    function subscription_returns_object_with_id_plan_card_last_four_and_next_charge()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -117,5 +117,6 @@ trait PaymentGatewayContractTests
         $this->assertEquals('monthly-25', $subscription->get('plan'));
         $this->assertNotNull($subscription->get('id'));
         $this->assertNotNull($subscription->get('last4'));
+        $this->assertNotNull($subscription->get('next_charge'));
     }
 }
