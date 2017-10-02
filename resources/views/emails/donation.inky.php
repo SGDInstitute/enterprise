@@ -1,3 +1,6 @@
+@extends('layouts.email')
+
+@section('content')
 <h1>{{ $donation->name }}</h1>
 
 <p>
@@ -19,3 +22,4 @@
     resources. Your support turns this commitment into action.</p>
 
 <button href="{{ $url }}" class="radius text-center">View Donation</button>
+@endsection
