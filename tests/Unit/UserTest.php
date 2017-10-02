@@ -2,7 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Event;
 use App\Mail\UserConfirmationEmail;
+use App\Order;
+use App\Ticket;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -106,6 +109,36 @@ class UserTest extends TestCase
             return $mail->hasTo('phoenix@example.com')
                 && $mail->user->id === User::findByEmail('phoenix@example.com')->id;
         });
+    }
+
+    /** @test */
+    function can_get_orders_and_tickets_for_upcoming_events()
+    {
+        $user = factory(User::class)->create();
+        $ownedOrder = factory(Order::class)->create(['user_id' => $user]);
+        $invitedOrder = factory(Order::class)->create();
+        $invitedOrder->tickets()->save(factory(Ticket::class)->make(['user_id' => $user->id]));
+
+        $orders = $user->upcomingOrdersAndTickets();
+
+        $this->assertContains($ownedOrder->id, $orders->pluck('id'));
+        $this->assertContains($invitedOrder->id, $orders->pluck('id'));
+    }
+
+    /** @test */
+    function can_get_orders_and_tickets_for_past_events()
+    {
+        $user = factory(User::class)->create();
+        $pastEvent1 = factory(Event::class)->states('past')->create();
+        $ownedOrder = factory(Order::class)->create(['event_id' => $pastEvent1->id, 'user_id' => $user]);
+        $pastEvent2 = factory(Event::class)->states('past')->create();
+        $invitedOrder = factory(Order::class)->create(['event_id' => $pastEvent2->id]);
+        $invitedOrder->tickets()->save(factory(Ticket::class)->make(['user_id' => $user->id]));
+
+        $orders = $user->pastOrdersAndTickets();
+
+        $this->assertContains($ownedOrder->id, $orders->pluck('id'));
+        $this->assertContains($invitedOrder->id, $orders->pluck('id'));
     }
 
     /** @test */

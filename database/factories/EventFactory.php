@@ -40,3 +40,10 @@ $factory->state(App\Event::class, 'future', function (Faker $faker) {
         'published_at' => \Carbon\Carbon::parse('+1 month'),
     ];
 });
+
+$factory->state(App\Event::class, 'past', function (Faker $faker) {
+    return [
+        'start' => \Carbon\Carbon::parse('-1 year'),
+        'end' => \Carbon\Carbon::parse('-1 year')->addDays(2),
+    ];
+});

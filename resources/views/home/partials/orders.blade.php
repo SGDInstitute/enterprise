@@ -10,11 +10,32 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-upcoming" role="tabpanel" aria-labelledby="nav-upcoming-tab">
-        <div class="row">
-            @foreach($orders['upcoming'] as $order)
+
+        @forelse($orders['upcoming'] as $order)
+            <div class="row">
                 @include('components.app.order', ['order' => $order])
-            @endforeach
-        </div>
+            </div>
+        @empty
+            <p>Whoops, it doesn't look like you have any orders for an upcoming event!</p>
+            @if($upcomingEvents->count() === 0)
+
+            @elseif($upcomingEvents->count() === 1)
+                <p>Why not come to
+                    <a href="/events/{{ $upcomingEvents->first()->slug }}">{{ $upcomingEvents->first()->title }}</a>
+                </p>
+            @else
+                <p>Why not come to one of the following events?</p>
+
+                <div class="row">
+                    @foreach($upcomingEvents as $event)
+                        <div class="col-md-6">
+                            @include("components.app.event", ['event' => $event])
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        @endforelse
+
     </div>
     <div class="tab-pane fade" id="nav-past" role="tabpanel" aria-labelledby="nav-past-tab">
         @foreach($orders['past'] as $order)

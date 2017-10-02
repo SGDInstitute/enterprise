@@ -5,6 +5,7 @@ namespace App;
 use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Vinkla\Hashids\Facades\Hashids;
@@ -39,7 +40,7 @@ class Ticket extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault(new User());
     }
 
     public function order()
@@ -55,6 +56,22 @@ class Ticket extends Model
     public function scopeFilled($query)
     {
         return $query->whereNotNull('user_id');
+    }
+
+    public function scopeUpcoming($query)
+    {
+        return $query->select('tickets.*', 'events.start')
+            ->join('orders', 'tickets.order_id', '=', 'orders.id')
+            ->join('events', 'orders.event_id', '=', 'events.id')
+            ->whereDate('start', '>', Carbon::now());
+    }
+
+    public function scopePast($query)
+    {
+        return $query->select('tickets.*', 'events.start')
+            ->join('orders', 'tickets.order_id', '=', 'orders.id')
+            ->join('events', 'orders.event_id', '=', 'events.id')
+            ->whereDate('start', '<', Carbon::now());
     }
 
     public function invite($email, $note = null)

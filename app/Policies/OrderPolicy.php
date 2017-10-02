@@ -19,7 +19,7 @@ class OrderPolicy
      */
     public function view(User $user, Order $order)
     {
-        return $user->id == $order->user_id;
+        return $user->id == $order->user_id || $order->tickets->pluck('user_id')->contains($user->id);
     }
 
     /**
@@ -42,7 +42,7 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        //
+        return $user->id == $order->user_id;
     }
 
     /**

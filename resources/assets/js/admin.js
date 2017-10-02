@@ -10,7 +10,7 @@ require('./bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
 require('../vendor/inspinia/js/inspinia');
-require('../vendor/datatables/datatables');
+require( 'datatables.net-bs' )();
 let pace = require('pace');
 pace.start();
 
