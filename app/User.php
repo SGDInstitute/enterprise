@@ -10,11 +10,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 use Stripe\Customer;
 
 class User extends Authenticatable
 {
-    use Notifiable, LogsActivity, SoftDeletes;
+    use Notifiable, LogsActivity, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.
