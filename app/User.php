@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasMany(UserToken::class);
     }
 
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
+
     public function emailToken()
     {
         return $this->hasOne(UserToken::class)->where('type', 'email');
