@@ -4,8 +4,12 @@ namespace App\Billing;
 
 
 use App\Exceptions\PaymentFailedException;
+use App\Exceptions\SubscriptionFailedException;
+use Illuminate\Support\Carbon;
 use Stripe\Charge;
+use Stripe\Customer;
 use Stripe\Error\InvalidRequest;
+use Stripe\Subscription;
 use Stripe\Token;
 
 class StripePaymentGateway implements PaymentGateway
@@ -33,6 +37,32 @@ class StripePaymentGateway implements PaymentGateway
         }
     }
 
+    public function subscribe($planId, $customerId)
+    {
+        try {
+            $plan = Plan::findOrCreate($planId, $this->getApiKey());
+            $customer = Customer::retrieve($customerId, ['api_key' => $this->apiKey]);
+
+            $subscription = Subscription::create([
+                "customer" => $customer->id,
+                "items" => [
+                    [
+                        "plan" => $plan->id,
+                    ],
+                ],
+            ], ['api_key' => $this->apiKey]);
+
+            return collect([
+                'id' => $subscription->id,
+                'plan' => $subscription->plan->id,
+                'last4' => $customer->sources['data'][0]['last4'],
+                'next_charge' => Carbon::parse($subscription->current_period_end)->toDateTimeString(),
+            ]);
+        } catch (InvalidRequest $e) {
+            throw new SubscriptionFailedException;
+        }
+    }
+
     public function getValidTestToken()
     {
         return Token::create([
@@ -42,7 +72,15 @@ class StripePaymentGateway implements PaymentGateway
                 "exp_year" => date('Y') + 1,
                 "cvc" => "123",
             ],
-        ], ['api_key' => $this->apiKey]);
+        ], ['api_key' => $this->apiKey])->id;
+    }
+
+    public function getValidTestCustomer()
+    {
+        return Customer::create([
+            "description" => "Customer for hpotter@hogwarts.edu",
+            "source" => $this->getValidTestToken(),
+        ], ['api_key' => $this->apiKey])->id;
     }
 
     public function setApiKey($apiKey)

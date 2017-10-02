@@ -140,4 +140,23 @@ class UserTest extends TestCase
         $this->assertContains($ownedOrder->id, $orders->pluck('id'));
         $this->assertContains($invitedOrder->id, $orders->pluck('id'));
     }
+
+    /** @test */
+    function can_test_if_user_is_a_stripe_customer()
+    {
+        $customer = factory(User::class)->create(['institute_stripe_id' => 'customer_id']);
+        $this->assertTrue($customer->isCustomer('institute'));
+
+        $user = factory(User::class)->create();
+        $this->assertFalse($user->isCustomer('institute'));
+    }
+
+    /** @test */
+    function can_get_users_stripe_id()
+    {
+        $customer = factory(User::class)->create(['institute_stripe_id' => 'customer_id']);
+
+        $this->assertEquals('customer_id', $customer->getCustomer('institute'));
+    }
+
 }

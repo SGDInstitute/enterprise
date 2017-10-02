@@ -3,6 +3,7 @@
 namespace Tests\Unit\Billing;
 
 use App\Exceptions\PaymentFailedException;
+use App\Exceptions\SubscriptionFailedException;
 
 trait PaymentGatewayContractTests
 {
@@ -22,7 +23,7 @@ trait PaymentGatewayContractTests
         });
 
         $this->assertCount(2, $newCharges);
-        $this->assertEquals([5000,4000], $newCharges->all());
+        $this->assertEquals([5000, 4000], $newCharges->all());
 
     }
 
@@ -77,5 +78,45 @@ trait PaymentGatewayContractTests
         $this->assertEquals(2500, $charge->get('amount'));
         $this->assertNotNull($charge->get('id'));
         $this->assertNotNull($charge->get('last4'));
+    }
+
+    /** @test */
+    function subscriptions_with_a_valid_payment_token_are_successful()
+    {
+        $paymentGateway = $this->getPaymentGateway();
+
+        $subscription = $paymentGateway->subscribe('monthly-25', $paymentGateway->getValidTestCustomer());
+
+        $this->assertNotNull($subscription->get('id'));
+        $this->assertEquals('monthly-25', $subscription->get('plan'));
+        $this->assertNotNull($subscription->get('last4'));
+    }
+
+    /** @test */
+    function subscriptions_with_an_invalid_customer_fail()
+    {
+        $paymentGateway = $this->getPaymentGateway();
+
+        try {
+            $paymentGateway->subscribe('monthly-25', 'invalid-customer');
+        } catch (SubscriptionFailedException $e) {
+            $this->assertNotNull($e);
+            return;
+        }
+
+        $this->fail('Payment did not fail with an invalid payment token');
+    }
+
+    /** @test */
+    function subscription_returns_object_with_id_plan_card_last_four_and_next_charge()
+    {
+        $paymentGateway = $this->getPaymentGateway();
+
+        $subscription = $paymentGateway->subscribe('monthly-25', $paymentGateway->getValidTestCustomer());
+
+        $this->assertEquals('monthly-25', $subscription->get('plan'));
+        $this->assertNotNull($subscription->get('id'));
+        $this->assertNotNull($subscription->get('last4'));
+        $this->assertNotNull($subscription->get('next_charge'));
     }
 }

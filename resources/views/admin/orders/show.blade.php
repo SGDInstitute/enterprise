@@ -41,11 +41,13 @@
                                     <tbody>
                                     @foreach($order->tickets as $ticket)
                                         <tr>
-                                            <td>{{ $ticket->user->name }}</td>
-                                            <td>{{ $ticket->user->email }}</td>
-                                            <td>{{ $ticket->user->tshirt }}</td>
+                                            <td>{{ $ticket->user ? $ticket->user->name : '' }}</td>
+                                            <td>{{ $ticket->user ? $ticket->user->email : '' }}</td>
+                                            <td>{{ $ticket->user ? $ticket->user->tshirt : '' }}</td>
                                             <td class="text-right">
-                                                <a href="" class="btn btn-default">View User</a>
+                                                @if($ticket->user)
+                                                    <a href="" class="btn btn-default">View User</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

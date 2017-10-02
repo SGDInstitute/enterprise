@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
+use Stripe\Customer;
 
 class User extends Authenticatable
 {
@@ -97,6 +98,30 @@ class User extends Authenticatable
             'token' => str_random(50),
             'type' => $type,
         ]);
+    }
+
+    public function isCustomer($group)
+    {
+        $field = "{$group}_stripe_id";
+        return $this->$field !== null;
+    }
+
+    public function getCustomer($group)
+    {
+        $field = "{$group}_stripe_id";
+        return $this->$field;
+    }
+
+    public function createCustomer($group, $token)
+    {
+        $customer = Customer::create([
+            'email' => $this->email,
+            'source'  => $token,
+        ], ['api_key' => getStripeSecret($group)]);
+
+        $field = "{$group}_stripe_id";
+        $this->$field = $customer->id;
+        $this->save();
     }
 
     public function confirm() {
