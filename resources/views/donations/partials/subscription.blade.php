@@ -1,12 +1,8 @@
 <table class="table">
     <tbody>
     <tr>
-        <td>ID</td>
-        <td>{{ $donation->subscription->subscription_id }}</td>
-    </tr>
-    <tr>
         <td>Amount</td>
-        <td>{{ $donation->amount }}</td>
+        <td>${{ number_format($donation->amount/100, 2) }}</td>
     </tr>
     <tr>
         <td>Frequency</td>

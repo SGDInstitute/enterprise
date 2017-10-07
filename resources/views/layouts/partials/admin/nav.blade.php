@@ -62,8 +62,14 @@
             <li>
                 <a href="#"><i class="fa fa-magic"></i> <span class="nav-label">Top Level Item </span></a>
             </li>
-            <li class="landing_link">
-                <a target="_blank" href="https://sgdinstitute.org/"><i class="fa fa-star"></i> <span class="nav-label">Website</span></a>
+            <li>
+                <a target="_blank" href="/home"><i class="fa fa-user-circle-o"></i> <span class="nav-label">View as Regular User</span></a>
+            </li>
+            <li>
+                <a target="_blank" href="https://sgdinstitute.org/"><i class="fa fa-cubes"></i> <span class="nav-label">SGD Website</span></a>
+            </li>
+            <li>
+                <a target="_blank" href="https://mblgtacc.org/"><i class="fa fa-cube"></i> <span class="nav-label">MBLGTACC</span></a>
             </li>
         </ul>
     </div>

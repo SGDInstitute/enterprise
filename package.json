@@ -26,6 +26,7 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
-    "datatables.net-bs": "^1.10.16"
+    "datatables.net-bs": "^1.10.16",
+    "vue-tabs-component": "^1.2.0"
   }
 }

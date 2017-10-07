@@ -6,7 +6,7 @@
     </tr>
     <tr>
         <td>Amount</td>
-        <td>{{ $donation->amount }}</td>
+        <td>${{ number_format($donation->amount/100, 2) }}</td>
     </tr>
     @if(isset($charge))
     <tr>
