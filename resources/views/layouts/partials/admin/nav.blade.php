@@ -60,7 +60,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-magic"></i> <span class="nav-label">Top Level Item </span></a>
+                <a href="/admin/users"><i class="fa fa-users"></i> <span class="nav-label">Users </span></a>
             </li>
             <li>
                 <a target="_blank" href="/home"><i class="fa fa-user-circle-o"></i> <span class="nav-label">View as Regular User</span></a>

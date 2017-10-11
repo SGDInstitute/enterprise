@@ -29,6 +29,9 @@
 
         <div id="page-wrapper" class="gray-bg">
             @include("layouts.partials.admin.topnav")
+
+            @yield('header')
+
             <div class="wrapper wrapper-content">
                 @yield("content")
             </div>
