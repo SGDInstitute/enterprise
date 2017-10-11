@@ -67,5 +67,23 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-8">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Orders</a></li>
+                <li role="presentation"><a href="#donations" aria-controls="donations" role="tab" data-toggle="tab">Donations</a></li>
+                <li role="presentation"><a href="#activity" aria-controls="activity" role="tab" data-toggle="tab">Activity</a></li>
+                @can('manage_roles')
+                    <li role="presentation"><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab">Settings</a></li>
+                @endcan
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="orders">...</div>
+                <div role="tabpanel" class="tab-pane" id="donations">...</div>
+                <div role="tabpanel" class="tab-pane" id="activity">...</div>
+                <div role="tabpanel" class="tab-pane" id="permissions">...</div>
+            </div>
+        </div>
     </div>
 @endsection
