@@ -1,5 +1,8 @@
 require('./bootstrap');
 
+window.Popper = require('popper.js').default;
+require('bootstrap');
+
 window.Vue = require('vue');
 
 require('./forms/bootstrap');
