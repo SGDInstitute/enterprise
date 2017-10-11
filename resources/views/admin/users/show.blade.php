@@ -28,7 +28,8 @@
                 </div>
                 <div>
                     <div class="ibox-content">
-                        <img alt="Profile Image" class="img-responsive img-circle pull-left m-r-lg" src="{{ $user->image }}">
+                        <img alt="Profile Image" class="img-responsive img-circle pull-left m-r-lg"
+                             src="{{ $user->image }}">
                         <h4><strong>{{ $user->name }}</strong></h4>
 
                         <p><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></p>
@@ -68,21 +69,23 @@
             </div>
         </div>
         <div class="col-md-8">
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Orders</a></li>
-                <li role="presentation"><a href="#donations" aria-controls="donations" role="tab" data-toggle="tab">Donations</a></li>
-                <li role="presentation"><a href="#activity" aria-controls="activity" role="tab" data-toggle="tab">Activity</a></li>
-                @can('manage_roles')
-                    <li role="presentation"><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab">Settings</a></li>
-                @endcan
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="orders">...</div>
-                <div role="tabpanel" class="tab-pane" id="donations">...</div>
-                <div role="tabpanel" class="tab-pane" id="activity">...</div>
-                <div role="tabpanel" class="tab-pane" id="permissions">...</div>
+            <div class="ibox">
+                <div class="ibox-content no-padding">
+                    <tabs>
+                        <tab name="Orders">
+                            First tab content
+                        </tab>
+                        <tab name="Donations">
+                            Second tab content
+                        </tab>
+                        <tab name="Activity">
+                            Third tab content
+                        </tab>
+                        <tab name="Permissions">
+                            Fourth tab content
+                        </tab>
+                    </tabs>
+                </div>
             </div>
         </div>
     </div>
