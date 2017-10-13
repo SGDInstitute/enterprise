@@ -19,6 +19,6 @@ class DeveloperSeeder extends Seeder
             'confirmed_at' => Carbon\Carbon::now(),
         ]);
 
-        $user->givePermissionTo('view dashboard');
+        $user->assignRole('institute', 'developer');
     }
 }

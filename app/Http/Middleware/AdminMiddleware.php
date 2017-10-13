@@ -18,7 +18,7 @@ class AdminMiddleware
         if($request->user() === null) {
             return redirect('/login');
         }
-        elseif ($request->user()->hasPermissionTo('view dashboard')) {
+        elseif ($request->user()->hasPermissionTo('view_dashboard')) {
             return $next($request);
         } else {
             return redirect('/home');

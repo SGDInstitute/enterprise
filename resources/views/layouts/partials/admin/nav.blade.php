@@ -60,7 +60,12 @@
                 </ul>
             </li>
             <li>
-                <a href="/admin/users"><i class="fa fa-users"></i> <span class="nav-label">Users </span></a>
+                <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Users </span><span
+                            class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="/admin/users">View All</a></li>
+                    <li><a href="/admin/roles">Roles/Permissions</a></li>
+                </ul>
             </li>
             <li>
                 <a target="_blank" href="/home"><i class="fa fa-user-circle-o"></i> <span class="nav-label">View as Regular User</span></a>
