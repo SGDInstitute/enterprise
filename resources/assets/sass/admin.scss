@@ -17,3 +17,12 @@
 @import "../vendor/animate/animate";
 @import "../vendor/inspinia/scss/inspinia";
 @import "../vendor/selectWoo/scss/selectWoo";
+
+.nav > li > span {
+  color: #a7b1c2;
+  font-weight: 600;
+  padding: 14px 20px 14px 25px;
+  background: #0a2933;
+  position: relative;
+  display: block;
+}

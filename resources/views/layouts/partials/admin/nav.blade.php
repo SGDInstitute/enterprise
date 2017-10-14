@@ -69,6 +69,9 @@
                 </ul>
             </li>
             <li>
+                <span class="link-group">Helpful Links</span>
+            </li>
+            <li>
                 <a target="_blank" href="/home"><i class="fa fa-user-circle-o"></i> <span class="nav-label">View as Regular User</span></a>
             </li>
             <li>
