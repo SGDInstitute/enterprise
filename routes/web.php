@@ -54,3 +54,5 @@ Route::get('/donations/{hash}', 'DonationsController@show');
 Route::get('/settings', 'SettingsController@edit');
 Route::post('/settings/password', 'SettingPasswordsController@store');
 Route::patch('/profile/{user?}', 'ProfileController@update');
+
+Route::get('/users/stop-impersonating', 'Admin\ImpersonationController@stopImpersonating')->name('admin.users.stop-impersonating');

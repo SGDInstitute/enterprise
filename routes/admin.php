@@ -27,3 +27,5 @@ Route::get('/permissions/create', 'PermissionsController@create')->name('admin.p
 Route::post('/permissions', 'PermissionsController@store')->name('admin.permissions.store');
 Route::get('/permissions/{permission}/edit', 'PermissionsController@edit')->name('admin.permissions.edit');
 Route::patch('/permissions/{permission}', 'PermissionsController@update')->name('admin.permissions.update');
+
+Route::get('/users/{id}/impersonate', 'ImpersonationController@impersonate')->name('admin.user.impersonate');
