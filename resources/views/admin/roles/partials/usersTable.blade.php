@@ -32,7 +32,7 @@
                 @endforeach
             </td>
             <td>
-                {{--<a href="{{ route('admin.user.access.edit', $user) }}" class="btn btn-default btn-xs">Edit</a>--}}
+                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit</a>
             </td>
         </tr>
     @endforeach

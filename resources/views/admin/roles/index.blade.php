@@ -29,9 +29,15 @@
                             @include('admin.roles.partials.usersTable')
                         </tab>
                         <tab name="Roles">
+                            <a href="{{ route('admin.roles.create') }}" class="btn btn-default">Create Role</a>
                             @include('admin.roles.partials.rolesTable')
                         </tab>
                         <tab name="Permissions">
+                            @can("create_permission")
+                                <a href="{{ route('admin.permissions.create') }}" class="btn btn-default">
+                                    Create Permission</a>
+                            @endcan
+                            
                             @include('admin.roles.partials.permissionsTable')
                         </tab>
                     </tabs>

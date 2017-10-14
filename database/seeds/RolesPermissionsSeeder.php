@@ -29,7 +29,8 @@ class RolesPermissionsSeeder extends Seeder
         'view_dashboard',
         'create_event',
         'create_attendee',
-        'manage_roles'
+        'manage_roles',
+        'create_permission'
     ];
 
     /**

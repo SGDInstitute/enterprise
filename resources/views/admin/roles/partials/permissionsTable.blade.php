@@ -18,15 +18,12 @@
                 @endforelse
             </td>
             <td>
-                <a href="#" class="btn btn-flat btn-warning btn-xs">
-                    <i class="fa fa-pencil"></i> Edit</a>
+                <a href="{{ route('admin.permissions.edit', $permission) }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit</a>
             </td>
         </tr>
     @empty
         <tr>
-            <td colspan="4" class="text-center">
-                No permissions at this point.
-            </td>
+            <td colspan="4" class="text-center">No permissions at this point.</td>
         </tr>
     @endforelse
     </tbody>

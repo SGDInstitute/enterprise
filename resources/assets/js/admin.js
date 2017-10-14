@@ -12,6 +12,7 @@ require('bootstrap-sass');
 require('metismenu');
 require('jquery-slimscroll');
 require('../vendor/inspinia/js/inspinia');
+require('../vendor/selectWoo/js/selectWoo.full.js');
 // require( 'datatables.net-bs' )();
 let pace = require('pace');
 pace.start();
@@ -29,6 +30,8 @@ const app = new Vue({
     el: '#wrapper'
 });
 
-// $(document).ready(function(){
-//     $('.datatables').DataTable();
-// });
+$(document).ready(function(){
+    $('.selectWoo').selectWoo({
+        tags: true
+    });
+});
