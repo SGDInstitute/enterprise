@@ -13,7 +13,8 @@ require('metismenu');
 require('jquery-slimscroll');
 require('../vendor/inspinia/js/inspinia');
 require('../vendor/selectWoo/js/selectWoo.full.js');
-// require( 'datatables.net-bs' )();
+require('../vendor/datatables/datatables');
+
 let pace = require('pace');
 pace.start();
 
@@ -34,4 +35,6 @@ $(document).ready(function(){
     $('.selectWoo').selectWoo({
         tags: true
     });
+
+    $('.dataTables').DataTable();
 });
