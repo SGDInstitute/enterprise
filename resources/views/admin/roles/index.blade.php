@@ -26,18 +26,20 @@
                 <div class="ibox-content no-padding">
                     <tabs>
                         <tab name="Users">
+                            <a href="{{ route("admin.users.access.create") }}" class="btn btn-default m-b-sm">
+                                Give Permission To</a>
                             @include('admin.roles.partials.usersTable')
                         </tab>
                         <tab name="Roles">
-                            <a href="{{ route('admin.roles.create') }}" class="btn btn-default">Create Role</a>
+                            <a href="{{ route('admin.roles.create') }}" class="btn btn-default m-b-sm">Create Role</a>
                             @include('admin.roles.partials.rolesTable')
                         </tab>
                         <tab name="Permissions">
                             @can("create_permission")
-                                <a href="{{ route('admin.permissions.create') }}" class="btn btn-default">
+                                <a href="{{ route('admin.permissions.create') }}" class="btn btn-default m-b-sm">
                                     Create Permission</a>
                             @endcan
-                            
+
                             @include('admin.roles.partials.permissionsTable')
                         </tab>
                     </tabs>
