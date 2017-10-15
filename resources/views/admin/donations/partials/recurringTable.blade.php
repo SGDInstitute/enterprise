@@ -24,7 +24,7 @@
                 @endif
                 <span class="hidden">{{ $donation->email }}</span>
             </td>
-            <td>{{ $donation->amount }}</td>
+            <td class="text-right">${{ number_format($donation->amount/100, 2) }}</td>
             <td>{{ strtoupper($donation->group) }}</td>
             <td>{{ $donation->subscription->frequency }}</td>
             <td>{{ $donation->created_at->format('m/d/y h:i') }}</td>

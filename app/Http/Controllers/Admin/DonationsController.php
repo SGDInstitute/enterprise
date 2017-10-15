@@ -10,8 +10,8 @@ class DonationsController extends Controller
     public function index()
     {
         return view('admin.donations.index', [
-            'donations' => Donation::with('user')->get(),
-            'recurring' => Donation::with('user', 'subscription')->subscriptions()->get(),
+            'donations' => Donation::with('user')->doesntHave('subscription')->get(),
+            'recurring' => Donation::with('user', 'subscription')->has('subscription')->get(),
         ]);
     }
 }

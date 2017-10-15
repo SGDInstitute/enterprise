@@ -1,10 +1,6 @@
 <table class="table">
     <tbody>
     <tr>
-        <td>ID</td>
-        <td>{{ $donation->charge_id }}</td>
-    </tr>
-    <tr>
         <td>Amount</td>
         <td>${{ number_format($donation->amount/100, 2) }}</td>
     </tr>

@@ -23,13 +23,13 @@
                 @endif
                 <span class="hidden">{{ $donation->email }}</span>
             </td>
-            <td>{{ $donation->amount }}</td>
+            <td class="text-right">${{ number_format($donation->amount/100, 2) }}</td>
             <td>{{ strtoupper($donation->group) }}</td>
             <td>{{ $donation->created_at->format('m/d/y h:i') }}</td>
         </tr>
     @empty
         <tr>
-            <td colspan="5">No donations at this point</td>
+            <td colspan="5">No one time donations at this point</td>
         </tr>
     @endforelse
     </tbody>
