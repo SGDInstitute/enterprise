@@ -139,7 +139,7 @@
         },
         methods: {
             donate() {
-                console.log(this.form.subscription, this.user, this.form.subscription !== 'no' && this.user === null);
+
                 if(this.form.subscription !== 'no' && this.user === null) {
                     this.eventHub.$emit('showLoginRegister');
                 }
