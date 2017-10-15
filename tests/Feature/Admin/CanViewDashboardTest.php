@@ -14,9 +14,9 @@ class CanViewDashboardTest extends TestCase
     /** @test */
     function admins_can_view_dashboard()
     {
-        Permission::create(['name' => 'view dashboard']);
+        Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
-        $user->givePermissionTo('view dashboard');
+        $user->givePermissionTo('view_dashboard');
 
         $response = $this->withoutExceptionHandling()
             ->actingAs($user)->get('/admin');
@@ -27,7 +27,7 @@ class CanViewDashboardTest extends TestCase
     /** @test */
     function normal_users_cannot_view_dashboard()
     {
-        Permission::create(['name' => 'view dashboard']);
+        Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
 
         $response = $this->withoutExceptionHandling()
