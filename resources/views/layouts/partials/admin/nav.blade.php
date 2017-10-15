@@ -69,6 +69,9 @@
                 </ul>
             </li>
             <li>
+                <a href="/admin/donations"><i class="fa fa-money"></i> <span class="nav-label">Donations</span></a>
+            </li>
+            <li>
                 <span class="link-group">Helpful Links</span>
             </li>
             <li>

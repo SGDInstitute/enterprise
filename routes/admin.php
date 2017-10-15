@@ -8,7 +8,6 @@ Route::get('/events/{slug}', 'EventsController@show')->name('admin.events.show')
 Route::get('/events/{slug}/orders', 'EventOrdersController@index')->name('admin.eventOrders');
 Route::get('/orders/{id}', 'OrdersController@show')->name('admin.orders.show');
 
-
 Route::get('/users/access/create', 'UsersAccessController@create')->name('admin.users.access.create');
 Route::post('/users/access', 'UsersAccessController@store')->name('admin.users.access.store');
 Route::get('/users/{user}/access/edit', 'UsersAccessController@edit')->name('admin.users.access.edit');
@@ -29,3 +28,6 @@ Route::get('/permissions/{permission}/edit', 'PermissionsController@edit')->name
 Route::patch('/permissions/{permission}', 'PermissionsController@update')->name('admin.permissions.update');
 
 Route::get('/users/{id}/impersonate', 'ImpersonationController@impersonate')->name('admin.user.impersonate');
+
+Route::get('/donations', 'DonationsController@index')->name('admin.donations');
+Route::get('/donations/{donation}', 'DonationsController@show')->name('admin.donations.show');
