@@ -27,6 +27,7 @@ class ViewOrderReceiptTest extends TestCase
         $order->markAsPaid($this->charge());
 
         $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
             ->get("/orders/{$order->id}/receipt");
 
         $response->assertStatus(200)

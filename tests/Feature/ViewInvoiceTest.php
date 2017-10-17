@@ -27,6 +27,7 @@ class ViewInvoiceTest extends TestCase
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
             ->get("/invoices/{$invoice->id}");
 
         $response->assertStatus(200)
@@ -47,6 +48,7 @@ class ViewInvoiceTest extends TestCase
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
             ->get("/invoices/{$invoice->id}/download");
 
         $response->assertStatus(200)

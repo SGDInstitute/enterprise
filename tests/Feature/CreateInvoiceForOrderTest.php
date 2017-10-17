@@ -27,6 +27,7 @@ class CreateInvoiceForOrderTest extends TestCase
         ]);
 
         $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
             ->json('POST', "/orders/{$order->id}/invoices", [
                 'name' => 'Phoenix Johnson',
                 'email' => 'pjohnson@hogwarts.edu',
@@ -67,6 +68,7 @@ class CreateInvoiceForOrderTest extends TestCase
         ]);
 
         $response = $this
+            ->actingAs($user)
             ->json('POST', "/orders/{$order->id}/invoices", [
                 'email' => 'pjohnson@hogwarts.edu',
                 'address' => '123 Main',
@@ -91,6 +93,7 @@ class CreateInvoiceForOrderTest extends TestCase
         ]);
 
         $response = $this
+            ->actingAs($user)
             ->json('POST', "/orders/{$order->id}/invoices", [
                 'name' => 'Jo Johnson',
                 'address' => '123 Main',
@@ -115,6 +118,7 @@ class CreateInvoiceForOrderTest extends TestCase
         ]);
 
         $response = $this
+            ->actingAs($user)
             ->json('POST', "/orders/{$order->id}/invoices", [
                 'name' => 'Jo Johnson',
                 'email' => 'pjohnson@hogwarts.edu',
@@ -141,6 +145,7 @@ class CreateInvoiceForOrderTest extends TestCase
 
         $response = $this
             ->withoutExceptionHandling()
+            ->actingAs($user)
             ->json('POST', "/orders/{$order->id}/invoices", [
                 'name' => 'Phoenix Johnson',
                 'email' => 'pjohnson@hogwarts.edu',
