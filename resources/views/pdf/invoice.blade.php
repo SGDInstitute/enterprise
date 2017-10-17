@@ -1,6 +1,4 @@
-<!doctype html>
-<html>
-<head>
+<!doctype html><html><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Invoice {{ $order->invoice->id }}</title>
     <style>
@@ -34,18 +32,6 @@
             text-align: right;
         }
 
-        .text-center {
-            text-align: center;
-        }
-
-        .text-muted {
-            color: #777;
-        }
-
-        .fifty {
-            width: 50%;
-        }
-
         .sixty {
             width: 60%;
         }
@@ -54,8 +40,7 @@
             width: 40%;
         }
     </style>
-</head>
-<body>
+</head><body>
 <div class="container">
     <table>
         <tr>
@@ -115,5 +100,4 @@
         </tr>
     </table>
 </div>
-</body>
-</html>
+</body></html>

@@ -74,6 +74,7 @@ class EditInvoiceForOrderTest extends TestCase
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $response = $this
+            ->actingAs($user)
             ->json('PATCH', "/invoices/{$invoice->id}", [
                 'email' => 'pjohnson@hogwarts.edu',
                 'address' => '123 Main',
@@ -99,6 +100,7 @@ class EditInvoiceForOrderTest extends TestCase
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $response = $this
+            ->actingAs($user)
             ->json('PATCH', "/invoices/{$invoice->id}", [
                 'name' => 'Jo Johnson',
                 'address' => '123 Main',
@@ -124,6 +126,7 @@ class EditInvoiceForOrderTest extends TestCase
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $response = $this
+            ->actingAs($user)
             ->json('PATCH', "/invoices/{$invoice->id}", [
                 'name' => 'Jo Johnson',
                 'email' => 'pjohnson@hogwarts.edu',
@@ -156,6 +159,7 @@ class EditInvoiceForOrderTest extends TestCase
         ]));
 
         $response = $this
+            ->actingAs($user)
             ->json('PATCH', "/invoices/{$invoice->id}", [
                 'name' => 'Jo Johnson',
                 'email' => 'pjohnson@hogwarts.edu',

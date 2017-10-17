@@ -41,7 +41,7 @@ class ChargeOrderTest extends TestCase
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
         ]);
 
-        $response = $this->withoutExceptionHandling()
+        $response = $this->withoutExceptionHandling()->actingAs($user)
             ->json('POST', "/orders/{$order->id}/charge", [
                 'stripeToken' => $this->paymentGateway->getValidTestToken()
             ]);
@@ -69,9 +69,11 @@ class ChargeOrderTest extends TestCase
     /** @test */
     function order_is_not_marked_as_paid_if_payment_fails()
     {
+        $user = factory(User::class)->create();
         $order = factory(Order::class)->create();
 
         $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
             ->json('POST', "/orders/{$order->id}/charge", [
                 'stripeToken' => 'invalid-payment-token',
             ]);

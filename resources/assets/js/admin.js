@@ -7,13 +7,34 @@
 
 require('./bootstrap');
 
+require('bootstrap-sass');
+
 require('metismenu');
 require('jquery-slimscroll');
 require('../vendor/inspinia/js/inspinia');
-require( 'datatables.net-bs' )();
+require('../vendor/selectWoo/js/selectWoo.full.js');
+require('../vendor/datatables/datatables');
+
 let pace = require('pace');
 pace.start();
 
+window.Vue = require('vue');
+
+// require('./forms/bootstrap');
+
+import {Tabs, Tab} from 'vue-tabs-component';
+
+Vue.component('tabs', Tabs);
+Vue.component('tab', Tab);
+
+const app = new Vue({
+    el: '#wrapper'
+});
+
 $(document).ready(function(){
-    $('.datatables').DataTable();
+    $('.selectWoo').selectWoo({
+        tags: true
+    });
+
+    $('.dataTables').DataTable();
 });
