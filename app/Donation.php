@@ -87,4 +87,9 @@ class Donation extends Model
     {
         return $this->hasOne(Subscription::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -19,3 +19,6 @@ Route::get('/events/{slug}', 'EventsController@show');
 Route::get('/donations/create', 'DonationsController@create');
 Route::post('/donations', 'DonationsController@store');
 Route::get('/donations/{hash}', 'DonationsController@show');
+
+Route::get('/users/stop-impersonating', 'Admin\ImpersonationController@stopImpersonating')->name('admin.users.stop-impersonating');
+

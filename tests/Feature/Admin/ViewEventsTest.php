@@ -15,9 +15,9 @@ class ViewEventsTest extends TestCase
     /** @test */
     function view_all_events()
     {
-        Permission::create(['name' => 'view dashboard']);
+        Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
-        $user->givePermissionTo('view dashboard');
+        $user->givePermissionTo('view_dashboard');
         factory(Event::class, 2)->create();
 
         $response = $this->withoutExceptionHandling()
@@ -31,9 +31,9 @@ class ViewEventsTest extends TestCase
     /** @test */
     function view_event()
     {
-        Permission::create(['name' => 'view dashboard']);
+        Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
-        $user->givePermissionTo('view dashboard');
+        $user->givePermissionTo('view_dashboard');
         $event = factory(Event::class)->create();
 
         $response = $this->withoutExceptionHandling()

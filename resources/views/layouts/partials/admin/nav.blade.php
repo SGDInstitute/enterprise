@@ -24,11 +24,12 @@
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
@@ -60,7 +61,18 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-magic"></i> <span class="nav-label">Top Level Item </span></a>
+                <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Users </span><span
+                            class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="/admin/users">View All</a></li>
+                    <li><a href="/admin/roles">Roles/Permissions</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/admin/donations"><i class="fa fa-money"></i> <span class="nav-label">Donations</span></a>
+            </li>
+            <li>
+                <span class="link-group">Helpful Links</span>
             </li>
             <li>
                 <a target="_blank" href="/home"><i class="fa fa-user-circle-o"></i> <span class="nav-label">View as Regular User</span></a>

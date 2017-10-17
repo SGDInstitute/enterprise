@@ -19,7 +19,8 @@
         "spatie/laravel-activitylog": "^2.1",
         "spatie/laravel-permission": "^2.6",
         "stripe/stripe-php": "^5.1",
-        "vinkla/hashids": "^3.3"
+        "vinkla/hashids": "^3.3",
+        "wnx/laravel-stats": "1.0.0-beta"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

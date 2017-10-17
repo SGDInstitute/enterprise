@@ -68,9 +68,9 @@ class DonationsController extends Controller
             $subscription = Subscription::retrieve(
                 $donation->subscription->subscription_id,
                 ['api_key' => getStripeSecret($donation->group)]);
-        } elseif($donation->charge_id) {
+        } elseif($donation->receipt->transaction_id) {
             $charge = Charge::retrieve(
-                $donation->charge_id,
+                $donation->receipt->transaction_id,
                 ['api_key' => getStripeSecret($donation->group)]);
         }
 

@@ -16,9 +16,9 @@ class ViewOrdersTest extends TestCase
     /** @test */
     function view_orders_for_event()
     {
-        Permission::create(['name' => 'view dashboard']);
+        Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
-        $user->givePermissionTo('view dashboard');
+        $user->givePermissionTo('view_dashboard');
         $event = factory(Event::class)->create();
         $orders = factory(Order::class, 5)->create(['event_id' => $event->id]);
 
@@ -35,9 +35,9 @@ class ViewOrdersTest extends TestCase
     /** @test */
     function view_single_order()
     {
-        Permission::create(['name' => 'view dashboard']);
+        Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
-        $user->givePermissionTo('view dashboard');
+        $user->givePermissionTo('view_dashboard');
         $event = factory(Event::class)->create();
         $order = factory(Order::class)->create(['event_id' => $event->id]);
 

@@ -38,6 +38,16 @@
                                 {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @if (session('sgdinstitute:impersonator'))
+                                    <a class="dropdown-item" href="/users/stop-impersonating">
+                                        <i class="fa fa-fw fa-btn fa-user-secret"></i>Back To My Account
+                                    </a>
+                                @endif
+
+                                @if(Auth::user()->hasRole('view_dashboard'))
+                                    <a class="dropdown-item" href="/admin"><i class="fa fa-key"></i> Admin Portal</a>
+                                @endif
+
                                 <a class="dropdown-item" href="/settings">Settings</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

@@ -9,30 +9,29 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <div class="table">
-                            <table class="table datatables">
-                                <thead>
-                                    <tr>
-                                        <th>Created At</th>
-                                        <th>User</th>
-                                        <th>Is Paid</th>
-                                        <th>Amount</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($orders as $order)
-                                        <tr>
-                                            <td>{{ $order->created_at->toFormattedDateString() }}</td>
-                                            <td>{{ $order->user->name }}</td>
-                                            <td>{{ $order->isPaid() ? 'Yes' : 'No' }}</td>
-                                            <td>${{ number_format($order->amount/100, 2) }}</td>
-                                            <td class="text-right"><a href="/admin/orders/{{ $order->id }}" class="btn btn-default btn-sm">View Order</a></td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table dataTables">
+                            <thead>
+                            <tr>
+                                <th>Created At</th>
+                                <th>User</th>
+                                <th>Is Paid</th>
+                                <th>Amount</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($orders as $order)
+                                <tr>
+                                    <td>{{ $order->created_at->toFormattedDateString() }}</td>
+                                    <td>{{ $order->user->name }}</td>
+                                    <td>{{ $order->isPaid() ? 'Yes' : 'No' }}</td>
+                                    <td>${{ number_format($order->amount/100, 2) }}</td>
+                                    <td class="text-right"><a href="/admin/orders/{{ $order->id }}"
+                                                              class="btn btn-default btn-sm">View Order</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

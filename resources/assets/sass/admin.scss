@@ -1,5 +1,6 @@
 // Variables
 @import "brand-variables";
+@import "admin_variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
@@ -10,7 +11,18 @@
 @import "node_modules/bootstrap/scss/mixins/hover";
 @import "components/admin/cards";
 @import "components/cards";
+@import "components/admin/vue-tabs";
 
 @import "../vendor/datatables/datatables";
 @import "../vendor/animate/animate";
 @import "../vendor/inspinia/scss/inspinia";
+@import "../vendor/selectWoo/scss/selectWoo";
+
+.nav > li > span {
+  color: #a7b1c2;
+  font-weight: 600;
+  padding: 14px 20px 14px 25px;
+  background: #0a2933;
+  position: relative;
+  display: block;
+}
