@@ -73,16 +73,96 @@
                 <div class="ibox-content no-padding">
                     <tabs>
                         <tab name="Orders">
-                            First tab content
+                            <table class="table dataTables">
+                                <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Created At</th>
+                                    <th>Is Paid</th>
+                                    <th>Amount</th>
+                                    <th>Tickets</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($user->orders as $order)
+                                    <tr>
+                                        <td>{{ $order->event->title }}</td>
+                                        <td>{{ $order->created_at->toFormattedDateString() }}</td>
+                                        <td>{{ $order->isPaid() ? 'Yes' : 'No' }}</td>
+                                        <td>${{ number_format($order->amount/100, 2) }}</td>
+                                        <td>{{ $order->tickets->count() }}</td>
+                                        <td class="text-right"><a href="/admin/orders/{{ $order->id }}"
+                                                                  class="btn btn-default btn-sm">View Order</a></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </tab>
                         <tab name="Donations">
-                            Second tab content
+                            <table class="table dataTable">
+                                <thead>
+                                <tr>
+                                    <th>Primary Contact</th>
+                                    <th>Amount</th>
+                                    <th>Donated On</th>
+                                    <th>Recurring</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($user->donations as $donation)
+                                    <tr>
+                                        <td>{{ $donation->name }} ({{ $donation->email }})</td>
+                                        <td>${{ number_format($donation->amount/100, 2) }}</td>
+                                        <td>{{ $donation->created_at->toFormattedDateString() }}</td>
+                                        <td>
+                                            @if($donation->subscription && $donation->subscription->isActive())
+                                                Yes
+                                            @elseif($donation->subscription)
+                                                Canceled
+                                            @else
+                                                No
+                                            @endif
+                                        </td>
+                                        <td><a href="/donations/{{ $donation->hash }}">View</a></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </tab>
                         <tab name="Activity">
                             Third tab content
                         </tab>
                         <tab name="Permissions">
-                            Fourth tab content
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td>Roles</td>
+                                    <td>
+                                        @forelse($user->roles as $role)
+                                            <span class="label label-default">{{ str_title($role->name) }}</span>
+                                        @empty
+                                            N/A
+                                        @endforelse
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Permissions</td>
+                                    <td>
+                                        @foreach($user->permissions as $permission)
+                                            <span class="label label-default">{{ str_title($permission->name) }}</span>
+                                        @endforeach
+
+                                        @foreach($user->roles as $role)
+                                            @foreach($role->permissions as $permission)
+                                                <span class="label label-info">{{ str_title($permission->name) }}</span>
+                                            @endforeach
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </tab>
                     </tabs>
                 </div>
