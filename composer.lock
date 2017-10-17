@@ -1326,16 +1326,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.14",
+            "version": "v5.5.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "26c700eb79e5bb55b59df2c495c9c71f16f43302"
+                "reference": "3a16d196bd8d2b7761c9b0060a30a3687c3ea201"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/26c700eb79e5bb55b59df2c495c9c71f16f43302",
-                "reference": "26c700eb79e5bb55b59df2c495c9c71f16f43302",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3a16d196bd8d2b7761c9b0060a30a3687c3ea201",
+                "reference": "3a16d196bd8d2b7761c9b0060a30a3687c3ea201",
                 "shasum": ""
             },
             "require": {
@@ -1454,7 +1454,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-10-03T17:41:03+00:00"
+            "time": "2017-10-17T12:19:22+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2826,16 +2826,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "2.1.2",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "ee927e8035110254f0f40f2d33da87e2382af759"
+                "reference": "930707fbd2b13dbc8cda7c72e818d43378c11398"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/ee927e8035110254f0f40f2d33da87e2382af759",
-                "reference": "ee927e8035110254f0f40f2d33da87e2382af759",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/930707fbd2b13dbc8cda7c72e818d43378c11398",
+                "reference": "930707fbd2b13dbc8cda7c72e818d43378c11398",
                 "shasum": ""
             },
             "require": {
@@ -2893,20 +2893,20 @@
                 "spatie",
                 "user"
             ],
-            "time": "2017-09-28T06:28:55+00:00"
+            "time": "2017-10-16T19:55:43+00:00"
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "2.7.0",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "6f88a4cf63412685d141ee055e50adeb64bc8222"
+                "reference": "2650444dee44b98113fc494c859ca3de5d8c88f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/6f88a4cf63412685d141ee055e50adeb64bc8222",
-                "reference": "6f88a4cf63412685d141ee055e50adeb64bc8222",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/2650444dee44b98113fc494c859ca3de5d8c88f6",
+                "reference": "2650444dee44b98113fc494c859ca3de5d8c88f6",
                 "shasum": ""
             },
             "require": {
@@ -2958,7 +2958,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2017-09-28T14:01:23+00:00"
+            "time": "2017-10-17T08:33:54+00:00"
         },
         {
             "name": "spatie/string",
@@ -3609,16 +3609,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803"
+                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
                 "shasum": ""
             },
             "require": {
@@ -3630,7 +3630,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -3664,7 +3664,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14T15:44:48+00:00"
+            "time": "2017-10-11T12:05:26+00:00"
         },
         {
             "name": "symfony/process",
@@ -5079,16 +5079,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.4.2",
+            "version": "6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ae6e2e062ff55263c7b04374c190aca45872b26a"
+                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ae6e2e062ff55263c7b04374c190aca45872b26a",
-                "reference": "ae6e2e062ff55263c7b04374c190aca45872b26a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
+                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
                 "shasum": ""
             },
             "require": {
@@ -5159,7 +5159,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-10-15T06:16:19+00:00"
+            "time": "2017-10-16T13:18:59+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
