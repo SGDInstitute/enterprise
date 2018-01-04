@@ -16,6 +16,17 @@ class Order extends Model
 
     protected $dates = ['transaction_date', 'deleted_at'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($order) {
+            foreach ($order->tickets as $ticket) {
+                $ticket->delete();
+            }
+        });
+    }
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
@@ -43,7 +54,7 @@ class Order extends Model
 
     public function getAmountAttribute()
     {
-        if($this->isPaid()) {
+        if ($this->isPaid()) {
             return $this->receipt->amount;
         }
 
@@ -103,7 +114,7 @@ class Order extends Model
 
     public function getTicketsWithNameAndAmount()
     {
-        return $this->tickets->groupBy('ticket_type_id')->map(function($item) {
+        return $this->tickets->groupBy('ticket_type_id')->map(function ($item) {
             return [
                 'name' => $item[0]->ticket_type->name,
                 'count' => $item->count(),

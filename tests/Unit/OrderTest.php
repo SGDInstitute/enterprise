@@ -2,8 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Billing\FakePaymentGateway;
-use App\Billing\PaymentGateway;
 use App\Event;
 use App\Order;
 use App\TicketType;
@@ -11,13 +9,14 @@ use App\User;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Ticket;
 
 class OrderTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_get_amount_for_unpaid_order()
+    public function can_get_amount_for_unpaid_order()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'Leadership Conference',
@@ -40,7 +39,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function can_get_amount_for_paid_order()
+    public function can_get_amount_for_paid_order()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
@@ -59,7 +58,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function can_mark_as_paid()
+    public function can_mark_as_paid()
     {
         $order = factory(Order::class)->create();
 
@@ -73,7 +72,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function is_order_paid()
+    public function is_order_paid()
     {
         $order = factory(Order::class)->create();
         $order->markAsPaid($this->charge());
@@ -83,7 +82,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function can_mark_as_unpiad()
+    public function can_mark_as_unpiad()
     {
         $order = factory(Order::class)->create();
         $order->markAsPaid($this->charge());
@@ -97,7 +96,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function can_get_tickets_with_name_count_and_amount()
+    public function can_get_tickets_with_name_count_and_amount()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'Leadership Conference',
@@ -125,13 +124,13 @@ class OrderTest extends TestCase
         $tickets = $order->getTicketsWithNameAndAmount();
 
         $this->assertEquals([
-            ["name" => "Regular Ticket", "count" => 2, "cost" => 5000, "amount" => 10000],
-            ["name" => "Pro Ticket", "count" => 3, "cost" => 6000, "amount" => 18000],
+            ['name' => 'Regular Ticket', 'count' => 2, 'cost' => 5000, 'amount' => 10000],
+            ['name' => 'Pro Ticket', 'count' => 3, 'cost' => 6000, 'amount' => 18000],
         ], $tickets->values()->all());
     }
 
     /** @test */
-    function can_get_orders_with_upcoming_events()
+    public function can_get_orders_with_upcoming_events()
     {
         $user = factory(User::class)->create();
         $upcomingEvent = factory(Event::class)->states('published')->create([
@@ -165,7 +164,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function can_get_orders_with_past_events()
+    public function can_get_orders_with_past_events()
     {
         $user = factory(User::class)->create();
         $upcomingEvent = factory(Event::class)->states('published')->create([
@@ -199,7 +198,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function can_see_if_order_was_paid_with_check()
+    public function can_see_if_order_was_paid_with_check()
     {
         $order = factory(Order::class)->create();
         $order->markAsPaid(collect(['id' => '#1234', 'amount' => $order->amount]));
@@ -208,11 +207,36 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    function can_see_if_order_was_paid_with_card()
+    public function can_see_if_order_was_paid_with_card()
     {
         $order = factory(Order::class)->create();
         $order->markAsPaid($this->charge());
 
         $this->assertTrue($order->refresh()->isCard());
+    }
+
+    /** @test */
+    public function tickets_are_deleted_when_order_is()
+    {
+        $event = factory(Event::class)->states('published')->create([
+            'title' => 'Leadership Conference',
+            'slug' => 'leadership-conference',
+            'start' => '2018-02-16 19:00:00',
+            'end' => '2018-02-18 19:30:00',
+            'timezone' => 'America/Chicago',
+            'place' => 'University of Nebraska',
+            'location' => 'Omaha, Nebraska',
+        ]);
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+            'cost' => 5000,
+            'name' => 'Regular Ticket',
+        ]));
+        $order = $event->orderTickets(factory(User::class)->create(), [
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
+        ]);
+
+        $order->delete();
+
+        $this->assertEmpty(Ticket::all());
     }
 }
