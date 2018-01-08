@@ -18,7 +18,10 @@ class Profile extends Model
         'college',
         'tshirt',
         'accommodation',
+        'wants_program',
     ];
 
     protected $dates = ['deleted_at'];
+
+    protected $casts = ['wants_program' => 'boolean'];
 }

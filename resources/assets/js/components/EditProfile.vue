@@ -99,6 +99,26 @@
                 </span>
             </div>
         </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-9 ml-auto">
+                    <p>To improve conference sustainability, please confirm if you want a printed program guide in addition to the phone app guide: <button type="button" class="btn btn-secondary btn-sm" data-toggle="popover" title="Program Guide" data-placement="top" data-content="In an effort to move to a more sustainability and accessibility focused conference, MBLGTACC 2018 plans to only print program guides for those attendees who request them.  In the place of a program guide, we have an app called Guidebook that provides all the same information."><i class="fa fa-info" aria-hidden="true"></i></button></p>
+                    <div class="form-check pl-4">
+                        <input class="form-check-input" type="radio" name="wants_program" id="wants_program" :value="true" v-model="form.wants_program">
+                        <label class="form-check-label" for="wants_program">
+                            Yes, I would like to receive a printed program.
+                        </label>
+                    </div>
+                    <div class="form-check pl-4">
+                        <input class="form-check-input" type="radio" name="wants_program" id="no_program" :value="false" v-model="form.wants_program">
+                        <label class="form-check-label" for="no_program">
+                            No, I plan to use the app.
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col-md-9 ml-auto">
                 <div class="alert alert-success alert-dismissible fade show" role="alert" v-show="form.successful">
@@ -128,6 +148,7 @@
                     college: '',
                     tshirt: '',
                     accommodation: '',
+                    wants_program: true,
                 })
             }
         },
@@ -141,6 +162,7 @@
             this.form.college = this.profile.college;
             this.form.tshirt = this.profile.tshirt;
             this.form.accommodation = this.profile.accommodation;
+            this.form.wants_program = this.profile.wants_program;
         },
         methods: {
             submit() {

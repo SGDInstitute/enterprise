@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\UserConfirmationEmail;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
@@ -23,10 +21,11 @@ class ProfileController extends Controller
             'race' => '',
             'college' => '',
             'tshirt' => '',
-            'accommodation' => ''
+            'accommodation' => '',
+            'wants_program' => 'boolean'
         ]);
 
-        if(is_null($user)) {
+        if (is_null($user)) {
             $user = request()->user();
         }
 
@@ -34,7 +33,7 @@ class ProfileController extends Controller
 
         $user->update($userData);
 
-        if(request('email') !== $oldEmail) {
+        if (request('email') !== $oldEmail) {
             $user->sendConfirmationEmail();
         }
 
