@@ -25,7 +25,7 @@
                             <tbody>
                             @foreach($orders as $order)
                                 <tr>
-                                    <td>{{ $order->created_at->toFormattedDateString() }}</td>
+                                    <td>{{ $order->created_at }}</td>
                                     <td><a href="{{ url('/admin/users/' . $order->user->id) }}">{{ $order->user->name }}</a></td>
                                     <td><a href="mailto:{{ $order->user->email }}">{{ $order->user->email }}</a></td>
                                     <td>{{ $order->isPaid() ? 'Yes' : 'No' }}</td>

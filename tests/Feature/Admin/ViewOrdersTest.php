@@ -14,7 +14,7 @@ class ViewOrdersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function view_orders_for_event()
+    public function view_orders_for_event()
     {
         Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
@@ -27,13 +27,13 @@ class ViewOrdersTest extends TestCase
             ->get("/admin/events/{$event->slug}/orders");
 
         $response->assertStatus(200)
-            ->assertViewHas('orders', function($viewOrders) use ($orders) {
+            ->assertViewHas('orders', function ($viewOrders) use ($orders) {
                 return $orders->pluck('id')->all() === $viewOrders->pluck('id')->all();
             });
     }
 
     /** @test */
-    function view_single_order()
+    public function view_single_order()
     {
         Permission::create(['name' => 'view_dashboard']);
         $user = factory(User::class)->create();
@@ -49,5 +49,27 @@ class ViewOrdersTest extends TestCase
             ->assertViewHas('order', function ($viewOrder) use ($order) {
                 return $order->id === $viewOrder->id;
             });
+    }
+
+    /** @test */
+    public function view_paid_order()
+    {
+        Permission::create(['name' => 'view_dashboard']);
+        $user = factory(User::class)->create();
+        $user->givePermissionTo('view_dashboard');
+        $event = factory(Event::class)->create();
+        $order = factory(Order::class)->create(['event_id' => $event->id]);
+
+        $order->markAsPaid($this->charge());
+
+        $response = $this->withoutExceptionHandling()
+            ->actingAs($user)
+            ->get("/admin/orders/{$order->id}");
+
+        $response->assertStatus(200)
+            ->assertViewHas('order', function ($viewOrder) use ($order) {
+                return $order->id === $viewOrder->id;
+            })
+            ->assertSee('1234');
     }
 }
