@@ -13,19 +13,24 @@
                             <input type="email" class="form-control" id="check_number" name="check_number" v-model="form.check_number">
                         </div>
 
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" class="form-control" id="amount" name="amount" v-model="form.amount">
+                        </div>
+
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="comp" :value="true" v-model="form.comp"> Comp order instead
+                                <input type="checkbox" name="comped" :value="true" v-model="form.comped"> Comp order instead
                             </label>
+                        </div>
+
+                        <div class="alert alert-success" v-if="form.successful">
+                            Order has been marked as paid.
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button class="modal-default-button" @click.prevent="markAsPaid" :disabled="form.busy">Update</button>
-
-                        <div class="alert alert-success" v-if="form.successful">
-                            Order has been marked as paid.
-                        </div>
                     </div>
                 </div>
             </div>
@@ -39,14 +44,15 @@ export default {
     data() {
         return {
             form: new SparkForm({
-                comp: false,
-                check_number: ''
+                comped: false,
+                check_number: '',
+                amount: '',
             })
         }
     },
     methods: {
         markAsPaid() {
-            Spark.patch('/admin/orders/' + order.id + '/paid')
+            Spark.patch('/admin/orders/' + this.order.id + '/paid', this.form)
                 .then(response => {
 
                 });

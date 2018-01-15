@@ -6,7 +6,10 @@ Route::get('/events', 'EventsController@index')->name('admin.events');
 Route::get('/events/{slug}', 'EventsController@show')->name('admin.events.show');
 
 Route::get('/events/{slug}/orders', 'EventOrdersController@index')->name('admin.eventOrders');
+
 Route::get('/orders/{id}', 'OrdersController@show')->name('admin.orders.show');
+
+Route::patch('/orders/{order}/paid', 'OrdersPaidController@update')->name('admin.orders.paid');
 
 Route::get('/users/access/create', 'UsersAccessController@create')->name('admin.users.access.create');
 Route::post('/users/access', 'UsersAccessController@store')->name('admin.users.access.store');
