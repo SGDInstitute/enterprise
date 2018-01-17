@@ -30,6 +30,9 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Create an Account</a></li>
                     @else
+                        @can('view_dashboard')
+                            <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                        @endcan
                         <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#"
