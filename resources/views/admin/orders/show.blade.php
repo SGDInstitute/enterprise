@@ -58,17 +58,30 @@
                     </div>
                     <div id="payment" class="tab-pane">
                         <div class="panel-body">
-                            <strong>Donec quam felis</strong>
+                            @if($order->isPaid())
+                                <dl class="dl-horizontal">
+                                    <dt>Confirmation Number:</dt>
+                                    <dd>{{ join('-', str_split($order->confirmation_number, 4)) }}</dd>
 
-                            <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among
-                                the stalks, and grow familiar with the countless indescribable forms of the insects
-                                and flies, then I feel the presence of the Almighty, who formed us in his own image, and
-                                the breath </p>
+                                    @if($order->isCard())
+                                        <dt>Billed to Card</dt>
+                                        <dd>****-****-****-{{ $order->receipt->card_last_four }} <i class="fa fa-cc-{{ strtolower($order->receipt->charge()->source->brand) }}"></i></dd>
 
-                            <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss
-                                of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                sense of mere tranquil existence, that I neglect my talents. I should be incapable of
-                                drawing a single stroke at the present moment; and yet.</p>
+                                        <dt>Billing Address</dt>
+                                        <dd>{{ $order->receipt->charge()->source->address_line1 }} {{ $order->receipt->charge()->source->address_line2 }}, {{ $order->receipt->charge()->source->address_city }}, {{ $order->receipt->charge()->source->address_zip }}</dd>
+                                    @else
+                                        <dt>Check Number:</dt>
+                                        <dd>{{ $order->receipt->transaction_id }}</dd>
+                                    @endif
+
+                                    <dt>Paid On:</dt>
+                                    <dd>{{ $order->receipt->created_at->format('M j, Y') }}</dd>
+                                </dl>
+                            @else
+                                <p>Order is not paid <button class="btn btn-default" @click="showMarkAsPaidModal = true">Mark as Paid</button></p>
+
+                                <mark-as-paid-modal :order="{{ $order }}" v-if="showMarkAsPaidModal" @close="showMarkAsPaidModal = false"></mark-as-paid-modal>
+                            @endif
                         </div>
                     </div>
                     <div id="invoice" class="tab-pane"></div>

@@ -25,7 +25,7 @@ class ChargeOrderTest extends TestCase
     }
 
     /** @test */
-    function customer_can_pay_for_order_with_card()
+    public function customer_can_pay_for_order_with_card()
     {
         Mail::fake();
 
@@ -60,14 +60,14 @@ class ChargeOrderTest extends TestCase
         $this->assertEquals(10000, $paymentGateway->totalCharges());
         $this->assertNotNull($order->receipt->transaction_id);
 
-        Mail::assertSent(ReceiptEmail::class, function($mail) use ($order) {
+        Mail::assertSent(ReceiptEmail::class, function ($mail) use ($order) {
             return $mail->hasTo('jo@example.com')
                 && $mail->order->id === $order->id;
         });
     }
 
     /** @test */
-    function order_is_not_marked_as_paid_if_payment_fails()
+    public function order_is_not_marked_as_paid_if_payment_fails()
     {
         $user = factory(User::class)->create();
         $order = factory(Order::class)->create();

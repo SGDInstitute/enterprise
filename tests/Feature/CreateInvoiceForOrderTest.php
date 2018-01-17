@@ -15,7 +15,7 @@ class CreateInvoiceForOrderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function customer_can_create_invoice()
+    public function customer_can_create_invoice()
     {
         Mail::fake();
 
@@ -50,7 +50,7 @@ class CreateInvoiceForOrderTest extends TestCase
         $this->assertEquals('IL', $order->invoice->state);
         $this->assertEquals('60660', $order->invoice->zip);
 
-        Mail::assertSent(InvoiceEmail::class, function($mail) use ($order) {
+        Mail::assertSent(InvoiceEmail::class, function ($mail) use ($order) {
             return $mail->hasTo('jo@example.com')
                 && $mail->order->id === $order->id
                 && $mail->order->invoice->id = $order->invoice->id;
@@ -58,7 +58,7 @@ class CreateInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_create_invoice_without_name()
+    public function cannot_create_invoice_without_name()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -83,7 +83,7 @@ class CreateInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_create_invoice_without_email()
+    public function cannot_create_invoice_without_email()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -108,7 +108,7 @@ class CreateInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_create_invoice_without_valid_zip()
+    public function cannot_create_invoice_without_valid_zip()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -134,7 +134,7 @@ class CreateInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function can_create_invoice_without_address()
+    public function can_create_invoice_without_address()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());

@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
     <meta name="msapplication-config" content="{{ asset('favicons/browserconfig.xml') }}">
     <meta name="theme-color" content="#ffffff">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -21,6 +21,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+
+    <script>
+        window.Spark = {};
+
+        window.SGDInstitute = {
+            mblgtaccStripe: "{{ getStripeKey('mblgtacc') }}",
+            instituteStripe: "{{ getStripeKey('institute') }}"
+        };
+    </script>
 </head>
 <body>
     <div id="wrapper">

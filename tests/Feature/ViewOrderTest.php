@@ -15,7 +15,7 @@ class ViewOrderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function can_view_order()
+    public function can_view_order()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'Leadership Conference',
@@ -49,7 +49,7 @@ class ViewOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_view_another_users_order()
+    public function cannot_view_another_users_order()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'Leadership Conference',
@@ -77,7 +77,7 @@ class ViewOrderTest extends TestCase
     }
 
     /** @test */
-    function user_can_view_payment_details()
+    public function user_can_view_payment_details()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -102,7 +102,7 @@ class ViewOrderTest extends TestCase
     }
 
     /** @test */
-    function user_can_delete_order()
+    public function user_can_delete_order()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -119,7 +119,7 @@ class ViewOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_delete_another_users_order()
+    public function cannot_delete_another_users_order()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -136,7 +136,7 @@ class ViewOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_delete_paid_order()
+    public function cannot_delete_paid_order()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());

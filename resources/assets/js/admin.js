@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('./forms/bootstrap');
+
 require('bootstrap-sass');
 
 require('metismenu');
@@ -26,9 +28,13 @@ import {Tabs, Tab} from 'vue-tabs-component';
 
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
+Vue.component('mark-as-paid-modal', require('./components/MarkAsPaidModal.vue'));
 
 const app = new Vue({
-    el: '#wrapper'
+    el: '#wrapper',
+    data: {
+        showMarkAsPaidModal: false
+    }
 });
 
 $(document).ready(function(){
