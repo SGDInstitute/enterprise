@@ -239,4 +239,15 @@ class OrderTest extends TestCase
 
         $this->assertEmpty(Ticket::all());
     }
+
+    /** @test */
+    public function can_get_paid_orders()
+    {
+        $paidOrder1 = factory(Order::class)->states('paid')->create();
+        $paidOrder2 = factory(Order::class)->states('paid')->create();
+        $unpaidOrder1 = factory(Order::class)->create();
+        $unpaidOrder2 = factory(Order::class)->create();
+
+        $this->assertCount(2, Order::paid()->get());
+    }
 }
