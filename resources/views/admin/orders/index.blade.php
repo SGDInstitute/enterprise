@@ -31,7 +31,11 @@
                                     <td>{{ $order->isPaid() ? 'Yes' : 'No' }}</td>
                                     <td>${{ number_format($order->amount/100, 2) }}</td>
                                     <td>{{ $order->tickets->count() }}</td>
-                                    <td>{{ $order->tickets()->filled()->count()/$order->tickets->count()*100 }}% ({{ $order->tickets()->filled()->count() }})</td>
+                                    <td>
+                                        @if($order->tickets->count() > 0)
+                                        {{ $order->tickets()->filled()->count()/$order->tickets->count()*100 }}% ({{ $order->tickets()->filled()->count() }})
+                                        @endif
+                                    </td>
                                     <td class="text-right"><a href="/admin/orders/{{ $order->id }}"
                                                               class="btn btn-default btn-sm">View Order</a></td>
                                 </tr>

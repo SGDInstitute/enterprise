@@ -7,6 +7,7 @@ use App\Billing\PaymentGateway;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\TestResponse;
 use PHPUnit\Framework\Assert;
+use Illuminate\Support\Facades\Mail;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -16,7 +17,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        TestResponse::macro('assertJsonHasErrors', function($keys = []) {
+        TestResponse::macro('assertJsonHasErrors', function ($keys = []) {
             Assert::assertArrayHasKey('errors', $this->json());
 
             foreach (array_wrap($keys) as $key) {
@@ -25,7 +26,8 @@ abstract class TestCase extends BaseTestCase
         });
     }
 
-    public function charge($amount = 5000) {
+    public function charge($amount = 5000)
+    {
         $paymentGateway = new FakePaymentGateway;
         $this->app->instance(PaymentGateway::class, $paymentGateway);
 

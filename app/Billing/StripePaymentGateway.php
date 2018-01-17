@@ -2,7 +2,6 @@
 
 namespace App\Billing;
 
-
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
 use Illuminate\Support\Carbon;
@@ -14,7 +13,6 @@ use Stripe\Token;
 
 class StripePaymentGateway implements PaymentGateway
 {
-
     protected $apiKey;
 
     public function __construct($apiKey)
@@ -26,9 +24,9 @@ class StripePaymentGateway implements PaymentGateway
     {
         try {
             $charge = Charge::create([
-                "amount" => $amount,
-                "currency" => "usd",
-                "source" => $token,
+                'amount' => $amount,
+                'currency' => 'usd',
+                'source' => $token,
             ], ['api_key' => $this->apiKey]);
 
             return collect(['id' => $charge->id, 'amount' => $charge->amount, 'last4' => $charge->source->last4]);
@@ -44,10 +42,10 @@ class StripePaymentGateway implements PaymentGateway
             $customer = Customer::retrieve($customerId, ['api_key' => $this->apiKey]);
 
             $subscription = Subscription::create([
-                "customer" => $customer->id,
-                "items" => [
+                'customer' => $customer->id,
+                'items' => [
                     [
-                        "plan" => $plan->id,
+                        'plan' => $plan->id,
                     ],
                 ],
             ], ['api_key' => $this->apiKey]);
@@ -66,11 +64,11 @@ class StripePaymentGateway implements PaymentGateway
     public function getValidTestToken()
     {
         return Token::create([
-            "card" => [
-                "number" => "4242424242424242",
-                "exp_month" => 1,
-                "exp_year" => date('Y') + 1,
-                "cvc" => "123",
+            'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 1,
+                'exp_year' => date('Y') + 1,
+                'cvc' => '123',
             ],
         ], ['api_key' => $this->apiKey])->id;
     }
@@ -78,8 +76,8 @@ class StripePaymentGateway implements PaymentGateway
     public function getValidTestCustomer()
     {
         return Customer::create([
-            "description" => "Customer for hpotter@hogwarts.edu",
-            "source" => $this->getValidTestToken(),
+            'description' => 'Customer for hpotter@hogwarts.edu',
+            'source' => $this->getValidTestToken(),
         ], ['api_key' => $this->apiKey])->id;
     }
 
@@ -119,5 +117,4 @@ class StripePaymentGateway implements PaymentGateway
 
         return collect($newCharges);
     }
-
 }
