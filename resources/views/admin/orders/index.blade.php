@@ -1,6 +1,29 @@
 @extends("layouts.admin")
 
 @section("content")
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h1 class="card-title">{{ $orders->count() }} Total Orders</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h1 class="card-title">{{ $event->orders()->paid()->count() }} Paid Orders</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h1 class="card-title">{{ $event->orders()->paid()->get()->flatMap->tickets->count() }} Paid Tickets</h1>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
