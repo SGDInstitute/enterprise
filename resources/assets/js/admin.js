@@ -28,7 +28,8 @@ import {Tabs, Tab} from 'vue-tabs-component';
 
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
-Vue.component('mark-as-paid-modal', require('./components/MarkAsPaidModal.vue'));
+Vue.component('mark-as-paid-modal', require('./components/admin/MarkAsPaidModal.vue'));
+Vue.component('reports', require('./components/admin/Reports.vue'));
 
 const app = new Vue({
     el: '#wrapper',
