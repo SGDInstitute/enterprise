@@ -78,6 +78,11 @@ class Order extends Model
             ->whereDate('start', '<', Carbon::now());
     }
 
+    public function scopePaid($query)
+    {
+        return $query->whereNotNull('confirmation_number');
+    }
+
     public function markAsPaid($charge)
     {
         $this->receipt()->create([
