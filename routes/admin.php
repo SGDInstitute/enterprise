@@ -34,3 +34,5 @@ Route::get('/users/{id}/impersonate', 'ImpersonationController@impersonate')->na
 
 Route::get('/donations', 'DonationsController@index')->name('admin.donations');
 Route::get('/donations/{donation}', 'DonationsController@show')->name('admin.donations.show');
+
+Route::get('/reports', 'ReportsController@index')->name('admin.reports');

@@ -71,6 +71,9 @@
             <li>
                 <a href="/admin/donations"><i class="fa fa-money"></i> <span class="nav-label">Donations</span></a>
             </li>
+             <li>
+                <a href="/admin/reports"><i class="fa fa-files-o"></i> <span class="nav-label">Reports</span></a>
+            </li>
             <li>
                 <span class="link-group">Helpful Links</span>
             </li>
