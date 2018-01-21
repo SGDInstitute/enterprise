@@ -36,3 +36,5 @@ Route::get('/donations', 'DonationsController@index')->name('admin.donations');
 Route::get('/donations/{donation}', 'DonationsController@show')->name('admin.donations.show');
 
 Route::get('/reports', 'ReportsController@index')->name('admin.reports');
+Route::post('/reports/{name}/run', 'ReportsRunController@store');
+Route::get('/reports/{name}/download', 'ReportsDownloadController@show');

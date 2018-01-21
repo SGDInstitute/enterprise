@@ -17,5 +17,5 @@
 @endsection
 
 @section('content')
-    <report></report>
+    <reports :reports="{{ json_encode($reports) }}"></reports>
 @endsection
