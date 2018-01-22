@@ -9,7 +9,7 @@ class ReportsDownloadController extends Controller
 {
     public function show($name)
     {
-        $class = "App\Admin\Reports\\" . ucfirst($name);
+        $class = "App\Admin\Reports\\" . ucfirst(camel_case($name));
 
         $report = new $class;
 

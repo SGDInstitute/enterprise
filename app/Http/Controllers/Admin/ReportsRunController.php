@@ -8,7 +8,7 @@ class ReportsRunController extends Controller
 {
     public function store($name)
     {
-        $class = "App\Admin\Reports\\" . ucfirst($name);
+        $class = "App\Admin\Reports\\" . ucfirst(camel_case($name));
 
         $report = new $class;
 
