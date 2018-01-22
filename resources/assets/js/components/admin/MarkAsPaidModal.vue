@@ -29,8 +29,11 @@
                         </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button class="modal-default-button" @click.prevent="markAsPaid" :disabled="form.busy">Update</button>
+                    <div class="modal-footer text-right">
+                        <button class="btn-link" @click="$emit('close')">
+                            Close
+                        </button>
+                        <button class="btn-default" @click.prevent="markAsPaid" :disabled="form.busy">Update</button>
                     </div>
                 </div>
             </div>
