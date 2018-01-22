@@ -29,6 +29,8 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     Orders for {{ $event->title }}
+
+                    <a href="/admin/reports/orders/download" class="pull-right">Download Report</a>
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
@@ -41,7 +43,7 @@
                                 <th>Is Paid</th>
                                 <th>Amount</th>
                                 <th># Tickets</th>
-                                <th># Tickets Filled</th>
+                                <th># Tickets Completed</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -56,7 +58,7 @@
                                     <td>{{ $order->tickets->count() }}</td>
                                     <td>
                                         @if($order->tickets->count() > 0)
-                                        {{ $order->tickets()->filled()->count()/$order->tickets->count()*100 }}% ({{ $order->tickets()->filled()->count() }})
+                                        {{ $order->tickets()->completed()->count()/$order->tickets->count()*100 }}% ({{ $order->tickets()->completed()->count() }})
                                         @endif
                                     </td>
                                     <td class="text-right"><a href="/admin/orders/{{ $order->id }}"
