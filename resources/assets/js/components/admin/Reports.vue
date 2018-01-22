@@ -11,7 +11,9 @@
                                     <option :value="report" :key="report" v-for="report in reports">{{ report }}</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-default">Run Report</button>
+                            <button type="submit" class="btn btn-default" :disabled="form.busy">
+                                <i v-if="form.busy" class="fa fa-cog fa-spin fa-fw"></i> Run Report
+                            </button>
                         </form>
                     </div>
                 </div>
