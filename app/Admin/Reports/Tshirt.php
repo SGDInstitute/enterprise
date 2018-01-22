@@ -14,6 +14,6 @@ class Tshirt extends Report
 
     public function query()
     {
-        return Profile::pluck('tshirt');
+        return Profile::all();
     }
 }

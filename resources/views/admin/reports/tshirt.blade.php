@@ -1,30 +1,26 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Pronouns</th>
-            <th>Sexuality</th>
-            <th>Gender</th>
-            <th>Race</th>
-            <th>College</th>
-            <th>T-Shirt</th>
-            <th>Wants Program</th>
-            <th>Accommodation</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+            <th>XL</th>
+            <th>XXL</th>
+            <th>XXXL</th>
+            <th>XXXXL</th>
+            <th>Not Filled</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($data as $row)
         <tr>
-            @foreach($row as $key => $column)
-                @if($key === 'wants_program')
-                    <td>{{ $column ? 'Yes' : 'No'}}</td>
-                @else
-                    <td>{{ $column }}</td>
-                @endif
-            @endforeach
+            <td>{{ $data->where('tshirt', 'S')->count() }}</td>
+            <td>{{ $data->where('tshirt', 'M')->count() }}</td>
+            <td>{{ $data->where('tshirt', 'L')->count() }}</td>
+            <td>{{ $data->where('tshirt', 'XL')->count() }}</td>
+            <td>{{ $data->where('tshirt', 'XXL')->count() }}</td>
+            <td>{{ $data->where('tshirt', 'XXXL')->count() }}</td>
+            <td>{{ $data->where('tshirt', 'XXXXL')->count() }}</td>
+            <td>{{ $data->where('tshirt', null)->count() }}</td>
         </tr>
-        @endforeach
     </tbody>
 </table>
