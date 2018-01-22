@@ -7,7 +7,7 @@
         <th>Is Paid</th>
         <th>Amount</th>
         <th># Tickets</th>
-        <th># Tickets Filled</th>
+        <th># Tickets Completed</th>
         <th></th>
     </tr>
     </thead>
@@ -22,7 +22,7 @@
             <td>{{ $order->tickets->count() }}</td>
             <td>
                 @if($order->tickets->count() > 0)
-                {{ $order->tickets()->filled()->count()/$order->tickets->count()*100 }}% ({{ $order->tickets()->filled()->count() }})
+                {{ round($order->tickets()->completed()->count()/$order->tickets->count()*100, 2) }}% ({{ $order->tickets()->completed()->count() }})
                 @endif
             </td>
         </tr>
