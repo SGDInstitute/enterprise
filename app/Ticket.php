@@ -58,6 +58,21 @@ class Ticket extends Model
         return $query->whereNotNull('user_id');
     }
 
+    public function scopeCompleted($query)
+    {
+        return $query->join('profiles', 'profiles.user_id', 'tickets.user_id')->whereNotNull('profiles.tshirt');
+    }
+
+    public function isComplete()
+    {
+        return !is_null($this->user->profile->tshirt);
+    }
+
+    public function isFilled()
+    {
+        return !is_null($this->user_id);
+    }
+
     public function scopeUpcoming($query)
     {
         return $query->select('tickets.*', 'events.start')
@@ -102,7 +117,7 @@ class Ticket extends Model
 
         $user->profile->update($data);
 
-        if(isset($data['send_email']) && $data['send_email']) {
+        if (isset($data['send_email']) && $data['send_email']) {
             Mail::to($user->email)->send(new InviteUserEmail($user, request()->user(), $this, array_get($data, 'message')));
         }
     }

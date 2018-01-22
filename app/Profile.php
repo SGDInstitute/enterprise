@@ -24,4 +24,9 @@ class Profile extends Model
     protected $dates = ['deleted_at'];
 
     protected $casts = ['wants_program' => 'boolean'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

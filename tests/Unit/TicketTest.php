@@ -3,20 +3,22 @@
 namespace Tests\Unit;
 
 use App\Event;
-use App\Mail\InviteUserEmail;
 use App\Ticket;
 use App\TicketType;
 use App\User;
+use App\Profile;
+use App\Order;
+use App\Mail\InviteUserEmail;
 use Illuminate\Support\Facades\Mail;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class TicketTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_get_ticket_that_are_filled_out()
+    public function can_get_tickets_that_are_filled_out()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'Leadership Conference',
@@ -39,7 +41,47 @@ class TicketTest extends TestCase
     }
 
     /** @test */
-    function hash_is_added_when_creating()
+    public function can_get_tickets_that_are_complete()
+    {
+        $profileA = factory(Profile::class)->create(['tshirt' => 'L']);
+        $profileB = factory(Profile::class)->create(['tshirt' => 'S']);
+        $profileC = factory(Profile::class)->create(['tshirt' => null]);
+
+        $order = factory(Order::class)->create();
+
+        $order->tickets()->saveMany([
+            factory(Ticket::class)->make(['user_id' => $profileA->user_id]),
+            factory(Ticket::class)->make(['user_id' => $profileB->user_id]),
+            factory(Ticket::class)->make(['user_id' => $profileC->user_id]),
+        ]);
+
+        $this->assertEquals(2, $order->tickets()->completed()->count());
+        $this->assertContains($profileA->user_id, $order->tickets()->completed()->get()->pluck('user_id'));
+        $this->assertContains($profileB->user_id, $order->tickets()->completed()->get()->pluck('user_id'));
+    }
+
+    /** @test */
+    public function tickets_are_completed_when_name_email_and_thshirt_are_not_null()
+    {
+        $ticket = factory(Ticket::class)->create(['user_id' => null]);
+
+        $this->assertFalse($ticket->isComplete());
+
+        $user = factory(User::class)->create(['name' => 'Jane Doe', 'email' => 'jdoe@example.com']);
+        $ticket->user_id = $user->id;
+        $ticket->save();
+
+        $this->assertFalse($ticket->fresh()->isComplete());
+        $this->assertTrue($ticket->fresh()->isFilled());
+
+        $user->profile->tshirt = 'M';
+        $user->profile->save();
+
+        $this->assertTrue($ticket->fresh()->isComplete());
+    }
+
+    /** @test */
+    public function hash_is_added_when_creating()
     {
         $ticket = factory(Ticket::class)->create();
 
@@ -47,7 +89,7 @@ class TicketTest extends TestCase
     }
 
     /** @test */
-    function can_invite_user()
+    public function can_invite_user()
     {
         Mail::fake();
 
@@ -58,14 +100,14 @@ class TicketTest extends TestCase
         $ticket->fresh();
         $this->assertNotNull($ticket->user_id);
 
-        Mail::assertSent(InviteUserEmail::class, function($mail) {
+        Mail::assertSent(InviteUserEmail::class, function ($mail) {
             return $mail->hasTo('hpotter@hogwarts.edu')
                 && $mail->note === 'Hello world!';
         });
     }
 
     /** @test */
-    function can_fill_ticket()
+    public function can_fill_ticket()
     {
         $ticket = factory(Ticket::class)->create(['user_id' => null]);
 
@@ -96,7 +138,7 @@ class TicketTest extends TestCase
     }
 
     /** @test */
-    function filling_ticket_sends_email_if_specified()
+    public function filling_ticket_sends_email_if_specified()
     {
         Mail::fake();
 
@@ -128,14 +170,14 @@ class TicketTest extends TestCase
         $this->assertEquals('L', $ticket->user->profile->tshirt);
         $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
 
-        Mail::assertSent(InviteUserEmail::class, function($mail) {
+        Mail::assertSent(InviteUserEmail::class, function ($mail) {
             return $mail->hasTo('hpotter@hogwarts.edu')
                 && $mail->note === 'Hello world!';
         });
     }
 
     /** @test */
-    function can_find_by_hash()
+    public function can_find_by_hash()
     {
         $ticket = factory(Ticket::class)->create();
 

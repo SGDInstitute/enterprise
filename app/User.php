@@ -121,7 +121,7 @@ class User extends Authenticatable
     {
         $customer = Customer::create([
             'email' => $this->email,
-            'source'  => $token,
+            'source' => $token,
         ], ['api_key' => getStripeSecret($group)]);
 
         $field = "{$group}_stripe_id";
@@ -129,7 +129,8 @@ class User extends Authenticatable
         $this->save();
     }
 
-    public function confirm() {
+    public function confirm()
+    {
         $this->confirmed_at = Carbon::now();
         $this->save();
         $this->emailToken->delete();
@@ -137,7 +138,7 @@ class User extends Authenticatable
 
     public function isConfirmed()
     {
-        return ! is_null($this->confirmed_at);
+        return !is_null($this->confirmed_at);
     }
 
     public function sendConfirmationEmail()
@@ -152,7 +153,7 @@ class User extends Authenticatable
     {
         return $this->orders()->upcoming()->get()
             ->merge($this->tickets()->upcoming()->get()
-                ->map(function($ticket) {
+                ->map(function ($ticket) {
                     return $ticket->order;
                 }));
     }
@@ -161,7 +162,7 @@ class User extends Authenticatable
     {
         return $this->orders()->past()->get()
             ->merge($this->tickets()->past()->get()
-                ->map(function($ticket) {
+                ->map(function ($ticket) {
                     return $ticket->order;
                 }));
     }
