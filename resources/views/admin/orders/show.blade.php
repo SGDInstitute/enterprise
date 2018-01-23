@@ -56,6 +56,7 @@
                                             <td class="text-right">
                                                 @if($ticket->user_id)
                                                     <a href="/admin/users/{{ $ticket->user->id }}" class="btn btn-default">View User</a>
+                                                    <remove-user-button hash="{{ $ticket->hash }}" redirect="/admin/orders/{{ $order->id }}" class="btn btn-default"><i class="fa fa-trash"></i></remove-user-button>
                                                 @endif
                                             </td>
                                         </tr>

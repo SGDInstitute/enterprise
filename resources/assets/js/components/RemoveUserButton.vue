@@ -1,15 +1,15 @@
 <template>
-  <a href="" @click.prevent="remove">Remove User</a>
+  <a href="" @click.prevent="remove"><slot>Remove User</slot></a>
 </template>
 
 <script>
 export default {
-    props: ['hash', 'order'],
+    props: ['hash', 'redirect'],
     methods: {
         remove() {
             axios.delete('/tickets/' + this.hash + '/users')
                 .then(response => {
-                    window.location = '/orders/' + this.order;
+                    window.location = this.redirect;
                 });
         }
     }

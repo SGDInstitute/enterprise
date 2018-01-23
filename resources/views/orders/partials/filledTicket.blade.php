@@ -19,6 +19,6 @@
             View Details
         </modal-button>
 
-        <remove-user-button hash="{{ $ticket->hash }}" order="{{ $ticket->order->id }}" class="card-link"></remove-user-button>
+        <remove-user-button hash="{{ $ticket->hash }}" redirect="{{ url('/orders/' . $ticket->order->id) }}" class="card-link"></remove-user-button>
     </div>
 </div>

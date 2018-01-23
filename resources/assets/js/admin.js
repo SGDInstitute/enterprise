@@ -31,6 +31,7 @@ Vue.component('tab', Tab);
 Vue.component('mark-as-paid-modal', require('./components/admin/MarkAsPaidModal.vue'));
 Vue.component('reports', require('./components/admin/Reports.vue'));
 Vue.component('invoice-search', require('./components/admin/InvoiceSearch.vue'));
+Vue.component('remove-user-button', require('./components/RemoveUserButton.vue'));
 
 const app = new Vue({
     el: '#wrapper',
