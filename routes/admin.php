@@ -11,6 +11,8 @@ Route::get('/orders/{id}', 'OrdersController@show')->name('admin.orders.show');
 
 Route::patch('/orders/{order}/paid', 'OrdersPaidController@update')->name('admin.orders.paid');
 
+Route::get('/invoices/{invoice}', 'InvoicesController@show');
+
 Route::get('/users/access/create', 'UsersAccessController@create')->name('admin.users.access.create');
 Route::post('/users/access', 'UsersAccessController@store')->name('admin.users.access.store');
 Route::get('/users/{user}/access/edit', 'UsersAccessController@edit')->name('admin.users.access.edit');
