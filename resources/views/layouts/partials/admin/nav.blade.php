@@ -41,6 +41,9 @@
                 </div>
             </li>
             <li>
+                <a href="/admin"><i class="fa fa-bar-chart" aria-hidden="true"></i> <span class="nav-label">Dashboard</span></a>
+            </li>
+            <li>
                 <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Events </span><span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
