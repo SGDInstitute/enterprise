@@ -42,6 +42,8 @@
             @yield('header')
 
             <div class="wrapper wrapper-content">
+                @include('flash::message')
+
                 @yield("content")
             </div>
             @include("layouts.partials.admin.footer")

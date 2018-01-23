@@ -12,7 +12,7 @@ class InvoicesController extends Controller
         $invoice = Invoice::find($id);
 
         if (is_null($invoice)) {
-            flash()->error("No invoice found with $id");
+            flash("No invoice found with #$id")->error();
             return redirect()->back();
         }
 
