@@ -19,6 +19,8 @@
             View Details
         </modal-button>
 
-        <remove-user-button hash="{{ $ticket->hash }}" redirect="{{ url('/orders/' . $ticket->order->id) }}" class="card-link"></remove-user-button>
+        @if(Auth::user()->can('update', $order))
+            <remove-user-button hash="{{ $ticket->hash }}" redirect="{{ url('/orders/' . $ticket->order->id) }}" class="card-link"></remove-user-button>
+        @endif
     </div>
 </div>
