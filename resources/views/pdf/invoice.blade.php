@@ -65,7 +65,7 @@
             <td class="forty text-right">
                 <strong>Invoice:</strong> #{{ str_pad($order->invoice->id, 6, "0", STR_PAD_LEFT) }}<br>
                 <strong>Created Date:</strong> {{ $order->invoice->created_at->toFormattedDateString() }}<br>
-                <strong>Due Date:</strong> {{ $order->invoice->created_at->addDays(60)->toFormattedDateString() }}
+                <strong>Due Date:</strong> {{ $order->invoice->due_date->toFormattedDateString() }}
             </td>
         </tr>
     </table>
@@ -92,7 +92,7 @@
     <table>
         <tr>
             <td>
-                <p>Payment must be postmarked by <strong>{{ $order->invoice->created_at->addDays(60)->toFormattedDateString() }}</strong>. For any concerns or questions regarding payment or the invoice please contact <a
+                <p>Payment must be postmarked by <strong>{{ $order->invoice->due_date->toFormattedDateString() }}</strong>. For any concerns or questions regarding payment or the invoice please contact <a
                             href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>.
                     Include your issue or concern, invoice and order numbers, and best method of contact.</p>
                 <p>Please mail payment to: {{ config($order->event->stripe . ".address") }}</p>
