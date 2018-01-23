@@ -93,7 +93,36 @@
                             @endif
                         </div>
                     </div>
-                    <div id="invoice" class="tab-pane"></div>
+                    <div id="invoice" class="tab-pane">
+                        <div class="panel-body">
+                        @if(is_null($order->invoice))
+                            <p>No Invoice for Order</p>
+                        @else
+                            <dl class="dl-horizontal">
+                                <dt>Invoice Number</dt>
+                                <dd>#{{ str_pad($order->invoice->id, 6, "0", STR_PAD_LEFT) }}</dd>
+
+                                <dt>Invoice Name</dt>
+                                <dd>{{ $order->invoice->name }}</dd>
+
+                                <dt>Invoice Email</dt>
+                                <dd>{{ $order->invoice->email }}</dd>
+
+                                <dt>Invoice Address</dt>
+                                <dd>
+                                    {{ $order->invoice->address }} {{ $order->invoice->address_2 }}<br>
+                                    {{ $order->invoice->city }}, {{ $order->invoice->state }} {{ $order->invoice->zip }}
+                                </dd>
+
+                                <dt>Created Date</dt>
+                                <dd>{{ $order->invoice->created_at->toFormattedDateString() }}</dd>
+
+                                <dt>Due Date</dt>
+                                <dd>{{ $order->invoice->due_date->toFormattedDateString() }}</dd>
+                            </dl>
+                        @endif
+                        </div>
+                    </div>
                     <div id="activity" class="tab-pane"></div>
                 </div>
             </div>
