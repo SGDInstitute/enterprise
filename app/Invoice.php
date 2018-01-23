@@ -10,12 +10,21 @@ class Invoice extends Model
 {
     use LogsActivity, SoftDeletes;
 
-    protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip',];
+    protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip', ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'due_date'];
 
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function getDueDateAttribute()
+    {
+        if ($this->created_at->addDays(60) < $this->order->event->start) {
+            return $this->created_at->addDays(60);
+        } else {
+            return $this->order->event->start;
+        }
     }
 }

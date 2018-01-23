@@ -16,7 +16,7 @@ class InvoiceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function invoice_pdf_has_user_address()
+    public function invoice_pdf_has_user_address()
     {
         $order = factory(Order::class)->create();
         $invoice = $order->invoice()->save(factory(Invoice::class)->make([
@@ -37,7 +37,7 @@ class InvoiceTest extends TestCase
     }
 
     /** @test */
-    function invoice_pdf_has_amount()
+    public function invoice_pdf_has_amount()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'Leadership Conference',
@@ -64,7 +64,7 @@ class InvoiceTest extends TestCase
     }
 
     /** @test */
-    function invoice_pdf_has_ticket_types_and_quantities()
+    public function invoice_pdf_has_ticket_types_and_quantities()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make([
@@ -91,7 +91,7 @@ class InvoiceTest extends TestCase
     }
 
     /** @test */
-    function invoice_pdf_has_mailto_address_for_event()
+    public function invoice_pdf_has_mailto_address_for_event()
     {
         $event = factory(Event::class)->states('published')->create([
             'stripe' => 'institute'
@@ -117,7 +117,7 @@ class InvoiceTest extends TestCase
     }
 
     /** @test */
-    function invoice_pdf_has_due_date()
+    public function invoice_pdf_has_due_date()
     {
         $event = factory(Event::class)->states('published')->create([
             'stripe' => 'institute'
@@ -133,5 +133,21 @@ class InvoiceTest extends TestCase
 
         $this->assertContains('Due Date', $view);
         $this->assertContains(Carbon::now()->addDays(60)->toFormattedDateString(), $view);
+    }
+
+    /** @test */
+    public function can_get_due_date_attribute()
+    {
+        $event = factory(Event::class)->create(['start' => Carbon::parse('+120 days')]);
+        $order = factory(Order::class)->create(['event_id' => $event->id]);
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+
+        $this->assertEquals(Carbon::parse('+60 days')->toFormattedDateString(), $invoice->due_date->toFormattedDateString());
+
+        $event = factory(Event::class)->create(['start' => Carbon::parse('+30 days')]);
+        $order = factory(Order::class)->create(['event_id' => $event->id]);
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+
+        $this->assertEquals(Carbon::parse('+30 days')->toFormattedDateString(), $invoice->due_date->toFormattedDateString());
     }
 }
