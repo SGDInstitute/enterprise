@@ -18,5 +18,7 @@
         <modal-button class="card-link" event="showViewProfileModal" payload="{{ $ticket->hash }}">
             View Details
         </modal-button>
+
+        <remove-user-button hash="{{ $ticket->hash }}" order="{{ $ticket->order->id }}" class="card-link"></remove-user-button>
     </div>
 </div>

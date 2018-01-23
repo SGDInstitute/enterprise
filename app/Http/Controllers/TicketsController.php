@@ -14,8 +14,7 @@ class TicketsController extends Controller
         if (request()->has('user_id')) {
             $ticket->user_id = request('user_id');
             $ticket->save();
-        }
-        else {
+        } else {
             $data = request()->validate([
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
