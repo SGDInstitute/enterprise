@@ -4,6 +4,15 @@
     <div class="row">
         <div class="col-md-3">
             @include("components.app.event", ['event' => $order->event])
+
+            <div class="card" style="margin-top: 2rem;">
+                <div class="card-header">
+                    Order Owner
+                </div>
+                <div class="card-body">
+                    <a href="{{ route('admin.users.show', $order->user) }}">{{ $order->user->name }}</a>
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
             <div class="tabs-container">
