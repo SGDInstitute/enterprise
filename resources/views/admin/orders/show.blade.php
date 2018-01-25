@@ -52,7 +52,7 @@
                                         <tr>
                                             <td>{{ $ticket->user ? $ticket->user->name : '' }}</td>
                                             <td>{{ $ticket->user ? $ticket->user->email : '' }}</td>
-                                            <td>{{ $ticket->user ? $ticket->user->tshirt : '' }}</td>
+                                            <td>{{ $ticket->user ? $ticket->user->profile->tshirt : '' }}</td>
                                             <td class="text-right">
                                                 @if($ticket->user_id)
                                                     <a href="/admin/users/{{ $ticket->user->id }}" class="btn btn-default">View User</a>
