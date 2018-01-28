@@ -41,6 +41,7 @@ class EventsSeeder extends Seeder
             'image' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg',
             'logo_light' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_White.png',
             'logo_dark' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_Gray.png',
+            'refund_policy' => '<p>The regular registration rate is available until January 17, 2018. Full refunds are available for cancelled orders until this date. Cancellations received after this date will not be eligible for a refund. Refunds are not available for attendees who choose not to attend the event if the cancellation is not received before the stated cancellation deadline. Orders may be transferred to another attendee at no charge, at any time. Cancellations or transfers must be requested by the user who created the order and should include the name of the attendee. To request a cancellation and refund, or to transfer your ticket to another attendee, please email <a href="mailto:kate@sgdinstitute.org">kate@sgdinstitute.org</a>.</p>',
         ]);
 
         $event->ticket_types()->createMany([

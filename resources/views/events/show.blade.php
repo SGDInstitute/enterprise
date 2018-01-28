@@ -47,6 +47,15 @@
 
                 @component('components.app.links', ['class' => 'h3 mt-4', 'links' => collect($event->links)->sortBy('order')])
                 @endcomponent
+
+                <p>
+                    <a data-toggle="collapse" href="#refund_policy" role="button" aria-expanded="false" aria-controls="refund_policy">
+                        Refund Policy <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </a>
+                </p>
+                <div class="collapse" id="refund_policy">
+                    {!! $event->refund_policy !!}
+                </div>
             </div>
             <div class="col-lg-4">
                 <div class="tickets card-list rounded mt-sm-4 mt-xs-4">

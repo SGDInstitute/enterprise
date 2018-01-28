@@ -39,6 +39,7 @@
                     {{ form.errors.get('tickets') }}
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" :disabled="form.busy">Next</button>
+                <p class="text-sm text-muted card-text mt-1 font-italic font-weight-light">By clicking Next you accept the <a data-toggle="collapse" href="#refund_policy" role="button" aria-expanded="false" aria-controls="refund_policy">refund policy</a>.</p>
             </div>
         </div>
     </form>
