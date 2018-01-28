@@ -14,8 +14,11 @@ class UsersController extends Controller
 
     public function show($id)
     {
+        $user = User::find($id)->load('donations', 'roles', 'permissions');
+
         return view('admin.users.show', [
-            'user' => User::find($id)->load('orders.event', 'donations', 'roles', 'permissions')
+            'user' => $user,
+            'orders' => $user->orders()->withTrashed()->with('event')->get()
         ]);
     }
 }
