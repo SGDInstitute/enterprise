@@ -9,7 +9,7 @@ class ReportsController extends Controller
     public function index()
     {
         return view('admin.reports.index', [
-            'reports' => ['accommodation', 'tshirt', 'orders', 'program_guide']
+            'reports' => ['accommodation', 'tshirt', 'orders', 'program-guide', 'paid-registrants', 'unpaid-registrants', 'all-registrants']
         ]);
     }
 }
