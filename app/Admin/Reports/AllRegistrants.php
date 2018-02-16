@@ -19,7 +19,7 @@ class AllRegistrants extends Report
             ->join('profiles', 'users.id', '=', 'profiles.user_id')
             ->join('tickets', 'users.id', '=', 'tickets.user_id')
             ->join('orders', 'orders.id', '=', 'tickets.order_id')
-            ->join('receipts', 'receipts.order_id', '=', 'orders.id')
+            ->leftJoin('receipts', 'receipts.order_id', '=', 'orders.id')
             ->select(
                 'orders.confirmation_number',
                 'receipts.transaction_id',
