@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table dataTable">
     <thead>
         <tr>
             <th>Paid?</th>
