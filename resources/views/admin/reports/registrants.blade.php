@@ -1,10 +1,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Confirmation Number</th>
-            <th>Ticket #</th>
+            <th>Paid?</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Confirmation Number</th>
+            <th>Ticket #</th>
             <th>Pronouns</th>
             <th>College</th>
             <th>T-Shirt</th>
@@ -14,10 +15,11 @@
     <tbody>
         @foreach($data as $registrant)
             <tr>
-                <td>{{ $registrant->confirmation_number }}</td>
-                <td>{{ $registrant->hash }}</td>
+                <td>{{ is_null($registrant->transaction_id) ? 'No' : 'Yes' }}</td>
                 <td>{{ $registrant->name }}</td>
                 <td>{{ $registrant->email }}</td>
+                <td>{{ $registrant->confirmation_number }}</td>
+                <td>{{ $registrant->hash }}</td>
                 <td>{{ $registrant->pronouns }}</td>
                 <td>{{ $registrant->college }}</td>
                 <td>{{ $registrant->tshirt }}</td>
