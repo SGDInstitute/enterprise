@@ -28,6 +28,7 @@
                                         <td>{{ $event->start->format('M j') }} - {{ $event->end->format('j, Y') }}</td>
                                         <td>{{ $event->stripe }}</td>
                                         <td class="text-right"><a href="/admin/events/{{ $event->slug }}" class="btn btn-default btn-sm">View Event</a></td>
+                                        <td class="text-right"><a href="/admin/events/{{ $event->slug }}/orders" class="btn btn-default btn-sm">View Orders</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
