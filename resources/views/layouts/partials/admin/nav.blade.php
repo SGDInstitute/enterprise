@@ -47,7 +47,7 @@
                 <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Events </span><span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">View All</a></li>
+                    <li><a href="/admin/events">View All</a></li>
                     @foreach($events as $event)
                         <li>
                             <a href="#" id="damian">{{ $event->title }} <span class="fa arrow"></span></a>
