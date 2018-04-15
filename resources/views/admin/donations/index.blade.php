@@ -20,15 +20,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="ibox">
-                <div class="ibox-content no-padding">
-                    <tabs>
-                        <tab name="One Time Donations">
-                            @include("admin.donations.partials.oneTimeTable")
-                        </tab>
-                        <tab name="Recurring Donations">
-                            @include("admin.donations.partials.recurringTable")
-                        </tab>
-                    </tabs>
+                <div class="ibox-content">
+                    @include("admin.donations.partials.table")
                 </div>
             </div>
         </div>
