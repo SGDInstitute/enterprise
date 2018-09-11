@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\UserCreated' => [
-            'App\Listeners\CreateProfileForUser',
+        \App\Events\UserCreated::class => [
+            \App\Listeners\CreateProfileForUser::class,
         ],
         'App\Events\TicketCreating' => [
             'App\Listeners\CreateHashForTicket',
