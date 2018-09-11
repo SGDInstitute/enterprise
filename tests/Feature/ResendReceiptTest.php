@@ -38,7 +38,7 @@ class ResendReceiptTest extends TestCase
 
         $response->assertStatus(200);
 
-        Mail::assertSent(ReceiptEmail::class, function($mail) use ($order) {
+        Mail::assertSent(ReceiptEmail::class, function ($mail) use ($order) {
             return $mail->hasTo('jo@example.com');
         });
     }

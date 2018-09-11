@@ -67,11 +67,13 @@ class DonationsController extends Controller
         if ($donation->subscription !== null && $donation->subscription->isActive()) {
             $subscription = Subscription::retrieve(
                 $donation->subscription->subscription_id,
-                ['api_key' => getStripeSecret($donation->group)]);
-        } elseif($donation->receipt->transaction_id) {
+                ['api_key' => getStripeSecret($donation->group)]
+            );
+        } elseif ($donation->receipt->transaction_id) {
             $charge = Charge::retrieve(
                 $donation->receipt->transaction_id,
-                ['api_key' => getStripeSecret($donation->group)]);
+                ['api_key' => getStripeSecret($donation->group)]
+            );
         }
 
         return view('donations.show', compact('donation', 'charge', 'subscription'));

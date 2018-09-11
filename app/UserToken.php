@@ -41,7 +41,7 @@ class UserToken extends Model
 
         $tokenType = "{$this->type}Token";
 
-        if(!$user || $user->$tokenType == null) {
+        if (!$user || $user->$tokenType == null) {
             return false;
         }
 

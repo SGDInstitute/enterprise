@@ -27,7 +27,7 @@ class ConfirmUsersEmailTest extends TestCase
 
         $response->assertStatus(200);
 
-        Mail::assertSent(UserConfirmationEmail::class, function($mail) {
+        Mail::assertSent(UserConfirmationEmail::class, function ($mail) {
             return $mail->hasTo('phoenix@example.com')
                 && $mail->user->id === User::findByEmail('phoenix@example.com')->id;
         });
@@ -65,7 +65,7 @@ class ConfirmUsersEmailTest extends TestCase
 
         $response->assertStatus(302);
 
-        Mail::assertSent(UserConfirmationEmail::class, function($mail) {
+        Mail::assertSent(UserConfirmationEmail::class, function ($mail) {
             return $mail->hasTo('jo@example.com')
                 && $mail->user->id === User::findByEmail('jo@example.com')->id;
         });

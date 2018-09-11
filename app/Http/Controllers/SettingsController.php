@@ -10,7 +10,7 @@ class SettingsController extends Controller
     public function edit()
     {
         $user = request()->user();
-        if(is_null(request()->user()->profile)) {
+        if (is_null(request()->user()->profile)) {
             $user->profile()->save(new Profile());
             $user->fresh();
         }

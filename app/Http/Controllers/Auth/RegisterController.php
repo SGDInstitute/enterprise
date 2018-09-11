@@ -93,7 +93,7 @@ class RegisterController extends Controller
     {
         $user->sendConfirmationEmail();
 
-        if($request->ajax() || $request->isJson()) {
+        if ($request->ajax() || $request->isJson()) {
             return response()->json(compact('user'), 200);
         }
 

@@ -16,5 +16,4 @@ class FakePaymentGatewayTest extends TestCase
     {
         return new FakePaymentGateway;
     }
-
 }

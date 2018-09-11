@@ -19,7 +19,9 @@ class ImpersonationController extends Controller
 
     public function impersonate($userId)
     {
-        if(cannot(request()->user(), 'impersonate')) return back();
+        if (cannot(request()->user(), 'impersonate')) {
+            return back();
+        }
 
         $causer = Auth::user();
 

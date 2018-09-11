@@ -33,13 +33,11 @@ class OrderChargeController extends Controller
                 'created' => true,
                 'order' => $order
             ], 201);
-        }
-        catch (PaymentFailedException $e) {
+        } catch (PaymentFailedException $e) {
             return response()->json([
                 'created' => false,
                 'message' => $e->getMessage(),
             ], 422);
         }
-
     }
 }

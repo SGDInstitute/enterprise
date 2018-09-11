@@ -2,7 +2,6 @@
 
 namespace App\Billing;
 
-
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
 use Carbon\Carbon;
@@ -30,7 +29,7 @@ class FakePaymentGateway implements PaymentGateway
 
     public function charge($amount, $token)
     {
-        if($token !== $this->getValidTestToken()) {
+        if ($token !== $this->getValidTestToken()) {
             throw new PaymentFailedException();
         }
 
@@ -41,7 +40,7 @@ class FakePaymentGateway implements PaymentGateway
 
     public function subscribe($plan, $customer)
     {
-        if($customer !== $this->getValidTestCustomer()) {
+        if ($customer !== $this->getValidTestCustomer()) {
             throw new SubscriptionFailedException();
         }
 

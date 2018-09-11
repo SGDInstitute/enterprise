@@ -26,7 +26,7 @@ class TicketQuantityNotZero implements Rule
     public function passes($attribute, $value)
     {
         foreach ($value as $index => $item) {
-            if($item['quantity'] > 0) {
+            if ($item['quantity'] > 0) {
                 return true;
             }
         }

@@ -43,7 +43,7 @@ class OrderTicketsController extends Controller
             ->filter(function ($email) use ($hash) {
                 return $email !== $hash;
             })
-            ->map(function($email) {
+            ->map(function ($email) {
                 return "emails." . $email;
             })
             ->implode(',');
