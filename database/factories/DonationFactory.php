@@ -8,6 +8,6 @@ $factory->define(Donation::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'group' => 'institute',
-        'amount' => $faker->numberBetween(5,999999) * 100,
+        'amount' => $faker->numberBetween(5, 999999) * 100,
     ];
 });

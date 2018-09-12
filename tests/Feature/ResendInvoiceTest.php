@@ -33,7 +33,7 @@ class ResendInvoiceTest extends TestCase
 
         $response->assertStatus(200);
 
-        Mail::assertSent(InvoiceEmail::class, function($mail) use ($invoice) {
+        Mail::assertSent(InvoiceEmail::class, function ($mail) use ($invoice) {
             return $mail->hasTo('jo@example.com')
                 && $mail->hasCc('pjohnson@example.com');
         });

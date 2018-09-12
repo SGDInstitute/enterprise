@@ -2,4 +2,7 @@
 
 namespace App\Exceptions;
 
-class SubscriptionFailedException extends \RuntimeException {}
+class SubscriptionFailedException extends \RuntimeException
+{
+
+}

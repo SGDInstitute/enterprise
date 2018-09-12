@@ -4,13 +4,13 @@ namespace App\Billing;
 
 use Stripe\Error\InvalidRequest;
 
-class Plan {
+class Plan
+{
 
     public static function findOrCreate($plan, $key)
     {
         try {
             $plan = \Stripe\Plan::retrieve($plan, ['api_key' => $key]);
-
         } catch (InvalidRequest $e) {
             $duration = explode('-', $plan)[0];
             $amount = explode('-', $plan)[1] * 100;
@@ -38,5 +38,4 @@ class Plan {
 
         return $plan;
     }
-    
 }

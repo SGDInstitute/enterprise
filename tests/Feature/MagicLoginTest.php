@@ -29,7 +29,7 @@ class MagicLoginTest extends TestCase
 
         $this->assertNotNull($user->magicToken);
 
-        Mail::assertSent(MagicLoginEmail::class, function($mail) use ($user) {
+        Mail::assertSent(MagicLoginEmail::class, function ($mail) use ($user) {
             return $mail->hasTo('jo@example.com')
                 && $mail->user->id === $user->id;
         });

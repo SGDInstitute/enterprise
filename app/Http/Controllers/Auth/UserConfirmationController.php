@@ -21,7 +21,7 @@ class UserConfirmationController extends Controller
 
     public function create()
     {
-        if(request()->user()) {
+        if (request()->user()) {
             request()->user()->sendConfirmationEmail();
         }
 

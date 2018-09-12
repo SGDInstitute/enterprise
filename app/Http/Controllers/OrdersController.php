@@ -20,7 +20,7 @@ class OrdersController extends Controller
     {
         $this->authorize('delete', $order);
 
-        if(! $order->isPaid()) {
+        if (! $order->isPaid()) {
             $order->delete();
 
             return redirect('/home');

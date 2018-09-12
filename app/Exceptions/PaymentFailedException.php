@@ -2,4 +2,7 @@
 
 namespace App\Exceptions;
 
-class PaymentFailedException extends \RuntimeException {}
+class PaymentFailedException extends \RuntimeException
+{
+
+}

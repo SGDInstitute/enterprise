@@ -53,7 +53,7 @@ class RolesPermissionsSeeder extends Seeder
 
             $developer->givePermissionTo($p);
 
-            if($permission === 'view_dashboard') {
+            if ($permission === 'view_dashboard') {
                 $institute->givePermissionTo($p);
                 $mblgtaccPlanner->givePermissionTo($p);
             }

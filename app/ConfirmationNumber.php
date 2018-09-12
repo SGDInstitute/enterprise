@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class ConfirmationNumber
 {
     public function generate()

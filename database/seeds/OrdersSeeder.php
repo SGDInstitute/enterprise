@@ -23,13 +23,14 @@ class OrdersSeeder extends Seeder
                 ['ticket_type_id' => $ticketType->id, 'quantity' => rand(1, 25)],
             ]);
 
-            if (rand(0,1)) {
+            if (rand(0, 1)) {
                 $order->markAsPaid($this->charge($order->amount));
             }
         }
     }
 
-    private function charge($amount) {
+    private function charge($amount)
+    {
         $paymentGateway = new FakePaymentGateway;
 
         return $paymentGateway->charge($amount, $paymentGateway->getValidTestToken());

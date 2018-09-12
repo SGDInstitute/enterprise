@@ -29,4 +29,3 @@ $factory->state(App\User::class, 'confirmed', function (Faker $faker) {
         'confirmed_at' => Carbon\Carbon::now(),
     ];
 });
-

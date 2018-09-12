@@ -114,7 +114,7 @@ class UserProfileTest extends TestCase
             ]);
 
         $response->assertStatus(200);
-        Mail::assertSent(UserConfirmationEmail::class, function($mail) {
+        Mail::assertSent(UserConfirmationEmail::class, function ($mail) {
             return $mail->hasTo('hpotter@hogwarts.edu')
                 && $mail->user->id === User::findByEmail('hpotter@hogwarts.edu')->id;
         });

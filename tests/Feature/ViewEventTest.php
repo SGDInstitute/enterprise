@@ -77,7 +77,7 @@ class ViewEventTest extends TestCase
     function cannot_view_unpublished_event()
     {
         $event = factory(Event::class)->create([
-            'published_at' => NULL,
+            'published_at' => null,
         ]);
         $event->ticket_types()->save(factory(TicketType::class)->make());
 

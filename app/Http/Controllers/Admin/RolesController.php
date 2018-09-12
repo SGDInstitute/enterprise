@@ -68,5 +68,4 @@ class RolesController extends Controller
 
         return redirect(route('admin.roles'));
     }
-
 }

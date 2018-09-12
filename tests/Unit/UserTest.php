@@ -105,7 +105,7 @@ class UserTest extends TestCase
         $this->assertNull($user->confirmed_at);
         $this->assertNotNull($user->emailToken);
 
-        Mail::assertSent(UserConfirmationEmail::class, function($mail) {
+        Mail::assertSent(UserConfirmationEmail::class, function ($mail) {
             return $mail->hasTo('phoenix@example.com')
                 && $mail->user->id === User::findByEmail('phoenix@example.com')->id;
         });
@@ -158,5 +158,4 @@ class UserTest extends TestCase
 
         $this->assertEquals('customer_id', $customer->getCustomer('institute'));
     }
-
 }

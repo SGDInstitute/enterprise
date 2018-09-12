@@ -28,10 +28,10 @@ class PlanTest extends TestCase
 
         $found = Plan::findOrCreate('monthly-25', $this->key());
         $this->assertEquals($found->id, 'monthly-25');
-
     }
 
-    function key() {
+    function key()
+    {
         return config('institute.stripe.secret');
     }
 }

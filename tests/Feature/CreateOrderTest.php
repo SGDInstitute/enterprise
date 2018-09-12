@@ -35,7 +35,7 @@ class CreateOrderTest extends TestCase
                 'tickets' => [
                     ['ticket_type_id' => $ticket_type->id, 'quantity' => 2,]
                 ],
-        ]);
+            ]);
 
         $response->assertStatus(201);
 

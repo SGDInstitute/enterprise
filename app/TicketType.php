@@ -22,7 +22,7 @@ class TicketType extends Model
 
     public function getIsOpenAttribute()
     {
-        if(is_null($this->availability_start) && is_null($this->availability_end)) {
+        if (is_null($this->availability_start) && is_null($this->availability_end)) {
             return true;
         }
 

@@ -80,7 +80,7 @@ class Event extends Model
         $order = $this->orders()->create(['user_id' => $user->id]);
 
         foreach ($tickets as $ticket) {
-            if($ticket['quantity'] > 0) {
+            if ($ticket['quantity'] > 0) {
                 foreach (range(1, $ticket['quantity']) as $i) {
                     $order->tickets()->create([
                         'ticket_type_id' => $ticket['ticket_type_id']

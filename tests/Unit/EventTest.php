@@ -18,7 +18,7 @@ class EventTest extends TestCase
     {
         $publishedEventA = factory(Event::class)->create(['published_at' => Carbon::parse('-1 week')]);
         $publishedEventB = factory(Event::class)->create(['published_at' => Carbon::now()]);
-        $unpublishedEventA = factory(Event::class)->create(['published_at' => NULL]);
+        $unpublishedEventA = factory(Event::class)->create(['published_at' => null]);
         $unpublishedEventB = factory(Event::class)->create(['published_at' => Carbon::parse('+1 week')]);
 
         $publishedEvents = Event::published()->get();
@@ -136,8 +136,10 @@ class EventTest extends TestCase
             'timezone' => 'America/Chicago',
         ]);
 
-        $this->assertEquals('Friday August 11, 2017 5:00 PM to Sunday August 13, 2017 5:00 PM CDT',
-            $event->duration);
+        $this->assertEquals(
+            'Friday August 11, 2017 5:00 PM to Sunday August 13, 2017 5:00 PM CDT',
+            $event->duration
+        );
     }
 
     /** @test */
