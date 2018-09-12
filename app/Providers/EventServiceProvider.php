@@ -19,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\TicketCreating' => [
             'App\Listeners\CreateHashForTicket',
         ],
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+        ],
     ];
 
     /**

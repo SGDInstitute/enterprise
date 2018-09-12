@@ -6,7 +6,7 @@ Route::get('/', function () {
     ]);
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/login/magic', 'Auth\MagicLoginController@show')->name('login.magic');
 Route::post('/login/magic', 'Auth\MagicLoginController@sendToken');
