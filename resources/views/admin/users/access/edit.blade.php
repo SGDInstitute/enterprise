@@ -3,7 +3,7 @@
 @section('header')
     @component('layouts.components.admin.header')
         <div class="col-lg-10">
-            <h2>Give Roles & Permissions to {{ $user->name or $user->email }}</h2>
+            <h2>Give Roles & Permissions to {{ $user->name ?? $user->email }}</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="/admin">Dashboard</a>
