@@ -37,7 +37,7 @@ class Event extends Model
     public function scopePublished($query)
     {
         return $query->whereNotNull('published_at')
-            ->whereDate('published_at', '<', Carbon::now());
+            ->whereDate('published_at', '<=', Carbon::now());
     }
 
     public function scopeUpcoming($query)
