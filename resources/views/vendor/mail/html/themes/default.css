@@ -125,6 +125,12 @@ img {
     display: block;
 }
 
+.header p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    text-align: right;
+}
+
 /* Body */
 
 .body {
@@ -303,4 +309,16 @@ img {
 .promotion p {
     font-size: 15px;
     text-align: center;
+}
+
+/* Columns */
+
+.column-1 {
+    width: 215.66666667px;
+}
+
+.column-2 {
+    width: 447.33333333px;
+    text-align: right;
+    float: right;
 }

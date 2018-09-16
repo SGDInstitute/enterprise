@@ -1,4 +1,14 @@
+@section('header-title')
+    @if(isset($ticket->order->event->logo_dark))
+    <img src="{{ $ticket->order->event->logo_dark }}" alt="{{ $ticket->order->event->title }} Logo"
+    style="width: 50%; float: right;">
+    @else
+    <p class="text-right">{{ $ticket->order->event->title }}</p>
+    @endif
+@endsection
+
 @component('mail::message')
+
 Hello!
 
 {{ $coordinator->name }} invited you to {{ $ticket->order->event->title }}!
@@ -17,14 +27,3 @@ Set Your Account Password
 Looking forward to seeing you,<br>
 The {{ $ticket->order->event->title }} Team
 @endcomponent
-
-{{--@section('header')--}}
-{{--<div class="text-right">--}}
-    {{--@if(isset($ticket->order->event->logo_dark))--}}
-    {{--<img src="{{ $ticket->order->event->logo_dark }}" alt="{{ $ticket->order->event->title }} Logo"--}}
-         {{--style="width: 50%; float: right;">--}}
-    {{--@else--}}
-    {{--<h4 class="card-title">{{ $ticket->order->event->title }}</h4>--}}
-    {{--@endif--}}
-{{--</div>--}}
-{{--@endsection--}}

@@ -2,6 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header')
+            @yield('header-title')
         @endcomponent
     @endslot
 

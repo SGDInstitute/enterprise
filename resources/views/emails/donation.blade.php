@@ -1,5 +1,5 @@
 @component('mail::message')
-# {{ $donation->name }}
+Hi {{ $donation->name }},
 
 Thank you for your generous donation of ${{ number_format($donation->amount/100, 2) }}
 on {{ $donation->created_at->toFormattedDateString() }}! No goods or services were provided in exchange for this
@@ -21,6 +21,6 @@ resources. Your support turns this commitment into action.
     View Donation
 @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
+Thank you,<br>
+The Midwest Institute For Sexuality and Gender Diversity
 @endcomponent

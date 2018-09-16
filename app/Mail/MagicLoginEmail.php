@@ -37,6 +37,6 @@ class MagicLoginEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.magic_login');
+        return $this->markdown('emails.magicLogin');
     }
 }
