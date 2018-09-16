@@ -33,6 +33,6 @@ class DonationEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.donation');
+        return $this->markdown('emails.donation');
     }
 }
