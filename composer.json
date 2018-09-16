@@ -17,7 +17,6 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^2.1",
-        "petecoop/laravel-inky": "dev-master",
         "sentry/sentry": "^1.7",
         "sentry/sentry-laravel": "^0.8.0",
         "spatie/laravel-activitylog": "^2.1",
@@ -49,12 +48,6 @@
             "Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/andreamswick/laravel-inky"
-        }
-    ],
     "extra": {
         "laravel": {
             "dont-discover": []
