@@ -6,11 +6,13 @@
         @else
             <h4 class="card-title">{{ $event->title }}</h4>
         @endif
-        <ul class="fa-ul">
-            <li><i class="fa-li fa fa-clock-o"></i>
+        <ul class="fa-ul list-reset ml-6">
+            <li>
+                <span class="fa-li"><i class="fal fa-clock"></i></span>
                 {{ $event->formatted_start }} - {{ $event->formatted_end }}, {{ $event->end->format('Y') }}</li>
             <li>
-                <i class="fa-li fa fa-map-marker"></i> {{ $event->place }} {{ $event->location }}
+                <span class="fa-li"><i class="fal fa-map-marker-alt"></i></span>
+                {{ $event->place }} {{ $event->location }}
             </li>
         </ul>
     </div>
