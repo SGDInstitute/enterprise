@@ -8,15 +8,19 @@
             @else
                 <h4 class="card-title">{{ $order->event->title }}</h4>
             @endif
-            <ul class="fa-ul">
-                <li><i class="fa-li fa fa-clock-o"></i>
+            <ul class="fa-ul list-reset ml-6">
+                <li><span class="fa-li"><i class="fal fa-clock"></i></span>
                     {{ $order->event->formatted_start }} -
                     {{ $order->event->formatted_end }}, {{ $order->event->end->format('Y') }}
                 </li>
                 <li>
-                    <i class="fa-li fa fa-map-marker"></i> {{ $order->event->place }} {{ $order->event->location }}
+                    <span class="fa-li"><i class="fal fa-map-marker"></i></span>
+                    {{ $order->event->place }} {{ $order->event->location }}
                 </li>
-                <li><i class="fa-li fa fa-ticket"></i> {{ $order->tickets->count() }} Tickets</li>
+                <li>
+                    <span class="fa-li"><i class="fal fa-ticket"></i></span>
+                    {{ $order->tickets->count() }} Tickets
+                </li>
             </ul>
             <div class="row">
                 <div class="col">

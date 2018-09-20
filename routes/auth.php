@@ -23,4 +23,5 @@ Route::get('/receipts/{receipt}/resend', 'ReceiptsResendController@index');
 
 Route::get('/settings', 'SettingsController@edit');
 Route::post('/settings/password', 'SettingPasswordsController@store');
+Route::patch('/settings/card', 'SettingsCardsController');
 Route::patch('/profile/{user?}', 'ProfileController@update');

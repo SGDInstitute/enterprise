@@ -10,12 +10,12 @@ body {
   width: 100% !important;
   min-width: 100%;
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
   margin: 0;
   Margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .ExternalClass {
@@ -71,8 +71,8 @@ table {
 td {
   word-wrap: break-word;
   -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-      hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
   border-collapse: collapse !important;
 }
 
@@ -87,12 +87,12 @@ td {
 @media only screen {
   html {
     min-height: 100%;
-    background: #BBBEC0;
+    background: #bbbec0;
   }
 }
 
 table.body {
-  background: #BBBEC0;
+  background: #bbbec0;
   height: 100%;
   width: 100%;
 }
@@ -1156,7 +1156,7 @@ span.preheader {
   visibility: hidden;
   mso-hide: all !important;
   font-size: 1px;
-  color: #BBBEC0;
+  color: #bbbec0;
   line-height: 1px;
   max-height: 0px;
   max-width: 0px;
@@ -1272,14 +1272,14 @@ table.button:active table a {
 }
 
 table.button.secondary table td {
-  background: #777777;
+  background: #777;
   color: #fefefe;
-  border: 0px solid #777777;
+  border: 0px solid #777;
 }
 
 table.button.secondary table a {
   color: #fefefe;
-  border: 0 solid #777777;
+  border: 0 solid #777;
 }
 
 table.button.secondary:hover table td {
@@ -1368,13 +1368,13 @@ th.callout-inner {
 
 th.callout-inner.primary {
   background: #dff5f4;
-  border: 1px solid #444444;
+  border: 1px solid #444;
   color: #0a0a0a;
 }
 
 th.callout-inner.secondary {
   background: #ebebeb;
-  border: 1px solid #444444;
+  border: 1px solid #444;
   color: #0a0a0a;
 }
 
@@ -1398,23 +1398,23 @@ th.callout-inner.alert {
 
 .thumbnail {
   border: solid 4px #fefefe;
-  -webkit-box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
-          box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
+  -webkit-box-shadow: 0 0 0 1px rgba(10, 10, 10, .2);
+          box-shadow: 0 0 0 1px rgba(10, 10, 10, .2);
   display: inline-block;
   line-height: 0;
   max-width: 100%;
   -webkit-transition: -webkit-box-shadow 200ms ease-out;
-  transition: -webkit-box-shadow 200ms ease-out;
-  transition: box-shadow 200ms ease-out;
-  transition: box-shadow 200ms ease-out, -webkit-box-shadow 200ms ease-out;
+          transition: -webkit-box-shadow 200ms ease-out;
+          transition: box-shadow 200ms ease-out;
+          transition: box-shadow 200ms ease-out, -webkit-box-shadow 200ms ease-out;
   border-radius: 3px;
   margin-bottom: 16px;
 }
 
 .thumbnail:hover,
 .thumbnail:focus {
-  -webkit-box-shadow: 0 0 6px 1px rgba(56, 175, 173, 0.5);
-          box-shadow: 0 0 6px 1px rgba(56, 175, 173, 0.5);
+  -webkit-box-shadow: 0 0 6px 1px rgba(56, 175, 173, .5);
+          box-shadow: 0 0 6px 1px rgba(56, 175, 173, .5);
 }
 
 table.menu {
@@ -1481,7 +1481,7 @@ body.outlook p {
   table.body .column {
     height: auto !important;
     -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+            box-sizing: border-box;
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
@@ -1709,15 +1709,15 @@ body.outlook p {
 body,
 html,
 .body {
-  background: #BBBEC0 !important;
+  background: #bbbec0 !important;
 }
 
 .container.header {
-  background: #BBBEC0;
+  background: #bbbec0;
 }
 
 .body-drip {
-  border-top: 8px solid #663399;
+  border-top: 8px solid #639;
 }
 
 .header {
@@ -1742,8 +1742,8 @@ html,
 }
 
 table.button.facebook table td {
-  background: #3B5998 !important;
-  border-color: #3B5998;
+  background: #3b5998 !important;
+  border-color: #3b5998;
 }
 
 table.button.twitter table td {
@@ -1752,8 +1752,8 @@ table.button.twitter table td {
 }
 
 table.button.google table td {
-  background: #DB4A39 !important;
-  border-color: #DB4A39;
+  background: #db4a39 !important;
+  border-color: #db4a39;
 }
 
 .wrapper.secondary {
@@ -1765,7 +1765,7 @@ table.button.google table td {
 }
 
 .header a {
-  color: #ffffff;
+  color: #fff;
 }
 
 .header .browser-link {
@@ -1778,15 +1778,15 @@ table.button.google table td {
 
 .footer {
   background: #546163 !important;
-  color: #ffffff;
+  color: #fff;
 }
 
 .footer a {
-  color: #ffffff;
+  color: #fff;
 }
 
 .footer p {
-  color: #ffffff;
+  color: #fff;
   font-size: 10px;
 }
 
@@ -1799,12 +1799,12 @@ table.button.google table td {
 }
 
 .table th {
-  border-bottom: 1px solid #EDEFF2;
+  border-bottom: 1px solid #edeff2;
   padding-bottom: 8px;
 }
 
 .table td {
-  color: #74787E;
+  color: #74787e;
   font-size: 15px;
   line-height: 18px;
   padding: 10px 0;
@@ -1819,4 +1819,3 @@ p {
       -ms-hyphens: none;
           hyphens: none;
 }
-

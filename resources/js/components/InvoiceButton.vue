@@ -1,6 +1,6 @@
 <template>
     <a href="#" class="list-group-item list-group-item-action" @click.prevent="show">
-        <i class="fa fa-fw" :class="this.icon" aria-hidden="true"></i> {{ action }} Invoice
+        <i class="fal fa-fw fa-plus-circle"></i> {{ action }} Invoice
     </a>
 </template>
 

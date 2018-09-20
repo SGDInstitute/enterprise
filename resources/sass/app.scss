@@ -1,3 +1,5 @@
+@tailwind preflight;
+@tailwind components;
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
@@ -8,12 +10,10 @@
 
 // Vendors
 @import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/font-awesome/scss/font-awesome";
 
 // Components
 @import "components/cards";
 @import "components/description";
-@import "components/fontawesome-overrides";
 @import "components/footer";
 @import "components/hero";
 @import "components/list-group";
@@ -22,6 +22,8 @@
 @import "components/tickets";
 @import "components/utils";
 @import "components/vue-tabs";
+
+@tailwind utilities;
 
 body {
   padding-top: 78px;
@@ -42,8 +44,4 @@ body {
 
 .social-links a {
   padding: .25rem;
-}
-
-.text-sm {
-  font-size: .75rem;
 }
