@@ -4,8 +4,8 @@
             <div class="card-body">
                 <h2 class="card-title">{{ type.formatted_cost }}
                     <span v-if="type.is_open" class="pull-right col-md-6 pr-0">
-                        <label for="ticket_quantity" class="sr-only">Ticket Quantity</label>
-                        <input type="number" id="ticket_quantity" class="form-control" min="0"
+                        <label :for="'ticket_quantity'+index" class="sr-only">Ticket Quantity</label>
+                        <input type="number" :id="'ticket_quantity'+index" class="form-control" min="0"
                                v-model="form.tickets[index].quantity"
                                placeholder="Quantity">
                     </span>
