@@ -14,7 +14,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         return view('home', [
             'orders' => [
                 'upcoming' => request()->user()->upcomingOrdersAndTickets(),
