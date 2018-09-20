@@ -37,6 +37,7 @@ Vue.component('pay-with-check', require('./components/PayWithCheck.vue'));
 Vue.component('receipt-button', require('./components/ReceiptButton.vue'));
 Vue.component('remove-user-button', require('./components/RemoveUserButton.vue'));
 Vue.component('start-order', require('./components/StartOrder.vue'));
+Vue.component('update-card-button', require('./components/UpdateCardButton.vue'));
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue'));
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue'));

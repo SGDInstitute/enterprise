@@ -29,10 +29,11 @@
     <script>
         window.Spark = {};
 
-        window.SGDInstitute = {
-            mblgtaccStripe: "{{ getStripeKey('mblgtacc') }}",
-            instituteStripe: "{{ getStripeKey('institute') }}"
-        };
+        window.SGDInstitute = @json([
+            'mblgtaccStripe' => getStripeKey('mblgtacc'),
+            'instituteStripe' => getStripeKey('institute'),
+            'user' => Auth::user()
+        ]);
     </script>
 </head>
 <body>
