@@ -55,10 +55,10 @@ $(function () {
 
         $(window).scroll(function () {
             if ($(window).scrollTop() > heroBottomTop) {
-                $heroBar.addClass('sticky').css('top', $('.navbar').outerHeight());
+                $heroBar.addClass('sticky-top').css('top', $('.navbar').outerHeight());
                 $('body').css('padding-top', $('.navbar').outerHeight() + $heroBar.outerHeight());
             } else {
-                $heroBar.removeClass('sticky');
+                $heroBar.removeClass('sticky-top');
                 $('body').css('padding-top', $('.navbar').outerHeight());
             }
         });

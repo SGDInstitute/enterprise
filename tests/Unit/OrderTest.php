@@ -148,7 +148,7 @@ class OrderTest extends TestCase
         ]);
 
         $pastEvent = factory(Event::class)->states('published')->create([
-            'start' => Carbon::now()->subMonth(2),
+            'end' => Carbon::now()->subMonth(2),
         ]);
         $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
         $order = $pastEvent->orderTickets($user, [
@@ -176,7 +176,7 @@ class OrderTest extends TestCase
         ]);
 
         $pastEvent = factory(Event::class)->states('published')->create([
-            'start' => Carbon::now()->subMonth(2),
+            'end' => Carbon::now()->subMonth(2),
         ]);
         $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
         $order1 = $pastEvent->orderTickets($user, [

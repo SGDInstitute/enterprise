@@ -78,7 +78,7 @@ class Ticket extends Model
         return $query->select('tickets.*', 'events.start')
             ->join('orders', 'tickets.order_id', '=', 'orders.id')
             ->join('events', 'orders.event_id', '=', 'events.id')
-            ->whereDate('start', '>', Carbon::now());
+            ->whereDate('end', '>', Carbon::now());
     }
 
     public function scopePast($query)
@@ -86,7 +86,7 @@ class Ticket extends Model
         return $query->select('tickets.*', 'events.start')
             ->join('orders', 'tickets.order_id', '=', 'orders.id')
             ->join('events', 'orders.event_id', '=', 'events.id')
-            ->whereDate('start', '<', Carbon::now());
+            ->whereDate('end', '<', Carbon::now());
     }
 
     public function invite($email, $note = null)

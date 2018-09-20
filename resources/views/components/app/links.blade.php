@@ -3,11 +3,11 @@
         @foreach($links as $link)
             @if($link['icon'] === 'website')
                 <a href="{{ $link['link'] }}" target="_blank" aria-label="Website">
-                    <i class="fa fa-external-link" aria-label="Website"></i>
+                    <i class="fa fa-fw fa-external-link" aria-label="Website"></i>
                 </a>
             @else
                 <a href="{{ $link['link'] }}" target="_blank" aria-label="{{ $link['icon'] }}">
-                    <i class="fa fa-{{ $link['icon'] }}" aria-label="{{ $link['icon'] }}"></i>
+                    <i class="fab fa-fw fa-{{ $link['icon'] }}" aria-label="{{ $link['icon'] }}"></i>
                 </a>
             @endif
         @endforeach

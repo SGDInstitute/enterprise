@@ -67,7 +67,7 @@ class Order extends Model
     {
         return $query->select('orders.*', 'events.start')
             ->join('events', 'orders.event_id', '=', 'events.id')
-            ->whereDate('start', '>', Carbon::now());
+            ->whereDate('end', '>', Carbon::now());
     }
 
     public function scopePast($query)
@@ -75,7 +75,7 @@ class Order extends Model
         return $query
             ->select('orders.*', 'events.start')
             ->join('events', 'orders.event_id', '=', 'events.id')
-            ->whereDate('start', '<', Carbon::now());
+            ->whereDate('end', '<', Carbon::now());
     }
 
     public function scopePaid($query)
