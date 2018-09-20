@@ -61,7 +61,7 @@
             formatDate(date) {
                 return moment(date).format('M/D/YY');
             },
-            submit() {
+            submit: _.debounce(function (e) {
                 if(this.form.user === null) {
                     this.eventHub.$emit('showLoginRegister');
                 }
@@ -73,7 +73,7 @@
                         .catch(response => {
                         })
                 }
-            }
+            }, 1000)
         },
         computed: {
             total() {
