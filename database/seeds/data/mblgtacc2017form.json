@@ -1,0 +1,365 @@
+[
+  {
+    "id": "new-or-returning",
+    "question": "I am a:",
+    "type": "list",
+    "required": true,
+    "multiple": false,
+    "other": false,
+    "choices": [
+      "New Conference Attendee",
+      "Returning Conference Attendee"
+    ],
+    "vertical": true
+  },
+  {
+    "id": "status",
+    "question": "I would identify myself as a (click all that apply)",
+    "type": "list",
+    "required": true,
+    "multiple": true,
+    "other": true,
+    "choices": [
+      "Student",
+      "Staff Member",
+      "Faculty Member",
+      "Community Member"
+    ],
+    "vertical": true
+  },
+  {
+    "id": "state",
+    "question": "What state are you from? ",
+    "type": "select",
+    "required": true,
+    "choices": [
+      "",
+      "Illinois",
+      "Indiana",
+      "Iowa",
+      "Kansas",
+      "Kentucky",
+      "Michigan",
+      "Minnesota",
+      "Nebraska",
+      "North Dakota",
+      "Ohio",
+      "South Dakota",
+      "Wisconsin",
+      "Alabama",
+      "Alaska",
+      "Arizona",
+      "Arkansas",
+      "California",
+      "Colorado",
+      "Connecticut",
+      "Delaware",
+      "Florida",
+      "Georgia",
+      "Hawaii",
+      "Idaho",
+      "Louisiana",
+      "Maine",
+      "Maryland",
+      "Massachusetts",
+      "Mississippi",
+      "Missouri",
+      "Montana",
+      "Nevada",
+      "New Hampshire",
+      "New Jersey",
+      "New Mexico",
+      "New York",
+      "North Carolina",
+      "Oklahoma",
+      "Oregon",
+      "Pennsylvania",
+      "Rhode Island",
+      "South Carolina",
+      "Tennessee",
+      "Texas",
+      "Utah",
+      "Vermont",
+      "Virginia",
+      "Washington",
+      "West Virginia",
+      "Wyoming"
+    ],
+    "vertical": true
+  },
+  {
+    "id": "gender_identity",
+    "question": "What is/are your gender identity(s)?",
+    "type": "text",
+    "required": true
+  },
+  {
+    "id": "sexual_orientation",
+    "question": "What is/are your sexual orientation(s)?",
+    "type": "text",
+    "required": true
+  },
+  {
+    "id": "racial_identity",
+    "question": "What is/are your racial/ethnic identity(s)?",
+    "type": "text",
+    "required": true
+  },
+  {
+    "id": "age",
+    "question": "What is your age?",
+    "type": "text",
+    "required": true
+  },
+  {
+    "id": "programming",
+    "type": "section",
+    "question": "Programming",
+    "description": "The following questions have to deal with the programming of the conference. The areas that are identified as programming include things such as: keynotes, workshops, drag show, networking events, and vendor fairs."
+  },
+  {
+    "id": "programming_educational",
+    "question": "Overall, I feel that the programming of the conference was educational in nature.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "programming_advocacy",
+    "question": "Overall, I feel as though the programming allowed me to develop a better sense of self advocacy for my campus and/or community.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "programming_expression",
+    "question": "Overall, the conference programming and space allowed me to express myself and my identities.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "programming_community",
+    "question": "Overall, the conference programming helped me develop a sense of community.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "programming_connection",
+    "question": "Overall, the programming that was offered allowed me to connect with peers, presenters, and professionals from around the region.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "programming_educational_opportunities",
+    "question": "Overall, this programming allowed me educational opportunities that I can bring back to campus to effect change.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "programming_understanding_identities",
+    "question": "Overall, this conference programming helped me gain a better understanding of my own identity and others’ identities.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "programming_identity_representation",
+    "question": "Based on the identity(s) that you hold and the sessions that you attended, how represented do you feel your identities were? Where are some areas that you feel better representation could have happened?",
+    "type": "textarea",
+    "required": false
+  },
+  {
+    "id": "programming_impactful",
+    "question": "What are some ways that the programming was particularly impactful to you?",
+    "type": "textarea",
+    "required": false
+  },
+  {
+    "id": "programming_general_feedback",
+    "question": "Is there any general feedback about the programming of the conference that you’d like to provide?",
+    "type": "textarea",
+    "required": false
+  },
+  {
+    "id": "logistics",
+    "type": "section",
+    "question": "Logistics",
+    "description": "Logistics include any and all parts that contributed to the way the conference was organized and structured. This includes length of workshop sessions and keynotes, the registration process both online and in person, as well as other functional areas of the conference."
+  },
+  {
+    "id": "logistics_check_in",
+    "question": "I believe the check in process was easy and efficient.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_workshop_length",
+    "question": "I believe that the length of time given to workshops was enough.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_keynotes_length",
+    "question": "I believe the length of time given to the keynote speakers was enough.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_website",
+    "question": "I found the website easy to use and navigate.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_facebook",
+    "question": "I found the conference Facebook account engaging.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_twitter",
+    "question": "I found the conference Twitter account engaging.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_instagram",
+    "question": "I found the conference Instagram account engaging.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_email",
+    "question": "I felt that conference communication via email was very effective and informative.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_cost",
+    "question": "I felt the cost of attending the conference was reasonable.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_accommodations",
+    "question": "I felt that the hotel accommodations offered for attendees were reasonable.",
+    "type": "opinion-scale",
+    "required": true,
+    "maxValue": 7,
+    "startAtOne": true,
+    "negativeLabel": "Strongly Agree",
+    "neutralLabel": "Neither Agree or Disagree",
+    "positiveLabel": "Strongly Disagree"
+  },
+  {
+    "id": "logistics_transportation",
+    "question": "What mode(s) of transportation did you use to attend the conference? (Choose all that apply)",
+    "type": "list",
+    "required": true,
+    "multiple": true,
+    "other": true,
+    "choices": [
+      "Travel on your own: Car",
+      "Travel on your own: Bus",
+      "Travel on your own: Train",
+      "Travel on your own: Airplane",
+      "Travel on your own: Other",
+      "Travel with your school: Car",
+      "Travel with your school: Bus",
+      "Travel with your school: Airplane",
+      "Travel with your school: Other",
+      "Local Transportation",
+      "Did not have to travel"
+    ],
+    "vertical": true
+  },
+  {
+    "id": "logistics_more_beneficial",
+    "question": "What are some of the ways that the logistical aspects of the conference could have been more beneficial to you?",
+    "type": "textarea",
+    "required": false
+  },
+  {
+    "id": "logistics_feedback",
+    "question": "Is there anything additional about the logistics of the conference that you would like us to know?",
+    "type": "textarea",
+    "required": false
+  }
+]

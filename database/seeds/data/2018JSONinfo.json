@@ -1,0 +1,41 @@
+[
+  {
+    "REQUIRED": "Everything in this obj is required",
+    "_info": "blank line represents that there is a not required question in that location",
+
+    "title": "Workshop title",
+    "cw": "Content warnings",
+    "name": "Primary presenter (workshop 'owner') name",
+    "pronouns": "Primary presenter (workshop 'owner') pronouns",
+    "identities": "Primary presenter (workshop 'owner') identities",
+    "status": "Status as undergrad, community member, etc",
+
+
+    "email": "Primary presenter (workshop 'owner') email",
+
+
+
+
+    "accessibility_needs": "Provides link to the UNO ASC",
+
+
+    "style": "What style of workshop"
+  },
+  {
+    "NOT REQUIRED": "Everything in this obj is not required",
+    "_info": "blank line represents that there is a(re) required question(s) in that location",
+
+    "college": "Assoicated college",
+    "org": "Assoicated organization",
+
+    "phone": "Primary presenter (workshop 'owner') email",
+    "website": "Personal &| organizational website",
+    "persenter_note": "Primary persenter notes",
+    "additional_presenters": "Allows the adding of additional presenters",
+      "_questions": ["name", "pronouns", "identities", "college", "org", "website", "presenter_notes"],
+    "tech": "What tech is needed",
+
+    "pillars": "Do they fullfill any of our pillars or mission statement?",
+    "addresses_pillars_how": "how does it address our pillars"
+  }
+]

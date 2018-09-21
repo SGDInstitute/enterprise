@@ -41,6 +41,7 @@ Vue.component('update-card-button', require('./components/UpdateCardButton.vue')
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue'));
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue'));
+Vue.component('survey-form', require('./components/voyager/SurveyForm.vue'));
 
 const app = new Vue({
     el: '#app'
