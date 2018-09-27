@@ -4,6 +4,8 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Select;
@@ -53,8 +55,8 @@ class Event extends Resource
             Text::make('Subtitle')->hideFromIndex(),
             Trix::make('Description')->hideFromIndex(),
             Select::make('Stripe')->options(['institute' => 'institute', 'mblgtacc' => 'mblgtacc'])->sortable(),
-            Date::make('Start')->sortable()->format('MMM DD, YYYY'),
-            Date::make('End')->sortable()->format('MMM DD, YYYY'),
+            DateTime::make('Start')->sortable()->format('MMM DD, YYYY'),
+            DateTime::make('End')->sortable()->format('MMM DD, YYYY'),
             Text::make('Ticket String')->hideFromIndex(),
             Code::make('Links')->json(),
 
@@ -68,6 +70,8 @@ class Event extends Resource
                 Trix::make('Photo Policy')->hideFromIndex(),
                 Trix::make('Refund Policy')->hideFromIndex(),
             ]),
+
+            HasMany::make('Ticket Types')
         ];
     }
 
