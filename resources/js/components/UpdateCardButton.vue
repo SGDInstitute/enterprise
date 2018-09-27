@@ -44,7 +44,7 @@
                     panelLabel: "Update Card Details",
                     allowRememberMe: false,
                     zipCode: true,
-                    // billingAddress: true,
+                    billingAddress: true,
                 });
             }
         }

@@ -46,11 +46,15 @@
                             <div class="col-md-8">
                                 <div class="input-group">
                                     <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password" required>
-                                    <span class="input-group-addon" data-container="body" data-toggle="popover"
-                                          data-placement="top"
-                                          title="Password Requirements"
-                                          data-content="Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.">
-                                                <i class="fa fa-info"></i></span>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"
+                                              data-container="body" data-toggle="popover"
+                                              data-placement="top"
+                                              title="Password Requirements"
+                                              data-content="Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.">
+                                            <i class="fa fa-info"></i>
+                                        </span>
+                                    </div>
                                 </div>
 
                                 @if ($errors->has('password'))

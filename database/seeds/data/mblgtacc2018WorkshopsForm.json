@@ -1,0 +1,242 @@
+[
+	{
+		"id": "title",
+		"question": "What is the title of this workshop?",
+		"type": "text",
+		"rules": "required"
+	},
+	{
+		"id": "description",
+		"question": "How would you describe this workshop?",
+		"description": "This can include an outline, overview, objective, and\/or abstract.",
+		"type": "textarea",
+		"rules": "required|max:1700"
+	},
+	{
+		"id": "style",
+		"question": "What style of workshop is this?",
+		"type": "list",
+		"multiple": true,
+		"choices": [
+			"Lecture",
+			"Discussion",
+			"Mixed",
+			"Performative",
+			"Training"
+		],
+		"other": true,
+		"other_wording": "Other (please describe below)",
+		"rules": "required"
+	},
+	{
+		"id": "intended_audience",
+		"question": "Who is your intended audience?",
+		"type": "list",
+		"multiple": true,
+		"choices": [
+			"Everyone is welcome",
+			"Students",
+			"Advisors"
+		],
+		"other": true,
+		"other_wording": "Other (please describe below)",
+		"rules": "required"
+	},
+	{
+		"id": "content_warnings",
+		"question": "Are there any content warnings for this workshop?",
+		"type": "select",
+		"rules": "required",
+		"multiple": true,
+		"other": true,
+		"other_wording": "Other (please describe below)",
+		"choices": [
+			"Abuse (physical, mental, emotional, verbal, sexual)",
+			"Animal cruelty or animal death",
+			"Any time slurs are used (this includes words like \"stupid\" or \"dumb\")",
+			"Blood",
+			"Child abuse",
+			"Corpses, skulls or skeletons",
+			"Death or dying",
+			"Depiction of pornography (including child pornography)",
+			"Discussions of -isms, shaming, or hatred of any kind (racism, classism, xenophobia, sexism, hatred of sexualities or genders, anti-nonmonogamy, fat shaming\/body image shaming, neuroatypical shaming)",
+			"Discussions of sex (even consensual)",
+			"Dismissal of lived oppressions, marginalization, illness or differences",
+			"Excessive or gratuitous violence",
+			"Imagery of medical procedures (even if they don\u2019t contain blood or gore)",
+			"Imagery of violence, warfare, or weapons",
+			"Incest (including any and all elements of romantic or sexual relationships between family, tonal in theme, thought, or activity)",
+			"Kidnapping (forceful deprivation of\/disregard for personal autonomy)",
+			"Mental illness",
+			"Miscarriages or abortion",
+			"Needles",
+			"Needles",
+			"Pedophilia",
+			"Police",
+			"Potentially inaccessible language (scholarly language, jargon)",
+			"Pregnancy or childbirth",
+			"Prisons (other institutions like forced hospitalization, asylums)",
+			"Rape and sexual assault",
+			"Self-injurious behavior (self-harm, eating disorders, etc.)",
+			"Suicide",
+			"Swearing",
+			"Talk of drug use (legal, illegal or psychiatric)",
+			"Trans degendering, or anti-trans views of bodies"
+		],
+		"vertical": true
+	},
+	{
+		"id": "name",
+		"question": "What is your name?",
+		"type": "text",
+		"rules": "required"
+	},
+	{
+		"id": "pronouns",
+		"question": "What are your pronouns?",
+		"type": "text",
+		"rules": "required"
+	},
+	{
+		"id": "identities",
+		"question": "What are your identities?",
+		"type": "text",
+		"rules": "required"
+	},
+	{
+		"id": "college_and_organization",
+		"question": "What is your college or organization affiliation?",
+		"type": "text",
+		"required": false
+	},
+	{
+		"id": "status",
+		"question": "Who are you?",
+		"type": "list",
+		"multiple": false,
+		"choices": [
+			"Undergraduate student",
+			"Graduate student",
+			"University\/college faculty",
+			"University\/college staff",
+			"Community member",
+			"Professional (non-academic)"
+		],
+		"other": true,
+		"other_wording": "Other (please describe below)",
+		"vertical": true,
+		"rules": "required"
+	},
+	{
+		"id": "college_and_organization",
+		"question": "What college/organization are you affiliated with?",
+		"type": "text",
+		"required": false
+	},
+	{
+		"id": "email",
+		"type": "text",
+		"attribute": "email",
+		"question": "What is your email?",
+		"rules": "required|email"
+	},
+	{
+		"id": "phone",
+		"type": "text",
+		"attribute": "phone",
+		"question": "What is your phone number?",
+		"rules": "required"
+	},
+	{
+		"id": "website",
+		"question": "What is your website?",
+		"type": "text",
+		"attribute": "website",
+		"rules": "url"
+	},
+	{
+		"id": "presenter_note",
+		"question": "Do you have any further notes?",
+		"type": "textarea"
+	},
+	{
+		"id": "additional_presenters",
+		"question": "Add Other Presenters",
+        "name": "Additional Presenter",
+		"type": "repeat",
+		"form": [
+			{
+				"id": "name",
+				"question": "What is their name?",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "pronouns",
+				"question": "What are their pronouns?",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "identities",
+				"question": "What are their identities?",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "college_and_organization",
+				"question": "What college\/organization are they affiliated with?",
+				"type": "text"
+			},
+			{
+				"id": "website",
+				"question": "What is your personal and\/or organization's website?",
+				"type": "text",
+				"attribute": "website",
+				"rules": "url"
+			},
+			{
+				"id": "presenter_note",
+				"question": "Do you have any further notes for them?",
+				"type": "textarea"
+			}
+		]
+	},
+	{
+		"id": "tech",
+		"question": "Do you need any technology or presentation tools?",
+		"type": "list",
+		"multiple": true,
+		"choices": [
+			"Computer",
+			"Projector",
+			"Speakers",
+			"Whiteboard"
+		],
+		"other": true,
+		"other_wording": "Other (please describe below)",
+		"vertical": true
+	},
+	{
+		"id": "pillars",
+		"question": "Does this workshop address our mission statement and\/or any of our pillars?",
+		"description": "Find out more about our mission statement and pillars at <a target='_blank' href=\"https:\/\/mblgtacc.org\/about\">mblgtacc.org\/about<\/a>.",
+		"type": "list",
+		"other": false,
+		"other_wording": "Other (please describe below)",
+		"choices": [
+			"The MBLGTACC 2018 mission statement",
+			"Celebration",
+			"Resistance",
+			"Empowerment",
+			"Education",
+			"Resiliency"
+		],
+		"vertical": true
+	},
+	{
+		"id": "addresses_pillars_how",
+		"question": "How will your workshop address our pillars and/or mission statement?",
+		"type": "textarea"
+	}
+]
