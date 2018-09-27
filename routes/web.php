@@ -21,7 +21,7 @@ Route::get('/donations/create', 'DonationsController@create');
 Route::post('/donations', 'DonationsController@store');
 Route::get('/donations/{hash}', 'DonationsController@show');
 
-Route::get('/forms/thank-you', 'FormsThanksController@index');
+Route::view('/forms/thank-you', 'forms.thank_you');
 Route::get('/forms/{slug}', 'FormsResponsesController@create')->name('forms.create');
 Route::post('/forms/{form}/responses', 'FormsResponsesController@store');
 

@@ -8,7 +8,7 @@
         @elseif(now() > $form->end)
             <h1 class="text-center">Sorry this form is closed. 😟</h1>
         @else
-            <dynamic-form :form="{{ $form }}"></dynamic-form>
+            <dynamic-form :dbform="{{ $form }}"></dynamic-form>
         @endif
     </div>
 

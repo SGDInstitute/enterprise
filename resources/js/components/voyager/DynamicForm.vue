@@ -3,19 +3,22 @@
         <form method="post" class="form" @submit.prevent="save">
             <section class="section">
                 <div class="container">
-                    <h1>{{ form.name }}</h1>
-                    <p class="large-text">{{ form.description }}</p>
-                    <a :href="'#' + form.form[0].id" class="btn flat-btn flat-btn-mint btn-lg smooth">Lets Do
+                    <h1>{{ dbform.name }}</h1>
+                    <p class="large-text">{{ dbform.description }}</p>
+                    <a :href="'#' + dbform.form[0].id" class="btn btn-primary btn-lg smooth">Lets Do
                         This!</a>
                 </div>
             </section>
             <section>
-                <div v-for="(question, index) in form.form" :id="question.id"
-                         :class="{ section: question.type === 'section', question: question.type !== 'section'}">
+                <div v-for="(question, index) in dbform.form" :id="question.id"
+                     :class="{ section: question.type === 'section', question: question.type !== 'section'}">
                     <div class="container" v-if="question.id != 'submit'">
                         <div class="form-group" :class="{'has-error': form.errors.has(question.id)}">
-                            <div v-if="question.type !== 'select'"><label :for="question.id"><h2>{{ question.question }} <span v-show="question.required">*</span></h2></label>
-                            <p v-show="question.description" v-html="question.description"></p></div>
+                            <div v-if="question.type !== 'select'">
+                                <label :for="question.id">
+                                    <h2>{{ question.question }} <span v-show="question.required">*</span></h2>
+                                </label>
+                                <p v-show="question.description" v-html="question.description"></p></div>
 
                             <component :is="question.type + '-input'" :question="question"
                                        v-model="form[question.id]"></component>
@@ -23,7 +26,7 @@
                             <span class="help-block" v-show="form.errors.has(question.id)">
                                 {{ form.errors.get(question.id) }}
                             </span>
-                            <a :href="nextId(index)" class="btn flat-btn flat-btn-mint smooth"
+                            <a :href="nextId(index)" class="btn btn-primary smooth"
                                v-if="nextIsSection(index) || question.type === 'section'">Next!</a>
                         </div>
                     </div>
@@ -40,7 +43,7 @@
                         </ul>
                     </div>
                     <div>
-                        <button type="submit" class="btn flat-btn flat-btn-mint btn-lg" :disabled="form.busy">
+                        <button type="submit" class="btn btn-primary btn-lg" :disabled="dbform.busy">
                             {{ buttonText }}
                         </button>
                     </div>
@@ -71,15 +74,15 @@
     import Finish from './Finish.vue';
 
     export default {
-        props: ['form'],
+        props: ['dbform'],
         data() {
             return {
                 form: new SparkForm({})
             }
         },
         beforeMount() {
-            for (var i = 0, len = this.form.form.length; i < len; i++) {
-                var id = this.form.form[i].id;
+            for (var i = 0, len = this.dbform.form.length; i < len; i++) {
+                var id = this.dbform.form[i].id;
                 this.form[id] = '';
             }
 
@@ -87,20 +90,20 @@
         },
         methods: {
             save() {
-                Spark.post('/forms/' + this.form.id + '/responses', this.form)
+                Spark.post('/forms/' + this.dbform.id + '/responses', this.form)
                     .then(response => {
-                        if (response.success == true) {
+                        if (response.success === true) {
                             location.href = response.url;
                         }
                     })
             },
             nextIsSection(index) {
-                return typeof this.form.form[index + 1] !== 'undefined' &&
-                    this.form.form[index + 1].type === 'section';
+                return typeof this.dbform.form[index + 1] !== 'undefined' &&
+                    this.dbform.form[index + 1].type === 'section';
             },
             nextId(index) {
-                if (typeof this.form.form[index + 1] !== 'undefined') {
-                    return '#' + this.form.form[index + 1].id;
+                if (typeof this.dbform.form[index + 1] !== 'undefined') {
+                    return '#' + this.dbform.form[index + 1].id;
                 }
             },
             getParameterByName(name, url) {
@@ -117,10 +120,10 @@
         },
         computed: {
             finishId() {
-                return 'question-' + this.form.form.length;
+                return 'question-' + this.dbform.form.length;
             },
             buttonText() {
-                return this.form.button_text !== null ? this.form.button_text : 'Save Answers'
+                return this.dbform.button_text !== null ? this.dbform.button_text : 'Save Answers'
             }
         },
         components: {

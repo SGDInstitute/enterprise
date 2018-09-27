@@ -28,7 +28,7 @@ class FormsResponsesController extends Controller
             'email' => request()->email,
         ]);
 
-        if (!is_null($response->email)) {
+        if (!is_null($form->list_id) && $response->email) {
             Sendy::setListId($form->list_id)->unsubscribe($response->email);
         }
 

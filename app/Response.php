@@ -25,8 +25,8 @@ class Response extends Model
     /**
      * Get the survey that owns the response.
      */
-    public function survey()
+    public function form()
     {
-        return $this->belongsTo(\App\Form::class);
+        return $this->belongsTo(Form::class);
     }
 }
