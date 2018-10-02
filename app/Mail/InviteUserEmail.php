@@ -46,7 +46,7 @@ class InviteUserEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.invite');
+        return $this->markdown('emails.invite');
     }
 
     private function generateUrl($user)

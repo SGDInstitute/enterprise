@@ -1,0 +1,195 @@
+[
+	{
+		"id": "name",
+		"question": "Name of Workshop",
+		"type": "text",
+		"rules": "required"
+	},
+	{
+		"id": "topic",
+		"question": "Topic",
+		"type": "text",
+		"rules": "required"
+	},
+	{
+		"id": "level",
+		"question": "Level of Workshop",
+		"description": "How much prior knowledge on the topic does your audience need in order to get the most out of this workshop? Note: The committee may change or adjust the level of the workshop.",
+		"type": "list",
+		"multiple": true,
+		"choices": [
+			"No prior knowledge needed",
+			"Some prior knowledge helpful",
+			"In depth knowledge helpful",
+			"This workshop is geared toward advisors"
+		],
+		"other": false,
+		"rules": "required"
+	},
+	{
+		"id": "style",
+		"question": "Main Style of Workshop",
+		"type": "list",
+		"multiple": true,
+		"choices": [
+			"Lecture",
+			"Discussion",
+			"Demonstration"
+		],
+		"other": true,
+		"other_wording": "Other (explain)",
+		"rules": "required"
+	},
+	{
+		"id": "presenter_information",
+		"question": "Add Presenters",
+		"name": "Presenter Information",
+		"type": "repeat",
+		"form": [
+			{
+				"id": "name",
+				"question": "Name",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "pronouns",
+				"question": "Pronouns",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "email",
+				"question": "E-mail",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "phone",
+				"question": "Phone",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "organizational_affiliation",
+				"question": "Organizational Affiliation",
+				"type": "text",
+				"rules": "required"
+			},
+			{
+				"id": "role",
+				"question": "Role or Title",
+				"type": "text",
+				"rules": "required"
+			}
+		],
+		"rules": "required"
+	},
+	{
+		"id": "abstract",
+		"question": "Abstract",
+		"description": "Please provide a summary of your workshop, including content and format. Explain what you will present and why you want to present this workshop. Plan on having 45 minutes for your presentation.",
+		"type": "textarea",
+		"rules": "required|max:1700"
+	},
+	{
+		"id": "experience",
+		"question": "Experience",
+		"description": "How do you feel qualified to give this presentation? Do you have previous experience with this topic? Have you presented this topic at a conference before? Provide relevant experience for all presenters.",
+		"type": "textarea",
+		"rules": "required|max:1700"
+	},
+	{
+		"id": "technology",
+		"question": "Technology or Presentation Tools",
+		"description": "Which of the following will you need for your presentation?",
+		"type": "list",
+		"multiple": true,
+		"choices": [
+			"Projector and Screen",
+			"Audio",
+			"Video",
+			"Other"
+		],
+		"other": false,
+		"rules": "required"
+	},
+	{
+		"id": "pillars",
+		"question": "Pillars",
+		"description": "Which of the following pillars is the best fit for your workshop?",
+		"type": "list",
+		"other": false,
+		"other_wording": "Other (please describe below)",
+		"choices": [
+			"Healing: to mend one’s mind and spirit from the damage accumulated during the battle for justice.",
+			"Advocacy: to persistently challenge the norms of society; to be part of making the world a safe place for all.",
+			"Re-Centering: to center the voices of the most marginalized among us.",
+			"Collaboration: to work jointly with others. We must learn to effectively collaborate to achieve liberation because all oppressions are connected."
+		],
+		"vertical": true,
+		"rules": "required"
+	},
+	{
+		"id": "content_warnings",
+		"question": "Are there any content warnings for this workshop?",
+		"type": "list",
+		"rules": "required",
+		"multiple": true,
+		"other": true,
+		"other_wording": "Other (please describe below)",
+		"choices": [
+			"Ableism: Actions, attitudes, or systems with discriminatory impact based on actual or perceived difference of ability or disability.",
+			"Biphobia or Homophobia: Actions, attitudes, or systems with discriminatory impact based on actual or perceived sexual orientation.",
+			"Bullying or Violence: The use of force, threat, or coercion to abuse, intimidate or aggressively dominate others. This can be done through physical, verbal, emotional, digital, or any other method.",
+			"Classism: Actions, attitudes, or systems with discriminatory impact based on actual or perceived wealth or socioeconomic status.",
+			"Eating Disorders: Behavioral disorder defined by eating habits that negatively affect a person’s physical, mental, and/or emotional health.",
+			"Fatphobia: Actions, attitudes, or systems with discriminatory impact based on actual or perceived obesity or status as overweight.",
+			"Racism: Actions, attitudes, or systems with discriminatory impact based on actual or perceived race and/or ethnicity.",
+			"Relationship Violence: Relationships where one person maintains power and control over another. Can include physical abuse, emotional abuse, sexual abuse and coercion, reproductive coercion, financial abuse, or digital abuse.",
+			"Sexism: Actions, attitudes, or systems with discriminatory impact based on actual or perceived sex or gender identity.",
+			"Sexual Violence: An act in which a person sexually touches another person without that person’s consent or coerces or physically forces a person to engage in a sexual act against their will.",
+			"Substance Abuse: Patterned use of a drug in which the user consumes the substance in amounts or with methods which are harmful to themselves or others.",
+			"Transphobia: Actions, attitudes, or systems with discriminatory impact based on actual or perceived status as transgender.",
+			"Xenophobia: Actions, attitudes, or systems with discriminatory impact based on actual or perceived nationality.",
+			"Other",
+			"No trigger warnings necessary"
+		],
+		"vertical": true
+	},
+	{
+		"id": "experience",
+		"question": "Have you presented at MBLGTACC before?",
+		"description": "Select recent years in which you have presented.",
+		"type": "list",
+		"other": false,
+		"other_wording": "Other (please describe below)",
+		"choices": [
+			"2018 (Omaha, NE)",
+			"2017 (Chicago, IL)",
+			"2016 (West Lafayette, IN)",
+			"2015 (Normal, IL)",
+			"Other",
+			"I have not presented at MBLGTACC before"
+		],
+		"vertical": true
+	},
+	{
+		"id": "attended",
+		"question": "Have you attended MBLGTACC before?",
+		"description": "Select recent years in which you have attended.",
+		"type": "list",
+		"other": false,
+		"other_wording": "Other (please describe below)",
+		"choices": [
+			"2018 (Omaha, NE)",
+			"2017 (Chicago, IL)",
+			"2016 (West Lafayette, IN)",
+			"2015 (Normal, IL)",
+			"Other",
+			"This will be my first time attending MBLGTACC!"
+		],
+		"vertical": true,
+		"rules": "required"
+	}
+]

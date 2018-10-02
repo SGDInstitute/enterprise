@@ -4,9 +4,13 @@
             <label for="amount" class="col-sm-4 control-label">Amount*</label>
             <div class="col-sm-8">
                 <div class="input-group">
-                    <div class="input-group-addon">$</div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
                     <input type="number" class="form-control" name="amount" id="amount" v-model="form.amount">
-                    <div class="input-group-addon">.00</div>
+                    <div class="input-group-append">
+                        <div class="input-group-text">.00</div>
+                    </div>
                 </div>
                 <span class="help-block" v-show="form.errors.has('amount')">
                     {{ form.errors.get('amount') }}

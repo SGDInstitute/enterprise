@@ -37,9 +37,11 @@ Vue.component('pay-with-check', require('./components/PayWithCheck.vue'));
 Vue.component('receipt-button', require('./components/ReceiptButton.vue'));
 Vue.component('remove-user-button', require('./components/RemoveUserButton.vue'));
 Vue.component('start-order', require('./components/StartOrder.vue'));
+Vue.component('update-card-button', require('./components/UpdateCardButton.vue'));
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue'));
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue'));
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue'));
+Vue.component('dynamic-form', require('./components/voyager/DynamicForm.vue'));
 
 const app = new Vue({
     el: '#app'
@@ -55,14 +57,27 @@ $(function () {
 
         $(window).scroll(function () {
             if ($(window).scrollTop() > heroBottomTop) {
-                $heroBar.addClass('sticky').css('top', $('.navbar').outerHeight());
+                $heroBar.addClass('sticky-top').css('top', $('.navbar').outerHeight());
                 $('body').css('padding-top', $('.navbar').outerHeight() + $heroBar.outerHeight());
             } else {
-                $heroBar.removeClass('sticky');
+                $heroBar.removeClass('sticky-top');
                 $('body').css('padding-top', $('.navbar').outerHeight());
             }
         });
     }
 
     $('div.flash-alert').not('.alert-important').delay(3000).fadeOut(350);
+
+    $('.smooth').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 78
+                }, 1000);
+                return false;
+            }
+        }
+    });
 });

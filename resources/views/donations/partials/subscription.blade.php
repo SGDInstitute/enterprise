@@ -1,7 +1,7 @@
 <table class="table">
     <tbody>
     <tr>
-        <td>Amount</td>
+        <td class="w-48">Amount</td>
         <td>${{ number_format($donation->amount/100, 2) }}</td>
     </tr>
     <tr>
@@ -15,6 +15,16 @@
         @else
             <td>Plan was canceled on {{ $donation->subscription->ended_at->toFormattedDateString() }}</td>
         @endif
+    </tr>
+    <tr>
+        <td>Card</td>
+        <td>
+            ****-****-****-{{ $subscription->card->last4 }}
+            <i class="fab fa-cc-{{ strtolower($subscription->card->brand) }}"></i>
+            <span class="text-sm text-grey-darker ml-4">(Expires {{ $subscription->card->exp_month }}/{{ $subscription->card->exp_year }})</span>
+
+            <update-card-button class="text-sm float-right btn-link"></update-card-button>
+        </td>
     </tr>
     </tbody>
     <tfoot>

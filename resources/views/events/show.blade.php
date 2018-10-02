@@ -34,10 +34,9 @@
         <div class="row">
             <div class="col-lg-8">
                 <h3 class="description-title">Event Description</h3>
-                <ul class="fa-ul">
-                    <li><i class="fa-li fa fa-clock-o" aria-hidden="true"></i>{{ $event->duration }}</li>
-                    <li><i class="fa-li fa fa-map-marker"
-                           aria-hidden="true"></i>{{ $event->place }} {{ $event->location }}</li>
+                <ul class="fa-ul list-reset ml-6">
+                    <li><span class="fa-li"><i class="fal fa-clock"></i></span>{{ $event->duration }}</li>
+                    <li><span class="fa-li"><i class="fal fa-map-marker-alt"></i></span>{{ $event->place }} {{ $event->location }}</li>
                 </ul>
                 @if($event->description)
                     <div class="description-content">
@@ -48,6 +47,7 @@
                 @component('components.app.links', ['class' => 'h3 mt-4', 'links' => collect($event->links)->sortBy('order')])
                 @endcomponent
 
+                @if($event->refund_policy)
                 <p>
                     <a data-toggle="collapse" href="#refund_policy" role="button" aria-expanded="false" aria-controls="refund_policy">
                         Refund Policy <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -56,6 +56,7 @@
                 <div class="collapse" id="refund_policy">
                     {!! $event->refund_policy !!}
                 </div>
+                @endif
             </div>
             <div class="col-lg-4">
                 <div class="tickets card-list rounded mt-sm-4 mt-xs-4">

@@ -1,7 +1,7 @@
 <table class="table">
     <tbody>
     <tr>
-        <td>Amount</td>
+        <td class="w-48">Amount</td>
         <td>${{ number_format($donation->amount/100, 2) }}</td>
     </tr>
     @if(isset($charge))
@@ -9,7 +9,7 @@
         <td>Card</td>
         <td>
             ****-****-****-{{ $charge->source->last4 }}
-            <i class="fa fa-cc-{{ strtolower($charge->source->brand) }}"></i>
+            <i class="fab fa-cc-{{ strtolower($charge->source->brand) }}"></i>
         </td>
     </tr>
     @endif

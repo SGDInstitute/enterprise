@@ -4,8 +4,8 @@
             <div class="card-body">
                 <h2 class="card-title">{{ type.formatted_cost }}
                     <span v-if="type.is_open" class="pull-right col-md-6 pr-0">
-                        <label for="ticket_quantity" class="sr-only">Ticket Quantity</label>
-                        <input type="number" id="ticket_quantity" class="form-control" min="0"
+                        <label :for="'ticket_quantity'+index" class="sr-only">Ticket Quantity</label>
+                        <input type="number" :id="'ticket_quantity'+index" class="form-control" min="0"
                                v-model="form.tickets[index].quantity"
                                placeholder="Quantity">
                     </span>
@@ -17,19 +17,6 @@
                 <small v-if="type.description" class="card-text text-muted">{{ type.description }}</small>
             </div>
         </div>
-        <!--<div class="card">-->
-            <!--<div class="card-body">-->
-                <!--<h4 class="card-title">Promotional Code</h4>-->
-                <!--<small class="card-text text-muted">If you have a promo code, enter it below.</small>-->
-                <!--<label for="promo" class="sr-only">Promotional Code</label>-->
-                <!--<div class="input-group">-->
-                    <!--<input type="text" class="form-control" id="promo">-->
-                    <!--<span class="input-group-btn">-->
-                        <!--<button class="btn btn-secondary" type="button">Apply</button>-->
-                    <!--</span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title">Subtotal
@@ -39,7 +26,7 @@
                     {{ form.errors.get('tickets') }}
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" :disabled="form.busy">Next</button>
-                <p class="text-sm text-muted card-text mt-1 font-italic font-weight-light">By clicking Next you accept the <a data-toggle="collapse" href="#refund_policy" role="button" aria-expanded="false" aria-controls="refund_policy">refund policy</a>.</p>
+                <p v-if="event.refund_policy" class="text-sm text-muted card-text mt-1 font-italic font-weight-light">By clicking Next you accept the <a data-toggle="collapse" href="#refund_policy" role="button" aria-expanded="false" aria-controls="refund_policy">refund policy</a>.</p>
             </div>
         </div>
     </form>
@@ -74,7 +61,7 @@
             formatDate(date) {
                 return moment(date).format('M/D/YY');
             },
-            submit() {
+            submit: _.debounce(function (e) {
                 if(this.form.user === null) {
                     this.eventHub.$emit('showLoginRegister');
                 }
@@ -86,7 +73,7 @@
                         .catch(response => {
                         })
                 }
-            }
+            }, 1000)
         },
         computed: {
             total() {

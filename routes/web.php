@@ -21,4 +21,8 @@ Route::get('/donations/create', 'DonationsController@create');
 Route::post('/donations', 'DonationsController@store');
 Route::get('/donations/{hash}', 'DonationsController@show');
 
+Route::view('/forms/thank-you', 'forms.thank_you');
+Route::get('/forms/{slug}', 'FormsResponsesController@create')->name('forms.create');
+Route::post('/forms/{form}/responses', 'FormsResponsesController@store');
+
 Route::get('/users/stop-impersonating', 'Admin\ImpersonationController@stopImpersonating')->name('admin.users.stop-impersonating');

@@ -8,7 +8,7 @@ interface PaymentGateway
 
     public function subscribe($plan, $customer);
 
-    public function getValidTestToken();
+    public function getValidTestToken($card);
 
     public function getValidTestCustomer();
 

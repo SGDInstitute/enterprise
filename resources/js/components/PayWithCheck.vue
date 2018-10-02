@@ -1,6 +1,6 @@
 <template>
     <a href="#" class="list-group-item list-group-item-primary" @click.prevent="show">
-        <i class="fa fa-usd fa-fw ml-4" aria-hidden="true"></i> Pay with Check
+        <i class="fal fa-fw fa-usd-circle ml-2"></i> Pay with Check
     </a>
 </template>
 

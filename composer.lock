@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b68f37df30141ba0019e7f8d2002798",
+    "content-hash": "a59fc6ac5d583fba6999c5d2b006d43d",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -607,16 +607,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.5",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "54859fabea8b3beecbb1a282888d5c990036b9e3"
+                "reference": "0578b32b30b22de3e8664f797cf846fc9246f786"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/54859fabea8b3beecbb1a282888d5c990036b9e3",
-                "reference": "54859fabea8b3beecbb1a282888d5c990036b9e3",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/0578b32b30b22de3e8664f797cf846fc9246f786",
+                "reference": "0578b32b30b22de3e8664f797cf846fc9246f786",
                 "shasum": ""
             },
             "require": {
@@ -660,7 +660,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2018-08-16T20:49:45+00:00"
+            "time": "2018-09-25T20:47:26+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1004,47 +1004,6 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
-            "name": "hampe/inky",
-            "version": "1.3.6.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thampe/inky.git",
-                "reference": "257396bb8ea45d970ee352333f4a8716e953d13c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thampe/inky/zipball/257396bb8ea45d970ee352333f4a8716e953d13c",
-                "reference": "257396bb8ea45d970ee352333f4a8716e953d13c",
-                "shasum": ""
-            },
-            "require": {
-                "paquettg/php-html-parser": "^1.7",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.8.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Hampe\\Inky\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Thomas Hampe",
-                    "email": "github@hampe.co"
-                }
-            ],
-            "description": "PHP Implementation of ZURB's Foundation for Email parser (Inky)",
-            "abandoned": true,
-            "time": "2016-08-30T20:22:09+00:00"
-        },
-        {
             "name": "hashids/hashids",
             "version": "3.0.0",
             "source": {
@@ -1109,6 +1068,63 @@
                 "youtube"
             ],
             "time": "2018-03-12T16:30:09+00:00"
+        },
+        {
+            "name": "hocza/sendy",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hocza/sendy-laravel.git",
+                "reference": "d1e7b8e1ee8315e4aa4d1d33e86deeae55357110"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hocza/sendy-laravel/zipball/d1e7b8e1ee8315e4aa4d1d33e86deeae55357110",
+                "reference": "d1e7b8e1ee8315e4aa4d1d33e86deeae55357110",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hocza\\Sendy\\SendyServiceProvider"
+                    ],
+                    "aliases": {
+                        "Sendy": "Hocza\\Sendy\\Facades\\Sendy"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hocza\\Sendy\\": "src/",
+                    "Hocza\\Tests\\Sendy\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jozsef Hocza",
+                    "email": "jozsef@hocza.com"
+                }
+            ],
+            "description": "Sendy API implementation for Laravel",
+            "keywords": [
+                "Sendy",
+                "api",
+                "email",
+                "laravel",
+                "newsletter"
+            ],
+            "time": "2017-10-30T10:21:39+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1311,16 +1327,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.7.3",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "536a024e3ef6b93f55f4039a7f4568efa7e60aea"
+                "reference": "93e761bb5367166ce98ba908d5eb0edd6be76792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/536a024e3ef6b93f55f4039a7f4568efa7e60aea",
-                "reference": "536a024e3ef6b93f55f4039a7f4568efa7e60aea",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/93e761bb5367166ce98ba908d5eb0edd6be76792",
+                "reference": "93e761bb5367166ce98ba908d5eb0edd6be76792",
                 "shasum": ""
             },
             "require": {
@@ -1448,7 +1464,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-09-11T13:42:55+00:00"
+            "time": "2018-09-25T14:29:00+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1515,26 +1531,26 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.46",
+            "version": "1.0.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "f3e0d925c18b92cf3ce84ea5cc58d62a1762a2b2"
+                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/f3e0d925c18b92cf3ce84ea5cc58d62a1762a2b2",
-                "reference": "f3e0d925c18b92cf3ce84ea5cc58d62a1762a2b2",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a11e4a75f256bdacf99d20780ce42d3b8272975c",
+                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c",
                 "shasum": ""
             },
             "require": {
+                "ext-fileinfo": "*",
                 "php": ">=5.5.9"
             },
             "conflict": {
                 "league/flysystem-sftp": "<1.0.6"
             },
             "require-dev": {
-                "ext-fileinfo": "*",
                 "phpspec/phpspec": "^3.4",
                 "phpunit/phpunit": "^5.7.10"
             },
@@ -1595,7 +1611,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2018-08-22T07:45:22+00:00"
+            "time": "2018-09-14T15:30:29+00:00"
         },
         {
             "name": "maatwebsite/excel",
@@ -1755,16 +1771,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.33.0",
+            "version": "1.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "55667c1007a99e82030874b1bb14d24d07108413"
+                "reference": "1dbd3cb01c5645f3e7deda7aa46ef780d95fcc33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/55667c1007a99e82030874b1bb14d24d07108413",
-                "reference": "55667c1007a99e82030874b1bb14d24d07108413",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/1dbd3cb01c5645f3e7deda7aa46ef780d95fcc33",
+                "reference": "1dbd3cb01c5645f3e7deda7aa46ef780d95fcc33",
                 "shasum": ""
             },
             "require": {
@@ -1806,20 +1822,20 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-08-07T08:39:47+00:00"
+            "time": "2018-09-20T19:36:25+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.0.3",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d"
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/bd088dc940a418f09cda079a9b5c7c478890fb8d",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
                 "shasum": ""
             },
             "require": {
@@ -1857,102 +1873,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-07-15T17:25:16+00:00"
-        },
-        {
-            "name": "paquettg/php-html-parser",
-            "version": "1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paquettg/php-html-parser.git",
-                "reference": "18845e09831dd0772b88b51e788a4f74c701224c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paquettg/php-html-parser/zipball/18845e09831dd0772b88b51e788a4f74c701224c",
-                "reference": "18845e09831dd0772b88b51e788a4f74c701224c",
-                "shasum": ""
-            },
-            "require": {
-                "paquettg/string-encode": "~0.1.0",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9.0",
-                "phpunit/phpunit": "~4.8.0",
-                "satooshi/php-coveralls": "~0.6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PHPHtmlParser": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gilles Paquette",
-                    "email": "paquettg@gmail.com",
-                    "homepage": "http://gillespaquette.ca"
-                }
-            ],
-            "description": "An HTML DOM parser. It allows you to manipulate HTML. Find tags on an HTML page with selectors just like jQuery.",
-            "homepage": "https://github.com/paquettg/php-html-parser",
-            "keywords": [
-                "dom",
-                "html",
-                "parser"
-            ],
-            "time": "2016-04-06T15:24:40+00:00"
-        },
-        {
-            "name": "paquettg/string-encode",
-            "version": "0.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paquettg/string-encoder.git",
-                "reference": "cf08343649701979f581c1601d01247fa3782439"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paquettg/string-encoder/zipball/cf08343649701979f581c1601d01247fa3782439",
-                "reference": "cf08343649701979f581c1601d01247fa3782439",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "stringEncode": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gilles Paquette",
-                    "email": "paquettg@gmail.com",
-                    "homepage": "http://gillespaquette.ca"
-                }
-            ],
-            "description": "Facilitating the process of altering string encoding in PHP.",
-            "homepage": "https://github.com/paquettg/string-encoder",
-            "keywords": [
-                "charset",
-                "encoding",
-                "string"
-            ],
-            "time": "2014-05-29T18:38:09+00:00"
+            "time": "2018-09-18T07:03:24+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2057,64 +1978,6 @@
                 "utf8"
             ],
             "time": "2016-05-18T13:57:10+00:00"
-        },
-        {
-            "name": "petecoop/laravel-inky",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/andreamswick/laravel-inky.git",
-                "reference": "1a087818baef309f2a6d4b99d18f8dc0069c5efb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/andreamswick/laravel-inky/zipball/1a087818baef309f2a6d4b99d18f8dc0069c5efb",
-                "reference": "1a087818baef309f2a6d4b99d18f8dc0069c5efb",
-                "shasum": ""
-            },
-            "require": {
-                "hampe/inky": "^1.3.6.2",
-                "illuminate/support": "~5.1",
-                "illuminate/view": "~5.1",
-                "symfony/css-selector": "^2.7|^3.0|^4.0",
-                "symfony/dom-crawler": "^2.7|^3.0|^4.0",
-                "tijsverkoyen/css-to-inline-styles": "^2.2"
-            },
-            "require-dev": {
-                "graham-campbell/testbench": "^3.3",
-                "mockery/mockery": "^0.9.5",
-                "phpunit/phpunit": "~5.4"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Petecoop\\LaravelInky\\InkyServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Petecoop\\LaravelInky\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "petecoop",
-                    "email": "pete@petecoop.co.uk"
-                }
-            ],
-            "description": "Foundation Inky email templates in Laravel",
-            "keywords": [
-                "foundation",
-                "inky",
-                "laravel"
-            ],
-            "time": "2018-08-21T12:52:28+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -2774,16 +2637,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "2.8.3",
+            "version": "2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "354cf7122fc5333b055447bc7f81ec6ff8c7fb3d"
+                "reference": "28f481486706d22255879965f4f57b7562d13c3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/354cf7122fc5333b055447bc7f81ec6ff8c7fb3d",
-                "reference": "354cf7122fc5333b055447bc7f81ec6ff8c7fb3d",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/28f481486706d22255879965f4f57b7562d13c3b",
+                "reference": "28f481486706d22255879965f4f57b7562d13c3b",
                 "shasum": ""
             },
             "require": {
@@ -2840,20 +2703,20 @@
                 "spatie",
                 "user"
             ],
-            "time": "2018-09-01T06:37:32+00:00"
+            "time": "2018-09-23T12:00:26+00:00"
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "2.19.0",
+            "version": "2.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "cf4f3afb093a524bbdfb32f02a644a37694ff4c6"
+                "reference": "e2200bb92b67632abc92aa438de9cb0958da20d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/cf4f3afb093a524bbdfb32f02a644a37694ff4c6",
-                "reference": "cf4f3afb093a524bbdfb32f02a644a37694ff4c6",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/e2200bb92b67632abc92aa438de9cb0958da20d9",
+                "reference": "e2200bb92b67632abc92aa438de9cb0958da20d9",
                 "shasum": ""
             },
             "require": {
@@ -2901,7 +2764,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2018-09-10T19:52:52+00:00"
+            "time": "2018-09-20T01:30:08+00:00"
         },
         {
             "name": "spatie/string",
@@ -3246,63 +3109,6 @@
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
             "time": "2018-08-03T11:13:38+00:00"
-        },
-        {
-            "name": "symfony/dom-crawler",
-            "version": "v4.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "1c4519d257e652404c3aa550207ccd8ada66b38e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/1c4519d257e652404c3aa550207ccd8ada66b38e",
-                "reference": "1c4519d257e652404c3aa550207ccd8ada66b38e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-mbstring": "~1.0"
-            },
-            "require-dev": {
-                "symfony/css-selector": "~3.4|~4.0"
-            },
-            "suggest": {
-                "symfony/css-selector": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\DomCrawler\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony DomCrawler Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-07-26T11:00:49+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -4279,6 +4085,74 @@
     ],
     "packages-dev": [
         {
+            "name": "barryvdh/laravel-debugbar",
+            "version": "v3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "5b68f3972083a7eeec0d6f161962fcda71a127c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/5b68f3972083a7eeec0d6f161962fcda71a127c0",
+                "reference": "5b68f3972083a7eeec0d6f161962fcda71a127c0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "5.5.x|5.6.x|5.7.x",
+                "illuminate/session": "5.5.x|5.6.x|5.7.x",
+                "illuminate/support": "5.5.x|5.6.x|5.7.x",
+                "maximebf/debugbar": "~1.15.0",
+                "php": ">=7.0",
+                "symfony/debug": "^3|^4",
+                "symfony/finder": "^3|^4"
+            },
+            "require-dev": {
+                "laravel/framework": "5.5.x"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Debugbar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Debugbar": "Barryvdh\\Debugbar\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "PHP Debugbar integration for Laravel",
+            "keywords": [
+                "debug",
+                "debugbar",
+                "laravel",
+                "profiler",
+                "webprofiler"
+            ],
+            "time": "2018-08-22T11:06:19+00:00"
+        },
+        {
             "name": "beyondcode/laravel-dump-server",
             "version": "1.2.1",
             "source": {
@@ -4548,6 +4422,67 @@
                 "test"
             ],
             "time": "2015-05-11T14:41:42+00:00"
+        },
+        {
+            "name": "maximebf/debugbar",
+            "version": "v1.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maximebf/php-debugbar.git",
+                "reference": "30e7d60937ee5f1320975ca9bc7bcdd44d500f07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/30e7d60937ee5f1320975ca9bc7bcdd44d500f07",
+                "reference": "30e7d60937ee5f1320975ca9bc7bcdd44d500f07",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/log": "^1.0",
+                "symfony/var-dumper": "^2.6|^3.0|^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0|^5.0"
+            },
+            "suggest": {
+                "kriswallsmith/assetic": "The best way to manage assets",
+                "monolog/monolog": "Log using Monolog",
+                "predis/predis": "Redis storage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.14-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DebugBar\\": "src/DebugBar/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Bouroumeau-Fuseau",
+                    "email": "maxime.bouroumeau@gmail.com",
+                    "homepage": "http://maximebf.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Debug bar in the browser for php application",
+            "homepage": "https://github.com/maximebf/php-debugbar",
+            "keywords": [
+                "debug",
+                "debugbar"
+            ],
+            "time": "2017-12-15T11:13:46+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -6084,9 +6019,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "petecoop/laravel-inky": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

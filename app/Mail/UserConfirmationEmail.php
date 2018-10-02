@@ -35,6 +35,6 @@ class UserConfirmationEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.user_confirmation');
+        return $this->markdown('emails.user_confirmation');
     }
 }

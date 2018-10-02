@@ -7,11 +7,13 @@
         @else
             <h4 class="card-title">{{ $order->event->title }}</h4>
         @endif
-        <ul class="fa-ul">
-            <li><i class="fa-li fa fa-clock-o"></i>
+        <ul class="fa-ul list-reset ml-6">
+            <li>
+                <span class="fa-li"><i class="fal fa-clock"></i></span>
                 {{ $order->event->formatted_start }} - {{ $order->event->formatted_end }}</li>
             <li>
-                <i class="fa-li fa fa-map-marker"></i> {{ $order->event->place }} {{ $order->event->location }}
+                <span class="fa-li"><i class="fal fa-map-marker"></i></span>
+                {{ $order->event->place }} {{ $order->event->location }}
             </li>
         </ul>
         @component('components.app.links', ['links' => $order->event->links])
@@ -40,35 +42,36 @@
     </div>
     @if(Auth::user()->can('update', $order))
         <div class="list-group list-group-flush">
-        @if($order->isPaid())
-            <receipt-button :order="{{ $order }}"></receipt-button>
-        @else
-            <a class="list-group-item list-group-item-action" data-toggle="collapse"
-               href="#collapseExample">
-                <i class="fa fa-money fa-fw" aria-hidden="true"></i> Pay Now
+            @if($order->isPaid())
+                <receipt-button :order="{{ $order }}"></receipt-button>
+            @else
+                <a class="list-group-item list-group-item-action" data-toggle="collapse"
+                   href="#collapseExample">
+                    <i class="fal fa-fw fa-money-bill"></i> Pay Now
+                </a>
+                <div class="collapse list-sub-group" id="collapseExample">
+                    <pay-with-card :order="{{ $order }}"
+                                   stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
+                    <pay-with-check :order="{{ $order }}"></pay-with-check>
+                </div>
+            @endif
+            <invoice-button :order="{{ $order }}"></invoice-button>
+            <a href="{{ asset('/documents/SGD-Institute-W9.pdf') }}" target="_blank"
+               class="list-group-item list-group-item-action">
+                <i class="fal fa-fw fa-file-alt"></i> Request W-9
             </a>
-            <div class="collapse list-sub-group" id="collapseExample">
-                <pay-with-card :order="{{ $order }}"
-                               stripe_key="{{ $order->event->getPublicKey() }}"></pay-with-card>
-                <pay-with-check :order="{{ $order }}"></pay-with-check>
-            </div>
-        @endif
-        <invoice-button :order="{{ $order }}"></invoice-button>
-        <a href="{{ asset('/documents/SGD-Institute-W9.pdf') }}" target="_blank"
-           class="list-group-item list-group-item-action">
-            <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i> Request W-9
-        </a>
-        @if(!$order->isPaid())
-            <a href="#" class="list-group-item list-group-item-action"
-               onclick="event.preventDefault(); document.getElementById('delete-order-form').submit();">
-                <i class="fa fa-trash fa-fw" aria-hidden="true"></i> Delete Order
-            </a>
-
-            <form id="delete-order-form" action="/orders/{{ $order->id }}" method="post" style="display: none;">
-                {{ method_field('DELETE') }}
-                {{ csrf_field() }}
-            </form>
-        @endif
-    </div>
+        </div>
     @endif
 </div>
+
+@if(!$order->isPaid())
+    <a href="#" class="list-group-item list-group-item-action rounded bg-red-lightest text-red-darkest hover:bg-red-lighter hover:text-red-darkest mt-6"
+       onclick="event.preventDefault(); document.getElementById('delete-order-form').submit();">
+        <i class="fal fa-fw fa-trash-alt"></i> Delete Order
+    </a>
+
+    <form id="delete-order-form" action="/orders/{{ $order->id }}" method="post" style="display: none;">
+        {{ method_field('DELETE') }}
+        {{ csrf_field() }}
+    </form>
+@endif

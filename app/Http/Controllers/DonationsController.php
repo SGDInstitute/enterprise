@@ -69,6 +69,10 @@ class DonationsController extends Controller
                 $donation->subscription->subscription_id,
                 ['api_key' => getStripeSecret($donation->group)]
             );
+
+            $customer = \Stripe\Customer::retrieve(auth()->user()->institute_stripe_id, ['api_key' => getStripeSecret($donation->group)]);
+
+            $subscription['card'] = $customer->sources->retrieve($customer->default_source);
         } elseif ($donation->receipt->transaction_id) {
             $charge = Charge::retrieve(
                 $donation->receipt->transaction_id,
