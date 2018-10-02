@@ -42,7 +42,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return $user->hasRole('institute') || $user->hasRole('mblgtacc_planner');
+            return $user->hasRole('institute') || $user->hasRole('mblgtacc_planner') || $user->hasRole('developer');
         });
     }
 
@@ -65,7 +65,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            new \Vyuldashev\NovaPermission\NovaPermissionTool,
+        ];
     }
 
     /**

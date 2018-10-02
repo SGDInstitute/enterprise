@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0f01df28e786c386cff3ae404cac17d",
+    "content-hash": "bbf921fb7eca4d20140f46652b1c9dba",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -4303,6 +4303,49 @@
                 "environment"
             ],
             "time": "2018-07-29T20:33:41+00:00"
+        },
+        {
+            "name": "vyuldashev/nova-permission",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vyuldashev/nova-permission.git",
+                "reference": "1b153160c6f647fa05b343762f8608b0d56d21c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vyuldashev/nova-permission/zipball/1b153160c6f647fa05b343762f8608b0d56d21c2",
+                "reference": "1b153160c6f647fa05b343762f8608b0d56d21c2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "spatie/laravel-permission": "^2.16"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Vyuldashev\\NovaPermission\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vyuldashev\\NovaPermission\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool for Spatie's Permission library.",
+            "keywords": [
+                "laravel",
+                "nova",
+                "spatie-permission"
+            ],
+            "time": "2018-09-27T13:16:16+00:00"
         }
     ],
     "packages-dev": [
