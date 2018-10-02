@@ -23,7 +23,7 @@
                             <component :is="question.type + '-input'" :question="question"
                                        v-model="form[question.id]"></component>
 
-                            <span class="help-block" v-show="form.errors.has(question.id)">
+                            <span class="mt-2 rounded border border-red block bg-red-lightest px-4 py-2 text-red-darkest" v-show="form.errors.has(question.id)">
                                 {{ form.errors.get(question.id) }}
                             </span>
                             <a :href="nextId(index)" class="btn btn-primary smooth"
