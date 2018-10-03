@@ -4,7 +4,7 @@
             @if(isset($event))
                 <a class="navbar-brand" href="{{ Auth::guest() ? '/' : '/home' }}">
                     @if(isset($event->logo_dark))
-                        <img src="{{ $event->logo_dark }}" alt="{{ $event->title }} Logo" class="img-fluid" style="max-width: 35%">
+                        <img src="{{ Storage::url($event->logo_dark) }}" alt="{{ $event->title }} Logo" class="img-fluid" width="265px">
                     @else
                         {{ $event->title }}
                     @endif

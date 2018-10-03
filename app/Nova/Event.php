@@ -5,9 +5,11 @@ namespace App\Nova;
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Timezone;
@@ -59,6 +61,12 @@ class Event extends Resource
             DateTime::make('End')->sortable()->format('MMM DD, YYYY'),
             Text::make('Ticket String')->hideFromIndex(),
             Code::make('Links')->json(),
+
+            new Panel('Media', [
+                File::make('Image')->disk('public'),
+                File::make('Logo Light')->disk('public'),
+                File::make('Logo Dark')->disk('public'),
+            ]),
 
             new Panel('Place Information', [
                 Text::make('Place')->hideFromIndex(),
