@@ -2,36 +2,27 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\Code;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\File;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Markdown;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Timezone;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Panel;
 
-class Event extends Resource
+class Ticket extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Event';
+    public static $model = 'App\Ticket';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -52,34 +43,9 @@ class Event extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title')->sortable(),
-            Text::make('Slug')->hideFromIndex(),
-            Text::make('Subtitle')->hideFromIndex(),
-            Trix::make('Description')->hideFromIndex(),
-            Select::make('Stripe')->options(['institute' => 'institute', 'mblgtacc' => 'mblgtacc'])->sortable(),
-            DateTime::make('Start')->sortable()->format('MMM DD, YYYY'),
-            DateTime::make('End')->sortable()->format('MMM DD, YYYY'),
-            Text::make('Ticket String')->hideFromIndex(),
-            Code::make('Links')->json(),
-
-            new Panel('Media', [
-                File::make('Image')->disk('public'),
-                File::make('Logo Light')->disk('public'),
-                File::make('Logo Dark')->disk('public'),
-            ]),
-
-            new Panel('Place Information', [
-                Text::make('Place')->hideFromIndex(),
-                Text::make('Location')->hideFromIndex(),
-                Timezone::make('Timezone')->hideFromIndex(),
-            ]),
-
-            new Panel('Policies', [
-                Trix::make('Photo Policy')->hideFromIndex(),
-                Trix::make('Refund Policy')->hideFromIndex(),
-            ]),
-
-            HasMany::make('Ticket Types')
+            Text::make('Hash'),
+            BelongsTo::make('User'),
+            BelongsTo::make('Ticket Type'),
         ];
     }
 

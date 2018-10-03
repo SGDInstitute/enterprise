@@ -14,16 +14,6 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class TicketType extends Resource
 {
     /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
-     */
-    public static function label()
-    {
-        return __('Ticket Type');
-    }
-
-    /**
      * The model the resource corresponds to.
      *
      * @var string
@@ -35,7 +25,7 @@ class TicketType extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -45,6 +35,16 @@ class TicketType extends Resource
     public static $search = [
         'id',
     ];
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Ticket Type');
+    }
 
     /**
      * Get the fields displayed by the resource.
