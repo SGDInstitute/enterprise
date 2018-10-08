@@ -36,6 +36,8 @@ class TicketType extends Resource
         'id',
     ];
 
+    public static $group = 'Registration';
+
     /**
      * Get the displayable label of the resource.
      *
