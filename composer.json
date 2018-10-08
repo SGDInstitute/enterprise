@@ -25,7 +25,9 @@
         "spatie/laravel-permission": "^2.6",
         "stripe/stripe-php": "^5.1",
         "vinkla/hashids": "^5.0",
-        "vyuldashev/nova-permission": "^1.4"
+        "vyuldashev/nova-permission": "^1.4",
+        "sgd/links": "*",
+        "sgd/form-builder": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -40,6 +42,14 @@
         {
             "type": "path",
             "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Links"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/FormBuilder"
         }
     ],
     "autoload": {

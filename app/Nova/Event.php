@@ -16,6 +16,7 @@ use Laravel\Nova\Fields\Timezone;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Sgd\Links\Links;
 
 class Event extends Resource
 {
@@ -62,7 +63,7 @@ class Event extends Resource
             DateTime::make('Start')->sortable()->format('MMM DD, YYYY'),
             DateTime::make('End')->sortable()->format('MMM DD, YYYY'),
             Text::make('Ticket String')->hideFromIndex(),
-            Code::make('Links')->json(),
+            Links::make('Links')->hideFromIndex(),
 
             new Panel('Media', [
                 File::make('Image')->disk('public'),
