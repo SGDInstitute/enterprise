@@ -26,7 +26,7 @@
                     {{ form.errors.get('tickets') }}
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" :disabled="form.busy">Next</button>
-                <p v-if="event.refund_policy" class="text-sm text-muted card-text mt-1 font-italic font-weight-light">By clicking Next you accept the <a data-toggle="collapse" href="#refund_policy" role="button" aria-expanded="false" aria-controls="refund_policy">refund policy</a>.</p>
+                <p v-if="hasPolicies" v-html="policyMessage" class="text-sm text-muted card-text mt-1 font-italic font-weight-light"></p>
             </div>
         </div>
     </form>
@@ -83,6 +83,22 @@
                     total += self.ticket_types.find(x => x.id === parseInt(ticket.ticket_type_id)).cost * ticket.quantity;
                 });
                 return (total / 100).toFixed(2);
+            },
+            hasPolicies() {
+                return this.event.refund_policy && this.event.photo_policy;
+            },
+            policyMessage() {
+                var message = 'By clicking Next you accept the';
+                if(this.event.refund_policy) {
+                    message += ' <a data-toggle="collapse" href="#refund_policy" role="button" aria-expanded="false" aria-controls="refund_policy">refund policy</a>';
+                }
+                if(this.event.refund_policy && this.event.photo_policy) {
+                    message += ' and';
+                }
+                if(this.event.photo_policy) {
+                    message += ' <a data-toggle="collapse" href="#photo_policy" role="button" aria-expanded="false" aria-controls="photo_policy">photo policy</a>';
+                }
+                return message += '.';
             }
         }
     }

@@ -53,7 +53,7 @@ $(function () {
 
     if (document.getElementsByClassName('hero-bar').length > 0) {
         var $heroBar = $('.hero-bar'),
-            heroBottomTop = $heroBar.offset().top - 55;
+            heroBottomTop = $heroBar.offset().top - 35;
 
         $(window).scroll(function () {
             if ($(window).scrollTop() > heroBottomTop) {

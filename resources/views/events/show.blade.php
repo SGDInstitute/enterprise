@@ -57,6 +57,17 @@
                     {!! $event->refund_policy !!}
                 </div>
                 @endif
+
+                @if($event->photo_policy)
+                    <p>
+                        <a data-toggle="collapse" href="#photo_policy" role="button" aria-expanded="false" aria-controls="photo_policy">
+                            Photo Policy <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="photo_policy">
+                        {!! $event->photo_policy !!}
+                    </div>
+                @endif
             </div>
             <div class="col-lg-4">
                 <div class="tickets card-list rounded mt-sm-4 mt-xs-4">
