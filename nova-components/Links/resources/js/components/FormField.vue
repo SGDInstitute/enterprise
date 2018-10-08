@@ -17,7 +17,7 @@
                 <div class="w-1/3 inline-block text-80 pt-2 leading-tight pl-3">Link</div>
                 <div class="w-1/4 inline-block text-80 pt-2 leading-tight pl-3">Order</div>
             </div>
-            <div v-for="(link, id) in value" class="mb-2">
+            <div v-for="(link, id) in links" class="mb-2">
                 <input :id="'icon' + id" type="text"
                        class="w-1/4 form-control form-input form-input-bordered"
                        :class="errorClasses"
@@ -56,12 +56,19 @@ export default {
 
     props: ['resourceName', 'resourceId', 'field'],
 
+    data() {
+        return {
+            links: []
+        }
+    },
+
     methods: {
         /*
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
           this.value = this.field.value || ''
+          this.links = this.field.value || ''
         },
 
         /**
@@ -79,11 +86,17 @@ export default {
         },
 
         addRow() {
-            this.value.push({'icon': '', 'link': '', 'order': this.value.length + 1})
+            this.links.push({'icon': '', 'link': '', 'order': this.links.length + 1})
         },
 
         removeRow(link) {
-            this.value.splice(this.value.indexOf(link), 1)
+            this.links.splice(this.links.indexOf(link), 1)
+        }
+    },
+
+    watch: {
+        links() {
+            this.value = JSON.stringify(this.links);
         }
     }
 }

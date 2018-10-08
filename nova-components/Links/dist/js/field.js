@@ -467,12 +467,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: ['resourceName', 'resourceId', 'field'],
 
+    data: function data() {
+        return {
+            links: []
+        };
+    },
+
+
     methods: {
         /*
          * Set the initial, internal value for the field.
          */
         setInitialValue: function setInitialValue() {
             this.value = this.field.value || '';
+            this.links = this.field.value || '';
         },
 
 
@@ -491,10 +499,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.value = value;
         },
         addRow: function addRow() {
-            this.value.push({ 'icon': '', 'link': '', 'order': this.value.length + 1 });
+            this.links.push({ 'icon': '', 'link': '', 'order': this.links.length + 1 });
         },
         removeRow: function removeRow(link) {
-            this.value.splice(this.value.indexOf(link), 1);
+            this.links.splice(this.links.indexOf(link), 1);
+        }
+    },
+
+    watch: {
+        links: function links() {
+            this.value = JSON.stringify(this.links);
         }
     }
 });
@@ -10696,7 +10710,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._l(_vm.value, function(link, id) {
+        _vm._l(_vm.links, function(link, id) {
           return _c("div", { staticClass: "mb-2" }, [
             _c("input", {
               directives: [
