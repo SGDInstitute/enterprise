@@ -13,6 +13,10 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('app.css', 'vendor/nova') }}">
 
+    <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/all.js"
+            integrity="sha384-eAVkiER0fL/ySiqS7dXu8TLpoR8d9KRzIYtG0Tz7pi24qgQIIupp0fn2XA1H90fP"
+            crossorigin="anonymous"></script>
+
     <!-- Tool Styles -->
     @foreach(Nova::availableStyles(request()) as $name => $path)
         <link rel="stylesheet" href="/nova-api/styles/{{ $name }}">
