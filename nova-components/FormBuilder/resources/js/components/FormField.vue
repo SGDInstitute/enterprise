@@ -1,18 +1,25 @@
 <template>
-    <default-field :field="field">
-        <template slot="field">
-            <input :id="field.name" type="text"
-                class="w-full form-control form-input form-input-bordered"
-                :class="errorClasses"
-                :placeholder="field.name"
-                v-model="value"
-            />
+    <field-wrapper>
+        <div class="w-1/5 px-8 py-6">
+            <slot>
+                <form-label :for="field.name">
+                    {{ field.name }}
+                </form-label>
+
+                <help-text>
+                    {{ field.helpText }}
+                </help-text>
+            </slot>
+        </div>
+        <div class="w-4/5 px-8 py-6">
+
+            <questions :questions="field.value" form="true"></questions>
 
             <p v-if="hasError" class="my-2 text-danger">
                 {{ firstError }}
             </p>
-        </template>
-    </default-field>
+        </div>
+    </field-wrapper>
 </template>
 
 <script>

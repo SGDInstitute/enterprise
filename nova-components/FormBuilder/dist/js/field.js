@@ -188,6 +188,9 @@ Nova.booting(function (Vue, router) {
     Vue.component('index-form-builder', __webpack_require__(3));
     Vue.component('detail-form-builder', __webpack_require__(6));
     Vue.component('form-form-builder', __webpack_require__(9));
+    Vue.component('questions', __webpack_require__(18));
+    Vue.component('question-detail', __webpack_require__(21));
+    Vue.component('question-form', __webpack_require__(24));
 });
 
 /***/ }),
@@ -329,6 +332,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['resource', 'resourceName', 'resourceId', 'field']
@@ -342,7 +349,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("panel-item", { attrs: { field: _vm.field } })
+  return _c("panel-item", { attrs: { field: _vm.field } }, [
+    _c(
+      "div",
+      { attrs: { slot: "value" }, slot: "value" },
+      [
+        _c("questions", {
+          attrs: { questions: _vm.field.value, detail: "true" }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -409,6 +427,13 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_nova__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10603,36 +10628,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "default-field",
-    { attrs: { field: _vm.field } },
-    [
-      _c("template", { slot: "field" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          class: _vm.errorClasses,
-          attrs: {
-            id: _vm.field.name,
-            type: "text",
-            placeholder: _vm.field.name
-          },
-          domProps: { value: _vm.value },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.value = $event.target.value
-            }
-          }
+  return _c("field-wrapper", [
+    _c(
+      "div",
+      { staticClass: "w-1/5 px-8 py-6" },
+      [
+        _vm._t("default", [
+          _c("form-label", { attrs: { for: _vm.field.name } }, [
+            _vm._v(
+              "\n                " + _vm._s(_vm.field.name) + "\n            "
+            )
+          ]),
+          _vm._v(" "),
+          _c("help-text", [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.field.helpText) +
+                "\n            "
+            )
+          ])
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "w-4/5 px-8 py-6" },
+      [
+        _c("questions", {
+          attrs: { questions: _vm.field.value, form: "true" }
         }),
         _vm._v(" "),
         _vm.hasError
@@ -10640,10 +10665,10 @@ var render = function() {
               _vm._v("\n            " + _vm._s(_vm.firstError) + "\n        ")
             ])
           : _vm._e()
-      ])
-    ],
-    2
-  )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -10660,6 +10685,525 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(19)
+/* template */
+var __vue_template__ = __webpack_require__(20)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Questions.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1d47061c", Component.options)
+  } else {
+    hotAPI.reload("data-v-1d47061c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['questions', 'detail', 'form'],
+
+    data: function data() {
+        return {
+            opened: 0
+        };
+    },
+
+
+    methods: {
+        isOpen: function isOpen(key) {
+            return this.opened === key;
+        }
+    }
+});
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.questions, function(question, key) {
+      return _c("div", { staticClass: "border border-50 overflow-hidden" }, [
+        _c(
+          "a",
+          {
+            staticClass:
+              "block bg-30 p-4 cursor-pointer border-b border-50 -mt-px",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.opened = key
+              }
+            }
+          },
+          [_vm._v("\n            Question " + _vm._s(key + 1) + "\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "p-4", class: [_vm.isOpen(key) ? "" : "hidden"] },
+          [
+            _vm.detail
+              ? _c("question-detail", { attrs: { question: question } })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.form
+              ? _c("question-form", { attrs: { question: question } })
+              : _vm._e()
+          ],
+          1
+        )
+      ])
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1d47061c", module.exports)
+  }
+}
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(22)
+/* template */
+var __vue_template__ = __webpack_require__(23)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/QuestionDetail.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4b4a38fc", Component.options)
+  } else {
+    hotAPI.reload("data-v-4b4a38fc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['question']
+});
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("p", [
+      _c("strong", [_vm._v("ID:")]),
+      _vm._v(" " + _vm._s(_vm.question.id))
+    ]),
+    _vm._v(" "),
+    _vm.question.type === "repeat"
+      ? _c("div", [
+          _c("p", [
+            _c("strong", [_vm._v("Question:")]),
+            _vm._v(" " + _vm._s(_vm.question.name))
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _c("strong", [_vm._v("Button:")]),
+            _vm._v(" " + _vm._s(_vm.question.question))
+          ])
+        ])
+      : _c("p", [
+          _c("strong", [_vm._v("Question:")]),
+          _vm._v(" " + _vm._s(_vm.question.question))
+        ]),
+    _vm._v(" "),
+    _vm.question.description
+      ? _c("p", [
+          _c("strong", [_vm._v("Description:")]),
+          _vm._v(" " + _vm._s(_vm.question.description))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("p", [
+      _c("strong", [_vm._v("Type:")]),
+      _vm._v(" " + _vm._s(_vm.question.type))
+    ]),
+    _vm._v(" "),
+    _c("p", [
+      _c("strong", [_vm._v("Rules:")]),
+      _vm._v(" " + _vm._s(_vm.question.rules))
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      _vm.question.choices
+        ? _c("p", [_c("strong", [_vm._v("Choices:")])])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.question.choices, function(choice) {
+          return _c("li", [_vm._v(_vm._s(choice))])
+        })
+      )
+    ]),
+    _vm._v(" "),
+    _vm.question.multiple
+      ? _c("p", [
+          _c("strong", [_vm._v("Multiple Choice:")]),
+          _vm._v(" " + _vm._s(_vm.question.multiple))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.question.other
+      ? _c("p", [
+          _c("strong", [_vm._v("Other:")]),
+          _vm._v(" " + _vm._s(_vm.question.other) + ", "),
+          _c("strong", [_vm._v("Wording:")]),
+          _vm._v(" " + _vm._s(_vm.question.other_wording))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.question.form
+      ? _c(
+          "div",
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("questions", {
+              attrs: { questions: _vm.question.form, detail: "true" }
+            })
+          ],
+          1
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-4" }, [_c("strong", [_vm._v("Form:")])])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4b4a38fc", module.exports)
+  }
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(25)
+/* template */
+var __vue_template__ = __webpack_require__(26)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/QuestionForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c3164e96", Component.options)
+  } else {
+    hotAPI.reload("data-v-c3164e96", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['question'],
+
+    data: function data() {
+        return {
+            types: [{ label: 'list', value: 'list' }, { label: 'opinion-scale', value: 'opinion-scale' }, { label: 'repeat', value: 'repeat' }, { label: 'section', value: 'section' }, { label: 'select', value: 'select' }, { label: 'textarea', value: 'textarea' }, { label: 'text', value: 'text' }]
+        };
+    },
+
+
+    methods: {
+        buildField: function buildField(name, value, options) {
+            var field = {
+                "component": "text-field",
+                "prefixComponent": true,
+                "indexName": _.capitalize(name),
+                "name": _.capitalize(name),
+                "attribute": name,
+                "value": value
+            };
+
+            if (options) {
+                field.options = options;
+            }
+
+            return field;
+        }
+    }
+});
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("form-text-field", {
+        attrs: { field: _vm.buildField("id", _vm.question.id) }
+      }),
+      _vm._v(" "),
+      _c("form-text-field", {
+        attrs: { field: _vm.buildField("question", _vm.question.question) }
+      }),
+      _vm._v(" "),
+      _c("form-select-field", {
+        attrs: { field: _vm.buildField("type", _vm.question.type, _vm.types) }
+      }),
+      _vm._v(" "),
+      _c("form-text-field", {
+        attrs: { field: _vm.buildField("rules", _vm.question.rules) }
+      }),
+      _vm._v(" "),
+      _c("form-text-field", {
+        attrs: {
+          field: _vm.buildField("description", _vm.question.description)
+        }
+      }),
+      _vm._v(" "),
+      _vm.question.type === "list" || _vm.question.type === "select"
+        ? _c("div", [
+            _vm._v(
+              "\n        Choices\n        Is Multiple Choice\n        Is other\n        Other wording\n    "
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.question.form
+        ? _c(
+            "div",
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("questions", {
+                attrs: { questions: _vm.question.form, form: "true" }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-4" }, [_c("strong", [_vm._v("Form:")])])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c3164e96", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

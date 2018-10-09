@@ -95,8 +95,11 @@ export default {
     },
 
     watch: {
-        links() {
-            this.value = JSON.stringify(this.links);
+        links: {
+            handler(){
+                this.value = JSON.stringify(this.links);
+            },
+            deep: true
         }
     }
 }

@@ -329,6 +329,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['resource', 'resourceName', 'resourceId', 'field']
@@ -342,7 +347,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("panel-item", { attrs: { field: _vm.field } })
+  return _c("panel-item", { attrs: { field: _vm.field } }, [
+    _c(
+      "div",
+      { attrs: { slot: "value" }, slot: "value" },
+      _vm._l(_vm.field.value, function(link) {
+        return _c(
+          "a",
+          {
+            staticClass:
+              "cursor-pointer dim inline-block text-primary font-bold mr-4",
+            attrs: { href: link.link, target: "_blank" }
+          },
+          [_vm._v(_vm._s(link.icon))]
+        )
+      })
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -507,8 +528,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
-        links: function links() {
-            this.value = JSON.stringify(this.links);
+        links: {
+            handler: function handler() {
+                this.value = JSON.stringify(this.links);
+            },
+
+            deep: true
         }
     }
 });

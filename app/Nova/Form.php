@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Sgd\FormBuilder\FormBuilder;
 
 class Form extends Resource
 {
@@ -54,6 +55,7 @@ class Form extends Resource
             DateTime::make('Start')->sortable()->format('DD MMM YYYY'),
             DateTime::make('End')->sortable()->format('DD MMM YYYY'),
             Boolean::make('Is Public')->sortable(),
+            FormBuilder::make('Form')->hideFromIndex(),
         ];
     }
 
