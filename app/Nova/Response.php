@@ -2,8 +2,11 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Response extends Resource
@@ -43,6 +46,8 @@ class Response extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('Form'),
+            Text::make('Email')->sortable(),
         ];
     }
 

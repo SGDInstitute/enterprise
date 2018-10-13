@@ -3,29 +3,26 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Sgd\FormBuilder\FormBuilder;
 
-class Form extends Resource
+class Profile extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Form';
+    public static $model = 'App\Profile';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -36,7 +33,19 @@ class Form extends Resource
         'id',
     ];
 
-    public static $group = 'Voyager';
+    /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = ['user'];
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
@@ -47,15 +56,15 @@ class Form extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->hideFromIndex(),
-            Text::make('Name')->sortable(),
-            Text::make('Slug')->hideFromIndex(),
-            Text::make('List ID')->hideFromIndex(),
-            BelongsTo::make('Event')->sortable(),
-            DateTime::make('Start')->sortable()->format('DD MMM YYYY'),
-            DateTime::make('End')->sortable()->format('DD MMM YYYY'),
-            Boolean::make('Is Public')->sortable(),
-            FormBuilder::make('Form')->hideFromIndex(),
+            BelongsTo::make('User'),
+            Text::make('Pronouns'),
+            Text::make('sexuality'),
+            Text::make('gender'),
+            Text::make('race'),
+            Text::make('college'),
+            Text::make('tshirt'),
+            Text::make('accommodation'),
+            Text::make('wants_program'),
         ];
     }
 

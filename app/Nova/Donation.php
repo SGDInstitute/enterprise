@@ -3,29 +3,28 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Sgd\FormBuilder\FormBuilder;
 
-class Form extends Resource
+class Donation extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Form';
+    public static $model = 'App\Donation';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -35,8 +34,6 @@ class Form extends Resource
     public static $search = [
         'id',
     ];
-
-    public static $group = 'Voyager';
 
     /**
      * Get the fields displayed by the resource.
@@ -48,14 +45,16 @@ class Form extends Resource
     {
         return [
             ID::make()->hideFromIndex(),
+            BelongsTo::make('User')->sortable(),
+            Currency::make('Amount')
+                ->displayUsing(function ($amount) {
+                    return $amount / 100;
+                })->format('$%.2n'),
+            Text::make('Group')->sortable(),
             Text::make('Name')->sortable(),
-            Text::make('Slug')->hideFromIndex(),
-            Text::make('List ID')->hideFromIndex(),
-            BelongsTo::make('Event')->sortable(),
-            DateTime::make('Start')->sortable()->format('DD MMM YYYY'),
-            DateTime::make('End')->sortable()->format('DD MMM YYYY'),
-            Boolean::make('Is Public')->sortable(),
-            FormBuilder::make('Form')->hideFromIndex(),
+            Text::make('Email')->sortable(),
+            Text::make('Company')->sortable(),
+            Text::make('Tax ID')->sortable(),
         ];
     }
 
