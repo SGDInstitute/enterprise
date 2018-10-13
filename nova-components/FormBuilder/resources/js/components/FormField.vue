@@ -13,7 +13,7 @@
         </div>
         <div class="w-4/5 px-8 py-6">
 
-            <questions v-bind:value="field.value" v-on:input="value = $event" form="true"></questions>
+            <questions v-model="field.value" form="true"></questions>
 
             <p v-if="hasError" class="my-2 text-danger">
                 {{ firstError }}
@@ -35,7 +35,7 @@ export default {
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
-          this.value = this.field.value || ''
+          this.value = JSON.stringify(this.field.value);
         },
 
         /**
@@ -53,9 +53,12 @@ export default {
         }
     },
     watch: {
-        'field.questions': function() {
-            console.log('changed question');
-            this.value = this.field.questions;
+        field: {
+            handler(){
+                console.log('changed question');
+                this.value = JSON.stringify(this.field.value);
+            },
+            deep: true
         }
     }
 }

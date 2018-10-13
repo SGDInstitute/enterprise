@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="detail">
-            <div v-for="(question, key) in questions" :key="question.id" class="border border-50 overflow-hidden">
+            <div v-for="(question, key) in questions" :key="key" class="border border-50 overflow-hidden">
                 <a class="block bg-30 p-4 cursor-pointer border-b border-50 -mt-px" @click.prevent="open(key)">
                     <span v-if="question.question">{{ question.question }}</span>
                     <span v-else>Question {{ key + 1 }}</span>

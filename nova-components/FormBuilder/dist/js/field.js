@@ -462,7 +462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Set the initial, internal value for the field.
          */
         setInitialValue: function setInitialValue() {
-            this.value = this.field.value || '';
+            this.value = JSON.stringify(this.field.value);
         },
 
 
@@ -482,9 +482,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     watch: {
-        'field.questions': function fieldQuestions() {
-            console.log('changed question');
-            this.value = this.field.questions;
+        field: {
+            handler: function handler() {
+                console.log('changed question');
+                this.value = JSON.stringify(this.field.value);
+            },
+
+            deep: true
         }
     }
 });
@@ -10661,11 +10665,13 @@ var render = function() {
       { staticClass: "w-4/5 px-8 py-6" },
       [
         _c("questions", {
-          attrs: { value: _vm.field.value, form: "true" },
-          on: {
-            input: function($event) {
-              _vm.value = $event
-            }
+          attrs: { form: "true" },
+          model: {
+            value: _vm.field.value,
+            callback: function($$v) {
+              _vm.$set(_vm.field, "value", $$v)
+            },
+            expression: "field.value"
           }
         }),
         _vm._v(" "),
@@ -12802,10 +12808,7 @@ var render = function() {
           _vm._l(_vm.questions, function(question, key) {
             return _c(
               "div",
-              {
-                key: question.id,
-                staticClass: "border border-50 overflow-hidden"
-              },
+              { key: key, staticClass: "border border-50 overflow-hidden" },
               [
                 _c(
                   "a",
@@ -13068,67 +13071,71 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p", [
+    _c("p", { staticClass: "leading-normal" }, [
       _c("strong", [_vm._v("ID:")]),
       _vm._v(" " + _vm._s(_vm.question.id))
     ]),
     _vm._v(" "),
     _vm.question.type === "repeat"
       ? _c("div", [
-          _c("p", [
+          _c("p", { staticClass: "leading-normal" }, [
             _c("strong", [_vm._v("Question:")]),
             _vm._v(" " + _vm._s(_vm.question.name))
           ]),
           _vm._v(" "),
-          _c("p", [
+          _c("p", { staticClass: "leading-normal" }, [
             _c("strong", [_vm._v("Button:")]),
             _vm._v(" " + _vm._s(_vm.question.question))
           ])
         ])
-      : _c("p", [
+      : _c("p", { staticClass: "leading-normal" }, [
           _c("strong", [_vm._v("Question:")]),
           _vm._v(" " + _vm._s(_vm.question.question))
         ]),
     _vm._v(" "),
     _vm.question.description
-      ? _c("p", [
+      ? _c("p", { staticClass: "leading-normal" }, [
           _c("strong", [_vm._v("Description:")]),
           _vm._v(" " + _vm._s(_vm.question.description))
         ])
       : _vm._e(),
     _vm._v(" "),
-    _c("p", [
+    _c("p", { staticClass: "leading-normal" }, [
       _c("strong", [_vm._v("Type:")]),
       _vm._v(" " + _vm._s(_vm.question.type))
     ]),
     _vm._v(" "),
-    _c("p", [
+    _c("p", { staticClass: "leading-normal" }, [
       _c("strong", [_vm._v("Rules:")]),
       _vm._v(" " + _vm._s(_vm.question.rules))
     ]),
     _vm._v(" "),
     _c("div", [
       _vm.question.choices
-        ? _c("p", [_c("strong", [_vm._v("Choices:")])])
+        ? _c("p", { staticClass: "leading-normal" }, [
+            _c("strong", [_vm._v("Choices:")])
+          ])
         : _vm._e(),
       _vm._v(" "),
       _c(
         "ul",
         _vm._l(_vm.question.choices, function(choice) {
-          return _c("li", [_vm._v(_vm._s(choice))])
+          return _c("li", { staticClass: "leading-normal" }, [
+            _vm._v(_vm._s(choice))
+          ])
         })
       )
     ]),
     _vm._v(" "),
     _vm.question.multiple
-      ? _c("p", [
+      ? _c("p", { staticClass: "leading-normal" }, [
           _c("strong", [_vm._v("Multiple Choice:")]),
           _vm._v(" " + _vm._s(_vm.question.multiple))
         ])
       : _vm._e(),
     _vm._v(" "),
     _vm.question.other
-      ? _c("p", [
+      ? _c("p", { staticClass: "leading-normal" }, [
           _c("strong", [_vm._v("Other:")]),
           _vm._v(" " + _vm._s(_vm.question.other) + ", "),
           _c("strong", [_vm._v("Wording:")]),
@@ -13143,7 +13150,14 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("questions", {
-              attrs: { questions: _vm.question.form, detail: "true" }
+              attrs: { detail: "true" },
+              model: {
+                value: _vm.question.form,
+                callback: function($$v) {
+                  _vm.$set(_vm.question, "form", $$v)
+                },
+                expression: "question.form"
+              }
             })
           ],
           1
@@ -13156,7 +13170,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "mb-4" }, [_c("strong", [_vm._v("Form:")])])
+    return _c("p", { staticClass: "mb-4 leading-normal" }, [
+      _c("strong", [_vm._v("Form:")])
+    ])
   }
 ]
 render._withStripped = true
@@ -13661,7 +13677,14 @@ var render = function() {
             _vm._m(8),
             _vm._v(" "),
             _c("questions", {
-              attrs: { questions: _vm.question.form, form: "true" }
+              attrs: { form: "true" },
+              model: {
+                value: _vm.question.form,
+                callback: function($$v) {
+                  _vm.$set(_vm.question, "form", $$v)
+                },
+                expression: "question.form"
+              }
             })
           ],
           1

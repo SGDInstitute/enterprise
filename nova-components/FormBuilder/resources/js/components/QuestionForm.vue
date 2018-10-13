@@ -62,7 +62,7 @@
 
         <div v-if="question.form">
             <p class="mb-4"><strong>Form:</strong></p>
-            <questions :questions="question.form" form="true"></questions>
+            <questions v-model="question.form" form="true"></questions>
         </div>
     </div>
 </template>
