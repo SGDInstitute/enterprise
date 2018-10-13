@@ -13,7 +13,7 @@
         </div>
         <div class="w-4/5 px-8 py-6">
 
-            <questions :questions="field.value" form="true"></questions>
+            <questions v-bind:value="field.value" v-on:input="value = $event" form="true"></questions>
 
             <p v-if="hasError" class="my-2 text-danger">
                 {{ firstError }}
@@ -50,6 +50,12 @@ export default {
          */
         handleChange(value) {
           this.value = value
+        }
+    },
+    watch: {
+        'field.questions': function() {
+            console.log('changed question');
+            this.value = this.field.questions;
         }
     }
 }
