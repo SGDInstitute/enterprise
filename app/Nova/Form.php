@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -56,6 +57,8 @@ class Form extends Resource
             DateTime::make('End')->sortable()->format('DD MMM YYYY'),
             Boolean::make('Is Public')->sortable(),
             FormBuilder::make('Form')->hideFromIndex(),
+
+            HasMany::make('Responses')
         ];
     }
 
