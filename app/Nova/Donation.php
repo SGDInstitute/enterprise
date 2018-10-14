@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Currency;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
@@ -55,6 +56,8 @@ class Donation extends Resource
             Text::make('Email')->sortable(),
             Text::make('Company')->sortable(),
             Text::make('Tax ID')->sortable(),
+
+            HasOne::make('Receipt'),
         ];
     }
 
