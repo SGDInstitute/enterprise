@@ -55,7 +55,6 @@ export default {
     watch: {
         field: {
             handler(){
-                console.log('changed question');
                 this.value = JSON.stringify(this.field.value);
             },
             deep: true
