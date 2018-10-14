@@ -52,12 +52,14 @@ class Response extends Resource
      */
     public function fields(Request $request)
     {
+        $form = optional($this->form)->toArray();
+
         return [
             ID::make()->sortable(),
             BelongsTo::make('Form'),
             BelongsTo::make('User'),
             Text::make('Email')->sortable(),
-            FormResponse::make('Responses')->form($this->form->form->toArray()),
+            FormResponse::make('Responses')->hideFromIndex()->form($form),
         ];
     }
 
