@@ -82,7 +82,9 @@ class Event extends Resource
                 Trix::make('Refund Policy')->hideFromIndex(),
             ]),
 
-            HasMany::make('Ticket Types')
+            HasMany::make('Ticket Types'),
+
+            HasMany::make('Orders'),
         ];
     }
 
