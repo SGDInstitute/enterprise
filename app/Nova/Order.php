@@ -3,10 +3,13 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -35,6 +38,8 @@ class Order extends Resource
         'id',
     ];
 
+    public static $with = ['tickets'];
+
     public static $group = 'Registration';
 
     /**
@@ -46,12 +51,27 @@ class Order extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make()->sortable()->hideFromIndex(),
             BelongsTo::make('User'),
             BelongsTo::make('Event'),
+            Currency::make('Amount')
+                ->displayUsing(function ($amount) {
+                    return money_format('$%.2n', $amount / 100);
+                }),
+            Number::make('Tickets', function() {
+                return $this->tickets->count();
+            })->onlyOnIndex(),
+            Text::make('Completed', function() {
+                return $this->tickets()->completed()->count()/$this->tickets->count()*100 . '% (' . $this->tickets()->completed()->count() . ')';
+            })->onlyOnIndex(),
             HasMany::make('Tickets'),
-            Text::make('Confirmation Number'),
-            Date::make('Created At'),
+
+            Boolean::make('Is Paid', function() {
+                return $this->isPaid();
+            }),
+            Text::make('Confirmation Number')->hideFromIndex(),
+
+            Date::make('Created At')->sortable(),
         ];
     }
 
@@ -74,7 +94,10 @@ class Order extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new Filters\Event,
+            new Filters\IsPaid,
+        ];
     }
 
     /**
