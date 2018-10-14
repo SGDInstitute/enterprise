@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Sgd\FormResponse\FormResponse;
 
 class Response extends Resource
 {
@@ -37,6 +38,13 @@ class Response extends Resource
     public static $group = 'Voyager';
 
     /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = ['form'];
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,7 +55,9 @@ class Response extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Form'),
+            BelongsTo::make('User'),
             Text::make('Email')->sortable(),
+            FormResponse::make('Responses')->form($this->form->form->toArray()),
         ];
     }
 
