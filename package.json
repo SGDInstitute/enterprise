@@ -11,7 +11,9 @@
         "build-links": "cd nova-components/Links && npm run dev",
         "build-links-prod": "cd nova-components/Links && npm run prod",
         "build-form-builder": "cd nova-components/FormBuilder && npm run dev",
-        "build-form-builder-prod": "cd nova-components/FormBuilder && npm run prod"
+        "build-form-builder-prod": "cd nova-components/FormBuilder && npm run prod",
+        "build-form-response": "cd nova-components/FormResponse && npm run dev",
+        "build-form-response-prod": "cd nova-components/FormResponse && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.16.2",

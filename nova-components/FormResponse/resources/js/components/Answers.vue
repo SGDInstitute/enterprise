@@ -1,13 +1,13 @@
 <template>
     <div>
         <div v-for="(question) in form">
-            <p class="leading-normal">
-                <strong class="mr-2">{{ question.question }}:</strong>
+            <p v-if="question.type !== 'section'" class="leading-normal">
+                <strong class="mr-2">{{ question.question }}</strong>
                 <span v-if="question.type === 'repeat'">
                     <div v-for="answer in realLookup(question.id)" class="ml-4">
                         <div v-for="q in question.form">
                             <p class="leading-normal">
-                                <strong class="mr-2">{{ q.question }}:</strong>
+                                <strong class="mr-2">{{ q.question }}</strong>
                                 <span>{{ lookupAnswer(q.id, answer) }}</span>
                             </p>
                         </div>

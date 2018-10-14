@@ -71770,7 +71770,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, ".opinion-scale {\n  display: flex;\n}\n\n.opinion {\n  flex: 1;\n}\n\n/* .opinion input[type=radio] {\n    display: none;\n} */\n", ""]);
+exports.push([module.i, ".opinion-scale {\n  display: flex;\n}\n\n.opinion {\n  flex: 1 !important;\n}\n\n/* .opinion input[type=radio] {\n    display: none;\n} */\n", ""]);
 
 // exports
 
@@ -71781,6 +71781,9 @@ exports.push([module.i, ".opinion-scale {\n  display: flex;\n}\n\n.opinion {\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -71821,16 +71824,13 @@ var render = function() {
   return _c("div", { staticClass: "form-group" }, [
     _c(
       "div",
-      {
-        staticClass: "btn-group opinion-scale",
-        attrs: { "data-toggle": "buttons" }
-      },
-      _vm._l(_vm.question.maxValue, function(index) {
+      { staticClass: "btn-group opinion-scale mb-2" },
+      _vm._l(_vm.question.max_value, function(index, id) {
         return _c(
-          "span",
+          "label",
           {
             key: index,
-            staticClass: "btn btn-default opinion",
+            staticClass: "btn btn-secondary opinion",
             class: { active: _vm.selected === index }
           },
           [
@@ -71843,7 +71843,8 @@ var render = function() {
                   expression: "selected"
                 }
               ],
-              attrs: { id: _vm.question.id, type: "radio" },
+              staticClass: "hidden",
+              attrs: { type: "radio" },
               domProps: { value: index, checked: _vm._q(_vm.selected, index) },
               on: {
                 __c: function($event) {
@@ -71857,12 +71858,14 @@ var render = function() {
       })
     ),
     _vm._v(" "),
-    _c("p", { staticClass: "pull-right" }, [
-      _vm._v(_vm._s(_vm.question.negativeLabel))
-    ]),
-    _vm._v(" "),
-    _c("p", { staticClass: "pull-left" }, [
-      _vm._v(_vm._s(_vm.question.positiveLabel))
+    _c("div", { staticClass: "clearfix" }, [
+      _c("p", { staticClass: "pull-right" }, [
+        _vm._v(_vm._s(_vm.question.negative_label))
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "pull-left" }, [
+        _vm._v(_vm._s(_vm.question.positive_label))
+      ])
     ])
   ])
 }

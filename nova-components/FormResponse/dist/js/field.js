@@ -189,9 +189,9 @@ Nova.booting(function (Vue, router) {
     Vue.component('detail-form-response', __webpack_require__(6));
     Vue.component('form-form-response', __webpack_require__(9));
 
-    Vue.component('questions', __webpack_require__(13));
-    Vue.component('question-detail', __webpack_require__(16));
-    Vue.component('question-form', __webpack_require__(19));
+    Vue.component('answers', __webpack_require__(13));
+    Vue.component('answer-detail', __webpack_require__(16));
+    Vue.component('answer-form', __webpack_require__(19));
 });
 
 /***/ }),
@@ -355,7 +355,7 @@ var render = function() {
       "div",
       { attrs: { slot: "value" }, slot: "value" },
       [
-        _c("questions", {
+        _c("answers", {
           attrs: {
             value: _vm.field.value,
             form: _vm.field.form,
@@ -10704,7 +10704,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/Questions.vue"
+Component.options.__file = "resources/js/components/Answers.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -10713,9 +10713,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1d47061c", Component.options)
+    hotAPI.createRecord("data-v-7410c14c", Component.options)
   } else {
-    hotAPI.reload("data-v-1d47061c", Component.options)
+    hotAPI.reload("data-v-7410c14c", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -10794,38 +10794,40 @@ var render = function() {
     "div",
     _vm._l(_vm.form, function(question) {
       return _c("div", [
-        _c("p", { staticClass: "leading-normal" }, [
-          _c("strong", { staticClass: "mr-2" }, [
-            _vm._v(_vm._s(question.question) + ":")
-          ]),
-          _vm._v(" "),
-          question.type === "repeat"
-            ? _c(
-                "span",
-                _vm._l(_vm.realLookup(question.id), function(answer) {
-                  return _c(
-                    "div",
-                    { staticClass: "ml-4" },
-                    _vm._l(question.form, function(q) {
-                      return _c("div", [
-                        _c("p", { staticClass: "leading-normal" }, [
-                          _c("strong", { staticClass: "mr-2" }, [
-                            _vm._v(_vm._s(q.question) + ":")
-                          ]),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(_vm._s(_vm.lookupAnswer(q.id, answer)))
+        question.type !== "section"
+          ? _c("p", { staticClass: "leading-normal" }, [
+              _c("strong", { staticClass: "mr-2" }, [
+                _vm._v(_vm._s(question.question))
+              ]),
+              _vm._v(" "),
+              question.type === "repeat"
+                ? _c(
+                    "span",
+                    _vm._l(_vm.realLookup(question.id), function(answer) {
+                      return _c(
+                        "div",
+                        { staticClass: "ml-4" },
+                        _vm._l(question.form, function(q) {
+                          return _c("div", [
+                            _c("p", { staticClass: "leading-normal" }, [
+                              _c("strong", { staticClass: "mr-2" }, [
+                                _vm._v(_vm._s(q.question))
+                              ]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(_vm._s(_vm.lookupAnswer(q.id, answer)))
+                              ])
+                            ])
                           ])
-                        ])
-                      ])
+                        })
+                      )
                     })
                   )
-                })
-              )
-            : _c("span", [
-                _vm._v(_vm._s(_vm.lookupAnswer(question.id, _vm.answers)))
-              ])
-        ])
+                : _c("span", [
+                    _vm._v(_vm._s(_vm.lookupAnswer(question.id, _vm.answers)))
+                  ])
+            ])
+          : _vm._e()
       ])
     })
   )
@@ -10836,7 +10838,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1d47061c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7410c14c", module.exports)
   }
 }
 
@@ -10866,7 +10868,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/QuestionDetail.vue"
+Component.options.__file = "resources/js/components/AnswerDetail.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -10875,9 +10877,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4b4a38fc", Component.options)
+    hotAPI.createRecord("data-v-64dd021a", Component.options)
   } else {
-    hotAPI.reload("data-v-4b4a38fc", Component.options)
+    hotAPI.reload("data-v-64dd021a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -11043,7 +11045,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4b4a38fc", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-64dd021a", module.exports)
   }
 }
 
@@ -11073,7 +11075,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/QuestionForm.vue"
+Component.options.__file = "resources/js/components/AnswerForm.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -11082,9 +11084,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c3164e96", Component.options)
+    hotAPI.createRecord("data-v-60c48566", Component.options)
   } else {
-    hotAPI.reload("data-v-c3164e96", Component.options)
+    hotAPI.reload("data-v-60c48566", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -11688,7 +11690,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c3164e96", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-60c48566", module.exports)
   }
 }
 
