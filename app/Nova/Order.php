@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
@@ -52,8 +53,11 @@ class Order extends Resource
     {
         return [
             ID::make()->sortable()->hideFromIndex(),
-            BelongsTo::make('User'),
             BelongsTo::make('Event'),
+            BelongsTo::make('User'),
+            HasOne::make('Invoice'),
+            HasOne::make('Receipt'),
+
             Currency::make('Amount')
                 ->displayUsing(function ($amount) {
                     return money_format('$%.2n', $amount / 100);
