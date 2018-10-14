@@ -20,6 +20,11 @@ class Receipt extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function donation()
+    {
+        return $this->belongsTo(Donation::class);
+    }
+
     public function charge()
     {
         if ($this->order->isCard()) {
