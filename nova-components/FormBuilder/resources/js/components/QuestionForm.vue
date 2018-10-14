@@ -59,6 +59,35 @@
             </div>
             <choices v-model="question.choices"></choices>
         </div>
+        <div v-else-if="question.type === 'opinion-scale'">
+            <div class="flex">
+                <div class="w-1/4 px-8 pb-4"><label for="max_value" class="inline-block text-80 pt-2 leading-tight">Max Value</label></div>
+                <div class="w-1/2 px-8 pb-4">
+                    <input id="max_value" v-model="question.max_value" placeholder="Max Value" type="text"
+                           class="w-full form-control form-input form-input-bordered">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-1/4 px-8 pb-4"><label for="negative_label" class="inline-block text-80 pt-2 leading-tight">Negative Label</label></div>
+                <div class="w-1/2 px-8 pb-4">
+                    <input id="negative_label" v-model="question.negative_label" placeholder="Negative Label" type="text"
+                           class="w-full form-control form-input form-input-bordered">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-1/4 px-8 pb-4"><label for="positive_label" class="inline-block text-80 pt-2 leading-tight">Positive Label</label></div>
+                <div class="w-1/2 px-8 pb-4">
+                    <input id="positive_label" v-model="question.positive_label" placeholder="Negative Label" type="text"
+                           class="w-full form-control form-input form-input-bordered">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-1/4 px-8 pb-4"><label for="start_at_one" class="inline-block text-80 pt-2 leading-tight">Start At One?</label></div>
+                <div class="w-1/2 px-8 pb-4">
+                    <input id="start_at_one" v-model="question.start_at_one" placeholder="Other Wording" type="checkbox">
+                </div>
+            </div>
+        </div>
 
         <div v-if="question.form">
             <p class="mb-4"><strong>Form:</strong></p>

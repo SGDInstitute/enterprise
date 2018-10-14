@@ -13057,6 +13057,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['question']
@@ -13131,6 +13137,34 @@ var render = function() {
       ? _c("p", { staticClass: "leading-normal" }, [
           _c("strong", [_vm._v("Multiple Choice:")]),
           _vm._v(" " + _vm._s(_vm.question.multiple))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.question.max_value
+      ? _c("p", { staticClass: "leading-normal" }, [
+          _c("strong", [_vm._v("Max Value:")]),
+          _vm._v(" " + _vm._s(_vm.question.max_value))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.question.negative_label
+      ? _c("p", { staticClass: "leading-normal" }, [
+          _c("strong", [_vm._v("Negative Label:")]),
+          _vm._v(" " + _vm._s(_vm.question.negative_label))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.question.positive_label
+      ? _c("p", { staticClass: "leading-normal" }, [
+          _c("strong", [_vm._v("Positive Label:")]),
+          _vm._v(" " + _vm._s(_vm.question.positive_label))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.question.start_at_one
+      ? _c("p", { staticClass: "leading-normal" }, [
+          _c("strong", [_vm._v("Start at One:")]),
+          _vm._v(" " + _vm._s(_vm.question.start_at_one))
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -13237,6 +13271,35 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13668,13 +13731,177 @@ var render = function() {
           ],
           1
         )
-      : _vm._e(),
+      : _vm.question.type === "opinion-scale"
+        ? _c("div", [
+            _c("div", { staticClass: "flex" }, [
+              _vm._m(8),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.question.max_value,
+                      expression: "question.max_value"
+                    }
+                  ],
+                  staticClass:
+                    "w-full form-control form-input form-input-bordered",
+                  attrs: {
+                    id: "max_value",
+                    placeholder: "Max Value",
+                    type: "text"
+                  },
+                  domProps: { value: _vm.question.max_value },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.question, "max_value", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex" }, [
+              _vm._m(9),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.question.negative_label,
+                      expression: "question.negative_label"
+                    }
+                  ],
+                  staticClass:
+                    "w-full form-control form-input form-input-bordered",
+                  attrs: {
+                    id: "negative_label",
+                    placeholder: "Negative Label",
+                    type: "text"
+                  },
+                  domProps: { value: _vm.question.negative_label },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.question,
+                        "negative_label",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex" }, [
+              _vm._m(10),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.question.positive_label,
+                      expression: "question.positive_label"
+                    }
+                  ],
+                  staticClass:
+                    "w-full form-control form-input form-input-bordered",
+                  attrs: {
+                    id: "positive_label",
+                    placeholder: "Negative Label",
+                    type: "text"
+                  },
+                  domProps: { value: _vm.question.positive_label },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.question,
+                        "positive_label",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex" }, [
+              _vm._m(11),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.question.start_at_one,
+                      expression: "question.start_at_one"
+                    }
+                  ],
+                  attrs: {
+                    id: "start_at_one",
+                    placeholder: "Other Wording",
+                    type: "checkbox"
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.question.start_at_one)
+                      ? _vm._i(_vm.question.start_at_one, null) > -1
+                      : _vm.question.start_at_one
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.question.start_at_one,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.question,
+                              "start_at_one",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.question,
+                              "start_at_one",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.question, "start_at_one", $$c)
+                      }
+                    }
+                  }
+                })
+              ])
+            ])
+          ])
+        : _vm._e(),
     _vm._v(" "),
     _vm.question.form
       ? _c(
           "div",
           [
-            _vm._m(8),
+            _vm._m(12),
             _vm._v(" "),
             _c("questions", {
               attrs: { form: "true" },
@@ -13810,6 +14037,66 @@ var staticRenderFns = [
           attrs: { for: "other_wording" }
         },
         [_vm._v("Other Wording")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
+      _c(
+        "label",
+        {
+          staticClass: "inline-block text-80 pt-2 leading-tight",
+          attrs: { for: "max_value" }
+        },
+        [_vm._v("Max Value")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
+      _c(
+        "label",
+        {
+          staticClass: "inline-block text-80 pt-2 leading-tight",
+          attrs: { for: "negative_label" }
+        },
+        [_vm._v("Negative Label")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
+      _c(
+        "label",
+        {
+          staticClass: "inline-block text-80 pt-2 leading-tight",
+          attrs: { for: "positive_label" }
+        },
+        [_vm._v("Positive Label")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
+      _c(
+        "label",
+        {
+          staticClass: "inline-block text-80 pt-2 leading-tight",
+          attrs: { for: "start_at_one" }
+        },
+        [_vm._v("Start At One?")]
       )
     ])
   },

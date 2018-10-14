@@ -17,6 +17,12 @@
             </ul>
         </div>
         <p v-if="question.multiple" class="leading-normal"><strong>Multiple Choice:</strong> {{ question.multiple }}</p>
+
+        <p v-if="question.max_value" class="leading-normal"><strong>Max Value:</strong> {{ question.max_value }}</p>
+        <p v-if="question.negative_label" class="leading-normal"><strong>Negative Label:</strong> {{ question.negative_label }}</p>
+        <p v-if="question.positive_label" class="leading-normal"><strong>Positive Label:</strong> {{ question.positive_label }}</p>
+        <p v-if="question.start_at_one" class="leading-normal"><strong>Start at One:</strong> {{ question.start_at_one }}</p>
+
         <p v-if="question.other" class="leading-normal"><strong>Other:</strong> {{ question.other }}, <strong>Wording:</strong> {{ question.other_wording}}</p>
         <div v-if="question.form">
             <p class="mb-4 leading-normal"><strong>Form:</strong></p>
