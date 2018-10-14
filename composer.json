@@ -14,6 +14,7 @@
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "^6.3",
         "hocza/sendy": "^1.1",
+        "kabbouchi/nova-impersonate": "dev-master",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.7.*",
         "laravel/nova": "*",
@@ -21,14 +22,14 @@
         "maatwebsite/excel": "^2.1",
         "sentry/sentry": "^1.7",
         "sentry/sentry-laravel": "^0.8.0",
+        "sgd/form-builder": "*",
+        "sgd/form-response": "*",
+        "sgd/links": "*",
         "spatie/laravel-activitylog": "^2.1",
         "spatie/laravel-permission": "^2.6",
         "stripe/stripe-php": "^5.1",
         "vinkla/hashids": "^5.0",
-        "vyuldashev/nova-permission": "^1.4",
-        "sgd/links": "*",
-        "sgd/form-builder": "*",
-        "sgd/form-response": "*"
+        "vyuldashev/nova-permission": "^1.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4970de50b72abd9e0fa96e8648c7c912",
+    "content-hash": "90f888a04e40169c1c9490b4c13d05ee",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1326,6 +1326,108 @@
                 "tokenizer"
             ],
             "time": "2018-03-21T22:21:57+00:00"
+        },
+        {
+            "name": "kabbouchi/nova-impersonate",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KABBOUCHI/nova-impersonate.git",
+                "reference": "d4a15aa39d39876583db51dd3e769b8598b862a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KABBOUCHI/nova-impersonate/zipball/d4a15aa39d39876583db51dd3e769b8598b862a6",
+                "reference": "d4a15aa39d39876583db51dd3e769b8598b862a6",
+                "shasum": ""
+            },
+            "require": {
+                "lab404/laravel-impersonate": "^1.2",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KABBOUCHI\\NovaImpersonate\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KABBOUCHI\\NovaImpersonate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field allows you to authenticate as your users.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-09-26T06:50:20+00:00"
+        },
+        {
+            "name": "lab404/laravel-impersonate",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/404labfr/laravel-impersonate.git",
+                "reference": "16b7204f9efde1275897a9d58931f9e6d1be36f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/404labfr/laravel-impersonate/zipball/16b7204f9efde1275897a9d58931f9e6d1be36f5",
+                "reference": "16b7204f9efde1275897a9d58931f9e6d1be36f5",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "orchestra/database": "~3.4.0",
+                "orchestra/testbench": "~3.4.0",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lab404\\Impersonate\\ImpersonateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lab404\\Impersonate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "404lab",
+                    "email": "web@404lab.fr"
+                }
+            ],
+            "description": "Laravel Impersonate is a plugin that allows to you to authenticate as your users.",
+            "keywords": [
+                "auth",
+                "impersonate",
+                "impersonation",
+                "laravel",
+                "laravel-package",
+                "laravel-plugin",
+                "package",
+                "plugin",
+                "user"
+            ],
+            "time": "2018-09-03T13:05:19+00:00"
         },
         {
             "name": "laracasts/flash",
@@ -6450,7 +6552,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "kabbouchi/nova-impersonate": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
