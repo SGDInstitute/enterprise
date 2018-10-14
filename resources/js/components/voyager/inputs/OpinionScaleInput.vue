@@ -1,12 +1,15 @@
 <template>
     <div class="form-group">
-        <div class="btn-group opinion-scale" data-toggle="buttons">
-            <span class="btn btn-default opinion" :class="{active: selected === index}" v-for="index in question.maxValue" :key="index">
-                <input :id="question.id" type="radio" :value="index" v-model="selected"> {{ index }}
-            </span>
+        <div class="btn-group opinion-scale mb-2">
+            <label class="btn btn-secondary opinion" :class="{active: selected === index}"
+                   v-for="(index, id) in question.max_value" :key="index">
+                <input type="radio" class="hidden" v-model="selected" :value="index"> {{ index }}
+            </label>
         </div>
-        <p class="pull-right">{{ question.negativeLabel }}</p>
-        <p class="pull-left">{{ question.positiveLabel }}</p>
+        <div class="clearfix">
+            <p class="pull-right">{{ question.negative_label }}</p>
+            <p class="pull-left">{{ question.positive_label }}</p>
+        </div>
     </div>
 </template>
 
@@ -33,7 +36,7 @@
     }
 
     .opinion {
-        flex: 1;
+        flex: 1 !important;
     }
 
     /* .opinion input[type=radio] {
