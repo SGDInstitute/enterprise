@@ -2,9 +2,13 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
 
 class Receipt extends Resource
 {
@@ -48,6 +52,35 @@ class Receipt extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('Order'),
+            BelongsTo::make('Donation'),
+            Text::make('Transaction ID'),
+            Currency::make('Amount')
+                ->displayUsing(function ($amount) {
+                    return money_format('$%.2n', $amount / 100);
+                }),
+
+            new Panel('Charge Details', [
+                Text::make('Card Number', function() {
+                    return '****-****-****-' . $this->card_last_four;
+                }),
+
+                Text::make('Address', function() {
+                    return $this->charge()['source']['address_line1'];
+                }),
+                Text::make('Address Line 2', function() {
+                    return $this->charge()['source']['address_line2'];
+                }),
+                Text::make('City', function() {
+                    return $this->charge()['source']['address_city'];
+                }),
+                Text::make('State', function() {
+                    return $this->charge()['source']['address_state'];
+                }),
+                Text::make('Zip', function() {
+                    return $this->charge()['source']['address_zip'];
+                }),
+            ]),
         ];
     }
 
