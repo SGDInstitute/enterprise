@@ -1,69 +1,19 @@
 <template>
-    <div>
-        <div class="flex">
-            <div class="w-1/4 px-8 pb-4"><label for="id" class="inline-block text-80 pt-2 leading-tight">ID</label></div>
-            <div class="w-1/2 px-8 pb-4">
-                <input id="id" v-model="question.id" placeholder="ID" type="text"
-                       class="w-full form-control form-input form-input-bordered">
-            </div>
-        </div>
-        <div class="flex">
-            <div class="w-1/4 px-8 pb-4"><label for="question" class="inline-block text-80 pt-2 leading-tight">Question</label></div>
-            <div class="w-1/2 px-8 pb-4">
-                <input id="question" v-model="question.question" placeholder="Question" type="text"
-                       class="w-full form-control form-input form-input-bordered">
-            </div>
-        </div>
-        <div class="flex">
-            <div class="w-1/4 px-8 pb-4"><label for="type" class="inline-block text-80 pt-2 leading-tight">Type</label></div>
-            <div class="w-1/2 px-8 pb-4">
-                <select id="type" v-model="question.type" class="w-full form-control form-input form-input-bordered">
-                    <option v-for="type in types" :value="type">{{ type }}</option>
-                </select>
-            </div>
-        </div>
-        <div class="flex">
-            <div class="w-1/4 px-8 pb-4"><label for="rules" class="inline-block text-80 pt-2 leading-tight">Rules</label></div>
-            <div class="w-1/2 px-8 pb-4">
-                <input id="rules" v-model="question.rules" placeholder="Rules" type="text"
-                       class="w-full form-control form-input form-input-bordered">
-            </div>
-        </div>
-        <div class="flex">
-            <div class="w-1/4 px-8 pb-4"><label for="description" class="inline-block text-80 pt-2 leading-tight">Description</label></div>
-            <div class="w-1/2 px-8 pb-4">
-                <input id="description" v-model="question.description" placeholder="Description" type="text"
-                       class="w-full form-control form-input form-input-bordered">
-            </div>
-        </div>
+    <div class="form-group" :class="{'has-error': form.errors.has(question.id)}">
+        <div v-if="question.type !== 'select'">
+            <label :for="question.id">
+                <h2>{{ question.question }} <span v-show="question.required">*</span></h2>
+            </label>
+            <p v-show="question.description" v-html="question.description"></p></div>
 
-        <div v-if="question.type === 'list' || question.type === 'select'">
-            <div class="flex">
-                <div class="w-1/4 px-8 pb-4"><label for="multiple" class="inline-block text-80 pt-2 leading-tight">Multiple Choice?</label></div>
-                <div class="w-1/2 px-8 pb-4">
-                    <input id="multiple" v-model="question.multiple" placeholder="Other Wording" type="checkbox">
-                </div>
-            </div>
-            <div class="flex">
-                <div class="w-1/4 px-8 pb-4"><label for="other" class="inline-block text-80 pt-2 leading-tight">Other Option?</label></div>
-                <div class="w-1/2 px-8 pb-4">
-                    <input id="other" v-model="question.other" placeholder="Other Wording" type="checkbox">
-                </div>
-            </div>
-            <div class="flex" v-if="question.other">
-                <div class="w-1/4 px-8 pb-4"><label for="other_wording" class="inline-block text-80 pt-2 leading-tight">Other Wording</label></div>
-                <div class="w-1/2 px-8 pb-4">
-                    <input id="other_wording" v-model="question.other_wording" placeholder="Other Wording" type="text"
-                           class="w-full form-control form-input form-input-bordered">
-                </div>
-            </div>
-            <choices v-model="question.choices"></choices>
-        </div>
+        <component :is="question.type + '-input'" :question="question"
+                   v-model="form[question.id]"></component>
 
-        <div v-if="question.form">
-            <p class="mb-4"><strong>Form:</strong></p>
-            <questions v-model="question.form" form="true"></questions>
-        </div>
+        <span class="mt-2 rounded border border-red block bg-red-lightest px-4 py-2 text-red-darkest" v-show="form.errors.has(question.id)">
+                        {{ form.errors.get(question.id) }}
+                    </span>
+        <a :href="nextId(index)" class="btn btn-primary smooth"
+           v-if="nextIsSection(index) || question.type === 'section'">Next!</a>
     </div>
 </template>
 
@@ -73,9 +23,6 @@
 
         data() {
             return {
-                types: [
-                    'list', 'opinion-scale', 'repeat', 'section', 'select', 'textarea', 'text'
-                ],
                 question: this.value,
             }
         },

@@ -19,7 +19,7 @@ class FormResponse extends Field
      * @param  array  $form
      * @return $this
      */
-    public function form(array $form)
+    public function form($form = [])
     {
         return $this->withMeta(['form' => $form]);
     }

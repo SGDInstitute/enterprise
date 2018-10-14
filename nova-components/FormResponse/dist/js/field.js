@@ -358,7 +358,7 @@ var render = function() {
         _c("answers", {
           attrs: {
             value: _vm.field.value,
-            form: _vm.field.form,
+            form: _vm.field.form.form,
             type: "detail"
           }
         })
@@ -432,6 +432,13 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_nova__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10626,35 +10633,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "default-field",
-    { attrs: { field: _vm.field } },
-    [
-      _c("template", { slot: "field" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          class: _vm.errorClasses,
+  return _c("field-wrapper", [
+    _c(
+      "div",
+      { staticClass: "w-1/5 px-8 py-6" },
+      [
+        _vm._t("default", [
+          _c("form-label", { attrs: { for: _vm.field.name } }, [
+            _vm._v(
+              "\n                " + _vm._s(_vm.field.name) + "\n            "
+            )
+          ]),
+          _vm._v(" "),
+          _c("help-text", [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.field.helpText) +
+                "\n            "
+            )
+          ])
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "w-4/5 px-8 py-6" },
+      [
+        _c("answers", {
           attrs: {
-            id: _vm.field.name,
-            type: "text",
-            placeholder: _vm.field.name
-          },
-          domProps: { value: _vm.value },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.value = $event.target.value
-            }
+            value: _vm.field.value,
+            form: _vm.field.form.form,
+            type: "form"
           }
         }),
         _vm._v(" "),
@@ -10663,10 +10674,10 @@ var render = function() {
               _vm._v("\n            " + _vm._s(_vm.firstError) + "\n        ")
             ])
           : _vm._e()
-      ])
-    ],
-    2
-  )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -10731,20 +10742,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -10762,23 +10759,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return {
             answers: this.value
         };
-    },
-
-
-    methods: {
-        lookupAnswer: function lookupAnswer(id, answers) {
-            var answer = answers[id];
-            if ((typeof answer === 'undefined' ? 'undefined' : _typeof(answer)) === 'object') {
-                return _.values(answer).join(', ');
-            }
-            if (typeof answer === 'array') {
-                return answer.join(', ');
-            }
-            return answer;
-        },
-        realLookup: function realLookup(id) {
-            return this.answers[id];
-        }
     }
 });
 
@@ -10793,42 +10773,19 @@ var render = function() {
   return _c(
     "div",
     _vm._l(_vm.form, function(question) {
-      return _c("div", [
-        question.type !== "section"
-          ? _c("p", { staticClass: "leading-normal" }, [
-              _c("strong", { staticClass: "mr-2" }, [
-                _vm._v(_vm._s(question.question))
-              ]),
-              _vm._v(" "),
-              question.type === "repeat"
-                ? _c(
-                    "span",
-                    _vm._l(_vm.realLookup(question.id), function(answer) {
-                      return _c(
-                        "div",
-                        { staticClass: "ml-4" },
-                        _vm._l(question.form, function(q) {
-                          return _c("div", [
-                            _c("p", { staticClass: "leading-normal" }, [
-                              _c("strong", { staticClass: "mr-2" }, [
-                                _vm._v(_vm._s(q.question))
-                              ]),
-                              _vm._v(" "),
-                              _c("span", [
-                                _vm._v(_vm._s(_vm.lookupAnswer(q.id, answer)))
-                              ])
-                            ])
-                          ])
-                        })
-                      )
-                    })
-                  )
-                : _c("span", [
-                    _vm._v(_vm._s(_vm.lookupAnswer(question.id, _vm.answers)))
-                  ])
-            ])
-          : _vm._e()
-      ])
+      return _c(
+        "div",
+        [
+          _vm.type === "detail"
+            ? _c("answer-detail", {
+                attrs: { question: question, answers: _vm.answers }
+              })
+            : _c("answer-form", {
+                attrs: { question: question, answers: _vm.answers }
+              })
+        ],
+        1
+      )
     })
   )
 }
@@ -10895,16 +10852,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 //
 //
 //
@@ -10924,7 +10873,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['question']
+    props: ['question', 'answers'],
+
+    methods: {
+        lookupAnswer: function lookupAnswer(id, answers) {
+            var answer = answers[id];
+            if ((typeof answer === 'undefined' ? 'undefined' : _typeof(answer)) === 'object') {
+                return _.values(answer).join(', ');
+            }
+            if (typeof answer === 'array') {
+                return answer.join(', ');
+            }
+            return answer;
+        },
+        realLookup: function realLookup(id) {
+            return this.answers[id];
+        }
+    }
 });
 
 /***/ }),
@@ -10935,111 +10900,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("p", { staticClass: "leading-normal" }, [
-      _c("strong", [_vm._v("ID:")]),
-      _vm._v(" " + _vm._s(_vm.question.id))
-    ]),
-    _vm._v(" "),
-    _vm.question.type === "repeat"
-      ? _c("div", [
-          _c("p", { staticClass: "leading-normal" }, [
-            _c("strong", [_vm._v("Question:")]),
-            _vm._v(" " + _vm._s(_vm.question.name))
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "leading-normal" }, [
-            _c("strong", [_vm._v("Button:")]),
-            _vm._v(" " + _vm._s(_vm.question.question))
-          ])
-        ])
-      : _c("p", { staticClass: "leading-normal" }, [
-          _c("strong", [_vm._v("Question:")]),
-          _vm._v(" " + _vm._s(_vm.question.question))
+  return _vm.question.type !== "section"
+    ? _c("div", { staticClass: "leading-normal" }, [
+        _c("strong", { staticClass: "mr-2" }, [
+          _vm._v(_vm._s(_vm.question.question))
         ]),
-    _vm._v(" "),
-    _vm.question.description
-      ? _c("p", { staticClass: "leading-normal" }, [
-          _c("strong", [_vm._v("Description:")]),
-          _vm._v(" " + _vm._s(_vm.question.description))
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("p", { staticClass: "leading-normal" }, [
-      _c("strong", [_vm._v("Type:")]),
-      _vm._v(" " + _vm._s(_vm.question.type))
-    ]),
-    _vm._v(" "),
-    _c("p", { staticClass: "leading-normal" }, [
-      _c("strong", [_vm._v("Rules:")]),
-      _vm._v(" " + _vm._s(_vm.question.rules))
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _vm.question.choices
-        ? _c("p", { staticClass: "leading-normal" }, [
-            _c("strong", [_vm._v("Choices:")])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "ul",
-        _vm._l(_vm.question.choices, function(choice) {
-          return _c("li", { staticClass: "leading-normal" }, [
-            _vm._v(_vm._s(choice))
-          ])
-        })
-      )
-    ]),
-    _vm._v(" "),
-    _vm.question.multiple
-      ? _c("p", { staticClass: "leading-normal" }, [
-          _c("strong", [_vm._v("Multiple Choice:")]),
-          _vm._v(" " + _vm._s(_vm.question.multiple))
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.question.other
-      ? _c("p", { staticClass: "leading-normal" }, [
-          _c("strong", [_vm._v("Other:")]),
-          _vm._v(" " + _vm._s(_vm.question.other) + ", "),
-          _c("strong", [_vm._v("Wording:")]),
-          _vm._v(" " + _vm._s(_vm.question.other_wording))
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.question.form
-      ? _c(
-          "div",
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("questions", {
-              attrs: { detail: "true" },
-              model: {
-                value: _vm.question.form,
-                callback: function($$v) {
-                  _vm.$set(_vm.question, "form", $$v)
-                },
-                expression: "question.form"
-              }
-            })
-          ],
-          1
-        )
-      : _vm._e()
-  ])
+        _vm._v(" "),
+        _vm.question.type === "repeat"
+          ? _c(
+              "div",
+              _vm._l(_vm.realLookup(_vm.question.id), function(answer) {
+                return _c(
+                  "div",
+                  { staticClass: "ml-4" },
+                  _vm._l(_vm.question.form, function(q) {
+                    return _c("div", [
+                      _c("p", { staticClass: "leading-normal" }, [
+                        _c("strong", { staticClass: "mr-2" }, [
+                          _vm._v(_vm._s(q.question))
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.lookupAnswer(q.id, answer)))
+                        ])
+                      ])
+                    ])
+                  })
+                )
+              })
+            )
+          : _c("span", [
+              _vm._v(_vm._s(_vm.lookupAnswer(_vm.question.id, _vm.answers)))
+            ])
+      ])
+    : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "mb-4 leading-normal" }, [
-      _c("strong", [_vm._v("Form:")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -11121,63 +11017,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['value'],
 
     data: function data() {
         return {
-            types: ['list', 'opinion-scale', 'repeat', 'section', 'select', 'textarea', 'text'],
             question: this.value
         };
     },
@@ -11211,480 +11056,99 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "flex" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.question.id,
-              expression: "question.id"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          attrs: { id: "id", placeholder: "ID", type: "text" },
-          domProps: { value: _vm.question.id },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.question, "id", $event.target.value)
-            }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.question.question,
-              expression: "question.question"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          attrs: { id: "question", placeholder: "Question", type: "text" },
-          domProps: { value: _vm.question.question },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.question, "question", $event.target.value)
-            }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex" }, [
-      _vm._m(2),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.question.type,
-                expression: "question.type"
-              }
-            ],
-            staticClass: "w-full form-control form-input form-input-bordered",
-            attrs: { id: "type" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.question,
-                  "type",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+  return _c(
+    "div",
+    {
+      staticClass: "form-group",
+      class: { "has-error": _vm.form.errors.has(_vm.question.id) }
+    },
+    [
+      _vm.question.type !== "select"
+        ? _c("div", [
+            _c("label", { attrs: { for: _vm.question.id } }, [
+              _c("h2", [
+                _vm._v(_vm._s(_vm.question.question) + " "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.question.required,
+                        expression: "question.required"
+                      }
+                    ]
+                  },
+                  [_vm._v("*")]
                 )
-              }
-            }
-          },
-          _vm._l(_vm.types, function(type) {
-            return _c("option", { domProps: { value: type } }, [
-              _vm._v(_vm._s(type))
-            ])
-          })
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex" }, [
-      _vm._m(3),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.question.rules,
-              expression: "question.rules"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          attrs: { id: "rules", placeholder: "Rules", type: "text" },
-          domProps: { value: _vm.question.rules },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.question, "rules", $event.target.value)
-            }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex" }, [
-      _vm._m(4),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.question.description,
-              expression: "question.description"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          attrs: {
-            id: "description",
-            placeholder: "Description",
-            type: "text"
-          },
-          domProps: { value: _vm.question.description },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.question, "description", $event.target.value)
-            }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _vm.question.type === "list" || _vm.question.type === "select"
-      ? _c(
-          "div",
-          [
-            _c("div", { staticClass: "flex" }, [
-              _vm._m(5),
-              _vm._v(" "),
-              _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.question.multiple,
-                      expression: "question.multiple"
-                    }
-                  ],
-                  attrs: {
-                    id: "multiple",
-                    placeholder: "Other Wording",
-                    type: "checkbox"
-                  },
-                  domProps: {
-                    checked: Array.isArray(_vm.question.multiple)
-                      ? _vm._i(_vm.question.multiple, null) > -1
-                      : _vm.question.multiple
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.question.multiple,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(
-                              _vm.question,
-                              "multiple",
-                              $$a.concat([$$v])
-                            )
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.question,
-                              "multiple",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.question, "multiple", $$c)
-                      }
-                    }
-                  }
-                })
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "flex" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.question.other,
-                      expression: "question.other"
-                    }
-                  ],
-                  attrs: {
-                    id: "other",
-                    placeholder: "Other Wording",
-                    type: "checkbox"
-                  },
-                  domProps: {
-                    checked: Array.isArray(_vm.question.other)
-                      ? _vm._i(_vm.question.other, null) > -1
-                      : _vm.question.other
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.question.other,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(_vm.question, "other", $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.question,
-                              "other",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.question, "other", $$c)
-                      }
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _vm.question.other
-              ? _c("div", { staticClass: "flex" }, [
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "w-1/2 px-8 pb-4" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.question.other_wording,
-                          expression: "question.other_wording"
-                        }
-                      ],
-                      staticClass:
-                        "w-full form-control form-input form-input-bordered",
-                      attrs: {
-                        id: "other_wording",
-                        placeholder: "Other Wording",
-                        type: "text"
-                      },
-                      domProps: { value: _vm.question.other_wording },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.question,
-                            "other_wording",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("choices", {
-              model: {
-                value: _vm.question.choices,
-                callback: function($$v) {
-                  _vm.$set(_vm.question, "choices", $$v)
-                },
-                expression: "question.choices"
-              }
+            _c("p", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.question.description,
+                  expression: "question.description"
+                }
+              ],
+              domProps: { innerHTML: _vm._s(_vm.question.description) }
             })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(_vm.question.type + "-input", {
+        tag: "component",
+        attrs: { question: _vm.question },
+        model: {
+          value: _vm.form[_vm.question.id],
+          callback: function($$v) {
+            _vm.$set(_vm.form, _vm.question.id, $$v)
+          },
+          expression: "form[question.id]"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.form.errors.has(_vm.question.id),
+              expression: "form.errors.has(question.id)"
+            }
           ],
-          1
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.question.form
-      ? _c(
-          "div",
-          [
-            _vm._m(8),
-            _vm._v(" "),
-            _c("questions", {
-              attrs: { form: "true" },
-              model: {
-                value: _vm.question.form,
-                callback: function($$v) {
-                  _vm.$set(_vm.question, "form", $$v)
-                },
-                expression: "question.form"
-              }
-            })
-          ],
-          1
-        )
-      : _vm._e()
-  ])
+          staticClass:
+            "mt-2 rounded border border-red block bg-red-lightest px-4 py-2 text-red-darkest"
+        },
+        [
+          _vm._v(
+            "\n                    " +
+              _vm._s(_vm.form.errors.get(_vm.question.id)) +
+              "\n                "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.nextIsSection(_vm.index) || _vm.question.type === "section"
+        ? _c(
+            "a",
+            {
+              staticClass: "btn btn-primary smooth",
+              attrs: { href: _vm.nextId(_vm.index) }
+            },
+            [_vm._v("Next!")]
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "id" }
-        },
-        [_vm._v("ID")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "question" }
-        },
-        [_vm._v("Question")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "type" }
-        },
-        [_vm._v("Type")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "rules" }
-        },
-        [_vm._v("Rules")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "description" }
-        },
-        [_vm._v("Description")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "multiple" }
-        },
-        [_vm._v("Multiple Choice?")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "other" }
-        },
-        [_vm._v("Other Option?")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/4 px-8 pb-4" }, [
-      _c(
-        "label",
-        {
-          staticClass: "inline-block text-80 pt-2 leading-tight",
-          attrs: { for: "other_wording" }
-        },
-        [_vm._v("Other Wording")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "mb-4" }, [_c("strong", [_vm._v("Form:")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

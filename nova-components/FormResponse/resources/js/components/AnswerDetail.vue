@@ -1,32 +1,38 @@
 <template>
-    <div>
-        <p class="leading-normal"><strong>ID:</strong> {{ question.id }}</p>
+    <div v-if="question.type !== 'section'" class="leading-normal">
+        <strong class="mr-2">{{ question.question }}</strong>
         <div v-if="question.type === 'repeat'">
-            <p class="leading-normal"><strong>Question:</strong> {{ question.name }}</p>
-            <p class="leading-normal"><strong>Button:</strong> {{ question.question }}</p>
+            <div v-for="answer in realLookup(question.id)" class="ml-4">
+                <div v-for="q in question.form">
+                    <p class="leading-normal">
+                        <strong class="mr-2">{{ q.question }}</strong>
+                        <span>{{ lookupAnswer(q.id, answer) }}</span>
+                    </p>
+                </div>
+            </div>
         </div>
-        <p v-else class="leading-normal"><strong>Question:</strong> {{ question.question }}</p>
-
-        <p v-if="question.description" class="leading-normal"><strong>Description:</strong> {{ question.description }}</p>
-        <p class="leading-normal"><strong>Type:</strong> {{ question.type }}</p>
-        <p class="leading-normal"><strong>Rules:</strong> {{ question.rules }}</p>
-        <div>
-            <p v-if="question.choices" class="leading-normal"><strong>Choices:</strong></p>
-            <ul>
-                <li v-for="choice in question.choices" class="leading-normal">{{ choice }}</li>
-            </ul>
-        </div>
-        <p v-if="question.multiple" class="leading-normal"><strong>Multiple Choice:</strong> {{ question.multiple }}</p>
-        <p v-if="question.other" class="leading-normal"><strong>Other:</strong> {{ question.other }}, <strong>Wording:</strong> {{ question.other_wording}}</p>
-        <div v-if="question.form">
-            <p class="mb-4 leading-normal"><strong>Form:</strong></p>
-            <questions v-model="question.form" detail="true"></questions>
-        </div>
+        <span v-else>{{ lookupAnswer(question.id, answers) }}</span>
     </div>
 </template>
 
 <script>
-export default {
-    props: ['question'],
-}
+    export default {
+        props: ['question', 'answers'],
+
+        methods: {
+            lookupAnswer(id, answers) {
+                let answer = answers[id];
+                if (typeof answer === 'object') {
+                    return _.values(answer).join(', ');
+                }
+                if (typeof answer === 'array') {
+                    return answer.join(', ');
+                }
+                return answer;
+            },
+            realLookup(id) {
+                return this.answers[id];
+            }
+        }
+    }
 </script>

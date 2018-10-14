@@ -1,7 +1,7 @@
 <template>
     <panel-item :field="field">
         <div slot="value">
-            <answers v-bind:value="field.value" :form="field.form" type="detail"></answers>
+            <answers v-bind:value="field.value" :form="field.form.form" type="detail"></answers>
         </div>
     </panel-item>
 </template>
