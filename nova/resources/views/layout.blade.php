@@ -13,10 +13,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('app.css', 'vendor/nova') }}">
 
-    <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/all.js"
-            integrity="sha384-eAVkiER0fL/ySiqS7dXu8TLpoR8d9KRzIYtG0Tz7pi24qgQIIupp0fn2XA1H90fP"
-            crossorigin="anonymous"></script>
-
     <!-- Tool Styles -->
     @foreach(Nova::availableStyles(request()) as $name => $path)
         <link rel="stylesheet" href="/nova-api/styles/{{ $name }}">
@@ -36,17 +32,11 @@
                 @foreach (Nova::availableTools(request()) as $tool)
                     {!! $tool->renderNavigation() !!}
                 @endforeach
-
-                <p class="mt-8 text-center text-xs text-80">
-                    <a href="http://nova.laravel.com" class="text-primary dim no-underline">Laravel Nova</a>
-                    <span class="px-1">&middot;</span>
-                    v{{ Laravel\Nova\Nova::version() }}
-                </p>
             </div>
 
             <!-- Content -->
             <div class="content">
-                <div class="flex items-center relative shadow h-header bg-white z-50 px-6">
+                <div class="flex items-center relative shadow h-header bg-white z-20 px-6">
                     <a href="{{ Config::get('nova.url') }}" class="no-underline dim font-bold text-90 mr-6">
                         {{ Nova::name() }}
                     </a>
@@ -62,6 +52,14 @@
 
                 <div data-testid="content" class="px-view py-view mx-auto">
                     @yield('content')
+
+                    <p class="mt-8 text-center text-xs text-80">
+                        <a href="http://nova.laravel.com" class="text-primary dim no-underline">Laravel Nova</a>
+                        <span class="px-1">&middot;</span>
+                        &copy; {{ date('Y') }} Laravel LLC - By Taylor Otwell, David Hemphill, and Steve Schoger.
+                        <span class="px-1">&middot;</span>
+                        v{{ Laravel\Nova\Nova::version() }}
+                    </p>
                 </div>
             </div>
         </div>
