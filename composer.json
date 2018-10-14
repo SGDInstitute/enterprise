@@ -29,7 +29,8 @@
         "spatie/laravel-permission": "^2.6",
         "stripe/stripe-php": "^5.1",
         "vinkla/hashids": "^5.0",
-        "vyuldashev/nova-permission": "^1.4"
+        "vyuldashev/nova-permission": "^1.4",
+        "sgd/enterprise-admin-theme": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -56,6 +57,10 @@
         {
             "type": "path",
             "url": "./nova-components/FormResponse"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/EnterpriseAdminTheme"
         }
     ],
     "autoload": {
