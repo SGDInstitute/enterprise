@@ -22,7 +22,7 @@ class ProfileController extends Controller
             'college' => '',
             'tshirt' => '',
             'accommodation' => '',
-            'wants_program' => 'boolean'
+            'agreement' => 'accepted'
         ]);
 
         if (is_null($user)) {

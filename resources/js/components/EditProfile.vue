@@ -104,13 +104,17 @@
             <div class="row">
                 <div class="col-md-9 ml-auto">
                     <div class="form-check pl-4">
-                        <label class="form-check-label" for="wants_program">
-                        <input class="form-check-input" type="checkbox" name="wants_program" id="wants_program" :value="true" v-model="form.wants_program">
+                        <label class="form-check-label" :class="{'is-invalid': form.errors.has('agreement')}" for="agreement">
+                        <input class="form-check-input" type="checkbox" name="agreement" id="agreement" :value="true" v-model="form.agreement">
                             I agree to the <a href="/events/mblgtacc-2019" target="_blank">code for inclusion</a>,
                             <a href="/events/mblgtacc-2019" target="_blank">photo policy</a>, and
                             <a href="/events/mblgtacc-2019" target="_blank">refund policy</a>.
                         </label>
                     </div>
+                    <span class="invalid-feedback" :class="{'block': form.errors.has('agreement')}"
+                          v-show="form.errors.has('agreement')">
+                        {{ form.errors.get('agreement') }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -143,7 +147,7 @@
                     college: '',
                     tshirt: '',
                     accommodation: '',
-                    wants_program: true,
+                    agreement: false,
                 })
             }
         },
@@ -157,7 +161,7 @@
             this.form.college = this.profile.college;
             this.form.tshirt = this.profile.tshirt;
             this.form.accommodation = this.profile.accommodation;
-            this.form.wants_program = this.profile.wants_program;
+            this.form.agreement = this.profile.agreement;
         },
         methods: {
             submit() {
