@@ -98,6 +98,13 @@
                 <p>Please mail payment to: {{ config($order->event->stripe . ".address") }}</p>
             </td>
         </tr>
+        @if($order->event->refund_policy)
+        <tr>
+            <td>
+                {!! $order->event->refund_policy !!}
+            </td>
+        </tr>
+        @endif
     </table>
 </div>
 </body></html>
