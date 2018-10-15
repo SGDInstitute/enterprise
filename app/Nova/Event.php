@@ -80,6 +80,7 @@ class Event extends Resource
             new Panel('Policies', [
                 Trix::make('Photo Policy')->hideFromIndex(),
                 Trix::make('Refund Policy')->hideFromIndex(),
+                Trix::make('Inclusion Policy')->hideFromIndex(),
             ]),
 
             HasMany::make('Ticket Types'),
