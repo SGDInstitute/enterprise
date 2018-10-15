@@ -45,7 +45,7 @@ class Receipt extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -60,34 +60,40 @@ class Receipt extends Resource
                     return money_format('$%.2n', $amount / 100);
                 }),
 
-            new Panel('Charge Details', [
-                Text::make('Card Number', function() {
+            new Panel('Charge Details', $this->stripeDetails()),
+        ];
+    }
+
+    private function stripeDetails()
+    {
+        if ($this->charge()) {
+            return [
+                Text::make('Card Number', function () {
                     return '****-****-****-' . $this->card_last_four;
                 }),
-
-                Text::make('Address', function() {
+                Text::make('Address', function () {
                     return $this->charge()['source']['address_line1'];
                 }),
-                Text::make('Address Line 2', function() {
+                Text::make('Address Line 2', function () {
                     return $this->charge()['source']['address_line2'];
                 }),
-                Text::make('City', function() {
+                Text::make('City', function () {
                     return $this->charge()['source']['address_city'];
                 }),
-                Text::make('State', function() {
+                Text::make('State', function () {
                     return $this->charge()['source']['address_state'];
                 }),
-                Text::make('Zip', function() {
+                Text::make('Zip', function () {
                     return $this->charge()['source']['address_zip'];
                 }),
-            ]),
-        ];
+            ];
+        }
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -98,7 +104,7 @@ class Receipt extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -109,7 +115,7 @@ class Receipt extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -120,7 +126,7 @@ class Receipt extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)

@@ -3,22 +3,22 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Currency;
-use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
 
-class Donation extends Resource
+class Subscription extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Donation';
+    public static $model = 'App\Subscription';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -45,20 +45,11 @@ class Donation extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->hideFromIndex(),
-            BelongsTo::make('User')->sortable(),
-            Currency::make('Amount')
-                ->displayUsing(function ($amount) {
-                    return money_format('$%.2n', $amount / 100);
-                })->sortable(),
-            Text::make('Group')->sortable(),
-            Text::make('Name')->sortable(),
-            Text::make('Email')->sortable(),
-            Text::make('Company')->sortable(),
-            Text::make('Tax ID')->sortable(),
-
-            HasOne::make('Receipt'),
-            HasOne::make('Subscription'),
+            ID::make()->sortable(),
+            BelongsTo::make('Donation'),
+            Text::make('Plan')->sortable(),
+            Date::make('Next Charge')->sortable(),
+            Boolean::make('Active')->sortable(),
         ];
     }
 

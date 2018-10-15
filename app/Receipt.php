@@ -27,9 +27,20 @@ class Receipt extends Model
 
     public function charge()
     {
-        if ($this->order->isCard()) {
+        if(starts_with($this->transaction_id, 'ch')) {
+            $stripe = $this->order->event->stripe ?? $this->donation->group;
             return Charge::retrieve($this->transaction_id, [
-                'api_key' => config($this->order->event->stripe . '.stripe.secret'),
+                'api_key' => config($stripe . '.stripe.secret'),
+            ]);
+        }
+    }
+
+    public function subscription()
+    {
+        if(starts_with($this->transaction_id, 'sub')) {
+            $stripe = $this->order->event->stripe ?? $this->donation->group;
+            return \Stripe\Subscription::retrieve($this->transaction_id, [
+                'api_key' => config($stripe . '.stripe.secret'),
             ]);
         }
     }
