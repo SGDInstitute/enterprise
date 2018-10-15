@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <h3 class="description-title">Event Description</h3>
+                <h3 class="description-title">About {{ $event->title }}</h3>
                 <ul class="fa-ul list-reset ml-6">
                     <li><span class="fa-li"><i class="fal fa-clock"></i></span>{{ $event->duration }}</li>
                     <li><span class="fa-li"><i class="fal fa-map-marker-alt"></i></span>{{ $event->place }} {{ $event->location }}</li>
@@ -53,7 +53,7 @@
                         Refund Policy <i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>
                 </p>
-                <div class="collapse" id="refund_policy">
+                <div class="collapse mb-4" id="refund_policy">
                     {!! $event->refund_policy !!}
                 </div>
                 @endif
@@ -64,8 +64,19 @@
                             Photo Policy <i class="fa fa-info-circle" aria-hidden="true"></i>
                         </a>
                     </p>
-                    <div class="collapse" id="photo_policy">
+                    <div class="collapse mb-4" id="photo_policy">
                         {!! $event->photo_policy !!}
+                    </div>
+                @endif
+
+                @if($event->inclusion_policy)
+                    <p>
+                        <a data-toggle="collapse" href="#inclusion_policy" role="button" aria-expanded="false" aria-controls="inclusion_policy">
+                            Code for Inclusion <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </a>
+                    </p>
+                    <div class="collapse mb-4" id="inclusion_policy">
+                        {!! $event->inclusion_policy !!}
                     </div>
                 @endif
             </div>
