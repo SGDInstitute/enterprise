@@ -12,11 +12,11 @@
                 steps: [
                     {
                         target: '#pay',
-                        content: `Discover <strong>Vue Tour</strong>!`
+                        content: 'Pay with a credit card or by check.'
                     },
                     {
                         target: '#invoice',
-                        content: 'An awesome plugin made with Vue.js!'
+                        content: 'Or create an invoice to pay within 60 days.'
                     }
                 ]
             }

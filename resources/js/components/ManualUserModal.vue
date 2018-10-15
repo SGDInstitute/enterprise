@@ -110,6 +110,21 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-9 ml-auto">
+                                <div class="form-check pl-4">
+                                    <label class="form-check-label" :class="{'is-invalid': form.errors.has('agreement')}" for="agreement">
+                                        <input class="form-check-input" type="checkbox" name="agreement" id="agreement" :value="true" v-model="form.agreement">
+                                        I have provided the <a href="/events/mblgtacc-2019" target="_blank">code for inclusion</a>
+                                        and <a href="/events/mblgtacc-2019" target="_blank">photo policy</a> to this attendee.
+                                    </label>
+                                </div>
+                                <span class="invalid-feedback" :class="{'block': form.errors.has('agreement')}"
+                                      v-show="form.errors.has('agreement')">
+                                    {{ form.errors.get('agreement') }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-9 ml-auto">
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" value="true" v-model="form.send_email">
@@ -153,6 +168,7 @@
                     college: '',
                     tshirt: '',
                     accommodation: '',
+                    agreement: false,
                     send_email: false,
                     message: ''
                 }),

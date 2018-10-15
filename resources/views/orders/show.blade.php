@@ -59,7 +59,7 @@
                 @include('flash::message')
 
                 @if(Auth::user()->can('update', $order))
-                    <modal-button class="btn btn-primary pull-right btn-sm" event="showInviteUsers">
+                    <modal-button class="btn btn-primary float-right btn-sm" event="showInviteUsers">
                         Invite users to fill out information
                     </modal-button>
                 @endif

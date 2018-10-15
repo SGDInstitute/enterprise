@@ -18,7 +18,7 @@ class Profile extends Model
         'college',
         'tshirt',
         'accommodation',
-        'wants_program',
+        'agreement',
     ];
 
     protected $dates = ['deleted_at'];
