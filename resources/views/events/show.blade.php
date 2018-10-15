@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <h3 class="description-title">Event Description</h3>
+                <h3 class="description-title">About {{ $event->title }}</h3>
                 <ul class="fa-ul list-reset ml-6">
                     <li><span class="fa-li"><i class="fal fa-clock"></i></span>{{ $event->duration }}</li>
                     <li><span class="fa-li"><i class="fal fa-map-marker-alt"></i></span>{{ $event->place }} {{ $event->location }}</li>
