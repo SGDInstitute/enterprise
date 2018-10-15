@@ -4464,7 +4464,7 @@ pngquant-bin@^3.0.0:
     bin-wrapper "^3.0.0"
     logalot "^2.0.0"
 
-popper.js@^1.14.3:
+popper.js@^1.12.9, popper.js@^1.14.3:
   version "1.14.4"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
 
@@ -6210,9 +6210,21 @@ vue-template-es2015-compiler@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.3.tgz#22787de4e37ebd9339b74223bc467d1adee30545"
 
+vue-tour@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-tour/-/vue-tour-1.0.1.tgz#70062f265db8391fc25f44da8ffcf80dd72169e6"
+  dependencies:
+    hash-sum "^1.0.2"
+    popper.js "^1.12.9"
+    vue "^2.5.13"
+
 vue@^2.1.10:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.4.tgz#ea9550b96a71465fd2b8b17b61673b3561861789"
+
+vue@^2.5.13:
+  version "2.5.17"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
 
 ware@^1.2.0:
   version "1.3.0"

@@ -11,7 +11,7 @@ class OtherResponseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Survey::create([
+        \App\Form::create([
             'name'      => 'Other Response Test',
             'slug'      => str_slug('other-test'),
             'list_id'   => '8ghda09IULHIUdjwefd98we4',

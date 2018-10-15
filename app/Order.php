@@ -83,6 +83,11 @@ class Order extends Model
         return $query->whereNotNull('confirmation_number');
     }
 
+    public function scopeUnpaid($query)
+    {
+        return $query->whereNull('confirmation_number');
+    }
+
     public function markAsPaid($charge)
     {
         $this->receipt()->create([

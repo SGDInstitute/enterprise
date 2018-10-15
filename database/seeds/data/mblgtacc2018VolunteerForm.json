@@ -105,9 +105,5 @@
         "type": "section",
         "question": "Disclaimer",
         "description": "If you want to experience the conference outside of your volunteer hours, you are agreeing to pay full registration cost, regardless of volunteering. More information about pricing can be found at <a href='https://mblgtacc.org/registration' target='_blank'>mblgtacc.org/registration</a>."
-    },
-    {
-        "id": "submit",
-        "question": "Submit Volunteer Interest Form"
     }
 ]

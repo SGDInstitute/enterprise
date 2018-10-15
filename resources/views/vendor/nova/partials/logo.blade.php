@@ -1,0 +1,1 @@
+<img src="{{ asset('img/enterprise.png') }}" alt="Enterprise">

@@ -29,4 +29,12 @@ class Response extends Model
     {
         return $this->belongsTo(Form::class);
     }
+
+    /**
+     * Get the survey that owns the response.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

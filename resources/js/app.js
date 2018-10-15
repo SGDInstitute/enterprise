@@ -5,6 +5,10 @@ require('bootstrap');
 
 window.Vue = require('vue');
 
+import VueTour from 'vue-tour';
+require('vue-tour/dist/vue-tour.css');
+Vue.use(VueTour);
+
 require('./forms/bootstrap');
 
 const eventHub = new Vue();
@@ -42,6 +46,9 @@ Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue')
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue'));
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue'));
 Vue.component('dynamic-form', require('./components/voyager/DynamicForm.vue'));
+
+Vue.component('pay-tour', require('./components/PayTour.vue'));
+Vue.component('invite-tour', require('./components/InviteTour.vue'));
 
 const app = new Vue({
     el: '#app'
