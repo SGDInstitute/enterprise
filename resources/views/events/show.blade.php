@@ -15,13 +15,11 @@
             </div>
         </div>
         <div class="hero-bar clearfix">
-            <div class="container">
-                <div class="pull-left">
-                    {{ $event->formatted_start }}
-                    <br/>
-                    {{ $event->formatted_end }}
+            <div class="container flex justify-between">
+                <div>
+                    {{ $event->formatted_start }}<br/>{{ $event->formatted_end }}
                 </div>
-                <div class="pull-right text-right">
+                <div class="text-right">
                     {{ $event->place }}<br/>{{ $event->location }}
                 </div>
             </div>
