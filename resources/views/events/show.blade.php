@@ -3,15 +3,15 @@
 @section('title', $event->title)
 
 @section('hero')
-    <section class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ $event->image }})">
+    <section class="hero bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ Storage::url($event->image) }})">
         <div class="container">
             <div class="hero-titles">
                 @if(isset($event->logo_light))
-                    <img src="{{ $event->logo_light }}" alt="{{ $event->title }} Logo" style="min-width: 250px; width: 50%;">
+                    <img src="{{ Storage::url($event->logo_light) }}" alt="{{ $event->title }} Logo" style="min-width: 250px; width: 50%;">
                 @else
                     <h1 class="display-3">{{ $event->title }}</h1>
                 @endif
-                <h2>{{ $event->subtitle }}</h2>
+                <h2 class="mt-4">{{ $event->subtitle }}</h2>
             </div>
         </div>
         <div class="hero-bar clearfix">
@@ -40,7 +40,7 @@
                 </ul>
                 @if($event->description)
                     <div class="description-content">
-                        {{ $event->description }}
+                        {!! $event->description !!}
                     </div>
                 @endif
 
@@ -56,6 +56,17 @@
                 <div class="collapse" id="refund_policy">
                     {!! $event->refund_policy !!}
                 </div>
+                @endif
+
+                @if($event->photo_policy)
+                    <p>
+                        <a data-toggle="collapse" href="#photo_policy" role="button" aria-expanded="false" aria-controls="photo_policy">
+                            Photo Policy <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="photo_policy">
+                        {!! $event->photo_policy !!}
+                    </div>
                 @endif
             </div>
             <div class="col-lg-4">

@@ -5,12 +5,12 @@
 
         @if(Auth::user()->can('update', $order))
             @if(! $order->tickets->pluck('user_id')->contains(Auth::user()->id))
-                <add-user-button class="card-link" ticket="{{ $ticket->hash }}" user="{{ Auth::user()->id }}"></add-user-button>
+                <add-user-button id="me" class="card-link" ticket="{{ $ticket->hash }}" user="{{ Auth::user()->id }}"></add-user-button>
             @endif
-            <modal-button class="card-link" event="showManualUserModal" payload="{{ $ticket->hash }}">
+            <modal-button id="manually" class="card-link" event="showManualUserModal" payload="{{ $ticket->hash }}">
                 Manually add information
             </modal-button>
-            <modal-button class="card-link" event="showInviteUsers">
+            <modal-button id="invite" class="card-link" event="showInviteUsers">
                 Invite users to fill out information
             </modal-button>
         @endif

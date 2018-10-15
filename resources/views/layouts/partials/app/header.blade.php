@@ -4,7 +4,7 @@
             @if(isset($event))
                 <a class="navbar-brand" href="{{ Auth::guest() ? '/' : '/home' }}">
                     @if(isset($event->logo_dark))
-                        <img src="{{ $event->logo_dark }}" alt="{{ $event->title }} Logo" class="img-fluid" style="max-width: 35%">
+                        <img src="{{ Storage::url($event->logo_dark) }}" alt="{{ $event->title }} Logo" class="img-fluid" width="265px">
                     @else
                         {{ $event->title }}
                     @endif
@@ -31,7 +31,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Create an Account</a></li>
                     @else
                         @can('view_dashboard')
-                            <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/nova">Admin</a></li>
                         @endcan
                         <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                         <li class="nav-item dropdown">

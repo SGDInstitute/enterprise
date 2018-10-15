@@ -10,12 +10,14 @@ class Subscription extends Model
 
     protected $casts = ['active' => 'boolean'];
 
+    protected $dates = ['next_charge', 'ended_at'];
+
     /**
      * Get the donation that owns the subscription.
      */
     public function donation()
     {
-        return $this->belongsTo('App\Models\Sponsorship\Donation');
+        return $this->belongsTo('App\Donation');
     }
 
     public function isActive()

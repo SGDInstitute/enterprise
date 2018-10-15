@@ -1,14 +1,14 @@
 <div class="col-lg-6 mb-4">
     <a href="/orders/{{ $order->id }}" class="card card-background-image"
-       style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ $order->event->image }})">
+       style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ Storage::url($order->event->image) }})">
         <div class="card-body text-white">
             @if(isset($order->event->logo_light))
-                <img src="{{ $order->event->logo_light }}" alt="{{ $order->event->title }} Logo"
+                <img src="{{ Storage::url($order->event->logo_light) }}" alt="{{ $order->event->title }} Logo"
                      style="width: 75%; margin-bottom: .5em;">
             @else
                 <h4 class="card-title">{{ $order->event->title }}</h4>
             @endif
-            <ul class="fa-ul list-reset ml-6">
+            <ul class="fa-ul list-reset ml-6 mt-2">
                 <li><span class="fa-li"><i class="fal fa-clock"></i></span>
                     {{ $order->event->formatted_start }} -
                     {{ $order->event->formatted_end }}, {{ $order->event->end->format('Y') }}
