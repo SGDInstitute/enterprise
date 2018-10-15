@@ -2,14 +2,15 @@
     <form @submit.prevent="submit">
         <div class="card" v-for="(type, index) in ticket_types">
             <div class="card-body">
-                <h2 class="card-title">{{ type.formatted_cost }}
-                    <span v-if="type.is_open" class="pull-right col-md-6 pr-0">
+                <h2 class="card-title md:flex md:justify-between">
+                    {{ type.formatted_cost }}
+                    <span v-if="type.is_open" class="col-md-6 pr-0">
                         <label :for="'ticket_quantity'+index" class="sr-only">Ticket Quantity</label>
                         <input type="number" :id="'ticket_quantity'+index" class="form-control" min="0"
                                v-model="form.tickets[index].quantity"
                                placeholder="Quantity">
                     </span>
-                    <small class="pull-right" v-else data-toggle="tooltip" data-placement="top"
+                    <small v-else data-toggle="tooltip" data-placement="top"
                            :title="'Opens on ' + formatDate(type.availability_start)">Closed
                     </small>
                 </h2>
