@@ -7,7 +7,7 @@
         <div class="container">
             <div class="hero-titles">
                 @if(isset($event->logo_light))
-                    <img src="{{ $event->logo_light }}" alt="{{ $event->title }} Logo" style="min-width: 250px; width: 50%;">
+                    <img src="{{ Storage::url($event->logo_light) }}" alt="{{ $event->title }} Logo" style="min-width: 250px; width: 50%;">
                 @else
                     <h1 class="display-3">{{ $event->title }}</h1>
                 @endif
