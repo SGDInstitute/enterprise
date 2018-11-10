@@ -2,7 +2,9 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\MarkAsPaid;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -49,16 +51,19 @@ class Invoice extends Resource
             Text::make('Invoice #', function() {
                 return '#' . str_pad($this->id, 6, "0", STR_PAD_LEFT);
             }),
+            BelongsTo::make('Order'),
+            Boolean::make('Is Paid', function() {
+                return $this->order->isPaid();
+            }),
             Text::make('Name'),
             Text::make('Email'),
-            Text::make('Address'),
-            Text::make('Address 2'),
-            Text::make('City'),
-            Text::make('State'),
-            Text::make('Zip'),
+            Text::make('Address')->hideFromIndex(),
+            Text::make('Address 2')->hideFromIndex(),
+            Text::make('City')->hideFromIndex(),
+            Text::make('State')->hideFromIndex(),
+            Text::make('Zip')->hideFromIndex(),
             Date::make('Due Date'),
 
-            BelongsTo::make('Order'),
         ];
     }
 
@@ -103,6 +108,8 @@ class Invoice extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new MarkAsPaid,
+        ];
     }
 }
