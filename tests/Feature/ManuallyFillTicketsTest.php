@@ -228,7 +228,8 @@ class ManuallyFillTicketsTest extends TestCase
                 'race' => 'White',
                 'college' => 'Hogwarts',
                 'tshirt' => 'L',
-                'accommodation' => 'My scar hurts sometimes'
+                'accommodation' => 'My scar hurts sometimes',
+                'agreement' => true
             ]);
 
         $response->assertStatus(200);

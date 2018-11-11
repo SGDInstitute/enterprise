@@ -75,7 +75,8 @@ class UserProfileTest extends TestCase
                 'race' => 'White',
                 'college' => 'Hogwarts',
                 'tshirt' => 'M',
-                'accommodation' => 'My scar hurts sometimes.'
+                'accommodation' => 'My scar hurts sometimes.',
+                'agreement' => true
             ]);
 
         $response->assertStatus(200);
@@ -110,7 +111,8 @@ class UserProfileTest extends TestCase
                 'race' => 'White',
                 'college' => 'Hogwarts',
                 'tshirt' => 'M',
-                'accommodation' => 'My scar hurts sometimes.'
+                'accommodation' => 'My scar hurts sometimes.',
+                'agreement' => true,
             ]);
 
         $response->assertStatus(200);
