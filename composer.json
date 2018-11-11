@@ -19,9 +19,11 @@
         "laravel/framework": "5.7.*",
         "laravel/nova": "*",
         "laravel/tinker": "~1.0",
-        "maatwebsite/excel": "^2.1",
+        "maatwebsite/excel": "^3.0",
+        "maatwebsite/laravel-nova-excel": "^1.1",
         "sentry/sentry": "^1.7",
         "sentry/sentry-laravel": "^0.8.0",
+        "sgd/enterprise-admin-theme": "*",
         "sgd/form-builder": "*",
         "sgd/form-response": "*",
         "sgd/links": "*",
@@ -29,8 +31,7 @@
         "spatie/laravel-permission": "^2.6",
         "stripe/stripe-php": "^5.1",
         "vinkla/hashids": "^5.0",
-        "vyuldashev/nova-permission": "^1.4",
-        "sgd/enterprise-admin-theme": "*"
+        "vyuldashev/nova-permission": "^1.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
