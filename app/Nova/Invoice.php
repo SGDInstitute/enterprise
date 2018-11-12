@@ -53,7 +53,7 @@ class Invoice extends Resource
             }),
             BelongsTo::make('Order'),
             Boolean::make('Is Paid', function() {
-                return $this->order->isPaid();
+                return optional($this->order)->isPaid();
             }),
             Text::make('Name'),
             Text::make('Email'),
