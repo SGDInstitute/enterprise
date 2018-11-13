@@ -3,6 +3,7 @@
 namespace App\Nova\Actions;
 
 use App\Exports\ResponsesExport;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Bus\Queueable;
 use Laravel\Nova\Actions\Action;
 use Illuminate\Support\Collection;
@@ -10,6 +11,7 @@ use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Laravel\Nova\Fields\Select;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -27,8 +29,15 @@ class DownloadResponses extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $form) {
-            $file = Excel::download(new ResponsesExport($form, $form->responses), "{$form->name}.xlsx");
-            return Action::download($this->getDownloadUrl($file, "{$form->name}.xlsx"), "{$form->name}.xlsx");
+            if($fields->type === 'excel') {
+                $file = Excel::download(new ResponsesExport($form, $form->responses), "{$form->name}.xlsx");
+                return Action::download($this->getDownloadUrl($file, "{$form->name}.xlsx"), "{$form->name}.xlsx");
+            }
+            elseif($fields->type === 'pdf') {
+                $file = PDF::loadView('exports.voyager.pdf.responses', ['form' => $form]);
+                $file->save("temp/{$form->name}.pdf");
+                return Action::download(url("temp/{$form->name}.pdf"), "{$form->name}.pdf");
+            }
         }
         return Action::message('It worked! ');
     }
@@ -40,7 +49,12 @@ class DownloadResponses extends Action
      */
     public function fields()
     {
-        return [];
+        return [
+            Select::make('Type')->options([
+                'excel' => 'Excel',
+                'pdf' => 'PDF',
+            ])
+        ];
     }
 
     protected function getDownloadUrl(BinaryFileResponse $response, $filename): string

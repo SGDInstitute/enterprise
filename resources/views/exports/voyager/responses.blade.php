@@ -10,7 +10,7 @@
     @foreach($responses as $response)
     <tr>
         @foreach($form->form as $question)
-            @if(is_array($response->responses[$question['id']]))
+            @if(isset($response->responses[$question['id']]) && is_array($response->responses[$question['id']]))
             <td>
                 @foreach($response->responses[$question['id']] as $item)
                     @if(is_array($item))
