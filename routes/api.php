@@ -16,3 +16,11 @@ Route::get('/orders/{number}', function (Request $request, $number) {
     $number = str_replace(['_', '-'], '', $number);
     return \App\Order::where('confirmation_number', $number)->with(['tickets.user.profile', 'receipt'])->firstOrFail();
 });
+
+Route::get('/tickets/{hash}', function (Request $request, $hash) {
+    return \App\Ticket::where('hash', $hash)->with(['user.profile'])->firstOrFail();
+});
+
+Route::post('/users/{user}', 'Api\UsersController@store');
+
+Route::post('/queue/{ids}', 'Api\QueueController@store');
