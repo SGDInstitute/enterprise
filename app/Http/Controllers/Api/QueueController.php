@@ -6,17 +6,23 @@ use App\Queue;
 use App\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Vinkla\Hashids\Facades\Hashids;
 
 class QueueController extends Controller
 {
     public function store($ids)
     {
-        Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
-            ->filter(function($ticket) {
+        $tickets = Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
+            ->filter(function ($ticket) {
                 return !Queue::where('ticket_id', $ticket->id)->exists();
-            })
-            ->each(function ($ticket) {
+            });
+
+        if ($tickets->count() > 0) {
+            $batch = Hashids::encode($tickets[0]->order->id);
+
+            $tickets->each(function ($ticket) use ($batch) {
                 Queue::create([
+                    'batch' => $batch,
                     'ticket_id' => $ticket->id,
                     'name' => $ticket->user->name,
                     'pronouns' => $ticket->user->profile->pronouns,
@@ -25,6 +31,7 @@ class QueueController extends Controller
                     'order_paid' => optional($ticket->order->receipt)->created_at,
                 ]);
             });
+        }
 
         return response()->json([], 201);
     }
