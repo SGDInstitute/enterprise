@@ -12,8 +12,12 @@ class QueueController extends Controller
     public function store($ids)
     {
         Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
+            ->filter(function($ticket) {
+                return !Queue::where('ticket_id', $ticket->id)->exists();
+            })
             ->each(function ($ticket) {
                 Queue::create([
+                    'ticket_id' => $ticket->id,
                     'name' => $ticket->user->name,
                     'pronouns' => $ticket->user->profile->pronouns,
                     'tshirt' => $ticket->user->profile->tshirt,
