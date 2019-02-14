@@ -145,7 +145,7 @@
             this.$http.get('/api/tickets/' + this.hash)
                 .then(response => {
                     this.ticket = response.data;
-                    
+
                     if(!_.isEmpty(response.data.user)) {
                         this.user = response.data.user;
                         this.profile = response.data.user.profile;
