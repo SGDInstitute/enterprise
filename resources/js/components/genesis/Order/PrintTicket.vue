@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click.prevent="print" class="btn btn-mint">Print</button>
+        <button @click.prevent="print" :disabled="disable" class="btn btn-mint">Print</button>
 
         <modal :show="show" @close="show = false">
             <div slot="body" class="px-6 py-8 bg-white">
@@ -17,7 +17,7 @@
     import Modal from './modal';
 
     export default {
-        props: ['order', 'tickets'],
+        props: ['order', 'tickets', 'disable'],
         data() {
             return {
                 show: false

@@ -4122,7 +4122,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['order', 'tickets'],
+  props: ['order', 'tickets', 'disable'],
   data: function data() {
     return {
       show: false
@@ -59482,6 +59482,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-mint",
+          attrs: { disabled: _vm.disable },
           on: {
             click: function($event) {
               $event.preventDefault()
