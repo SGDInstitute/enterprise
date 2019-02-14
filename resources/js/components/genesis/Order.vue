@@ -9,36 +9,39 @@
                     <small>{{ number }}</small>
                 </h1>
 
-                <div v-if="error === ''">
-                    <div class="mb-4 overflow-scroll max-h-85">
-                        <div v-for="ticket in order.tickets" :key="ticket.hash"
-                             class="border rounded mb-1 flex justify-between">
-                            <label class="text-lg p-4">
-                                <input type="checkbox" class="mr-2" v-model="tickets" :value="ticket">
-                                <span v-if="ticket.user_id" class="pt-px">
+                <div class="mb-4 overflow-y-scroll max-h-85">
+                    <div v-for="ticket in order.tickets" :key="ticket.hash"
+                         class="border rounded mb-1 flex justify-between">
+                        <label class="text-lg p-4">
+                            <input type="checkbox" class="mr-2" v-model="tickets" :value="ticket">
+                            <span v-if="ticket.user_id" class="pt-px">
                                     {{ ticket.user.name }}
                                     <small class="italic">({{ ticket.user.profile.pronouns ? ticket.user.profile.pronouns : 'not listed' }})</small>
                                 </span>
-                                <span v-else class="pt-px italic">
+                            <span v-else class="pt-px italic">
                                     No user added to ticket
                                 </span>
-                            </label>
-                            <div class="p-4">
-                                <router-link :to="'/tickets/' + ticket.hash"
-                                             class="no-underline p-2 rounded text-mint hover:bg-grey-lighter hover:text-mint-dark">
-                                    Edit
-                                </router-link>
-                            </div>
+                        </label>
+                        <div class="p-4">
+                            <router-link :to="'/tickets/' + ticket.hash"
+                                         class="no-underline p-2 rounded text-mint hover:bg-grey-lighter hover:text-mint-dark">
+                                Edit
+                            </router-link>
                         </div>
                     </div>
-
-                    <button class="btn btn-mint" :disabled="cannotPrint" @click="print">Print</button>
                 </div>
-                <div v-else>
+
+                <div v-show="!isPaid">
+                    <pay-with-card :order="order"></pay-with-card>
+                    <!--<pay-with-check :order="order"></pay-with-check>-->
+                </div>
+                <button class="btn btn-mint" :disabled="cannotPrint" @click="print">Print</button>
+
+                <div v-if="error">
                     <p class="text-lg">{{ error }}</p>
                     <router-link to="/check-in"
-                                 class="no-underline mt-4 inline-block text-center rounded bg-blue px-3 py-2 text-white font-semibold hover:bg-blue-dark">
-                        Go Back
+                    class="no-underline mt-4 inline-block text-center rounded bg-blue px-3 py-2 text-white font-semibold hover:bg-blue-dark">
+                    Go Back
                     </router-link>
                 </div>
             </div>
@@ -47,6 +50,9 @@
 </template>
 
 <script>
+    import PayWithCard from './Order/PayWithCard'
+    import PayWithCheck from './Order/PayWithCheck'
+
     export default {
         name: 'order',
         props: ['number'],
@@ -72,7 +78,7 @@
         },
         methods: {
             print() {
-                let ids = _.map(this.tickets, function(ticket) {
+                let ids = _.map(this.tickets, function (ticket) {
                     return ticket.id;
                 }).join();
                 this.$http.post('/api/queue/' + ids);
@@ -83,7 +89,11 @@
                 return _.filter(this.tickets, function (ticket) {
                     return ticket.user_id;
                 }).length === 0;
+            },
+            isPaid() {
+                return !_.isEmpty(this.order.confirmation_number);
             }
-        }
+        },
+        components: {PayWithCard, PayWithCheck}
     }
 </script>

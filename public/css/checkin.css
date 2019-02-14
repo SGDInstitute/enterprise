@@ -3845,6 +3845,10 @@ table {
   margin-left: 1px;
 }
 
+.max-h-85 {
+  max-height: 85%;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -9686,6 +9690,10 @@ table {
     margin-left: 1px;
   }
 
+  .sm\:max-h-85 {
+    max-height: 85%;
+  }
+
   .sm\:max-h-full {
     max-height: 100%;
   }
@@ -15510,6 +15518,10 @@ table {
 
   .md\:ml-px {
     margin-left: 1px;
+  }
+
+  .md\:max-h-85 {
+    max-height: 85%;
   }
 
   .md\:max-h-full {
@@ -21338,6 +21350,10 @@ table {
     margin-left: 1px;
   }
 
+  .lg\:max-h-85 {
+    max-height: 85%;
+  }
+
   .lg\:max-h-full {
     max-height: 100%;
   }
@@ -27162,6 +27178,10 @@ table {
 
   .xl\:ml-px {
     margin-left: 1px;
+  }
+
+  .xl\:max-h-85 {
+    max-height: 85%;
   }
 
   .xl\:max-h-full {

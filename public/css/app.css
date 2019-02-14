@@ -14684,6 +14684,10 @@ a.card:hover {
   margin-left: 1px;
 }
 
+.max-h-85 {
+  max-height: 85%;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -20551,6 +20555,10 @@ body {
     margin-left: 1px;
   }
 
+  .sm\:max-h-85 {
+    max-height: 85%;
+  }
+
   .sm\:max-h-full {
     max-height: 100%;
   }
@@ -26375,6 +26383,10 @@ body {
 
   .md\:ml-px {
     margin-left: 1px;
+  }
+
+  .md\:max-h-85 {
+    max-height: 85%;
   }
 
   .md\:max-h-full {
@@ -32203,6 +32215,10 @@ body {
     margin-left: 1px;
   }
 
+  .lg\:max-h-85 {
+    max-height: 85%;
+  }
+
   .lg\:max-h-full {
     max-height: 100%;
   }
@@ -38027,6 +38043,10 @@ body {
 
   .xl\:ml-px {
     margin-left: 1px;
+  }
+
+  .xl\:max-h-85 {
+    max-height: 85%;
   }
 
   .xl\:max-h-full {
