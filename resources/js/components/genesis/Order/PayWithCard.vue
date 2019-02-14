@@ -1,7 +1,5 @@
 <template>
-    <button class="btn btn-mint" @click.prevent="pay">
-        <i class="fal fa-credit-card fa-fw ml-2" aria-hidden="true"></i> Pay with Card
-    </button>
+    <button class="btn btn-mint" @click.prevent="pay">Pay with Card</button>
 </template>
 
 <script>

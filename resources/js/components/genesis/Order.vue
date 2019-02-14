@@ -31,11 +31,11 @@
                     </div>
                 </div>
 
-                <div v-show="!isPaid">
+                <div v-if="!isPaid">
                     <pay-with-card :order="order"></pay-with-card>
-                    <!--<pay-with-check :order="order"></pay-with-check>-->
+                    <pay-with-check class="inline-block" :order="order"></pay-with-check>
                 </div>
-                <button class="btn btn-mint" :disabled="cannotPrint" @click="print">Print</button>
+                <button v-else class="btn btn-mint" :disabled="cannotPrint" @click="print">Print</button>
 
                 <div v-if="error">
                     <p class="text-lg">{{ error }}</p>

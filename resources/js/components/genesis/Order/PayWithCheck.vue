@@ -1,21 +1,26 @@
 <template>
-    <a href="#" class="list-group-item list-group-item-primary" @click.prevent="show">
-        <i class="fal fa-fw fa-usd-circle ml-2"></i> Pay with Check
-    </a>
+    <div>
+        <button @click.prevent="show = true" class="btn btn-mint">Pay with Check</button>
+
+        <modal :show="show" @close="show = false">
+            <form slot="body" class="px-6 py-8 bg-white">
+                <p class="leading-normal mb-2">Your order total is ${{ order.amount/100 }}. Please make checks payable to the Midwest Institute for Sexuality and Gender Diversity.</p>
+                <p class="leading-normal">On the memo line please write: Order {{ order.id }}</p>
+            </form>
+        </modal>
+    </div>
 </template>
 
 <script>
+    import Modal from './modal';
+
     export default {
         props: ['order'],
-        methods: {
-            show() {
-                if (this.order.invoice === null) {
-                    this.eventHub.$emit('showInvoiceForm', 'create');
-                }
-                else {
-                    this.eventHub.$emit('showViewInvoice');
-                }
+        data() {
+            return {
+                show: false
             }
-        }
+        },
+        components: {Modal}
     }
 </script>
