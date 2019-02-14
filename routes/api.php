@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/orders/{number}', 'Api\OrdersController@show');
+Route::post('/orders/{order}/charge', 'Api\OrderChargeController@store');
 
 Route::get('/tickets/{hash}', 'Api\TicketsController@show');
 Route::patch('/tickets/{hash}', 'Api\TicketsController@update');

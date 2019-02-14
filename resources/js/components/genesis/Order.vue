@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <div v-if="!isPaid">
+                <div v-if="!isPaid && orderIsReady">
                     <pay-with-card :order="order"></pay-with-card>
                     <pay-with-check class="inline-block" :order="order"></pay-with-check>
                 </div>
@@ -92,6 +92,9 @@
             },
             isPaid() {
                 return !_.isEmpty(this.order.confirmation_number);
+            },
+            orderIsReady() {
+                return !_.isEmpty(this.order);
             }
         },
         components: {PayWithCard, PayWithCheck}

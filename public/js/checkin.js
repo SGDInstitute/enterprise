@@ -3975,6 +3975,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     isPaid: function isPaid() {
       return !_.isEmpty(this.order.confirmation_number);
+    },
+    orderIsReady: function orderIsReady() {
+      return !_.isEmpty(this.order);
     }
   },
   components: {
@@ -4028,7 +4031,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.form.stripeToken = _token.id;
           _this.form.stripeEmail = _token.email;
 
-          _this.$http.post('/orders/' + _this.order.id + '/charge', _this.form).then(function (response) {
+          _this.$http.post('/api/orders/' + _this.order.id + '/charge', _this.form).then(function (response) {
             location.reload();
           }).catch(function (response) {
             alert(response.message);
@@ -59218,7 +59221,7 @@ var render = function() {
               0
             ),
             _vm._v(" "),
-            !_vm.isPaid
+            !_vm.isPaid && _vm.orderIsReady
               ? _c(
                   "div",
                   [

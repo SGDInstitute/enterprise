@@ -31,7 +31,7 @@
                         this.form.stripeToken = token.id;
                         this.form.stripeEmail = token.email;
 
-                        this.$http.post('/orders/' + this.order.id + '/charge', this.form)
+                        this.$http.post('/api/orders/' + this.order.id + '/charge', this.form)
                             .then(response => {
                                 location.reload();
                             })
