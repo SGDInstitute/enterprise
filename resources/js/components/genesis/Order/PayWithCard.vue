@@ -30,13 +30,15 @@
                     token: (token) => {
                         this.form.stripeToken = token.id;
                         this.form.stripeEmail = token.email;
+                        let self = this;
 
                         this.$http.post('/api/orders/' + this.order.id + '/charge', this.form)
                             .then(response => {
-                                location.reload();
+                                self.$toasted.success('Successfully paid for this order! Now you can start printing your name badges.');
                             })
-                            .catch(response => {
-                                alert(response.message);
+                            .catch(error => {
+                                console.log(error);
+                                alert(error.message);
                             })
                     }
                 });

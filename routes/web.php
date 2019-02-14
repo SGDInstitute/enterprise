@@ -26,5 +26,6 @@ Route::get('/forms/{slug}', 'FormsResponsesController@create')->name('forms.crea
 Route::post('/forms/{form}/responses', 'FormsResponsesController@store');
 
 Route::get('/checkin', 'CheckInController');
+Route::get('/print/{ids}', 'PrintController');
 
 Route::get('/users/stop-impersonating', 'Admin\ImpersonationController@stopImpersonating')->name('admin.users.stop-impersonating');

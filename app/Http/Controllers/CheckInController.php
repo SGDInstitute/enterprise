@@ -8,6 +8,6 @@ class CheckInController extends Controller
 {
     public function __invoke()
     {
-        return view('checkin.index');
+        return view('genesis.checkin');
     }
 }

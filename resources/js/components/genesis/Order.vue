@@ -18,9 +18,7 @@
                                     {{ ticket.user.name }}
                                     <small class="italic">({{ ticket.user.profile.pronouns ? ticket.user.profile.pronouns : 'not listed' }})</small>
                                 </span>
-                            <span v-else class="pt-px italic">
-                                    No user added to ticket
-                                </span>
+                            <span v-else class="pt-px italic">No user added to ticket</span>
                         </label>
                         <div class="p-4">
                             <router-link :to="'/tickets/' + ticket.hash"
@@ -35,7 +33,9 @@
                     <pay-with-card :order="order"></pay-with-card>
                     <pay-with-check class="inline-block" :order="order"></pay-with-check>
                 </div>
-                <button v-else class="btn btn-mint" :disabled="cannotPrint" @click="print">Print</button>
+                <div v-else>
+                    <print-ticket class="inline-block" :disable="cannotPrint" :order="order" :tickets="tickets"></print-ticket>
+                </div>
 
                 <div v-if="error">
                     <p class="text-lg">{{ error }}</p>
@@ -52,6 +52,7 @@
 <script>
     import PayWithCard from './Order/PayWithCard'
     import PayWithCheck from './Order/PayWithCheck'
+    import PrintTicket from './Order/PrintTicket'
 
     export default {
         name: 'order',
@@ -97,6 +98,6 @@
                 return !_.isEmpty(this.order);
             }
         },
-        components: {PayWithCard, PayWithCheck}
+        components: {PayWithCard, PayWithCheck, PrintTicket}
     }
 </script>
