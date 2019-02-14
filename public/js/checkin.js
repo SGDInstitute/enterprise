@@ -4017,6 +4017,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
+    console.log(this.order);
     this.form.amount = this.order.amount;
     this.configure();
   },

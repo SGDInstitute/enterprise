@@ -16,6 +16,7 @@
             }
         },
         created() {
+            console.log(this.order);
             this.form.amount = this.order.amount;
             this.configure();
         },
