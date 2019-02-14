@@ -2,7 +2,7 @@
     <div class="flex -mx-4 h-full">
         <router-link :to="'/orders/' + orderId" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest">< Back</router-link>
         <div class="w-1/2 mx-auto">
-            <div class="shadow-sm bg-white p-8 h-full overflow-hidden">
+            <div class="shadow bg-white p-8 h-full overflow-hidden">
                 <h1 class="text-3xl font-normal mb-8 text-blue-darker">Ticket:
                     <small>{{ hash }}</small>
                 </h1>

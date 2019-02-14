@@ -57799,7 +57799,7 @@ var render = function() {
         [_vm._v("< Back")]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "shadow-sm bg-white p-8 h-full mx-auto" }, [
+      _c("div", { staticClass: "shadow bg-white p-8 h-full mx-auto" }, [
         _c(
           "h1",
           { staticClass: "text-2xl font-normal mb-8 text-blue-darker" },
@@ -58257,7 +58257,7 @@ var render = function() {
       _c("div", { staticClass: "w-1/2 mx-auto" }, [
         _c(
           "div",
-          { staticClass: "shadow-sm bg-white p-8 h-full overflow-hidden" },
+          { staticClass: "shadow bg-white p-8 h-full overflow-hidden" },
           [
             _c(
               "h1",
@@ -58461,7 +58461,7 @@ var render = function() {
       _c("div", { staticClass: "w-1/2 mx-auto" }, [
         _c(
           "div",
-          { staticClass: "shadow-sm bg-white p-8 h-full overflow-hidden" },
+          { staticClass: "shadow bg-white p-8 h-full overflow-hidden" },
           [
             _c(
               "h1",

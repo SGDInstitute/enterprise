@@ -1,7 +1,7 @@
 <template>
     <div class="flex -mx-4 h-full">
         <router-link to="/" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest">< Back</router-link>
-        <div class="shadow-sm bg-white p-8 h-full mx-auto">
+        <div class="shadow bg-white p-8 h-full mx-auto">
             <h1 class="text-2xl font-normal mb-8 text-blue-darker">Scan Your QR Code</h1>
 
             <video id="preview" class="w-64 border border-grey mx-auto mb-4 bg-grey-lighter block mx-auto"></video>
