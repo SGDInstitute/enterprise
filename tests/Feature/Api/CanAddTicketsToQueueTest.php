@@ -8,7 +8,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class CanAddTicketsToQueue extends TestCase
+class CanAddTicketsToQueueTest extends TestCase
 {
     use RefreshDatabase;
 
