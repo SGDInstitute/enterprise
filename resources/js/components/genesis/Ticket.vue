@@ -1,6 +1,6 @@
 <template>
     <div class="flex -mx-4 h-full">
-        <router-link :to="'/orders/' + number" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest">< Back</router-link>
+        <router-link :to="'/orders/' + orderId" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest">< Back</router-link>
         <div class="w-1/2 mx-auto">
             <div class="shadow-sm bg-white p-8 h-full overflow-hidden">
                 <h1 class="text-3xl font-normal mb-8 text-blue-darker">Ticket:
@@ -110,7 +110,7 @@
                             <div class="md:w-1/4"></div>
                             <div class="md:w-3/4">
                                 <button class="btn btn-mint" type="submit">Save</button>
-                                <router-link :to="'/orders/' + number" class="btn btn-link">Back to Order</router-link>
+                                <router-link v-if="ticket" :to="'/orders/' + orderId" class="btn btn-link">Back to Order</router-link>
                             </div>
                         </div>
                     </form>
@@ -145,9 +145,12 @@
             this.$http.get('/api/tickets/' + this.hash)
                 .then(response => {
                     this.ticket = response.data;
-                    this.user = response.data.user;
-                    this.profile = response.data.user.profile;
-                    this.loadForm();
+
+                    if(response.data.user.length > 0) {
+                        this.user = response.data.user;
+                        this.profile = response.data.user.profile;
+                        this.loadForm();
+                    }
                 });
         },
         methods: {
@@ -167,6 +170,11 @@
                     .then(response => {
                         self.$toasted.success('Successfully updated profile!', {duration: 2000});
                     })
+            }
+        },
+        computed: {
+            orderId() {
+                return this.number || this.ticket.order_id;
             }
         }
     }
