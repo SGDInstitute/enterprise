@@ -27,11 +27,17 @@ const routes = [
     },
     {
         path: '/orders/:number',
+        name: 'orders',
         component: require('./components/genesis/Order').default,
         props: true
     },
     {
         path: '/orders/:number/tickets/:hash',
+        component: require('./components/genesis/Ticket').default,
+        props: true
+    },
+    {
+        path: '/tickets/:hash',
         component: require('./components/genesis/Ticket').default,
         props: true
     },

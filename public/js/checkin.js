@@ -3666,6 +3666,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var Instascan = __webpack_require__(/*! instascan */ "./node_modules/instascan/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3673,6 +3685,7 @@ var Instascan = __webpack_require__(/*! instascan */ "./node_modules/instascan/i
   data: function data() {
     return {
       number: '',
+      hash: '',
       error: '',
       scanner: {}
     };
@@ -4114,10 +4127,13 @@ __webpack_require__.r(__webpack_exports__);
 
     this.$http.get('/api/tickets/' + this.hash).then(function (response) {
       _this.ticket = response.data;
-      _this.user = response.data.user;
-      _this.profile = response.data.user.profile;
 
-      _this.loadForm();
+      if (response.data.user.length > 0) {
+        _this.user = response.data.user;
+        _this.profile = response.data.user.profile;
+
+        _this.loadForm();
+      }
     });
   },
   methods: {
@@ -4138,6 +4154,11 @@ __webpack_require__.r(__webpack_exports__);
           duration: 2000
         });
       });
+    }
+  },
+  computed: {
+    orderId: function orderId() {
+      return this.number || this.ticket.order_id;
     }
   }
 });
@@ -57781,8 +57802,8 @@ var render = function() {
       _c("div", { staticClass: "shadow-sm bg-white p-8 h-full mx-auto" }, [
         _c(
           "h1",
-          { staticClass: "text-3xl font-normal mb-8 text-blue-darker" },
-          [_vm._v("Scan Your Ticket")]
+          { staticClass: "text-2xl font-normal mb-8 text-blue-darker" },
+          [_vm._v("Scan Your QR Code")]
         ),
         _vm._v(" "),
         _c("video", {
@@ -57791,7 +57812,7 @@ var render = function() {
           attrs: { id: "preview" }
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "text-center mb-16" }, [
+        _c("div", { staticClass: "text-center" }, [
           _c(
             "button",
             {
@@ -57813,10 +57834,12 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        _c("hr", { staticClass: "my-8 border-b border-grey-light" }),
+        _vm._v(" "),
         _c(
-          "h2",
+          "h1",
           { staticClass: "text-2xl font-normal mb-8 text-blue-darker" },
-          [_vm._v("Or Type Your Confirmation Number")]
+          [_vm._v("Type Your Confirmation Number")]
         ),
         _vm._v(" "),
         _c(
@@ -57856,6 +57879,60 @@ var render = function() {
                     staticClass:
                       "rounded rounded-l-none no-underline bg-blue px-4 flex items-center h-10 text-white font-semibold hover:bg-blue-dark",
                     attrs: { to: "/orders/" + _vm.number }
+                  },
+                  [_vm._v("Continue")]
+                )
+              ],
+              1
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("hr", { staticClass: "my-8 border-b border-grey-light" }),
+        _vm._v(" "),
+        _c(
+          "h1",
+          { staticClass: "text-2xl font-normal mb-8 text-blue-darker" },
+          [_vm._v("Type Your Ticket Number")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex flex-wrap items-stretch w-full mb-4 relative" },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.hash,
+                  expression: "hash"
+                }
+              ],
+              staticClass:
+                "flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative",
+              attrs: { type: "text" },
+              domProps: { value: _vm.hash },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.hash = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex -mr-px" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass:
+                      "rounded rounded-l-none no-underline bg-blue px-4 flex items-center h-10 text-white font-semibold hover:bg-blue-dark",
+                    attrs: { to: "/tickets/" + _vm.hash }
                   },
                   [_vm._v("Continue")]
                 )
@@ -58376,7 +58453,7 @@ var render = function() {
         {
           staticClass:
             "absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest",
-          attrs: { to: "/orders/" + _vm.number }
+          attrs: { to: "/orders/" + _vm.orderId }
         },
         [_vm._v("< Back")]
       ),
@@ -58670,14 +58747,16 @@ var render = function() {
                           [_vm._v("Save")]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-link",
-                            attrs: { to: "/orders/" + _vm.number }
-                          },
-                          [_vm._v("Back to Order")]
-                        )
+                        _vm.ticket
+                          ? _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-link",
+                                attrs: { to: "/orders/" + _vm.orderId }
+                              },
+                              [_vm._v("Back to Order")]
+                            )
+                          : _vm._e()
                       ],
                       1
                     )
@@ -75835,10 +75914,15 @@ var routes = [{
   component: __webpack_require__(/*! ./components/genesis/CheckIn */ "./resources/js/components/genesis/CheckIn.vue").default
 }, {
   path: '/orders/:number',
+  name: 'orders',
   component: __webpack_require__(/*! ./components/genesis/Order */ "./resources/js/components/genesis/Order.vue").default,
   props: true
 }, {
   path: '/orders/:number/tickets/:hash',
+  component: __webpack_require__(/*! ./components/genesis/Ticket */ "./resources/js/components/genesis/Ticket.vue").default,
+  props: true
+}, {
+  path: '/tickets/:hash',
   component: __webpack_require__(/*! ./components/genesis/Ticket */ "./resources/js/components/genesis/Ticket.vue").default,
   props: true
 }, {
