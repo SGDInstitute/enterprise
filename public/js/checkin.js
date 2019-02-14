@@ -4128,7 +4128,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$http.get('/api/tickets/' + this.hash).then(function (response) {
       _this.ticket = response.data;
 
-      if (response.data.user.length > 0) {
+      if (!_.isEmpty(response.data.user)) {
         _this.user = response.data.user;
         _this.profile = response.data.user.profile;
 
@@ -4149,8 +4149,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     save: function save() {
       var self = this;
-      this.$http.post('/api/users/' + this.user.id, this.form).then(function (response) {
-        self.$toasted.success('Successfully updated profile!', {
+      this.$http.patch('/api/tickets/' + this.hash, this.form).then(function (response) {
+        self.$toasted.success('Successfully updated profile! When ready, go back to order to print your name badge.', {
+          duration: 2000
+        });
+      }).catch(function (error) {
+        self.$toasted.error('Whoops looks like there was an issue!', {
           duration: 2000
         });
       });
@@ -58359,13 +58363,7 @@ var render = function() {
                                 {
                                   staticClass:
                                     "no-underline p-2 rounded text-mint hover:bg-grey-lighter hover:text-mint-dark",
-                                  attrs: {
-                                    to:
-                                      "/orders/" +
-                                      _vm.order.confirmation_number +
-                                      "/tickets/" +
-                                      ticket.hash
-                                  }
+                                  attrs: { to: "/tickets/" + ticket.hash }
                                 },
                                 [
                                   _vm._v(

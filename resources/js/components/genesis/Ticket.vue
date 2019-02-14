@@ -145,8 +145,8 @@
             this.$http.get('/api/tickets/' + this.hash)
                 .then(response => {
                     this.ticket = response.data;
-
-                    if(response.data.user.length > 0) {
+                    
+                    if(!_.isEmpty(response.data.user)) {
                         this.user = response.data.user;
                         this.profile = response.data.user.profile;
                         this.loadForm();
@@ -166,9 +166,12 @@
             },
             save() {
                 let self = this;
-                this.$http.post('/api/users/' + this.user.id, this.form)
+                this.$http.patch('/api/tickets/' + this.hash, this.form)
                     .then(response => {
-                        self.$toasted.success('Successfully updated profile!', {duration: 2000});
+                        self.$toasted.success('Successfully updated profile! When ready, go back to order to print your name badge.', {duration: 2000});
+                    })
+                    .catch(error => {
+                        self.$toasted.error('Whoops looks like there was an issue!', {duration: 2000});
                     })
             }
         },

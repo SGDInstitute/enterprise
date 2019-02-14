@@ -24,7 +24,7 @@
                                 </span>
                             </label>
                             <div class="p-4">
-                                <router-link :to="'/orders/' + order.confirmation_number + '/tickets/' + ticket.hash"
+                                <router-link :to="'/tickets/' + ticket.hash"
                                              class="no-underline p-2 rounded text-mint hover:bg-grey-lighter hover:text-mint-dark">
                                     Edit
                                 </router-link>
