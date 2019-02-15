@@ -22,6 +22,11 @@
                 choices: this.value,
             }
         },
+        created() {
+            if(_.isEmpty(this.value)) {
+                this.choices = [];
+            }
+        },
         methods: {
             addChoice() {
                 this.choices.push('');
