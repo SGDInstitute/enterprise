@@ -48,6 +48,7 @@ class Ticket extends Resource
             Text::make('Hash'),
             BelongsTo::make('User'),
             BelongsTo::make('Ticket Type'),
+            BelongsTo::make('Order'),
         ];
     }
 

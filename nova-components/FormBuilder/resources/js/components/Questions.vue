@@ -44,6 +44,12 @@
             }
         },
 
+        created() {
+            if(_.isEmpty(this.value)) {
+                this.questions = [];
+            }
+        },
+
         methods: {
             isOpen(key) {
                 return this.opened === key;
