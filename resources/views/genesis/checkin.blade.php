@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="bg-grey-lightest">
 <head>
     <meta charset="utf-8">
     <title>@yield('title') | Midwest Institute for Sexuality and Gender Diversity</title>
@@ -27,7 +27,7 @@
         ]);
     </script>
 </head>
-<body>
+<body class="bg-grey-lightest">
 <div id="app">
     <app></app>
 </div>

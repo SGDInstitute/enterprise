@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-full">
+    <div class="flex">
         <router-link to="/check-in" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest"><
             Back
         </router-link>

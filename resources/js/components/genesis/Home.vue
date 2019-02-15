@@ -1,5 +1,5 @@
 <template>
-    <div class="md:flex -mx-4 h-full">
+    <div class="md:flex -mx-4">
         <div class="w-full mb-4 md:mb-0 md:w-1/2 px-4">
             <check-in></check-in>
         </div>
