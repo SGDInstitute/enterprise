@@ -13,7 +13,9 @@
         "build-form-builder": "cd nova-components/FormBuilder && npm run dev",
         "build-form-builder-prod": "cd nova-components/FormBuilder && npm run prod",
         "build-form-response": "cd nova-components/FormResponse && npm run dev",
-        "build-form-response-prod": "cd nova-components/FormResponse && npm run prod"
+        "build-form-response-prod": "cd nova-components/FormResponse && npm run prod",
+        "build-checkin-queue": "cd nova-components/CheckinQueue && npm run dev",
+        "build-checkin-queue-prod": "cd nova-components/CheckinQueue && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",
