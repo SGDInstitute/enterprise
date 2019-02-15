@@ -12,7 +12,7 @@ class QueueController extends Controller
 {
     public function index()
     {
-        return Queue::where('completed', false)->get();
+        return Queue::where('completed', false)->get()->sortBy('created_at');
     }
 
     public function store($ids)

@@ -8,7 +8,7 @@
                 <div>
                     <a :href="'/print/' + selected" target="_blank" class="btn btn-default btn-primary">Print
                         Selected</a>
-                    <button class="btn btn-default btn-secondary bg-40 hover:bg-50">Complete Selected</button>
+                    <button @click.prevent="complete(selected)" class="btn btn-default btn-secondary bg-40 hover:bg-50">Complete Selected</button>
                 </div>
             </div>
             <table class="table w-full">
@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                 <tr v-if="tickets.length === 0">
-                    <td colspan="7">No tickets in queue</td>
+                    <td colspan="8">No tickets in queue</td>
                 </tr>
                 <tr v-else v-for="ticket in tickets" :key="ticket.id" @click="toggleTicket(ticket.id)">
                     <td><input type="checkbox" class="checkbox" v-model="picked" :value="ticket.id"></td>
@@ -38,7 +38,7 @@
                     <td>{{ isEarly(ticket.order_created) }}</td>
                     <td class="text-right">
                         <a :href="'/print/' + ticket.id" target="_blank" class="btn btn-default btn-primary">Print</a>
-                        <button class="btn btn-default btn-secondary btn-secondary bg-40 hover:bg-50">Completed</button>
+                        <button @click.prevent="complete(ticket.id)" class="btn btn-default btn-secondary btn-secondary bg-40 hover:bg-50">Completed</button>
                     </td>
                 </tr>
                 </tbody>
@@ -76,6 +76,15 @@
             },
             isEarly(date) {
                 return moment(date).isBefore('2019-02-02') ? 'Yes' : 'No';
+            },
+            complete(ids) {
+                axios.patch('/api/queue/' + ids + '/complete')
+                    .then(response => {
+                        this.tickets = response.data;
+                    });
+            },
+            selectTen() {
+
             }
         },
         computed: {

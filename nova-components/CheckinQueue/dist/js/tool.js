@@ -327,7 +327,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         isEarly: function isEarly(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).isBefore('2019-02-02') ? 'Yes' : 'No';
-        }
+        },
+        complete: function complete(ids) {
+            var _this2 = this;
+
+            axios.patch('/api/queue/' + ids + '/complete').then(function (response) {
+                _this2.tickets = response.data;
+            });
+        },
+        selectTen: function selectTen() {}
     },
     computed: {
         selected: function selected() {
@@ -371,7 +379,14 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-default btn-secondary bg-40 hover:bg-50"
+                  staticClass:
+                    "btn btn-default btn-secondary bg-40 hover:bg-50",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.complete(_vm.selected)
+                    }
+                  }
                 },
                 [_vm._v("Complete Selected")]
               )
@@ -404,7 +419,7 @@ var render = function() {
               [
                 _vm.tickets.length === 0
                   ? _c("tr", [
-                      _c("td", { attrs: { colspan: "7" } }, [
+                      _c("td", { attrs: { colspan: "8" } }, [
                         _vm._v("No tickets in queue")
                       ])
                     ])
@@ -494,7 +509,13 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-default btn-secondary btn-secondary bg-40 hover:bg-50"
+                                  "btn btn-default btn-secondary btn-secondary bg-40 hover:bg-50",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.complete(ticket.id)
+                                  }
+                                }
                               },
                               [_vm._v("Completed")]
                             )
