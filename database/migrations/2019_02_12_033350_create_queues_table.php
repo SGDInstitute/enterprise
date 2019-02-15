@@ -19,9 +19,11 @@ class CreateQueuesTable extends Migration
             $table->unsignedInteger('ticket_id');
             $table->string('name');
             $table->string('pronouns')->nullable();
+            $table->string('college')->nullable();
             $table->string('tshirt')->nullable();
             $table->dateTime('order_created');
             $table->dateTime('order_paid')->nullable();
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }
