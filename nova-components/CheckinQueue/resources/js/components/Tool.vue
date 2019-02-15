@@ -4,11 +4,13 @@
 
         <card class="bg-10 p-4" style="min-height: 300px">
             <div class="mb-4 flex justify-between">
-                <button class="btn btn-default btn-primary">Select 10</button>
+                <button @click.prevent="selectTen" class="btn btn-default btn-primary">Select 10</button>
                 <div>
                     <a :href="'/print/' + selected" target="_blank" class="btn btn-default btn-primary">Print
                         Selected</a>
-                    <button @click.prevent="complete(selected)" class="btn btn-default btn-secondary bg-40 hover:bg-50">Complete Selected</button>
+                    <button @click.prevent="complete(selected)" class="btn btn-default btn-secondary bg-40 hover:bg-50">
+                        Complete Selected
+                    </button>
                 </div>
             </div>
             <table class="table w-full">
@@ -19,8 +21,8 @@
                     <th>Name</th>
                     <th>Pronouns</th>
                     <th>College</th>
-                    <th>Tshirt</th>
-                    <th>Early</th>
+                    <th>Blue Ticket</th>
+                    <th>Red Ticket</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -34,11 +36,13 @@
                     <td>{{ ticket.name }}</td>
                     <td>{{ ticket.pronouns || 'n/a' }}</td>
                     <td>{{ ticket.college || 'n/a' }}</td>
-                    <td>{{ ticket.tshirt || 'n/a' }}</td>
-                    <td>{{ isEarly(ticket.order_created) }}</td>
+                    <td>Blue-{{ blueTicket(ticket) }}</td>
+                    <td>Red-{{ redTicket(ticket) }}</td>
                     <td class="text-right">
                         <a :href="'/print/' + ticket.id" target="_blank" class="btn btn-default btn-primary">Print</a>
-                        <button @click.prevent="complete(ticket.id)" class="btn btn-default btn-secondary btn-secondary bg-40 hover:bg-50">Completed</button>
+                        <button @click.prevent="complete(ticket.id)"
+                                class="btn btn-default btn-secondary btn-secondary bg-40 hover:bg-50">Completed
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -84,7 +88,25 @@
                     });
             },
             selectTen() {
-
+                this.picked = _.map(this.tickets.slice(0,10), function(ticket) {
+                    return ticket.id;
+                });
+            },
+            blueTicket(ticket) {
+                if (this.isEarly(ticket.order_created) && ticket.tshirt) {
+                    return ticket.tshirt;
+                } else if (this.isEarly(ticket.order_created)) {
+                    return 'Z';
+                } else {
+                    return 'blank';
+                }
+            },
+            redTicket(ticket) {
+                if (this.isEarly(ticket.order_created)) {
+                    return 'blank';
+                } else {
+                    return 'X';
+                }
             }
         },
         computed: {

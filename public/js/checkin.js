@@ -4007,7 +4007,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    console.log(this.order);
     this.form.amount = this.order.amount;
     this.configure();
   },
@@ -4028,8 +4027,9 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.$http.post('/api/orders/' + _this.order.id + '/charge', _this.form).then(function (response) {
             self.$toasted.success('Successfully paid for this order! Now you can start printing your name badges.');
+
+            _this.$emit('paid');
           }).catch(function (error) {
-            console.log(error);
             alert(error.message);
           });
         }
@@ -59236,7 +59236,10 @@ var render = function() {
               ? _c(
                   "div",
                   [
-                    _c("pay-with-card", { attrs: { order: _vm.order } }),
+                    _c("pay-with-card", {
+                      attrs: { order: _vm.order },
+                      on: { paid: _vm.markAsPaid }
+                    }),
                     _vm._v(" "),
                     _c("pay-with-check", {
                       staticClass: "inline-block",

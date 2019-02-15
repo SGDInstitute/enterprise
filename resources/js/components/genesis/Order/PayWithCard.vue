@@ -16,7 +16,6 @@
             }
         },
         created() {
-            console.log(this.order);
             this.form.amount = this.order.amount;
             this.configure();
         },
@@ -36,9 +35,9 @@
                         this.$http.post('/api/orders/' + this.order.id + '/charge', this.form)
                             .then(response => {
                                 self.$toasted.success('Successfully paid for this order! Now you can start printing your name badges.');
+                                this.$emit('paid');
                             })
                             .catch(error => {
-                                console.log(error);
                                 alert(error.message);
                             })
                     }

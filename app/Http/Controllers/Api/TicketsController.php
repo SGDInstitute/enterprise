@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Ticket;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,6 +29,26 @@ class TicketsController extends Controller
         if (request()->has('user_id')) {
             $ticket->user_id = request('user_id');
             $ticket->save();
+        } elseif($user = User::findByEmail(request('email'))) {
+            $ticket->user_id = $user->id;
+            $ticket->save();
+
+            $userData = request()->validate([
+                'name' => 'required',
+                'email' => 'required'
+            ]);
+
+            $profile = request()->validate([
+                'pronouns' => '',
+                'sexuality' => '',
+                'gender' => '',
+                'race' => '',
+                'college' => '',
+                'tshirt' => ''
+            ]);
+
+            $user->update($userData);
+            $user->profile()->update($profile);
         } else {
             $data = request()->validate([
                 'name' => 'required',

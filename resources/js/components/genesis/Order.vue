@@ -30,7 +30,7 @@
                 </div>
 
                 <div v-if="!isPaid && orderIsReady">
-                    <pay-with-card :order="order"></pay-with-card>
+                    <pay-with-card @paid="markAsPaid" :order="order"></pay-with-card>
                     <pay-with-check @paid="markAsPaid" class="inline-block" :order="order"></pay-with-check>
                 </div>
                 <div v-else>
