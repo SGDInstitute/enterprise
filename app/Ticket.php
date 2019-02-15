@@ -53,6 +53,11 @@ class Ticket extends Model
         return self::where('hash', $hash)->first();
     }
 
+    public static function findByIds($ids)
+    {
+        return self::whereIn('id', $ids)->get();
+    }
+
     public function scopeFilled($query)
     {
         return $query->whereNotNull('user_id');
