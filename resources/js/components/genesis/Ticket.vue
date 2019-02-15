@@ -1,5 +1,5 @@
 <template>
-    <div class="flex md:h-full">
+    <div class="flex">
         <router-link :to="'/orders/' + orderId" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest">< Back</router-link>
         <div class="w-full md:w-1/2 mx-auto">
             <div class="shadow bg-white p-8 h-full overflow-hidden">
