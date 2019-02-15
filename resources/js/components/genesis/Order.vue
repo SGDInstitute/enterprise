@@ -9,7 +9,7 @@
                     <small>{{ number }}</small>
                 </h1>
 
-                <div class="mb-4 overflow-y-scroll max-h-85">
+                <div class="mb-4">
                     <div v-for="ticket in order.tickets" :key="ticket.hash"
                          class="border rounded mb-1 flex justify-between">
                         <label class="text-lg p-4">
