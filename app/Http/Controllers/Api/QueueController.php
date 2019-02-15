@@ -31,6 +31,7 @@ class QueueController extends Controller
                     'ticket_id' => $ticket->id,
                     'name' => $ticket->user->name,
                     'pronouns' => $ticket->user->profile->pronouns,
+                    'college' => $ticket->user->profile->college,
                     'tshirt' => $ticket->user->profile->tshirt,
                     'order_created' => $ticket->order->created_at,
                     'order_paid' => optional($ticket->order->receipt)->created_at,
