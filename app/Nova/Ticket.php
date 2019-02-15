@@ -31,6 +31,7 @@ class Ticket extends Resource
      */
     public static $search = [
         'id',
+        'hash',
     ];
 
     public static $group = 'Registration';
@@ -45,7 +46,7 @@ class Ticket extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Hash'),
+            Text::make('Hash')->sortable(),
             BelongsTo::make('User'),
             BelongsTo::make('Ticket Type'),
             BelongsTo::make('Order'),
