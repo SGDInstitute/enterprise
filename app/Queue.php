@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Queue extends Model
 {
-    protected $fillable = ['batch', 'ticket_id', 'name', 'pronouns', 'tshirt', 'order_created', 'order_paid'];
+    protected $fillable = ['batch', 'ticket_id', 'name', 'pronouns', 'tshirt', 'college', 'order_created', 'order_paid', 'completed'];
+
+    public static function complete($ids)
+    {
+        self::whereIn('id', $ids)->update(['completed' => 1]);
+    }
 }

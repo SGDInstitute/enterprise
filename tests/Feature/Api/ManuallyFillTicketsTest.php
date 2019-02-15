@@ -45,7 +45,6 @@ class ManuallyFillTicketsTest extends TestCase
         $this->assertEquals('White', $ticket->user->profile->race);
         $this->assertEquals('Hogwarts', $ticket->user->profile->college);
         $this->assertEquals('L', $ticket->user->profile->tshirt);
-        $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
     }
 
     /** @test */
@@ -79,7 +78,6 @@ class ManuallyFillTicketsTest extends TestCase
         $this->assertEquals('White', $ticket->user->profile->race);
         $this->assertEquals('Hogwarts', $ticket->user->profile->college);
         $this->assertEquals('L', $ticket->user->profile->tshirt);
-        $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
     }
 
     /** @test */
@@ -179,7 +177,7 @@ class ManuallyFillTicketsTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonHasErrors('email');
     }
-    
+
     /** @test */
     function can_update_profile_information_for_manually_entered_user()
     {
