@@ -10,6 +10,11 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class QueueController extends Controller
 {
+    public function index()
+    {
+        return Queue::where('completed', false)->get();
+    }
+
     public function store($ids)
     {
         $tickets = Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
