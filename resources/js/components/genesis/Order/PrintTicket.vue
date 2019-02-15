@@ -37,7 +37,7 @@
         },
         computed: {
             label() {
-                return this.tickets.length > 1 ? 'name badges have' : 'name badge has';
+                return this.tickets.length > 1 ? this.tickets.length + ' name badges have' : 'name badge has';
             }
         },
         components: {Modal}
