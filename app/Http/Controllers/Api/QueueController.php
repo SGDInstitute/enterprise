@@ -19,7 +19,7 @@ class QueueController extends Controller
     {
         $tickets = Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
             ->filter(function ($ticket) {
-                return !Queue::where('ticket_id', $ticket->id)->exists();
+                return !Queue::where('ticket_id', $ticket->id)->where('completed', false)->exists();
             });
 
         if ($tickets->count() > 0) {
