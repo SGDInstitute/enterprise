@@ -3668,16 +3668,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var Instascan = __webpack_require__(/*! instascan */ "./node_modules/instascan/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3729,9 +3719,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Home_Checkin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Home/Checkin */ "./resources/js/components/genesis/Home/Checkin.vue");
 /* harmony import */ var _Home_Lookup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Home/Lookup */ "./resources/js/components/genesis/Home/Lookup.vue");
 /* harmony import */ var _Home_Register__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Home/Register */ "./resources/js/components/genesis/Home/Register.vue");
-//
-//
-//
 //
 //
 //
@@ -3967,6 +3954,9 @@ __webpack_require__.r(__webpack_exports__);
       }).join();
 
       this.$http.post('/api/queue/' + ids);
+    },
+    markAsPaid: function markAsPaid() {
+      this.order.confirmation_number = 'Confirmation Number';
     }
   },
   computed: {
@@ -4089,6 +4079,12 @@ __webpack_require__.r(__webpack_exports__);
       show: false
     };
   },
+  methods: {
+    close: function close() {
+      this.show = false;
+      this.$emit('paid');
+    }
+  },
   components: {
     Modal: _modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -4144,7 +4140,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     label: function label() {
-      return this.tickets.length > 1 ? 'name badges have' : 'name badge has';
+      return this.tickets.length > 1 ? this.tickets.length + ' name badges have' : 'name badge has';
     }
   },
   components: {
@@ -4353,19 +4349,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ticket',
   props: ['number', 'hash'],
@@ -4381,8 +4364,7 @@ __webpack_require__.r(__webpack_exports__);
         sexuality: '',
         gender: '',
         race: '',
-        college: '',
-        tshirt: ''
+        college: ''
       }
     };
   },
@@ -4409,7 +4391,6 @@ __webpack_require__.r(__webpack_exports__);
       this.form.gender = this.profile.gender;
       this.form.race = this.profile.race;
       this.form.college = this.profile.college;
-      this.form.tshirt = this.profile.tshirt;
     },
     save: function save() {
       var self = this;
@@ -58671,7 +58652,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "h-screen bg-grey-lightest w-full p-16" },
+    { staticClass: "h-screen bg-grey-lightest w-full p-4 md:p-16" },
     [_c("router-view")],
     1
   )
@@ -58700,7 +58681,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex -mx-4 h-full" },
+    { staticClass: "md:flex h-full" },
     [
       _c(
         "router-link",
@@ -58712,47 +58693,11 @@ var render = function() {
         [_vm._v("< Back")]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "shadow bg-white p-8 h-full mx-auto" }, [
+      _c("div", { staticClass: "shadow bg-white p-8 md:h-full mx-auto mb-4" }, [
         _c(
           "h1",
           { staticClass: "text-2xl font-normal mb-8 text-blue-darker" },
-          [_vm._v("Scan Your QR Code")]
-        ),
-        _vm._v(" "),
-        _c("video", {
-          staticClass:
-            "w-64 border border-grey mx-auto mb-4 bg-grey-lighter block mx-auto",
-          attrs: { id: "preview" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "rounded bg-blue px-4 py-3 text-white font-semibold hover:bg-blue-dark",
-              on: { click: _vm.start }
-            },
-            [_vm._v("Start Scan")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "rounded bg-grey-light px-4 py-3 text-grey-darkest font-semibold hover:bg-grey",
-              on: { click: _vm.stop }
-            },
-            [_vm._v("Stop")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("hr", { staticClass: "my-8 border-b border-grey-light" }),
-        _vm._v(" "),
-        _c(
-          "h1",
-          { staticClass: "text-2xl font-normal mb-8 text-blue-darker" },
-          [_vm._v("Type Your Confirmation Number")]
+          [_vm._v("Type Your Confirmation Number or Order Number")]
         ),
         _vm._v(" "),
         _c(
@@ -58799,10 +58744,10 @@ var render = function() {
               1
             )
           ]
-        ),
-        _vm._v(" "),
-        _c("hr", { staticClass: "my-8 border-b border-grey-light" }),
-        _vm._v(" "),
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "shadow bg-white p-8 md:h-full mx-auto" }, [
         _c(
           "h1",
           { staticClass: "text-2xl font-normal mb-8 text-blue-darker" },
@@ -58881,12 +58826,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex -mx-4 h-full" }, [
-    _c("div", { staticClass: "w-1/3 px-4" }, [_c("check-in")], 1),
+  return _c("div", { staticClass: "md:flex -mx-4 h-full" }, [
+    _c(
+      "div",
+      { staticClass: "w-full mb-4 md:mb-0 md:w-1/2 px-4" },
+      [_c("check-in")],
+      1
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "w-1/3 px-4" }, [_c("register")], 1),
-    _vm._v(" "),
-    _c("div", { staticClass: "w-1/3 px-4" }, [_c("lookup")], 1)
+    _c("div", { staticClass: "w-full md:w-1/2 px-4" }, [_c("register")], 1)
   ])
 }
 var staticRenderFns = []
@@ -58913,9 +58861,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "shadow-sm bg-white p-8 h-full flex flex-col justify-between"
-    },
+    { staticClass: "shadow bg-white p-8 h-full flex flex-col justify-between" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -58932,7 +58878,7 @@ var render = function() {
                 "no-underline text-center flex-1 mx-4 rounded bg-blue px-4 py-6 text-white font-semibold hover:bg-blue-dark",
               attrs: { to: "/check-in" }
             },
-            [_vm._v("Scan Code or Type Confirmation Number")]
+            [_vm._v("Type Confirmation Number or Ticket Number")]
           )
         ],
         1
@@ -58945,7 +58891,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
+    return _c("div", { staticClass: "mb-4" }, [
       _c(
         "p",
         {
@@ -58960,7 +58906,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
+    return _c("div", { staticClass: "mb-4" }, [
       _c("h1", { staticClass: "text-5xl font-normal mb-8 text-blue-darker" }, [
         _vm._v("Already Registered")
       ]),
@@ -59089,11 +59035,10 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass:
-          "shadow-sm bg-white p-8 h-full flex flex-col justify-between"
+        staticClass: "shadow bg-white p-8 h-full flex flex-col justify-between"
       },
       [
-        _c("div", [
+        _c("div", { staticClass: "mb-4" }, [
           _c(
             "p",
             {
@@ -59104,7 +59049,7 @@ var staticRenderFns = [
           )
         ]),
         _vm._v(" "),
-        _c("div", [
+        _c("div", { staticClass: "mb-4" }, [
           _c(
             "h1",
             { staticClass: "text-5xl font-normal mb-8 text-green-darker" },
@@ -59120,10 +59065,14 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("div", { staticClass: "flex -mx-4" }, [
           _c(
-            "button",
+            "a",
             {
               staticClass:
-                "flex-1 mx-4 rounded bg-green px-4 py-6 text-white font-semibold hover:bg-green-dark"
+                "flex-1 mx-4 rounded bg-green px-4 py-6 text-white font-semibold hover:bg-green-dark text-center no-underline",
+              attrs: {
+                href: "https://apps.sgdinstitute.org/events/mblgtacc-2019",
+                target: "_blank"
+              }
             },
             [_vm._v("Register Now")]
           )
@@ -59155,7 +59104,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex -mx-4 h-full" },
+    { staticClass: "flex h-full" },
     [
       _c(
         "router-link",
@@ -59167,7 +59116,7 @@ var render = function() {
         [_vm._v("<\n        Back\n    ")]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 mx-auto" }, [
+      _c("div", { staticClass: "w-full md:w-1/2 mx-auto" }, [
         _c(
           "div",
           { staticClass: "shadow bg-white p-8 h-full overflow-hidden" },
@@ -59291,7 +59240,8 @@ var render = function() {
                     _vm._v(" "),
                     _c("pay-with-check", {
                       staticClass: "inline-block",
-                      attrs: { order: _vm.order }
+                      attrs: { order: _vm.order },
+                      on: { close: _vm.markAsPaid }
                     })
                   ],
                   1
@@ -59414,42 +59364,31 @@ var render = function() {
         [_vm._v("Pay with Check")]
       ),
       _vm._v(" "),
-      _c(
-        "modal",
-        {
-          attrs: { show: _vm.show },
-          on: {
-            close: function($event) {
-              _vm.show = false
-            }
-          }
-        },
-        [
-          _c(
-            "form",
-            {
-              staticClass: "px-6 py-8 bg-white",
-              attrs: { slot: "body" },
-              slot: "body"
-            },
-            [
-              _c("p", { staticClass: "leading-normal mb-2" }, [
-                _vm._v(
-                  "Your order total is $" +
-                    _vm._s(_vm.order.amount / 100) +
-                    ". Please make checks payable to the Midwest Institute for Sexuality and Gender Diversity."
-                )
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "leading-normal" }, [
-                _vm._v(
-                  "On the memo line please write: Order " + _vm._s(_vm.order.id)
-                )
-              ])
-            ]
-          )
-        ]
-      )
+      _c("modal", { attrs: { show: _vm.show }, on: { close: _vm.close } }, [
+        _c(
+          "form",
+          {
+            staticClass: "px-6 py-8 bg-white",
+            attrs: { slot: "body" },
+            slot: "body"
+          },
+          [
+            _c("p", { staticClass: "leading-normal mb-2" }, [
+              _vm._v(
+                "Your order total is $" +
+                  _vm._s(_vm.order.amount / 100) +
+                  ". Please make checks payable to the Midwest Institute for Sexuality and Gender Diversity."
+              )
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "leading-normal" }, [
+              _vm._v(
+                "On the memo line please write: Order " + _vm._s(_vm.order.id)
+              )
+            ])
+          ]
+        )
+      ])
     ],
     1
   )
@@ -59538,7 +59477,7 @@ var render = function() {
               _c(
                 "router-link",
                 { staticClass: "btn btn-link", attrs: { to: "/" } },
-                [_vm._v("Start Over")]
+                [_vm._v("Done")]
               )
             ],
             1
@@ -59646,7 +59585,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex -mx-4 h-full" },
+    { staticClass: "flex md:h-full" },
     [
       _c(
         "router-link",
@@ -59658,7 +59597,7 @@ var render = function() {
         [_vm._v("< Back")]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 mx-auto" }, [
+      _c("div", { staticClass: "w-full md:w-1/2 mx-auto" }, [
         _c(
           "div",
           { staticClass: "shadow bg-white p-8 h-full overflow-hidden" },
@@ -59672,7 +59611,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "mb-4 overflow-scroll max-h-85" }, [
+            _c("div", { staticClass: "mb-4" }, [
               _c(
                 "form",
                 {
@@ -59888,49 +59827,6 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "md:flex md:items-center mb-6" }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "md:w-3/4" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.tshirt,
-                            expression: "form.tshirt"
-                          }
-                        ],
-                        staticClass:
-                          "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey",
-                        attrs: { id: "tshirt", type: "text" },
-                        domProps: { value: _vm.form.tshirt },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "tshirt", $event.target.value)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.profile.tshirt != _vm.form.tshirt
-                        ? _c(
-                            "p",
-                            {
-                              staticClass: "mt-1 text-grey-dark text-xs italic"
-                            },
-                            [
-                              _vm._v(
-                                "We will do our best to give you your selected size, but is not guaranteed when changing on-site."
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ])
-                  ]),
-                  _vm._v(" "),
                   _c("div", { staticClass: "md:flex md:items-center" }, [
                     _c("div", { staticClass: "md:w-1/4" }),
                     _vm._v(" "),
@@ -60107,26 +60003,6 @@ var staticRenderFns = [
         [
           _vm._v(
             "\n                                College\n                            "
-          )
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "md:w-1/4" }, [
-      _c(
-        "label",
-        {
-          staticClass:
-            "block uppercase tracking-wide text-grey-darker text-xs font-bold",
-          attrs: { for: "tshirt" }
-        },
-        [
-          _vm._v(
-            "\n                                T-Shirt\n                            "
           )
         ]
       )

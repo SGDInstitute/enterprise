@@ -1,13 +1,10 @@
 <template>
-    <div class="flex -mx-4 h-full">
-        <div class="w-1/3 px-4">
+    <div class="md:flex -mx-4 h-full">
+        <div class="w-full mb-4 md:mb-0 md:w-1/2 px-4">
             <check-in></check-in>
         </div>
-        <div class="w-1/3 px-4">
+        <div class="w-full md:w-1/2 px-4">
             <register></register>
-        </div>
-        <div class="w-1/3 px-4">
-            <lookup></lookup>
         </div>
     </div>
 </template>

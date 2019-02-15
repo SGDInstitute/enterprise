@@ -7,7 +7,7 @@
                 <p class="leading-normal mb-2">Awesome! Your {{ label }} been added to the queue and will be printed shortly.</p>
 
                 <button class="btn btn-mint" @click.prevent="show = false">Print more Tickets</button>
-                <router-link to="/" class="btn btn-link">Start Over</router-link>
+                <router-link to="/" class="btn btn-link">Done</router-link>
             </div>
         </modal>
     </div>

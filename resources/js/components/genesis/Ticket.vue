@@ -1,13 +1,13 @@
 <template>
-    <div class="flex -mx-4 h-full">
+    <div class="flex md:h-full">
         <router-link :to="'/orders/' + orderId" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest">< Back</router-link>
-        <div class="w-1/2 mx-auto">
+        <div class="w-full md:w-1/2 mx-auto">
             <div class="shadow bg-white p-8 h-full overflow-hidden">
                 <h1 class="text-3xl font-normal mb-8 text-blue-darker">Ticket:
                     <small>{{ hash }}</small>
                 </h1>
 
-                <div class="mb-4 overflow-scroll max-h-85">
+                <div class="mb-4">
                     <form class="w-full" @submit.prevent="save">
                         <div class="md:flex md:items-center mb-6">
                             <div class="md:w-1/4">
@@ -93,19 +93,6 @@
                                        id="college" type="text" v-model="form.college">
                             </div>
                         </div>
-                        <div class="md:flex md:items-center mb-6">
-                            <div class="md:w-1/4">
-                                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold"
-                                       for="tshirt">
-                                    T-Shirt
-                                </label>
-                            </div>
-                            <div class="md:w-3/4">
-                                <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-                                       id="tshirt" type="text" v-model="form.tshirt">
-                                <p v-if="profile.tshirt != form.tshirt" class="mt-1 text-grey-dark text-xs italic">We will do our best to give you your selected size, but is not guaranteed when changing on-site.</p>
-                            </div>
-                        </div>
                         <div class="md:flex md:items-center">
                             <div class="md:w-1/4"></div>
                             <div class="md:w-3/4">
@@ -137,7 +124,6 @@
                     gender: '',
                     race: '',
                     college: '',
-                    tshirt: '',
                 }
             }
         },
@@ -162,7 +148,6 @@
                 this.form.gender = this.profile.gender;
                 this.form.race = this.profile.race;
                 this.form.college = this.profile.college;
-                this.form.tshirt = this.profile.tshirt;
             },
             save() {
                 let self = this;

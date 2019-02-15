@@ -1,9 +1,9 @@
 <template>
-    <div class="flex -mx-4 h-full">
+    <div class="flex h-full">
         <router-link to="/check-in" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest"><
             Back
         </router-link>
-        <div class="w-1/2 mx-auto">
+        <div class="w-full md:w-1/2 mx-auto">
             <div class="shadow bg-white p-8 h-full overflow-hidden">
                 <h1 class="text-3xl font-normal mb-8 text-blue-darker">Order:
                     <small>{{ number }}</small>
@@ -31,7 +31,7 @@
 
                 <div v-if="!isPaid && orderIsReady">
                     <pay-with-card :order="order"></pay-with-card>
-                    <pay-with-check class="inline-block" :order="order"></pay-with-check>
+                    <pay-with-check @close="markAsPaid" class="inline-block" :order="order"></pay-with-check>
                 </div>
                 <div v-else>
                     <print-ticket class="inline-block" :disable="cannotPrint" :order="order" :tickets="tickets"></print-ticket>
@@ -83,7 +83,10 @@
                     return ticket.id;
                 }).join();
                 this.$http.post('/api/queue/' + ids);
-            }
+            },
+            markAsPaid() {
+                this.order.confirmation_number = 'Confirmation Number';
+            },
         },
         computed: {
             cannotPrint() {
