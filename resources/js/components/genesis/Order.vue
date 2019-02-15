@@ -31,7 +31,7 @@
 
                 <div v-if="!isPaid && orderIsReady">
                     <pay-with-card :order="order"></pay-with-card>
-                    <pay-with-check @close="markAsPaid" class="inline-block" :order="order"></pay-with-check>
+                    <pay-with-check @paid="markAsPaid" class="inline-block" :order="order"></pay-with-check>
                 </div>
                 <div v-else>
                     <print-ticket class="inline-block" :disable="cannotPrint" :order="order" :tickets="tickets"></print-ticket>

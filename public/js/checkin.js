@@ -59241,7 +59241,7 @@ var render = function() {
                     _c("pay-with-check", {
                       staticClass: "inline-block",
                       attrs: { order: _vm.order },
-                      on: { close: _vm.markAsPaid }
+                      on: { paid: _vm.markAsPaid }
                     })
                   ],
                   1
@@ -59364,31 +59364,43 @@ var render = function() {
         [_vm._v("Pay with Check")]
       ),
       _vm._v(" "),
-      _c("modal", { attrs: { show: _vm.show }, on: { close: _vm.close } }, [
-        _c(
-          "form",
-          {
-            staticClass: "px-6 py-8 bg-white",
-            attrs: { slot: "body" },
-            slot: "body"
-          },
-          [
-            _c("p", { staticClass: "leading-normal mb-2" }, [
-              _vm._v(
-                "Your order total is $" +
-                  _vm._s(_vm.order.amount / 100) +
-                  ". Please make checks payable to the Midwest Institute for Sexuality and Gender Diversity."
-              )
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "leading-normal" }, [
-              _vm._v(
-                "On the memo line please write: Order " + _vm._s(_vm.order.id)
-              )
-            ])
-          ]
-        )
-      ])
+      _c(
+        "modal",
+        {
+          attrs: { show: _vm.show },
+          on: {
+            close: function($event) {
+              _vm.show = false
+              _vm.$emit("paid")
+            }
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "px-6 py-8 bg-white",
+              attrs: { slot: "body" },
+              slot: "body"
+            },
+            [
+              _c("p", { staticClass: "leading-normal mb-2" }, [
+                _vm._v(
+                  "Your order total is $" +
+                    _vm._s(_vm.order.amount / 100) +
+                    ". Please make checks payable to the Midwest Institute for Sexuality and Gender Diversity."
+                )
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "leading-normal" }, [
+                _vm._v(
+                  "On the memo line please write: Order " + _vm._s(_vm.order.id)
+                )
+              ])
+            ]
+          )
+        ]
+      )
     ],
     1
   )
