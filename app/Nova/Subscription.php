@@ -18,7 +18,7 @@ class Subscription extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Subscription';
+    public static $model = \App\Subscription::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

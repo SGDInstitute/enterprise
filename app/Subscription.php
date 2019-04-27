@@ -17,7 +17,7 @@ class Subscription extends Model
      */
     public function donation()
     {
-        return $this->belongsTo('App\Donation');
+        return $this->belongsTo(\App\Donation::class);
     }
 
     public function isActive()

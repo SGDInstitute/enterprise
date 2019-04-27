@@ -15,7 +15,7 @@ class Profile extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Profile';
+    public static $model = \App\Profile::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

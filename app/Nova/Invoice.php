@@ -18,7 +18,7 @@ class Invoice extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Invoice';
+    public static $model = \App\Invoice::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

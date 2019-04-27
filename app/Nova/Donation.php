@@ -18,7 +18,7 @@ class Donation extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Donation';
+    public static $model = \App\Donation::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
