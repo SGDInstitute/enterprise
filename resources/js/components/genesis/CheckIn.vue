@@ -1,7 +1,7 @@
 <template>
     <div class="md:flex">
         <router-link to="/" class="absolute pin-t p-2 text-grey-darker no-underline hover:text-grey-darkest">< Back</router-link>
-        <div class="shadow bg-white p-8 md:h-full mx-auto mb-4">
+        <div class="shadow bg-white p-8 w-1/2 mx-auto mb-4">
             <h1 class="text-2xl font-normal mb-8 text-blue-darker">Type Your Confirmation Number or Order Number</h1>
             <div class="flex flex-wrap items-stretch w-full mb-4 relative">
                 <input type="text" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative" v-model="number">
@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="shadow bg-white p-8 md:h-full mx-auto">
+        <div class="shadow bg-white p-8 w-1/2 mx-auto">
             <h1 class="text-2xl font-normal mb-8 text-blue-darker">Type Your Ticket Number</h1>
             <div class="flex flex-wrap items-stretch w-full mb-4 relative">
                 <input type="text" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative" v-model="hash">
