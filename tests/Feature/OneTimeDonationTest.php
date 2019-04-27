@@ -17,7 +17,7 @@ class OneTimeDonationTest extends TestCase
 
     public $paymentGateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
