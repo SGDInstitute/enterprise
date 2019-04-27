@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class OtherResponseSeeder extends Seeder
@@ -13,7 +14,7 @@ class OtherResponseSeeder extends Seeder
     {
         \App\Form::create([
             'name'      => 'Other Response Test',
-            'slug'      => str_slug('other-test'),
+            'slug'      => Str::slug('other-test'),
             'list_id'   => '8ghda09IULHIUdjwefd98we4',
             'start'     => '2017-09-08 00:00:00',
             'end'       => '2017-11-25 00:00:00',

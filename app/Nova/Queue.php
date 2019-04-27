@@ -17,7 +17,7 @@ class Queue extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Queue';
+    public static $model = \App\Queue::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

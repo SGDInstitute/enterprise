@@ -22,7 +22,7 @@ class Order extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Order';
+    public static $model = \App\Order::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -63,15 +63,15 @@ class Order extends Resource
                 ->displayUsing(function ($amount) {
                     return money_format('$%.2n', $amount / 100);
                 }),
-            Number::make('Tickets', function() {
+            Number::make('Tickets', function () {
                 return $this->tickets->count();
             })->onlyOnIndex(),
-            Text::make('Completed', function() {
+            Text::make('Completed', function () {
                 return $this->tickets()->completed()->count()/$this->tickets->count()*100 . '% (' . $this->tickets()->completed()->count() . ')';
             })->onlyOnIndex(),
             HasMany::make('Tickets'),
 
-            Boolean::make('Is Paid', function() {
+            Boolean::make('Is Paid', function () {
                 return $this->isPaid();
             }),
             Text::make('Confirmation Number')->hideFromIndex(),

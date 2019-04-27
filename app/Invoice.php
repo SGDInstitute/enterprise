@@ -12,7 +12,9 @@ class Invoice extends Model
 
     protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip', ];
 
-    protected $dates = ['deleted_at', 'due_date'];
+    protected $dates = [
+        'due_date'
+    ];
 
     public function order()
     {
@@ -21,7 +23,7 @@ class Invoice extends Model
 
     public function getDueDateAttribute()
     {
-        if(is_null($this->order)) {
+        if (is_null($this->order)) {
             return $this->created_at->addDays(60);
         }
         if ($this->created_at->addDays(60) < $this->order->event->start) {

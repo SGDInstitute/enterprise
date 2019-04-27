@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 $factory->define(\App\UserToken::class, function (Faker $faker) {
     return [
-        'token' => str_random(50),
+        'token' => Str::random(50),
         'type' => 'magic'
     ];
 });

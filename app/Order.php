@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use Facades\App\ConfirmationNumber;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,9 @@ class Order extends Model
 
     protected $fillable = ['user_id'];
 
-    protected $dates = ['transaction_date', 'deleted_at'];
+    protected $dates = [
+        'transaction_date'
+    ];
 
     protected static function boot()
     {
@@ -114,12 +117,12 @@ class Order extends Model
 
     public function isCheck()
     {
-        return starts_with($this->receipt->transaction_id, '#');
+        return Str::startsWith($this->receipt->transaction_id, '#');
     }
 
     public function isCard()
     {
-        return starts_with($this->receipt->transaction_id, 'ch');
+        return Str::startsWith($this->receipt->transaction_id, 'ch');
     }
 
     public function getTicketsWithNameAndAmount()

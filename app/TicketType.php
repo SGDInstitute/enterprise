@@ -13,7 +13,9 @@ class TicketType extends Model
 
     protected $appends = ['formatted_cost', 'is_open'];
 
-    protected $dates = ['deleted_at', 'availability_start', 'availability_end'];
+    protected $dates = [
+        'availability_start', 'availability_end'
+    ];
 
     public function getFormattedCostAttribute()
     {

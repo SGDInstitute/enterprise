@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 
 $factory->define(App\Profile::class, function (Faker $faker) {
@@ -7,12 +8,12 @@ $factory->define(App\Profile::class, function (Faker $faker) {
         'user_id' => function () {
             return factory(App\User::class)->create()->id;
         },
-        'pronouns' => array_random(['he', 'she', 'they']),
-        'sexuality' => array_random(['Lesbian', 'Gay', 'Straight', 'Ace']),
-        'gender' => array_random(['Male', 'Female', 'GNC', 'Trans']),
+        'pronouns' => Arr::random(['he', 'she', 'they']),
+        'sexuality' => Arr::random(['Lesbian', 'Gay', 'Straight', 'Ace']),
+        'gender' => Arr::random(['Male', 'Female', 'GNC', 'Trans']),
         'race' => $faker->colorName,
         'college' => 'Illinois State',
-        'tshirt' => array_random(['S', 'M', 'L', 'XL', 'XXL']),
+        'tshirt' => Arr::random(['S', 'M', 'L', 'XL', 'XXL']),
         'accommodation' => $faker->paragraph(),
     ];
 });

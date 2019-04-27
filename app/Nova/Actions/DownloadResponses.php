@@ -29,11 +29,10 @@ class DownloadResponses extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $form) {
-            if($fields->type === 'excel') {
+            if ($fields->type === 'excel') {
                 $file = Excel::download(new ResponsesExport($form, $form->responses), "{$form->name}.xlsx");
                 return Action::download($this->getDownloadUrl($file, "{$form->name}.xlsx"), "{$form->name}.xlsx");
-            }
-            elseif($fields->type === 'pdf') {
+            } elseif ($fields->type === 'pdf') {
                 $file = PDF::loadView('exports.voyager.pdf.responses', ['form' => $form]);
                 $file->save("temp/{$form->name}.pdf");
                 return Action::download(url("temp/{$form->name}.pdf"), "{$form->name}.pdf");

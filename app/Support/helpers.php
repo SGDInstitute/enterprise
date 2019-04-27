@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Str;
 
 if (!function_exists('str_snake')) {
     /**
@@ -24,7 +25,7 @@ if (!function_exists('str_title')) {
      */
     function str_title($string)
     {
-        return title_case(str_replace('_', ' ', $string));
+        return Str::title(str_replace('_', ' ', $string));
     }
 }
 

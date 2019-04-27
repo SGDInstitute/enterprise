@@ -17,7 +17,7 @@ class Receipt extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Receipt';
+    public static $model = \App\Receipt::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

@@ -18,7 +18,7 @@ class Invoice extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Invoice';
+    public static $model = \App\Invoice::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -48,11 +48,11 @@ class Invoice extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Invoice #', function() {
+            Text::make('Invoice #', function () {
                 return '#' . str_pad($this->id, 6, "0", STR_PAD_LEFT);
             }),
             BelongsTo::make('Order'),
-            Boolean::make('Is Paid', function() {
+            Boolean::make('Is Paid', function () {
                 return optional($this->order)->isPaid();
             }),
             Text::make('Name'),
