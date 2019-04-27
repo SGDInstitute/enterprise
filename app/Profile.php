@@ -21,7 +21,7 @@ class Profile extends Model
         'agreement',
     ];
 
-    protected $dates = ['deleted_at'];
+    
 
     protected $casts = ['wants_program' => 'boolean'];
 

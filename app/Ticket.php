@@ -18,7 +18,7 @@ class Ticket extends Model
 
     protected $fillable = ['ticket_type_id'];
 
-    protected $dates = ['deleted_at'];
+    
 
     /**
      * Boot function for using with User Events

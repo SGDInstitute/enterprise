@@ -15,7 +15,9 @@ class Order extends Model
 
     protected $fillable = ['user_id'];
 
-    protected $dates = ['transaction_date', 'deleted_at'];
+    protected $dates = [
+        'transaction_date'
+    ];
 
     protected static function boot()
     {

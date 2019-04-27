@@ -13,7 +13,7 @@ class UserToken extends Model
 
     protected $fillable = ['token', 'type'];
 
-    protected $dates = ['deleted_at'];
+    
 
     /**
      * A token belongs to a registered user.

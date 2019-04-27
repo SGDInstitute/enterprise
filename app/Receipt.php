@@ -14,7 +14,7 @@ class Receipt extends Model
 
     protected $fillable = ['transaction_id', 'amount', 'card_last_four'];
 
-    protected $dates = ['deleted_at'];
+    
 
     public function order()
     {

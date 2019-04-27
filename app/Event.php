@@ -13,7 +13,9 @@ class Event extends Model
 
     protected $fillable = ['title', 'subtitle', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
 
-    protected $dates = ['start', 'end', 'published_at', 'deleted_at'];
+    protected $dates = [
+        'start', 'end', 'published_at'
+    ];
 
     protected $casts = [
         'links' => 'array',

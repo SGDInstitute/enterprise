@@ -12,7 +12,9 @@ class Invoice extends Model
 
     protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip', ];
 
-    protected $dates = ['deleted_at', 'due_date'];
+    protected $dates = [
+        'due_date'
+    ];
 
     public function order()
     {
