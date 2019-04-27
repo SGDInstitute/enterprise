@@ -23,7 +23,7 @@
     </div>
     <div class="card-body">
         <h4 class="card-title">{{ '$' . number_format($order->amount/100, 2) }}</h4>
-        <p class="card-text text-muted">Number of {{ str_plural($order->event->ticket_string) }} Filled
+        <p class="card-text text-muted">Number of {{ Str::plural($order->event->ticket_string) }} Filled
             <span class="pull-right">
                 {{ $order->tickets()->filled()->count() }} of {{ $order->tickets->count() }}
             </span>

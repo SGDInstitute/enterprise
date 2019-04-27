@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order;
@@ -24,7 +25,7 @@ class OrdersPaidController extends Controller
             ]));
         } else {
             $order->markAsPaid(collect([
-                'id' => str_start($data['check_number'], '#'),
+                'id' => Str::start($data['check_number'], '#'),
                 'amount' => $data['amount'],
             ]));
         }

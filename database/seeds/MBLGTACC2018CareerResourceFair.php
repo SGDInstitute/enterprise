@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class mblgtacc2018CareerResourceFair extends Seeder
@@ -13,7 +14,7 @@ class mblgtacc2018CareerResourceFair extends Seeder
     {
         \App\Form::create([
             'name'      => 'MBLGTACC 2018 Career and Resource Fair Registration',
-            'slug'      => str_slug('MBLGTACC 2018 Career and Resource Fair'),
+            'slug'      => Str::slug('MBLGTACC 2018 Career and Resource Fair'),
             'event_id'  => 2,
             'start'     => '2017-09-08 00:00:00',
             'end'       => '2017-11-25 00:00:00',

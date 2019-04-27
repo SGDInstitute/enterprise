@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Support\Arr;
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -20,7 +21,7 @@ abstract class TestCase extends BaseTestCase
         TestResponse::macro('assertJsonHasErrors', function ($keys = []) {
             Assert::assertArrayHasKey('errors', $this->json());
 
-            foreach (array_wrap($keys) as $key) {
+            foreach (Arr::wrap($keys) as $key) {
                 Assert::assertArrayHasKey($key, $this->json()['errors']);
             }
         });

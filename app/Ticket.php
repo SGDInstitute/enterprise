@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -99,7 +101,7 @@ class Ticket extends Model
         $invitee = User::findByEmail($email);
 
         if (is_null($invitee)) {
-            $invitee = User::create(['email' => $email, 'password' => str_random(50)]);
+            $invitee = User::create(['email' => $email, 'password' => Str::random(50)]);
         }
 
         $this->user_id = $invitee->id;
@@ -111,9 +113,9 @@ class Ticket extends Model
     public function fillManually($data)
     {
         $user = User::create([
-            'name' => array_get($data, 'name'),
-            'email' => array_get($data, 'email'),
-            'password' => str_random(50),
+            'name' => Arr::get($data, 'name'),
+            'email' => Arr::get($data, 'email'),
+            'password' => Str::random(50),
         ]);
 
         $this->user_id = $user->id;
@@ -123,7 +125,7 @@ class Ticket extends Model
         $user->profile->update($data);
 
         if (isset($data['send_email']) && $data['send_email']) {
-            Mail::to($user->email)->send(new InviteUserEmail($user, request()->user(), $this, array_get($data, 'message')));
+            Mail::to($user->email)->send(new InviteUserEmail($user, request()->user(), $this, Arr::get($data, 'message')));
         }
     }
 }

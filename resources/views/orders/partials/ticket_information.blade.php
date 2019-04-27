@@ -18,7 +18,7 @@
     @empty
         <tr>
             <td colspan="3" class="text-center">Looks like you don't have
-                any {{ str_plural($order->event->ticket_string) }} filled
+                any {{ Str::plural($order->event->ticket_string) }} filled
                 out!<br><br>
                 <button type="button" class="btn btn-primary border-dark" data-toggle="modal"
                         data-target="#exampleModal">

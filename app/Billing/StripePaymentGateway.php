@@ -2,6 +2,7 @@
 
 namespace App\Billing;
 
+use Illuminate\Support\Arr;
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
 use Illuminate\Support\Carbon;
@@ -100,7 +101,7 @@ class StripePaymentGateway implements PaymentGateway
 
     private function lastCharge()
     {
-        return array_first(Charge::all(
+        return Arr::first(Charge::all(
             ['limit' => 1],
             ['api_key' => $this->apiKey]
         )['data']);

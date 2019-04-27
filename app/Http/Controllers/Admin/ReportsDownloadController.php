@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -9,7 +10,7 @@ class ReportsDownloadController extends Controller
 {
     public function show($name)
     {
-        $class = "App\Admin\Reports\\" . ucfirst(camel_case($name));
+        $class = "App\Admin\Reports\\" . ucfirst(Str::camel($name));
 
         $report = new $class;
 

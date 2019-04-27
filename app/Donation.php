@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Vinkla\Hashids\Facades\Hashids;
@@ -33,8 +34,8 @@ class Donation extends Model
             'group' => $data['group'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'company' => array_get($data, 'company'),
-            'tax_id' => array_get($data, 'tax_id'),
+            'company' => Arr::get($data, 'company'),
+            'tax_id' => Arr::get($data, 'tax_id'),
         ]);
 
         $donation->receipt()->create([
@@ -54,8 +55,8 @@ class Donation extends Model
             'group' => $data['group'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'company' => array_get($data, 'company'),
-            'tax_id' => array_get($data, 'tax_id'),
+            'company' => Arr::get($data, 'company'),
+            'tax_id' => Arr::get($data, 'tax_id'),
         ]);
 
         $donation->receipt()->create([

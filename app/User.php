@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use App\Events\UserCreated;
 use App\Mail\UserConfirmationEmail;
 use Carbon\Carbon;
@@ -101,7 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->tokens()->where('type', $type)->delete();
 
         return $this->tokens()->create([
-            'token' => str_random(50),
+            'token' => Str::random(50),
             'type' => $type,
         ]);
     }

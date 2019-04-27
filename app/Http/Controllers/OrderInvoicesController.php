@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Arr;
 use App\Mail\InvoiceEmail;
 use App\Order;
 use Illuminate\Http\Request;
@@ -23,13 +24,13 @@ class OrderInvoicesController extends Controller
         ]);
 
         $order->invoice()->create([
-            'name' => array_get($data, 'name'),
-            'email' => array_get($data, 'email'),
-            'address' => array_get($data, 'address'),
-            'address_2' => array_get($data, 'address_2'),
-            'city' => array_get($data, 'city'),
-            'state' => array_get($data, 'state'),
-            'zip' => array_get($data, 'zip'),
+            'name' => Arr::get($data, 'name'),
+            'email' => Arr::get($data, 'email'),
+            'address' => Arr::get($data, 'address'),
+            'address_2' => Arr::get($data, 'address_2'),
+            'city' => Arr::get($data, 'city'),
+            'state' => Arr::get($data, 'state'),
+            'zip' => Arr::get($data, 'zip'),
         ]);
 
         Mail::to($order->user->email)->send(new InvoiceEmail($order));

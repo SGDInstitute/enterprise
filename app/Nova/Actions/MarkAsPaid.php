@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions;
 
+use Illuminate\Support\Str;
 use App\Invoice;
 use Illuminate\Bus\Queueable;
 use Laravel\Nova\Actions\Action;
@@ -41,7 +42,7 @@ class MarkAsPaid extends Action
                 ]));
             } else {
                 $order->markAsPaid(collect([
-                    'id' => str_start($fields->check_number, '#'),
+                    'id' => Str::start($fields->check_number, '#'),
                     'amount' => $fields->amount * 100,
                 ]));
             }

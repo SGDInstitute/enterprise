@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Support\Arr;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -25,8 +26,8 @@ class MagicLoginEmail extends Mailable
     {
         $this->user = $user;
         $this->url = url("/login/magic/{$user->magicToken->token}") . '?' . http_build_query([
-                'email' => array_get($data, 'email'),
-                'remember' => array_get($data, 'remember'),
+                'email' => Arr::get($data, 'email'),
+                'remember' => Arr::get($data, 'remember'),
             ]);
     }
 

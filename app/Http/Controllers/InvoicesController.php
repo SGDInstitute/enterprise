@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Arr;
 use App\Invoice;
 use App\Mail\InvoiceEmail;
 use Illuminate\Http\Request;
@@ -32,13 +33,13 @@ class InvoicesController extends Controller
             'zip' => ['nullable', 'numeric'],
         ]);
 
-        $invoice->name = array_get($data, 'name');
-        $invoice->email = array_get($data, 'email');
-        $invoice->address = array_get($data, 'address');
-        $invoice->address_2 = array_get($data, 'address_2');
-        $invoice->city = array_get($data, 'city');
-        $invoice->state = array_get($data, 'state');
-        $invoice->zip = array_get($data, 'zip');
+        $invoice->name = Arr::get($data, 'name');
+        $invoice->email = Arr::get($data, 'email');
+        $invoice->address = Arr::get($data, 'address');
+        $invoice->address_2 = Arr::get($data, 'address_2');
+        $invoice->city = Arr::get($data, 'city');
+        $invoice->state = Arr::get($data, 'state');
+        $invoice->zip = Arr::get($data, 'zip');
 
         $invoice->save();
 
