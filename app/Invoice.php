@@ -21,7 +21,7 @@ class Invoice extends Model
 
     public function getDueDateAttribute()
     {
-        if(is_null($this->order)) {
+        if (is_null($this->order)) {
             return $this->created_at->addDays(60);
         }
         if ($this->created_at->addDays(60) < $this->order->event->start) {

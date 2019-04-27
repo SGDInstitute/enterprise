@@ -17,7 +17,7 @@ class IsPaid extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        if($value === 'paid') {
+        if ($value === 'paid') {
             return $query->paid();
         }
 

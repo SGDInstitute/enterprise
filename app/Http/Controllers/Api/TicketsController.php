@@ -11,7 +11,7 @@ class TicketsController extends Controller
 {
     public function show($id)
     {
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             return Ticket::find($id)->load(['user.profile']);
         } else {
             return Ticket::findByHash($id)->load(['user.profile']);
@@ -20,7 +20,7 @@ class TicketsController extends Controller
 
     public function update($id)
     {
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             $ticket = Ticket::find($id)->load(['user.profile']);
         } else {
             $ticket = Ticket::findByHash($id)->load(['user.profile']);
@@ -29,7 +29,7 @@ class TicketsController extends Controller
         if (request()->has('user_id')) {
             $ticket->user_id = request('user_id');
             $ticket->save();
-        } elseif($user = User::findByEmail(request('email'))) {
+        } elseif ($user = User::findByEmail(request('email'))) {
             $ticket->user_id = $user->id;
             $ticket->save();
 

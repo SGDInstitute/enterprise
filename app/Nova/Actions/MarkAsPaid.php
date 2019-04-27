@@ -28,10 +28,9 @@ class MarkAsPaid extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            if(is_a($model, Invoice::class)) {
+            if (is_a($model, Invoice::class)) {
                 $order = $model->order;
-            }
-            else {
+            } else {
                 $order = $model;
             }
 
