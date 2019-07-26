@@ -8692,7 +8692,7 @@ exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base
 
 
 // module
-exports.push([module.i, ".v-step[data-v-aa0cbe42] {\n  -webkit-filter: drop-shadow(0 0 2px rgba(0, 0, 0, .5));\n  background: #50596c;\n  border-radius: 3px;\n  color: #fff;\n          filter: drop-shadow(0 0 2px rgba(0, 0, 0, .5));\n  max-width: 320px;\n  padding: 1rem;\n  text-align: center;\n}\n\n.v-step .v-step__arrow[data-v-aa0cbe42] {\n  border-color: #50596c;\n  border-style: solid;\n  height: 0;\n  margin: .5rem;\n  position: absolute;\n  width: 0;\n}\n\n.v-step .v-step__arrow--dark[data-v-aa0cbe42] {\n  border-color: #454d5d;\n}\n\n.v-step[x-placement^=top][data-v-aa0cbe42] {\n  margin-bottom: .5rem;\n}\n\n.v-step[x-placement^=top] .v-step__arrow[data-v-aa0cbe42] {\n  border-bottom-color: transparent;\n  border-left-color: transparent;\n  border-right-color: transparent;\n  border-width: .5rem .5rem 0;\n  bottom: -.5rem;\n  left: calc(50% - 1rem);\n  margin-bottom: 0;\n  margin-top: 0;\n}\n\n.v-step[x-placement^=bottom][data-v-aa0cbe42] {\n  margin-top: .5rem;\n}\n\n.v-step[x-placement^=bottom] .v-step__arrow[data-v-aa0cbe42] {\n  border-left-color: transparent;\n  border-right-color: transparent;\n  border-top-color: transparent;\n  border-width: 0 .5rem .5rem;\n  left: calc(50% - 1rem);\n  margin-bottom: 0;\n  margin-top: 0;\n  top: -.5rem;\n}\n\n.v-step[x-placement^=right][data-v-aa0cbe42] {\n  margin-left: .5rem;\n}\n\n.v-step[x-placement^=right] .v-step__arrow[data-v-aa0cbe42] {\n  border-bottom-color: transparent;\n  border-left-color: transparent;\n  border-top-color: transparent;\n  border-width: .5rem .5rem .5rem 0;\n  left: -.5rem;\n  margin-left: 0;\n  margin-right: 0;\n  top: calc(50% - 1rem);\n}\n\n.v-step[x-placement^=left][data-v-aa0cbe42] {\n  margin-right: .5rem;\n}\n\n.v-step[x-placement^=left] .v-step__arrow[data-v-aa0cbe42] {\n  border-bottom-color: transparent;\n  border-right-color: transparent;\n  border-top-color: transparent;\n  border-width: .5rem 0 .5rem .5rem;\n  margin-left: 0;\n  margin-right: 0;\n  right: -.5rem;\n  top: calc(50% - 1rem);\n}\n\n.v-step__header[data-v-aa0cbe42] {\n  background-color: #454d5d;\n  border-top-left-radius: 3px;\n  border-top-right-radius: 3px;\n  margin: -1rem -1rem .5rem;\n  padding: .5rem;\n}\n\n.v-step__content[data-v-aa0cbe42] {\n  margin: 0 0 1rem;\n}\n\n.v-step__button[data-v-aa0cbe42] {\n  -webkit-transition: all .2s ease;\n  background: transparent;\n  border: .05rem solid #fff;\n  border-radius: .1rem;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  font-size: .8rem;\n  height: 1.8rem;\n  line-height: 1rem;\n  margin: 0 .2rem;\n  outline: none;\n  padding: .35rem .4rem;\n  text-align: center;\n  text-decoration: none;\n          transition: all .2s ease;\n  vertical-align: middle;\n  white-space: nowrap;\n}\n\n.v-step__button[data-v-aa0cbe42]:hover {\n  background-color: hsla(0, 0%, 100%, .95);\n  color: #50596c;\n}\n", ""]);
+exports.push([module.i, ".v-step[data-v-aa0cbe42]{\n  -webkit-filter:drop-shadow(0 0 2px rgba(0,0,0,.5));\n  background:#50596c;\n  border-radius:3px;\n  color:#fff;\n  filter:drop-shadow(0 0 2px rgba(0,0,0,.5));\n  max-width:320px;\n  padding:1rem;\n  text-align:center\n}\n\n.v-step .v-step__arrow[data-v-aa0cbe42]{\n  border-color:#50596c;\n  border-style:solid;\n  height:0;\n  margin:.5rem;\n  position:absolute;\n  width:0\n}\n\n.v-step .v-step__arrow--dark[data-v-aa0cbe42]{\n  border-color:#454d5d\n}\n\n.v-step[x-placement^=top][data-v-aa0cbe42]{\n  margin-bottom:.5rem\n}\n\n.v-step[x-placement^=top] .v-step__arrow[data-v-aa0cbe42]{\n  border-bottom-color:transparent;\n  border-left-color:transparent;\n  border-right-color:transparent;\n  border-width:.5rem .5rem 0;\n  bottom:-.5rem;\n  left:calc(50% - 1rem);\n  margin-bottom:0;\n  margin-top:0\n}\n\n.v-step[x-placement^=bottom][data-v-aa0cbe42]{\n  margin-top:.5rem\n}\n\n.v-step[x-placement^=bottom] .v-step__arrow[data-v-aa0cbe42]{\n  border-left-color:transparent;\n  border-right-color:transparent;\n  border-top-color:transparent;\n  border-width:0 .5rem .5rem;\n  left:calc(50% - 1rem);\n  margin-bottom:0;\n  margin-top:0;\n  top:-.5rem\n}\n\n.v-step[x-placement^=right][data-v-aa0cbe42]{\n  margin-left:.5rem\n}\n\n.v-step[x-placement^=right] .v-step__arrow[data-v-aa0cbe42]{\n  border-bottom-color:transparent;\n  border-left-color:transparent;\n  border-top-color:transparent;\n  border-width:.5rem .5rem .5rem 0;\n  left:-.5rem;\n  margin-left:0;\n  margin-right:0;\n  top:calc(50% - 1rem)\n}\n\n.v-step[x-placement^=left][data-v-aa0cbe42]{\n  margin-right:.5rem\n}\n\n.v-step[x-placement^=left] .v-step__arrow[data-v-aa0cbe42]{\n  border-bottom-color:transparent;\n  border-right-color:transparent;\n  border-top-color:transparent;\n  border-width:.5rem 0 .5rem .5rem;\n  margin-left:0;\n  margin-right:0;\n  right:-.5rem;\n  top:calc(50% - 1rem)\n}\n\n.v-step__header[data-v-aa0cbe42]{\n  background-color:#454d5d;\n  border-top-left-radius:3px;\n  border-top-right-radius:3px;\n  margin:-1rem -1rem .5rem;\n  padding:.5rem\n}\n\n.v-step__content[data-v-aa0cbe42]{\n  margin:0 0 1rem\n}\n\n.v-step__button[data-v-aa0cbe42]{\n  -webkit-transition:all .2s ease;\n  background:transparent;\n  border:.05rem solid #fff;\n  border-radius:.1rem;\n  color:#fff;\n  cursor:pointer;\n  display:inline-block;\n  font-size:.8rem;\n  height:1.8rem;\n  line-height:1rem;\n  margin:0 .2rem;\n  outline:none;\n  padding:.35rem .4rem;\n  text-align:center;\n  text-decoration:none;\n  transition:all .2s ease;\n  vertical-align:middle;\n  white-space:nowrap\n}\n\n.v-step__button[data-v-aa0cbe42]:hover{\n  background-color:hsla(0,0%,100%,.95);\n  color:#50596c\n}", ""]);
 
 // exports
 
@@ -82924,6 +82924,17 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/less/app.less":
+/*!*********************************!*\
+  !*** ./resources/less/app.less ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/less/checkin.less":
 /*!*************************************!*\
   !*** ./resources/less/checkin.less ***!
@@ -82935,27 +82946,16 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
 /*!*******************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/less/checkin.less ./resources/sass/app.scss ***!
+  !*** multi ./resources/js/app.js ./resources/less/app.less ./resources/less/checkin.less ***!
   \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/andymswick/Development/sgdinstitute/enterprise/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Users/andymswick/Development/sgdinstitute/enterprise/resources/less/checkin.less */"./resources/less/checkin.less");
-module.exports = __webpack_require__(/*! /Users/andymswick/Development/sgdinstitute/enterprise/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/andymswick/Development/sgdinstitute/enterprise/resources/less/app.less */"./resources/less/app.less");
+module.exports = __webpack_require__(/*! /Users/andymswick/Development/sgdinstitute/enterprise/resources/less/checkin.less */"./resources/less/checkin.less");
 
 
 /***/ })
