@@ -1,0 +1,21 @@
+.fullscreen-video {
+  @apply fixed min-w-full min-h-full w-auto h-auto;
+  top: 50%;
+  left: 50%;
+  z-index: -100;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+
+  video {
+  @apply fixed min-w-full min-h-full w-auto h-auto;
+    top: 50%;
+    left: 50%;
+    z-index: -100;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+
+  .overlay {
+    @apply h-full w-full absolute top-0 left-0 opacity-75 bg-mint-800;
+  }
+}

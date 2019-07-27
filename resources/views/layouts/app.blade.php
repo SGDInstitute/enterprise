@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>@yield('title') | Midwest Institute for Sexuality and Gender Diversity</title>
+    <title>{{ $title }} | Midwest Institute for Sexuality and Gender Diversity</title>
     <meta name="description" content="event.discription">
     <meta name="title" content="event.name">
-    <meta name="author" content="MBLGTACC 2018, Midwest Institute for Sexuality and Gender Diversity">
+    <meta name="author" content="MBLGTACC, Midwest Institute for Sexuality and Gender Diversity">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png') }}">
@@ -38,30 +38,12 @@
 </head>
 <body>
 <div id="app">
-    @include('layouts.partials.app.header')
 
-    @yield('hero')
+    @yield('content')
 
-    <section class="content">
-        @if(Auth::user() && !Auth::user()->isConfirmed())
-            <div class="container">
-                <div class="alert alert-danger">
-                    Please confirm your email. Didn't get the confirmation email? <a href="/register/email">Lets try again!</a>
-                </div>
-            </div>
-        @endif
-
-        @yield('content')
-    </section>
-
-    @include('layouts.partials.app.footer')
-
-    <login-or-register v-on:></login-or-register>
 </div>
-<!-- Scripts -->
-@yield('beforeScripts')
+
 <script src="{{ mix('js/app.js') }}"></script>
-@yield('scripts')
 
 </body>
 </html>

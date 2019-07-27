@@ -14,6 +14,9 @@ module.exports = {
           300: '#AFDFDE',
           200: '#EBF7F7'
         }
+      },
+      width: {
+        '80': '20rem'
       }
     },
     variants: {},
