@@ -38,6 +38,9 @@
 </head>
 <body>
 <div id="app">
+    @include('layouts.partials.nav')
+
+    @yield('hero')
 
     @yield('content')
 
