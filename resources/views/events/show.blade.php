@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('title', $event->title)
+@extends('layouts.app', ['title' => $event->title])
 
 @section('hero')
     <section class="hero bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ Storage::url($event->image) }})">
