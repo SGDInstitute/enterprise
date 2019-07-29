@@ -1,4 +1,4 @@
-<a href="/events/{{ $event->slug }}" class="block w-80 bg-gray-100 hover:bg-white rounded overflow-hidden shadow hover:shadow-lg">
+<a href="/events/{{ $event->slug }}" class="block w-80 bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg">
     @if($event->image)
         <img class="w-full" src="{{ $event->image }}" alt="{{ $event->title }}">
     @else
