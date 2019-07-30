@@ -3329,10 +3329,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['ticket_types', 'event', 'user'],
@@ -62035,13 +62031,15 @@ var render = function() {
     },
     [
       _vm._l(_vm.ticket_types, function(type, index) {
-        return _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("h2", { staticClass: "card-title md:flex md:justify-between" }, [
+        return _c(
+          "div",
+          { staticClass: "bg-gray-200 p-4 mb-4 rounded shadow" },
+          [
+            _c("h2", { staticClass: "text-2xl md:flex md:justify-between" }, [
               _vm._v(
-                "\n                " +
+                "\n            " +
                   _vm._s(type.formatted_cost) +
-                  "\n                "
+                  "\n            "
               ),
               type.is_open
                 ? _c("span", { staticClass: "col-md-6 pr-0" }, [
@@ -62095,71 +62093,72 @@ var render = function() {
                           "Opens on " + _vm.formatDate(type.availability_start)
                       }
                     },
-                    [_vm._v("Closed\n                ")]
+                    [_vm._v("Closed\n            ")]
                   )
             ]),
             _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(type.name))]),
+            _c("p", { staticClass: "leading-normal my-2" }, [
+              _vm._v(_vm._s(type.name))
+            ]),
             _vm._v(" "),
             type.description
-              ? _c("small", { staticClass: "card-text text-muted" }, [
+              ? _c("small", { staticClass: "leading-normal text-gray-700" }, [
                   _vm._v(_vm._s(type.description))
                 ])
               : _vm._e()
-          ])
-        ])
+          ]
+        )
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("h2", { staticClass: "card-title" }, [
-            _vm._v("Subtotal\n                "),
-            _c("small", { staticClass: "pull-right" }, [
-              _vm._v("$" + _vm._s(_vm.total))
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.form.errors.has("tickets"),
-                  expression: "form.errors.has('tickets')"
-                }
-              ],
-              staticClass: "alert alert-danger",
-              attrs: { role: "alert" }
-            },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.form.errors.get("tickets")) +
-                  "\n            "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-block",
-              attrs: { type: "submit", disabled: _vm.form.busy }
-            },
-            [_vm._v("Next")]
-          ),
-          _vm._v(" "),
-          _vm.hasPolicies
-            ? _c("p", {
-                staticClass:
-                  "text-sm text-muted card-text mt-1 font-italic font-weight-light",
-                domProps: { innerHTML: _vm._s(_vm.policyMessage) }
-              })
-            : _vm._e()
-        ])
-      ])
+      _c("div", { staticClass: "p-2 mb-4" }, [
+        _c("h2", { staticClass: "text-2xl" }, [
+          _vm._v("Subtotal\n            "),
+          _c("small", { staticClass: "pull-right" }, [
+            _vm._v("$" + _vm._s(_vm.total))
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.form.errors.has("tickets"),
+                expression: "form.errors.has('tickets')"
+              }
+            ],
+            staticClass: "alert alert-danger",
+            attrs: { role: "alert" }
+          },
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.form.errors.get("tickets")) +
+                "\n        "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm.hasPolicies
+          ? _c("p", {
+              staticClass:
+                "text-sm text-muted card-text mt-1 font-italic font-weight-light",
+              domProps: { innerHTML: _vm._s(_vm.policyMessage) }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-mint-500 hover:bg-mint-700 text-white font-bold py-2 px-4 rounded block w-full",
+          attrs: { type: "submit", disabled: _vm.form.busy }
+        },
+        [_vm._v("Next")]
+      )
     ],
     2
   )

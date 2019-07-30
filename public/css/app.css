@@ -3951,6 +3951,18 @@ video {
   height: 16rem;
 }
 
+.h-80 {
+  height: 20rem;
+}
+
+.h-96 {
+  height: 24rem;
+}
+
+.h-112 {
+  height: 28rem;
+}
+
 .h-auto {
   height: auto;
 }
@@ -3965,6 +3977,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-1\/3 {
+  height: 66vh;
 }
 
 .leading-none {
@@ -7843,6 +7859,10 @@ video {
   z-index: auto;
 }
 
+.-z-1 {
+  z-index: -1;
+}
+
 @media (min-width: 640px) {
   .sm\:appearance-none {
     -webkit-appearance: none;
@@ -11132,6 +11152,18 @@ video {
     height: 16rem;
   }
 
+  .sm\:h-80 {
+    height: 20rem;
+  }
+
+  .sm\:h-96 {
+    height: 24rem;
+  }
+
+  .sm\:h-112 {
+    height: 28rem;
+  }
+
   .sm\:h-auto {
     height: auto;
   }
@@ -11146,6 +11178,10 @@ video {
 
   .sm\:h-screen {
     height: 100vh;
+  }
+
+  .sm\:h-1\/3 {
+    height: 66vh;
   }
 
   .sm\:leading-none {
@@ -15023,6 +15059,10 @@ video {
   .sm\:z-auto {
     z-index: auto;
   }
+
+  .sm\:-z-1 {
+    z-index: -1;
+  }
 }
 
 @media (min-width: 768px) {
@@ -18314,6 +18354,18 @@ video {
     height: 16rem;
   }
 
+  .md\:h-80 {
+    height: 20rem;
+  }
+
+  .md\:h-96 {
+    height: 24rem;
+  }
+
+  .md\:h-112 {
+    height: 28rem;
+  }
+
   .md\:h-auto {
     height: auto;
   }
@@ -18328,6 +18380,10 @@ video {
 
   .md\:h-screen {
     height: 100vh;
+  }
+
+  .md\:h-1\/3 {
+    height: 66vh;
   }
 
   .md\:leading-none {
@@ -22205,6 +22261,10 @@ video {
   .md\:z-auto {
     z-index: auto;
   }
+
+  .md\:-z-1 {
+    z-index: -1;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -25496,6 +25556,18 @@ video {
     height: 16rem;
   }
 
+  .lg\:h-80 {
+    height: 20rem;
+  }
+
+  .lg\:h-96 {
+    height: 24rem;
+  }
+
+  .lg\:h-112 {
+    height: 28rem;
+  }
+
   .lg\:h-auto {
     height: auto;
   }
@@ -25510,6 +25582,10 @@ video {
 
   .lg\:h-screen {
     height: 100vh;
+  }
+
+  .lg\:h-1\/3 {
+    height: 66vh;
   }
 
   .lg\:leading-none {
@@ -29387,6 +29463,10 @@ video {
   .lg\:z-auto {
     z-index: auto;
   }
+
+  .lg\:-z-1 {
+    z-index: -1;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -32678,6 +32758,18 @@ video {
     height: 16rem;
   }
 
+  .xl\:h-80 {
+    height: 20rem;
+  }
+
+  .xl\:h-96 {
+    height: 24rem;
+  }
+
+  .xl\:h-112 {
+    height: 28rem;
+  }
+
   .xl\:h-auto {
     height: auto;
   }
@@ -32692,6 +32784,10 @@ video {
 
   .xl\:h-screen {
     height: 100vh;
+  }
+
+  .xl\:h-1\/3 {
+    height: 66vh;
   }
 
   .xl\:leading-none {
@@ -36568,5 +36664,9 @@ video {
 
   .xl\:z-auto {
     z-index: auto;
+  }
+
+  .xl\:-z-1 {
+    z-index: -1;
   }
 }

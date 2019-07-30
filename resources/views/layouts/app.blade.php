@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="utf-8">
     <title>{{ $title }} | Midwest Institute for Sexuality and Gender Diversity</title>
@@ -36,11 +36,10 @@
         ]);
     </script>
 </head>
-<body>
+<body class="h-full bg-gray-200">
 <div id="app">
-    @include('layouts.partials.nav')
 
-    @yield('hero')
+    @include('layouts.partials.nav')
 
     @yield('content')
 

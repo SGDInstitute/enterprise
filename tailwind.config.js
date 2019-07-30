@@ -15,8 +15,17 @@ module.exports = {
           200: '#EBF7F7'
         }
       },
+      height: {
+        '80': '20rem',
+        '96': '24rem',
+        '112': '28rem',
+        '1/3': '66vh'
+      },
       width: {
         '80': '20rem'
+      },
+      zIndex: {
+        '-1': '-1',
       }
     },
     variants: {},

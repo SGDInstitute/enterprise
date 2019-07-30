@@ -1,35 +1,31 @@
 <template>
     <form @submit.prevent="submit">
-        <div class="card" v-for="(type, index) in ticket_types">
-            <div class="card-body">
-                <h2 class="card-title md:flex md:justify-between">
-                    {{ type.formatted_cost }}
-                    <span v-if="type.is_open" class="col-md-6 pr-0">
-                        <label :for="'ticket_quantity'+index" class="sr-only">Ticket Quantity</label>
-                        <input type="number" :id="'ticket_quantity'+index" class="form-control" min="0"
-                               v-model="form.tickets[index].quantity"
-                               placeholder="Quantity">
-                    </span>
-                    <small v-else data-toggle="tooltip" data-placement="top"
-                           :title="'Opens on ' + formatDate(type.availability_start)">Closed
-                    </small>
-                </h2>
-                <p class="card-text">{{ type.name }}</p>
-                <small v-if="type.description" class="card-text text-muted">{{ type.description }}</small>
-            </div>
+        <div class="bg-gray-200 p-4 mb-4 rounded shadow" v-for="(type, index) in ticket_types">
+            <h2 class="text-2xl md:flex md:justify-between">
+                {{ type.formatted_cost }}
+                <span v-if="type.is_open" class="col-md-6 pr-0">
+                    <label :for="'ticket_quantity'+index" class="sr-only">Ticket Quantity</label>
+                    <input type="number" :id="'ticket_quantity'+index" class="form-control" min="0"
+                           v-model="form.tickets[index].quantity"
+                           placeholder="Quantity">
+                </span>
+                <small v-else data-toggle="tooltip" data-placement="top"
+                       :title="'Opens on ' + formatDate(type.availability_start)">Closed
+                </small>
+            </h2>
+            <p class="leading-normal my-2">{{ type.name }}</p>
+            <small v-if="type.description" class="leading-normal text-gray-700">{{ type.description }}</small>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Subtotal
-                    <small class="pull-right">${{ total }}</small>
-                </h2>
-                <div class="alert alert-danger" role="alert" v-show="form.errors.has('tickets')">
-                    {{ form.errors.get('tickets') }}
-                </div>
-                <button type="submit" class="btn btn-primary btn-block" :disabled="form.busy">Next</button>
-                <p v-if="hasPolicies" v-html="policyMessage" class="text-sm text-muted card-text mt-1 font-italic font-weight-light"></p>
+        <div class="p-2 mb-4">
+            <h2 class="text-2xl">Subtotal
+                <small class="pull-right">${{ total }}</small>
+            </h2>
+            <div class="alert alert-danger" role="alert" v-show="form.errors.has('tickets')">
+                {{ form.errors.get('tickets') }}
             </div>
+            <p v-if="hasPolicies" v-html="policyMessage" class="text-sm text-muted card-text mt-1 font-italic font-weight-light"></p>
         </div>
+        <button type="submit" class="bg-mint-500 hover:bg-mint-700 text-white font-bold py-2 px-4 rounded block w-full" :disabled="form.busy">Next</button>
     </form>
 </template>
 
