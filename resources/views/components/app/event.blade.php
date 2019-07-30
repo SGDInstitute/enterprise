@@ -1,8 +1,8 @@
-<a href="/events/{{ $event->slug }}" class="block w-80 bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg">
+<a href="/events/{{ $event->slug }}" class="block w-80 mx-4 bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg">
     @if($event->image)
-        <img class="w-full" src="{{ $event->image }}" alt="{{ $event->title }}">
+        <img class="w-full h-48" src="{{ $event->image }}" alt="{{ $event->title }}">
     @else
-    <img class="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains">
+    <img class="w-full h-48" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains">
     @endif
     <div class="px-6 py-4">
         @if(isset($event->logo_dark))
