@@ -18,6 +18,8 @@ Route::get('/events/{slug}', 'EventsController@show');
 Route::get('/events/{slug}/policies/{policy}', 'EventsPoliciesController@show');
 
 Route::get('/donations/create', 'DonationsController@create');
+Route::view('/donations/create/institute', 'donations.institute');
+Route::view('/donations/create/mblgtacc', 'donations.mblgtacc');
 Route::post('/donations', 'DonationsController@store');
 Route::get('/donations/{hash}', 'DonationsController@show');
 
