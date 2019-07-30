@@ -1,19 +1,22 @@
 @extends('layouts.app', ['title' => 'Donate Today'])
 
 @section('content')
-    <div class="container">
+    <div class="bg-mint-500 h-80 absolute top-0 w-full -z-1 overflow-hidden"
+         style="background: #38AFAD; background: -webkit-linear-gradient(to left, #1a7796, #38AFAD); background: linear-gradient(to left, #1a7796, #38AFAD);">
+    </div>
+    <div class="mt-12 container">
         @include('flash::message')
 
-        <h1>Support the Institute Today</h1>
+        <h1 class="text-white text-2xl mb-4">Support the Institute Today</h1>
 
         <div class="md:flex md:-mx-4">
             <div class="md:w-7/12 mx-4">
-                <div class="p-4 bg-white rounded shadow">
+                <div class="p-6 bg-white rounded shadow">
                     <donation-form :user="{{ Auth::user() === null ? json_encode(null) : Auth::user() }}"></donation-form>
                 </div>
             </div>
             <div class="md:w-5/12 mx-4">
-                <div class="p-4 bg-white rounded shadow">
+                <div class="p-6 bg-white rounded shadow">
                     <p class="leading-normal mb-4">For twenty-five years, MBLGTACC has brought together students from around the United States for a
                         few days each year to learn and grow through the knowledge and experiences of others. We are
                         dedicated to ensuring that the history of the conference carries forward to touch countless

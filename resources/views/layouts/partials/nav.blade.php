@@ -1,4 +1,4 @@
-<nav class="flex items-center justify-between flex-wrap bg-gray-300 p-6">
+<nav class="flex items-center justify-between flex-wrap bg-gray-300 p-6 fixed top-0 w-full z-10 shadow">
     @if(isset($event))
         <a href="{{ Auth::guest() ? '/' : '/home' }}">
             @if(isset($event->logo_dark))
