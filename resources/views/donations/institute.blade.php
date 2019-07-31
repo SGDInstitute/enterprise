@@ -1,13 +1,14 @@
 @extends('layouts.app', ['title' => 'Donate Today'])
 
 @section('content')
-    <div class="bg-mint-500 h-80 absolute top-0 w-full -z-1 overflow-hidden"
-         style="background: #38AFAD; background: -webkit-linear-gradient(to left, #1a7796, #38AFAD); background: linear-gradient(to left, #1a7796, #38AFAD);">
-    </div>
-    <div class="mt-12 container">
+    <main role="main" class="mt-40">
+        <div class="bg-mint-500 h-80 absolute top-0 w-full -z-1 overflow-hidden"
+             style="background: #38AFAD; background: -webkit-linear-gradient(to left, #1a7796, #38AFAD); background: linear-gradient(to left, #1a7796, #38AFAD);">
+        </div>
+        <div class="mt-12 container">
         @include('flash::message')
 
-        <h1 class="text-white text-2xl mb-4">Support the Institute Today</h1>
+        <h1 class="text-white text-3xl font-semibold mb-4">Support the Institute Today</h1>
 
         <div class="md:flex md:-mx-4">
             <div class="md:w-7/12 mx-4">
@@ -35,6 +36,7 @@
             </div>
         </div>
     </div>
+    </main>
 @endsection
 
 @section('beforeScripts')

@@ -1,21 +1,17 @@
 <template>
-    <form class="form-horizontal">
-        <div class="form-group row" :class="{'has-error': form.errors.has('amount')}">
-            <label for="amount" class="col-sm-4 control-label">Amount*</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">$</div>
-                    </div>
-                    <input type="number" class="form-control" name="amount" id="amount" v-model="form.amount">
-                    <div class="input-group-append">
-                        <div class="input-group-text">.00</div>
-                    </div>
-                </div>
-                <span class="help-block" v-show="form.errors.has('amount')">
-                    {{ form.errors.get('amount') }}
-                </span>
+    <form>
+        <div class="w-full">
+            <label class="form-label" for="amount">
+                Amount *
+            </label>
+            <div class="relative flex flex-wrap items-stretch w-full">
+                <div class="flex">$</div>
+                <input class="form-control" id="amount" type="text" placeholder="20">
+                <div class="flex">.00</div>
             </div>
+            <span class="help-block" v-show="form.errors.has('amount')">
+                {{ form.errors.get('amount') }}
+            </span>
         </div>
 
         <div class="form-group row" :class="{'has-error': form.errors.has('subscription')}">
@@ -35,25 +31,24 @@
 
         <input type="hidden" name="group" value="institute">
 
-        <div class="form-group row" :class="{'has-error': form.errors.has('name')}">
-            <label for="name" class="col-sm-4 control-label">Your Name*</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" placeholder="Harvey Milk" name="name" id="name" v-model="form.name">
-                <span class="help-block" v-show="form.errors.has('name')">
-                    {{ form.errors.get('name') }}
-                </span>
-            </div>
+        <div class="w-full">
+            <label class="form-label" for="name">
+                Your Name *
+            </label>
+            <input class="form-control" id="name" type="text" placeholder="Jax Doe">
+            <span class="help-block" v-show="form.errors.has('name')">
+                {{ form.errors.get('name') }}
+            </span>
         </div>
 
-        <div class="form-group row" :class="{'has-error': form.errors.has('email')}">
-            <label for="email" class="col-sm-4 control-label">Your Email*</label>
-            <div class="col-sm-8">
-                <input type="email" class="form-control" placeholder="HarveyMilk@gmail.com" name="email" id="email"
-                       v-model="form.email">
-                <span class="help-block" v-show="form.errors.has('email')">
-                    {{ form.errors.get('email') }}
-                </span>
-            </div>
+        <div class="w-full">
+            <label class="form-label" for="email">
+                Your Email *
+            </label>
+            <input class="form-control" id="email" type="text" placeholder="jaxdoe@gmail.com">
+            <span class="help-block" v-show="form.errors.has('email')">
+                {{ form.errors.get('email') }}
+            </span>
         </div>
 
         <div class="form-group row" >

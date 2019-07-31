@@ -39,7 +39,7 @@
                     <div class="flex items-center">
                         @component('components.app.links', ['class' => 'text-2xl inline-block', 'links' => collect($event->links)->sortBy('order')])
                         @endcomponent
-                        <a href="/donations/create" class="ml-4 bg-transparent hover:bg-mint-700 text-mint-900 hover:text-white px-2 py-1 border border-mint-700 hover:border-transparent rounded cursor-pointer">
+                        <a href="/donations/create/mblgtacc" class="ml-4 bg-transparent hover:bg-mint-700 text-mint-700 hover:text-white px-2 py-1 border border-mint-700 hover:border-transparent rounded cursor-pointer">
                             Sponsor
                         </a>
                     </div>

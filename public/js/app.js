@@ -1902,11 +1902,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -57812,73 +57807,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", { staticClass: "form-horizontal" }, [
-    _c(
-      "div",
-      {
-        staticClass: "form-group row",
-        class: { "has-error": _vm.form.errors.has("amount") }
-      },
-      [
-        _c(
-          "label",
-          { staticClass: "col-sm-4 control-label", attrs: { for: "amount" } },
-          [_vm._v("Amount*")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("div", { staticClass: "input-group" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.amount,
-                  expression: "form.amount"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "number", name: "amount", id: "amount" },
-              domProps: { value: _vm.form.amount },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "amount", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(1)
-          ]),
-          _vm._v(" "),
-          _c(
-            "span",
+  return _c("form", [
+    _c("div", { staticClass: "w-full" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "amount" } }, [
+        _vm._v("\n            Amount *\n        ")
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.form.errors.has("amount"),
-                  expression: "form.errors.has('amount')"
-                }
-              ],
-              staticClass: "help-block"
-            },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.form.errors.get("amount")) +
-                  "\n            "
-              )
-            ]
+              name: "show",
+              rawName: "v-show",
+              value: _vm.form.errors.has("amount"),
+              expression: "form.errors.has('amount')"
+            }
+          ],
+          staticClass: "help-block"
+        },
+        [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.form.errors.get("amount")) +
+              "\n        "
           )
-        ])
-      ]
-    ),
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -57976,137 +57934,71 @@ var render = function() {
       attrs: { type: "hidden", name: "group", value: "institute" }
     }),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "form-group row",
-        class: { "has-error": _vm.form.errors.has("name") }
-      },
-      [
-        _c(
-          "label",
-          { staticClass: "col-sm-4 control-label", attrs: { for: "name" } },
-          [_vm._v("Your Name*")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.name,
-                expression: "form.name"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              placeholder: "Harvey Milk",
-              name: "name",
-              id: "name"
-            },
-            domProps: { value: _vm.form.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "name", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "span",
+    _c("div", { staticClass: "w-full" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "name" } }, [
+        _vm._v("\n            Your Name *\n        ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { id: "name", type: "text", placeholder: "Jax Doe" }
+      }),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.form.errors.has("name"),
-                  expression: "form.errors.has('name')"
-                }
-              ],
-              staticClass: "help-block"
-            },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.form.errors.get("name")) +
-                  "\n            "
-              )
-            ]
+              name: "show",
+              rawName: "v-show",
+              value: _vm.form.errors.has("name"),
+              expression: "form.errors.has('name')"
+            }
+          ],
+          staticClass: "help-block"
+        },
+        [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.form.errors.get("name")) +
+              "\n        "
           )
-        ])
-      ]
-    ),
+        ]
+      )
+    ]),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "form-group row",
-        class: { "has-error": _vm.form.errors.has("email") }
-      },
-      [
-        _c(
-          "label",
-          { staticClass: "col-sm-4 control-label", attrs: { for: "email" } },
-          [_vm._v("Your Email*")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.email,
-                expression: "form.email"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "email",
-              placeholder: "HarveyMilk@gmail.com",
-              name: "email",
-              id: "email"
-            },
-            domProps: { value: _vm.form.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "email", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "span",
+    _c("div", { staticClass: "w-full" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "email" } }, [
+        _vm._v("\n            Your Email *\n        ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { id: "email", type: "text", placeholder: "jaxdoe@gmail.com" }
+      }),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.form.errors.has("email"),
-                  expression: "form.errors.has('email')"
-                }
-              ],
-              staticClass: "help-block"
-            },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.form.errors.get("email")) +
-                  "\n            "
-              )
-            ]
+              name: "show",
+              rawName: "v-show",
+              value: _vm.form.errors.has("email"),
+              expression: "form.errors.has('email')"
+            }
+          ],
+          staticClass: "help-block"
+        },
+        [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.form.errors.get("email")) +
+              "\n        "
           )
-        ])
-      ]
-    ),
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group row" }, [
       _c("div", { staticClass: "ml-auto col-sm-8" }, [
@@ -58380,17 +58272,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("$")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v(".00")])
-    ])
+    return _c(
+      "div",
+      { staticClass: "relative flex flex-wrap items-stretch w-full" },
+      [
+        _c("div", { staticClass: "flex" }, [_vm._v("$")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { id: "amount", type: "text", placeholder: "20" }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex" }, [_vm._v(".00")])
+      ]
+    )
   }
 ]
 render._withStripped = true
