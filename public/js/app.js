@@ -1898,10 +1898,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -57807,54 +57803,59 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", [
-    _c("div", { staticClass: "w-full" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "amount" } }, [
-        _vm._v("\n            Amount *\n        ")
+  return _c(
+    "form",
+    {
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.donate($event)
+        }
+      }
+    },
+    [
+      _c("input", {
+        attrs: { type: "hidden", name: "group", value: "institute" }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-full mb-3" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "amount" } }, [
+          _vm._v("\n            Amount *\n        ")
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.form.errors.has("amount"),
+                expression: "form.errors.has('amount')"
+              }
+            ],
+            staticClass: "help-block"
+          },
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.form.errors.get("amount")) +
+                "\n        "
+            )
+          ]
+        )
       ]),
       _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "span",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.form.errors.has("amount"),
-              expression: "form.errors.has('amount')"
-            }
-          ],
-          staticClass: "help-block"
-        },
-        [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.form.errors.get("amount")) +
-              "\n        "
-          )
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "form-group row",
-        class: { "has-error": _vm.form.errors.has("subscription") }
-      },
-      [
+      _c("div", { staticClass: "w-full mb-3" }, [
         _c(
           "label",
-          {
-            staticClass: "col-sm-4 control-label",
-            attrs: { for: "subscription" }
-          },
-          [_vm._v("Would you like to repeat this gift?*")]
+          { staticClass: "form-label", attrs: { for: "subscription" } },
+          [_vm._v("Would you like to repeat this gift? *")]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
+        _c("div", { staticClass: "relative" }, [
           _c(
             "select",
             {
@@ -57906,103 +57907,125 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "span",
+            "div",
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.form.errors.has("subscription"),
-                  expression: "form.errors.has('subscription')"
-                }
-              ],
-              staticClass: "help-block"
+              staticClass:
+                "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
             },
             [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.form.errors.get("subscription")) +
-                  "\n            "
+              _c(
+                "svg",
+                {
+                  staticClass: "fill-current h-4 w-4",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 20 20"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                    }
+                  })
+                ]
               )
             ]
           )
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "hidden", name: "group", value: "institute" }
-    }),
-    _vm._v(" "),
-    _c("div", { staticClass: "w-full" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "name" } }, [
-        _vm._v("\n            Your Name *\n        ")
+        ]),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.form.errors.has("subscription"),
+                expression: "form.errors.has('subscription')"
+              }
+            ],
+            staticClass: "help-block"
+          },
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.form.errors.get("subscription")) +
+                "\n            "
+            )
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "name", type: "text", placeholder: "Jax Doe" }
-      }),
-      _vm._v(" "),
-      _c(
-        "span",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.form.errors.has("name"),
-              expression: "form.errors.has('name')"
-            }
-          ],
-          staticClass: "help-block"
-        },
-        [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.form.errors.get("name")) +
-              "\n        "
-          )
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "w-full" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "email" } }, [
-        _vm._v("\n            Your Email *\n        ")
+      _c("div", { staticClass: "w-full mb-3" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "name" } }, [
+          _vm._v("\n            Your Name *\n        ")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { id: "name", type: "text", placeholder: "Jax Doe" }
+        }),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.form.errors.has("name"),
+                expression: "form.errors.has('name')"
+              }
+            ],
+            staticClass: "help-block"
+          },
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.form.errors.get("name")) +
+                "\n        "
+            )
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "email", type: "text", placeholder: "jaxdoe@gmail.com" }
-      }),
+      _c("div", { staticClass: "w-full mb-3" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "email" } }, [
+          _vm._v("\n            Your Email *\n        ")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { id: "email", type: "text", placeholder: "jaxdoe@gmail.com" }
+        }),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.form.errors.has("email"),
+                expression: "form.errors.has('email')"
+              }
+            ],
+            staticClass: "help-block"
+          },
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.form.errors.get("email")) +
+                "\n        "
+            )
+          ]
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "span",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.form.errors.has("email"),
-              expression: "form.errors.has('email')"
-            }
-          ],
-          staticClass: "help-block"
-        },
-        [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.form.errors.get("email")) +
-              "\n        "
-          )
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "ml-auto col-sm-8" }, [
-        _c("div", { staticClass: "checkbox" }, [
+      _c("div", { staticClass: "w-full mb-3" }, [
+        _c("div", { staticClass: "checkbox mb-1" }, [
           _c("label", [
             _c("input", {
               directives: [
@@ -58045,15 +58068,11 @@ var render = function() {
               }
             }),
             _vm._v(
-              " Keep me up to date on the\n                    institute\n                "
+              " Keep me up to date on the\n                institute\n            "
             )
           ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "ml-auto col-sm-8" }, [
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "checkbox" }, [
           _c("label", [
             _c("input", {
@@ -58097,43 +58116,38 @@ var render = function() {
               }
             }),
             _vm._v(
-              " Are you donating on behalf of a company?\n                "
+              " Are you donating on behalf of a\n                company?\n            "
             )
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.form.is_company,
-            expression: "form.is_company"
-          }
-        ]
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "form-group row",
-            class: { "has-error": _vm.form.errors.has("company") }
-          },
-          [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "company" }
-              },
-              [_vm._v("Company Name*")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.form.is_company,
+              expression: "form.is_company"
+            }
+          ]
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "w-full mb-3",
+              class: { "has-error": _vm.form.errors.has("company") }
+            },
+            [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "company" } },
+                [_vm._v("Company Name *")]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -58171,33 +58185,28 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                    " +
+                    "\n                " +
                       _vm._s(_vm.form.errors.get("company")) +
-                      "\n                "
+                      "\n            "
                   )
                 ]
               )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "form-group row",
-            class: { "has-error": _vm.form.errors.has("tax_id") }
-          },
-          [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "tax_id" }
-              },
-              [_vm._v("Tax ID*")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "w-full mb-3",
+              class: { "has-error": _vm.form.errors.has("tax_id") }
+            },
+            [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "tax_id" } },
+                [_vm._v("Tax ID *")]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -58235,57 +58244,51 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                    " +
+                    "\n                " +
                       _vm._s(_vm.form.errors.get("tax_id")) +
-                      "\n                "
+                      "\n            "
                   )
                 ]
               )
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-sm-8 ml-auto" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { type: "submit", disabled: _vm.form.busy },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.donate($event)
-              }
-            }
-          },
-          [_vm._v("Donate Now")]
-        )
-      ])
-    ])
-  ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "mt-6 btn btn-mint",
+          attrs: { type: "submit", disabled: _vm.form.busy }
+        },
+        [_vm._v("Donate Now\n    ")]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "relative flex flex-wrap items-stretch w-full" },
-      [
-        _c("div", { staticClass: "flex" }, [_vm._v("$")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { id: "amount", type: "text", placeholder: "20" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex" }, [_vm._v(".00")])
-      ]
-    )
+    return _c("div", { staticClass: "input-group" }, [
+      _c("div", { staticClass: "input-group-prepend" }, [
+        _c("span", { staticClass: "input-group-text" }, [_vm._v("$")])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "number",
+          "aria-label": "Amount (to the nearest dollar)",
+          placeholder: "20"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-group-append" }, [
+        _c("span", { staticClass: "input-group-text" }, [_vm._v(".00")])
+      ])
+    ])
   }
 ]
 render._withStripped = true

@@ -31,7 +31,7 @@
                     <p class="leading-normal"><strong>Second</strong>, you’ll be advancing our commitment to economic justice. We pledge to
                         make our programs accessible to all students and young leaders regardless of their financial
                         means. We'll limit costs for participation and materials, and make additional support available
-                        to those with limited access to resources. Your support turns this commitment into action.
+                        to those with limited access to resources. Your support turns this commitment into action.</p>
                 </div>
             </div>
         </div>

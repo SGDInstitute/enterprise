@@ -45,6 +45,7 @@
 
 </div>
 
+@yield('beforeScripts')
 <script src="{{ mix('js/app.js') }}"></script>
 
 </body>
