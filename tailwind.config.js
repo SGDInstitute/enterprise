@@ -26,6 +26,9 @@ module.exports = {
         '112': '28rem',
         '1/3': '66vh'
       },
+      inset: {
+        '20': '5rem'
+      },
       width: {
         '80': '20rem'
       },

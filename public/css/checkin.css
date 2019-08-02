@@ -6134,6 +6134,13 @@ input[type="button"].btn-block {
   left: 0;
 }
 
+.inset-20 {
+  top: 5rem;
+  right: 5rem;
+  bottom: 5rem;
+  left: 5rem;
+}
+
 .inset-auto {
   top: auto;
   right: auto;
@@ -6149,6 +6156,16 @@ input[type="button"].btn-block {
 .inset-x-0 {
   right: 0;
   left: 0;
+}
+
+.inset-y-20 {
+  top: 5rem;
+  bottom: 5rem;
+}
+
+.inset-x-20 {
+  right: 5rem;
+  left: 5rem;
 }
 
 .inset-y-auto {
@@ -6175,6 +6192,22 @@ input[type="button"].btn-block {
 
 .left-0 {
   left: 0;
+}
+
+.top-20 {
+  top: 5rem;
+}
+
+.right-20 {
+  right: 5rem;
+}
+
+.bottom-20 {
+  bottom: 5rem;
+}
+
+.left-20 {
+  left: 5rem;
 }
 
 .top-auto {
@@ -13371,6 +13404,13 @@ input[type="button"].btn-block {
     left: 0;
   }
 
+  .sm\:inset-20 {
+    top: 5rem;
+    right: 5rem;
+    bottom: 5rem;
+    left: 5rem;
+  }
+
   .sm\:inset-auto {
     top: auto;
     right: auto;
@@ -13386,6 +13426,16 @@ input[type="button"].btn-block {
   .sm\:inset-x-0 {
     right: 0;
     left: 0;
+  }
+
+  .sm\:inset-y-20 {
+    top: 5rem;
+    bottom: 5rem;
+  }
+
+  .sm\:inset-x-20 {
+    right: 5rem;
+    left: 5rem;
   }
 
   .sm\:inset-y-auto {
@@ -13412,6 +13462,22 @@ input[type="button"].btn-block {
 
   .sm\:left-0 {
     left: 0;
+  }
+
+  .sm\:top-20 {
+    top: 5rem;
+  }
+
+  .sm\:right-20 {
+    right: 5rem;
+  }
+
+  .sm\:bottom-20 {
+    bottom: 5rem;
+  }
+
+  .sm\:left-20 {
+    left: 5rem;
   }
 
   .sm\:top-auto {
@@ -20609,6 +20675,13 @@ input[type="button"].btn-block {
     left: 0;
   }
 
+  .md\:inset-20 {
+    top: 5rem;
+    right: 5rem;
+    bottom: 5rem;
+    left: 5rem;
+  }
+
   .md\:inset-auto {
     top: auto;
     right: auto;
@@ -20624,6 +20697,16 @@ input[type="button"].btn-block {
   .md\:inset-x-0 {
     right: 0;
     left: 0;
+  }
+
+  .md\:inset-y-20 {
+    top: 5rem;
+    bottom: 5rem;
+  }
+
+  .md\:inset-x-20 {
+    right: 5rem;
+    left: 5rem;
   }
 
   .md\:inset-y-auto {
@@ -20650,6 +20733,22 @@ input[type="button"].btn-block {
 
   .md\:left-0 {
     left: 0;
+  }
+
+  .md\:top-20 {
+    top: 5rem;
+  }
+
+  .md\:right-20 {
+    right: 5rem;
+  }
+
+  .md\:bottom-20 {
+    bottom: 5rem;
+  }
+
+  .md\:left-20 {
+    left: 5rem;
   }
 
   .md\:top-auto {
@@ -27847,6 +27946,13 @@ input[type="button"].btn-block {
     left: 0;
   }
 
+  .lg\:inset-20 {
+    top: 5rem;
+    right: 5rem;
+    bottom: 5rem;
+    left: 5rem;
+  }
+
   .lg\:inset-auto {
     top: auto;
     right: auto;
@@ -27862,6 +27968,16 @@ input[type="button"].btn-block {
   .lg\:inset-x-0 {
     right: 0;
     left: 0;
+  }
+
+  .lg\:inset-y-20 {
+    top: 5rem;
+    bottom: 5rem;
+  }
+
+  .lg\:inset-x-20 {
+    right: 5rem;
+    left: 5rem;
   }
 
   .lg\:inset-y-auto {
@@ -27888,6 +28004,22 @@ input[type="button"].btn-block {
 
   .lg\:left-0 {
     left: 0;
+  }
+
+  .lg\:top-20 {
+    top: 5rem;
+  }
+
+  .lg\:right-20 {
+    right: 5rem;
+  }
+
+  .lg\:bottom-20 {
+    bottom: 5rem;
+  }
+
+  .lg\:left-20 {
+    left: 5rem;
   }
 
   .lg\:top-auto {
@@ -35085,6 +35217,13 @@ input[type="button"].btn-block {
     left: 0;
   }
 
+  .xl\:inset-20 {
+    top: 5rem;
+    right: 5rem;
+    bottom: 5rem;
+    left: 5rem;
+  }
+
   .xl\:inset-auto {
     top: auto;
     right: auto;
@@ -35100,6 +35239,16 @@ input[type="button"].btn-block {
   .xl\:inset-x-0 {
     right: 0;
     left: 0;
+  }
+
+  .xl\:inset-y-20 {
+    top: 5rem;
+    bottom: 5rem;
+  }
+
+  .xl\:inset-x-20 {
+    right: 5rem;
+    left: 5rem;
   }
 
   .xl\:inset-y-auto {
@@ -35126,6 +35275,22 @@ input[type="button"].btn-block {
 
   .xl\:left-0 {
     left: 0;
+  }
+
+  .xl\:top-20 {
+    top: 5rem;
+  }
+
+  .xl\:right-20 {
+    right: 5rem;
+  }
+
+  .xl\:bottom-20 {
+    bottom: 5rem;
+  }
+
+  .xl\:left-20 {
+    left: 5rem;
   }
 
   .xl\:top-auto {
