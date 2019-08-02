@@ -19,7 +19,7 @@ class CreateContributionsTable extends Migration
             $table->string('type');
             $table->string('title');
             $table->integer('amount');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

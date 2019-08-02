@@ -8,20 +8,10 @@
         <div class="mt-12 container">
             @include('flash::message')
 
-            <h1 class="text-white text-3xl font-semibold mb-4">Support {{ $event->title }} Today</h1>
+            <h1 class="text-white text-center text-3xl font-semibold mb-4">Support {{ $event->title }} Today</h1>
 
-            <div class="md:flex md:-mx-4">
-                <div class="md:w-7/12 mx-4">
-                    <div class="p-6 bg-white rounded shadow">
+            <sponsorship-form :event="{{ $event }}"></sponsorship-form>
 
-                    </div>
-                </div>
-                <div class="md:w-5/12 mx-4">
-                    <div class="p-6 bg-white rounded shadow">
-
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 @endsection

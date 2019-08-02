@@ -11,7 +11,7 @@ class SponsorshipsController extends Controller
     {
         $event = Event::published()->findBySlug($slug);
         return view('donations.event', [
-            'event' => $event,
+            'event' => $event->load('contributions'),
         ]);
     }
 }

@@ -28,6 +28,8 @@ Vue.component('tab', Tab);
 
 Vue.component('add-user-button', require('./components/AddUserToTicketButton.vue').default);
 Vue.component('donation-form', require('./components/DonationForm.vue').default);
+Vue.component('sponsorship-form', require('./components/SponsorshipForm.vue').default);
+Vue.component('contribution', require('./components/Contribution.vue').default);
 Vue.component('edit-profile', require('./components/EditProfile.vue').default);
 Vue.component('edit-password', require('./components/EditPassword.vue').default);
 Vue.component('invoice-button', require('./components/InvoiceButton.vue').default);

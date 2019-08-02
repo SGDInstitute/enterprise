@@ -974,6 +974,84 @@ input[type="button"].btn-block {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
+.btn-gray {
+  color: #fff;
+  background-color: #a0aec0;
+  border-color: #a0aec0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.btn-gray:hover {
+  color: #fff;
+  background-color: #4a5568;
+  border-color: #4a5568;
+}
+
+.btn-gray:focus,
+.btn-gray.focus {
+  color: #fff;
+  background-color: #4a5568;
+  border-color: #4a5568;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.btn-gray.disabled,
+.btn-gray:disabled {
+  color: #fff;
+  background-color: #a0aec0;
+  border-color: #a0aec0;
+}
+
+.btn-gray:not(:disabled):not(.disabled):active,
+.btn-gray:not(:disabled):not(.disabled).active,
+.show > .btn-gray.dropdown-toggle {
+  color: #fff;
+  background-color: #2d3748;
+  border-color: #2d3748;
+}
+
+.btn-gray:not(:disabled):not(.disabled):active:focus,
+.btn-gray:not(:disabled):not(.disabled).active:focus,
+.show > .btn-gray.dropdown-toggle:focus {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.btn-mint-outline {
+  color: #38AFAD;
+  border-color: #38AFAD;
+}
+
+.btn-mint-outline:hover {
+  color: #fff;
+  background-color: #38AFAD;
+  border-color: #38AFAD;
+}
+
+.btn-mint-outline:focus,
+.btn-mint-outline.focus {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.btn-mint-outline.disabled,
+.btn-mint-outline:disabled {
+  color: #38AFAD;
+  background-color: transparent;
+}
+
+.btn-mint-outline:not(:disabled):not(.disabled):active,
+.btn-mint-outline:not(:disabled):not(.disabled).active,
+.show > .btn-mint-outline.dropdown-toggle {
+  color: #fff;
+  background-color: #38AFAD;
+  border-color: #38AFAD;
+}
+
+.btn-mint-outline:not(:disabled):not(.disabled):active:focus,
+.btn-mint-outline:not(:disabled):not(.disabled).active:focus,
+.show > .btn-mint-outline.dropdown-toggle:focus {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 .form-label {
   display: block;
   text-transform: uppercase;
@@ -8342,6 +8420,10 @@ input[type="button"].btn-block {
 
 .-z-1 {
   z-index: -1;
+}
+
+.transition {
+  transition: all 0.2s;
 }
 
 @media (min-width: 640px) {
