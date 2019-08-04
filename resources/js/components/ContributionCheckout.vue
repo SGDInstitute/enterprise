@@ -7,7 +7,7 @@
         <portal to="modals" v-if="show">
             <modal :show="show">
                 <div slot="header" class="p-6 bg-mint-200 flex justify-between">
-                    <h1 class="text-xl">Contribute ${{ total/100 }} to {{ event.title }}</h1>
+                    <h1 class="text-xl">Contribute ${{ total }} to {{ event.title }}</h1>
                     <button @click="cancel"
                             class="bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg">
                         <i class="fal fa-times fa-fw"></i>
@@ -52,7 +52,7 @@
 
 
     export default {
-        props: ['disable', 'event', 'contributions'],
+        props: ['disable', 'event', 'contributions', 'total'],
         data() {
             return {
                 show: false,
@@ -152,15 +152,6 @@
 
                         self.makeOrder(result.token.id);
                     });
-            },
-        },
-        computed: {
-            total() {
-                let amount = this.contributions.amount * 100;
-                amount += this.contributions.vendor.amount || 0;
-                amount += this.contributions.ad.amount || 0;
-
-                return amount;
             },
         }
     }

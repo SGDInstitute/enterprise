@@ -1884,7 +1884,7 @@ var style = {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['disable', 'event', 'contributions'],
+  props: ['disable', 'event', 'contributions', 'total'],
   data: function data() {
     return {
       show: false,
@@ -1980,14 +1980,6 @@ var style = {
 
         self.makeOrder(result.token.id);
       });
-    }
-  },
-  computed: {
-    total: function total() {
-      var amount = this.contributions.amount * 100;
-      amount += this.contributions.vendor.amount || 0;
-      amount += this.contributions.ad.amount || 0;
-      return amount;
     }
   }
 });
@@ -2217,22 +2209,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['event'],
   data: function data() {
     return {
       form: {
         type: '',
-        ad: '',
+        ads: [],
         amount: '',
         sponsorship: '',
-        vendor: ''
+        vendor: '',
+        vendor_amount: 1
       }
     };
   },
   methods: {
     activeAd: function activeAd(id) {
-      return this.form.ad && this.form.ad.id === id;
+      return _.find(this.form.ads, {
+        'id': id
+      }) !== undefined;
     },
     activeSponsorship: function activeSponsorship(id) {
       return this.form.sponsorship && this.form.sponsorship.id === id;
@@ -2240,13 +2249,13 @@ __webpack_require__.r(__webpack_exports__);
     activeVendor: function activeVendor(id) {
       return this.form.vendor && this.form.vendor.id === id;
     },
+    addAd: function addAd(ad) {
+      ad.quantity = 1;
+      this.form.ads.push(ad);
+    },
     selectSponsor: function selectSponsor(sponsor) {
       this.form.amount = sponsor.amount / 100;
       this.form.sponsorship = sponsor;
-
-      if (this.form.sponsorship.description.includes('Vendor') && this.form.vendor) {
-        this.form.vendor = '';
-      }
     },
     selectType: function selectType(type) {
       this.form.type = type;
@@ -2254,15 +2263,14 @@ __webpack_require__.r(__webpack_exports__);
       this.form.amount = '';
       this.form.sponsorship = '';
       this.form.vendor = '';
-    },
-    sponsorshipIncludesVendor: function sponsorshipIncludesVendor() {
-      return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('Vendor');
-    },
-    sponsorshipIncludesAd: function sponsorshipIncludesAd() {
-      return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('ad');
     }
   },
   computed: {
+    adQuantity: function adQuantity() {
+      return _.sumBy(this.form.ads, function (ad) {
+        return parseInt(ad.quantity);
+      });
+    },
     ads: function ads() {
       var ads = _.filter(this.event.contributions, function (c) {
         return c.type === 'ad';
@@ -2280,10 +2288,27 @@ __webpack_require__.r(__webpack_exports__);
 
       return _.orderBy(sponsorships, ['amount'], ['desc']);
     },
+    sponsorshipAdSize: function sponsorshipAdSize() {
+      if (this.sponsorshipIncludesAd) {
+        var search = 'page ad';
+        var index = this.form.sponsorship.description.indexOf(search);
+        return this.form.sponsorship.description.substr(index - 2, search.length + 2);
+      }
+
+      return '';
+    },
+    sponsorshipIncludesVendor: function sponsorshipIncludesVendor() {
+      return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('Vendor');
+    },
+    sponsorshipIncludesAd: function sponsorshipIncludesAd() {
+      return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('ad');
+    },
     total: function total() {
       var amount = this.form.amount * 100;
-      amount += this.form.vendor.amount || 0;
-      amount += this.form.ad.amount || 0;
+      amount += this.form.vendor.amount * this.form.vendor_amount || 0;
+      amount += _.sumBy(this.form.ads, function (ad) {
+        return ad.amount * ad.quantity;
+      });
       return amount / 100;
     },
     vendors: function vendors() {
@@ -59315,7 +59340,7 @@ var render = function() {
                     _c("h1", { staticClass: "text-xl" }, [
                       _vm._v(
                         "Contribute $" +
-                          _vm._s(_vm.total / 100) +
+                          _vm._s(_vm.total) +
                           " to " +
                           _vm._s(_vm.event.title)
                       )
@@ -59640,8 +59665,7 @@ var render = function() {
                         _vm._v("Add Vendor Table")
                       ]),
                       _vm._v(" "),
-                      _vm.form.sponsorship !== "" &&
-                      _vm.form.sponsorship.description.includes("Vendor")
+                      _vm.sponsorshipIncludesVendor
                         ? _c("alert", [
                             _c("p", [
                               _vm._v(
@@ -59667,12 +59691,10 @@ var render = function() {
                                   staticClass: "card",
                                   class: {
                                     active: _vm.activeVendor(vendor.id),
-                                    "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesVendor()
+                                    "hover:shadow hover:bg-gray-100":
+                                      _vm.sponsorshipIncludesVendor
                                   },
-                                  attrs: {
-                                    disabled: _vm.sponsorshipIncludesVendor(),
-                                    contribution: vendor
-                                  },
+                                  attrs: { contribution: vendor },
                                   on: {
                                     select: function($event) {
                                       _vm.form.vendor = $event
@@ -59749,12 +59771,13 @@ var render = function() {
                         _vm._v("Add Program Book Advertisement")
                       ]),
                       _vm._v(" "),
-                      _vm.form.sponsorship !== "" &&
-                      _vm.form.sponsorship.description.includes("ad")
+                      _vm.sponsorshipIncludesAd
                         ? _c("alert", [
                             _c("p", [
                               _vm._v(
-                                "No need to add an advertisement, one is already included in the sponsorship that was\n                            chosen."
+                                "No need to add an advertisement, a " +
+                                  _vm._s(_vm.sponsorshipAdSize) +
+                                  " is already included in the sponsorship that was\n                            chosen."
                               )
                             ])
                           ])
@@ -59776,15 +59799,13 @@ var render = function() {
                                   staticClass: "card",
                                   class: {
                                     active: _vm.activeAd(ad.id),
-                                    "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesAd()
+                                    "hover:shadow hover:bg-gray-100":
+                                      _vm.sponsorshipIncludesAd
                                   },
-                                  attrs: {
-                                    disabled: _vm.sponsorshipIncludesAd(),
-                                    contribution: ad
-                                  },
+                                  attrs: { contribution: ad },
                                   on: {
                                     select: function($event) {
-                                      _vm.form.ad = $event
+                                      return _vm.addAd($event)
                                     }
                                   }
                                 })
@@ -59802,7 +59823,7 @@ var render = function() {
                                     staticClass: "card",
                                     on: {
                                       select: function($event) {
-                                        _vm.form.ad = ""
+                                        _vm.form.ads = []
                                       }
                                     },
                                     scopedSlots: _vm._u([
@@ -59877,10 +59898,7 @@ var render = function() {
                                 active: _vm.activeVendor(vendor.id),
                                 "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesVendor()
                               },
-                              attrs: {
-                                disabled: _vm.sponsorshipIncludesVendor(),
-                                contribution: vendor
-                              },
+                              attrs: { contribution: vendor },
                               on: {
                                 select: function($event) {
                                   _vm.form.vendor = $event
@@ -59967,12 +59985,10 @@ var render = function() {
                               staticClass: "card",
                               class: {
                                 active: _vm.activeAd(ad.id),
-                                "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesAd()
+                                "hover:shadow hover:bg-gray-100":
+                                  _vm.sponsorshipIncludesAd
                               },
-                              attrs: {
-                                disabled: _vm.sponsorshipIncludesAd(),
-                                contribution: ad
-                              },
+                              attrs: { contribution: ad },
                               on: {
                                 select: function($event) {
                                   _vm.form.ad = $event
@@ -60060,7 +60076,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm.form.sponsorship
                   ? _c("div", { staticClass: "bg-white mb-2 rounded shadow" }, [
-                      _c("div", { staticClass: " p-4 flex items-center" }, [
+                      _c("div", { staticClass: "p-4 flex items-center" }, [
                         _c(
                           "label",
                           {
@@ -60077,7 +60093,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "w-24 flex items-center" }, [
+                        _c("div", { staticClass: "w-32 flex items-center" }, [
                           _c(
                             "span",
                             {
@@ -60095,8 +60111,7 @@ var render = function() {
                                 expression: "form.amount"
                               }
                             ],
-                            staticClass:
-                              "text-2xl text-right appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none -mr-4",
+                            staticClass: "ml-1 form-control text-2xl pr-0",
                             attrs: {
                               id: "sponsorship-amount",
                               type: "number",
@@ -60126,88 +60141,179 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.form.vendor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "bg-white mb-2 rounded shadow p-4 flex items-center"
-                      },
-                      [
+                  ? _c("div", { staticClass: "bg-white mb-2 rounded shadow" }, [
+                      _c("div", { staticClass: "p-4" }, [
                         _c(
                           "label",
                           {
                             staticClass:
-                              "font-semibold text-gray-700 text-lg flex-grow block"
+                              "font-semibold mb-4 text-gray-700 text-lg flex-grow block",
+                            attrs: { for: "vendor_amount" }
                           },
                           [
                             _vm._v(
-                              "\n                        " +
+                              "\n                            " +
                                 _vm._s(_vm.form.vendor.title) +
-                                "\n                    "
+                                " Vendor Table\n                        "
                             )
                           ]
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "w-24 flex items-center" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "text-2xl text-gray-700 font-normal"
-                            },
-                            [_vm._v("$")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            {
-                              staticClass:
-                                "text-2xl text-right w-full text-gray-700 leading-tight"
-                            },
-                            [_vm._v(_vm._s(_vm.form.vendor.amount / 100))]
-                          )
-                        ])
-                      ]
-                    )
+                        _c(
+                          "div",
+                          { staticClass: "flex items-center justify-between" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.vendor_amount,
+                                  expression: "form.vendor_amount"
+                                }
+                              ],
+                              staticClass: "w-24 form-control",
+                              attrs: { type: "number", id: "vendor_amount" },
+                              domProps: { value: _vm.form.vendor_amount },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "vendor_amount",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "w-24 flex items-center" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "text-2xl text-gray-700 font-normal"
+                                  },
+                                  [_vm._v("$")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "text-2xl text-right w-full text-gray-700 leading-tight"
+                                  },
+                                  [_vm._v(_vm._s(_vm.form.vendor.amount / 100))]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.sponsorshipIncludesVendor
+                        ? _c("div", { staticClass: "bg-mint-200 px-4 py-2" }, [
+                            _c("p", { staticClass: "text-xs" }, [
+                              _vm._v(
+                                "One vendor table is already included in the sponsorship that was\n                            chosen, so you will receive " +
+                                  _vm._s(parseInt(_vm.form.vendor_amount) + 1) +
+                                  " tables."
+                              )
+                            ])
+                          ])
+                        : _vm._e()
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.form.ad
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "bg-white rounded shadow p-4 flex items-center"
-                      },
-                      [
+                _vm._l(_vm.form.ads, function(ad) {
+                  return _c(
+                    "div",
+                    { staticClass: "bg-white mb-2 rounded shadow" },
+                    [
+                      _c("div", { staticClass: "p-4" }, [
                         _c(
                           "label",
                           {
                             staticClass:
-                              "font-semibold text-gray-700 text-lg flex-grow block"
+                              "font-semibold mb-4 text-gray-700 text-lg flex-grow block"
                           },
-                          [_vm._v(_vm._s(_vm.form.ad.title))]
+                          [_vm._v(_vm._s(ad.title))]
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "w-24 flex items-center" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "text-2xl text-gray-700 font-normal"
-                            },
-                            [_vm._v("$")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            {
-                              staticClass:
-                                "text-2xl text-right w-full text-gray-700 leading-tight"
-                            },
-                            [_vm._v(_vm._s(_vm.form.ad.amount / 100))]
-                          )
-                        ])
-                      ]
-                    )
-                  : _vm._e(),
+                        _c(
+                          "div",
+                          { staticClass: "flex items-center justify-between" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: ad.quantity,
+                                  expression: "ad.quantity"
+                                }
+                              ],
+                              staticClass: "w-24 form-control",
+                              attrs: { type: "number" },
+                              domProps: { value: ad.quantity },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(ad, "quantity", $event.target.value)
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "w-24 flex items-center" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "text-2xl text-gray-700 font-normal"
+                                  },
+                                  [_vm._v("$")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "text-2xl text-right w-full text-gray-700 leading-tight"
+                                  },
+                                  [_vm._v(_vm._s(ad.amount / 100))]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.sponsorshipIncludesAd
+                        ? _c("div", { staticClass: "bg-mint-200 px-4 py-2" }, [
+                            _c("p", { staticClass: "text-xs" }, [
+                              _vm._v(
+                                "One " +
+                                  _vm._s(_vm.sponsorshipAdSize) +
+                                  " is already included in the sponsorship that was\n                            chosen, so you will receive " +
+                                  _vm._s(_vm.adQuantity + 1) +
+                                  " ads."
+                              )
+                            ])
+                          ])
+                        : _vm._e()
+                    ]
+                  )
+                }),
                 _vm._v(" "),
                 _c("div", { staticClass: "flex items-center px-4 mt-4" }, [
                   _c(
@@ -60243,11 +60349,12 @@ var render = function() {
                   attrs: {
                     disable: _vm.total === 0,
                     event: _vm.event,
-                    contributions: _vm.form
+                    contributions: _vm.form,
+                    total: _vm.total
                   }
                 })
               ],
-              1
+              2
             )
           ])
         ])
@@ -60262,7 +60369,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "bg-mint-200 px-4 py-2" }, [
       _c("p", { staticClass: "text-xs" }, [
         _vm._v(
-          "The contribution amount can be increased by clicking on the amount and using the up arrow."
+          "The contribution amount can be increased by clicking on the amount and using the up arrow or typing a new value."
         )
       ])
     ])

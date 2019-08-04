@@ -48,7 +48,7 @@
 
                     <div class="mb-8">
                         <h3 class="text-2xl mb-6">Add Vendor Table</h3>
-                        <alert v-if="form.sponsorship !== '' && form.sponsorship.description.includes('Vendor')">
+                        <alert v-if="sponsorshipIncludesVendor">
                             <p>No need to add a vendor table, one is already included in the sponsorship that was
                                 chosen.</p>
                         </alert>
@@ -57,8 +57,7 @@
                             <div v-for="vendor in vendors" :key="vendor.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                                 <contribution
                                         class="card"
-                                        :disabled="sponsorshipIncludesVendor()"
-                                        :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor() }"
+                                        :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor }"
                                         :contribution="vendor" v-on:select="form.vendor = $event"></contribution>
                             </div>
                             <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.vendor">
@@ -79,8 +78,8 @@
                     <div>
                         <h3 class="text-2xl mb-6">Add Program Book Advertisement</h3>
 
-                        <alert v-if="form.sponsorship !== '' && form.sponsorship.description.includes('ad')">
-                            <p>No need to add an advertisement, one is already included in the sponsorship that was
+                        <alert v-if="sponsorshipIncludesAd">
+                            <p>No need to add an advertisement, a {{ sponsorshipAdSize }} is already included in the sponsorship that was
                                 chosen.</p>
                         </alert>
 
@@ -88,12 +87,11 @@
                             <div v-for="ad in ads" :key="ad.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                                 <contribution
                                         class="card"
-                                        :disabled="sponsorshipIncludesAd()"
-                                        :class="{'active': activeAd(ad.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesAd() }"
-                                        :contribution="ad" v-on:select="form.ad = $event"></contribution>
+                                        :class="{'active': activeAd(ad.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesAd }"
+                                        :contribution="ad" v-on:select="addAd($event)"></contribution>
                             </div>
                             <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ad">
-                                <contribution class="card" v-on:select="form.ad = ''">
+                                <contribution class="card" v-on:select="form.ads = []">
                                     <template v-slot:default>
                                         <i class="far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"></i>
                                         <h2 class="relative font-semibold text-gray-700 text-lg mb-2">Deselect Program Book Advertisement</h2>
@@ -113,7 +111,6 @@
                         <div v-for="vendor in vendors" :key="vendor.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
-                                    :disabled="sponsorshipIncludesVendor()"
                                     :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor() }"
                                     :contribution="vendor" v-on:select="form.vendor = $event"></contribution>
                         </div>
@@ -137,8 +134,7 @@
                         <div v-for="ad in ads" :key="ad.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
-                                    :disabled="sponsorshipIncludesAd()"
-                                    :class="{'active': activeAd(ad.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesAd() }"
+                                    :class="{'active': activeAd(ad.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesAd }"
                                     :contribution="ad" v-on:select="form.ad = $event"></contribution>
                         </div>
                         <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ad">
@@ -161,38 +157,56 @@
                     <h3 class="text-xl text-gray-700 mb-6">Selected Contributions</h3>
 
                     <div v-if="form.sponsorship" class="bg-white mb-2 rounded shadow">
-                        <div class=" p-4 flex items-center">
+                        <div class="p-4 flex items-center">
                             <label class="font-semibold text-gray-700 text-lg flex-grow block" for="sponsorship-amount">
                                 {{ form.sponsorship.title }}
                             </label>
-                            <div class="w-24 flex items-center">
+                            <div class="w-32 flex items-center">
                                 <span class="text-2xl text-gray-700 font-normal">$</span>
                                 <input id="sponsorship-amount"
-                                       class="text-2xl text-right appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none -mr-4"
+                                       class="ml-1 form-control text-2xl pr-0"
                                        type="number" aria-label="Sponsorship Amount" :min="form.sponsorship.amount/100"
                                        step="50" v-model="form.amount">
                             </div>
                         </div>
                         <div class="bg-mint-200 px-4 py-2">
-                            <p class="text-xs">The contribution amount can be increased by clicking on the amount and using the up arrow.</p>
+                            <p class="text-xs">The contribution amount can be increased by clicking on the amount and using the up arrow or typing a new value.</p>
                         </div>
                     </div>
 
-                    <div v-if="form.vendor" class="bg-white mb-2 rounded shadow p-4 flex items-center">
-                        <label class="font-semibold text-gray-700 text-lg flex-grow block">
-                            {{ form.vendor.title }}
-                        </label>
-                        <div class="w-24 flex items-center">
-                            <span class="text-2xl text-gray-700 font-normal">$</span>
-                            <p class="text-2xl text-right w-full text-gray-700 leading-tight">{{ form.vendor.amount/100 }}</p>
+                    <div v-if="form.vendor" class="bg-white mb-2 rounded shadow">
+                        <div class="p-4">
+                            <label for="vendor_amount" class="font-semibold mb-4 text-gray-700 text-lg flex-grow block">
+                                {{ form.vendor.title }} Vendor Table
+                            </label>
+                            <div class="flex items-center justify-between">
+                                <input type="number" id="vendor_amount" class="w-24 form-control" v-model="form.vendor_amount">
+                                <div class="w-24 flex items-center">
+                                    <span class="text-2xl text-gray-700 font-normal">$</span>
+                                    <p class="text-2xl text-right w-full text-gray-700 leading-tight">{{ form.vendor.amount/100 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesVendor">
+                            <p class="text-xs">One vendor table is already included in the sponsorship that was
+                                chosen, so you will receive {{ parseInt(form.vendor_amount) + 1}} tables.</p>
                         </div>
                     </div>
 
-                    <div v-if="form.ad" class="bg-white rounded shadow p-4 flex items-center">
-                        <label class="font-semibold text-gray-700 text-lg flex-grow block">{{ form.ad.title }}</label>
-                        <div class="w-24 flex items-center">
-                            <span class="text-2xl text-gray-700 font-normal">$</span>
-                            <p class="text-2xl text-right w-full text-gray-700 leading-tight">{{ form.ad.amount/100 }}</p>
+                    <div v-for="ad in form.ads" class="bg-white mb-2 rounded shadow">
+                        <div class="p-4">
+                            <label class="font-semibold mb-4 text-gray-700 text-lg flex-grow block">{{ ad.title }}</label>
+                            <div class="flex items-center justify-between">
+                                <input type="number" class="w-24 form-control" v-model="ad.quantity">
+                                <div class="w-24 flex items-center">
+                                    <span class="text-2xl text-gray-700 font-normal">$</span>
+                                    <p class="text-2xl text-right w-full text-gray-700 leading-tight">{{ ad.amount/100 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesAd">
+                            <p class="text-xs">One {{ sponsorshipAdSize }} is already included in the sponsorship that was
+                                chosen, so you will receive {{ adQuantity + 1 }} ads.</p>
                         </div>
                     </div>
 
@@ -205,7 +219,7 @@
                         </div>
                     </div>
 
-                    <contribution-checkout class="mt-8" :disable="total === 0" :event="event" :contributions="form"></contribution-checkout>
+                    <contribution-checkout class="mt-8" :disable="total === 0" :event="event" :contributions="form" :total="total"></contribution-checkout>
                 </div>
             </div>
         </div>
@@ -219,16 +233,17 @@
             return {
                 form: {
                     type: '',
-                    ad: '',
+                    ads: [],
                     amount: '',
                     sponsorship: '',
-                    vendor: ''
+                    vendor: '',
+                    vendor_amount: 1,
                 }
             }
         },
         methods: {
             activeAd(id) {
-                return this.form.ad && this.form.ad.id === id;
+                return _.find(this.form.ads, { 'id': id }) !== undefined;
             },
             activeSponsorship(id) {
                 return this.form.sponsorship && this.form.sponsorship.id === id;
@@ -236,13 +251,13 @@
             activeVendor(id) {
                 return this.form.vendor && this.form.vendor.id === id;
             },
+            addAd(ad) {
+                ad.quantity = 1;
+                this.form.ads.push(ad);
+            },
             selectSponsor(sponsor) {
                 this.form.amount = sponsor.amount / 100;
                 this.form.sponsorship = sponsor;
-
-                if (this.form.sponsorship.description.includes('Vendor') && this.form.vendor) {
-                    this.form.vendor = '';
-                }
             },
             selectType(type) {
                 this.form.type = type;
@@ -250,15 +265,12 @@
                 this.form.amount = '';
                 this.form.sponsorship = '';
                 this.form.vendor = '';
-            },
-            sponsorshipIncludesVendor() {
-                return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('Vendor');
-            },
-            sponsorshipIncludesAd() {
-                return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('ad');
             }
         },
         computed: {
+            adQuantity() {
+                return _.sumBy(this.form.ads, function(ad) { return parseInt(ad.quantity); });
+            },
             ads() {
                 let ads = _.filter(this.event.contributions, function (c) {
                     return c.type === 'ad';
@@ -274,11 +286,24 @@
                 });
                 return _.orderBy(sponsorships, ['amount'], ['desc']);
             },
+            sponsorshipAdSize() {
+                if(this.sponsorshipIncludesAd) {
+                    let search = 'page ad';
+                    let index = this.form.sponsorship.description.indexOf(search);
+                    return this.form.sponsorship.description.substr(index-2, search.length+2);
+                }
+                return '';
+            },
+            sponsorshipIncludesVendor() {
+                return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('Vendor');
+            },
+            sponsorshipIncludesAd() {
+                return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('ad');
+            },
             total() {
                 let amount = this.form.amount * 100;
-                amount += this.form.vendor.amount || 0;
-                amount += this.form.ad.amount || 0;
-
+                amount += this.form.vendor.amount * this.form.vendor_amount || 0;
+                amount += _.sumBy(this.form.ads, function(ad) { return ad.amount * ad.quantity; });
                 return amount / 100;
             },
             vendors() {
