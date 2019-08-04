@@ -1052,6 +1052,37 @@ input[type="button"].btn-block {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+.card {
+  background-color: #f7fafc;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.2s;
+  height: 100%;
+  border-width: 2px;
+  border-color: transparent;
+}
+
+.card:hover {
+  background-color: #fff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card.active {
+  background-color: #AFDFDE;
+  border-width: 2px;
+  border-color: #74C7C6;
+}
+
+.card.active:hover {
+  background-color: #AFDFDE;
+}
+
+.card.disabled:hover {
+  background-color: #f7fafc;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 .form-label {
   display: block;
   text-transform: uppercase;

@@ -3442,6 +3442,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['event'],
   data: function data() {
@@ -3449,6 +3496,7 @@ __webpack_require__.r(__webpack_exports__);
       form: new SparkForm({
         type: '',
         ad: '',
+        amount: '',
         sponsorship: '',
         vendor: ''
       })
@@ -3471,6 +3519,16 @@ __webpack_require__.r(__webpack_exports__);
       if (this.form.sponsorship.description.includes('Vendor') && this.form.vendor) {
         this.form.vendor = '';
       }
+    },
+    selectType: function selectType(type) {
+      this.form.type = type;
+      this.form.ad = '';
+      this.form.amount = '';
+      this.form.sponsorship = '';
+      this.form.vendor = '';
+    },
+    sponsorshipIncludesVendor: function sponsorshipIncludesVendor() {
+      return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('Vendor');
     }
   },
   computed: {
@@ -3485,7 +3543,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     total: function total() {
-      var amount = this.form.sponsorship.amount || 0;
+      var amount = this.form.amount * 100;
       amount += this.form.vendor.amount || 0;
       amount += this.form.ad.amount || 0;
       return amount / 100;
@@ -62280,7 +62338,7 @@ var render = function() {
               ],
               on: {
                 click: function($event) {
-                  _vm.form.type = "sponsor"
+                  return _vm.selectType("sponsor")
                 }
               }
             },
@@ -62292,9 +62350,14 @@ var render = function() {
             {
               staticClass:
                 "flex-1 border-r p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center",
+              class: [
+                _vm.form.type === "vendor"
+                  ? "bg-mint-300 hover:bg-mint-300 shadow-inner"
+                  : ""
+              ],
               on: {
                 click: function($event) {
-                  _vm.form.type = "vendor"
+                  return _vm.selectType("vendor")
                 }
               }
             },
@@ -62306,9 +62369,14 @@ var render = function() {
             {
               staticClass:
                 "flex-1 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center",
+              class: [
+                _vm.form.type === "ad"
+                  ? "bg-mint-300 hover:bg-mint-300 shadow-inner"
+                  : ""
+              ],
               on: {
                 click: function($event) {
-                  _vm.form.type = "ad"
+                  return _vm.selectType("ad")
                 }
               }
             },
@@ -62330,31 +62398,62 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "flex flex-wrap -mx-4 mb-8" },
-                    _vm._l(_vm.sponsorships, function(sponsorship) {
-                      return _c(
-                        "div",
-                        { key: sponsorship.id, staticClass: "w-1/3 px-4 mb-4" },
-                        [
-                          _c("contribution", {
-                            staticClass:
-                              "bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition h-full border-2 border-transparent",
-                            class: [
-                              _vm.activeSponsorship(sponsorship.id)
-                                ? "bg-mint-300 hover:bg-mint-300 border-2 border-mint-400"
-                                : ""
-                            ],
-                            attrs: { contribution: sponsorship },
-                            on: {
-                              select: function($event) {
-                                return _vm.selectSponsor($event)
+                    [
+                      _vm._l(_vm.sponsorships, function(sponsorship) {
+                        return _c(
+                          "div",
+                          {
+                            key: sponsorship.id,
+                            staticClass: "w-1/3 px-4 mb-4"
+                          },
+                          [
+                            _c("contribution", {
+                              staticClass: "card",
+                              class: [
+                                _vm.activeSponsorship(sponsorship.id)
+                                  ? "active"
+                                  : ""
+                              ],
+                              attrs: { contribution: sponsorship },
+                              on: {
+                                select: function($event) {
+                                  return _vm.selectSponsor($event)
+                                }
                               }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    }),
-                    0
+                            })
+                          ],
+                          1
+                        )
+                      }),
+                      _vm._v(" "),
+                      _vm.form.sponsorship
+                        ? _c("div", { staticClass: "w-1/3 px-4 mb-4" }, [
+                            _c(
+                              "div",
+                              { staticClass: "card p-4 flex flex-col h-full" },
+                              [
+                                _vm._m(0),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-gray justify-end mt-4",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.form.sponsorship = ""
+                                        _vm.form.amount = 0
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Deselect")]
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e()
+                    ],
+                    2
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "mb-8" }, [
@@ -62408,38 +62507,62 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "flex flex-wrap -mx-4" },
-                      _vm._l(_vm.vendors, function(vendor) {
-                        return _c(
-                          "div",
-                          { key: vendor.id, staticClass: "w-1/3 px-4 mb-4" },
-                          [
-                            _c("contribution", {
-                              staticClass:
-                                "bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition h-full border-2 border-transparent",
-                              class: [
-                                _vm.activeVendor(vendor.id)
-                                  ? "bg-mint-300 hover:bg-mint-300 border-2 border-mint-400"
-                                  : ""
-                              ],
-                              attrs: {
-                                disabled:
-                                  _vm.form.sponsorship !== "" &&
-                                  _vm.form.sponsorship.description.includes(
-                                    "Vendor"
-                                  ),
-                                contribution: vendor
-                              },
-                              on: {
-                                select: function($event) {
-                                  _vm.form.vendor = $event
+                      [
+                        _vm._l(_vm.vendors, function(vendor) {
+                          return _c(
+                            "div",
+                            { key: vendor.id, staticClass: "w-1/3 px-4 mb-4" },
+                            [
+                              _c("contribution", {
+                                staticClass: "card",
+                                class: {
+                                  active: _vm.activeVendor(vendor.id),
+                                  "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesVendor()
+                                },
+                                attrs: {
+                                  disabled: _vm.sponsorshipIncludesVendor(),
+                                  contribution: vendor
+                                },
+                                on: {
+                                  select: function($event) {
+                                    _vm.form.vendor = $event
+                                  }
                                 }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      }),
-                      0
+                              })
+                            ],
+                            1
+                          )
+                        }),
+                        _vm._v(" "),
+                        _vm.form.vendor
+                          ? _c("div", { staticClass: "w-1/3 px-4 mb-4" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "card p-4 flex flex-col h-full"
+                                },
+                                [
+                                  _vm._m(1),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-gray justify-end mt-4",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.form.vendor = ""
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Deselect")]
+                                  )
+                                ]
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      2
                     )
                   ]),
                   _vm._v(" "),
@@ -62451,31 +62574,56 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "flex flex-wrap -mx-4" },
-                      _vm._l(_vm.ads, function(ad) {
-                        return _c(
-                          "div",
-                          { key: ad.id, staticClass: "w-1/3 px-4 mb-4" },
-                          [
-                            _c("contribution", {
-                              staticClass:
-                                "bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition h-full border-2 border-transparent",
-                              class: [
-                                _vm.activeAd(ad.id)
-                                  ? "bg-mint-300 hover:bg-mint-300 border-2 border-mint-400"
-                                  : ""
-                              ],
-                              attrs: { contribution: ad },
-                              on: {
-                                select: function($event) {
-                                  _vm.form.ad = $event
+                      [
+                        _vm._l(_vm.ads, function(ad) {
+                          return _c(
+                            "div",
+                            { key: ad.id, staticClass: "w-1/3 px-4 mb-4" },
+                            [
+                              _c("contribution", {
+                                staticClass: "card",
+                                class: [_vm.activeAd(ad.id) ? "active" : ""],
+                                attrs: { contribution: ad },
+                                on: {
+                                  select: function($event) {
+                                    _vm.form.ad = $event
+                                  }
                                 }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      }),
-                      0
+                              })
+                            ],
+                            1
+                          )
+                        }),
+                        _vm._v(" "),
+                        _vm.form.ad
+                          ? _c("div", { staticClass: "w-1/3 px-4 mb-4" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "card p-4 flex flex-col h-full"
+                                },
+                                [
+                                  _vm._m(2),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-gray justify-end mt-4",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.form.ad = ""
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Deselect")]
+                                  )
+                                ]
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      2
                     )
                   ])
                 ])
@@ -62492,12 +62640,9 @@ var render = function() {
                         { key: vendor.id, staticClass: "w-1/3 px-4 mb-4" },
                         [
                           _c("contribution", {
-                            staticClass:
-                              "bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition h-full border-2 border-transparent",
+                            staticClass: "card",
                             class: [
-                              _vm.activeVendor(vendor.id)
-                                ? "bg-mint-300 hover:bg-mint-300 border-2 border-mint-400"
-                                : ""
+                              _vm.activeVendor(vendor.id) ? "active" : ""
                             ],
                             attrs: { contribution: vendor },
                             on: {
@@ -62526,13 +62671,8 @@ var render = function() {
                         { key: ad.id, staticClass: "w-1/3 px-4 mb-4" },
                         [
                           _c("contribution", {
-                            staticClass:
-                              "bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition h-full border-2 border-transparent",
-                            class: [
-                              _vm.activeAd(ad.id)
-                                ? "bg-mint-300 hover:bg-mint-300 border-2 border-mint-400"
-                                : ""
-                            ],
+                            staticClass: "card",
+                            class: [_vm.activeAd(ad.id) ? "active" : ""],
                             attrs: { contribution: ad },
                             on: {
                               select: function($event) {
@@ -62580,32 +62720,48 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.form.sponsorship.title))]
                         ),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
+                        _c("div", { staticClass: "w-24 flex items-center" }, [
+                          _c(
+                            "span",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.amount,
-                              expression: "form.amount"
-                            }
-                          ],
-                          staticClass: "w-24 form-control",
-                          attrs: {
-                            type: "number",
-                            name: "amount",
-                            id: "sponsorship-amount",
-                            min: _vm.form.sponsorship.amount / 100
-                          },
-                          domProps: { value: _vm.form.amount },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                              staticClass: "text-2xl text-gray-700 font-normal"
+                            },
+                            [_vm._v("$")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.amount,
+                                expression: "form.amount"
                               }
-                              _vm.$set(_vm.form, "amount", $event.target.value)
+                            ],
+                            staticClass:
+                              "text-2xl text-right appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none -mr-4",
+                            attrs: {
+                              id: "sponsorship-amount",
+                              type: "number",
+                              "aria-label": "Sponsorship Amount",
+                              min: _vm.form.sponsorship.amount / 100,
+                              step: "50"
+                            },
+                            domProps: { value: _vm.form.amount },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "amount",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          }
-                        })
+                          })
+                        ])
                       ]
                     )
                   : _vm._e(),
@@ -62627,24 +62783,24 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.form.vendor.title))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            staticClass:
-                              "w-24 pl-2 font-semibold text-mint-800 tracking-wide text-2xl flex items-center"
-                          },
-                          [
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "text-2xl text-gray-700 font-normal"
-                              },
-                              [_vm._v("$")]
-                            ),
-                            _vm._v(_vm._s(_vm.form.vendor.amount / 100))
-                          ]
-                        )
+                        _c("div", { staticClass: "w-24 flex items-center" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "text-2xl text-gray-700 font-normal"
+                            },
+                            [_vm._v("$")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            {
+                              staticClass:
+                                "text-2xl text-right w-full text-gray-700 leading-tight"
+                            },
+                            [_vm._v(_vm._s(_vm.form.vendor.amount / 100))]
+                          )
+                        ])
                       ]
                     )
                   : _vm._e(),
@@ -62666,24 +62822,24 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.form.ad.title))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            staticClass:
-                              "w-24 pl-2 font-semibold text-mint-800 tracking-wide text-2xl flex items-center"
-                          },
-                          [
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "text-2xl text-gray-700 font-normal"
-                              },
-                              [_vm._v("$")]
-                            ),
-                            _vm._v(_vm._s(_vm.form.ad.amount / 100))
-                          ]
-                        )
+                        _c("div", { staticClass: "w-24 flex items-center" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "text-2xl text-gray-700 font-normal"
+                            },
+                            [_vm._v("$")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            {
+                              staticClass:
+                                "text-2xl text-right w-full text-gray-700 leading-tight"
+                            },
+                            [_vm._v(_vm._s(_vm.form.ad.amount / 100))]
+                          )
+                        ])
                       ]
                     )
                   : _vm._e(),
@@ -62699,21 +62855,26 @@ var render = function() {
                     [_vm._v("Total")]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "p",
-                    {
-                      staticClass:
-                        "w-24 pl-2 font-semibold text-mint-800 tracking-wide text-2xl flex items-center"
-                    },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "text-2xl text-gray-700 font-normal" },
-                        [_vm._v("$")]
-                      ),
-                      _vm._v(_vm._s(_vm.total))
-                    ]
-                  )
+                  _c("div", { staticClass: "w-24 flex items-center" }, [
+                    _c(
+                      "span",
+                      { staticClass: "text-2xl text-gray-700 font-normal" },
+                      [_vm._v("$")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      {
+                        staticClass:
+                          "text-2xl text-right font-semibold w-full text-gray-700 leading-tight"
+                      },
+                      [_vm._v(_vm._s(_vm.total))]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn btn-mint btn-block mt-8" }, [
+                  _vm._v("Contribute")
                 ])
               ]
             )
@@ -62722,7 +62883,32 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex-grow" }, [
+      _c("p", [_vm._v("Deselect Sponsorship")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex-grow" }, [
+      _c("p", [_vm._v("Deselect vendor table")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex-grow" }, [
+      _c("p", [_vm._v("Deselect Program Book Advertisement")])
+    ])
+  }
+]
 render._withStripped = true
 
 
