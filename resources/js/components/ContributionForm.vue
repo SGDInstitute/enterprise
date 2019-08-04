@@ -110,22 +110,48 @@
 
                 <div v-if="form.type === 'vendor'" class="mb-8">
                     <div class="md:flex flex-wrap -mx-4">
-                        <div v-for="vendor in vendors" :key="vendor.id" class="md:w-1/3 px-4 mb-4">
+                        <div v-for="vendor in vendors" :key="vendor.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
-                                    :class="[activeVendor(vendor.id)  ? 'active' : '']"
+                                    :disabled="sponsorshipIncludesVendor()"
+                                    :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor() }"
                                     :contribution="vendor" v-on:select="form.vendor = $event"></contribution>
+                        </div>
+                        <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.vendor">
+                            <contribution class="card" v-on:select="form.vendor = ''">
+                                <template v-slot:default>
+                                    <i class="far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"></i>
+                                    <h2 class="relative font-semibold text-gray-700 text-lg mb-2">Deselect vendor table</h2>
+                                </template>
+
+                                <template v-slot:button>
+                                    Deselect
+                                </template>
+                            </contribution>
                         </div>
                     </div>
                 </div>
 
                 <div v-if="form.type === 'ad'">
                     <div class="md:flex flex-wrap -mx-4">
-                        <div v-for="ad in ads" :key="ad.id" class="md:w-1/3 px-4 mb-4">
+                        <div v-for="ad in ads" :key="ad.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
-                                    :class="[activeAd(ad.id)  ? 'active' : '']"
+                                    :disabled="sponsorshipIncludesAd()"
+                                    :class="{'active': activeAd(ad.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesAd() }"
                                     :contribution="ad" v-on:select="form.ad = $event"></contribution>
+                        </div>
+                        <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ad">
+                            <contribution class="card" v-on:select="form.ad = ''">
+                                <template v-slot:default>
+                                    <i class="far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"></i>
+                                    <h2 class="relative font-semibold text-gray-700 text-lg mb-2">Deselect Program Book Advertisement</h2>
+                                </template>
+
+                                <template v-slot:button>
+                                    Deselect
+                                </template>
+                            </contribution>
                         </div>
                     </div>
                 </div>
@@ -136,8 +162,9 @@
 
                     <div v-if="form.sponsorship" class="bg-white mb-2 rounded shadow">
                         <div class=" p-4 flex items-center">
-                            <label class="font-semibold text-gray-700 text-lg flex-grow block" for="sponsorship-amount">{{
-                                form.sponsorship.title }}</label>
+                            <label class="font-semibold text-gray-700 text-lg flex-grow block" for="sponsorship-amount">
+                                {{ form.sponsorship.title }}
+                            </label>
                             <div class="w-24 flex items-center">
                                 <span class="text-2xl text-gray-700 font-normal">$</span>
                                 <input id="sponsorship-amount"
@@ -152,8 +179,9 @@
                     </div>
 
                     <div v-if="form.vendor" class="bg-white mb-2 rounded shadow p-4 flex items-center">
-                        <label class="font-semibold text-gray-700 text-lg flex-grow block">{{ form.vendor.title
-                            }}</label>
+                        <label class="font-semibold text-gray-700 text-lg flex-grow block">
+                            {{ form.vendor.title }}
+                        </label>
                         <div class="w-24 flex items-center">
                             <span class="text-2xl text-gray-700 font-normal">$</span>
                             <p class="text-2xl text-right w-full text-gray-700 leading-tight">{{ form.vendor.amount/100 }}</p>

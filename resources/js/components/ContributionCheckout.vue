@@ -22,12 +22,12 @@
 
                     <div class="mb-2">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" id="name" class="form-control">
+                        <input type="text" id="name" v-model="name" class="form-control">
                     </div>
 
                     <div>
                         <label for="email" class="form-label">Email</label>
-                        <input type="text" id="email" class="form-control">
+                        <input type="text" id="email" v-model="email" class="form-control">
                     </div>
 
                     <button @click="pay" :disabled="processing" class="mt-6 btn btn-mint btn-block">
@@ -40,6 +40,17 @@
 </template>
 
 <script>
+    let style = {
+        base: {
+            fontSize: '16px',
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+
     export default {
         props: ['disable', 'event', 'contributions'],
         data() {
@@ -54,6 +65,15 @@
                 browserType: '',
                 price: '',
                 stripe: '',
+                card: '',
+                name: '',
+                email: '',
+            }
+        },
+        mounted() {
+            if (window.SGDInstitute.user) {
+                this.name = window.SGDInstitute.user.name;
+                this.email = window.SGDInstitute.user.email;
             }
         },
         methods: {
@@ -70,9 +90,9 @@
             loadStripe() {
                 this.stripe = Stripe(window.SGDInstitute[this.event.stripe]);
                 let elements = this.stripe.elements(),
-                    self = this,
-                    card = elements.create('card');
-                card.mount(this.$refs.card);
+                    self = this;
+                this.card = elements.create('card', {style: style});
+                this.card.mount(this.$refs.card);
 
                 let paymentRequest = this.stripe.paymentRequest({
                     country: 'US',
@@ -98,10 +118,31 @@
                     self.makeOrder(ev.token.id);
                 });
             },
+            makeOrder(token) {
+                let self = this;
+                self.processing = true;
+
+                axios.post('/api/donations/', {
+                    payment_token: token,
+                    contributions: this.contributions,
+                    event_id: this.event.id,
+                })
+                    .then(response => {
+                        self.$toasted.show("Successfully contributed to " + self.event.name + ", you should be redirected shortly.", {
+                            duration: 5000,
+                            type: "success"
+                        });
+                        window.location = '/donations/' + response.data.data.id;
+                    })
+                    .catch(function (error) {
+                        self.error = error.response.data.message;
+                        self.processing = false;
+                    });
+            },
             pay() {
                 let self = this;
 
-                this.stripe.createToken(card)
+                this.stripe.createToken(this.card)
                     .then(function (result) {
                         if (result.error) {
                             this.error = result.error.message;

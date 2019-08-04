@@ -1874,6 +1874,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var style = {
+  base: {
+    fontSize: '16px'
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['disable', 'event', 'contributions'],
   data: function data() {
@@ -1887,8 +1896,17 @@ __webpack_require__.r(__webpack_exports__);
       rememberCard: false,
       browserType: '',
       price: '',
-      stripe: ''
+      stripe: '',
+      card: '',
+      name: '',
+      email: ''
     };
+  },
+  mounted: function mounted() {
+    if (window.SGDInstitute.user) {
+      this.name = window.SGDInstitute.user.name;
+      this.email = window.SGDInstitute.user.email;
+    }
   },
   methods: {
     cancel: function cancel() {
@@ -1906,9 +1924,11 @@ __webpack_require__.r(__webpack_exports__);
     loadStripe: function loadStripe() {
       this.stripe = Stripe(window.SGDInstitute[this.event.stripe]);
       var elements = this.stripe.elements(),
-          self = this,
-          card = elements.create('card');
-      card.mount(this.$refs.card);
+          self = this;
+      this.card = elements.create('card', {
+        style: style
+      });
+      this.card.mount(this.$refs.card);
       var paymentRequest = this.stripe.paymentRequest({
         country: 'US',
         currency: 'usd',
@@ -1931,9 +1951,27 @@ __webpack_require__.r(__webpack_exports__);
         self.makeOrder(ev.token.id);
       });
     },
+    makeOrder: function makeOrder(token) {
+      var self = this;
+      self.processing = true;
+      axios.post('/api/donations/', {
+        payment_token: token,
+        contributions: this.contributions,
+        event_id: this.event.id
+      }).then(function (response) {
+        self.$toasted.show("Successfully contributed to " + self.event.name + ", you should be redirected shortly.", {
+          duration: 5000,
+          type: "success"
+        });
+        window.location = '/donations/' + response.data.data.id;
+      }).catch(function (error) {
+        self.error = error.response.data.message;
+        self.processing = false;
+      });
+    },
     pay: function pay() {
       var self = this;
-      this.stripe.createToken(card).then(function (result) {
+      this.stripe.createToken(this.card).then(function (result) {
         if (result.error) {
           this.error = result.error.message;
           self.$forceUpdate();
@@ -1965,6 +2003,34 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -59304,8 +59370,25 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.name,
+                            expression: "name"
+                          }
+                        ],
                         staticClass: "form-control",
-                        attrs: { type: "text", id: "name" }
+                        attrs: { type: "text", id: "name" },
+                        domProps: { value: _vm.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.name = $event.target.value
+                          }
+                        }
                       })
                     ]),
                     _vm._v(" "),
@@ -59317,8 +59400,25 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.email,
+                            expression: "email"
+                          }
+                        ],
                         staticClass: "form-control",
-                        attrs: { type: "text", id: "email" }
+                        attrs: { type: "text", id: "email" },
+                        domProps: { value: _vm.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.email = $event.target.value
+                          }
+                        }
                       })
                     ]),
                     _vm._v(" "),
@@ -59762,28 +59862,89 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "md:flex flex-wrap -mx-4" },
-                    _vm._l(_vm.vendors, function(vendor) {
-                      return _c(
-                        "div",
-                        { key: vendor.id, staticClass: "md:w-1/3 px-4 mb-4" },
-                        [
-                          _c("contribution", {
-                            staticClass: "card",
-                            class: [
-                              _vm.activeVendor(vendor.id) ? "active" : ""
-                            ],
-                            attrs: { contribution: vendor },
-                            on: {
-                              select: function($event) {
-                                _vm.form.vendor = $event
+                    [
+                      _vm._l(_vm.vendors, function(vendor) {
+                        return _c(
+                          "div",
+                          {
+                            key: vendor.id,
+                            staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4"
+                          },
+                          [
+                            _c("contribution", {
+                              staticClass: "card",
+                              class: {
+                                active: _vm.activeVendor(vendor.id),
+                                "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesVendor()
+                              },
+                              attrs: {
+                                disabled: _vm.sponsorshipIncludesVendor(),
+                                contribution: vendor
+                              },
+                              on: {
+                                select: function($event) {
+                                  _vm.form.vendor = $event
+                                }
                               }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    }),
-                    0
+                            })
+                          ],
+                          1
+                        )
+                      }),
+                      _vm._v(" "),
+                      _vm.form.vendor
+                        ? _c(
+                            "div",
+                            { staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4" },
+                            [
+                              _c("contribution", {
+                                staticClass: "card",
+                                on: {
+                                  select: function($event) {
+                                    _vm.form.vendor = ""
+                                  }
+                                },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function() {
+                                      return [
+                                        _c("i", {
+                                          staticClass:
+                                            "far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "h2",
+                                          {
+                                            staticClass:
+                                              "relative font-semibold text-gray-700 text-lg mb-2"
+                                          },
+                                          [_vm._v("Deselect vendor table")]
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
+                                  },
+                                  {
+                                    key: "button",
+                                    fn: function() {
+                                      return [
+                                        _vm._v(
+                                          "\n                                Deselect\n                            "
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    2
                   )
                 ])
               : _vm._e(),
@@ -59793,26 +59954,93 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "md:flex flex-wrap -mx-4" },
-                    _vm._l(_vm.ads, function(ad) {
-                      return _c(
-                        "div",
-                        { key: ad.id, staticClass: "md:w-1/3 px-4 mb-4" },
-                        [
-                          _c("contribution", {
-                            staticClass: "card",
-                            class: [_vm.activeAd(ad.id) ? "active" : ""],
-                            attrs: { contribution: ad },
-                            on: {
-                              select: function($event) {
-                                _vm.form.ad = $event
+                    [
+                      _vm._l(_vm.ads, function(ad) {
+                        return _c(
+                          "div",
+                          {
+                            key: ad.id,
+                            staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4"
+                          },
+                          [
+                            _c("contribution", {
+                              staticClass: "card",
+                              class: {
+                                active: _vm.activeAd(ad.id),
+                                "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesAd()
+                              },
+                              attrs: {
+                                disabled: _vm.sponsorshipIncludesAd(),
+                                contribution: ad
+                              },
+                              on: {
+                                select: function($event) {
+                                  _vm.form.ad = $event
+                                }
                               }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    }),
-                    0
+                            })
+                          ],
+                          1
+                        )
+                      }),
+                      _vm._v(" "),
+                      _vm.form.ad
+                        ? _c(
+                            "div",
+                            { staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4" },
+                            [
+                              _c("contribution", {
+                                staticClass: "card",
+                                on: {
+                                  select: function($event) {
+                                    _vm.form.ad = ""
+                                  }
+                                },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function() {
+                                      return [
+                                        _c("i", {
+                                          staticClass:
+                                            "far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "h2",
+                                          {
+                                            staticClass:
+                                              "relative font-semibold text-gray-700 text-lg mb-2"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "Deselect Program Book Advertisement"
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
+                                  },
+                                  {
+                                    key: "button",
+                                    fn: function() {
+                                      return [
+                                        _vm._v(
+                                          "\n                                Deselect\n                            "
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    2
                   )
                 ])
               : _vm._e()
@@ -59840,7 +60068,13 @@ var render = function() {
                               "font-semibold text-gray-700 text-lg flex-grow block",
                             attrs: { for: "sponsorship-amount" }
                           },
-                          [_vm._v(_vm._s(_vm.form.sponsorship.title))]
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(_vm.form.sponsorship.title) +
+                                "\n                        "
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c("div", { staticClass: "w-24 flex items-center" }, [
@@ -59905,7 +60139,13 @@ var render = function() {
                             staticClass:
                               "font-semibold text-gray-700 text-lg flex-grow block"
                           },
-                          [_vm._v(_vm._s(_vm.form.vendor.title))]
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(_vm.form.vendor.title) +
+                                "\n                    "
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c("div", { staticClass: "w-24 flex items-center" }, [
