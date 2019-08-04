@@ -1,7 +1,7 @@
 <template>
     <div class="modal-mask" v-show="show">
         <div class="modal-wrapper">
-            <div class="modal-container bg-white rounded overflow-hidden mx-auto shadow" :class="[width]">
+            <div class="bg-white rounded overflow-hidden mx-auto shadow" :class="[width]">
                 <div class="modal-header">
                     <slot name="header">
                         <button @click="$emit('close')"><i class="far fa-times"></i></button>

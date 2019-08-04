@@ -6,18 +6,32 @@
 
         <portal to="modals" v-if="show">
             <modal :show="show">
-                <div slot="header" class="p-6 bg-black flex justify-between shadow">
-                    <h1 class="text-xl text-white">Contribute to {{ event.title }}</h1>
-                    <button @click="cancel" class="text-white bg-grey rounded-full p-1 h-6 w-6 hover:bg-grey-dark"><i
-                            class="fal fa-times"></i></button>
+                <div slot="header" class="p-6 bg-mint-200 flex justify-between">
+                    <h1 class="text-xl">Contribute ${{ total/100 }} to {{ event.title }}</h1>
+                    <button @click="cancel"
+                            class="bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg">
+                        <i class="fal fa-times fa-fw"></i>
+                    </button>
                 </div>
                 <div slot="body" class="p-6">
-                    <p class="mb-4">Choose method of payment</p>
+                    <div class="mb-2">
+                        <label for="card" class="form-label">Credit Card</label>
+                        <div id="card" ref="card" class="form-control"></div>
+                        <div class="bg-yellow text-center text-black p-4 my-2" v-if="error">{{ error }}</div>
+                    </div>
 
-                </div>
-                <div slot="footer" class="bg-grey-darkest p-6 flex justify-between items-center">
-                    <button @click="cancel" class="text-grey-light py-2 px-4 border border-black bg-grey-darker">
-                        Cancel
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" class="form-control">
+                    </div>
+
+                    <div>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" id="email" class="form-control">
+                    </div>
+
+                    <button @click="pay" :disabled="processing" class="mt-6 btn btn-mint btn-block">
+                        Contribute
                     </button>
                 </div>
             </modal>
@@ -31,7 +45,15 @@
         data() {
             return {
                 show: false,
+                error: '',
                 processing: false,
+                browserProcessing: false,
+                canBrowserPay: false,
+                isApplePay: false,
+                rememberCard: false,
+                browserType: '',
+                price: '',
+                stripe: '',
             }
         },
         methods: {
@@ -41,6 +63,63 @@
             },
             checkout() {
                 this.show = true;
+                Vue.nextTick(() => {
+                    this.loadStripe();
+                })
+            },
+            loadStripe() {
+                this.stripe = Stripe(window.SGDInstitute[this.event.stripe]);
+                let elements = this.stripe.elements(),
+                    self = this,
+                    card = elements.create('card');
+                card.mount(this.$refs.card);
+
+                let paymentRequest = this.stripe.paymentRequest({
+                    country: 'US',
+                    currency: 'usd',
+                    total: {
+                        label: 'Contribute',
+                        amount: self.total,
+                    },
+                    requestPayerName: true,
+                    requestPayerEmail: true,
+                });
+
+                paymentRequest.canMakePayment().then(function (result) {
+                    if (result) {
+                        self.canBrowserPay = true;
+                        self.isApplePay = result.applePay;
+                    } else {
+                        self.canBrowserPay = false;
+                    }
+                });
+
+                paymentRequest.on('token', function (ev) {
+                    self.makeOrder(ev.token.id);
+                });
+            },
+            pay() {
+                let self = this;
+
+                this.stripe.createToken(card)
+                    .then(function (result) {
+                        if (result.error) {
+                            this.error = result.error.message;
+                            self.$forceUpdate();
+                            return;
+                        }
+
+                        self.makeOrder(result.token.id);
+                    });
+            },
+        },
+        computed: {
+            total() {
+                let amount = this.contributions.amount * 100;
+                amount += this.contributions.vendor.amount || 0;
+                amount += this.contributions.ad.amount || 0;
+
+                return amount;
             },
         }
     }

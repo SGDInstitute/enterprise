@@ -1860,12 +1860,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['disable', 'event', 'contributions'],
   data: function data() {
     return {
       show: false,
-      processing: false
+      error: '',
+      processing: false,
+      browserProcessing: false,
+      canBrowserPay: false,
+      isApplePay: false,
+      rememberCard: false,
+      browserType: '',
+      price: '',
+      stripe: ''
     };
   },
   methods: {
@@ -1874,7 +1896,60 @@ __webpack_require__.r(__webpack_exports__);
       this.processing = false;
     },
     checkout: function checkout() {
+      var _this = this;
+
       this.show = true;
+      Vue.nextTick(function () {
+        _this.loadStripe();
+      });
+    },
+    loadStripe: function loadStripe() {
+      this.stripe = Stripe(window.SGDInstitute[this.event.stripe]);
+      var elements = this.stripe.elements(),
+          self = this,
+          card = elements.create('card');
+      card.mount(this.$refs.card);
+      var paymentRequest = this.stripe.paymentRequest({
+        country: 'US',
+        currency: 'usd',
+        total: {
+          label: 'Contribute',
+          amount: self.total
+        },
+        requestPayerName: true,
+        requestPayerEmail: true
+      });
+      paymentRequest.canMakePayment().then(function (result) {
+        if (result) {
+          self.canBrowserPay = true;
+          self.isApplePay = result.applePay;
+        } else {
+          self.canBrowserPay = false;
+        }
+      });
+      paymentRequest.on('token', function (ev) {
+        self.makeOrder(ev.token.id);
+      });
+    },
+    pay: function pay() {
+      var self = this;
+      this.stripe.createToken(card).then(function (result) {
+        if (result.error) {
+          this.error = result.error.message;
+          self.$forceUpdate();
+          return;
+        }
+
+        self.makeOrder(result.token.id);
+      });
+    }
+  },
+  computed: {
+    total: function total() {
+      var amount = this.contributions.amount * 100;
+      amount += this.contributions.vendor.amount || 0;
+      amount += this.contributions.ad.amount || 0;
+      return amount;
     }
   }
 });
@@ -2080,13 +2155,13 @@ __webpack_require__.r(__webpack_exports__);
   props: ['event'],
   data: function data() {
     return {
-      form: new SparkForm({
+      form: {
         type: '',
         ad: '',
         amount: '',
         sponsorship: '',
         vendor: ''
-      })
+      }
     };
   },
   methods: {
@@ -59166,23 +59241,28 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "p-6 bg-black flex justify-between shadow",
+                    staticClass: "p-6 bg-mint-200 flex justify-between",
                     attrs: { slot: "header" },
                     slot: "header"
                   },
                   [
-                    _c("h1", { staticClass: "text-xl text-white" }, [
-                      _vm._v("Contribute to " + _vm._s(_vm.event.title))
+                    _c("h1", { staticClass: "text-xl" }, [
+                      _vm._v(
+                        "Contribute $" +
+                          _vm._s(_vm.total / 100) +
+                          " to " +
+                          _vm._s(_vm.event.title)
+                      )
                     ]),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
                         staticClass:
-                          "text-white bg-grey rounded-full p-1 h-6 w-6 hover:bg-grey-dark",
+                          "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
                         on: { click: _vm.cancel }
                       },
-                      [_c("i", { staticClass: "fal fa-times" })]
+                      [_c("i", { staticClass: "fal fa-times fa-fw" })]
                     )
                   ]
                 ),
@@ -59191,29 +59271,69 @@ var render = function() {
                   "div",
                   { staticClass: "p-6", attrs: { slot: "body" }, slot: "body" },
                   [
-                    _c("p", { staticClass: "mb-4" }, [
-                      _vm._v("Choose method of payment")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "bg-grey-darkest p-6 flex justify-between items-center",
-                    attrs: { slot: "footer" },
-                    slot: "footer"
-                  },
-                  [
+                    _c("div", { staticClass: "mb-2" }, [
+                      _c(
+                        "label",
+                        { staticClass: "form-label", attrs: { for: "card" } },
+                        [_vm._v("Credit Card")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", {
+                        ref: "card",
+                        staticClass: "form-control",
+                        attrs: { id: "card" }
+                      }),
+                      _vm._v(" "),
+                      _vm.error
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-yellow text-center text-black p-4 my-2"
+                            },
+                            [_vm._v(_vm._s(_vm.error))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mb-2" }, [
+                      _c(
+                        "label",
+                        { staticClass: "form-label", attrs: { for: "name" } },
+                        [_vm._v("Name")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", id: "name" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c(
+                        "label",
+                        { staticClass: "form-label", attrs: { for: "email" } },
+                        [_vm._v("Email")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", id: "email" }
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass:
-                          "text-grey-light py-2 px-4 border border-black bg-grey-darker",
-                        on: { click: _vm.cancel }
+                        staticClass: "mt-6 btn btn-mint btn-block",
+                        attrs: { disabled: _vm.processing },
+                        on: { click: _vm.pay }
                       },
-                      [_vm._v("\n                    Cancel\n                ")]
+                      [
+                        _vm._v(
+                          "\n                    Contribute\n                "
+                        )
+                      ]
                     )
                   ]
                 )
@@ -59248,19 +59368,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "md:w-1/2 mx-auto" }, [
+  return _c("div", { staticClass: "mb-8" }, [
+    _c("div", { staticClass: "md:w-2/3  lg:w-1/2 md:mx-auto mx-4" }, [
       _c("div", { staticClass: "p-6 bg-white rounded shadow" }, [
         _c("h2", { staticClass: "text-xl text-center mb-6" }, [
           _vm._v("How would you like to support?")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex border rounded" }, [
+        _c("div", { staticClass: "md:flex border rounded" }, [
           _c(
             "div",
             {
               staticClass:
-                "flex-1 border-r p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center",
+                "md:flex-1 md:border-r border-b md:border-b-0 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center flex items-center justify-center",
               class: [
                 _vm.form.type === "sponsor"
                   ? "bg-mint-300 hover:bg-mint-300 shadow-inner"
@@ -59279,7 +59399,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "flex-1 border-r p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center",
+                "md:flex-1 md:border-r border-b md:border-b-0 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center flex items-center justify-center",
               class: [
                 _vm.form.type === "vendor"
                   ? "bg-mint-300 hover:bg-mint-300 shadow-inner"
@@ -59298,7 +59418,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "flex-1 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center",
+                "md:flex-1 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center flex items-center justify-center",
               class: [
                 _vm.form.type === "ad"
                   ? "bg-mint-300 hover:bg-mint-300 shadow-inner"
@@ -59317,8 +59437,8 @@ var render = function() {
     ]),
     _vm._v(" "),
     _vm.form.type !== ""
-      ? _c("div", { staticClass: "flex -mx-4 mt-8" }, [
-          _c("div", { staticClass: "w-2/3 px-4" }, [
+      ? _c("div", { staticClass: "md:flex md:-mx-4 mt-8 mx-4 md:mx-0" }, [
+          _c("div", { staticClass: "md:w-2/3 px-4" }, [
             _vm.form.type === "sponsor"
               ? _c("div", { staticClass: "mb-8" }, [
                   _c("h3", { staticClass: "text-2xl mb-6" }, [
@@ -59327,14 +59447,14 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "flex flex-wrap -mx-4 mb-8" },
+                    { staticClass: "md:flex md:flex-wrap -mx-4 mb-8" },
                     [
                       _vm._l(_vm.sponsorships, function(sponsorship) {
                         return _c(
                           "div",
                           {
                             key: sponsorship.id,
-                            staticClass: "w-1/3 px-4 mb-4"
+                            staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4"
                           },
                           [
                             _c("contribution", {
@@ -59359,7 +59479,7 @@ var render = function() {
                       _vm.form.sponsorship
                         ? _c(
                             "div",
-                            { staticClass: "w-1/3 px-4 mb-4" },
+                            { staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4" },
                             [
                               _c("contribution", {
                                 staticClass: "card",
@@ -59433,14 +59553,14 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "flex flex-wrap -mx-4" },
+                        { staticClass: "md:flex flex-wrap -mx-4" },
                         [
                           _vm._l(_vm.vendors, function(vendor) {
                             return _c(
                               "div",
                               {
                                 key: vendor.id,
-                                staticClass: "w-1/3 px-4 mb-4"
+                                staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4"
                               },
                               [
                                 _c("contribution", {
@@ -59467,7 +59587,7 @@ var render = function() {
                           _vm.form.vendor
                             ? _c(
                                 "div",
-                                { staticClass: "w-1/3 px-4 mb-4" },
+                                { staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4" },
                                 [
                                   _c("contribution", {
                                     staticClass: "card",
@@ -59542,12 +59662,15 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "flex flex-wrap -mx-4" },
+                        { staticClass: "md:flex flex-wrap -mx-4" },
                         [
                           _vm._l(_vm.ads, function(ad) {
                             return _c(
                               "div",
-                              { key: ad.id, staticClass: "w-1/3 px-4 mb-4" },
+                              {
+                                key: ad.id,
+                                staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4"
+                              },
                               [
                                 _c("contribution", {
                                   staticClass: "card",
@@ -59573,7 +59696,7 @@ var render = function() {
                           _vm.form.ad
                             ? _c(
                                 "div",
-                                { staticClass: "w-1/3 px-4 mb-4" },
+                                { staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4" },
                                 [
                                   _c("contribution", {
                                     staticClass: "card",
@@ -59638,11 +59761,11 @@ var render = function() {
               ? _c("div", { staticClass: "mb-8" }, [
                   _c(
                     "div",
-                    { staticClass: "flex flex-wrap -mx-4" },
+                    { staticClass: "md:flex flex-wrap -mx-4" },
                     _vm._l(_vm.vendors, function(vendor) {
                       return _c(
                         "div",
-                        { key: vendor.id, staticClass: "w-1/3 px-4 mb-4" },
+                        { key: vendor.id, staticClass: "md:w-1/3 px-4 mb-4" },
                         [
                           _c("contribution", {
                             staticClass: "card",
@@ -59669,11 +59792,11 @@ var render = function() {
               ? _c("div", [
                   _c(
                     "div",
-                    { staticClass: "flex flex-wrap -mx-4" },
+                    { staticClass: "md:flex flex-wrap -mx-4" },
                     _vm._l(_vm.ads, function(ad) {
                       return _c(
                         "div",
-                        { key: ad.id, staticClass: "w-1/3 px-4 mb-4" },
+                        { key: ad.id, staticClass: "md:w-1/3 px-4 mb-4" },
                         [
                           _c("contribution", {
                             staticClass: "card",
@@ -59695,7 +59818,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "w-1/3 px-4 relative" }, [
+          _c("div", { staticClass: "md:w-1/3 px-4 relative" }, [
             _c(
               "div",
               {
@@ -59877,7 +60000,11 @@ var render = function() {
                 _vm._v(" "),
                 _c("contribution-checkout", {
                   staticClass: "mt-8",
-                  attrs: { disable: _vm.total === 0, event: _vm.event }
+                  attrs: {
+                    disable: _vm.total === 0,
+                    event: _vm.event,
+                    contributions: _vm.form
+                  }
                 })
               ],
               1
@@ -63815,8 +63942,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass:
-              "modal-container bg-white rounded overflow-hidden mx-auto shadow",
+            staticClass: "bg-white rounded overflow-hidden mx-auto shadow",
             class: [_vm.width]
           },
           [

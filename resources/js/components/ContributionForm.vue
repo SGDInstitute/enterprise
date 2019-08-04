@@ -1,19 +1,19 @@
 <template>
-    <div>
-        <div class="md:w-1/2 mx-auto">
+    <div class="mb-8">
+        <div class="md:w-2/3  lg:w-1/2 md:mx-auto mx-4">
             <div class="p-6 bg-white rounded shadow">
                 <h2 class="text-xl text-center mb-6">How would you like to support?</h2>
 
-                <div class="flex border rounded">
-                    <div class="flex-1 border-r p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center"
+                <div class="md:flex border rounded">
+                    <div class="md:flex-1 md:border-r border-b md:border-b-0 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center flex items-center justify-center"
                          :class="[form.type === 'sponsor'  ? 'bg-mint-300 hover:bg-mint-300 shadow-inner' : '']"
                          @click="selectType('sponsor')">Sponsorship
                     </div>
-                    <div class="flex-1 border-r p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center"
+                    <div class="md:flex-1 md:border-r border-b md:border-b-0 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center flex items-center justify-center"
                          :class="[form.type === 'vendor'  ? 'bg-mint-300 hover:bg-mint-300 shadow-inner' : '']"
                          @click="selectType('vendor')">Vendor Table
                     </div>
-                    <div class="flex-1 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center"
+                    <div class="md:flex-1 p-4 text-lg hover:bg-gray-200 cursor-pointer hover:shadow-inner text-center flex items-center justify-center"
                          :class="[form.type === 'ad'  ? 'bg-mint-300 hover:bg-mint-300 shadow-inner' : '']"
                          @click="selectType('ad')">Advertisement
                     </div>
@@ -21,18 +21,18 @@
             </div>
         </div>
 
-        <div class="flex -mx-4 mt-8" v-if="form.type !== ''">
-            <div class="w-2/3 px-4">
+        <div class="md:flex md:-mx-4 mt-8 mx-4 md:mx-0" v-if="form.type !== ''">
+            <div class="md:w-2/3 px-4">
                 <div v-if="form.type === 'sponsor'" class="mb-8">
                     <h3 class="text-2xl mb-6">Choose sponsorship Level</h3>
-                    <div class="flex flex-wrap -mx-4 mb-8">
-                        <div v-for="sponsorship in sponsorships" :key="sponsorship.id" class="w-1/3 px-4 mb-4">
+                    <div class="md:flex md:flex-wrap -mx-4 mb-8">
+                        <div v-for="sponsorship in sponsorships" :key="sponsorship.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
                                     :class="[activeSponsorship(sponsorship.id)  ? 'active' : '']"
                                     :contribution="sponsorship" v-on:select="selectSponsor($event)"></contribution>
                         </div>
-                        <div class="w-1/3 px-4 mb-4" v-if="form.sponsorship">
+                        <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.sponsorship">
                             <contribution class="card" v-on:select="form.sponsorship = ''; form.amount = 0">
                                 <template v-slot:default>
                                     <i class="far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"></i>
@@ -53,15 +53,15 @@
                                 chosen.</p>
                         </alert>
 
-                        <div class="flex flex-wrap -mx-4">
-                            <div v-for="vendor in vendors" :key="vendor.id" class="w-1/3 px-4 mb-4">
+                        <div class="md:flex flex-wrap -mx-4">
+                            <div v-for="vendor in vendors" :key="vendor.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                                 <contribution
                                         class="card"
                                         :disabled="sponsorshipIncludesVendor()"
                                         :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor() }"
                                         :contribution="vendor" v-on:select="form.vendor = $event"></contribution>
                             </div>
-                            <div class="w-1/3 px-4 mb-4" v-if="form.vendor">
+                            <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.vendor">
                                 <contribution class="card" v-on:select="form.vendor = ''">
                                     <template v-slot:default>
                                         <i class="far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"></i>
@@ -84,15 +84,15 @@
                                 chosen.</p>
                         </alert>
 
-                        <div class="flex flex-wrap -mx-4">
-                            <div v-for="ad in ads" :key="ad.id" class="w-1/3 px-4 mb-4">
+                        <div class="md:flex flex-wrap -mx-4">
+                            <div v-for="ad in ads" :key="ad.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                                 <contribution
                                         class="card"
                                         :disabled="sponsorshipIncludesAd()"
                                         :class="{'active': activeAd(ad.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesAd() }"
                                         :contribution="ad" v-on:select="form.ad = $event"></contribution>
                             </div>
-                            <div class="w-1/3 px-4 mb-4" v-if="form.ad">
+                            <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ad">
                                 <contribution class="card" v-on:select="form.ad = ''">
                                     <template v-slot:default>
                                         <i class="far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"></i>
@@ -109,8 +109,8 @@
                 </div>
 
                 <div v-if="form.type === 'vendor'" class="mb-8">
-                    <div class="flex flex-wrap -mx-4">
-                        <div v-for="vendor in vendors" :key="vendor.id" class="w-1/3 px-4 mb-4">
+                    <div class="md:flex flex-wrap -mx-4">
+                        <div v-for="vendor in vendors" :key="vendor.id" class="md:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
                                     :class="[activeVendor(vendor.id)  ? 'active' : '']"
@@ -120,8 +120,8 @@
                 </div>
 
                 <div v-if="form.type === 'ad'">
-                    <div class="flex flex-wrap -mx-4">
-                        <div v-for="ad in ads" :key="ad.id" class="w-1/3 px-4 mb-4">
+                    <div class="md:flex flex-wrap -mx-4">
+                        <div v-for="ad in ads" :key="ad.id" class="md:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
                                     :class="[activeAd(ad.id)  ? 'active' : '']"
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-1/3 px-4 relative">
+            <div class="md:w-1/3 px-4 relative">
                 <div class="mt-10 bg-gray-100 rounded-lg overflow-hidden shadow transition p-4 sticky top-24">
                     <h3 class="text-xl text-gray-700 mb-6">Selected Contributions</h3>
 
@@ -177,7 +177,7 @@
                         </div>
                     </div>
 
-                    <contribution-checkout class="mt-8" :disable="total === 0" :event="event"></contribution-checkout>
+                    <contribution-checkout class="mt-8" :disable="total === 0" :event="event" :contributions="form"></contribution-checkout>
                 </div>
             </div>
         </div>
@@ -189,13 +189,13 @@
         props: ['event'],
         data() {
             return {
-                form: new SparkForm({
+                form: {
                     type: '',
                     ad: '',
                     amount: '',
                     sponsorship: '',
                     vendor: ''
-                })
+                }
             }
         },
         methods: {

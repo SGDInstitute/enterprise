@@ -30,8 +30,8 @@
         window.Spark = {};
 
         window.SGDInstitute = @json([
-            'mblgtaccStripe' => getStripeKey('mblgtacc'),
-            'instituteStripe' => getStripeKey('institute'),
+            'mblgtacc' => getStripeKey('mblgtacc'),
+            'institute' => getStripeKey('institute'),
             'user' => Auth::user()
         ]);
     </script>
