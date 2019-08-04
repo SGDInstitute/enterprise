@@ -26,6 +26,7 @@ import {Tabs, Tab} from 'vue-tabs-component';
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
 
+Vue.component('alert', require('./components/Alert.vue').default);
 Vue.component('add-user-button', require('./components/AddUserToTicketButton.vue').default);
 Vue.component('donation-form', require('./components/DonationForm.vue').default);
 Vue.component('sponsorship-form', require('./components/SponsorshipForm.vue').default);

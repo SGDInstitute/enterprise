@@ -1811,6 +1811,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['contribution', 'disabled']
 });
@@ -3489,6 +3496,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['event'],
   data: function data() {
@@ -3529,18 +3548,28 @@ __webpack_require__.r(__webpack_exports__);
     },
     sponsorshipIncludesVendor: function sponsorshipIncludesVendor() {
       return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('Vendor');
+    },
+    sponsorshipIncludesAd: function sponsorshipIncludesAd() {
+      return this.form.sponsorship !== '' && this.form.sponsorship.description.includes('ad');
     }
   },
   computed: {
     ads: function ads() {
-      return _.filter(this.event.contributions, function (c) {
+      var ads = _.filter(this.event.contributions, function (c) {
         return c.type === 'ad';
       });
+
+      return _.orderBy(ads, ['amount'], ['desc']);
+    },
+    amount: function amount() {
+      return this.form.amount;
     },
     sponsorships: function sponsorships() {
-      return _.filter(this.event.contributions, function (c) {
+      var sponsorships = _.filter(this.event.contributions, function (c) {
         return c.type === 'sponsor';
       });
+
+      return _.orderBy(sponsorships, ['amount'], ['desc']);
     },
     total: function total() {
       var amount = this.form.amount * 100;
@@ -3549,9 +3578,18 @@ __webpack_require__.r(__webpack_exports__);
       return amount / 100;
     },
     vendors: function vendors() {
-      return _.filter(this.event.contributions, function (c) {
+      var vendors = _.filter(this.event.contributions, function (c) {
         return c.type === 'vendor';
       });
+
+      return _.orderBy(vendors, ['amount'], ['desc']);
+    }
+  },
+  watch: {
+    amount: function amount() {
+      if (this.form.amount < this.form.sponsorship.amount / 100) {
+        this.form.amount = this.form.sponsorship.amount / 100;
+      }
     }
   }
 });
@@ -58117,6 +58155,68 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "bg-mint-200 mb-4 border-t-4 border-mint-500 rounded overflow-hidden text-mint-900 px-4 py-3 shadow-md",
+      attrs: { role: "alert" }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "flex items-center" },
+        [
+          _c("div", { staticClass: "py-1" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "fill-current h-6 w-6 text-mint-500 mr-4",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 20 20"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+                  }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._t("default")
+        ],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Contribution.vue?vue&type=template&id=0b668ffb&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Contribution.vue?vue&type=template&id=0b668ffb& ***!
@@ -58133,43 +58233,62 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "p-4 flex flex-col h-full" }, [
-      _c("div", { staticClass: "flex-grow" }, [
-        _c("h2", { staticClass: "font-semibold text-gray-700 text-lg mb-2" }, [
-          _vm._v(_vm._s(_vm.contribution.title))
-        ]),
-        _vm._v(" "),
-        _c(
-          "p",
-          {
-            staticClass:
-              "font-semibold text-mint-800 tracking-wide text-4xl flex items-center"
-          },
-          [
-            _c("span", { staticClass: "text-2xl text-gray-700 font-normal" }, [
-              _vm._v("$")
-            ]),
-            _vm._v(_vm._s(_vm.contribution.amount / 100) + " "),
-            _vm.contribution.type === "sponsor"
-              ? _c(
-                  "span",
-                  { staticClass: "text-2xl text-gray-700 font-normal" },
-                  [_vm._v("+")]
-                )
-              : _vm._e()
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "mt-4 trix-content text-gray-800",
-          domProps: { innerHTML: _vm._s(_vm.contribution.description) }
-        })
-      ]),
+    _c("div", { staticClass: "p-4 flex flex-col h-full relative" }, [
+      _c(
+        "div",
+        { staticClass: "flex-grow relative" },
+        [
+          _vm.contribution
+            ? _c("div", [
+                _c(
+                  "h2",
+                  { staticClass: "font-semibold text-gray-700 text-lg mb-2" },
+                  [_vm._v(_vm._s(_vm.contribution.title || ""))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass:
+                      "font-semibold text-mint-800 tracking-wide text-4xl flex items-center"
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "text-2xl text-gray-700 font-normal" },
+                      [_vm._v("$")]
+                    ),
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.contribution.amount / 100) +
+                        "\n                    "
+                    ),
+                    _vm.contribution.type === "sponsor"
+                      ? _c(
+                          "span",
+                          { staticClass: "text-2xl text-gray-700 font-normal" },
+                          [_vm._v("+")]
+                        )
+                      : _vm._e()
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "mt-4 trix-content text-gray-800",
+                  domProps: { innerHTML: _vm._s(_vm.contribution.description) }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._t("default")
+        ],
+        2
+      ),
       _vm._v(" "),
       _c(
         "button",
         {
-          staticClass: "btn btn-gray justify-end mt-4",
+          staticClass: "btn btn-gray justify-end mt-4 relative",
           attrs: { disabled: _vm.disabled },
           on: {
             click: function($event) {
@@ -58177,7 +58296,8 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Select")]
+        [_vm._t("button", [_vm._v("Select")])],
+        2
       )
     ])
   ])
@@ -62427,205 +62547,280 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _vm.form.sponsorship
-                        ? _c("div", { staticClass: "w-1/3 px-4 mb-4" }, [
-                            _c(
-                              "div",
-                              { staticClass: "card p-4 flex flex-col h-full" },
-                              [
-                                _vm._m(0),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
+                        ? _c(
+                            "div",
+                            { staticClass: "w-1/3 px-4 mb-4" },
+                            [
+                              _c("contribution", {
+                                staticClass: "card",
+                                on: {
+                                  select: function($event) {
+                                    _vm.form.sponsorship = ""
+                                    _vm.form.amount = 0
+                                  }
+                                },
+                                scopedSlots: _vm._u([
                                   {
-                                    staticClass:
-                                      "btn btn-gray justify-end mt-4",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.form.sponsorship = ""
-                                        _vm.form.amount = 0
-                                      }
-                                    }
+                                    key: "default",
+                                    fn: function() {
+                                      return [
+                                        _c("i", {
+                                          staticClass:
+                                            "far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "h2",
+                                          {
+                                            staticClass:
+                                              "relative font-semibold text-gray-700 text-lg mb-2"
+                                          },
+                                          [_vm._v("Deselect Sponsorship")]
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
                                   },
-                                  [_vm._v("Deselect")]
-                                )
-                              ]
-                            )
-                          ])
+                                  {
+                                    key: "button",
+                                    fn: function() {
+                                      return [
+                                        _vm._v(
+                                          "\n                                Deselect\n                            "
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          )
                         : _vm._e()
                     ],
                     2
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "mb-8" }, [
-                    _c("h3", { staticClass: "text-2xl mb-6" }, [
-                      _vm._v("Add Vendor Table")
-                    ]),
-                    _vm._v(" "),
-                    _vm.form.sponsorship !== "" &&
-                    _vm.form.sponsorship.description.includes("Vendor")
-                      ? _c(
-                          "div",
-                          {
-                            staticClass:
-                              "bg-mint-200 mb-4 border-t-4 border-mint-500 rounded overflow-hidden text-mint-900 px-4 py-3 shadow-md",
-                            attrs: { role: "alert" }
-                          },
-                          [
-                            _c("div", { staticClass: "flex items-center" }, [
-                              _c("div", { staticClass: "py-1" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass:
-                                      "fill-current h-6 w-6 text-mint-500 mr-4",
-                                    attrs: {
-                                      xmlns: "http://www.w3.org/2000/svg",
-                                      viewBox: "0 0 20 20"
-                                    }
+                  _c(
+                    "div",
+                    { staticClass: "mb-8" },
+                    [
+                      _c("h3", { staticClass: "text-2xl mb-6" }, [
+                        _vm._v("Add Vendor Table")
+                      ]),
+                      _vm._v(" "),
+                      _vm.form.sponsorship !== "" &&
+                      _vm.form.sponsorship.description.includes("Vendor")
+                        ? _c("alert", [
+                            _c("p", [
+                              _vm._v(
+                                "No need to add a vendor table, one is already included in the sponsorship that was\n                            chosen."
+                              )
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "flex flex-wrap -mx-4" },
+                        [
+                          _vm._l(_vm.vendors, function(vendor) {
+                            return _c(
+                              "div",
+                              {
+                                key: vendor.id,
+                                staticClass: "w-1/3 px-4 mb-4"
+                              },
+                              [
+                                _c("contribution", {
+                                  staticClass: "card",
+                                  class: {
+                                    active: _vm.activeVendor(vendor.id),
+                                    "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesVendor()
                                   },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        d:
-                                          "M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
-                                      }
-                                    })
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "No need to add a vendor table, one is already included in the sponsorship that was\n                                chosen."
-                                )
-                              ])
-                            ])
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "flex flex-wrap -mx-4" },
-                      [
-                        _vm._l(_vm.vendors, function(vendor) {
-                          return _c(
-                            "div",
-                            { key: vendor.id, staticClass: "w-1/3 px-4 mb-4" },
-                            [
-                              _c("contribution", {
-                                staticClass: "card",
-                                class: {
-                                  active: _vm.activeVendor(vendor.id),
-                                  "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesVendor()
-                                },
-                                attrs: {
-                                  disabled: _vm.sponsorshipIncludesVendor(),
-                                  contribution: vendor
-                                },
-                                on: {
-                                  select: function($event) {
-                                    _vm.form.vendor = $event
+                                  attrs: {
+                                    disabled: _vm.sponsorshipIncludesVendor(),
+                                    contribution: vendor
+                                  },
+                                  on: {
+                                    select: function($event) {
+                                      _vm.form.vendor = $event
+                                    }
                                   }
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        }),
-                        _vm._v(" "),
-                        _vm.form.vendor
-                          ? _c("div", { staticClass: "w-1/3 px-4 mb-4" }, [
-                              _c(
+                                })
+                              ],
+                              1
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.form.vendor
+                            ? _c(
                                 "div",
-                                {
-                                  staticClass: "card p-4 flex flex-col h-full"
-                                },
+                                { staticClass: "w-1/3 px-4 mb-4" },
                                 [
-                                  _vm._m(1),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-gray justify-end mt-4",
-                                      on: {
-                                        click: function($event) {
-                                          _vm.form.vendor = ""
-                                        }
+                                  _c("contribution", {
+                                    staticClass: "card",
+                                    on: {
+                                      select: function($event) {
+                                        _vm.form.vendor = ""
                                       }
                                     },
-                                    [_vm._v("Deselect")]
-                                  )
-                                ]
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "default",
+                                        fn: function() {
+                                          return [
+                                            _c("i", {
+                                              staticClass:
+                                                "far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "h2",
+                                              {
+                                                staticClass:
+                                                  "relative font-semibold text-gray-700 text-lg mb-2"
+                                              },
+                                              [_vm._v("Deselect vendor table")]
+                                            )
+                                          ]
+                                        },
+                                        proxy: true
+                                      },
+                                      {
+                                        key: "button",
+                                        fn: function() {
+                                          return [
+                                            _vm._v(
+                                              "\n                                    Deselect\n                                "
+                                            )
+                                          ]
+                                        },
+                                        proxy: true
+                                      }
+                                    ])
+                                  })
+                                ],
+                                1
                               )
-                            ])
-                          : _vm._e()
-                      ],
-                      2
-                    )
-                  ]),
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
-                  _c("div", [
-                    _c("h3", { staticClass: "text-2xl mb-6" }, [
-                      _vm._v("Add Program Book Advertisement")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "flex flex-wrap -mx-4" },
-                      [
-                        _vm._l(_vm.ads, function(ad) {
-                          return _c(
-                            "div",
-                            { key: ad.id, staticClass: "w-1/3 px-4 mb-4" },
-                            [
-                              _c("contribution", {
-                                staticClass: "card",
-                                class: [_vm.activeAd(ad.id) ? "active" : ""],
-                                attrs: { contribution: ad },
-                                on: {
-                                  select: function($event) {
-                                    _vm.form.ad = $event
-                                  }
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        }),
-                        _vm._v(" "),
-                        _vm.form.ad
-                          ? _c("div", { staticClass: "w-1/3 px-4 mb-4" }, [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "card p-4 flex flex-col h-full"
-                                },
-                                [
-                                  _vm._m(2),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-gray justify-end mt-4",
-                                      on: {
-                                        click: function($event) {
-                                          _vm.form.ad = ""
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Deselect")]
-                                  )
-                                ]
+                  _c(
+                    "div",
+                    [
+                      _c("h3", { staticClass: "text-2xl mb-6" }, [
+                        _vm._v("Add Program Book Advertisement")
+                      ]),
+                      _vm._v(" "),
+                      _vm.form.sponsorship !== "" &&
+                      _vm.form.sponsorship.description.includes("ad")
+                        ? _c("alert", [
+                            _c("p", [
+                              _vm._v(
+                                "No need to add an advertisement, one is already included in the sponsorship that was\n                            chosen."
                               )
                             ])
-                          : _vm._e()
-                      ],
-                      2
-                    )
-                  ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "flex flex-wrap -mx-4" },
+                        [
+                          _vm._l(_vm.ads, function(ad) {
+                            return _c(
+                              "div",
+                              { key: ad.id, staticClass: "w-1/3 px-4 mb-4" },
+                              [
+                                _c("contribution", {
+                                  staticClass: "card",
+                                  class: {
+                                    active: _vm.activeAd(ad.id),
+                                    "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesAd()
+                                  },
+                                  attrs: {
+                                    disabled: _vm.sponsorshipIncludesAd(),
+                                    contribution: ad
+                                  },
+                                  on: {
+                                    select: function($event) {
+                                      _vm.form.ad = $event
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.form.ad
+                            ? _c(
+                                "div",
+                                { staticClass: "w-1/3 px-4 mb-4" },
+                                [
+                                  _c("contribution", {
+                                    staticClass: "card",
+                                    on: {
+                                      select: function($event) {
+                                        _vm.form.ad = ""
+                                      }
+                                    },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "default",
+                                        fn: function() {
+                                          return [
+                                            _c("i", {
+                                              staticClass:
+                                                "far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "h2",
+                                              {
+                                                staticClass:
+                                                  "relative font-semibold text-gray-700 text-lg mb-2"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "Deselect Program Book Advertisement"
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        },
+                                        proxy: true
+                                      },
+                                      {
+                                        key: "button",
+                                        fn: function() {
+                                          return [
+                                            _vm._v(
+                                              "\n                                    Deselect\n                                "
+                                            )
+                                          ]
+                                        },
+                                        proxy: true
+                                      }
+                                    ])
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                    ],
+                    1
+                  )
                 ])
               : _vm._e(),
             _vm._v(" "),
@@ -62695,7 +62890,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "mt-10 bg-gray-100 rounded-lg overflow-hidden shadow transition p-4 sticky top-20"
+                  "mt-10 bg-gray-100 rounded-lg overflow-hidden shadow transition p-4 sticky top-24"
               },
               [
                 _c("h3", { staticClass: "text-xl text-gray-700 mb-6" }, [
@@ -62703,13 +62898,8 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _vm.form.sponsorship
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "bg-white mb-2 rounded shadow p-4 flex items-center"
-                      },
-                      [
+                  ? _c("div", { staticClass: "bg-white mb-2 rounded shadow" }, [
+                      _c("div", { staticClass: " p-4 flex items-center" }, [
                         _c(
                           "label",
                           {
@@ -62762,8 +62952,10 @@ var render = function() {
                             }
                           })
                         ])
-                      ]
-                    )
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(0)
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.form.vendor
@@ -62888,24 +63080,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex-grow" }, [
-      _c("p", [_vm._v("Deselect Sponsorship")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex-grow" }, [
-      _c("p", [_vm._v("Deselect vendor table")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex-grow" }, [
-      _c("p", [_vm._v("Deselect Program Book Advertisement")])
+    return _c("div", { staticClass: "bg-mint-200 px-4 py-2" }, [
+      _c("p", { staticClass: "text-xs" }, [
+        _vm._v(
+          "The contribution amount can be increased by clicking on the amount and using the up arrow."
+        )
+      ])
     ])
   }
 ]
@@ -81235,6 +81415,7 @@ Vue.mixin({
 
 Vue.component('tabs', vue_tabs_component__WEBPACK_IMPORTED_MODULE_1__["Tabs"]);
 Vue.component('tab', vue_tabs_component__WEBPACK_IMPORTED_MODULE_1__["Tab"]);
+Vue.component('alert', __webpack_require__(/*! ./components/Alert.vue */ "./resources/js/components/Alert.vue").default);
 Vue.component('add-user-button', __webpack_require__(/*! ./components/AddUserToTicketButton.vue */ "./resources/js/components/AddUserToTicketButton.vue").default);
 Vue.component('donation-form', __webpack_require__(/*! ./components/DonationForm.vue */ "./resources/js/components/DonationForm.vue").default);
 Vue.component('sponsorship-form', __webpack_require__(/*! ./components/SponsorshipForm.vue */ "./resources/js/components/SponsorshipForm.vue").default);
@@ -81415,6 +81596,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddUserToTicketButton_vue_vue_type_template_id_48c85a6c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddUserToTicketButton_vue_vue_type_template_id_48c85a6c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Alert.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/components/Alert.vue ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Alert_vue_vue_type_template_id_7b2bf401___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alert.vue?vue&type=template&id=7b2bf401& */ "./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _Alert_vue_vue_type_template_id_7b2bf401___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Alert_vue_vue_type_template_id_7b2bf401___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Alert.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401& ***!
+  \**************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_template_id_7b2bf401___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Alert.vue?vue&type=template&id=7b2bf401& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_template_id_7b2bf401___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_template_id_7b2bf401___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
