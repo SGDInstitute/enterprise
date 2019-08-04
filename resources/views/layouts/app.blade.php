@@ -43,9 +43,10 @@
 
     @yield('content')
 
+    <portal-target name="modals"></portal-target>
 </div>
 
-@yield('beforeScripts')
+<script src="https://js.stripe.com/v3/"></script>
 <script src="{{ mix('js/app.js') }}"></script>
 
 </body>

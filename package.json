@@ -39,5 +39,8 @@
         "vue-template-compiler": "^2.6.6",
         "vue-toasted": "^1.1.26",
         "vue-tour": "^1.0.1"
+    },
+    "dependencies": {
+        "portal-vue": "^2.1.6"
     }
 }

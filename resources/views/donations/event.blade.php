@@ -10,12 +10,7 @@
 
             <h1 class="text-white text-center text-3xl font-semibold mb-4">Support {{ $event->title }} Today</h1>
 
-            <sponsorship-form :event="{{ $event }}"></sponsorship-form>
-
+            <contribution-form :event="{{ $event }}"></contribution-form>
         </div>
     </main>
-@endsection
-
-@section('beforeScripts')
-    <script src="https://checkout.stripe.com/checkout.js"></script>
 @endsection

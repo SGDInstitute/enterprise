@@ -177,7 +177,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-mint btn-block mt-8">Contribute</button>
+                    <contribution-checkout class="mt-8" :disable="total === 0" :event="event"></contribution-checkout>
                 </div>
             </div>
         </div>
