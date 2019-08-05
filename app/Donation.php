@@ -74,9 +74,60 @@ class Donation extends Model
         return $donation;
     }
 
+    public static function createContribution($data, $charge)
+    {
+        $event = Event::find($data['event_id']);
+
+        $donation = self::create([
+            'amount' => $charge->get('amount'),
+            'user_id' => auth()->user()->id,
+            'group' => $event->stripe,
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
+            'company' => $data['company'] ?? null,
+            'tax_id' => $data['tax_id'] ?? null,
+        ]);
+
+        $donation->receipt()->create([
+            'transaction_id' => $charge->get('id'),
+            'amount' => $charge->get('amount'),
+            'card_last_four' => $charge->get('last4'),
+        ]);
+
+        if($data['sponsorship']) {
+            $donation->contributions()->attach($data['sponsorship']['id'], [
+                'amount' => $data['amount'] < $data['sponsorship']['amount'] ? $data['sponsorship']['amount'] : $data['amount'],
+                'quantity' => 1,
+            ]);
+        }
+
+        if($data['vendor']) {
+            $donation->contributions()->attach($data['vendor']['id'], [
+                'amount' => $data['vendor']['amount'],
+                'quantity' => $data['vendor']['quantity'],
+            ]);
+        }
+
+        if($data['ads']) {
+            foreach($data['ads'] as $ad) {
+                $donation->contributions()->attach($ad['id'], [
+                    'amount' => $ad['amount'],
+                    'quantity' => $ad['quantity'],
+                ]);
+            }
+        }
+
+        return $donation;
+    }
+
     public static function findByHash($hash)
     {
         return self::where('hash', $hash)->firstOrFail();
+    }
+
+    public function contributions()
+    {
+        return $this->belongsToMany(Contribution::class)->withPivot('amount', 'quantity');
     }
 
     public function receipt()

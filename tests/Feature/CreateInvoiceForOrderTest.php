@@ -136,6 +136,7 @@ class CreateInvoiceForOrderTest extends TestCase
     /** @test */
     public function can_create_invoice_without_address()
     {
+        Mail::fake();
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);

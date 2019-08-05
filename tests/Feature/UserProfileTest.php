@@ -62,6 +62,7 @@ class UserProfileTest extends TestCase
     /** @test */
     function can_update_profile()
     {
+        Mail::fake();
         $user = factory(User::class)->create();
         $profile = $user->profile()->save(factory(Profile::class)->make());
 

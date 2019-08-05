@@ -2232,8 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
         ads: [],
         amount: '',
         sponsorship: '',
-        vendor: '',
-        vendor_amount: 1
+        vendor: ''
       }
     };
   },
@@ -2252,6 +2251,10 @@ __webpack_require__.r(__webpack_exports__);
     addAd: function addAd(ad) {
       ad.quantity = 1;
       this.form.ads.push(ad);
+    },
+    selectVendor: function selectVendor(vendor) {
+      vendor.quantity = 1;
+      this.form.vendor = vendor;
     },
     selectSponsor: function selectSponsor(sponsor) {
       this.form.amount = sponsor.amount / 100;
@@ -2305,7 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     total: function total() {
       var amount = this.form.amount * 100;
-      amount += this.form.vendor.amount * this.form.vendor_amount || 0;
+      amount += this.form.vendor.amount * this.form.vendor.quantity || 0;
       amount += _.sumBy(this.form.ads, function (ad) {
         return ad.amount * ad.quantity;
       });
@@ -59697,7 +59700,7 @@ var render = function() {
                                   attrs: { contribution: vendor },
                                   on: {
                                     select: function($event) {
-                                      _vm.form.vendor = $event
+                                      return _vm.selectVendor($event)
                                     }
                                   }
                                 })
@@ -59896,12 +59899,13 @@ var render = function() {
                               staticClass: "card",
                               class: {
                                 active: _vm.activeVendor(vendor.id),
-                                "hover:shadow hover:bg-gray-100": _vm.sponsorshipIncludesVendor()
+                                "hover:shadow hover:bg-gray-100":
+                                  _vm.sponsorshipIncludesVendor
                               },
                               attrs: { contribution: vendor },
                               on: {
                                 select: function($event) {
-                                  _vm.form.vendor = $event
+                                  return _vm.selectVendor($event)
                                 }
                               }
                             })
@@ -60148,7 +60152,7 @@ var render = function() {
                           {
                             staticClass:
                               "font-semibold mb-4 text-gray-700 text-lg flex-grow block",
-                            attrs: { for: "vendor_amount" }
+                            attrs: { for: "quantity" }
                           },
                           [
                             _vm._v(
@@ -60168,21 +60172,21 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form.vendor_amount,
-                                  expression: "form.vendor_amount"
+                                  value: _vm.form.vendor.quantity,
+                                  expression: "form.vendor.quantity"
                                 }
                               ],
                               staticClass: "w-24 form-control",
-                              attrs: { type: "number", id: "vendor_amount" },
-                              domProps: { value: _vm.form.vendor_amount },
+                              attrs: { type: "number", id: "quantity" },
+                              domProps: { value: _vm.form.vendor.quantity },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.form,
-                                    "vendor_amount",
+                                    _vm.form.vendor,
+                                    "quantity",
                                     $event.target.value
                                   )
                                 }
@@ -60221,7 +60225,7 @@ var render = function() {
                             _c("p", { staticClass: "text-xs" }, [
                               _vm._v(
                                 "One vendor table is already included in the sponsorship that was\n                            chosen, so you will receive " +
-                                  _vm._s(parseInt(_vm.form.vendor_amount) + 1) +
+                                  _vm._s(parseInt(_vm.form.quantity) + 1) +
                                   " tables."
                               )
                             ])

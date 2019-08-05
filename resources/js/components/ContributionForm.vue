@@ -58,7 +58,7 @@
                                 <contribution
                                         class="card"
                                         :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor }"
-                                        :contribution="vendor" v-on:select="form.vendor = $event"></contribution>
+                                        :contribution="vendor" v-on:select="selectVendor($event)"></contribution>
                             </div>
                             <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.vendor">
                                 <contribution class="card" v-on:select="form.vendor = ''">
@@ -111,8 +111,8 @@
                         <div v-for="vendor in vendors" :key="vendor.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
                             <contribution
                                     class="card"
-                                    :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor() }"
-                                    :contribution="vendor" v-on:select="form.vendor = $event"></contribution>
+                                    :class="{'active': activeVendor(vendor.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesVendor }"
+                                    :contribution="vendor" v-on:select="selectVendor($event)"></contribution>
                         </div>
                         <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.vendor">
                             <contribution class="card" v-on:select="form.vendor = ''">
@@ -176,11 +176,11 @@
 
                     <div v-if="form.vendor" class="bg-white mb-2 rounded shadow">
                         <div class="p-4">
-                            <label for="vendor_amount" class="font-semibold mb-4 text-gray-700 text-lg flex-grow block">
+                            <label for="quantity" class="font-semibold mb-4 text-gray-700 text-lg flex-grow block">
                                 {{ form.vendor.title }} Vendor Table
                             </label>
                             <div class="flex items-center justify-between">
-                                <input type="number" id="vendor_amount" class="w-24 form-control" v-model="form.vendor_amount">
+                                <input type="number" id="quantity" class="w-24 form-control" v-model="form.vendor.quantity">
                                 <div class="w-24 flex items-center">
                                     <span class="text-2xl text-gray-700 font-normal">$</span>
                                     <p class="text-2xl text-right w-full text-gray-700 leading-tight">{{ form.vendor.amount/100 }}</p>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesVendor">
                             <p class="text-xs">One vendor table is already included in the sponsorship that was
-                                chosen, so you will receive {{ parseInt(form.vendor_amount) + 1}} tables.</p>
+                                chosen, so you will receive {{ parseInt(form.quantity) + 1}} tables.</p>
                         </div>
                     </div>
 
@@ -237,7 +237,6 @@
                     amount: '',
                     sponsorship: '',
                     vendor: '',
-                    vendor_amount: 1,
                 }
             }
         },
@@ -254,6 +253,10 @@
             addAd(ad) {
                 ad.quantity = 1;
                 this.form.ads.push(ad);
+            },
+            selectVendor(vendor) {
+                vendor.quantity = 1;
+                this.form.vendor = vendor;
             },
             selectSponsor(sponsor) {
                 this.form.amount = sponsor.amount / 100;
@@ -302,7 +305,7 @@
             },
             total() {
                 let amount = this.form.amount * 100;
-                amount += this.form.vendor.amount * this.form.vendor_amount || 0;
+                amount += this.form.vendor.amount * this.form.vendor.quantity || 0;
                 amount += _.sumBy(this.form.ads, function(ad) { return ad.amount * ad.quantity; });
                 return amount / 100;
             },

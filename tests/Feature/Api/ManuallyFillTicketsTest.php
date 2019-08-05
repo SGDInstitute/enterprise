@@ -7,6 +7,7 @@ use App\Order;
 use App\Ticket;
 use App\TicketType;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -181,6 +182,7 @@ class ManuallyFillTicketsTest extends TestCase
     /** @test */
     function can_update_profile_information_for_manually_entered_user()
     {
+        Mail::fake();
         $coordinator = factory(User::class)->create(['email' => 'hgranger@example.com']);
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $ticket = factory(Ticket::class)->create([

@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('title', 'Settings')
+@extends('layouts.app', ['title' => 'Settings'])
 
 @section('content')
     <div class="container">

@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('title', 'Reset Password')
+@extends('layouts.app', ['title' => 'Reset Password'])
 
 @section('content')
 <div class="container">

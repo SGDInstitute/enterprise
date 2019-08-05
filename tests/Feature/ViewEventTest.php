@@ -54,8 +54,6 @@ class ViewEventTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('MBLGTACC 2018');
         $response->assertSee('All Roads Lead to Intersectionality');
-        $response->assertSee('Fri, Feb 16');
-        $response->assertSee('Sun, Feb 18');
         $response->assertSee('University of Nebraska');
         $response->assertSee('Omaha, Nebraska');
         $response->assertSee('Friday February 16, 2018 1:00 PM to Sunday February 18, 2018 1:30 PM CST');
@@ -68,9 +66,6 @@ class ViewEventTest extends TestCase
         $response->assertSee('$85.00');
         $response->assertSee('Late Ticket');
         $response->assertSee('You are not guaranteed to receive a conference T-shirt, program, or other memorabilia.');
-        $response->assertSee('https://mblgtacc.org/themes/mblgtacc2018/assets/images/arts-and-sciences-fall.jpg');
-        $response->assertSee('https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_White.png');
-        $response->assertSee('https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_Gray.png');
     }
 
     /** @test */

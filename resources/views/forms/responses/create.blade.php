@@ -1,4 +1,4 @@
-@extends('layouts.app', ['hide_nav' => true])
+@extends('layouts.app', ['hide_nav' => true, 'title' => $form->title])
 
 @section('content')
 
