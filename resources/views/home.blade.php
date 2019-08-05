@@ -5,7 +5,7 @@
         <div class="mt-12 container">
             <div class="md:flex -mx-4">
                 <div class="md:w-1/4 px-4">
-                    <div class="nav flex flex-col bg-white rounded shadow" id="sections" role="tablist"
+                    <div class="nav flex flex-col bg-white rounded shadow vertical-nav overflow-hidden" id="sections" role="tablist"
                          aria-orientation="vertical">
                         <a class="nav-link active" id="orders-tab" data-toggle="pill" href="#orders" role="tab"
                            aria-controls="orders" aria-selected="true">Orders</a>
@@ -25,9 +25,11 @@
                         <div class="tab-pane fade" id="donations" role="tabpanel" aria-labelledby="donations-tab">
                             @include('home.partials.donations')
                         </div>
-                        <div class="tab-pane fade" id="workshops" role="tabpanel" aria-labelledby="workshops-tab">...
+                        <div class="tab-pane fade" id="workshops" role="tabpanel" aria-labelledby="workshops-tab">
+                            @include('home.partials.workshops')
                         </div>
-                        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...
+                        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                            @include('home.partials.settings')
                         </div>
                     </div>
                 </div>

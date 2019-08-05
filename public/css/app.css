@@ -1234,7 +1234,7 @@ input[type="button"].btn-block {
   transform: scale(1.1);
 }
 
-.nav-link {
+.vertical-nav .nav-link {
   border-bottom-width: 1px;
   padding: 1rem;
   font-size: 1.125rem;
@@ -1242,13 +1242,47 @@ input[type="button"].btn-block {
   text-align: center;
 }
 
-.nav-link:hover {
+.vertical-nav .nav-link:hover {
   background-color: #edf2f7;
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
-.nav-link.active {
+.vertical-nav .nav-link.active {
   background-color: #EBF7F7;
+}
+
+.material-nav .nav-link {
+  text-decoration: none;
+  color: #718096;
+  border-bottom-width: 2px;
+  border-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-right: 2rem;
+  transition: all 0.2s;
+}
+
+.material-nav .nav-link:hover {
+  border-color: #38AFAD;
+  color: #38AFAD;
+}
+
+.material-nav .nav-link.active {
+  text-decoration: none;
+  color: #329E9C;
+  border-bottom-width: 2px;
+  border-color: #329E9C;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-right: 2rem;
 }
 
 .fullscreen-video {
