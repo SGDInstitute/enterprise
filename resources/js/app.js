@@ -1,8 +1,5 @@
 require('./bootstrap');
 
-window.Popper = require('popper.js').default;
-require('bootstrap');
-
 window.Vue = require('vue');
 
 import VueTour from 'vue-tour';

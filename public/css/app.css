@@ -932,6 +932,33 @@ input[type="button"].btn-block {
   border-bottom-left-radius: 0;
 }
 
+.tab-content > .tab-pane {
+  display: none;
+}
+
+.tab-content > .active {
+  display: block;
+}
+
+.fade {
+  transition: opacity 0.15s linear;
+}
+
+.fade:not(.show) {
+  opacity: 0;
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
 .btn-mint {
   color: #fff;
   background-color: #38AFAD;
@@ -1117,6 +1144,36 @@ input[type="button"].btn-block {
   border-color: #a0aec0;
 }
 
+.hue {
+  background-image: linear-gradient(92deg, #f35626 0%, #feab3a 100%);
+  -webkit-animation: hue 60s infinite linear;
+          animation: hue 60s infinite linear;
+}
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+            filter: hue-rotate(0deg);
+  }
+
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+            filter: hue-rotate(-360deg);
+  }
+}
+
+@keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+            filter: hue-rotate(0deg);
+  }
+
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+            filter: hue-rotate(-360deg);
+  }
+}
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -1175,6 +1232,23 @@ input[type="button"].btn-block {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.nav-link {
+  border-bottom-width: 1px;
+  padding: 1rem;
+  font-size: 1.125rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.nav-link:hover {
+  background-color: #edf2f7;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.nav-link.active {
+  background-color: #EBF7F7;
 }
 
 .fullscreen-video {

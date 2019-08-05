@@ -23,6 +23,8 @@
     <div class="w-full hidden lg:flex lg:items-center lg:w-auto">
         <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
            href="{{ Auth::guest() ? '/' : '/home' }}">Home</a>
+        <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
+           href="/donations/create">Donations</a>
         @if(isset($event))
             <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
                target="_blank"
