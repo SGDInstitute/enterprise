@@ -24,7 +24,7 @@
         <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
            href="{{ Auth::guest() ? '/' : '/home' }}">Home</a>
         <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
-           href="/donations/create">Donations</a>
+           href="/donations/create">Donate</a>
         @if(isset($event))
             <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
                target="_blank"
@@ -38,38 +38,25 @@
                href="{{ route('register') }}">Create an Account</a>
         @else
             @can('view_dashboard')
-                <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline"
+                <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
                    href="/nova">Nova</a>
             @endcan
-            {{--            <li class="nav-item dropdown">--}}
-            {{--                <a class="nav-link dropdown-toggle" href="#"--}}
-            {{--                   id="navbarDropdownMenuLink" data-toggle="dropdown"--}}
-            {{--                   aria-haspopup="true" aria-expanded="false">--}}
-            {{--                    {{ Auth::user()->name }}--}}
-            {{--                </a>--}}
-            {{--                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
-            {{--                    @if (session('sgdinstitute:impersonator'))--}}
-            {{--                        <a class="dropdown-item" href="/users/stop-impersonating">--}}
-            {{--                            <i class="fa fa-fw fa-btn fa-user-secret"></i>Back To My Account--}}
-            {{--                        </a>--}}
-            {{--                    @endif--}}
+            @if (session('sgdinstitute:impersonator'))--}}
+                <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline mr-4"
+                   href="/users/stop-impersonating">
+                    <i class="fa fa-fw fa-btn fa-user-secret"></i>Back To My Account
+                </a>
+            @endif
+            <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 hover:underline"
+               href="{{ route('logout') }}"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Logout
+            </a>
 
-            {{--                    @if(Auth::user()->hasRole('view_dashboard'))--}}
-            {{--                        <a class="dropdown-item" href="/admin"><i class="fa fa-key"></i> Admin Portal</a>--}}
-            {{--                    @endif--}}
-
-            {{--                    <a class="dropdown-item" href="/settings">Settings</a>--}}
-            {{--                    <a class="dropdown-item" href="{{ route('logout') }}"--}}
-            {{--                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">--}}
-            {{--                        Logout--}}
-            {{--                    </a>--}}
-
-            {{--                    <form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
-            {{--                          style="display: none;">--}}
-            {{--                        {{ csrf_field() }}--}}
-            {{--                    </form>--}}
-            {{--                </div>--}}
-            {{--            </li>--}}
+            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                  style="display: none;">
+                {{ csrf_field() }}
+            </form>
         @endguest
     </div>
 </nav>
