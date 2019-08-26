@@ -16,7 +16,7 @@ class CreateContributionDonationTable extends Migration
         Schema::create('contribution_donation', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('contribution_id');
-            $table->unsignedBigInteger('donation_id');
+            $table->unsignedInteger('donation_id');
             $table->integer('amount');
             $table->integer('quantity');
 
@@ -24,5 +24,4 @@ class CreateContributionDonationTable extends Migration
             $table->foreign('donation_id')->references('id')->on('donations');
         });
     }
-
 }
