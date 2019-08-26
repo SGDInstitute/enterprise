@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="utf-8">
     <title>{{ $title }} | Midwest Institute for Sexuality and Gender Diversity</title>
@@ -22,9 +23,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 
-    <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/all.js"
-            integrity="sha384-eAVkiER0fL/ySiqS7dXu8TLpoR8d9KRzIYtG0Tz7pi24qgQIIupp0fn2XA1H90fP"
-            crossorigin="anonymous"></script>
+    <script defer src="{{ asset('js/fontawesome.min.js') }}"></script>
 
     <script>
         window.Spark = {};
@@ -36,18 +35,20 @@
         ]);
     </script>
 </head>
+
 <body class="h-full bg-gray-200">
-<div id="app">
+    <div id="app">
 
-    @include('layouts.partials.nav')
+        @include('layouts.partials.nav')
 
-    @yield('content')
+        @yield('content')
 
-    <portal-target name="modals"></portal-target>
-</div>
+        <portal-target name="modals"></portal-target>
+    </div>
 
-<script src="https://js.stripe.com/v3/"></script>
-<script src="{{ mix('js/app.js') }}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 
 </body>
+
 </html>
