@@ -43,6 +43,8 @@
 
         @yield('content')
 
+        @include('layouts.partials.footer')
+
         <portal-target name="modals"></portal-target>
     </div>
 

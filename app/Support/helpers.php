@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Str;
 
 if (!function_exists('str_snake')) {
@@ -68,5 +69,12 @@ if (!function_exists('getNameFromGroup')) {
     function getNameFromGroup($group)
     {
         return config("{$group}.short_name");
+    }
+}
+
+if (!function_exists('markdown')) {
+    function markdown($text)
+    {
+        return (new Parsedown)->text($text);
     }
 }

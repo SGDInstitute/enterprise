@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d27002d47bde45fa6a4bc513b261bcc3",
+    "content-hash": "5b7ac32a8ba722ccae0de44f18be6177",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1193,12 +1193,12 @@
             "version": "4.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ivanakimov/hashids.php.git",
+                "url": "https://github.com/vinkla/hashids.git",
                 "reference": "43bb2407f16a631f0128f47bcb67ff986c63dde2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ivanakimov/hashids.php/zipball/43bb2407f16a631f0128f47bcb67ff986c63dde2",
+                "url": "https://api.github.com/repos/vinkla/hashids/zipball/43bb2407f16a631f0128f47bcb67ff986c63dde2",
                 "reference": "43bb2407f16a631f0128f47bcb67ff986c63dde2",
                 "shasum": ""
             },
@@ -2831,6 +2831,127 @@
             "time": "2015-07-25T16:39:46+00:00"
         },
         {
+            "name": "pragmarx/version",
+            "version": "v0.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonioribeiro/version.git",
+                "reference": "360a234d7becfd9b8619e0044b1335ff6ffe9094"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonioribeiro/version/zipball/360a234d7becfd9b8619e0044b1335ff6ffe9094",
+                "reference": "360a234d7becfd9b8619e0044b1335ff6ffe9094",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5.33",
+                "php": "^7.0",
+                "pragmarx/yaml": "^0.1",
+                "symfony/process": "^3.3|^4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": ">=3.5",
+                "phpunit/phpunit": ">=6.4"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "laravel": {
+                    "providers": [
+                        "PragmaRX\\Version\\Package\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Version": "PragmaRX\\Version\\Package\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PragmaRX\\Version\\Package\\": "src/package",
+                    "PragmaRX\\Version\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Carlos Ribeiro",
+                    "role": "Creator & Designer",
+                    "email": "acr@antoniocarlosribeiro.com"
+                }
+            ],
+            "description": "Take control over your Laravel app version",
+            "keywords": [
+                "laravel",
+                "version",
+                "versioning"
+            ],
+            "time": "2019-03-18T23:26:23+00:00"
+        },
+        {
+            "name": "pragmarx/yaml",
+            "version": "v0.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonioribeiro/yaml.git",
+                "reference": "0c704b622ce276904eda7f09dd43f756ddc89910"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonioribeiro/yaml/zipball/0c704b622ce276904eda7f09dd43f756ddc89910",
+                "reference": "0c704b622ce276904eda7f09dd43f756ddc89910",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5.33",
+                "php": "^7.0",
+                "symfony/yaml": "^3.4|^4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.5|^3.6",
+                "phpunit/phpunit": "^6.4|^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "laravel": {
+                    "providers": [
+                        "PragmaRX\\Yaml\\Package\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Yaml": "PragmaRX\\Yaml\\Package\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PragmaRX\\Yaml\\Package\\": "src/package",
+                    "PragmaRX\\Yaml\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Carlos Ribeiro",
+                    "role": "Creator & Designer",
+                    "email": "acr@antoniocarlosribeiro.com"
+                }
+            ],
+            "description": "Load your Laravel config files using yaml",
+            "keywords": [
+                "config",
+                "laravel",
+                "yaml"
+            ],
+            "time": "2018-09-22T17:12:12+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "1.0.0",
             "source": {
@@ -3397,8 +3518,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/CheckinQueue",
-                "reference": "c37afdce336f1ab98e4a87427eaf822e412e0f63",
-                "shasum": null
+                "reference": "c37afdce336f1ab98e4a87427eaf822e412e0f63"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -3431,8 +3551,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/EnterpriseAdminTheme",
-                "reference": "32558bb3100c2e1b5225f9299986b9634aafd4c5",
-                "shasum": null
+                "reference": "32558bb3100c2e1b5225f9299986b9634aafd4c5"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -3465,8 +3584,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/FormBuilder",
-                "reference": "b8b77d1c7add25e80331fe78e64f6e6d95f9270d",
-                "shasum": null
+                "reference": "b8b77d1c7add25e80331fe78e64f6e6d95f9270d"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -3499,8 +3617,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/FormResponse",
-                "reference": "d9e8e0876b45d9c0651ddb64a9e707a76862264e",
-                "shasum": null
+                "reference": "d9e8e0876b45d9c0651ddb64a9e707a76862264e"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -3533,8 +3650,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Links",
-                "reference": "e5c75c5c48a04d8cfb76f9d2fa5bd200ca0b6f6a",
-                "shasum": null
+                "reference": "e5c75c5c48a04d8cfb76f9d2fa5bd200ca0b6f6a"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -4994,6 +5110,65 @@
                 "dump"
             ],
             "time": "2019-04-17T14:57:01+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v4.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "5a0b7c32dc3ec56fd4abae8a4a71b0cf05013686"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/5a0b7c32dc3ec56fd4abae8a4a71b0cf05013686",
+                "reference": "5a0b7c32dc3ec56fd4abae8a4a71b0cf05013686",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "conflict": {
+                "symfony/console": "<3.4"
+            },
+            "require-dev": {
+                "symfony/console": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2019-08-20T14:27:59+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
