@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>{{ $title }} | Midwest Institute for Sexuality and Gender Diversity</title>
@@ -22,9 +23,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 
-    <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/all.js"
-            integrity="sha384-eAVkiER0fL/ySiqS7dXu8TLpoR8d9KRzIYtG0Tz7pi24qgQIIupp0fn2XA1H90fP"
-            crossorigin="anonymous"></script>
+    <script defer src="{{ asset('js/fontawesome.min.js') }}"></script>
 
     <script>
         window.Spark = {};
@@ -36,28 +35,30 @@
         ]);
     </script>
 </head>
+
 <body class="bg-mint-800">
-<div id="app">
-    <div class="top-0 fixed py-8 px-16 md:flex md:justify-between w-full">
-        <a href="https://sgdinstitute.org/"><img src="{{ asset('images/sgdinstitute-logo-white.png') }}" alt="Logo White" class="w-40 mb-8 mx-auto md:mb-0 block"></a>
-        <div class="text-center">
-            <a class="text-gray-200 hover:text-white hover:underline mr-4" href="/donations/create">Donate</a>
-            <a class="text-gray-200 hover:text-white hover:underline mr-4" href="/login">Login</a>
-            <a class="text-gray-200 hover:text-white hover:underline" href="/register">Create an Account</a>
+    <div id="app">
+        <div class="top-0 fixed py-8 px-16 md:flex md:justify-between w-full">
+            <a href="https://sgdinstitute.org/"><img src="{{ asset('images/sgdinstitute-logo-white.png') }}" alt="Logo White" class="w-40 mb-8 mx-auto md:mb-0 block"></a>
+            <div class="text-center">
+                <a class="text-gray-200 hover:text-white hover:underline mr-4" href="/donations/create">Donate</a>
+                <a class="text-gray-200 hover:text-white hover:underline mr-4" href="/login">Login</a>
+                <a class="text-gray-200 hover:text-white hover:underline" href="/register">Create an Account</a>
+            </div>
         </div>
+        <div class="fullscreen-video">
+            <div class="overlay"></div>
+            <video autoplay loop muted id="backgroundVideo">
+                <source src="{{ asset('video/background.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+
+        @yield('content')
+
     </div>
-    <div class="fullscreen-video">
-        <div class="overlay"></div>
-        <video autoplay loop muted id="backgroundVideo">
-            <source src="{{ asset('video/background.mp4') }}" type="video/mp4">
-        </video>
-    </div>
 
-    @yield('content')
-
-</div>
-
-<script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 
 </body>
+
 </html>
