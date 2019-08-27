@@ -2332,6 +2332,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["event"],
   data: function data() {
@@ -2433,6 +2438,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     amount: function amount() {
       return this.form.amount;
+    },
+    isGuest: function isGuest() {
+      return window.SGDInstitute.user === null;
     },
     sponsorships: function sponsorships() {
       var sponsorships = _.filter(this.event.contributions, function (c) {
@@ -59913,7 +59921,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "mb-8" }, [
+  return _c("div", { staticClass: "mb-16" }, [
     _c("div", { staticClass: "md:w-2/3 lg:w-1/2 md:mx-auto mx-4" }, [
       _c("div", { staticClass: "p-6 bg-white rounded shadow" }, [
         _c("h2", { staticClass: "text-xl text-center mb-6" }, [
@@ -61004,10 +61012,18 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _vm.isGuest
+                  ? _c("p", { staticClass: "text-sm italic mt-8" }, [
+                      _vm._v(
+                        "Please login or create an account before contributing."
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("contribution-checkout", {
-                  staticClass: "mt-8",
+                  staticClass: "mt-2",
                   attrs: {
-                    disable: _vm.total === 0,
+                    disable: _vm.total === 0 || _vm.isGuest,
                     event: _vm.event,
                     contributions: _vm.form,
                     total: _vm.total

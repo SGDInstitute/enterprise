@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-8">
+  <div class="mb-16">
     <div class="md:w-2/3 lg:w-1/2 md:mx-auto mx-4">
       <div class="p-6 bg-white rounded shadow">
         <h2 class="text-xl text-center mb-6">How would you like to support?</h2>
@@ -366,9 +366,14 @@
             </div>
           </div>
 
+          <p
+            v-if="isGuest"
+            class="text-sm italic mt-8"
+          >Please login or create an account before contributing.</p>
+
           <contribution-checkout
-            class="mt-8"
-            :disable="total === 0"
+            class="mt-2"
+            :disable="total === 0 || isGuest"
             :event="event"
             :contributions="form"
             :total="total"
@@ -478,6 +483,9 @@ export default {
     },
     amount() {
       return this.form.amount;
+    },
+    isGuest() {
+      return window.SGDInstitute.user === null;
     },
     sponsorships() {
       let sponsorships = _.filter(this.event.contributions, function(c) {

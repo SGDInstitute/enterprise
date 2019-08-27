@@ -36,7 +36,7 @@
     </script>
 </head>
 
-<body class="h-full bg-gray-200">
+<body class="bg-gray-200">
     <div id="app">
 
         @include('layouts.partials.nav')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Billing\PaymentGateway;
 use App\Donation;
+use App\Event;
 use App\Exceptions\PaymentFailedException;
 use App\Mail\ContributionEmail;
 use App\Mail\DonationEmail;
@@ -32,14 +33,19 @@ class DonationsController extends Controller
             }
 
             if ($contributions['ads']) {
-                $amount += collect($contributions['ads'])->sum(function($ad) {
+                $amount += collect($contributions['ads'])->sum(function ($ad) {
                     return $ad['amount'] * $ad['quantity'];
                 });
             }
 
-            $contributions['event_id'] = request('event_id');
-
             try {
+                if ($contributions['event_id']) {
+                    $event = Event::find($contributions['event_id'] = request('event_id'));
+                    $this->paymentGateway->setApiKey($event->getSecretKey());
+                } else {
+                    $this->paymentGateway->setApiKey(getStripeSecret('sgdinstitute'));
+                }
+
                 $charge = $this->paymentGateway->charge($amount, request('payment_token'));
                 $donation = Donation::createContribution($contributions, $charge);
 
