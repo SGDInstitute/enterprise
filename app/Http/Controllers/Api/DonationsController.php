@@ -39,15 +39,20 @@ class DonationsController extends Controller
             }
 
             try {
-                if ($contributions['event_id']) {
-                    $event = Event::find($contributions['event_id'] = request('event_id'));
+                if (request('event_id')) {
+                    $contributions['event_id'] = request('event_id');
+                    $event = Event::find(request('event_id'));
                     $this->paymentGateway->setApiKey($event->getSecretKey());
+
+                    $charge = $this->paymentGateway->charge($amount, request('payment_token'));
+                    $donation = Donation::createContribution($contributions, $charge, $event->stripe);
                 } else {
                     $this->paymentGateway->setApiKey(getStripeSecret('sgdinstitute'));
+
+                    $charge = $this->paymentGateway->charge($amount, request('payment_token'));
+                    $donation = Donation::createContribution($contributions, $charge, 'sgdinstitute');
                 }
 
-                $charge = $this->paymentGateway->charge($amount, request('payment_token'));
-                $donation = Donation::createContribution($contributions, $charge);
 
                 Mail::to(auth()->user()->email)->send(new ContributionEmail($donation));
             } catch (PaymentFailedException $e) {

@@ -74,14 +74,12 @@ class Donation extends Model
         return $donation;
     }
 
-    public static function createContribution($data, $charge)
+    public static function createContribution($data, $charge, $group)
     {
-        $event = Event::find($data['event_id']);
-
         $donation = self::create([
             'amount' => $charge->get('amount'),
-            'user_id' => auth()->user()->id,
-            'group' => $event->stripe,
+            'user_id' => auth()->id(),
+            'group' => $group ?? 'sgdinstitute',
             'name' => auth()->user()->name,
             'email' => auth()->user()->email,
             'company' => $data['company'] ?? null,
@@ -94,22 +92,22 @@ class Donation extends Model
             'card_last_four' => $charge->get('last4'),
         ]);
 
-        if($data['sponsorship']) {
+        if ($data['sponsorship']) {
             $donation->contributions()->attach($data['sponsorship']['id'], [
                 'amount' => $data['amount'] < $data['sponsorship']['amount'] ? $data['sponsorship']['amount'] : $data['amount'],
                 'quantity' => 1,
             ]);
         }
 
-        if($data['vendor']) {
+        if ($data['vendor']) {
             $donation->contributions()->attach($data['vendor']['id'], [
                 'amount' => $data['vendor']['amount'],
                 'quantity' => $data['vendor']['quantity'],
             ]);
         }
 
-        if($data['ads']) {
-            foreach($data['ads'] as $ad) {
+        if ($data['ads']) {
+            foreach ($data['ads'] as $ad) {
                 $donation->contributions()->attach($ad['id'], [
                     'amount' => $ad['amount'],
                     'quantity' => $ad['quantity'],

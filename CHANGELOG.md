@@ -16,6 +16,7 @@ ___
 ### Added
 
 - Moved new UI style to create account page
+- [Laravel Passport](https://laravel.com/docs/5.8/passport)
 
 ___
 

@@ -7,7 +7,7 @@
     <div class="w-full px-4 md:px-0 md:w-1/2 mx-auto">
         <div class="bg-white p-6 rounded shadow mb-16">
             <h1 class="text-xl mb-6">Create an Account</h1>
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}
 
                 <div class="mb-3">
