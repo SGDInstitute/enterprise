@@ -239,6 +239,7 @@
                 <input
                   id="sponsorship-amount"
                   class="ml-1 form-control text-2xl pr-0"
+                  :class="{'form-error': form.errors.hasOwnProperty('amount') }"
                   type="number"
                   aria-label="Sponsorship Amount"
                   :min="form.sponsorship.amount/100"
@@ -247,6 +248,10 @@
                 />
               </div>
             </div>
+            <div
+              v-if="form.errors.hasOwnProperty('amount')"
+              class="bg-red-200 text-red-900 px-4 py-2 text-xs"
+            >{{ form.errors.amount }}</div>
             <div class="bg-mint-200 px-4 py-2">
               <p
                 class="text-xs"
@@ -385,7 +390,8 @@ export default {
         adUpgrade: "",
         amount: "",
         sponsorship: "",
-        vendor: ""
+        vendor: "",
+        errors: {}
       }
     };
   },
@@ -530,7 +536,31 @@ export default {
   watch: {
     amount() {
       if (this.form.amount < this.form.sponsorship.amount / 100) {
-        this.form.amount = this.form.sponsorship.amount / 100;
+        this.form.errors.amount =
+          "The contribution amount for this sponsorship cannot be less than $" +
+          this.form.sponsorship.amount / 100;
+      } else if (this.form.amount === this.form.sponsorship.amount / 100) {
+        delete this.form.errors["amount"];
+      } else {
+        let sponsorshipAmount = this.form.sponsorship.amount;
+        let moreExpensiveSponsorships = _.filter(this.sponsorships, function(
+          sponsorship
+        ) {
+          return sponsorship.amount > sponsorshipAmount;
+        });
+
+        if (moreExpensiveSponsorships.length > 0) {
+          let oneTierUp = _.minBy(moreExpensiveSponsorships, "amount");
+
+          if (this.form.amount >= oneTierUp.amount / 100) {
+            this.form.errors.amount =
+              "The contribution amount selected qualifies you for a higher sponsorship tier. Please selet " +
+              oneTierUp.title +
+              " instead.";
+          } else {
+            delete this.form.errors["amount"];
+          }
+        }
       }
     }
   }

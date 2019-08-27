@@ -43,10 +43,10 @@
 
         @yield('content')
 
-        @include('layouts.partials.footer')
 
         <portal-target name="modals"></portal-target>
     </div>
+    @include('layouts.partials.footer')
 
     <script src="https://js.stripe.com/v3/"></script>
     <script src="{{ mix('js/app.js') }}"></script>

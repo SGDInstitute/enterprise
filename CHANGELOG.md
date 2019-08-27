@@ -14,6 +14,10 @@ ___
 - NaN in Vendor Tables alert on contribution page
 - Adding advertisement is visible in Selected Contributions in Advertisements section of contribution page
 
+### Added
+
+- Min/max validation for sponsorship contributions
+
 ___
 
 ## [0.1.0] - 2019-08-27

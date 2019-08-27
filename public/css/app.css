@@ -1153,6 +1153,10 @@ input[type="button"].btn-block {
   border-color: #a0aec0;
 }
 
+.form-control.form-error {
+  border-color: #f56565;
+}
+
 .hue {
   background-image: linear-gradient(92deg, #f35626 0%, #feab3a 100%);
   -webkit-animation: hue 60s infinite linear;

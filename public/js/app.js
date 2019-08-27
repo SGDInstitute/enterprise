@@ -2327,6 +2327,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["event"],
   data: function data() {
@@ -2337,7 +2342,8 @@ __webpack_require__.r(__webpack_exports__);
         adUpgrade: "",
         amount: "",
         sponsorship: "",
-        vendor: ""
+        vendor: "",
+        errors: {}
       }
     };
   },
@@ -2477,7 +2483,25 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     amount: function amount() {
       if (this.form.amount < this.form.sponsorship.amount / 100) {
-        this.form.amount = this.form.sponsorship.amount / 100;
+        this.form.errors.amount = "The contribution amount for this sponsorship cannot be less than $" + this.form.sponsorship.amount / 100;
+      } else if (this.form.amount === this.form.sponsorship.amount / 100) {
+        delete this.form.errors["amount"];
+      } else {
+        var sponsorshipAmount = this.form.sponsorship.amount;
+
+        var moreExpensiveSponsorships = _.filter(this.sponsorships, function (sponsorship) {
+          return sponsorship.amount > sponsorshipAmount;
+        });
+
+        if (moreExpensiveSponsorships.length > 0) {
+          var oneTierUp = _.minBy(moreExpensiveSponsorships, "amount");
+
+          if (this.form.amount >= oneTierUp.amount / 100) {
+            this.form.errors.amount = "The contribution amount selected qualifies you for a higher sponsorship tier. Please selet " + oneTierUp.title + " instead.";
+          } else {
+            delete this.form.errors["amount"];
+          }
+        }
       }
     }
   }
@@ -60631,6 +60655,11 @@ var render = function() {
                               }
                             ],
                             staticClass: "ml-1 form-control text-2xl pr-0",
+                            class: {
+                              "form-error": _vm.form.errors.hasOwnProperty(
+                                "amount"
+                              )
+                            },
                             attrs: {
                               id: "sponsorship-amount",
                               type: "number",
@@ -60654,6 +60683,17 @@ var render = function() {
                           })
                         ])
                       ]),
+                      _vm._v(" "),
+                      _vm.form.errors.hasOwnProperty("amount")
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-red-200 text-red-900 px-4 py-2 text-xs"
+                            },
+                            [_vm._v(_vm._s(_vm.form.errors.amount))]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       _vm._m(0)
                     ])
