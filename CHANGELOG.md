@@ -12,6 +12,7 @@ ___
 ### Fixed
 
 - NaN in Vendor Tables alert on contribution page
+- Adding advertisement is visible in Selected Contributions in Advertisements section of contribution page
 
 ___
 

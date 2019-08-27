@@ -191,13 +191,13 @@
             <div v-for="ad in ads" :key="ad.id" class="md:w-1/2 xl:w-1/3 px-4 mb-4">
               <contribution
                 class="card"
-                :class="{'active': activeAd(ad.id), 'hover:shadow hover:bg-gray-100': sponsorshipIncludesAd }"
+                :class="{'active': activeAd(ad.id)}"
                 :contribution="ad"
-                v-on:select="form.ad = $event"
+                v-on:select="addAd($event)"
               ></contribution>
             </div>
-            <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ad">
-              <contribution class="card" v-on:select="form.ad = ''">
+            <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ads">
+              <contribution class="card" v-on:select="form.ads = []">
                 <template v-slot:default>
                   <i
                     class="far fa-times-circle fa-10x block mx-auto text-gray-100 absolute z-0 top-0 right-0 left-0 bottom-0"

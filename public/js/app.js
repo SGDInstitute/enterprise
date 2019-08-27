@@ -60492,15 +60492,11 @@ var render = function() {
                           [
                             _c("contribution", {
                               staticClass: "card",
-                              class: {
-                                active: _vm.activeAd(ad.id),
-                                "hover:shadow hover:bg-gray-100":
-                                  _vm.sponsorshipIncludesAd
-                              },
+                              class: { active: _vm.activeAd(ad.id) },
                               attrs: { contribution: ad },
                               on: {
                                 select: function($event) {
-                                  _vm.form.ad = $event
+                                  return _vm.addAd($event)
                                 }
                               }
                             })
@@ -60509,7 +60505,7 @@ var render = function() {
                         )
                       }),
                       _vm._v(" "),
-                      _vm.form.ad
+                      _vm.form.ads
                         ? _c(
                             "div",
                             { staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4" },
@@ -60518,7 +60514,7 @@ var render = function() {
                                 staticClass: "card",
                                 on: {
                                   select: function($event) {
-                                    _vm.form.ad = ""
+                                    _vm.form.ads = []
                                   }
                                 },
                                 scopedSlots: _vm._u(
