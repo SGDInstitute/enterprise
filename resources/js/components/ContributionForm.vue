@@ -287,7 +287,7 @@
             <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesVendor">
               <p class="text-xs">
                 One vendor table is already included in the sponsorship that was
-                chosen, so you will receive {{ parseInt(form.quantity) + 1}} tables.
+                chosen, so you will receive {{ vendorQuantity }} tables.
               </p>
             </div>
           </div>
@@ -516,6 +516,9 @@ export default {
         return ad.amount * ad.quantity;
       });
       return amount / 100;
+    },
+    vendorQuantity() {
+      return parseInt(this.form.vendor.quantity) + 1;
     },
     vendors() {
       let vendors = _.filter(this.event.contributions, function(c) {

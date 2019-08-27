@@ -2463,6 +2463,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       return amount / 100;
     },
+    vendorQuantity: function vendorQuantity() {
+      return parseInt(this.form.vendor.quantity) + 1;
+    },
     vendors: function vendors() {
       var vendors = _.filter(this.event.contributions, function (c) {
         return c.type === "vendor";
@@ -60754,7 +60757,7 @@ var render = function() {
                             _c("p", { staticClass: "text-xs" }, [
                               _vm._v(
                                 "\n              One vendor table is already included in the sponsorship that was\n              chosen, so you will receive " +
-                                  _vm._s(parseInt(_vm.form.quantity) + 1) +
+                                  _vm._s(_vm.vendorQuantity) +
                                   " tables.\n            "
                               )
                             ])
