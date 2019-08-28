@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.4] - 2019-08-28
+
+### Fixed
+
+- Deselect Advertisement
+
+### Added
+
+- Disclamer text
+
+___
+
 ## [0.1.3] - 2019-08-28
 
 ### Added

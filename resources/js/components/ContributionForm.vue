@@ -196,7 +196,7 @@
                 v-on:select="addAd($event)"
               ></contribution>
             </div>
-            <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ads">
+            <div class="md:w-1/2 xl:w-1/3 px-4 mb-4" v-if="form.ads.length > 0">
               <contribution class="card" v-on:select="form.ads = []">
                 <template v-slot:default>
                   <i
@@ -214,170 +214,174 @@
         </div>
       </div>
       <div class="md:w-1/3 px-4 relative">
-        <div
-          class="mt-10 bg-gray-100 rounded-lg overflow-hidden shadow transition p-4 sticky top-24"
-        >
-          <h3 class="text-xl text-gray-700 mb-6">Selected Contributions</h3>
+        <div class="sticky top-24">
+          <div class="mt-10 bg-gray-100 rounded-lg overflow-hidden shadow transition p-4">
+            <h3 class="text-xl text-gray-700 mb-6">Selected Contributions</h3>
 
-          <div v-if="form.sponsorship" class="bg-white mb-2 rounded shadow">
-            <div class="p-4 flex items-center">
+            <div v-if="form.sponsorship" class="bg-white mb-2 rounded shadow">
+              <div class="p-4 flex items-center">
+                <label
+                  class="font-semibold text-gray-700 text-lg flex-grow block flex items-center"
+                  for="sponsorship-amount"
+                >
+                  {{ form.sponsorship.title }}
+                  <button
+                    class="btn btn-link text-gray-400"
+                    @click="form.sponsorship = ''"
+                    title="Remove Sponsorship"
+                  >
+                    <i class="fa fa-trash text-sm"></i>
+                  </button>
+                </label>
+                <div class="w-32 flex items-center">
+                  <span class="text-2xl text-gray-700 font-normal">$</span>
+                  <input
+                    id="sponsorship-amount"
+                    class="ml-1 form-control text-2xl pr-0"
+                    :class="{'form-error': form.errors.hasOwnProperty('amount') }"
+                    type="number"
+                    aria-label="Sponsorship Amount"
+                    :min="form.sponsorship.amount/100"
+                    step="50"
+                    v-model="form.amount"
+                  />
+                </div>
+              </div>
+              <div
+                v-if="form.errors.hasOwnProperty('amount')"
+                class="bg-red-200 text-red-900 px-4 py-2 text-xs"
+              >{{ form.errors.amount }}</div>
+              <div class="bg-mint-200 px-4 py-2">
+                <p
+                  class="text-xs"
+                >The contribution amount can be increased by clicking on the amount and using the up arrow or typing a new value.</p>
+              </div>
+            </div>
+
+            <div v-if="form.vendor" class="bg-white mb-2 rounded shadow">
+              <div class="p-4">
+                <label
+                  for="quantity"
+                  class="font-semibold mb-4 text-gray-700 text-lg flex-grow block"
+                >
+                  {{ form.vendor.title }} Vendor Table
+                  <button
+                    class="btn btn-link text-gray-400"
+                    @click="form.vendor = ''"
+                    title="Remove Vendor"
+                  >
+                    <i class="fa fa-trash text-sm"></i>
+                  </button>
+                </label>
+                <div class="flex items-center justify-between">
+                  <input
+                    type="number"
+                    id="quantity"
+                    class="w-24 form-control"
+                    v-model="form.vendor.quantity"
+                  />
+                  <div class="w-24 flex items-center">
+                    <span class="text-2xl text-gray-700 font-normal">$</span>
+                    <p
+                      class="text-2xl text-right w-full text-gray-700 leading-tight"
+                    >{{ form.vendor.amount/100 }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesVendor">
+                <p class="text-xs">
+                  One vendor table is already included in the sponsorship that was
+                  chosen, so you will receive {{ vendorQuantity }} tables.
+                </p>
+              </div>
+            </div>
+
+            <div v-if="form.adUpgrade" class="bg-white mb-2 rounded shadow">
+              <div class="p-4">
+                <label
+                  for="quantity"
+                  class="font-semibold mb-4 text-gray-700 text-lg flex-grow block"
+                >
+                  {{ form.adUpgrade.title }}
+                  <button
+                    class="btn btn-link text-gray-400"
+                    @click="form.adUpgrade = ''"
+                    title="Remove Ad Upgrade"
+                  >
+                    <i class="fa fa-trash text-sm"></i>
+                  </button>
+                </label>
+                <div class="flex items-center justify-end">
+                  <div class="w-24 flex items-center">
+                    <span class="text-2xl text-gray-700 font-normal">$</span>
+                    <p
+                      class="text-2xl text-right w-full text-gray-700 leading-tight"
+                    >{{ form.adUpgrade.amount/100 }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div v-for="ad in form.ads" :key="ad.id" class="bg-white mb-2 rounded shadow">
+              <div class="p-4">
+                <label class="font-semibold mb-4 text-gray-700 text-lg flex-grow block">
+                  {{ ad.title }}
+                  <button
+                    class="btn btn-link text-gray-400"
+                    @click="removeAd(ad)"
+                    title="Remove Ad"
+                  >
+                    <i class="fa fa-trash text-sm"></i>
+                  </button>
+                </label>
+                <div class="flex items-center justify-between">
+                  <input type="number" class="w-24 form-control" v-model="ad.quantity" />
+                  <div class="w-24 flex items-center">
+                    <span class="text-2xl text-gray-700 font-normal">$</span>
+                    <p
+                      class="text-2xl text-right w-full text-gray-700 leading-tight"
+                    >{{ ad.amount/100 }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesAd">
+                <p class="text-xs">
+                  One {{ sponsorshipAdSize }} is already included in the sponsorship that was
+                  chosen, so you will receive {{ adQuantity + 1 }} ads.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center px-4 mt-4">
               <label
-                class="font-semibold text-gray-700 text-lg flex-grow block flex items-center"
+                class="font-semibold text-gray-700 flex-grow block"
                 for="sponsorship-amount"
-              >
-                {{ form.sponsorship.title }}
-                <button
-                  class="btn btn-link text-gray-400"
-                  @click="form.sponsorship = ''"
-                  title="Remove Sponsorship"
-                >
-                  <i class="fa fa-trash text-sm"></i>
-                </button>
-              </label>
-              <div class="w-32 flex items-center">
+              >Total</label>
+              <div class="w-24 flex items-center">
                 <span class="text-2xl text-gray-700 font-normal">$</span>
-                <input
-                  id="sponsorship-amount"
-                  class="ml-1 form-control text-2xl pr-0"
-                  :class="{'form-error': form.errors.hasOwnProperty('amount') }"
-                  type="number"
-                  aria-label="Sponsorship Amount"
-                  :min="form.sponsorship.amount/100"
-                  step="50"
-                  v-model="form.amount"
-                />
+                <p
+                  class="text-2xl text-right font-semibold w-full text-gray-700 leading-tight"
+                >{{ total }}</p>
               </div>
             </div>
-            <div
-              v-if="form.errors.hasOwnProperty('amount')"
-              class="bg-red-200 text-red-900 px-4 py-2 text-xs"
-            >{{ form.errors.amount }}</div>
-            <div class="bg-mint-200 px-4 py-2">
-              <p
-                class="text-xs"
-              >The contribution amount can be increased by clicking on the amount and using the up arrow or typing a new value.</p>
-            </div>
-          </div>
 
-          <div v-if="form.vendor" class="bg-white mb-2 rounded shadow">
-            <div class="p-4">
-              <label
-                for="quantity"
-                class="font-semibold mb-4 text-gray-700 text-lg flex-grow block"
-              >
-                {{ form.vendor.title }} Vendor Table
-                <button
-                  class="btn btn-link text-gray-400"
-                  @click="form.vendor = ''"
-                  title="Remove Vendor"
-                >
-                  <i class="fa fa-trash text-sm"></i>
-                </button>
-              </label>
-              <div class="flex items-center justify-between">
-                <input
-                  type="number"
-                  id="quantity"
-                  class="w-24 form-control"
-                  v-model="form.vendor.quantity"
-                />
-                <div class="w-24 flex items-center">
-                  <span class="text-2xl text-gray-700 font-normal">$</span>
-                  <p
-                    class="text-2xl text-right w-full text-gray-700 leading-tight"
-                  >{{ form.vendor.amount/100 }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesVendor">
-              <p class="text-xs">
-                One vendor table is already included in the sponsorship that was
-                chosen, so you will receive {{ vendorQuantity }} tables.
-              </p>
-            </div>
-          </div>
+            <p
+              v-if="isGuest"
+              class="text-sm italic mt-8"
+            >Please login or create an account before contributing.</p>
 
-          <div v-if="form.adUpgrade" class="bg-white mb-2 rounded shadow">
-            <div class="p-4">
-              <label
-                for="quantity"
-                class="font-semibold mb-4 text-gray-700 text-lg flex-grow block"
-              >
-                {{ form.adUpgrade.title }}
-                <button
-                  class="btn btn-link text-gray-400"
-                  @click="form.adUpgrade = ''"
-                  title="Remove Ad Upgrade"
-                >
-                  <i class="fa fa-trash text-sm"></i>
-                </button>
-              </label>
-              <div class="flex items-center justify-end">
-                <div class="w-24 flex items-center">
-                  <span class="text-2xl text-gray-700 font-normal">$</span>
-                  <p
-                    class="text-2xl text-right w-full text-gray-700 leading-tight"
-                  >{{ form.adUpgrade.amount/100 }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div v-for="ad in form.ads" :key="ad.id" class="bg-white mb-2 rounded shadow">
-            <div class="p-4">
-              <label class="font-semibold mb-4 text-gray-700 text-lg flex-grow block">
-                {{ ad.title }}
-                <button
-                  class="btn btn-link text-gray-400"
-                  @click="removeAd(ad)"
-                  title="Remove Ad"
-                >
-                  <i class="fa fa-trash text-sm"></i>
-                </button>
-              </label>
-              <div class="flex items-center justify-between">
-                <input type="number" class="w-24 form-control" v-model="ad.quantity" />
-                <div class="w-24 flex items-center">
-                  <span class="text-2xl text-gray-700 font-normal">$</span>
-                  <p
-                    class="text-2xl text-right w-full text-gray-700 leading-tight"
-                  >{{ ad.amount/100 }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-mint-200 px-4 py-2" v-if="sponsorshipIncludesAd">
-              <p class="text-xs">
-                One {{ sponsorshipAdSize }} is already included in the sponsorship that was
-                chosen, so you will receive {{ adQuantity + 1 }} ads.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-center px-4 mt-4">
-            <label
-              class="font-semibold text-gray-700 flex-grow block"
-              for="sponsorship-amount"
-            >Total</label>
-            <div class="w-24 flex items-center">
-              <span class="text-2xl text-gray-700 font-normal">$</span>
-              <p
-                class="text-2xl text-right font-semibold w-full text-gray-700 leading-tight"
-              >{{ total }}</p>
-            </div>
+            <contribution-checkout
+              class="mt-2"
+              :disable="total === 0 || isGuest"
+              :event="event"
+              :contributions="form"
+              :total="total"
+            ></contribution-checkout>
           </div>
 
           <p
-            v-if="isGuest"
-            class="text-sm italic mt-8"
-          >Please login or create an account before contributing.</p>
-
-          <contribution-checkout
-            class="mt-2"
-            :disable="total === 0 || isGuest"
-            :event="event"
-            :contributions="form"
-            :total="total"
-          ></contribution-checkout>
+            class="text-sm mt-4 italic px-4 text-gray-600"
+          >Disclaimer: Your contribution will be designated for {{ event.title }}. After all expenses for the event are paid, any excess revenues may be designated for other programs or the Institute’s general fund to continue the Institute’s efforts to connect, educate, and empower LGBTQ+ students in the Midwest.</p>
         </div>
       </div>
     </div>

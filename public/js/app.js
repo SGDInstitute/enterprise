@@ -2339,6 +2339,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["event"],
   data: function data() {
@@ -60535,7 +60539,7 @@ var render = function() {
                         )
                       }),
                       _vm._v(" "),
-                      _vm.form.ads
+                      _vm.form.ads.length > 0
                         ? _c(
                             "div",
                             { staticClass: "md:w-1/2 xl:w-1/3 px-4 mb-4" },
@@ -60599,177 +60603,60 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "md:w-1/3 px-4 relative" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "mt-10 bg-gray-100 rounded-lg overflow-hidden shadow transition p-4 sticky top-24"
-              },
-              [
-                _c("h3", { staticClass: "text-xl text-gray-700 mb-6" }, [
-                  _vm._v("Selected Contributions")
-                ]),
-                _vm._v(" "),
-                _vm.form.sponsorship
-                  ? _c("div", { staticClass: "bg-white mb-2 rounded shadow" }, [
-                      _c("div", { staticClass: "p-4 flex items-center" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "font-semibold text-gray-700 text-lg flex-grow block flex items-center",
-                            attrs: { for: "sponsorship-amount" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(_vm.form.sponsorship.title) +
-                                "\n              "
-                            ),
+            _c("div", { staticClass: "sticky top-24" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "mt-10 bg-gray-100 rounded-lg overflow-hidden shadow transition p-4"
+                },
+                [
+                  _c("h3", { staticClass: "text-xl text-gray-700 mb-6" }, [
+                    _vm._v("Selected Contributions")
+                  ]),
+                  _vm._v(" "),
+                  _vm.form.sponsorship
+                    ? _c(
+                        "div",
+                        { staticClass: "bg-white mb-2 rounded shadow" },
+                        [
+                          _c("div", { staticClass: "p-4 flex items-center" }, [
                             _c(
-                              "button",
+                              "label",
                               {
-                                staticClass: "btn btn-link text-gray-400",
-                                attrs: { title: "Remove Sponsorship" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.form.sponsorship = ""
-                                  }
-                                }
+                                staticClass:
+                                  "font-semibold text-gray-700 text-lg flex-grow block flex items-center",
+                                attrs: { for: "sponsorship-amount" }
                               },
-                              [_c("i", { staticClass: "fa fa-trash text-sm" })]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "w-32 flex items-center" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "text-2xl text-gray-700 font-normal"
-                            },
-                            [_vm._v("$")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.amount,
-                                expression: "form.amount"
-                              }
-                            ],
-                            staticClass: "ml-1 form-control text-2xl pr-0",
-                            class: {
-                              "form-error": _vm.form.errors.hasOwnProperty(
-                                "amount"
-                              )
-                            },
-                            attrs: {
-                              id: "sponsorship-amount",
-                              type: "number",
-                              "aria-label": "Sponsorship Amount",
-                              min: _vm.form.sponsorship.amount / 100,
-                              step: "50"
-                            },
-                            domProps: { value: _vm.form.amount },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "amount",
-                                  $event.target.value
+                              [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.form.sponsorship.title) +
+                                    "\n                "
+                                ),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-link text-gray-400",
+                                    attrs: { title: "Remove Sponsorship" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.form.sponsorship = ""
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fa fa-trash text-sm"
+                                    })
+                                  ]
                                 )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm.form.errors.hasOwnProperty("amount")
-                        ? _c(
-                            "div",
-                            {
-                              staticClass:
-                                "bg-red-200 text-red-900 px-4 py-2 text-xs"
-                            },
-                            [_vm._v(_vm._s(_vm.form.errors.amount))]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm._m(0)
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.form.vendor
-                  ? _c("div", { staticClass: "bg-white mb-2 rounded shadow" }, [
-                      _c("div", { staticClass: "p-4" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "font-semibold mb-4 text-gray-700 text-lg flex-grow block",
-                            attrs: { for: "quantity" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(_vm.form.vendor.title) +
-                                " Vendor Table\n              "
+                              ]
                             ),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-link text-gray-400",
-                                attrs: { title: "Remove Vendor" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.form.vendor = ""
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-trash text-sm" })]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "flex items-center justify-between" },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.vendor.quantity,
-                                  expression: "form.vendor.quantity"
-                                }
-                              ],
-                              staticClass: "w-24 form-control",
-                              attrs: { type: "number", id: "quantity" },
-                              domProps: { value: _vm.form.vendor.quantity },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form.vendor,
-                                    "quantity",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
                             _vm._v(" "),
                             _c(
                               "div",
-                              { staticClass: "w-24 flex items-center" },
+                              { staticClass: "w-32 flex items-center" },
                               [
                                 _c(
                                   "span",
@@ -60780,256 +60667,446 @@ var render = function() {
                                   [_vm._v("$")]
                                 ),
                                 _vm._v(" "),
-                                _c(
-                                  "p",
-                                  {
-                                    staticClass:
-                                      "text-2xl text-right w-full text-gray-700 leading-tight"
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.amount,
+                                      expression: "form.amount"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "ml-1 form-control text-2xl pr-0",
+                                  class: {
+                                    "form-error": _vm.form.errors.hasOwnProperty(
+                                      "amount"
+                                    )
                                   },
-                                  [_vm._v(_vm._s(_vm.form.vendor.amount / 100))]
-                                )
+                                  attrs: {
+                                    id: "sponsorship-amount",
+                                    type: "number",
+                                    "aria-label": "Sponsorship Amount",
+                                    min: _vm.form.sponsorship.amount / 100,
+                                    step: "50"
+                                  },
+                                  domProps: { value: _vm.form.amount },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "amount",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
                               ]
                             )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm.sponsorshipIncludesVendor
-                        ? _c("div", { staticClass: "bg-mint-200 px-4 py-2" }, [
-                            _c("p", { staticClass: "text-xs" }, [
-                              _vm._v(
-                                "\n              One vendor table is already included in the sponsorship that was\n              chosen, so you will receive " +
-                                  _vm._s(_vm.vendorQuantity) +
-                                  " tables.\n            "
+                          ]),
+                          _vm._v(" "),
+                          _vm.form.errors.hasOwnProperty("amount")
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "bg-red-200 text-red-900 px-4 py-2 text-xs"
+                                },
+                                [_vm._v(_vm._s(_vm.form.errors.amount))]
                               )
-                            ])
-                          ])
-                        : _vm._e()
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.form.adUpgrade
-                  ? _c("div", { staticClass: "bg-white mb-2 rounded shadow" }, [
-                      _c("div", { staticClass: "p-4" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "font-semibold mb-4 text-gray-700 text-lg flex-grow block",
-                            attrs: { for: "quantity" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(_vm.form.adUpgrade.title) +
-                                "\n              "
-                            ),
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._m(0)
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.form.vendor
+                    ? _c(
+                        "div",
+                        { staticClass: "bg-white mb-2 rounded shadow" },
+                        [
+                          _c("div", { staticClass: "p-4" }, [
                             _c(
-                              "button",
+                              "label",
                               {
-                                staticClass: "btn btn-link text-gray-400",
-                                attrs: { title: "Remove Ad Upgrade" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.form.adUpgrade = ""
-                                  }
-                                }
+                                staticClass:
+                                  "font-semibold mb-4 text-gray-700 text-lg flex-grow block",
+                                attrs: { for: "quantity" }
                               },
-                              [_c("i", { staticClass: "fa fa-trash text-sm" })]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "flex items-center justify-end" },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "w-24 flex items-center" },
                               [
-                                _c(
-                                  "span",
-                                  {
-                                    staticClass:
-                                      "text-2xl text-gray-700 font-normal"
-                                  },
-                                  [_vm._v("$")]
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.form.vendor.title) +
+                                    " Vendor Table\n                "
                                 ),
-                                _vm._v(" "),
                                 _c(
-                                  "p",
+                                  "button",
                                   {
-                                    staticClass:
-                                      "text-2xl text-right w-full text-gray-700 leading-tight"
+                                    staticClass: "btn btn-link text-gray-400",
+                                    attrs: { title: "Remove Vendor" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.form.vendor = ""
+                                      }
+                                    }
                                   },
                                   [
-                                    _vm._v(
-                                      _vm._s(_vm.form.adUpgrade.amount / 100)
+                                    _c("i", {
+                                      staticClass: "fa fa-trash text-sm"
+                                    })
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "flex items-center justify-between"
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.vendor.quantity,
+                                      expression: "form.vendor.quantity"
+                                    }
+                                  ],
+                                  staticClass: "w-24 form-control",
+                                  attrs: { type: "number", id: "quantity" },
+                                  domProps: { value: _vm.form.vendor.quantity },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form.vendor,
+                                        "quantity",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "w-24 flex items-center" },
+                                  [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "text-2xl text-gray-700 font-normal"
+                                      },
+                                      [_vm._v("$")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "text-2xl text-right w-full text-gray-700 leading-tight"
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(_vm.form.vendor.amount / 100)
+                                        )
+                                      ]
                                     )
                                   ]
                                 )
                               ]
                             )
-                          ]
-                        )
-                      ])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm._l(_vm.form.ads, function(ad) {
-                  return _c(
-                    "div",
-                    { key: ad.id, staticClass: "bg-white mb-2 rounded shadow" },
-                    [
-                      _c("div", { staticClass: "p-4" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "font-semibold mb-4 text-gray-700 text-lg flex-grow block"
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(ad.title) +
-                                "\n              "
-                            ),
+                          ]),
+                          _vm._v(" "),
+                          _vm.sponsorshipIncludesVendor
+                            ? _c(
+                                "div",
+                                { staticClass: "bg-mint-200 px-4 py-2" },
+                                [
+                                  _c("p", { staticClass: "text-xs" }, [
+                                    _vm._v(
+                                      "\n                One vendor table is already included in the sponsorship that was\n                chosen, so you will receive " +
+                                        _vm._s(_vm.vendorQuantity) +
+                                        " tables.\n              "
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.form.adUpgrade
+                    ? _c(
+                        "div",
+                        { staticClass: "bg-white mb-2 rounded shadow" },
+                        [
+                          _c("div", { staticClass: "p-4" }, [
                             _c(
-                              "button",
+                              "label",
                               {
-                                staticClass: "btn btn-link text-gray-400",
-                                attrs: { title: "Remove Ad" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.removeAd(ad)
-                                  }
-                                }
+                                staticClass:
+                                  "font-semibold mb-4 text-gray-700 text-lg flex-grow block",
+                                attrs: { for: "quantity" }
                               },
-                              [_c("i", { staticClass: "fa fa-trash text-sm" })]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "flex items-center justify-between" },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: ad.quantity,
-                                  expression: "ad.quantity"
-                                }
-                              ],
-                              staticClass: "w-24 form-control",
-                              attrs: { type: "number" },
-                              domProps: { value: ad.quantity },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(ad, "quantity", $event.target.value)
-                                }
-                              }
-                            }),
+                              [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.form.adUpgrade.title) +
+                                    "\n                "
+                                ),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-link text-gray-400",
+                                    attrs: { title: "Remove Ad Upgrade" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.form.adUpgrade = ""
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fa fa-trash text-sm"
+                                    })
+                                  ]
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "div",
-                              { staticClass: "w-24 flex items-center" },
+                              { staticClass: "flex items-center justify-end" },
                               [
                                 _c(
-                                  "span",
-                                  {
-                                    staticClass:
-                                      "text-2xl text-gray-700 font-normal"
-                                  },
-                                  [_vm._v("$")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "p",
-                                  {
-                                    staticClass:
-                                      "text-2xl text-right w-full text-gray-700 leading-tight"
-                                  },
-                                  [_vm._v(_vm._s(ad.amount / 100))]
+                                  "div",
+                                  { staticClass: "w-24 flex items-center" },
+                                  [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "text-2xl text-gray-700 font-normal"
+                                      },
+                                      [_vm._v("$")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "text-2xl text-right w-full text-gray-700 leading-tight"
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.form.adUpgrade.amount / 100
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  ]
                                 )
                               ]
                             )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm.sponsorshipIncludesAd
-                        ? _c("div", { staticClass: "bg-mint-200 px-4 py-2" }, [
-                            _c("p", { staticClass: "text-xs" }, [
-                              _vm._v(
-                                "\n              One " +
-                                  _vm._s(_vm.sponsorshipAdSize) +
-                                  " is already included in the sponsorship that was\n              chosen, so you will receive " +
-                                  _vm._s(_vm.adQuantity + 1) +
-                                  " ads.\n            "
-                              )
-                            ])
                           ])
-                        : _vm._e()
-                    ]
-                  )
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "flex items-center px-4 mt-4" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass:
-                        "font-semibold text-gray-700 flex-grow block",
-                      attrs: { for: "sponsorship-amount" }
-                    },
-                    [_vm._v("Total")]
-                  ),
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "w-24 flex items-center" }, [
+                  _vm._l(_vm.form.ads, function(ad) {
+                    return _c(
+                      "div",
+                      {
+                        key: ad.id,
+                        staticClass: "bg-white mb-2 rounded shadow"
+                      },
+                      [
+                        _c("div", { staticClass: "p-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "font-semibold mb-4 text-gray-700 text-lg flex-grow block"
+                            },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(ad.title) +
+                                  "\n                "
+                              ),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-link text-gray-400",
+                                  attrs: { title: "Remove Ad" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.removeAd(ad)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-trash text-sm"
+                                  })
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "flex items-center justify-between"
+                            },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: ad.quantity,
+                                    expression: "ad.quantity"
+                                  }
+                                ],
+                                staticClass: "w-24 form-control",
+                                attrs: { type: "number" },
+                                domProps: { value: ad.quantity },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      ad,
+                                      "quantity",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "w-24 flex items-center" },
+                                [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "text-2xl text-gray-700 font-normal"
+                                    },
+                                    [_vm._v("$")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    {
+                                      staticClass:
+                                        "text-2xl text-right w-full text-gray-700 leading-tight"
+                                    },
+                                    [_vm._v(_vm._s(ad.amount / 100))]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.sponsorshipIncludesAd
+                          ? _c(
+                              "div",
+                              { staticClass: "bg-mint-200 px-4 py-2" },
+                              [
+                                _c("p", { staticClass: "text-xs" }, [
+                                  _vm._v(
+                                    "\n                One " +
+                                      _vm._s(_vm.sponsorshipAdSize) +
+                                      " is already included in the sponsorship that was\n                chosen, so you will receive " +
+                                      _vm._s(_vm.adQuantity + 1) +
+                                      " ads.\n              "
+                                  )
+                                ])
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex items-center px-4 mt-4" }, [
                     _c(
-                      "span",
-                      { staticClass: "text-2xl text-gray-700 font-normal" },
-                      [_vm._v("$")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "p",
+                      "label",
                       {
                         staticClass:
-                          "text-2xl text-right font-semibold w-full text-gray-700 leading-tight"
+                          "font-semibold text-gray-700 flex-grow block",
+                        attrs: { for: "sponsorship-amount" }
                       },
-                      [_vm._v(_vm._s(_vm.total))]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm.isGuest
-                  ? _c("p", { staticClass: "text-sm italic mt-8" }, [
-                      _vm._v(
-                        "Please login or create an account before contributing."
+                      [_vm._v("Total")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-24 flex items-center" }, [
+                      _c(
+                        "span",
+                        { staticClass: "text-2xl text-gray-700 font-normal" },
+                        [_vm._v("$")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass:
+                            "text-2xl text-right font-semibold w-full text-gray-700 leading-tight"
+                        },
+                        [_vm._v(_vm._s(_vm.total))]
                       )
                     ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("contribution-checkout", {
-                  staticClass: "mt-2",
-                  attrs: {
-                    disable: _vm.total === 0 || _vm.isGuest,
-                    event: _vm.event,
-                    contributions: _vm.form,
-                    total: _vm.total
-                  }
-                })
-              ],
-              2
-            )
+                  ]),
+                  _vm._v(" "),
+                  _vm.isGuest
+                    ? _c("p", { staticClass: "text-sm italic mt-8" }, [
+                        _vm._v(
+                          "Please login or create an account before contributing."
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("contribution-checkout", {
+                    staticClass: "mt-2",
+                    attrs: {
+                      disable: _vm.total === 0 || _vm.isGuest,
+                      event: _vm.event,
+                      contributions: _vm.form,
+                      total: _vm.total
+                    }
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "p",
+                { staticClass: "text-sm mt-4 italic px-4 text-gray-600" },
+                [
+                  _vm._v(
+                    "Disclaimer: Your contribution will be designated for " +
+                      _vm._s(_vm.event.title) +
+                      ". After all expenses for the event are paid, any excess revenues may be designated for other programs or the Institute’s general fund to continue the Institute’s efforts to connect, educate, and empower LGBTQ+ students in the Midwest."
+                  )
+                ]
+              )
+            ])
           ])
         ])
       : _vm._e()
