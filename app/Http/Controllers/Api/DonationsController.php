@@ -53,8 +53,9 @@ class DonationsController extends Controller
                     $donation = Donation::createContribution($contributions, $charge, 'sgdinstitute');
                 }
 
-
                 Mail::to(auth()->user()->email)->send(new ContributionEmail($donation));
+
+                return response()->json(['created' => true, 'message' => 'Successfully created contribution.', 'url' => url("/donations/{$donation->hash}")], 201);
             } catch (PaymentFailedException $e) {
                 return response()->json(['created' => false, 'message' => $e->getMessage()], 422);
             }

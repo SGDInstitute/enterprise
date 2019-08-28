@@ -23,6 +23,6 @@ class ContributionEmail extends Mailable
 
     public function build()
     {
-        return $this->view('emails.contribution');
+        return $this->markdown('emails.contribution');
     }
 }

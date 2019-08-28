@@ -5,6 +5,9 @@ window.Vue = require('vue');
 import VueTour from 'vue-tour';
 require('vue-tour/dist/vue-tour.css');
 
+import Toasted from 'vue-toasted';
+Vue.use(Toasted)
+
 import PortalVue from 'portal-vue'
 Vue.use(VueTour);
 Vue.use(PortalVue)
@@ -48,10 +51,10 @@ $(function () {
 
     $('div.flash-alert').not('.alert-important').delay(3000).fadeOut(350);
 
-    $('.smooth').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+    $('.smooth').click(function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
             if (target.length) {
                 $('html, body').animate({
                     scrollTop: target.offset().top - 78
