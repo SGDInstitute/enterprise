@@ -381,7 +381,7 @@
 
           <p
             class="text-sm mt-4 italic px-4 text-gray-600"
-          >Disclaimer: Your contribution will be designated for {{ event.title }}. After all expenses for the event are paid, any excess revenues may be designated for other programs or the Institute’s general fund to continue the Institute’s efforts to connect, educate, and empower LGBTQ+ students in the Midwest.</p>
+          >Your contribution will be designated for {{ event.title }}. After all expenses for the event are paid, any excess revenues may be designated for other programs or the Institute’s general fund to continue the Institute’s efforts to connect, educate, and empower LGBTQ+ students in the Midwest.</p>
         </div>
       </div>
     </div>
@@ -572,6 +572,8 @@ export default {
           } else {
             delete this.form.errors["amount"];
           }
+        } else if (this.form.amount > this.form.sponsorship.amount / 100) {
+          delete this.form.errors["amount"];
         }
       }
     }
