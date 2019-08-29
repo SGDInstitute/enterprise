@@ -38,14 +38,8 @@
 
 <body class="bg-mint-800">
     <div id="app">
-        <div class="top-0 fixed py-8 px-16 md:flex md:justify-between w-full">
-            <a href="https://sgdinstitute.org/"><img src="{{ asset('images/sgdinstitute-logo-white.png') }}" alt="Logo White" class="w-40 mb-8 mx-auto md:mb-0 block"></a>
-            <div class="text-center">
-                <a class="text-gray-200 hover:text-white hover:underline mr-4" href="/donations/create">Donate</a>
-                <a class="text-gray-200 hover:text-white hover:underline mr-4" href="/login">Login</a>
-                <a class="text-gray-200 hover:text-white hover:underline" href="/register">Create an Account</a>
-            </div>
-        </div>
+        @include('layouts.partials.nav', ['light' => true])
+
         <div class="fullscreen-video">
             <div class="overlay"></div>
             <video autoplay loop muted id="backgroundVideo">
