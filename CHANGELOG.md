@@ -13,10 +13,10 @@ ___
 
 - Validation not dissapearing on largest sponsorship level
 
-
 ### Changed
 
 - Disclaimer text
+- Use same navigation across layouts
 
 ___
 
