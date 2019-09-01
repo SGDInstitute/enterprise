@@ -1,19 +1,36 @@
-@extends('layouts.video', ['title' => 'Donate Today'])
+@extends('layouts.app', ['title' => 'View Donation'])
 
 @section('content')
-    <div class="flex w-full h-screen items-center justify-center">
-        <div>
-            <h1 class="text-center mb-8 text-white text-4xl">Donate to the Institute and our Programs</h1>
-            <p class="text-center mb-8 text-white text-2xl">I want to...</p>
-
-            <div class="container flex">
-                <a href="/donations/create/institute" class="w-1/2 h-32 mx-4 bg-white rounded shadow flex items-center justify-center cursor-pointer p-4 hover:bg-gray-200 hover:shadow-lg text-center text-xl leading-normal">
-                    Setup a one-time or recurring donation now.
-                </a>
-                <a href="/donations/create/mblgtacc" class="w-1/2 h-32 mx-4 bg-white rounded shadow flex items-center justify-center cursor-pointer p-4 hover:bg-gray-200 hover:shadow-lg text-center text-xl leading-normal">
-                    Purchase a sponsor package, vendor table, or program ad for MBLGTACC.
-                </a>
-            </div>
-        </div>
+<main role="main" class="mt-40">
+    <div class="bg-mint-500 h-80 absolute top-0 w-full -z-1 overflow-hidden" style="background: #38AFAD; background: -webkit-linear-gradient(to left, #1a7796, #38AFAD); background: linear-gradient(to left, #1a7796, #38AFAD);">
     </div>
+    <div class="w-1/2 mx-auto mb-16">
+        <a href="/home" class="text-white py-2 block"><i class="fa fa-chevron-left"></i> Back Home</a>
+
+        <div class="p-6 rounded bg-white shadow mb-4">
+            <h2 class="text-2xl mb-4 text-gray-700">Contact Information</h2>
+            @include('donations.partials.contact')
+        </div>
+        @if($charge)
+        <div class="p-6 rounded bg-white shadow mb-4">
+            <h2 class="text-2xl mb-4 text-gray-700">Transaction</h2>
+            @include('donations.partials.transaction')
+        </div>
+        @endif
+
+        @if($subscription)
+        <div class="p-6 rounded bg-white shadow">
+            <h2 class="text-2xl mb-4 text-gray-700">Recurring Donation</h2>
+            @include('donations.partials.subscription')
+        </div>
+        @endif
+
+        @if($donation->contributions->count() > 0)
+        <div class="p-6 rounded bg-white shadow">
+            <h2 class="text-2xl mb-4 text-gray-700">Contributions</h2>
+            @include('donations.partials.contributions')
+        </div>
+        @endif
+    </div>
+</main>
 @endsection

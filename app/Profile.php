@@ -18,12 +18,18 @@ class Profile extends Model
         'college',
         'tshirt',
         'accommodation',
+        'accessibility',
+        'other_accessibility',
+        'language',
+        'other_language',
         'agreement',
     ];
 
-    
-
-    protected $casts = ['wants_program' => 'boolean'];
+    protected $casts = [
+        'accessibility' => 'array',
+        'language' => 'array',
+        'wants_program' => 'boolean'
+    ];
 
     public function user()
     {

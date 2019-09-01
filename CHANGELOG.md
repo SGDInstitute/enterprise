@@ -17,6 +17,7 @@ ___
 
 - Disclaimer text
 - Use same navigation across layouts
+- Update view donation page
 
 ___
 

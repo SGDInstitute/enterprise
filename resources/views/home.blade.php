@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Home'])
 
 @section('content')
-<main role="main" class="mt-40">
+<main role="main" class="mt-32">
     <div class="mt-12 container mb-16">
         <div class="md:flex -mx-4">
             <div class="md:w-1/4 px-4">
