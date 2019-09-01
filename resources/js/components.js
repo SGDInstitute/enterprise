@@ -1,4 +1,4 @@
-import {Tabs, Tab} from 'vue-tabs-component';
+import { Tabs, Tab } from 'vue-tabs-component';
 
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
@@ -11,7 +11,8 @@ Vue.component('contribution-form', require('./components/ContributionForm.vue').
 Vue.component('contribution', require('./components/Contribution.vue').default);
 Vue.component('edit-profile', require('./components/EditProfile.vue').default);
 Vue.component('edit-password', require('./components/EditPassword.vue').default);
-Vue.component('invoice-button', require('./components/InvoiceButton.vue').default);
+Vue.component('edit-invoice-button', require('./components/EditInvoiceButton.vue').default);
+Vue.component('create-invoice-button', require('./components/CreateInvoiceButton.vue').default);
 Vue.component('invoice-form', require('./components/InvoiceForm.vue').default);
 Vue.component('invite-users-form', require('./components/InviteUsersForm.vue').default);
 Vue.component('login-or-register', require('./components/LoginOrRegister.vue').default);

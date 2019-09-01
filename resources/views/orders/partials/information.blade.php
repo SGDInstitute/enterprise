@@ -56,7 +56,11 @@
             <pay-with-check :order="{{ $order }}" class="w-full block px-6 py-4 border-b border-gray-300 hover:bg-gray-100"></pay-with-check>
         </div>
         @endif
-        <invoice-button id="invoice" :order="{{ $order }}" class="block px-6 py-4 border-b border-gray-300 hover:bg-gray-100"></invoice-button>
+        @if($order->invoice)
+        <view-invoice-button id="invoice" :order="{{ $order }}" class="w-full text-left block px-6 py-4 border-b border-gray-300 hover:bg-gray-100"></view-invoice-button>
+        @else
+        <create-invoice-button id="invoice" :order="{{ $order }}" class="w-full text-left block px-6 py-4 border-b border-gray-300 hover:bg-gray-100"></create-invoice-button>
+        @endif
         <a href="{{ asset('/documents/SGD-Institute-W9.pdf') }}" target="_blank" class="block px-6 py-4 border-gray-300 hover:bg-gray-100">
             <i class="fal fa-fw fa-file-alt"></i> Request W-9
         </a>
