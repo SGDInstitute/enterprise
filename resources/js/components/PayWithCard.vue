@@ -147,8 +147,7 @@ export default {
           window.location.reload();
         })
         .catch(function(error) {
-          self.error = error.response.data.message;
-          self.processing = false;
+          window.location.reload();
         });
     },
     pay() {

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.9] - 2019-09-01
+
+### Fixed
+
+- Reload order after paying
+
+___
+
 ## [0.1.8] - 2019-09-01
 
 ### Fixed
