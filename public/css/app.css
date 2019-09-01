@@ -6047,6 +6047,10 @@ input[type="button"].btn-block {
   margin-left: -1px;
 }
 
+.max-h-112 {
+  max-height: 28rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -17444,6 +17448,10 @@ input[type="button"].btn-block {
     margin-left: -1px;
   }
 
+  .sm\:max-h-112 {
+    max-height: 28rem;
+  }
+
   .sm\:max-h-full {
     max-height: 100%;
   }
@@ -28836,6 +28844,10 @@ input[type="button"].btn-block {
 
   .md\:-ml-px {
     margin-left: -1px;
+  }
+
+  .md\:max-h-112 {
+    max-height: 28rem;
   }
 
   .md\:max-h-full {
@@ -40232,6 +40244,10 @@ input[type="button"].btn-block {
     margin-left: -1px;
   }
 
+  .lg\:max-h-112 {
+    max-height: 28rem;
+  }
+
   .lg\:max-h-full {
     max-height: 100%;
   }
@@ -51624,6 +51640,10 @@ input[type="button"].btn-block {
 
   .xl\:-ml-px {
     margin-left: -1px;
+  }
+
+  .xl\:max-h-112 {
+    max-height: 28rem;
   }
 
   .xl\:max-h-full {

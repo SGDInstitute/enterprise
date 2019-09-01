@@ -4090,52 +4090,153 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var style = {
+  base: {
+    fontSize: "16px"
+  },
+  invalid: {
+    color: "#fa755a",
+    iconColor: "#fa755a"
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['order', 'stripe_key'],
+  props: ["order", "classes"],
   data: function data() {
     return {
-      form: new SparkForm({
-        amount: 0,
-        email: '',
-        name: '',
-        stripeToken: ''
-      })
+      show: false,
+      error: "",
+      processing: false,
+      browserProcessing: false,
+      canBrowserPay: false,
+      isApplePay: false,
+      rememberCard: false,
+      browserType: "",
+      price: "",
+      stripe: "",
+      card: "",
+      name: "",
+      email: "",
+      amount: ""
     };
   },
-  created: function created() {
-    this.form.amount = this.order.amount;
-    this.form.name = this.order.user.name;
-    this.form.email = this.order.user.email;
-    this.configure();
+  mounted: function mounted() {
+    this.amount = this.order.amount;
+    this.name = this.order.user.name;
+    this.email = this.order.user.email;
   },
   methods: {
-    configure: function configure() {
+    cancel: function cancel() {
+      this.show = false;
+      this.processing = false;
+    },
+    checkout: function checkout() {
       var _this = this;
 
-      this.stripe = StripeCheckout.configure({
-        key: this.stripe_key,
-        image: "/img/sgdsocial.png",
-        locale: "auto",
-        zipCode: true,
-        billingAddress: true,
-        token: function token(_token) {
-          _this.form.stripeToken = _token.id;
-          _this.form.stripeEmail = _token.email;
-          Spark.post('/orders/' + _this.order.id + '/charge', _this.form).then(function (response) {
-            location.reload();
-          })["catch"](function (response) {
-            alert(response.message);
-          });
+      this.show = true;
+      Vue.nextTick(function () {
+        _this.loadStripe();
+      });
+    },
+    loadStripe: function loadStripe() {
+      this.stripe = Stripe(window.SGDInstitute[this.order.event.stripe]);
+      var elements = this.stripe.elements(),
+          self = this;
+      this.card = elements.create("card", {
+        style: style
+      });
+      this.card.mount(this.$refs.card);
+      var paymentRequest = this.stripe.paymentRequest({
+        country: "US",
+        currency: "usd",
+        total: {
+          label: "Contribute",
+          amount: self.amount
+        },
+        requestPayerName: true,
+        requestPayerEmail: true
+      });
+      paymentRequest.canMakePayment().then(function (result) {
+        if (result) {
+          self.canBrowserPay = true;
+          self.isApplePay = result.applePay;
+        } else {
+          self.canBrowserPay = false;
         }
+      });
+      paymentRequest.on("token", function (ev) {
+        self.makeOrder(ev.token.id);
+      });
+    },
+    makeOrder: function makeOrder(token) {
+      var self = this;
+      self.processing = true;
+      axios.post("/orders/" + this.order.id + "/charge", {
+        payment_token: token,
+        name: this.name,
+        email: this.email,
+        amount: this.amount
+      }).then(function (response) {
+        self.$toasted.show("Successfully contributed to " + self.event.name + ", you should be redirected shortly.", {
+          duration: 5000,
+          type: "success"
+        });
+        window.location.reload();
+      })["catch"](function (error) {
+        self.error = error.response.data.message;
+        self.processing = false;
       });
     },
     pay: function pay() {
-      this.stripe.open({
-        name: 'Pay for Order',
-        zipCode: true,
-        email: this.form.email,
-        amount: this.form.amount,
-        allowRememberMe: false
+      var self = this;
+      this.stripe.createToken(this.card).then(function (result) {
+        if (result.error) {
+          this.error = result.error.message;
+          self.$forceUpdate();
+          return;
+        }
+
+        self.makeOrder(result.token.id);
       });
     }
   }
@@ -4188,11 +4289,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['order'],
+  props: ["order", "classes"],
+  data: function data() {
+    return {
+      receipt: "",
+      show: false
+    };
+  },
+  created: function created() {
+    self = this;
+    axios.get("/orders/" + self.order.id + "/receipt").then(function (response) {
+      self.receipt = response.data.receipt;
+    });
+  },
   methods: {
-    show: function show() {
-      this.eventHub.$emit('showViewReceipt');
+    cancel: function cancel() {
+      this.show = false;
+    },
+    resend: function resend() {
+      axios.get("/receipts/" + self.order.receipt.id + "/resend").then(function () {
+        alert("Email sent!");
+      });
     }
   }
 });
@@ -65728,24 +65877,196 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "a",
-    {
-      staticClass: "list-group-item list-group-item-primary",
-      attrs: { href: "#" },
-      on: {
-        click: function($event) {
-          $event.preventDefault()
-          return _vm.pay($event)
-        }
-      }
-    },
+    "div",
     [
-      _c("i", {
-        staticClass: "fal fa-credit-card fa-fw ml-2",
-        attrs: { "aria-hidden": "true" }
-      }),
-      _vm._v(" Pay with Card\n")
-    ]
+      _c(
+        "button",
+        {
+          class: _vm.classes,
+          attrs: { disabled: _vm.processing },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.checkout($event)
+            }
+          }
+        },
+        [
+          _c("i", {
+            staticClass: "fal fa-credit-card fa-fw mr-4",
+            attrs: { "aria-hidden": "true" }
+          }),
+          _vm._v(" Pay with Card\n  ")
+        ]
+      ),
+      _vm._v(" "),
+      _vm.show
+        ? _c(
+            "portal",
+            { attrs: { to: "modals" } },
+            [
+              _c(
+                "modal",
+                { attrs: { show: _vm.show, width: "w-5/6 md:w-1/2" } },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "p-6 bg-mint-200 flex justify-between",
+                      attrs: { slot: "header" },
+                      slot: "header"
+                    },
+                    [
+                      _c("h1", { staticClass: "text-xl" }, [
+                        _vm._v(
+                          "Pay for " +
+                            _vm._s(_vm.order.tickets.length) +
+                            " tickets for " +
+                            _vm._s(_vm.order.event.title)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
+                          on: { click: _vm.cancel }
+                        },
+                        [_c("i", { staticClass: "fal fa-times fa-fw" })]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "p-6",
+                      attrs: { slot: "body" },
+                      slot: "body"
+                    },
+                    [
+                      _c("div", { staticClass: "mb-4 flex -mx-4" }, [
+                        _c("div", { staticClass: "w-1/2 mx-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "name" }
+                            },
+                            [_vm._v("Name")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.name,
+                                expression: "name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "name" },
+                            domProps: { value: _vm.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.name = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-1/2 mx-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "email" }
+                            },
+                            [_vm._v("Email")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.email,
+                                expression: "email"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "email" },
+                            domProps: { value: _vm.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.email = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "mb-4" }, [
+                        _c(
+                          "label",
+                          { staticClass: "form-label", attrs: { for: "card" } },
+                          [_vm._v("Credit Card")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", {
+                          ref: "card",
+                          staticClass: "form-control",
+                          attrs: { id: "card" }
+                        }),
+                        _vm._v(" "),
+                        _vm.error
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "bg-yellow text-center text-black p-4 my-2"
+                              },
+                              [_vm._v(_vm._s(_vm.error))]
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "mt-6 btn btn-mint btn-block",
+                          attrs: { disabled: _vm.processing },
+                          on: { click: _vm.pay }
+                        },
+                        [
+                          _vm._v(
+                            "Pay $" +
+                              _vm._s(_vm.amount / 100) +
+                              " for " +
+                              _vm._s(_vm.order.tickets.length) +
+                              " ticket" +
+                              _vm._s(_vm.order.tickets.length > 1 ? "s" : "")
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -65811,24 +66132,134 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "a",
-    {
-      staticClass: "list-group-item list-group-item-action",
-      attrs: { href: "#" },
-      on: {
-        click: function($event) {
-          $event.preventDefault()
-          return _vm.show($event)
-        }
-      }
-    },
+    "div",
     [
-      _c("i", {
-        staticClass: "fal fa-fw fa-file-pdf",
-        attrs: { "aria-hidden": "true" }
-      }),
-      _vm._v(" View Receipt\n")
-    ]
+      _c(
+        "button",
+        {
+          class: _vm.classes,
+          attrs: { disabled: _vm.processing },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.show = true
+            }
+          }
+        },
+        [
+          _c("i", {
+            staticClass: "fal fa-file-pdf fa-fw mr-4",
+            attrs: { "aria-hidden": "true" }
+          }),
+          _vm._v(" View Receipt\n  ")
+        ]
+      ),
+      _vm._v(" "),
+      _vm.show
+        ? _c(
+            "portal",
+            { attrs: { to: "modals" } },
+            [
+              _c("modal", { attrs: { show: _vm.show, width: "w-2/3" } }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6 bg-mint-200 flex justify-between",
+                    attrs: { slot: "header" },
+                    slot: "header"
+                  },
+                  [
+                    _c("h1", { staticClass: "text-xl" }, [
+                      _vm._v("View Receipt")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
+                        on: { click: _vm.cancel }
+                      },
+                      [_c("i", { staticClass: "fal fa-times fa-fw" })]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.receipt === "",
+                          expression: "receipt === ''"
+                        }
+                      ],
+                      staticClass: "text-center"
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-circle-o-notch fa-spin fa-3x fa-fw"
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "sr-only" }, [
+                        _vm._v("Loading...")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "max-h-112 overflow-y-scroll",
+                    domProps: { innerHTML: _vm._s(_vm.receipt) }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6",
+                    attrs: { slot: "footer" },
+                    slot: "footer"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-gray",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.resend($event)
+                          }
+                        }
+                      },
+                      [_vm._v("Resend Email")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-mint",
+                        attrs: {
+                          href:
+                            "/orders/" + _vm.order.id + "/receipt?print=true",
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v("Download")]
+                    )
+                  ]
+                )
+              ])
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
   )
 }
 var staticRenderFns = []
