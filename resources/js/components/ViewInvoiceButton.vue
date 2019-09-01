@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click.prevent="show = true" :disabled="processing" :class="classes">
-      <i class="fal fa-file-pdf fa-fw mr-4" aria-hidden="true"></i> View Invoice
+    <button @click.prevent="show = true" :class="classes">
+      <i class="fal fa-file fa-fw mr-4" aria-hidden="true"></i> View Invoice
     </button>
 
     <portal to="modals" v-if="show">
@@ -15,17 +15,17 @@
             <i class="fal fa-times fa-fw"></i>
           </button>
         </div>
-        <div slot="body">
-          <div v-show="receipt === ''" class="text-center">
+        <div slot="body" class="p-6">
+          <div v-show="invoice === ''" class="text-center">
             <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
             <span class="sr-only">Loading...</span>
           </div>
-          <div v-html="receipt" class="max-h-112 overflow-y-scroll"></div>
+          <div v-html="invoice" class="max-h-112 overflow-y-scroll"></div>
         </div>
         <div slot="footer" class="p-6">
           <button type="button" class="btn btn-gray" @click.prevent="resend">Resend Email</button>
           <a
-            :href="'/orders/' + order.id + '/invoice?print=true'"
+            :href="'/invoices/' + order.invoice.id + '/download?print=true'"
             target="_blank"
             class="btn btn-mint"
           >Download</a>
@@ -44,12 +44,6 @@ export default {
       show: false
     };
   },
-  created() {
-    self = this;
-    axios.get("/orders/" + self.order.id + "/invoice").then(function(response) {
-      self.invoice = response.data.invoice;
-    });
-  },
   methods: {
     cancel() {
       this.show = false;
@@ -60,6 +54,19 @@ export default {
         .then(function() {
           alert("Email sent!");
         });
+    }
+  },
+  watch: {
+    show() {
+      if (this.show === true) {
+        self = this;
+        axios
+          .get("/invoices/" + self.order.invoice.id)
+          .then(function(response) {
+            console.log(response);
+            self.invoice = response.data.invoice;
+          });
+      }
     }
   }
 };

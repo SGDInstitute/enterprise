@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click.prevent="show = true" :disabled="processing" :class="classes">
+    <button @click.prevent="show = true" :class="classes">
       <i class="fal fa-file-pdf fa-fw mr-4" aria-hidden="true"></i> View Receipt
     </button>
 
@@ -44,12 +44,6 @@ export default {
       show: false
     };
   },
-  created() {
-    self = this;
-    axios.get("/orders/" + self.order.id + "/receipt").then(function(response) {
-      self.receipt = response.data.receipt;
-    });
-  },
   methods: {
     cancel() {
       this.show = false;
@@ -60,6 +54,19 @@ export default {
         .then(function() {
           alert("Email sent!");
         });
+    }
+  },
+  watch: {
+    show() {
+      if (this.show === true) {
+        self = this;
+        axios
+          .get("/orders/" + self.order.id + "/receipt")
+          .then(function(response) {
+            console.log(response);
+            self.receipt = response.data.receipt;
+          });
+      }
     }
   }
 };

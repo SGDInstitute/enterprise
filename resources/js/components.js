@@ -27,6 +27,7 @@ Vue.component('start-order', require('./components/StartOrder.vue').default);
 Vue.component('update-card-button', require('./components/UpdateCardButton.vue').default);
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue').default);
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue').default);
+Vue.component('view-invoice-button', require('./components/ViewinvoiceButton.vue').default);
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue').default);
 Vue.component('dynamic-form', require('./components/voyager/DynamicForm.vue').default);
 

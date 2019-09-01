@@ -2569,39 +2569,126 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["order"],
+  props: ["order", "classes"],
   data: function data() {
     return {
-      action: "Create",
-      icon: "fa-plus-circle",
-      invoice: ""
+      invoice: "",
+      show: false
     };
   },
-  created: function created() {
-    var self = this;
-    axios.get("/invoices/" + self.order.invoice.id).then(function (response) {
-      self.invoice = response.data.invoice;
-    });
-    this.action = this.order.invoice === null ? "Create" : "Download";
-    this.icon = this.order.invoice === null ? "fa-plus-circle" : "fa-arrow-circle-down";
-  },
+  created: function created() {},
   methods: {
-    show: function show() {
-      if (this.order.invoice === null) {
-        this.eventHub.$emit("showInvoiceForm", "create");
-      } else {
-        this.eventHub.$emit("showViewInvoice");
-      }
+    data: function data() {
+      return {
+        form: new SparkForm({
+          name: "",
+          email: "",
+          address: "",
+          address_2: "",
+          city: "",
+          state: "",
+          zip: ""
+        })
+      };
+    },
+    cancel: function cancel() {
+      this.show = false;
     },
     resend: function resend() {
       axios.get("/invoices/" + self.order.invoice.id + "/resend").then(function () {
         alert("Email sent!");
       });
-    },
-    edit: function edit() {
-      $("#viewInvoiceModal").modal("hide");
-      this.eventHub.$emit("showInvoiceForm", "edit");
     }
   }
 });
@@ -2860,39 +2947,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["order"],
+  props: ["order", "classes"],
   data: function data() {
     return {
-      action: "Create",
-      icon: "fa-plus-circle",
-      invoice: ""
+      invoice: "",
+      show: false
     };
   },
   created: function created() {
-    var self = this;
-    axios.get("/invoices/" + self.order.invoice.id).then(function (response) {
+    self = this;
+    axios.get("/orders/" + self.order.id + "/invoice").then(function (response) {
       self.invoice = response.data.invoice;
     });
-    this.action = this.order.invoice === null ? "Create" : "Download";
-    this.icon = this.order.invoice === null ? "fa-plus-circle" : "fa-arrow-circle-down";
   },
   methods: {
-    show: function show() {
-      if (this.order.invoice === null) {
-        this.eventHub.$emit("showInvoiceForm", "create");
-      } else {
-        this.eventHub.$emit("showViewInvoice");
-      }
+    cancel: function cancel() {
+      this.show = false;
     },
     resend: function resend() {
       axios.get("/invoices/" + self.order.invoice.id + "/resend").then(function () {
         alert("Email sent!");
       });
-    },
-    edit: function edit() {
-      $("#viewInvoiceModal").modal("hide");
-      this.eventHub.$emit("showInvoiceForm", "edit");
     }
   }
 });
@@ -3550,57 +3628,85 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['order', 'user'],
+  props: ["order", "user", "classes"],
   data: function data() {
     return {
       form: new SparkForm({
-        name: '',
-        email: '',
-        address: '',
-        address_2: '',
-        city: '',
-        state: '',
-        zip: ''
+        name: "",
+        email: "",
+        address: "",
+        address_2: "",
+        city: "",
+        state: "",
+        zip: ""
       }),
-      method: 'create'
+      show: false
     };
   },
   created: function created() {
     this.fillForm();
-    var self = this;
-    this.eventHub.$on('showInvoiceForm', function (type) {
-      self.method = type;
-      $('#invoiceForm').modal('show');
-    });
   },
   methods: {
     submit: function submit() {
-      if (this.method === 'create') {
+      if (this.method === "create") {
         this.store();
       } else {
         this.update();
       }
     },
     store: function store() {
-      Spark.post('/orders/' + this.order.id + '/invoices', this.form).then(function (response) {
-        $('#invoiceForm').modal('hide');
-        location.reload();
+      Spark.post("/orders/" + this.order.id + "/invoices", this.form).then(function (response) {
+        window.location.reload();
       })["catch"](function (response) {
         alert(response.status);
       });
     },
     update: function update() {
-      Spark.patch('/invoices/' + this.order.invoice.id, this.form).then(function (response) {
-        $('#invoiceForm').modal('hide');
+      Spark.patch("/invoices/" + this.order.invoice.id, this.form).then(function (response) {
+        window.location.reload();
       })["catch"](function (response) {
         alert(response.status);
       });
     },
     fillForm: function fillForm() {
-      if (this.method === 'create') {
-        this.form.name = this.user.name;
-        this.form.email = this.user.email;
+      if (this.method === "create") {
+        this.form.name = this.order.user.name;
+        this.form.email = this.order.user.email;
       } else {
         this.form.name = this.order.invoice.name;
         this.form.email = this.order.invoice.email;
@@ -3615,6 +3721,13 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     title: function title() {
       return this.method.charAt(0).toUpperCase() + this.method.slice(1);
+    },
+    method: function method() {
+      if (this.order.invoice === null) {
+        return "create";
+      }
+
+      return "edit";
     }
   }
 });
@@ -4454,12 +4567,6 @@ __webpack_require__.r(__webpack_exports__);
       show: false
     };
   },
-  created: function created() {
-    self = this;
-    axios.get("/orders/" + self.order.id + "/receipt").then(function (response) {
-      self.receipt = response.data.receipt;
-    });
-  },
   methods: {
     cancel: function cancel() {
       this.show = false;
@@ -4468,6 +4575,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/receipts/" + self.order.receipt.id + "/resend").then(function () {
         alert("Email sent!");
       });
+    }
+  },
+  watch: {
+    show: function show() {
+      if (this.show === true) {
+        self = this;
+        axios.get("/orders/" + self.order.id + "/receipt").then(function (response) {
+          console.log(response);
+          self.receipt = response.data.receipt;
+        });
+      }
     }
   }
 });
@@ -4895,6 +5013,85 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/receipts/' + self.order.receipt.id + '/resend').then(function () {
         alert('Email sent!');
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ViewinvoiceButton.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ViewinvoiceButton.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["order", "classes"],
+  data: function data() {
+    return {
+      invoice: "",
+      show: false
+    };
+  },
+  methods: {
+    cancel: function cancel() {
+      this.show = false;
+    },
+    resend: function resend() {
+      axios.get("/invoices/" + self.order.invoice.id + "/resend").then(function () {
+        alert("Email sent!");
+      });
+    }
+  },
+  watch: {
+    show: function show() {
+      if (this.show === true) {
+        self = this;
+        axios.get("/invoices/" + self.order.invoice.id).then(function (response) {
+          console.log(response);
+          self.invoice = response.data.invoice;
+        });
+      }
     }
   }
 });
@@ -61582,7 +61779,6 @@ var render = function() {
         "button",
         {
           class: _vm.classes,
-          attrs: { disabled: _vm.processing },
           on: {
             click: function($event) {
               $event.preventDefault()
@@ -61595,7 +61791,7 @@ var render = function() {
             staticClass: "fal fa-plus-circle fa-fw mr-4",
             attrs: { "aria-hidden": "true" }
           }),
-          _vm._v("\n    " + _vm._s(_vm.action) + " Invoice\n  ")
+          _vm._v(" Create Invoice\n  ")
         ]
       ),
       _vm._v(" "),
@@ -61604,108 +61800,526 @@ var render = function() {
             "portal",
             { attrs: { to: "modals" } },
             [
-              _c(
-                "modal",
-                { attrs: { show: _vm.show, width: "w-5/6 md:w-1/2" } },
-                [
+              _c("modal", { attrs: { show: _vm.show, width: "w-2/3" } }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6 bg-mint-200 flex justify-between",
+                    attrs: { slot: "header" },
+                    slot: "header"
+                  },
+                  [
+                    _c("h1", { staticClass: "text-xl" }, [
+                      _vm._v("Create Invoice")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
+                        on: { click: _vm.cancel }
+                      },
+                      [_c("i", { staticClass: "fal fa-times fa-fw" })]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { attrs: { slot: "body" }, slot: "body" }, [
                   _c(
-                    "div",
+                    "form",
                     {
-                      staticClass: "p-6 bg-mint-200 flex justify-between",
-                      attrs: { slot: "header" },
-                      slot: "header"
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.create($event)
+                        }
+                      }
                     },
                     [
-                      _c("h1", { staticClass: "text-xl" }, [
-                        _vm._v("View Invoice")
+                      _c("p", [
+                        _vm._v(
+                          'This information will be used to fill the "Bill To" section of the invoice. It will be emailed to you, as well as the email you specify below (if they are different). You will also be able to download a pdf invoice at any time.'
+                        )
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
-                          on: { click: _vm.cancel }
-                        },
-                        [_c("i", { staticClass: "fal fa-times fa-fw" })]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.invoice === "",
-                            expression: "invoice === ''"
-                          }
-                        ],
-                        staticClass: "text-center"
-                      },
-                      [
-                        _c("i", {
-                          staticClass:
-                            "fa fa-circle-o-notch fa-spin fa-3x fa-fw"
-                        }),
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "mb-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputName" }
+                            },
+                            [_vm._v("Name")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.name,
+                                expression: "form.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "inputName" },
+                            domProps: { value: _vm.form.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "name", $event.target.value)
+                              }
+                            }
+                          })
+                        ]),
                         _vm._v(" "),
-                        _c("span", { staticClass: "sr-only" }, [
-                          _vm._v("Loading...")
+                        _c("div", { staticClass: "mb-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputEmail" }
+                            },
+                            [_vm._v("Email")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.email,
+                                expression: "form.email"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "inputEmail" },
+                            domProps: { value: _vm.form.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "email", $event.target.value)
+                              }
+                            }
+                          })
                         ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { domProps: { innerHTML: _vm._s(_vm.invoice) } })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-link",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.edit($event)
-                          }
-                        }
-                      },
-                      [_vm._v("Edit Invoice")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-gray",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.resend($event)
-                          }
-                        }
-                      },
-                      [_vm._v("Resend Email")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-mint",
-                        attrs: {
-                          href:
-                            "/invoices/" + _vm.order.invoice.id + "/download"
-                        }
-                      },
-                      [_vm._v("Download")]
-                    )
-                  ])
-                ]
-              )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "mb-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputAddress" }
+                            },
+                            [_vm._v("Address")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.address,
+                                expression: "form.address"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "inputAddress",
+                              placeholder: "1234 Main St"
+                            },
+                            domProps: { value: _vm.form.address },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "address",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "mb-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputAddress2" }
+                            },
+                            [_vm._v("Address 2")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.address_2,
+                                expression: "form.address_2"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "inputAddress2",
+                              placeholder: "Apartment, studio, or floor"
+                            },
+                            domProps: { value: _vm.form.address_2 },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "address_2",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "mb-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputCity" }
+                            },
+                            [_vm._v("City")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.city,
+                                expression: "form.city"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "inputCity" },
+                            domProps: { value: _vm.form.city },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "city", $event.target.value)
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputState" }
+                            },
+                            [_vm._v("State")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.state,
+                                  expression: "form.state"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { id: "inputState" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "state",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "AL" } }, [
+                                _vm._v("Alabama")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "AK" } }, [
+                                _vm._v("Alaska")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "AZ" } }, [
+                                _vm._v("Arizona")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "AR" } }, [
+                                _vm._v("Arkansas")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "CA" } }, [
+                                _vm._v("California")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "CO" } }, [
+                                _vm._v("Colorado")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "CT" } }, [
+                                _vm._v("Connecticut")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "DE" } }, [
+                                _vm._v("Delaware")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "FL" } }, [
+                                _vm._v("Florida")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "GA" } }, [
+                                _vm._v("Georgia")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "HI" } }, [
+                                _vm._v("Hawaii")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "ID" } }, [
+                                _vm._v("Idaho")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "IL" } }, [
+                                _vm._v("Illinois")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "IN" } }, [
+                                _vm._v("Indiana")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "IA" } }, [
+                                _vm._v("Iowa")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "KS" } }, [
+                                _vm._v("Kansas")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "KY" } }, [
+                                _vm._v("Kentucky")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "LA" } }, [
+                                _vm._v("Louisiana")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "ME" } }, [
+                                _vm._v("Maine")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "MD" } }, [
+                                _vm._v("Maryland")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "MA" } }, [
+                                _vm._v("Massachusetts")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "MI" } }, [
+                                _vm._v("Michigan")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "MN" } }, [
+                                _vm._v("Minnesota")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "MS" } }, [
+                                _vm._v("Mississippi")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "MO" } }, [
+                                _vm._v("Missouri")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "MT" } }, [
+                                _vm._v("Montana")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "NE" } }, [
+                                _vm._v("Nebraska")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "NV" } }, [
+                                _vm._v("Nevada")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "NH" } }, [
+                                _vm._v("New Hampshire")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "NJ" } }, [
+                                _vm._v("New Jersey")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "NM" } }, [
+                                _vm._v("New Mexico")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "NY" } }, [
+                                _vm._v("New York")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "NC" } }, [
+                                _vm._v("North Carolina")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "ND" } }, [
+                                _vm._v("North Dakota")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "OH" } }, [
+                                _vm._v("Ohio")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "OK" } }, [
+                                _vm._v("Oklahoma")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "OR" } }, [
+                                _vm._v("Oregon")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "PA" } }, [
+                                _vm._v("Pennsylvania")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "RI" } }, [
+                                _vm._v("Rhode Island")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "SC" } }, [
+                                _vm._v("South Carolina")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "SD" } }, [
+                                _vm._v("South Dakota")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "TN" } }, [
+                                _vm._v("Tennessee")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "TX" } }, [
+                                _vm._v("Texas")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "UT" } }, [
+                                _vm._v("Utah")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "VT" } }, [
+                                _vm._v("Vermont")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "VA" } }, [
+                                _vm._v("Virginia")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "WA" } }, [
+                                _vm._v("Washington")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "WV" } }, [
+                                _vm._v("West Virginia")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "WI" } }, [
+                                _vm._v("Wisconsin")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "WY" } }, [
+                                _vm._v("Wyoming")
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-2" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputZip" }
+                            },
+                            [_vm._v("Zip")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.zip,
+                                expression: "form.zip"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "inputZip" },
+                            domProps: { value: _vm.form.zip },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "zip", $event.target.value)
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "p-6",
+                  attrs: { slot: "footer" },
+                  slot: "footer"
+                })
+              ])
             ],
             1
           )
@@ -62262,10 +62876,10 @@ var render = function() {
         },
         [
           _c("i", {
-            staticClass: "fal fa-plus-circle fa-fw mr-4",
+            staticClass: "fal fa-file-pdf fa-fw mr-4",
             attrs: { "aria-hidden": "true" }
           }),
-          _vm._v("\n    " + _vm._s(_vm.action) + " Invoice\n  ")
+          _vm._v(" View Invoice\n  ")
         ]
       ),
       _vm._v(" "),
@@ -62274,79 +62888,70 @@ var render = function() {
             "portal",
             { attrs: { to: "modals" } },
             [
-              _c(
-                "modal",
-                { attrs: { show: _vm.show, width: "w-5/6 md:w-1/2" } },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "p-6 bg-mint-200 flex justify-between",
-                      attrs: { slot: "header" },
-                      slot: "header"
-                    },
-                    [
-                      _c("h1", { staticClass: "text-xl" }, [
-                        _vm._v("View Invoice")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
-                          on: { click: _vm.cancel }
-                        },
-                        [_c("i", { staticClass: "fal fa-times fa-fw" })]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.invoice === "",
-                            expression: "invoice === ''"
-                          }
-                        ],
-                        staticClass: "text-center"
-                      },
-                      [
-                        _c("i", {
-                          staticClass:
-                            "fa fa-circle-o-notch fa-spin fa-3x fa-fw"
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "sr-only" }, [
-                          _vm._v("Loading...")
-                        ])
-                      ]
-                    ),
+              _c("modal", { attrs: { show: _vm.show, width: "w-2/3" } }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6 bg-mint-200 flex justify-between",
+                    attrs: { slot: "header" },
+                    slot: "header"
+                  },
+                  [
+                    _c("h1", { staticClass: "text-xl" }, [
+                      _vm._v("View Invoice")
+                    ]),
                     _vm._v(" "),
-                    _c("div", { domProps: { innerHTML: _vm._s(_vm.invoice) } })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-link",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.edit($event)
-                          }
-                        }
+                        staticClass:
+                          "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
+                        on: { click: _vm.cancel }
                       },
-                      [_vm._v("Edit Invoice")]
-                    ),
-                    _vm._v(" "),
+                      [_c("i", { staticClass: "fal fa-times fa-fw" })]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.receipt === "",
+                          expression: "receipt === ''"
+                        }
+                      ],
+                      staticClass: "text-center"
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-circle-o-notch fa-spin fa-3x fa-fw"
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "sr-only" }, [
+                        _vm._v("Loading...")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "max-h-112 overflow-y-scroll",
+                    domProps: { innerHTML: _vm._s(_vm.receipt) }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6",
+                    attrs: { slot: "footer" },
+                    slot: "footer"
+                  },
+                  [
                     _c(
                       "button",
                       {
@@ -62368,14 +62973,15 @@ var render = function() {
                         staticClass: "btn btn-mint",
                         attrs: {
                           href:
-                            "/invoices/" + _vm.order.invoice.id + "/download"
+                            "/orders/" + _vm.order.id + "/invoice?print=true",
+                          target: "_blank"
                         }
                       },
                       [_vm._v("Download")]
                     )
-                  ])
-                ]
-              )
+                  ]
+                )
+              ])
             ],
             1
           )
@@ -64037,545 +64643,630 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "modal fade",
-      attrs: { id: "invoiceForm", tabindex: "-1", role: "dialog" }
-    },
     [
       _c(
-        "div",
-        { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+        "button",
+        {
+          class: _vm.classes,
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.show = true
+            }
+          }
+        },
         [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
-              _c("h5", { staticClass: "modal-title" }, [
-                _vm._v(_vm._s(_vm.title) + " Invoice")
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.create($event)
-                    }
-                  }
-                },
-                [
-                  _c("p", [
-                    _vm._v(
-                      'This information will be used to fill the "Bill To" section of the invoice. It will be emailed to you, as well as the email you specify below (if they are different). You will also be able to download a pdf invoice at any time.'
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-form-label",
-                          attrs: { for: "inputName" }
-                        },
-                        [_vm._v("Name")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.name,
-                            expression: "form.name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", id: "inputName" },
-                        domProps: { value: _vm.form.name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "name", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-form-label",
-                          attrs: { for: "inputEmail" }
-                        },
-                        [_vm._v("Email")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.email,
-                            expression: "form.email"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", id: "inputEmail" },
-                        domProps: { value: _vm.form.email },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "email", $event.target.value)
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-form-label",
-                          attrs: { for: "inputAddress" }
-                        },
-                        [_vm._v("Address")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.address,
-                            expression: "form.address"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "inputAddress",
-                          placeholder: "1234 Main St"
-                        },
-                        domProps: { value: _vm.form.address },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "address", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-form-label",
-                          attrs: { for: "inputAddress2" }
-                        },
-                        [_vm._v("Address 2")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.address_2,
-                            expression: "form.address_2"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "inputAddress2",
-                          placeholder: "Apartment, studio, or floor"
-                        },
-                        domProps: { value: _vm.form.address_2 },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "address_2", $event.target.value)
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-form-label",
-                          attrs: { for: "inputCity" }
-                        },
-                        [_vm._v("City")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.city,
-                            expression: "form.city"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", id: "inputCity" },
-                        domProps: { value: _vm.form.city },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "city", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-form-label",
-                          attrs: { for: "inputState" }
-                        },
-                        [_vm._v("State")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.state,
-                              expression: "form.state"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { id: "inputState" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "state",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "AL" } }, [
-                            _vm._v("Alabama")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "AK" } }, [
-                            _vm._v("Alaska")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "AZ" } }, [
-                            _vm._v("Arizona")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "AR" } }, [
-                            _vm._v("Arkansas")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "CA" } }, [
-                            _vm._v("California")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "CO" } }, [
-                            _vm._v("Colorado")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "CT" } }, [
-                            _vm._v("Connecticut")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "DE" } }, [
-                            _vm._v("Delaware")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "FL" } }, [
-                            _vm._v("Florida")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "GA" } }, [
-                            _vm._v("Georgia")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "HI" } }, [
-                            _vm._v("Hawaii")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "ID" } }, [
-                            _vm._v("Idaho")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "IL" } }, [
-                            _vm._v("Illinois")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "IN" } }, [
-                            _vm._v("Indiana")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "IA" } }, [
-                            _vm._v("Iowa")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "KS" } }, [
-                            _vm._v("Kansas")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "KY" } }, [
-                            _vm._v("Kentucky")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "LA" } }, [
-                            _vm._v("Louisiana")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "ME" } }, [
-                            _vm._v("Maine")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "MD" } }, [
-                            _vm._v("Maryland")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "MA" } }, [
-                            _vm._v("Massachusetts")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "MI" } }, [
-                            _vm._v("Michigan")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "MN" } }, [
-                            _vm._v("Minnesota")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "MS" } }, [
-                            _vm._v("Mississippi")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "MO" } }, [
-                            _vm._v("Missouri")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "MT" } }, [
-                            _vm._v("Montana")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "NE" } }, [
-                            _vm._v("Nebraska")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "NV" } }, [
-                            _vm._v("Nevada")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "NH" } }, [
-                            _vm._v("New Hampshire")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "NJ" } }, [
-                            _vm._v("New Jersey")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "NM" } }, [
-                            _vm._v("New Mexico")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "NY" } }, [
-                            _vm._v("New York")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "NC" } }, [
-                            _vm._v("North Carolina")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "ND" } }, [
-                            _vm._v("North Dakota")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "OH" } }, [
-                            _vm._v("Ohio")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "OK" } }, [
-                            _vm._v("Oklahoma")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "OR" } }, [
-                            _vm._v("Oregon")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "PA" } }, [
-                            _vm._v("Pennsylvania")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "RI" } }, [
-                            _vm._v("Rhode Island")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "SC" } }, [
-                            _vm._v("South Carolina")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "SD" } }, [
-                            _vm._v("South Dakota")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "TN" } }, [
-                            _vm._v("Tennessee")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "TX" } }, [
-                            _vm._v("Texas")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "UT" } }, [
-                            _vm._v("Utah")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "VT" } }, [
-                            _vm._v("Vermont")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "VA" } }, [
-                            _vm._v("Virginia")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "WA" } }, [
-                            _vm._v("Washington")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "WV" } }, [
-                            _vm._v("West Virginia")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "WI" } }, [
-                            _vm._v("Wisconsin")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "WY" } }, [
-                            _vm._v("Wyoming")
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-2" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-form-label",
-                          attrs: { for: "inputZip" }
-                        },
-                        [_vm._v("Zip")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.zip,
-                            expression: "form.zip"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", id: "inputZip" },
-                        domProps: { value: _vm.form.zip },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "zip", $event.target.value)
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.submit($event)
-                    }
-                  }
-                },
-                [_vm._v("Save")]
-              )
-            ])
-          ])
+          _c("i", {
+            staticClass: "fal fa-plus-circle fa-fw mr-4",
+            attrs: { "aria-hidden": "true" }
+          }),
+          _vm._v("\n    " + _vm._s(_vm.title) + " Invoice\n  ")
         ]
-      )
-    ]
+      ),
+      _vm._v(" "),
+      _vm.show
+        ? _c(
+            "portal",
+            { attrs: { to: "modals" } },
+            [
+              _c("modal", { attrs: { show: _vm.show, width: "w-2/3" } }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6 bg-mint-200 flex justify-between",
+                    attrs: { slot: "header" },
+                    slot: "header"
+                  },
+                  [
+                    _c("h1", { staticClass: "text-xl" }, [
+                      _vm._v(_vm._s(_vm.title) + " Invoice")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
+                        on: {
+                          click: function($event) {
+                            _vm.show = false
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fal fa-times fa-fw" })]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "p-6", attrs: { slot: "body" }, slot: "body" },
+                  [
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.create($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("p", { staticClass: "leading-normal mb-4" }, [
+                          _vm._v(
+                            'This information will be used to fill the "Bill To" section of the invoice. It will be emailed to you, as well as the email you specify below (if they are different). You will also be able to download a pdf invoice at any time.'
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "flex mb-4 -mx-4" }, [
+                          _c("div", { staticClass: "w-1/2 mx-4" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "inputName" }
+                              },
+                              [_vm._v("Name")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.name,
+                                  expression: "form.name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", id: "inputName" },
+                              domProps: { value: _vm.form.name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "name",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-1/2 mx-4" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "inputEmail" }
+                              },
+                              [_vm._v("Email")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.email,
+                                  expression: "form.email"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", id: "inputEmail" },
+                              domProps: { value: _vm.form.email },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "email",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "mb-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputAddress" }
+                            },
+                            [_vm._v("Address")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.address,
+                                expression: "form.address"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "inputAddress",
+                              placeholder: "1234 Main St"
+                            },
+                            domProps: { value: _vm.form.address },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "address",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "mb-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "inputAddress2" }
+                            },
+                            [_vm._v("Address 2")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.address_2,
+                                expression: "form.address_2"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "inputAddress2",
+                              placeholder: "Apartment, studio, or floor"
+                            },
+                            domProps: { value: _vm.form.address_2 },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "address_2",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "flex mb-4 -mx-4" }, [
+                          _c("div", { staticClass: "w-1/3 mx-4" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "inputCity" }
+                              },
+                              [_vm._v("City")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.city,
+                                  expression: "form.city"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", id: "inputCity" },
+                              domProps: { value: _vm.form.city },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "city",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-1/3 mx-4" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "inputState" }
+                              },
+                              [_vm._v("State")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "relative" }, [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.state,
+                                      expression: "form.state"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { id: "inputState" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "state",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { attrs: { value: "AL" } }, [
+                                    _vm._v("Alabama")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "AK" } }, [
+                                    _vm._v("Alaska")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "AZ" } }, [
+                                    _vm._v("Arizona")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "AR" } }, [
+                                    _vm._v("Arkansas")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "CA" } }, [
+                                    _vm._v("California")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "CO" } }, [
+                                    _vm._v("Colorado")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "CT" } }, [
+                                    _vm._v("Connecticut")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "DE" } }, [
+                                    _vm._v("Delaware")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "FL" } }, [
+                                    _vm._v("Florida")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "GA" } }, [
+                                    _vm._v("Georgia")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "HI" } }, [
+                                    _vm._v("Hawaii")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "ID" } }, [
+                                    _vm._v("Idaho")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "IL" } }, [
+                                    _vm._v("Illinois")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "IN" } }, [
+                                    _vm._v("Indiana")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "IA" } }, [
+                                    _vm._v("Iowa")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "KS" } }, [
+                                    _vm._v("Kansas")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "KY" } }, [
+                                    _vm._v("Kentucky")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "LA" } }, [
+                                    _vm._v("Louisiana")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "ME" } }, [
+                                    _vm._v("Maine")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "MD" } }, [
+                                    _vm._v("Maryland")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "MA" } }, [
+                                    _vm._v("Massachusetts")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "MI" } }, [
+                                    _vm._v("Michigan")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "MN" } }, [
+                                    _vm._v("Minnesota")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "MS" } }, [
+                                    _vm._v("Mississippi")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "MO" } }, [
+                                    _vm._v("Missouri")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "MT" } }, [
+                                    _vm._v("Montana")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "NE" } }, [
+                                    _vm._v("Nebraska")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "NV" } }, [
+                                    _vm._v("Nevada")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "NH" } }, [
+                                    _vm._v("New Hampshire")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "NJ" } }, [
+                                    _vm._v("New Jersey")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "NM" } }, [
+                                    _vm._v("New Mexico")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "NY" } }, [
+                                    _vm._v("New York")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "NC" } }, [
+                                    _vm._v("North Carolina")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "ND" } }, [
+                                    _vm._v("North Dakota")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "OH" } }, [
+                                    _vm._v("Ohio")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "OK" } }, [
+                                    _vm._v("Oklahoma")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "OR" } }, [
+                                    _vm._v("Oregon")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "PA" } }, [
+                                    _vm._v("Pennsylvania")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "RI" } }, [
+                                    _vm._v("Rhode Island")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "SC" } }, [
+                                    _vm._v("South Carolina")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "SD" } }, [
+                                    _vm._v("South Dakota")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "TN" } }, [
+                                    _vm._v("Tennessee")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "TX" } }, [
+                                    _vm._v("Texas")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "UT" } }, [
+                                    _vm._v("Utah")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "VT" } }, [
+                                    _vm._v("Vermont")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "VA" } }, [
+                                    _vm._v("Virginia")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "WA" } }, [
+                                    _vm._v("Washington")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "WV" } }, [
+                                    _vm._v("West Virginia")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "WI" } }, [
+                                    _vm._v("Wisconsin")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "WY" } }, [
+                                    _vm._v("Wyoming")
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "fill-current h-4 w-4",
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 20 20"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-1/3 mx-4" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "inputZip" }
+                              },
+                              [_vm._v("Zip")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.zip,
+                                  expression: "form.zip"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", id: "inputZip" },
+                              domProps: { value: _vm.form.zip },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(_vm.form, "zip", $event.target.value)
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6",
+                    attrs: { slot: "footer" },
+                    slot: "footer"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-mint",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.submit($event)
+                          }
+                        }
+                      },
+                      [_vm._v("Save")]
+                    )
+                  ]
+                )
+              ])
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -66546,7 +67237,6 @@ var render = function() {
         "button",
         {
           class: _vm.classes,
-          attrs: { disabled: _vm.processing },
           on: {
             click: function($event) {
               $event.preventDefault()
@@ -67290,6 +67980,165 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ViewinvoiceButton.vue?vue&type=template&id=a81acb42&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ViewinvoiceButton.vue?vue&type=template&id=a81acb42& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "button",
+        {
+          class: _vm.classes,
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.show = true
+            }
+          }
+        },
+        [
+          _c("i", {
+            staticClass: "fal fa-file fa-fw mr-4",
+            attrs: { "aria-hidden": "true" }
+          }),
+          _vm._v(" View Invoice\n  ")
+        ]
+      ),
+      _vm._v(" "),
+      _vm.show
+        ? _c(
+            "portal",
+            { attrs: { to: "modals" } },
+            [
+              _c("modal", { attrs: { show: _vm.show, width: "w-2/3" } }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6 bg-mint-200 flex justify-between",
+                    attrs: { slot: "header" },
+                    slot: "header"
+                  },
+                  [
+                    _c("h1", { staticClass: "text-xl" }, [
+                      _vm._v("View Invoice")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg",
+                        on: { click: _vm.cancel }
+                      },
+                      [_c("i", { staticClass: "fal fa-times fa-fw" })]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "p-6", attrs: { slot: "body" }, slot: "body" },
+                  [
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.invoice === "",
+                            expression: "invoice === ''"
+                          }
+                        ],
+                        staticClass: "text-center"
+                      },
+                      [
+                        _c("i", {
+                          staticClass:
+                            "fa fa-circle-o-notch fa-spin fa-3x fa-fw"
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "sr-only" }, [
+                          _vm._v("Loading...")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "max-h-112 overflow-y-scroll",
+                      domProps: { innerHTML: _vm._s(_vm.invoice) }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-6",
+                    attrs: { slot: "footer" },
+                    slot: "footer"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-gray",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.resend($event)
+                          }
+                        }
+                      },
+                      [_vm._v("Resend Email")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-mint",
+                        attrs: {
+                          href:
+                            "/invoices/" +
+                            _vm.order.invoice.id +
+                            "/download?print=true",
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v("Download")]
+                    )
+                  ]
+                )
+              ])
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -85234,6 +86083,7 @@ Vue.component('start-order', __webpack_require__(/*! ./components/StartOrder.vue
 Vue.component('update-card-button', __webpack_require__(/*! ./components/UpdateCardButton.vue */ "./resources/js/components/UpdateCardButton.vue")["default"]);
 Vue.component('view-invoice-modal', __webpack_require__(/*! ./components/ViewInvoiceModal.vue */ "./resources/js/components/ViewInvoiceModal.vue")["default"]);
 Vue.component('view-receipt-modal', __webpack_require__(/*! ./components/ViewReceiptModal.vue */ "./resources/js/components/ViewReceiptModal.vue")["default"]);
+Vue.component('view-invoice-button', __webpack_require__(/*! ./components/ViewinvoiceButton.vue */ "./resources/js/components/ViewinvoiceButton.vue")["default"]);
 Vue.component('view-profile-modal', __webpack_require__(/*! ./components/ViewProfileModal.vue */ "./resources/js/components/ViewProfileModal.vue")["default"]);
 Vue.component('dynamic-form', __webpack_require__(/*! ./components/voyager/DynamicForm.vue */ "./resources/js/components/voyager/DynamicForm.vue")["default"]);
 Vue.component('pay-tour', __webpack_require__(/*! ./components/PayTour.vue */ "./resources/js/components/PayTour.vue")["default"]);
@@ -87137,6 +87987,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReceiptModal_vue_vue_type_template_id_ec649ff6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReceiptModal_vue_vue_type_template_id_ec649ff6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ViewinvoiceButton.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/ViewinvoiceButton.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ViewinvoiceButton_vue_vue_type_template_id_a81acb42___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewinvoiceButton.vue?vue&type=template&id=a81acb42& */ "./resources/js/components/ViewinvoiceButton.vue?vue&type=template&id=a81acb42&");
+/* harmony import */ var _ViewinvoiceButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewinvoiceButton.vue?vue&type=script&lang=js& */ "./resources/js/components/ViewinvoiceButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ViewinvoiceButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ViewinvoiceButton_vue_vue_type_template_id_a81acb42___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ViewinvoiceButton_vue_vue_type_template_id_a81acb42___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ViewinvoiceButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ViewinvoiceButton.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ViewinvoiceButton.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewinvoiceButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ViewinvoiceButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ViewinvoiceButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewinvoiceButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ViewinvoiceButton.vue?vue&type=template&id=a81acb42&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/ViewinvoiceButton.vue?vue&type=template&id=a81acb42& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewinvoiceButton_vue_vue_type_template_id_a81acb42___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ViewinvoiceButton.vue?vue&type=template&id=a81acb42& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ViewinvoiceButton.vue?vue&type=template&id=a81acb42&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewinvoiceButton_vue_vue_type_template_id_a81acb42___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewinvoiceButton_vue_vue_type_template_id_a81acb42___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
