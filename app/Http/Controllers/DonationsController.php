@@ -39,11 +39,11 @@ class DonationsController extends Controller
 
         try {
             if ($data['subscription'] === 'no') {
-                $charge = $this->paymentGateway->charge($data['amount'] * 100, request('stripeToken'));
+                $charge = $this->paymentGateway->charge($data['amount'] * 100, request('payment_token'));
                 $donation = Donation::createOneTime($data, $charge);
             } else {
                 if (!request()->user()->isCustomer(request()->group)) {
-                    request()->user()->createCustomer(request()->group, request()->stripeToken);
+                    request()->user()->createCustomer(request()->group, request()->payment_token);
                 }
 
                 $subscription = $this->paymentGateway->subscribe("{$data['subscription']}-{$data['amount']}", request()->user()->institute_stripe_id);
