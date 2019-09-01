@@ -5191,10 +5191,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["ticket_types", "event", "user"],
@@ -70568,21 +70564,28 @@ var render = function() {
           [_vm._v(_vm._s(_vm.form.errors.get("tickets")))]
         ),
         _vm._v(" "),
-        _vm.hasPolicies
-          ? _c("p", {
-              staticClass:
-                "text-sm text-muted card-text mt-1 font-italic font-weight-light",
-              domProps: { innerHTML: _vm._s(_vm.policyMessage) }
-            })
-          : _vm._e()
+        _c("p", {
+          staticClass: "text-sm text-gray-700 mb-2 italic",
+          domProps: { innerHTML: _vm._s(_vm.policyMessage) }
+        })
       ]),
+      _vm._v(" "),
+      _vm.user === null
+        ? _c("p", { staticClass: "text-sm text-gray-700 mb-2 italic" }, [
+            _vm._v(
+              "Please create an account or log in before starting an order."
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "button",
         {
-          staticClass:
-            "bg-mint-500 hover:bg-mint-700 text-white font-bold py-2 px-4 rounded block w-full",
-          attrs: { type: "submit", disabled: _vm.form.busy }
+          staticClass: "btn btn-mint btn-block",
+          attrs: {
+            type: "submit",
+            disabled: _vm.form.busy || _vm.user === null
+          }
         },
         [_vm._v("Next")]
       )

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.7] - 2019-09-01
+
+### Fixed
+
+- Creating order not allowed if not logged in
+- Refund is shown
+
+___
+
 ## [0.1.6] - 2019-09-01
 
 ### Changed

@@ -34,17 +34,13 @@
         role="alert"
         v-show="form.errors.has('tickets')"
       >{{ form.errors.get('tickets') }}</div>
-      <p
-        v-if="hasPolicies"
-        v-html="policyMessage"
-        class="text-sm text-muted card-text mt-1 font-italic font-weight-light"
-      ></p>
+      <p v-html="policyMessage" class="text-sm text-gray-700 mb-2 italic"></p>
     </div>
-    <button
-      type="submit"
-      class="bg-mint-500 hover:bg-mint-700 text-white font-bold py-2 px-4 rounded block w-full"
-      :disabled="form.busy"
-    >Next</button>
+    <p
+      v-if="user === null"
+      class="text-sm text-gray-700 mb-2 italic"
+    >Please create an account or log in before starting an order.</p>
+    <button type="submit" class="btn btn-mint btn-block" :disabled="form.busy || user === null">Next</button>
   </form>
 </template>
 
