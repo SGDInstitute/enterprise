@@ -1,4 +1,4 @@
-<a href="/orders/{{ $order->slug }}" class="transition block w-80 mx-4 bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg">
+<a href="/orders/{{ $order->id }}" class="transition block w-80 mx-4 bg-gray-100 hover:bg-white rounded-lg overflow-hidden shadow hover:shadow-lg">
     @if($order->event->image)
     <div class="w-full h-48 bg-cover bg-center" style="background-image: url({{ Storage::url($order->event->image) }})">
         <img src="{{ Storage::url($order->event->image) }}" class="hidden" alt="{{ $order->event->title }} Image">

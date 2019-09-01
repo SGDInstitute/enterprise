@@ -144,9 +144,9 @@
           v-model="form.agreement"
         />
         I agree to the
-        <a href="/events/mblgtacc-2020" target="_blank">code for inclusion</a>,
-        <a href="/events/mblgtacc-2020" target="_blank">photo policy</a>, and
-        <a href="/events/mblgtacc-2020" target="_blank">refund policy</a>.
+        code for inclusion,
+        photo policy, and
+        refund policy.
       </label>
       <span
         class="text-red-500 block mt-2 italic"

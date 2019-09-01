@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.8] - 2019-09-01
+
+### Fixed
+
+- Links in agreement
+- Back button in settings
+- Order id for viewing order
+
+___
+
 ## [0.1.7] - 2019-09-01
 
 ### Fixed
