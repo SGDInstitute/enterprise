@@ -22,7 +22,7 @@
     <tfoot>
         <tr>
             <td colspan="4"></td>
-            <td class="text-right">${{ number_format($donation->amount/100, 2) }}</td>
+            <td class="text-rightme">${{ number_format($donation->amount/100, 2) }}</td>
         </tr>
     </tfoot>
 </table>
