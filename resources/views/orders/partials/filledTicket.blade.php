@@ -8,20 +8,20 @@
         @endif
     </div>
 
-    <div class="flex justify-between">
+    <div class="md:flex justify-between">
+        @if($order->tickets->pluck('user_id')->contains(Auth::user()->id))
+        <a id="me" href="mailto:{{ $ticket->user->email }}" class="btn btn-link hover:bg-gray-200">{{ $ticket->user->email }}</a>
+        @else
         <a href="mailto:{{ $ticket->user->email }}" class="btn btn-link hover:bg-gray-200">{{ $ticket->user->email }}</a>
+        @endif
 
         @if(Auth::user()->id === $ticket->user->id)
         <a href="/settings" class="btn btn-link hover:bg-gray-200">Update my information</a>
         @endif
         @if($ticket->type === 'manual')
-        <modal-button class="btn btn-link hover:bg-gray-200" event="editProfileModal" payload="{{ $ticket->user }}">
-            Edit Details
-        </modal-button>
+        <edit-manual-user :user="{{ $ticket->user }}" class="inline-block" classes="btn btn-link hover:bg-gray-200"></edit-manual-user>
         @endif
-        <modal-button class="btn btn-link hover:bg-gray-200" event="showViewProfileModal" payload="{{ $ticket->hash }}">
-            View Details
-        </modal-button>
+        <view-user :user="{{ $ticket->user}}" class="inline-block" classes="btn btn-link hover:bg-gray-200"></view-user>
 
         @if(Auth::user()->can('update', $order))
         <remove-user-button hash="{{ $ticket->hash }}" redirect="{{ url('/orders/' . $ticket->order->id) }}" class="btn btn-link hover:bg-gray-200"></remove-user-button>

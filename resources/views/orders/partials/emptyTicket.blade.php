@@ -5,16 +5,13 @@
     </div>
 
     @if(Auth::user()->can('update', $order))
-    <div class="flex justify-between">
+    <div class="md:flex justify-between">
         @if(! $order->tickets->pluck('user_id')->contains(Auth::user()->id))
         <add-user-button id="me" class="btn btn-link hover:bg-gray-200" ticket="{{ $ticket->hash }}" user="{{ Auth::user()->id }}"></add-user-button>
         @endif
-        <modal-button id="manually" class="btn btn-link hover:bg-gray-200" event="showManualUserModal" payload="{{ $ticket->hash }}">
-            Manually add information
-        </modal-button>
-        <modal-button id="invite" class="btn btn-link hover:bg-gray-200" event="showInviteUsers">
-            Invite users to fill out information
-        </modal-button>
+        <manual-user-modal id="manually" :ticket="{{ $ticket }}" classes="btn btn-link hover:bg-gray-200"></manual-user-modal>
+
+        <invite-users-form id="invite" :order="{{ $order }}" :tickets="{{ $order->tickets->where('user_id', null) }}" class="inline-block" classes="btn btn-link hover:bg-gray-200"></invite-users-form>
     </div>
     @endif
 </div>

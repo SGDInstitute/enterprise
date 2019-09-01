@@ -53,7 +53,7 @@
         </a>
         <div class="collapse block" id="collapseExample">
             <pay-with-card :order="{{ $order }}" stripe_key="{{ $order->event->getPublicKey() }}" classes="w-full block text-left px-6 py-4 border-b border-gray-300 hover:bg-gray-100"></pay-with-card>
-            <pay-with-check :order="{{ $order }}" class="w-full block px-6 py-4 border-b border-gray-300 hover:bg-gray-100"></pay-with-check>
+            <pay-with-check :order="{{ $order }}" classes="w-full block text-left px-6 py-4 border-b border-gray-300 hover:bg-gray-100"></pay-with-check>
         </div>
         @endif
         @if($order->invoice)

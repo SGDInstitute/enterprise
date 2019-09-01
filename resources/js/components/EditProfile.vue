@@ -284,7 +284,7 @@ export default {
       var self = this;
 
       Spark.patch("/profile", this.form).then(function(response) {
-        self.$toasted.show("Successfully updated you profile", {
+        self.$toasted.show("Successfully updated your profile", {
           duration: 5000,
           type: "success"
         });

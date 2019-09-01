@@ -28,6 +28,8 @@ Vue.component('update-card-button', require('./components/UpdateCardButton.vue')
 Vue.component('view-invoice-modal', require('./components/ViewInvoiceModal.vue').default);
 Vue.component('view-receipt-modal', require('./components/ViewReceiptModal.vue').default);
 Vue.component('view-invoice-button', require('./components/ViewinvoiceButton.vue').default);
+Vue.component('edit-manual-user', require('./components/EditManualUser.vue').default);
+Vue.component('view-user', require('./components/ViewUser.vue').default);
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue').default);
 Vue.component('dynamic-form', require('./components/voyager/DynamicForm.vue').default);
 

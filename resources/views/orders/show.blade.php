@@ -8,39 +8,24 @@
     <div class="px-4 md:px-0 container mx-auto bg-transparent">
         @include('orders.partials.wizard')
 
-        <div class="md:flex -mx-4 mb-16">
-            <div class="md:w-1/3 md:mx-4">
+        <div class="lg:flex lg:-mx-4 mb-16">
+            <div class="lg:w-1/2 lg:w-1/3 lg:mx-4">
                 @include('orders.partials.information')
             </div>
-            <div class="md:w-2/3 md:mx-4">
+            <div class="lg:w-2/3 lg:mx-4 mt-8 lg:mt-0">
                 @include('flash::message')
 
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-4xl text-white">{{ $order->event->ticket_string }} Details</h2>
+                    <h2 class="text-4xl text-gray-700 lg:text-white">{{ $order->event->ticket_string }} Details</h2>
 
                     @if(Auth::user()->can('update', $order))
-                    <modal-button class="btn btn-gray btn-sm" event="showInviteUsers">
-                        Invite users to fill out information
-                    </modal-button>
+                    <invite-users-form :order="{{ $order }}" :tickets="{{ $order->tickets->where('user_id', null) }}" classes="btn btn-gray btn-sm"></invite-users-form>
                     @endif
                 </div>
 
                 @include('orders.partials.tickets')
             </div>
         </div>
-
-        <!-- <invite-users-form :order="{{ $order }}" :tickets="{{ $order->tickets->where('user_id', null) }}"></invite-users-form>
-        <invoice-form :order="{{ $order }}" :user="{{ Auth::user() }}"></invoice-form>
-        <manual-user-modal></manual-user-modal>
-        @if($order->invoice !== null)
-        <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
-        @endif
-        <view-receipt-modal :order="{{ $order }}"></view-receipt-modal>
-        <view-profile-modal :tickets="{{ $order->tickets }}"></view-profile-modal> -->
     </div>
 </main>
-@endsection
-
-@section('beforeScripts')
-<script src="https://checkout.stripe.com/checkout.js"></script>
 @endsection

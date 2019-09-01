@@ -1,11 +1,11 @@
 <template>
   <div>
-    <button @click.prevent="show = true" :class="classes">Manually add information</button>
+    <button @click.prevent="show = true" :class="classes">Edit information</button>
 
     <portal to="modals" v-if="show">
       <modal :show="show" width="w-2/3">
         <div slot="header" class="p-6 bg-mint-200 flex justify-between">
-          <h1 class="text-xl">Manually enter user information for Ticket {{ ticket.hash }}</h1>
+          <h1 class="text-xl">Edit {{ user.name }}'s Information</h1>
           <button
             @click="show = false"
             class="bg-mint-500 hover:bg-mint-700 rounded-full text-white h-6 w-6 shadow hover:shadow-lg"
@@ -272,7 +272,7 @@
 
 <script>
 export default {
-  props: ["ticket", "classes"],
+  props: ["user", "classes"],
   data() {
     return {
       form: new SparkForm({
@@ -284,7 +284,7 @@ export default {
         race: "",
         college: "",
         tshirt: "",
-        agreement: false,
+        agreement: true,
         wants_program: true,
         accessibility: [],
         language: [],
@@ -292,35 +292,36 @@ export default {
         other_accessibility: "",
         message: ""
       }),
-      user: {},
       show: false
     };
   },
+  created() {
+    this.fillForm(this.user);
+  },
   methods: {
     submit() {
-      Spark.patch("/tickets/" + this.ticket.hash, this.form).then(response => {
+      Spark.patch("/profile/" + this.user.id, this.form).then(response => {
         location.reload();
       });
     },
     fillForm(user) {
       this.form.name = this.user.name;
       this.form.email = this.user.email;
-      this.form.pronouns = this.profile.pronouns;
-      this.form.sexuality = this.profile.sexuality;
-      this.form.gender = this.profile.gender;
-      this.form.race = this.profile.race;
-      this.form.college = this.profile.college;
-      this.form.tshirt = this.profile.tshirt;
-      this.form.accommodation = this.profile.accommodation;
-      this.form.agreement = this.profile.agreement;
-      if (this.profile.accessibility !== null) {
-        this.form.accessibility = this.profile.accessibility;
+      this.form.pronouns = this.user.profile.pronouns;
+      this.form.sexuality = this.user.profile.sexuality;
+      this.form.gender = this.user.profile.gender;
+      this.form.race = this.user.profile.race;
+      this.form.college = this.user.profile.college;
+      this.form.tshirt = this.user.profile.tshirt;
+      this.form.accommodation = this.user.profile.accommodation;
+      if (this.user.profile.accessibility !== null) {
+        this.form.accessibility = this.user.profile.accessibility;
       }
-      this.form.other_accessibility = this.profile.other_accessibility;
-      if (this.profile.language !== null) {
-        this.form.language = this.profile.language;
+      this.form.other_accessibility = this.user.profile.other_accessibility;
+      if (this.user.profile.language !== null) {
+        this.form.language = this.user.profile.language;
       }
-      this.form.other_language = this.profile.other_language;
+      this.form.other_language = this.user.profile.other_language;
     }
   },
   computed: {

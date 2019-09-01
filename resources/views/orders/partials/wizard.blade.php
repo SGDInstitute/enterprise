@@ -1,13 +1,13 @@
 @if(Auth::user()->can('update', $order))
-<div class="flex border rounded mb-8 bg-gray-100">
-    <div class="flex-1 p-4 flex items-center border-r">
+<div class="md:flex border rounded mb-8 bg-gray-100">
+    <div class="flex-1 p-4 flex items-center md:border-r md:border-b-0 border-b">
         <span class="fa-stack mr-4">
             <i class="fas fa-circle fa-stack-2x text-mint-500"></i>
             <i class="fas fa-check fa-stack-1x fa-inverse"></i>
         </span>
         <span>Create Order</span>
     </div>
-    <div class="flex-1 p-4 flex items-center justify-between border-r">
+    <div class="flex-1 p-4 flex items-center justify-between md:border-r md:border-b-0 border-b">
         <div class="flex items-center">
             <span class="fa-stack mr-4">
                 <i class="fas fa-circle fa-stack-2x {{ $order->isPaid() ? 'text-mint-500' : 'text-gray-500' }}"></i>
@@ -19,7 +19,7 @@
         </div>
         <pay-tour></pay-tour>
     </div>
-    <div class="flex-1 p-4 flex items-center justify-between border-r">
+    <div class="flex-1 p-4 flex items-center justify-between md:border-r md:border-b-0 border-b">
         <div class="flex items-center">
             <span class="fa-stack mr-4">
                 <i class="fas fa-circle fa-stack-2x {{ $order->tickets()->filled()->count() === $order->tickets->count() ? 'text-mint-500' : 'text-gray-500' }}"></i>
