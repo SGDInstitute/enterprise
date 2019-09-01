@@ -13,6 +13,8 @@ ___
 
 - Creating order not allowed if not logged in
 - Refund is shown
+- Show orders correctly
+- Show settings correctly
 
 ___
 
