@@ -62,7 +62,7 @@ class DonationsController extends Controller
 
     public function show($hash)
     {
-        $donation = Donation::findByHash($hash);
+        $donation = Donation::findByHash($hash)->load('subscription', 'receipt', 'contributions');
 
         if ($donation->subscription !== null && $donation->subscription->isActive()) {
             $subscription = Subscription::retrieve(
@@ -80,6 +80,10 @@ class DonationsController extends Controller
             );
         }
 
-        return view('donations.show', compact('donation', 'charge', 'subscription'));
+        return view('donations.show', [
+            'donation' => $donation,
+            'subscription' => $subscription ?? null,
+            'charge' => $charge ?? null
+        ]);
     }
 }

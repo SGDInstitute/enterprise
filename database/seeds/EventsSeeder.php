@@ -19,17 +19,17 @@ class EventsSeeder extends Seeder
     private function createMBLGTACC()
     {
         $event = Event::create([
-            'title' => 'MBLGTACC 2018',
+            'title' => 'MBLGTACC 2020',
             'subtitle' => 'All Roads Lead to Intersectionality',
-            'timezone' => 'America/Chicago',
-            'place' => 'University of Nebraska',
-            'location' => 'Omaha, Nebraska',
-            'slug' => 'mblgtacc-2018',
+            'timezone' => 'America/Detroit',
+            'place' => 'Western Michigan University,',
+            'location' => 'Kalamazoo, Michigan',
+            'slug' => 'mblgtacc-2020',
             'stripe' => 'mblgtacc',
-            'start' => '2018-02-16 19:00:00',
-            'end' => '2018-02-18 19:30:00',
+            'start' => '2020-02-16 19:00:00',
+            'end' => '2020-02-18 19:30:00',
             'ticket_string' => 'attendee',
-            'description' => 'The Midwest Bisexual Lesbian Gay Transgender Ally College Conference (MBLGTACC) is an annual conference held to connect, educate, and empower LGBTQIA+ college students, faculty, and staff around the Midwest and beyond. It has attracted advocates and thought leaders including Angela Davis, Robyn Ochs, Janet Mock, Laverne Cox, Kate Bornstein, Faisal Alam, and LZ Granderson; and entertainers and artists including RuPaul, Margaret Cho, J Mase III, Chely Wright, and Loren Cameron.',
+            'description' => 'The Midwest Bisexual Lesbian Gay Transgender Asexual College Conference (MBLGTACC) is an annual conference held to connect, educate, and empower LGBTQIA+ college students, faculty, and staff around the Midwest and beyond. It has attracted advocates and thought leaders including Angela Davis, Robyn Ochs, Janet Mock, Laverne Cox, Kate Bornstein, Faisal Alam, and LZ Granderson; and entertainers and artists including RuPaul, Margaret Cho, J Mase III, Chely Wright, and Loren Cameron.',
             'published_at' => \Carbon\Carbon::now()->subMonth(),
             'links' => [
                 ['icon' => 'twitter', 'link' => 'https://twitter.com/mblgtacc', 'order' => 1],

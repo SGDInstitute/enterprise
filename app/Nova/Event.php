@@ -85,6 +85,8 @@ class Event extends Resource
 
             HasMany::make('Ticket Types'),
 
+            HasMany::make('Contributions'),
+
             HasMany::make('Orders'),
         ];
     }

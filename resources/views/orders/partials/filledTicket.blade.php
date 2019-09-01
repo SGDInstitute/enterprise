@@ -1,26 +1,30 @@
-<div class="card mb-2">
-    <div class="card-body">
-        <p class="pull-right text-muted mb-0">#{{ $ticket->hash }}</p>
+<div class="bg-gray-100 rounded shadow hover:bg-white hover:shadow-lg transition mb-4 px-6 py-4">
+    <div class="mb-2">
+        <p class="float-right text-gray-600 mb-0">#{{ $ticket->hash }}</p>
         @if($ticket->user->name !== null)
-            <h4 class="card-title">{{ $ticket->user->name }}</h4>
+        <h4 class="text-xl text-semibold">{{ $ticket->user->name }}</h4>
+        @else
+        <h4 class="text-xl text-semibold">{{ $ticket->ticket_type->name }}</h4>
         @endif
+    </div>
 
-        <a href="mailto:{{ $ticket->user->email }}" class="card-link">{{ $ticket->user->email }}</a>
+    <div class="md:flex justify-between">
+        @if($order->tickets->pluck('user_id')->contains(Auth::user()->id))
+        <a id="me" href="mailto:{{ $ticket->user->email }}" class="btn btn-link hover:bg-gray-200">{{ $ticket->user->email }}</a>
+        @else
+        <a href="mailto:{{ $ticket->user->email }}" class="btn btn-link hover:bg-gray-200">{{ $ticket->user->email }}</a>
+        @endif
 
         @if(Auth::user()->id === $ticket->user->id)
-            <a href="/settings" class="card-link">Update my information</a>
+        <a href="/settings" class="btn btn-link hover:bg-gray-200">Update my information</a>
         @endif
         @if($ticket->type === 'manual')
-            <modal-button class="card-link" event="editProfileModal" payload="{{ $ticket->user }}">
-                Edit Details
-            </modal-button>
+        <edit-manual-user :user="{{ $ticket->user }}" class="inline-block" classes="btn btn-link hover:bg-gray-200"></edit-manual-user>
         @endif
-        <modal-button class="card-link" event="showViewProfileModal" payload="{{ $ticket->hash }}">
-            View Details
-        </modal-button>
+        <view-user :user="{{ $ticket->user}}" class="inline-block" classes="btn btn-link hover:bg-gray-200"></view-user>
 
         @if(Auth::user()->can('update', $order))
-            <remove-user-button hash="{{ $ticket->hash }}" redirect="{{ url('/orders/' . $ticket->order->id) }}" class="card-link"></remove-user-button>
+        <remove-user-button hash="{{ $ticket->hash }}" redirect="{{ url('/orders/' . $ticket->order->id) }}" class="btn btn-link hover:bg-gray-200"></remove-user-button>
         @endif
     </div>
 </div>

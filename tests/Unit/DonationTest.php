@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use App\Donation;
+use App\Event;
 use App\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;

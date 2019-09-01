@@ -11,13 +11,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 use Stripe\Customer;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, LogsActivity, SoftDeletes, HasRoles;
+    use Notifiable, LogsActivity, SoftDeletes, HasRoles, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name', 'email', 'password',
     ];
 
-    
+
 
     /**
      * The attributes that should be hidden for arrays.

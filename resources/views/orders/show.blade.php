@@ -1,87 +1,31 @@
-@extends('layouts.app')
-
-@section('title', 'Orders')
+@extends('layouts.app', ['title' => 'Orders'])
 
 @section('content')
-    <div class="container">
-        @if(Auth::user()->can('update', $order))
-        <div class="flex border rounded mb-8">
-            <div class="flex-1 p-4 flex items-center border-r">
-                <span class="fa-stack mr-4">
-                    <i class="fas fa-circle fa-stack-2x text-mint"></i>
-                    <i class="fas fa-check fa-stack-1x fa-inverse"></i>
-                </span>
-                <span>Create Order</span>
-            </div>
-            <div class="flex-1 p-4 flex items-center justify-between border-r">
-                <div class="flex items-center">
-                    <span class="fa-stack mr-4">
-                        <i class="fas fa-circle fa-stack-2x {{ $order->isPaid() ? 'text-mint' : 'text-grey' }}"></i>
-                        @if($order->isPaid())
-                            <i class="fas fa-check fa-stack-1x fa-inverse"></i>
-                        @endif
-                    </span>
-                    <span>Pay Now</span>
-                </div>
-                <pay-tour></pay-tour>
-            </div>
-            <div class="flex-1 p-4 flex items-center justify-between border-r">
-                <div class="flex items-center">
-                    <span class="fa-stack mr-4">
-                        <i class="fas fa-circle fa-stack-2x {{ $order->tickets()->filled()->count() === $order->tickets->count() ? 'text-mint' : 'text-grey' }}"></i>
-                        @if($order->tickets()->filled()->count() === $order->tickets->count())
-                            <i class="fas fa-check fa-stack-1x fa-inverse"></i>
-                        @endif
-                    </span>
-                    <span>Tell Us Who's Coming</span>
-                </div>
-                <invite-tour></invite-tour>
-            </div>
-            <div class="flex-1 p-4 flex items-center justify-between">
-                <div class="flex items-center">
-                    <span class="fa-stack mr-4">
-                        <i class="fas fa-circle fa-stack-2x text-grey"></i>
-                    </span>
-                    <span>Get Ready to Come!</span>
-                </div>
-                <a href="https://mblgtacc.org/2019/lodging-transportation" target="_blank" class="text-grey">
-                    <i class="fa fa-info"></i>
-                </a>
-            </div>
-        </div>
-        @endif
+<main role="main" class="pt-32">
+    <div class="bg-mint-500 h-80 absolute top-0 w-full -z-1 overflow-hidden" style="background: #38AFAD; background: -webkit-linear-gradient(to left, #1a7796, #38AFAD); background: linear-gradient(to left, #1a7796, #38AFAD);">
+    </div>
 
-        <div class="row">
-            <div class="col-md-4">
+    <div class="px-4 md:px-0 container mx-auto bg-transparent">
+        @include('orders.partials.wizard')
+
+        <div class="lg:flex lg:-mx-4 mb-16">
+            <div class="lg:w-1/2 lg:w-1/3 lg:mx-4">
                 @include('orders.partials.information')
             </div>
-            <div class="col">
+            <div class="lg:w-2/3 lg:mx-4 mt-8 lg:mt-0">
                 @include('flash::message')
 
-                @if(Auth::user()->can('update', $order))
-                    <modal-button class="btn btn-primary float-right btn-sm" event="showInviteUsers">
-                        Invite users to fill out information
-                    </modal-button>
-                @endif
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-4xl text-gray-700 lg:text-white">{{ $order->event->ticket_string }} Details</h2>
 
-                <h2>{{ $order->event->ticket_string }} Details</h2>
+                    @if(Auth::user()->can('update', $order))
+                    <invite-users-form :order="{{ $order }}" :tickets="{{ $order->tickets->where('user_id', null) }}" classes="btn btn-gray btn-sm"></invite-users-form>
+                    @endif
+                </div>
 
                 @include('orders.partials.tickets')
             </div>
         </div>
-
-        <invite-users-form :order="{{ $order }}"
-                           :tickets="{{ $order->tickets->where('user_id', null) }}"></invite-users-form>
-        <invoice-form :order="{{ $order }}" :user="{{ Auth::user() }}"></invoice-form>
-        <manual-user-modal></manual-user-modal>
-        @if($order->invoice !== null)
-            <view-invoice-modal :order="{{ $order }}"></view-invoice-modal>
-        @endif
-        <view-receipt-modal :order="{{ $order }}"></view-receipt-modal>
-        <view-profile-modal :tickets="{{ $order->tickets }}"></view-profile-modal>
     </div>
-@endsection
-
-@section('beforeScripts')
-    <script src="https://checkout.stripe.com/checkout.js"></script>
+</main>
 @endsection

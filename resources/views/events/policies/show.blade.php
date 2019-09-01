@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('title', $event->title)
+@extends('layouts.app', ['title' => $event->title])
 
 @section('hero')
     <section class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url({{ $event->image }})">

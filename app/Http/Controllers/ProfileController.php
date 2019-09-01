@@ -21,7 +21,10 @@ class ProfileController extends Controller
             'race' => '',
             'college' => '',
             'tshirt' => '',
-            'accommodation' => '',
+            'accessibility' => '',
+            'other_accessibility' => '',
+            'language' => '',
+            'other_language' => '',
             'agreement' => 'accepted'
         ]);
 
@@ -37,7 +40,9 @@ class ProfileController extends Controller
             $user->sendConfirmationEmail();
         }
 
-        $user->profile()->update($profile);
+        $userProfile = $user->profile;
+
+        $userProfile->update($profile);
 
         return response()->json(['success' => true], 200);
     }

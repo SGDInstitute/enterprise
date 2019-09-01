@@ -10,6 +10,7 @@ class OrdersController extends Controller
     public function show($id)
     {
         $order = Order::with(['event', 'tickets.user.profile', 'user', 'invoice'])->findOrFail($id);
+        $order->amount = $order->amount;
 
         $this->authorize('view', $order);
 
@@ -20,7 +21,7 @@ class OrdersController extends Controller
     {
         $this->authorize('delete', $order);
 
-        if (! $order->isPaid()) {
+        if (!$order->isPaid()) {
             $order->delete();
 
             return redirect('/home');

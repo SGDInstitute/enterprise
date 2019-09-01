@@ -1,17 +1,17 @@
 <table class="table">
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Amount</th>
-        <th>For</th>
-        <th>Donated On</th>
-        <th>Recurring?</th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Amount</th>
+            <th>For</th>
+            <th>Donated On</th>
+            <th>Recurring?</th>
+            <th></th>
+        </tr>
     </thead>
     <tbody>
-    @foreach($donations as $donation)
+        @foreach($donations as $donation)
         <tr>
             <td>{{ $donation->name }}</td>
             <td>{{ $donation->email }}</td>
@@ -20,15 +20,15 @@
             <td>{{ $donation->created_at->toFormattedDateString() }}</td>
             <td>
                 @if($donation->subscription && $donation->subscription->isActive())
-                    Yes
+                Yes
                 @elseif($donation->subscription)
-                    Canceled
+                Canceled
                 @else
-                    No
+                No
                 @endif
             </td>
-            <td><a href="{{ route('donations.show', $donation) }}" class="btn btn-warning btn-xs">View</a></td>
+            <td><a href="{{ route('donations.show', $donation) }}" class="btn btn-link">View</a></td>
         </tr>
-    @endforeach
+        @endforeach
     </tbody>
 </table>

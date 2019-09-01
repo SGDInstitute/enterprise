@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('title', 'Magic Login')
+@extends('layouts.app', ['title' => 'Magic Login'])
 
 @section('content')
 <div class="container">

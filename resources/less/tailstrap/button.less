@@ -1,0 +1,182 @@
+// stylelint-disable selector-no-qualifying-type
+
+//
+// Base styles
+//
+
+.btn {
+  @apply inline-block font-sans font-normal text-gray-900 text-center align-middle select-none bg-transparent border border-transparent py-2 px-4 text-base leading-normal rounded;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+  &:hover {
+  @apply text-gray-900 no-underline;
+  }
+
+  &:focus,
+  &.focus {
+  @apply outline-none shadow-focus;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+  @apply opacity-50 shadow-none cursor-not-allowed;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+  @apply shadow-active;
+
+    &:focus {
+    @apply shadow-active-focus;
+    }
+  }
+}
+
+// Future-proof disabling of clicks on `<a>` elements
+a.btn.disabled,
+fieldset:disabled a.btn {
+@apply pointer-events-none;
+}
+
+
+//
+// Alternate buttons
+//
+
+.button-variant(@background, @border, @color, @hover-background, @hover-border, @hover-color, @active-background, @active-border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+  box-shadow: inset 0 1px 0 rgba(#ffffff, .15), 0 1px 1px rgba(#000000, .075);
+
+  &:hover {
+    color: @hover-color;
+    background-color: @hover-background;
+    border-color: @hover-border;
+  }
+
+  &:focus,
+  &.focus {
+    color: @hover-color;
+    background-color: @hover-background;
+    border-color: @hover-border;
+
+    box-shadow: inset 0 1px 0 rgba(#ffffff, .15), 0 1px 1px rgba(#000000, .075); //, 0 0 0 .2rem rgba(@color, .5);
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    color: @color;
+    background-color: @background;
+    border-color: @border;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: @hover-color;
+    background-color: @active-background;
+    border-color: @active-border;
+
+    &:focus {
+      box-shadow: inset 0 1px 0 rgba(#ffffff, .15), 0 1px 1px rgba(#000000, .075); //, 0 0 0 .2rem rgba($color, .5);
+    }
+  }
+}
+
+.button-outline-variant(@color, @color-hover) {
+  color: @color;
+  border-color: @color;
+
+  &:hover {
+    color: @color-hover;
+    background-color: @color;
+    border-color: @color;
+  }
+
+  &:focus,
+  &.focus {
+  @apply shadow;
+  }
+
+  &.disabled,
+  &:disabled {
+    color: @color;
+    background-color: transparent;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: @color-hover;
+    background-color: @color;
+    border-color: @color;
+
+    &:focus {
+    @apply shadow;
+    }
+  }
+}
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+@apply font-normal text-blue-500 no-underline;
+
+  &:hover {
+  @apply text-blue-700 underline;
+  }
+
+  &:focus,
+  &.focus {
+  @apply underline shadow-none;
+  }
+
+  &:disabled,
+  &.disabled {
+  @apply text-gray-600 pointer-events-none;
+  }
+
+  // No need for an active state here
+}
+
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @apply py-3 px-5 text-lg leading-normal rounded-lg;
+}
+
+.btn-sm {
+  @apply py-1 px-2 text-sm leading-normal rounded-sm;
+}
+
+
+//
+// Block button
+//
+
+.btn-block {
+@apply block w-full;
+
+  // Vertically space out multiple block buttons
+  + .btn-block {
+  @apply mt-2;
+  }
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+  @apply w-full;
+  }
+}

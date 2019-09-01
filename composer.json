@@ -12,6 +12,7 @@
     "barryvdh/laravel-cors": "^0.11.2",
     "barryvdh/laravel-dompdf": "^0.8.3",
     "doctrine/dbal": "^2.6",
+    "erusev/parsedown": "^1.7",
     "fideloper/proxy": "^4.0",
     "guzzlehttp/guzzle": "^6.3",
     "hocza/sendy": "^1.1",
@@ -19,13 +20,15 @@
     "laracasts/flash": "^3.0",
     "laravel/framework": "5.8.*",
     "laravel/nova": "~2.0",
+    "laravel/passport": "^7.4",
     "laravel/tinker": "^1.0",
     "maatwebsite/excel": "^3.1.8",
     "maatwebsite/laravel-nova-excel": "^1.1",
+    "pragmarx/version": "^0.2.9",
     "sentry/sentry": "^1.7",
     "sentry/sentry-laravel": "^0.8.0",
-    "sgd/enterprise-admin-theme": "*",
     "sgd/checkin-queue": "*",
+    "sgd/enterprise-admin-theme": "*",
     "sgd/form-builder": "*",
     "sgd/form-response": "*",
     "sgd/links": "*",
@@ -104,7 +107,8 @@
     ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-      "@php artisan package:discover"
+      "@php artisan package:discover",
+      "@php artisan version:refresh"
     ]
   },
   "config": {

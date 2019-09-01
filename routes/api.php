@@ -11,6 +11,8 @@ Route::patch('/tickets/{hash}', 'Api\TicketsController@update');
 
 Route::post('/users/{user}', 'Api\UsersController@store');
 
+Route::post('/donations', 'Api\DonationsController@store')->middleware('auth:api');
+
 Route::get('/queue', 'Api\QueueController@index');
 Route::post('/queue/{ids}', 'Api\QueueController@store');
 Route::patch('/queue/{ids}/complete', 'Api\QueueCompletedController');

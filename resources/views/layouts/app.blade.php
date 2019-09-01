@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
+
 <head>
     <meta charset="utf-8">
-    <title>@yield('title') | Midwest Institute for Sexuality and Gender Diversity</title>
+    <title>{{ $title }} | Midwest Institute for Sexuality and Gender Diversity</title>
     <meta name="description" content="event.discription">
     <meta name="title" content="event.name">
-    <meta name="author" content="MBLGTACC 2018, Midwest Institute for Sexuality and Gender Diversity">
+    <meta name="author" content="MBLGTACC, Midwest Institute for Sexuality and Gender Diversity">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png') }}">
@@ -22,46 +23,33 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 
-    <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/all.js"
-            integrity="sha384-eAVkiER0fL/ySiqS7dXu8TLpoR8d9KRzIYtG0Tz7pi24qgQIIupp0fn2XA1H90fP"
-            crossorigin="anonymous"></script>
+    <script defer src="{{ asset('js/fontawesome.min.js') }}"></script>
 
     <script>
         window.Spark = {};
 
         window.SGDInstitute = @json([
-            'mblgtaccStripe' => getStripeKey('mblgtacc'),
-            'instituteStripe' => getStripeKey('institute'),
+            'mblgtacc' => getStripeKey('mblgtacc'),
+            'institute' => getStripeKey('institute'),
             'user' => Auth::user()
         ]);
     </script>
 </head>
-<body>
-<div id="app">
-    @include('layouts.partials.app.header')
 
-    @yield('hero')
+<body class="bg-gray-200">
+    <div id="app">
 
-    <section class="content">
-        @if(Auth::user() && !Auth::user()->isConfirmed())
-            <div class="container">
-                <div class="alert alert-danger">
-                    Please confirm your email. Didn't get the confirmation email? <a href="/register/email">Lets try again!</a>
-                </div>
-            </div>
-        @endif
+        @include('layouts.partials.nav')
 
         @yield('content')
-    </section>
 
-    @include('layouts.partials.app.footer')
+        <portal-target name="modals"></portal-target>
+    </div>
+    @include('layouts.partials.footer')
 
-    <login-or-register v-on:></login-or-register>
-</div>
-<!-- Scripts -->
-@yield('beforeScripts')
-<script src="{{ mix('js/app.js') }}"></script>
-@yield('scripts')
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 
 </body>
+
 </html>

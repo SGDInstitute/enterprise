@@ -9,12 +9,12 @@ mix.webpackConfig({
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/checkin.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+    .less('resources/less/app.less', 'public/css')
     .less('resources/less/checkin.less', 'public/css')
     .options({
         processCssUrls: false,
         postCss: [
-            tailwindcss('./tailwind.js')
+            tailwindcss('./tailwind.config.js')
         ],
     });
 
