@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.11] - 2019-09-01
+
+### Changed
+
+- Update mobile styles
+
+
+___
+
 ## [0.1.10] - 2019-09-01
 
 ### Changed

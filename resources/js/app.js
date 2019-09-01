@@ -31,6 +31,10 @@ const app = new Vue({
 });
 
 $(function () {
+    $('#menu').click(function () {
+        $('#nav').toggleClass('hidden');
+    });
+
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
 
@@ -64,3 +68,4 @@ $(function () {
         }
     });
 });
+
