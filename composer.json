@@ -33,6 +33,7 @@
     "sgd/form-response": "*",
     "sgd/links": "*",
     "spatie/laravel-activitylog": "^3.5",
+    "spatie/laravel-cors": "^1.6",
     "spatie/laravel-permission": "^2.6",
     "stripe/stripe-php": "^5.1",
     "vinkla/hashids": "^6.0",
