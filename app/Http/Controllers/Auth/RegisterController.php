@@ -30,6 +30,10 @@ class RegisterController extends Controller
         ]
     ];
 
+    protected $messages = [
+        'password.regex' => 'Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.'
+    ];
+
     public function __construct()
     {
         $this->middleware('guest');
@@ -43,9 +47,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, $this->rules, [
-            'password.regex' => 'Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.'
-        ]);
+        return Validator::make($data, $this->rules, $this->messages);
     }
 
     /**

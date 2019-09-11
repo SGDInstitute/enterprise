@@ -26,7 +26,7 @@ class RegisterController extends \App\Http\Controllers\Auth\RegisterController
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, $this->rules);
+        return Validator::make($data, $this->rules, $this->messages);
     }
 
     public function register(Request $request)
