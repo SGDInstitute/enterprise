@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+Route::get('/me', 'Api\UsersController@show');
 Route::post('/users', 'Api\RegisterController@register');
 
 Route::get('/orders/{number}', 'Api\OrdersController@show');

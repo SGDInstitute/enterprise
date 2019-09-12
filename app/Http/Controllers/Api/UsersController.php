@@ -5,9 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class UsersController extends Controller
 {
+
+    public function show(User $user = null)
+    {
+        if ($user === null) {
+            return new UserResource(auth()->user());
+        } else {
+            return new UserResource($user);
+        }
+    }
+
     public function store(User $user)
     {
         $userData = request()->validate([
@@ -23,10 +34,6 @@ class UsersController extends Controller
             'college' => '',
             'tshirt' => '',
         ]);
-
-        if (is_null($user)) {
-//            $user = request()->user();
-        }
 
         $oldEmail = $user->email;
 
