@@ -23,16 +23,16 @@ class ManuallyFillTicketsTest extends TestCase
         ]);
 
         $response = $this->withoutExceptionHandling()->patch("/api/tickets/{$ticket->hash}", [
-                'name' => 'Harry Potter',
-                'email' => 'hpotter@hogwarts.edu',
-                'pronouns' => 'he, him, his',
-                'sexuality' => 'Straight',
-                'gender' => 'Male',
-                'race' => 'White',
-                'college' => 'Hogwarts',
-                'tshirt' => 'L',
-                'accommodation' => 'My scar hurts sometimes'
-            ]);
+            'name' => 'Harry Potter',
+            'email' => 'hpotter@hogwarts.edu',
+            'pronouns' => 'he, him, his',
+            'sexuality' => 'Straight',
+            'gender' => 'Male',
+            'race' => 'White',
+            'college' => 'Hogwarts',
+            'tshirt' => 'L',
+            'accommodation' => 'My scar hurts sometimes'
+        ]);
 
         $response->assertStatus(200);
 
@@ -216,6 +216,5 @@ class ManuallyFillTicketsTest extends TestCase
         $this->assertEquals('White', $ticket->user->profile->race);
         $this->assertEquals('Hogwarts', $ticket->user->profile->college);
         $this->assertEquals('L', $ticket->user->profile->tshirt);
-        $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
     }
 }

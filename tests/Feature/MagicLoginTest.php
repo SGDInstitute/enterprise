@@ -80,7 +80,7 @@ class MagicLoginTest extends TestCase
         $user = factory(User::class)->create([
             'email' => 'jo@example.com'
         ]);
-        $expiredToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic','created_at' => Carbon::now()->subMinutes(11)]));
+        $expiredToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic', 'created_at' => Carbon::now()->subMinutes(11)]));
 
         $response = $this->withoutExceptionHandling()
             ->get("/login/magic/{$user->magicToken->token}?email=jo@example.com");
@@ -88,7 +88,7 @@ class MagicLoginTest extends TestCase
         $response
             ->assertRedirect('/login/magic/')
             ->assertSessionHas('flash_notification');
-        $this->assertNull($user->fresh()->token);
+        $this->assertNull($user->fresh()->magicToken);
     }
 
     /** @test */
@@ -108,6 +108,6 @@ class MagicLoginTest extends TestCase
         $response
             ->assertRedirect('/login/magic/')
             ->assertSessionHas('flash_notification');
-        $this->assertNull($user->fresh()->token);
+        $this->assertNull($user->fresh()->magicToken);
     }
 }

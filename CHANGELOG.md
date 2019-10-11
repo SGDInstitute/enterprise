@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.13] - 2019-10-11
+
+### Fixed
+
+- Reset password views
+
+### Added
+
+- Type of donation in Nova
+
+___
+
+## [0.1.12] - 2019-09-10
+
+### Added
+
+- CORS header
+
+___
+
 ## [0.1.11] - 2019-09-01
 
 ### Changed

@@ -43,7 +43,7 @@ class ChargeOrderTest extends TestCase
 
         $response = $this->withoutExceptionHandling()->actingAs($user)
             ->json('POST', "/orders/{$order->id}/charge", [
-                'stripeToken' => $this->paymentGateway->getValidTestToken()
+                'payment_token' => $this->paymentGateway->getValidTestToken()
             ]);
 
         $response
