@@ -44,7 +44,7 @@ class SubscriptionDonationTest extends TestCase
                 'email' => 'hpotter@hogwarts.edu',
                 'subscription' => 'monthly',
                 'group' => 'institute',
-                'stripeToken' => $this->paymentGateway->getValidTestToken(),
+                'payment_token' => $this->paymentGateway->getValidTestToken(),
             ]);
 
         $response->assertStatus(201);

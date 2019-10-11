@@ -90,7 +90,6 @@ class UserProfileTest extends TestCase
         $this->assertEquals('White', $user->profile->race);
         $this->assertEquals('Hogwarts', $user->profile->college);
         $this->assertEquals('M', $user->profile->tshirt);
-        $this->assertEquals('My scar hurts sometimes.', $user->profile->accommodation);
     }
 
     /** @test */
@@ -130,15 +129,15 @@ class UserProfileTest extends TestCase
         $profile = $user->profile()->save(factory(Profile::class)->make());
 
         $response = $this->actingAs($user)->json("patch", "/profile", [
-                'email' => 'hpotter@hogwarts.edu',
-                'pronouns' => 'he, him, his',
-                'sexuality' => 'Straight',
-                'gender' => 'Male',
-                'race' => 'White',
-                'college' => 'Hogwarts',
-                'tshirt' => 'M',
-                'accommodation' => 'My scar hurts sometimes.'
-            ]);
+            'email' => 'hpotter@hogwarts.edu',
+            'pronouns' => 'he, him, his',
+            'sexuality' => 'Straight',
+            'gender' => 'Male',
+            'race' => 'White',
+            'college' => 'Hogwarts',
+            'tshirt' => 'M',
+            'accommodation' => 'My scar hurts sometimes.'
+        ]);
 
         $response->assertStatus(422)
             ->assertJsonHasErrors('name');

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Passport\Passport;
 
 class CanCreateDonationTest extends TestCase
 {
@@ -40,11 +41,12 @@ class CanCreateDonationTest extends TestCase
         $vendor->quantity = 1;
         $ad = factory(Contribution::class)->create(['event_id' => $event->id, 'type' => 'ad', 'amount' => 10000]);
         $ad->quantity = 1;
+        Passport::actingAs($user);
 
         $response = $this->withoutExceptionHandling()->actingAs($user)->json("post", "/api/donations", [
             'contributions' => [
                 'amount' => 1000,
-                'ads' => [ $ad ],
+                'ads' => [$ad],
                 'vendor' => $vendor,
                 'sponsorship' => $sponsorship,
                 'type' => 'sponsor',

@@ -244,6 +244,5 @@ class ManuallyFillTicketsTest extends TestCase
         $this->assertEquals('White', $ticket->user->profile->race);
         $this->assertEquals('Hogwarts', $ticket->user->profile->college);
         $this->assertEquals('L', $ticket->user->profile->tshirt);
-        $this->assertEquals('My scar hurts sometimes', $ticket->user->profile->accommodation);
     }
 }
