@@ -13,35 +13,15 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Donation extends Resource
 {
-    /**
-     * The model the resource corresponds to.
-     *
-     * @var string
-     */
+
     public static $model = \App\Donation::class;
 
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
     public static $title = 'id';
 
-    /**
-     * The columns that should be searched.
-     *
-     * @var array
-     */
     public static $search = [
         'id',
     ];
 
-    /**
-     * Get the fields displayed by the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function fields(Request $request)
     {
         return [
@@ -51,6 +31,15 @@ class Donation extends Resource
                 ->displayUsing(function ($amount) {
                     return money_format('$%.2n', $amount / 100);
                 })->sortable(),
+            Text::make('Type', function () {
+                if (!$this->contributions->isEmpty()) {
+                    return 'Contribution';
+                } else if (!$this->subscription !== null) {
+                    return 'Recurring Donation';
+                } else {
+                    return 'One-time Donation';
+                }
+            }),
             Text::make('Group')->sortable(),
             Text::make('Name')->sortable(),
             Text::make('Email')->sortable(),
