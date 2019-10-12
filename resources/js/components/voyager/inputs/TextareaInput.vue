@@ -13,11 +13,14 @@
 
 <script>
 export default {
-  props: ["question", "disabled"],
+  props: ["value", "question", "disabled"],
   data() {
     return {
       text: ""
     };
+  },
+  created() {
+    this.text = this.value;
   },
   watch: {
     text(value) {

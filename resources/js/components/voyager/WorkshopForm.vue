@@ -61,7 +61,7 @@ import SelectInput from "./inputs/SelectInput.vue";
 import Finish from "./Finish.vue";
 
 export default {
-  props: ["dbform", "disabled"],
+  props: ["dbform", "disabled", "response"],
   data() {
     return {
       form: new SparkForm({})
@@ -73,17 +73,37 @@ export default {
       this.form[id] = "";
     }
 
+    if (typeof this.response !== "undefined") {
+      self = this;
+      _.each(this.response.responses, function(response, id) {
+        self.form[id] = response;
+      });
+    }
+
     this.form["email"] = this.getParameterByName("email");
   },
   methods: {
     save() {
-      Spark.post("/forms/" + this.dbform.id + "/responses", this.form).then(
-        response => {
-          if (response.success === true) {
-            location.href = response.url;
+      if (typeof this.response === "undefined") {
+        Spark.post("/forms/" + this.dbform.id + "/responses", this.form).then(
+          response => {
+            if (response.success === true) {
+              location.href = response.url;
+            }
           }
-        }
-      );
+        );
+      } else {
+        Spark.patch("/responses/" + this.response.id, this.form).then(
+          response => {
+            if (response.success === true) {
+              this.$toasted.success(
+                "Successfully updated your workshop submission.",
+                { position: "bottom-right", duration: 2000 }
+              );
+            }
+          }
+        );
+      }
     },
     nextIsSection(index) {
       return (

@@ -36,13 +36,20 @@
 
 <script>
 export default {
-  props: ["question", "disabled"],
+  props: ["value", "question", "disabled"],
   data() {
     return {
       selected: "",
       chosen: [],
       input: ""
     };
+  },
+  created() {
+    if (typeof this.value === "string") {
+      this.selected = this.value;
+    } else {
+      this.chosen = this.value;
+    }
   },
   computed: {
     type() {
@@ -76,19 +83,11 @@ export default {
   },
   watch: {
     selected(value) {
-      this.$emit("input", value);
+      this.$emit("input", this.selected);
     },
     chosen(value) {
-      this.$emit("input", value);
+      this.$emit("input", this.chosen);
     }
-    /*input(value) {
-                if(!_.isEmpty(this.chosen)) {
-                    this.chosen.push(value);
-                }
-                else {
-                    this.$emit('input', value)
-                }
-            },*/
   }
 };
 </script>

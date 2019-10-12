@@ -6060,7 +6060,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["dbform", "disabled"],
+  props: ["dbform", "disabled", "response"],
   data: function data() {
     return {
       form: new SparkForm({})
@@ -6072,15 +6072,36 @@ __webpack_require__.r(__webpack_exports__);
       this.form[id] = "";
     }
 
+    if (typeof this.response !== "undefined") {
+      self = this;
+
+      _.each(this.response.responses, function (response, id) {
+        self.form[id] = response;
+      });
+    }
+
     this.form["email"] = this.getParameterByName("email");
   },
   methods: {
     save: function save() {
-      Spark.post("/forms/" + this.dbform.id + "/responses", this.form).then(function (response) {
-        if (response.success === true) {
-          location.href = response.url;
-        }
-      });
+      var _this = this;
+
+      if (typeof this.response === "undefined") {
+        Spark.post("/forms/" + this.dbform.id + "/responses", this.form).then(function (response) {
+          if (response.success === true) {
+            location.href = response.url;
+          }
+        });
+      } else {
+        Spark.patch("/responses/" + this.response.id, this.form).then(function (response) {
+          if (response.success === true) {
+            _this.$toasted.success("Successfully updated your workshop submission.", {
+              position: "bottom-right",
+              duration: 2000
+            });
+          }
+        });
+      }
     },
     nextIsSection: function nextIsSection(index) {
       return typeof this.dbform.form[index + 1] !== "undefined" && this.dbform.form[index + 1].type === "section";
@@ -6172,13 +6193,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["question", "disabled"],
+  props: ["value", "question", "disabled"],
   data: function data() {
     return {
       selected: "",
       chosen: [],
       input: ""
     };
+  },
+  created: function created() {
+    if (typeof this.value === "string") {
+      this.selected = this.value;
+    } else {
+      this.chosen = this.value;
+    }
   },
   computed: {
     type: function type() {
@@ -6205,20 +6233,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     selected: function selected(value) {
-      this.$emit("input", value);
+      this.$emit("input", this.selected);
     },
     chosen: function chosen(value) {
-      this.$emit("input", value);
+      this.$emit("input", this.chosen);
     }
-    /*input(value) {
-                if(!_.isEmpty(this.chosen)) {
-                    this.chosen.push(value);
-                }
-                else {
-                    this.$emit('input', value)
-                }
-            },*/
-
   }
 });
 
@@ -6523,11 +6542,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["question", "disabled"],
+  props: ["value", "question", "disabled"],
   data: function data() {
     return {
       input: ""
     };
+  },
+  created: function created() {
+    this.input = this.value;
   },
   watch: {
     input: function input(value) {
@@ -6566,11 +6588,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["question", "disabled"],
+  props: ["value", "question", "disabled"],
   data: function data() {
     return {
       text: ""
     };
+  },
+  created: function created() {
+    this.text = this.value;
   },
   watch: {
     text: function text(value) {
@@ -89623,6 +89648,14 @@ $(function () {
   });
   $('[data-toggle="tooltip"]').tooltip();
   $('[data-toggle="popover"]').popover();
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    localStorage.setItem('activeTab', $(e.target).attr('href'));
+  });
+  var activeTab = localStorage.getItem('activeTab');
+
+  if (activeTab) {
+    $('a[href="' + activeTab + '"]').tab('show');
+  }
 
   if (document.getElementsByClassName('hero-bar').length > 0) {
     var $heroBar = $('.hero-bar'),

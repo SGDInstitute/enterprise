@@ -10,11 +10,12 @@ class Response extends Model
         'responses',
         'request',
         'email',
+        'user_id',
     ];
 
     protected $casts = [
-        'responses' => 'collection',
-        'request'   => 'collection'
+        'responses' => 'array',
+        'request'   => 'array'
     ];
 
     public static function findByEmail($email)

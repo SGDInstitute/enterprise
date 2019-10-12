@@ -37,11 +37,14 @@
 
 <script>
 export default {
-  props: ["question", "disabled"],
+  props: ["value", "question", "disabled"],
   data() {
     return {
       input: ""
     };
+  },
+  created() {
+    this.input = this.value;
   },
   watch: {
     input(value) {

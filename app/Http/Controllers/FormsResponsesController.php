@@ -20,12 +20,17 @@ class FormsResponsesController extends Controller
 
     public function store(Form $form)
     {
+        if ($form->type === 'workshop' && !auth()->check()) {
+            return response()->json(['message' => 'Not authenticated.'], 401);
+        }
+
         request()->validate($form->getRules());
 
         $response = $form->responses()->create([
             'responses' => request()->except(['_token', 'busy', 'errors', 'successful', 'email']),
             'request' => request()->server(),
             'email' => request()->email,
+            'user_id' => auth()->id() ?? null,
         ]);
 
         if (!is_null($form->list_id) && $response->email) {

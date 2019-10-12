@@ -5,6 +5,7 @@ namespace App;
 use App\Event;
 use App\Response;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Form extends Model
 {
@@ -20,6 +21,13 @@ class Form extends Model
     public static function findBySlug($slug)
     {
         return self::where('slug', $slug)->firstOrFail();
+    }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('is_public', true)
+            ->whereDate('start', '<=', Carbon::now())
+            ->whereDate('end', '>=', Carbon::now());
     }
 
     public function responses()
