@@ -32,6 +32,7 @@ Vue.component('edit-manual-user', require('./components/EditManualUser.vue').def
 Vue.component('view-user', require('./components/ViewUser.vue').default);
 Vue.component('view-profile-modal', require('./components/ViewProfileModal.vue').default);
 Vue.component('dynamic-form', require('./components/voyager/DynamicForm.vue').default);
+Vue.component('workshop-form', require('./components/voyager/WorkshopForm.vue').default);
 
 Vue.component('pay-tour', require('./components/PayTour.vue').default);
 Vue.component('invite-tour', require('./components/InviteTour.vue').default);
