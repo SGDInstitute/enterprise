@@ -26,6 +26,8 @@ Route::get('/donations/{hash}', 'DonationsController@show');
 Route::view('/forms/thank-you', 'forms.thank_you');
 Route::get('/forms/{slug}', 'FormsResponsesController@create')->name('forms.create');
 Route::post('/forms/{form}/responses', 'FormsResponsesController@store');
+Route::get('/responses/{response}/edit', 'ResponsesController@edit');
+Route::patch('/responses/{response}', 'ResponsesController@update');
 
 Route::get('/checkin', 'CheckInController');
 Route::get('/print/{ids}', 'PrintController');

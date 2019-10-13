@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Sgd\FormBuilder\FormBuilder;
@@ -22,35 +23,23 @@ class Form extends Resource
      */
     public static $model = \App\Form::class;
 
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
     public static $title = 'name';
 
-    /**
-     * The columns that should be searched.
-     *
-     * @var array
-     */
     public static $search = [
         'id',
     ];
 
     public static $group = 'Voyager';
 
-    /**
-     * Get the fields displayed by the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function fields(Request $request)
     {
         return [
             ID::make()->hideFromIndex(),
             Text::make('Name')->sortable(),
+            Select::make('Type')->options([
+                'survey' => 'Survey',
+                'workshop' => 'Workshop'
+            ]),
             Text::make('Slug')->hideFromIndex(),
             Text::make('List ID')->hideFromIndex(),
             BelongsTo::make('Event')->sortable(),

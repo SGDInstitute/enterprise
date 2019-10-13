@@ -1,23 +1,23 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Voyager;
 
 use App\Form;
-use App\Survey;
+use App\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Passport\Passport;
 
-class TakeSurveyTest extends TestCase
+class TakeWorkshopTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_take_survey()
+    function cannot_take_workshop_form_without_being_logged_in()
     {
         $form = factory(Form::class)->create([
+            'type' => 'workshop',
             'form' => [
                 [
                     "id" => "hello-world",
@@ -33,19 +33,15 @@ class TakeSurveyTest extends TestCase
                 "hello-world" => "Foo Bar",
             ]);
 
-        $response
-            ->assertStatus(200);
-
-        $this->assertDatabaseHas('responses', [
-            'form_id' => $form->id,
-            'responses' => '{"hello-world":"Foo Bar"}',
-        ]);
+        $response->assertStatus(401);
     }
 
     /** @test */
-    function required_fields_in_survey_form_are_required()
+    function workshop_is_attached_to_user()
     {
+        $user = factory(User::class)->create();
         $form = factory(Form::class)->create([
+            'type' => 'workshop',
             'form' => [
                 [
                     "id" => "hello-world",
@@ -55,8 +51,15 @@ class TakeSurveyTest extends TestCase
                 ]
             ],
         ]);
+        Passport::actingAs($user);
 
-        $response = $this->json("POST", "/forms/{$form->id}/responses", []);
-        $response->assertJsonValidationErrors('hello-world');
+        $response = $this->actingAs($user)->withoutExceptionHandling()
+            ->json("POST", "/forms/{$form->id}/responses", [
+                "hello-world" => "Foo Bar",
+            ]);
+
+        $response->assertStatus(200);
+
+        $this->assertNotNull($user->responses->where('form_id', $form->id)->first());
     }
 }

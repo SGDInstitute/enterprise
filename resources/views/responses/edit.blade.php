@@ -24,7 +24,7 @@
                         </p>
                         <workshop-form :dbform="{{ $form }}" :disabled="true"></workshop-form>
                         @else
-                        <workshop-form :dbform="{{ $form }}"></workshop-form>
+                        <workshop-form :dbform="{{ $form }}" :response="{{ $response }}"></workshop-form>
                         @endguest
                         @else
                         <dynamic-form :dbform="{{ $form }}"></dynamic-form>

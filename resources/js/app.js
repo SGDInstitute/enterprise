@@ -38,6 +38,15 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+
+    var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+        $('a[href="' + activeTab + '"]').tab('show');
+    }
+
     if (document.getElementsByClassName('hero-bar').length > 0) {
         var $heroBar = $('.hero-bar'),
             heroBottomTop = $heroBar.offset().top - 35;
