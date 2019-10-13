@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.15] - 2019-10-13
+
+### Fixed
+
+- Repeated input styles on workshops
+- Showing repeated inputs when editing workshops
+
+___
+
 ## [0.1.14] - 2019-10-13
 
 ### Changed
