@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.14] - 2019-10-13
+
+### Changed
+
+- Add types for forms
+- Require logins for workshops
+- Add workshops to homepage
+- Add Choices to Nova
+
+### Fixed
+
+- Saving choices in Nova
+
+___
+
 ## [0.1.13] - 2019-10-11
 
 ### Fixed
