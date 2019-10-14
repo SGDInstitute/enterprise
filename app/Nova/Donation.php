@@ -33,7 +33,15 @@ class Donation extends Resource
                 })->sortable(),
             Text::make('Type', function () {
                 if (!$this->contributions->isEmpty()) {
-                    return 'Contribution';
+                    return 'Contribution: ' . $this->contributions->map(function ($contribution) {
+                        if ($contribution->type === 'sponsor') {
+                            return "{$contribution->title} ($" . $contribution->pivot->amount / 100 . ")";
+                        } elseif ($contribution->pivot->quantity > 0) {
+                            return "{$contribution->pivot->quantity} {$contribution->title}";
+                        } else {
+                            return "{$contribution->title}";
+                        }
+                    })->implode(', ');
                 } else if (!$this->subscription !== null) {
                     return 'Recurring Donation';
                 } else {

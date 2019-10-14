@@ -70,7 +70,7 @@ export default {
       this.init[id] = "";
     }
 
-    if (this.value.length > 0) {
+    if (this.value !== "" || this.value !== null) {
       this.repeated = this.value;
     }
 

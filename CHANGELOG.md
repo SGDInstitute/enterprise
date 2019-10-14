@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.16] - 2019-10-14
+
+### Changed
+
+- Added more information to type of donation
+
+___
+
 ## [0.1.15] - 2019-10-13
 
 ### Fixed
