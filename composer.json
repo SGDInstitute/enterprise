@@ -36,6 +36,7 @@
     "spatie/laravel-cors": "^1.6",
     "spatie/laravel-permission": "^2.6",
     "stripe/stripe-php": "^5.1",
+    "titasgailius/search-relations": "^1.0",
     "vinkla/hashids": "^6.0",
     "vyuldashev/nova-permission": "^1.4"
   },
