@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77f31026461ac22f4f8093dfc793714d",
+    "content-hash": "d8baa490b924fb8434e3c657a0d96e6b",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -345,6 +345,151 @@
                 "symmetric key cryptography"
             ],
             "time": "2018-07-24T23:27:56+00:00"
+        },
+        {
+            "name": "digitalcloud/laravel-blameable",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DigitalCloud/laravel-blameable.git",
+                "reference": "024eda70021bb7fcbdc3a3166300f264d58b605b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DigitalCloud/laravel-blameable/zipball/024eda70021bb7fcbdc3a3166300f264d58b605b",
+                "reference": "024eda70021bb7fcbdc3a3166300f264d58b605b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DigitalCloud\\Blameable\\BlameableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DigitalCloud\\Blameable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel package allow you to add created/updated by attributes on eloquent models",
+            "keywords": [
+                "Blameable",
+                "creator",
+                "eloquent",
+                "laravel",
+                "package"
+            ],
+            "time": "2019-01-14T13:02:47+00:00"
+        },
+        {
+            "name": "digitalcloud/laravel-model-notes",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DigitalCloud/laravel-model-notes.git",
+                "reference": "aa48b09cdf2c6228cd3cecedca77acc7595a17f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DigitalCloud/laravel-model-notes/zipball/aa48b09cdf2c6228cd3cecedca77acc7595a17f2",
+                "reference": "aa48b09cdf2c6228cd3cecedca77acc7595a17f2",
+                "shasum": ""
+            },
+            "require": {
+                "digitalcloud/laravel-blameable": "*",
+                "php": "^7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DigitalCloud\\ModelNotes\\ModelNotesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DigitalCloud\\ModelNotes\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Motaz Marouf",
+                    "email": "m.marouf@dce.sa",
+                    "homepage": "https://dce.sa",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package to enable assigning notes to Eloquent Models",
+            "homepage": "https://github.com/digitalcloud/laravel-model-notes",
+            "keywords": [
+                "digitalcloud",
+                "laravel-note"
+            ],
+            "time": "2019-01-23T06:47:56+00:00"
+        },
+        {
+            "name": "digitalcloud/nova-resource-notes",
+            "version": "v1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DigitalCloud/nova-resource-notes.git",
+                "reference": "223fa67ce0a38abc6bb473fb0afd5597bc924546"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DigitalCloud/nova-resource-notes/zipball/223fa67ce0a38abc6bb473fb0afd5597bc924546",
+                "reference": "223fa67ce0a38abc6bb473fb0afd5597bc924546",
+                "shasum": ""
+            },
+            "require": {
+                "digitalcloud/laravel-model-notes": ">=1.1",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DigitalCloud\\NovaResourceNotes\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DigitalCloud\\NovaResourceNotes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Motaz Marouf",
+                    "email": "m.marouf@dce.sa",
+                    "homepage": "https://dce.sa",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Nova Resource Note.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-02-05T06:48:46+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
