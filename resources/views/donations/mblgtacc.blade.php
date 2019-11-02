@@ -7,12 +7,12 @@
     <div class="mt-12 container mb-16">
         @include('flash::message')
 
-        <h1 class="text-white text-3xl font-semibold mb-4">Support the Institute Today</h1>
+        <h1 class="text-white text-3xl font-semibold mb-4">Support MBLGTACC Today</h1>
 
         <div class="md:flex md:-mx-4">
             <div class="md:w-7/12 mx-4">
                 <div class="p-6 bg-white rounded shadow">
-                    <donation-form :user="{{ Auth::user() === null ? json_encode(null) : Auth::user() }}" group="institute"></donation-form>
+                    <donation-form :user="{{ Auth::user() === null ? json_encode(null) : Auth::user() }}" group="mblgtacc"></donation-form>
                 </div>
             </div>
             <div class="md:w-5/12 mx-4">
