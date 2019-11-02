@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -33,6 +34,7 @@ class TicketType extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('Event'),
             Text::make('Name')->sortable(),
             Textarea::make('Description')->sortable(),
             Currency::make('Cost')

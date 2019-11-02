@@ -17,6 +17,11 @@ class TicketType extends Model
         'availability_start', 'availability_end'
     ];
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
     public function getFormattedCostAttribute()
     {
         return "$" . number_format($this->cost / 100, 2);
