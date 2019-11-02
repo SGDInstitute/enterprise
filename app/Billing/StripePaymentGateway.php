@@ -5,9 +5,11 @@ namespace App\Billing;
 use Illuminate\Support\Arr;
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
+use Exception;
 use Illuminate\Support\Carbon;
 use Stripe\Charge;
 use Stripe\Customer;
+use Stripe\Error\Card;
 use Stripe\Error\InvalidRequest;
 use Stripe\Subscription;
 use Stripe\Token;
@@ -32,7 +34,9 @@ class StripePaymentGateway implements PaymentGateway
 
             return collect(['id' => $charge->id, 'amount' => $charge->amount, 'last4' => $charge->source->last4]);
         } catch (InvalidRequest $e) {
-            throw new PaymentFailedException;
+            throw new PaymentFailedException($e->getMessage());
+        } catch (Card $e) {
+            throw new PaymentFailedException($e->getMessage());
         }
     }
 
@@ -58,6 +62,7 @@ class StripePaymentGateway implements PaymentGateway
                 'next_charge' => Carbon::createFromTimestamp($subscription->current_period_end)->toDateTimeString(),
             ]);
         } catch (InvalidRequest $e) {
+            dd($e);
             throw new SubscriptionFailedException;
         }
     }
