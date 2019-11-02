@@ -42,8 +42,10 @@ class Form extends Resource
             Text::make('Name')->sortable(),
             Select::make('Type')->options([
                 'survey' => 'Survey',
-                'workshop' => 'Workshop'
+                'workshop' => 'Workshop',
+                'default' => 'Default'
             ]),
+            Boolean::make('Auth Required'),
             Text::make('Slug')->hideFromIndex(),
             Text::make('List ID')->hideFromIndex(),
             BelongsTo::make('Event')->sortable(),

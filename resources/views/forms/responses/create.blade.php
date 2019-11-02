@@ -14,22 +14,22 @@
                 <div class="p-6 bg-white rounded shadow">
                     @if(now() < $form->start)
                         <h1 class="text-center text-xl">Sorry this form isn't open yet 😟.<br> Check back on {{ $form->start->format('l, F j, Y') }}.</h1>
-                        @elseif(now() > $form->end)
+                    @elseif(now() > $form->end)
                         <h1 class="text-center text-xl">Sorry this form is closed. 😟</h1>
-                        @else
-                        @if($form->type === 'workshop')
-                        @guest
-                        <p class="bg-mint-300 border-l-4 border-mint-500 p-4 shadow mb-4 rounded overflow-hidden">
-                            Please create an account or login before submitting a workshop proposal.<br> By logging in, you will be able to come back and change your responses later.
-                        </p>
-                        <workshop-form :dbform="{{ $form }}" :disabled="true"></workshop-form>
-                        @else
-                        <workshop-form :dbform="{{ $form }}"></workshop-form>
-                        @endguest
+                    @else
+                        @if($form->type === 'workshop' || $form->auth_required)
+                            @guest
+                            <p class="bg-mint-300 border-l-4 border-mint-500 p-4 shadow mb-4 rounded overflow-hidden">
+                                Please create an account or login before submitting a workshop proposal.<br> By logging in, you will be able to come back and change your responses later.
+                            </p>
+                            <dynamic-form :dbform="{{ $form }}" :disabled="true"></dynamic-form>
+                            @else
+                            <dynamic-form :dbform="{{ $form }}"></dynamic-form>
+                            @endguest
                         @else
                         <dynamic-form :dbform="{{ $form }}"></dynamic-form>
                         @endif
-                        @endif
+                    @endif
                 </div>
             </div>
         </div>

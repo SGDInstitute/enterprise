@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.18] - 2019-11-02
+
+### Added
+
+- Another type of form, and option to require user to be logged in
+
+___
+
 ## [0.1.17] - 2019-11-02
 
 ### Changed
