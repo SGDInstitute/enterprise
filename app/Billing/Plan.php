@@ -30,7 +30,8 @@ class Plan
                 "amount"         => $amount,
                 "interval"       => $interval,
                 "interval_count" => $interval_count,
-                "name"           => $plan,
+                "product" => ['name' => 'Recurring Donation'],
+                "nickname"           => $plan,
                 "currency"       => "usd",
                 "id"             => $plan,
             ], ['api_key' => $key]);

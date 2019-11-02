@@ -31,12 +31,6 @@
       </div>
     </div>
 
-    <div class="mb-4">
-      <label for="card" class="form-label">Credit Card</label>
-      <div id="card" ref="card" class="form-control"></div>
-      <div class="bg-yellow text-center text-black p-4 my-2" v-if="error">{{ error }}</div>
-    </div>
-
     <div class="w-full mb-3">
       <label class="form-label" for="amount">Amount *</label>
       <div class="input-group">
@@ -75,6 +69,48 @@
       </div>
     </div>
 
+    <div class="mt-8">
+      <h2
+        class="block uppercase tracking-wide text-gray-600 text-base font-semibold mb-4"
+      >Payment Information</h2>
+
+      <div class="mb-4">
+        <label for="card" class="form-label">Credit Card</label>
+        <div id="card" ref="card" class="form-control"></div>
+        <div class="alert alert-error" v-if="card_error">{{ card_error }}</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="address" class="form-label">Address</label>
+      <input
+        type="text"
+        class="form-control"
+        id="address"
+        placeholder="185 Main St Unit 2"
+        v-model="address_line1"
+      />
+    </div>
+    <div class="md:flex mb-4 md:-mx-4">
+      <div class="w-full md:w-3/5 md:mx-4">
+        <label for="city" class="form-label">City</label>
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="Lansing"
+          v-model="address_city"
+        />
+      </div>
+      <div class="w-full md:w-1/5 md:mx-4">
+        <label for="state" class="form-label">State</label>
+        <input type="text" class="form-control" id="state" placeholder="MI" v-model="address_state" />
+      </div>
+      <div class="w-full md:w-1/5 md:mx-4">
+        <label for="zip" class="form-label">Zip</label>
+        <input type="text" class="form-control" id="zip" placeholder="48826" v-model="address_zip" />
+      </div>
+    </div>
+
     <div class="mt-6">
       <p class="italic text-sm" v-if="guest && subscription !== 'no'">
         Please
@@ -82,6 +118,9 @@
         <a href="/login" class="text-mint-700 hover:underline">login</a>
         before making a {{ subscription }} donation.
       </p>
+
+      <div class="alert alert-error" v-if="error">{{ error }}</div>
+
       <button
         @click="pay"
         :disabled="processing || (guest && subscription !== 'no')"
@@ -103,26 +142,28 @@ let style = {
 };
 
 export default {
-  props: ["order", "classes"],
+  props: ["order", "classes", "group"],
   data() {
     return {
-      show: false,
-      error: "",
-      processing: false,
-      browserProcessing: false,
-      canBrowserPay: false,
-      isApplePay: false,
-      rememberCard: false,
-      browserType: "",
-      stripe: "",
-      card: "",
-      name: "",
-      email: "",
+      address_line1: "",
+      address_line2: "",
+      address_city: "",
+      address_state: "",
+      address_zip: "",
+      address_country: "US",
       amount: 25,
+      card: "",
+      card_error: "",
       company: "",
-      tax_id: "",
+      email: "",
+      error: "",
       is_company: false,
-      subscription: "monthly"
+      name: "",
+      processing: false,
+      show: false,
+      stripe: "",
+      subscription: "monthly",
+      tax_id: ""
     };
   },
   mounted() {
@@ -135,34 +176,14 @@ export default {
   },
   methods: {
     loadStripe() {
-      this.stripe = Stripe(window.SGDInstitute["institute"]);
+      this.stripe = Stripe(window.SGDInstitute[this.group]);
       let elements = this.stripe.elements(),
         self = this;
       this.card = elements.create("card", { style: style });
       this.card.mount(this.$refs.card);
 
-      let paymentRequest = this.stripe.paymentRequest({
-        country: "US",
-        currency: "usd",
-        total: {
-          label: "Donate",
-          amount: self.amount * 100
-        },
-        requestPayerName: true,
-        requestPayerEmail: true
-      });
-
-      paymentRequest.canMakePayment().then(function(result) {
-        if (result) {
-          self.canBrowserPay = true;
-          self.isApplePay = result.applePay;
-        } else {
-          self.canBrowserPay = false;
-        }
-      });
-
-      paymentRequest.on("token", function(ev) {
-        self.makeOrder(ev.token.id);
+      this.card.addEventListener("change", function(event) {
+        self.card_error = event.error ? event.error.message : "";
       });
     },
     makeOrder(token) {
@@ -177,12 +198,13 @@ export default {
           amount: this.amount,
           company: this.company,
           subscription: this.subscription,
-          company: this.company,
           tax_id: this.tax_id,
-          group: "institute"
+          group: this.group
         })
         .then(function(response) {
-          self.$toasted.show("Successfully donated to the Institute", {
+          let groupLabel = (self.group === 'institute') ? 'the Institute' : 'MBLGTACC';
+
+          self.$toasted.show(`Successfully donated to ${groupLabel}`, {
             duration: 5000,
             type: "success"
           });
@@ -190,13 +212,20 @@ export default {
           window.location = response.data.redirect;
         })
         .catch(function(error) {
-          console.log(error);
+          self.processing = false;
+
+          if (error.response.data.message === "") {
+            self.error =
+              "There was an unexpected issue, please contact support with the results from going to whatsmybrowser.org";
+          } else {
+            self.error = error.response.data.message;
+          }
         });
     },
     pay() {
       let self = this;
 
-      this.stripe.createToken(this.card).then(function(result) {
+      this.stripe.createToken(this.card, this.tokenData).then(function(result) {
         if (result.error) {
           this.error = result.error.message;
           self.$forceUpdate();
@@ -210,6 +239,17 @@ export default {
   computed: {
     guest() {
       return window.SGDInstitute.user === null;
+    },
+    tokenData() {
+      return {
+        name: this.name,
+        address_line1: this.address_line1,
+        address_line2: this.address_line2,
+        address_city: this.address_city,
+        address_state: this.address_state,
+        address_zip: this.address_zip,
+        address_country: this.address_country
+      };
     }
   }
 };

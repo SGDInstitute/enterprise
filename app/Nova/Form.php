@@ -29,6 +29,10 @@ class Form extends Resource
         'id',
     ];
 
+    public static $searchRelations = [
+        'event' => ['title'],
+    ];
+
     public static $group = 'Voyager';
 
     public function fields(Request $request)
@@ -38,8 +42,10 @@ class Form extends Resource
             Text::make('Name')->sortable(),
             Select::make('Type')->options([
                 'survey' => 'Survey',
-                'workshop' => 'Workshop'
+                'workshop' => 'Workshop',
+                'default' => 'Default'
             ]),
+            Boolean::make('Auth Required'),
             Text::make('Slug')->hideFromIndex(),
             Text::make('List ID')->hideFromIndex(),
             BelongsTo::make('Event')->sortable(),
@@ -52,45 +58,21 @@ class Form extends Resource
         ];
     }
 
-    /**
-     * Get the cards available for the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function cards(Request $request)
     {
         return [];
     }
 
-    /**
-     * Get the filters available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function filters(Request $request)
     {
         return [];
     }
 
-    /**
-     * Get the lenses available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function lenses(Request $request)
     {
         return [];
     }
 
-    /**
-     * Get the actions available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function actions(Request $request)
     {
         return [

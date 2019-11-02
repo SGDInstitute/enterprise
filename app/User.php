@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Events\UserCreated;
 use App\Mail\UserConfirmationEmail;
 use Carbon\Carbon;
+use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,7 +19,7 @@ use Stripe\Customer;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, LogsActivity, SoftDeletes, HasRoles, HasApiTokens;
+    use Notifiable, LogsActivity, SoftDeletes, HasRoles, HasApiTokens, HasNotes;
 
     protected $fillable = [
         'name', 'email', 'password',

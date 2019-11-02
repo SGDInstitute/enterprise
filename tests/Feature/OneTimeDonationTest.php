@@ -26,7 +26,7 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function visitor_can_make_one_time_donation()
+    function visitor_can_make_one_time_donation_to_the_institute()
     {
         Mail::fake();
 
@@ -62,7 +62,43 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function user_can_make_one_time_donation()
+    function visitor_can_make_one_time_donation_to_the_mblgtacc()
+    {
+        Mail::fake();
+
+        $response = $this->withoutExceptionHandling()->json("post", "/donations", [
+            'amount' => 15,
+            'group' => 'mblgtacc',
+            'name' => 'Harry Potter',
+            'email' => 'hpotter@hogwarts.edu',
+            'subscription' => 'no',
+            'payment_token' => $this->paymentGateway->getValidTestToken(),
+        ]);
+
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'donation', 'redirect',
+            ]);
+
+        $donation = Donation::where('email', 'hpotter@hogwarts.edu')->first();
+
+        $this->assertNotNull($donation);
+        $this->assertEquals(1500, $this->paymentGateway->totalCharges());
+        $this->assertEquals(1500, $donation->amount);
+        $this->assertEquals('Harry Potter', $donation->name);
+        $this->assertEquals('hpotter@hogwarts.edu', $donation->email);
+        $this->assertNotNull($donation->hash);
+        $this->assertNull($donation->user_id);
+        $this->assertNotNull($donation->receipt->transaction_id);
+
+        Mail::assertSent(DonationEmail::class, function ($mail) use ($donation) {
+            return $mail->hasTo('hpotter@hogwarts.edu')
+                && $mail->donation->id === $donation->id;
+        });
+    }
+
+    /** @test */
+    function user_can_make_one_time_donation_to_the_institute()
     {
         Mail::fake();
 
@@ -75,6 +111,44 @@ class OneTimeDonationTest extends TestCase
             ->actingAs($user)->json("post", "/donations", [
                 'amount' => 25,
                 'group' => 'institute',
+                'name' => 'Harry Potter',
+                'email' => 'hpotter@hogwarts.edu',
+                'subscription' => 'no',
+                'payment_token' => $this->paymentGateway->getValidTestToken(),
+            ]);
+
+        $response->assertStatus(201);
+
+        $donation = Donation::where('email', 'hpotter@hogwarts.edu')->first();
+
+        $this->assertNotNull($donation);
+        $this->assertEquals(2500, $this->paymentGateway->totalCharges());
+        $this->assertEquals(2500, $donation->amount);
+        $this->assertEquals('Harry Potter', $donation->name);
+        $this->assertEquals('hpotter@hogwarts.edu', $donation->email);
+        $this->assertNotNull($donation->receipt->transaction_id);
+        $this->assertEquals($user->id, $donation->user_id);
+
+        Mail::assertSent(DonationEmail::class, function ($mail) use ($donation) {
+            return $mail->hasTo('hpotter@hogwarts.edu')
+                && $mail->donation->id === $donation->id;
+        });
+    }
+
+    /** @test */
+    function user_can_make_one_time_donation_to_mblgtacc()
+    {
+        Mail::fake();
+
+        $user = factory(User::class)->create([
+            'name' => 'Harry Potter',
+            'email' => 'hpotter@hogwarts.edu',
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+            ->actingAs($user)->json("post", "/donations", [
+                'amount' => 25,
+                'group' => 'mblgtacc',
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
                 'subscription' => 'no',

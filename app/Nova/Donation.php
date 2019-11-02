@@ -22,6 +22,10 @@ class Donation extends Resource
         'id',
     ];
 
+    public static $searchRelations = [
+        'user' => ['name', 'email']
+    ];
+
     public function fields(Request $request)
     {
         return [
@@ -74,12 +78,6 @@ class Donation extends Resource
         return [];
     }
 
-    /**
-     * Get the actions available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function actions(Request $request)
     {
         return [];
