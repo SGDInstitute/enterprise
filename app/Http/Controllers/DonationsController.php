@@ -37,6 +37,8 @@ class DonationsController extends Controller
             'tax_id' => 'nullable|required_if:is_company,true',
         ]);
 
+        $this->paymentGateway->setApiKey(config("{$data['group']}.stripe.secret"));
+
         try {
             if ($data['subscription'] === 'no') {
                 $charge = $this->paymentGateway->charge($data['amount'] * 100, request('payment_token'));
@@ -46,7 +48,9 @@ class DonationsController extends Controller
                     request()->user()->createCustomer(request()->group, request()->payment_token);
                 }
 
-                $subscription = $this->paymentGateway->subscribe("{$data['subscription']}-{$data['amount']}", request()->user()->institute_stripe_id);
+                $groupId = "{$data['group']}_stripe_id";
+
+                $subscription = $this->paymentGateway->subscribe("{$data['subscription']}-{$data['amount']}", request()->user()->$groupId);
                 $donation = Donation::createWithSubscription($data, $subscription);
             }
 
