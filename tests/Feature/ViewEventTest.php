@@ -5,15 +5,15 @@ namespace Tests\Feature;
 use App\Event;
 use App\TicketType;
 use Carbon\Carbon;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ViewEventTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function user_can_view_published_event()
+    public function user_can_view_published_event()
     {
         $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC 2018',
@@ -69,7 +69,7 @@ class ViewEventTest extends TestCase
     }
 
     /** @test */
-    function cannot_view_unpublished_event()
+    public function cannot_view_unpublished_event()
     {
         $event = factory(Event::class)->create([
             'published_at' => null,
@@ -82,7 +82,7 @@ class ViewEventTest extends TestCase
     }
 
     /** @test */
-    function cannot_view_event_with_published_at_date_in_future()
+    public function cannot_view_event_with_published_at_date_in_future()
     {
         $event = factory(Event::class)->create([
             'published_at' => Carbon::parse('+1 week'),

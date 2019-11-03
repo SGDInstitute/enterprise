@@ -3,9 +3,9 @@
 namespace Tests\Feature\Api;
 
 use App\Order;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class CanLookupOrderTest extends TestCase
 {
@@ -29,7 +29,7 @@ class CanLookupOrderTest extends TestCase
         factory(Order::class)->create();
         $order = factory(Order::class)->create(['confirmation_number' => 'ABCDABCDABCDABCD']);
 
-        $response = $this->withoutExceptionHandling()->json('get', '/api/orders/' . $order->id);
+        $response = $this->withoutExceptionHandling()->json('get', '/api/orders/'.$order->id);
 
         $response->assertStatus(200);
         $this->assertEquals($order->id, $response->json('id'));

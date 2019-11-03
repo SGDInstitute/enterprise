@@ -8,16 +8,16 @@ use App\Order;
 use App\Ticket;
 use App\TicketType;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InviteUsersToFillTicketsTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_invite_multiple_users()
+    public function can_invite_multiple_users()
     {
         Mail::fake();
 
@@ -28,18 +28,18 @@ class InviteUsersToFillTicketsTest extends TestCase
         $ticket1 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
         $ticket2 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
 
         $response = $this->withoutExceptionHandling()->actingAs($user)
             ->patch("/orders/{$order->id}/tickets", [
                 'emails' => [$ticket1->hash => 'hpotter@hogwarts.edu', $ticket2->hash => 'hgranger@hogwarts.edu'],
-                'message' => "You're invited to this awesome event!"
+                'message' => "You're invited to this awesome event!",
             ]);
 
         $response->assertStatus(200);
@@ -60,7 +60,7 @@ class InviteUsersToFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function email_is_required()
+    public function email_is_required()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -69,33 +69,33 @@ class InviteUsersToFillTicketsTest extends TestCase
         $ticket1 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
         $ticket2 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
         $ticket3 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
         $ticket4 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
 
         $response = $this->actingAs($user)
-            ->json("patch", "/orders/{$order->id}/tickets", [
+            ->json('patch', "/orders/{$order->id}/tickets", [
                 'emails' => [
                     $ticket1->hash => '',
                     $ticket2->hash => '',
                     $ticket3->hash => '',
                     $ticket4->hash => '',
                 ],
-                'message' => "You're invited to this awesome event!"
+                'message' => "You're invited to this awesome event!",
             ]);
 
         $response->assertStatus(422)
@@ -103,7 +103,7 @@ class InviteUsersToFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function at_least_one_email_is_required()
+    public function at_least_one_email_is_required()
     {
         Mail::fake();
 
@@ -114,33 +114,33 @@ class InviteUsersToFillTicketsTest extends TestCase
         $ticket1 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
         $ticket2 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
         $ticket3 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
         $ticket4 = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
 
         $response = $this->actingAs($user)
-            ->json("patch", "/orders/{$order->id}/tickets", [
+            ->json('patch', "/orders/{$order->id}/tickets", [
                 'emails' => [
                     $ticket1->hash => 'hpotter@hogwarts.edu',
                     $ticket2->hash => '',
                     $ticket3->hash => '',
                     $ticket4->hash => '',
                 ],
-                'message' => "You're invited to this awesome event!"
+                'message' => "You're invited to this awesome event!",
             ]);
 
         $response->assertStatus(200);
@@ -154,7 +154,7 @@ class InviteUsersToFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function email_must_be_email()
+    public function email_must_be_email()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -163,15 +163,15 @@ class InviteUsersToFillTicketsTest extends TestCase
         $ticket = factory(Ticket::class)->create([
             'order_id' => $order->id,
             'user_id' => null,
-            'ticket_type_id' => $ticketType->id
+            'ticket_type_id' => $ticketType->id,
         ]);
 
         $response = $this->actingAs($user)
-            ->json("patch", "/orders/{$order->id}/tickets", [
+            ->json('patch', "/orders/{$order->id}/tickets", [
                 'emails' => [
                     $ticket->hash => 'asdfasdf',
                 ],
-                'message' => "You're invited to this awesome event!"
+                'message' => "You're invited to this awesome event!",
             ]);
 
         $response->assertStatus(422)

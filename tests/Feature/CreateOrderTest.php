@@ -5,27 +5,26 @@ namespace Tests\Feature;
 use App\Event;
 use App\TicketType;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CreateOrderTest extends TestCase
 {
-
     use RefreshDatabase;
 
     /** @test */
-    function user_can_create_order()
+    public function user_can_create_order()
     {
         $user = factory(User::class)->create([
-            'email' => 'john@example.com'
+            'email' => 'john@example.com',
         ]);
         $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC',
-            'slug' => 'mblgtacc'
+            'slug' => 'mblgtacc',
         ]);
         $ticket_type = factory(TicketType::class)->make([
             'name' => 'Regular Ticket',
-            'cost' => 5000
+            'cost' => 5000,
         ]);
         $event->ticket_types()->save($ticket_type);
 
@@ -33,7 +32,7 @@ class CreateOrderTest extends TestCase
             ->actingAs($user)
             ->json('POST', "/events/{$event->slug}/orders", [
                 'tickets' => [
-                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 2,]
+                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 2],
                 ],
             ]);
 
@@ -45,22 +44,22 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function user_can_create_order_with_multiple_ticket_types()
+    public function user_can_create_order_with_multiple_ticket_types()
     {
         $user = factory(User::class)->create([
-            'email' => 'john@example.com'
+            'email' => 'john@example.com',
         ]);
         $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC',
-            'slug' => 'mblgtacc'
+            'slug' => 'mblgtacc',
         ]);
         $regular = factory(TicketType::class)->make([
             'name' => 'Regular Ticket',
-            'cost' => 5000
+            'cost' => 5000,
         ]);
         $pro = factory(TicketType::class)->make([
             'name' => 'Pro Ticket',
-            'cost' => 7500
+            'cost' => 7500,
         ]);
         $event->ticket_types()->save($regular);
         $event->ticket_types()->save($pro);
@@ -69,8 +68,8 @@ class CreateOrderTest extends TestCase
             ->actingAs($user)
             ->json('POST', "/events/{$event->slug}/orders", [
                 'tickets' => [
-                    ['ticket_type_id' => $regular->id, 'quantity' => 2,],
-                    ['ticket_type_id' => $pro->id, 'quantity' => 4,],
+                    ['ticket_type_id' => $regular->id, 'quantity' => 2],
+                    ['ticket_type_id' => $pro->id, 'quantity' => 4],
                 ],
             ]);
 
@@ -84,7 +83,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_create_order_for_unpublished_event()
+    public function cannot_create_order_for_unpublished_event()
     {
         $user = factory(User::class)->create();
         $event = factory(Event::class)->states('unpublished')->create();
@@ -94,7 +93,7 @@ class CreateOrderTest extends TestCase
         $response = $this->actingAs($user)
             ->json('POST', "/events/{$event->slug}/orders", [
                 'tickets' => [
-                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 2,]
+                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 2],
                 ],
             ]);
 
@@ -103,22 +102,22 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_create_order_without_ticket_quantity()
+    public function cannot_create_order_without_ticket_quantity()
     {
         $user = factory(User::class)->create([
-            'email' => 'john@example.com'
+            'email' => 'john@example.com',
         ]);
         $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC',
-            'slug' => 'mblgtacc'
+            'slug' => 'mblgtacc',
         ]);
         $ticket_type = factory(TicketType::class)->make([
             'name' => 'Regular Ticket',
-            'cost' => 5000
+            'cost' => 5000,
         ]);
         $ticket_type2 = factory(TicketType::class)->make([
             'name' => 'Pro Ticket',
-            'cost' => 5000
+            'cost' => 5000,
         ]);
         $event->ticket_types()->save($ticket_type);
         $event->ticket_types()->save($ticket_type2);
@@ -127,8 +126,8 @@ class CreateOrderTest extends TestCase
             ->actingAs($user)
             ->json('POST', "/events/{$event->slug}/orders", [
                 'tickets' => [
-                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 0,],
-                    ['ticket_type_id' => $ticket_type2->id, 'quantity' => 0,]
+                    ['ticket_type_id' => $ticket_type->id, 'quantity' => 0],
+                    ['ticket_type_id' => $ticket_type2->id, 'quantity' => 0],
                 ],
             ]);
 

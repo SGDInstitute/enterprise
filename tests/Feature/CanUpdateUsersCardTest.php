@@ -6,14 +6,13 @@ use App\Billing\PaymentGateway;
 use App\Billing\StripePaymentGateway;
 use App\Notifications\UpdatedCard;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CanUpdateUsersCardTest extends TestCase
 {
-
     use RefreshDatabase;
 
     /** @test */
@@ -31,9 +30,9 @@ class CanUpdateUsersCardTest extends TestCase
 
         $response = $this->withoutExceptionHandling()
             ->actingAs($user)
-            ->json('PATCH', "/settings/card", [
+            ->json('PATCH', '/settings/card', [
                 'payment_token' => $paymentGateway->getValidTestToken('4000056655665556'),
-                'account' => 'institute'
+                'account' => 'institute',
             ]);
 
         $response->assertStatus(200);

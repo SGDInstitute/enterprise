@@ -7,16 +7,16 @@ use App\Invoice;
 use App\Mail\InvoiceEmail;
 use App\TicketType;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EditInvoiceForOrderTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function customer_can_edit_invoice()
+    public function customer_can_edit_invoice()
     {
         Mail::fake();
 
@@ -63,7 +63,7 @@ class EditInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_edit_invoice_without_name()
+    public function cannot_edit_invoice_without_name()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -89,7 +89,7 @@ class EditInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_edit_invoice_without_email()
+    public function cannot_edit_invoice_without_email()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -115,7 +115,7 @@ class EditInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function cannot_create_invoice_without_valid_zip()
+    public function cannot_create_invoice_without_valid_zip()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -142,7 +142,7 @@ class EditInvoiceForOrderTest extends TestCase
     }
 
     /** @test */
-    function can_remove_address_from_invoice()
+    public function can_remove_address_from_invoice()
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
@@ -163,11 +163,11 @@ class EditInvoiceForOrderTest extends TestCase
             ->json('PATCH', "/invoices/{$invoice->id}", [
                 'name' => 'Jo Johnson',
                 'email' => 'pjohnson@hogwarts.edu',
-                'address' => "",
-                "address_2" => "",
-                "city" => "",
-                'state' => "",
-                'zip' => ""
+                'address' => '',
+                'address_2' => '',
+                'city' => '',
+                'state' => '',
+                'zip' => '',
             ]);
 
         $response->assertStatus(200);

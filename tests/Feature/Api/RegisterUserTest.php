@@ -3,18 +3,18 @@
 namespace Tests\Feature\Api;
 
 use App\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class RegisterUserTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_register_user()
+    public function can_register_user()
     {
-        $response = $this->withoutExceptionHandling()->json('post', "/api/users", [
+        $response = $this->withoutExceptionHandling()->json('post', '/api/users', [
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
             'password' => 'Password1',

@@ -4,25 +4,25 @@ namespace Tests\Feature;
 
 use App\Mail\UserConfirmationEmail;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ConfirmUsersEmailTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function a_new_user_gets_a_confirmation_email()
+    public function a_new_user_gets_a_confirmation_email()
     {
         Mail::fake();
 
         $response = $this->withoutExceptionHandling()
-            ->json("post", route('register'), [
+            ->json('post', route('register'), [
                 'name' => 'Phoenix Johnson',
                 'email' => 'phoenix@example.com',
                 'password' => 'Password1',
-                'password_confirmation' => 'Password1'
+                'password_confirmation' => 'Password1',
             ]);
 
         $response->assertStatus(200);
@@ -34,10 +34,10 @@ class ConfirmUsersEmailTest extends TestCase
     }
 
     /** @test */
-    function clicking_on_confirmation_link_confirms_user()
+    public function clicking_on_confirmation_link_confirms_user()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $user->createToken('email');
 
@@ -52,16 +52,16 @@ class ConfirmUsersEmailTest extends TestCase
     }
 
     /** @test */
-    function can_resend_email()
+    public function can_resend_email()
     {
         Mail::fake();
 
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $user->createToken('email');
 
-        $response = $this->withoutExceptionHandling()->actingAs($user)->get("/register/email/");
+        $response = $this->withoutExceptionHandling()->actingAs($user)->get('/register/email/');
 
         $response->assertStatus(302);
 

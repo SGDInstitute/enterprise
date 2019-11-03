@@ -9,9 +9,9 @@ use App\Donation;
 use App\Mail\DonationEmail;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SubscriptionDonationTest extends TestCase
 {
@@ -28,7 +28,7 @@ class SubscriptionDonationTest extends TestCase
     }
 
     /** @test */
-    function user_can_make_subscription_donation_to_the_institute()
+    public function user_can_make_subscription_donation_to_the_institute()
     {
         Mail::fake();
         $this->paymentGateway->setApiKey(getStripeSecret('institute'));
@@ -39,7 +39,7 @@ class SubscriptionDonationTest extends TestCase
         ]);
 
         $response = $this->withoutExceptionHandling()
-            ->actingAs($user)->json("post", "/donations", [
+            ->actingAs($user)->json('post', '/donations', [
                 'amount' => 25,
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
@@ -71,7 +71,7 @@ class SubscriptionDonationTest extends TestCase
     }
 
     /** @test */
-    function user_can_make_subscription_donation_to_mblgtacc()
+    public function user_can_make_subscription_donation_to_mblgtacc()
     {
         Mail::fake();
         $this->paymentGateway->setApiKey(getStripeSecret('mblgtacc'));
@@ -82,7 +82,7 @@ class SubscriptionDonationTest extends TestCase
         ]);
 
         $response = $this->withoutExceptionHandling()
-            ->actingAs($user)->json("post", "/donations", [
+            ->actingAs($user)->json('post', '/donations', [
                 'amount' => 25,
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',

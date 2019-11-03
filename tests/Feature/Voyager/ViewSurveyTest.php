@@ -4,17 +4,17 @@ namespace Tests\Feature;
 
 use App\Form;
 use Carbon\Carbon;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Tests\TestCase;
 
 class ViewSurveyTest extends TestCase
 {
     use DatabaseMigrations;
 
     /** @test */
-    function can_view_survey_by_slug()
+    public function can_view_survey_by_slug()
     {
         $form = factory(Form::class)->create([
             'name' => 'Test Survey',

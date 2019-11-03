@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ViewEventRefundPolicyTest extends TestCase
 {
@@ -16,7 +16,7 @@ class ViewEventRefundPolicyTest extends TestCase
         $event = factory(Event::class)->states('published')->create([
             'title' => 'MBLGTACC',
             'slug' => 'mblgtacc',
-            'refund_policy' => '<p>Refund Policy</p>'
+            'refund_policy' => '<p>Refund Policy</p>',
         ]);
 
         $response = $this->withoutExceptionHandling()->get('/events/mblgtacc/policies/refund');

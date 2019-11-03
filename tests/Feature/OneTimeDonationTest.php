@@ -26,11 +26,11 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function visitor_can_make_one_time_donation_to_the_institute()
+    public function visitor_can_make_one_time_donation_to_the_institute()
     {
         Mail::fake();
 
-        $response = $this->withoutExceptionHandling()->json("post", "/donations", [
+        $response = $this->withoutExceptionHandling()->json('post', '/donations', [
             'amount' => 15,
             'group' => 'institute',
             'name' => 'Harry Potter',
@@ -62,11 +62,11 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function visitor_can_make_one_time_donation_to_the_mblgtacc()
+    public function visitor_can_make_one_time_donation_to_the_mblgtacc()
     {
         Mail::fake();
 
-        $response = $this->withoutExceptionHandling()->json("post", "/donations", [
+        $response = $this->withoutExceptionHandling()->json('post', '/donations', [
             'amount' => 15,
             'group' => 'mblgtacc',
             'name' => 'Harry Potter',
@@ -98,7 +98,7 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function user_can_make_one_time_donation_to_the_institute()
+    public function user_can_make_one_time_donation_to_the_institute()
     {
         Mail::fake();
 
@@ -108,7 +108,7 @@ class OneTimeDonationTest extends TestCase
         ]);
 
         $response = $this->withoutExceptionHandling()
-            ->actingAs($user)->json("post", "/donations", [
+            ->actingAs($user)->json('post', '/donations', [
                 'amount' => 25,
                 'group' => 'institute',
                 'name' => 'Harry Potter',
@@ -136,7 +136,7 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function user_can_make_one_time_donation_to_mblgtacc()
+    public function user_can_make_one_time_donation_to_mblgtacc()
     {
         Mail::fake();
 
@@ -146,7 +146,7 @@ class OneTimeDonationTest extends TestCase
         ]);
 
         $response = $this->withoutExceptionHandling()
-            ->actingAs($user)->json("post", "/donations", [
+            ->actingAs($user)->json('post', '/donations', [
                 'amount' => 25,
                 'group' => 'mblgtacc',
                 'name' => 'Harry Potter',
@@ -174,11 +174,11 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function can_make_one_time_donation_with_company_information()
+    public function can_make_one_time_donation_with_company_information()
     {
         Mail::fake();
 
-        $response = $this->withoutExceptionHandling()->json("post", "/donations", [
+        $response = $this->withoutExceptionHandling()->json('post', '/donations', [
             'amount' => 15,
             'group' => 'institute',
             'name' => 'Harry Potter',
@@ -204,9 +204,9 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function donation_is_not_created_if_charge_fails()
+    public function donation_is_not_created_if_charge_fails()
     {
-        $response = $this->withoutExceptionHandling()->json("post", "/donations", [
+        $response = $this->withoutExceptionHandling()->json('post', '/donations', [
             'amount' => 15,
             'group' => 'institute',
             'name' => 'Harry Potter',
@@ -226,9 +226,9 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function amount_is_required()
+    public function amount_is_required()
     {
-        $response = $this->json("post", "/donations", [
+        $response = $this->json('post', '/donations', [
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
             'group' => 'institute',
@@ -241,9 +241,9 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function amount_must_be_at_least_five()
+    public function amount_must_be_at_least_five()
     {
-        $response = $this->json("post", "/donations", [
+        $response = $this->json('post', '/donations', [
             'amount' => 4,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
@@ -257,9 +257,9 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function amount_must_less_than_a_million()
+    public function amount_must_less_than_a_million()
     {
-        $response = $this->json("post", "/donations", [
+        $response = $this->json('post', '/donations', [
             'amount' => 1000000,
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
@@ -273,9 +273,9 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function name_is_required()
+    public function name_is_required()
     {
-        $response = $this->json("post", "/donations", [
+        $response = $this->json('post', '/donations', [
             'amount' => 10,
             'group' => 'institute',
             'email' => 'hpotter@hogwarts.edu',
@@ -288,9 +288,9 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function email_is_required()
+    public function email_is_required()
     {
-        $response = $this->json("post", "/donations", [
+        $response = $this->json('post', '/donations', [
             'amount' => 10,
             'group' => 'institute',
             'name' => 'Harry Potter',
@@ -303,9 +303,9 @@ class OneTimeDonationTest extends TestCase
     }
 
     /** @test */
-    function company_and_tax_id_are_required_if_is_company_is_true()
+    public function company_and_tax_id_are_required_if_is_company_is_true()
     {
-        $response = $this->json("post", "/donations", [
+        $response = $this->json('post', '/donations', [
             'amount' => 10,
             'group' => 'institute',
             'name' => 'Harry Potter',

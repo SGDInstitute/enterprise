@@ -7,8 +7,8 @@ use App\Order;
 use App\Receipt;
 use App\TicketType;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ViewOrderTest extends TestCase
 {
@@ -32,7 +32,7 @@ class ViewOrderTest extends TestCase
         ]));
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -66,7 +66,7 @@ class ViewOrderTest extends TestCase
         ]));
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $notAllowedUser = factory(User::class)->create();
@@ -89,7 +89,7 @@ class ViewOrderTest extends TestCase
         ]);
         $order->receipt()->save(factory(Receipt::class)->make([
             'card_last_four' => '4242',
-            'amount' => '5000'
+            'amount' => '5000',
         ]));
 
         $response = $this->withoutExceptionHandling()
@@ -108,7 +108,7 @@ class ViewOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -125,7 +125,7 @@ class ViewOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $notAllowedUser = factory(User::class)->create();
@@ -142,7 +142,7 @@ class ViewOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
         $order->markAsPaid($this->charge());
 

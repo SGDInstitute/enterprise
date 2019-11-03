@@ -6,22 +6,22 @@ use App\Mail\MagicLoginEmail;
 use App\User;
 use App\UserToken;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MagicLoginTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function user_can_get_a_magic_login_link()
+    public function user_can_get_a_magic_login_link()
     {
         Mail::fake();
 
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -36,20 +36,20 @@ class MagicLoginTest extends TestCase
     }
 
     /** @test */
-    function email_is_required()
+    public function email_is_required()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
 
-        $response = $this->json("post", '/login/magic');
+        $response = $this->json('post', '/login/magic');
 
         $response->assertStatus(422)
             ->assertJsonHasErrors(['email']);
     }
 
     /** @test */
-    function error_is_shown_if_user_does_not_exist()
+    public function error_is_shown_if_user_does_not_exist()
     {
         $response = $this->post('/login/magic', ['email' => 'jo@example.com']);
 
@@ -58,10 +58,10 @@ class MagicLoginTest extends TestCase
     }
 
     /** @test */
-    function clicking_on_magic_link_logs_in_user()
+    public function clicking_on_magic_link_logs_in_user()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $token = $user->createToken('magic');
 
@@ -75,10 +75,10 @@ class MagicLoginTest extends TestCase
     }
 
     /** @test */
-    function clicking_on_expired_link_shows_error()
+    public function clicking_on_expired_link_shows_error()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $expiredToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic', 'created_at' => Carbon::now()->subMinutes(11)]));
 
@@ -92,14 +92,14 @@ class MagicLoginTest extends TestCase
     }
 
     /** @test */
-    function check_that_token_belongs_to_user()
+    public function check_that_token_belongs_to_user()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $token = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic']));
         $hacker = factory(User::class)->create([
-            'email' => 'phoenix@example.com'
+            'email' => 'phoenix@example.com',
         ]);
 
         $response = $this->withoutExceptionHandling()

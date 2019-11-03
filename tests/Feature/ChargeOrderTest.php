@@ -9,9 +9,9 @@ use App\Mail\ReceiptEmail;
 use App\Order;
 use App\TicketType;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ChargeOrderTest extends TestCase
 {
@@ -38,12 +38,12 @@ class ChargeOrderTest extends TestCase
         ]));
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this->withoutExceptionHandling()->actingAs($user)
             ->json('POST', "/orders/{$order->id}/charge", [
-                'payment_token' => $this->paymentGateway->getValidTestToken()
+                'payment_token' => $this->paymentGateway->getValidTestToken(),
             ]);
 
         $response
@@ -51,10 +51,10 @@ class ChargeOrderTest extends TestCase
             ->assertSessionHas('flash_notification')
             ->assertJsonStructure([
                 'created',
-                'order'
+                'order',
             ])
             ->assertJson([
-                'created' => true
+                'created' => true,
             ]);
         $order->refresh();
         $this->assertEquals(10000, $paymentGateway->totalCharges());
@@ -82,7 +82,7 @@ class ChargeOrderTest extends TestCase
             ->assertStatus(422)
             ->assertJsonStructure([
                 'created',
-                'message'
+                'message',
             ]);
         $order->refresh();
         $this->assertNull($order->receipt);

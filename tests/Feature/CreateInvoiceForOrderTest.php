@@ -6,9 +6,9 @@ use App\Event;
 use App\Mail\InvoiceEmail;
 use App\TicketType;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateInvoiceForOrderTest extends TestCase
 {
@@ -23,7 +23,7 @@ class CreateInvoiceForOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -35,7 +35,7 @@ class CreateInvoiceForOrderTest extends TestCase
                 'address_2' => 'Suite 123',
                 'city' => 'Chicago',
                 'state' => 'IL',
-                'zip' => '60660'
+                'zip' => '60660',
             ]);
 
         $response->assertStatus(201);
@@ -64,7 +64,7 @@ class CreateInvoiceForOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this
@@ -75,7 +75,7 @@ class CreateInvoiceForOrderTest extends TestCase
                 'address_2' => 'Suite 123',
                 'city' => 'Chicago',
                 'state' => 'IL',
-                'zip' => '60660'
+                'zip' => '60660',
             ]);
 
         $response->assertStatus(422)
@@ -89,7 +89,7 @@ class CreateInvoiceForOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this
@@ -100,7 +100,7 @@ class CreateInvoiceForOrderTest extends TestCase
                 'address_2' => 'Suite 123',
                 'city' => 'Chicago',
                 'state' => 'IL',
-                'zip' => '60660'
+                'zip' => '60660',
             ]);
 
         $response->assertStatus(422)
@@ -114,7 +114,7 @@ class CreateInvoiceForOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this
@@ -126,7 +126,7 @@ class CreateInvoiceForOrderTest extends TestCase
                 'address_2' => 'Suite 123',
                 'city' => 'Chicago',
                 'state' => 'IL',
-                'zip' => 'abcdef'
+                'zip' => 'abcdef',
             ]);
 
         $response->assertStatus(422)
@@ -141,7 +141,7 @@ class CreateInvoiceForOrderTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $response = $this

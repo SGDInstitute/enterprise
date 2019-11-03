@@ -7,19 +7,19 @@ use App\Order;
 use App\Ticket;
 use App\TicketType;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManuallyFillTicketsTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function manually_add_information_with_hash()
+    public function manually_add_information_with_hash()
     {
         $ticket = factory(Ticket::class)->create([
-            'user_id' => null
+            'user_id' => null,
         ]);
 
         $response = $this->withoutExceptionHandling()->patch("/api/tickets/{$ticket->hash}", [
@@ -31,7 +31,7 @@ class ManuallyFillTicketsTest extends TestCase
             'race' => 'White',
             'college' => 'Hogwarts',
             'tshirt' => 'L',
-            'accommodation' => 'My scar hurts sometimes'
+            'accommodation' => 'My scar hurts sometimes',
         ]);
 
         $response->assertStatus(200);
@@ -49,10 +49,10 @@ class ManuallyFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function manually_add_information_with_id()
+    public function manually_add_information_with_id()
     {
         $ticket = factory(Ticket::class)->create([
-            'user_id' => null
+            'user_id' => null,
         ]);
 
         $response = $this->withoutExceptionHandling()->patch("/api/tickets/{$ticket->id}", [
@@ -64,7 +64,7 @@ class ManuallyFillTicketsTest extends TestCase
             'race' => 'White',
             'college' => 'Hogwarts',
             'tshirt' => 'L',
-            'accommodation' => 'My scar hurts sometimes'
+            'accommodation' => 'My scar hurts sometimes',
         ]);
 
         $response->assertStatus(200);
@@ -82,15 +82,15 @@ class ManuallyFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function name_is_required()
+    public function name_is_required()
     {
         $ticket = factory(Ticket::class)->create([
-            'user_id' => null
+            'user_id' => null,
         ]);
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
 
         $response = $this->actingAs($user)
-            ->json("patch", "/tickets/{$ticket->hash}", [
+            ->json('patch', "/tickets/{$ticket->hash}", [
                 'email' => 'hpotter@hogwarts.edu',
                 'pronouns' => 'he, him, his',
                 'sexuality' => 'Straight',
@@ -98,7 +98,7 @@ class ManuallyFillTicketsTest extends TestCase
                 'race' => 'White',
                 'college' => 'Hogwarts',
                 'tshirt' => 'L',
-                'accommodation' => 'My scar hurts sometimes'
+                'accommodation' => 'My scar hurts sometimes',
             ]);
 
         $response->assertStatus(422)
@@ -106,15 +106,15 @@ class ManuallyFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function email_is_required()
+    public function email_is_required()
     {
         $ticket = factory(Ticket::class)->create([
-            'user_id' => null
+            'user_id' => null,
         ]);
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
 
         $response = $this->actingAs($user)
-            ->json("patch", "/tickets/{$ticket->hash}", [
+            ->json('patch', "/tickets/{$ticket->hash}", [
                 'name' => 'Harry Potter',
                 'pronouns' => 'he, him, his',
                 'sexuality' => 'Straight',
@@ -122,7 +122,7 @@ class ManuallyFillTicketsTest extends TestCase
                 'race' => 'White',
                 'college' => 'Hogwarts',
                 'tshirt' => 'L',
-                'accommodation' => 'My scar hurts sometimes'
+                'accommodation' => 'My scar hurts sometimes',
             ]);
 
         $response->assertStatus(422)
@@ -130,15 +130,15 @@ class ManuallyFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function email_must_be_email()
+    public function email_must_be_email()
     {
         $ticket = factory(Ticket::class)->create([
-            'user_id' => null
+            'user_id' => null,
         ]);
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
 
         $response = $this->actingAs($user)
-            ->json("patch", "/tickets/{$ticket->hash}", [
+            ->json('patch', "/tickets/{$ticket->hash}", [
                 'name' => 'Harry Potter',
                 'email' => 'asdf',
                 'pronouns' => 'he, him, his',
@@ -147,7 +147,7 @@ class ManuallyFillTicketsTest extends TestCase
                 'race' => 'White',
                 'college' => 'Hogwarts',
                 'tshirt' => 'L',
-                'accommodation' => 'My scar hurts sometimes'
+                'accommodation' => 'My scar hurts sometimes',
             ]);
 
         $response->assertStatus(422)
@@ -155,15 +155,15 @@ class ManuallyFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function email_must_not_be_in_users_table()
+    public function email_must_not_be_in_users_table()
     {
         $ticket = factory(Ticket::class)->create([
-            'user_id' => null
+            'user_id' => null,
         ]);
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
 
         $response = $this->actingAs($user)
-            ->json("patch", "/tickets/{$ticket->hash}", [
+            ->json('patch', "/tickets/{$ticket->hash}", [
                 'name' => 'Harry Potter',
                 'email' => 'jo@example.com',
                 'pronouns' => 'he, him, his',
@@ -172,7 +172,7 @@ class ManuallyFillTicketsTest extends TestCase
                 'race' => 'White',
                 'college' => 'Hogwarts',
                 'tshirt' => 'L',
-                'accommodation' => 'My scar hurts sometimes'
+                'accommodation' => 'My scar hurts sometimes',
             ]);
 
         $response->assertStatus(422)
@@ -180,18 +180,18 @@ class ManuallyFillTicketsTest extends TestCase
     }
 
     /** @test */
-    function can_update_profile_information_for_manually_entered_user()
+    public function can_update_profile_information_for_manually_entered_user()
     {
         Mail::fake();
         $coordinator = factory(User::class)->create(['email' => 'hgranger@example.com']);
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $ticket = factory(Ticket::class)->create([
             'user_id' => $user->id,
-            'type' => 'manual'
+            'type' => 'manual',
         ]);
 
         $response = $this->withoutExceptionHandling()->actingAs($coordinator)
-            ->json("patch", "/profile/{$user->id}", [
+            ->json('patch', "/profile/{$user->id}", [
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
                 'pronouns' => 'he, him, his',
@@ -201,7 +201,7 @@ class ManuallyFillTicketsTest extends TestCase
                 'college' => 'Hogwarts',
                 'tshirt' => 'L',
                 'accommodation' => 'My scar hurts sometimes',
-                'agreement' => true
+                'agreement' => true,
             ]);
 
         $response->assertStatus(200);

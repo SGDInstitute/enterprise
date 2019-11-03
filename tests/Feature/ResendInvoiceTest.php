@@ -2,21 +2,21 @@
 
 namespace Tests\Feature;
 
+use App\Event;
 use App\Invoice;
 use App\Mail\InvoiceEmail;
 use App\TicketType;
 use App\User;
-use App\Event;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ResendInvoiceTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_resend_invoice_email()
+    public function can_resend_invoice_email()
     {
         Mail::fake();
 
@@ -24,7 +24,7 @@ class ResendInvoiceTest extends TestCase
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $invoice = $order->invoice()->save(factory(Invoice::class)->make(['email' => 'pjohnson@example.com']));

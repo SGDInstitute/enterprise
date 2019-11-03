@@ -6,23 +6,23 @@ use App\Event;
 use App\Invoice;
 use App\TicketType;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ViewInvoiceTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_view_invoice()
+    public function can_view_invoice()
     {
         $event = factory(Event::class)->states('published')->create([
-            'stripe' => 'institute'
+            'stripe' => 'institute',
         ]);
         $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType1->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
         ]);
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
@@ -35,15 +35,15 @@ class ViewInvoiceTest extends TestCase
     }
 
     /** @test */
-    function can_download_invoice()
+    public function can_download_invoice()
     {
         $event = factory(Event::class)->states('published')->create([
-            'stripe' => 'institute'
+            'stripe' => 'institute',
         ]);
         $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType1->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
         ]);
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 

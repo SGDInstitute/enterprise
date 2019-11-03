@@ -5,16 +5,16 @@ namespace Tests\Feature;
 use App\Mail\UserConfirmationEmail;
 use App\Profile;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserProfileTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function view_user_profile()
+    public function view_user_profile()
     {
         $user = factory(User::class)->create([
             'name' => 'Harry Potter',
@@ -27,7 +27,7 @@ class UserProfileTest extends TestCase
             'race' => 'White',
             'college' => 'Hogwarts',
             'tshirt' => 'M',
-            'accommodation' => 'My scar hurts sometimes.'
+            'accommodation' => 'My scar hurts sometimes.',
         ]);
 
         $response = $this->withExceptionHandling()->actingAs($user)->get('/settings');
@@ -45,7 +45,7 @@ class UserProfileTest extends TestCase
     }
 
     /** @test */
-    function view_user_profile_for_new_user()
+    public function view_user_profile_for_new_user()
     {
         $user = factory(User::class)->create([
             'name' => 'Harry Potter',
@@ -60,14 +60,14 @@ class UserProfileTest extends TestCase
     }
 
     /** @test */
-    function can_update_profile()
+    public function can_update_profile()
     {
         Mail::fake();
         $user = factory(User::class)->create();
         $profile = $user->profile()->save(factory(Profile::class)->make());
 
         $response = $this->withoutExceptionHandling()
-            ->actingAs($user)->json("patch", "/profile", [
+            ->actingAs($user)->json('patch', '/profile', [
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
                 'pronouns' => 'he, him, his',
@@ -77,7 +77,7 @@ class UserProfileTest extends TestCase
                 'college' => 'Hogwarts',
                 'tshirt' => 'M',
                 'accommodation' => 'My scar hurts sometimes.',
-                'agreement' => true
+                'agreement' => true,
             ]);
 
         $response->assertStatus(200);
@@ -93,16 +93,16 @@ class UserProfileTest extends TestCase
     }
 
     /** @test */
-    function if_email_changes_confirmation_email_is_sent()
+    public function if_email_changes_confirmation_email_is_sent()
     {
         Mail::fake();
 
         $user = factory(User::class)->create([
-            'email' => 'hgranger@hogwarts.edu'
+            'email' => 'hgranger@hogwarts.edu',
         ]);
 
         $response = $this->withoutExceptionHandling()
-            ->actingAs($user)->json("patch", "/profile", [
+            ->actingAs($user)->json('patch', '/profile', [
                 'name' => 'Harry Potter',
                 'email' => 'hpotter@hogwarts.edu',
                 'pronouns' => 'he, him, his',
@@ -123,12 +123,12 @@ class UserProfileTest extends TestCase
     }
 
     /** @test */
-    function name_is_required_to_update()
+    public function name_is_required_to_update()
     {
         $user = factory(User::class)->create();
         $profile = $user->profile()->save(factory(Profile::class)->make());
 
-        $response = $this->actingAs($user)->json("patch", "/profile", [
+        $response = $this->actingAs($user)->json('patch', '/profile', [
             'email' => 'hpotter@hogwarts.edu',
             'pronouns' => 'he, him, his',
             'sexuality' => 'Straight',
@@ -136,7 +136,7 @@ class UserProfileTest extends TestCase
             'race' => 'White',
             'college' => 'Hogwarts',
             'tshirt' => 'M',
-            'accommodation' => 'My scar hurts sometimes.'
+            'accommodation' => 'My scar hurts sometimes.',
         ]);
 
         $response->assertStatus(422)
@@ -144,12 +144,12 @@ class UserProfileTest extends TestCase
     }
 
     /** @test */
-    function email_is_required_to_update()
+    public function email_is_required_to_update()
     {
         $user = factory(User::class)->create();
         $profile = $user->profile()->save(factory(Profile::class)->make());
 
-        $response = $this->actingAs($user)->json("patch", "/profile", [
+        $response = $this->actingAs($user)->json('patch', '/profile', [
             'name' => 'Harry Potter',
             'pronouns' => 'he, him, his',
             'sexuality' => 'Straight',
@@ -157,7 +157,7 @@ class UserProfileTest extends TestCase
             'race' => 'White',
             'college' => 'Hogwarts',
             'tshirt' => 'M',
-            'accommodation' => 'My scar hurts sometimes.'
+            'accommodation' => 'My scar hurts sometimes.',
         ]);
 
         $response->assertStatus(422)
@@ -165,7 +165,7 @@ class UserProfileTest extends TestCase
     }
 
     /** @test */
-    function profile_is_created_when_user_is()
+    public function profile_is_created_when_user_is()
     {
         $user = factory(User::class)->create();
 
