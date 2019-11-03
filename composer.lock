@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8baa490b924fb8434e3c657a0d96e6b",
+    "content-hash": "29b941c058843b1426c8d8ddf640e984",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -4194,7 +4194,8 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/CheckinQueue",
-                "reference": "c37afdce336f1ab98e4a87427eaf822e412e0f63"
+                "reference": "c37afdce336f1ab98e4a87427eaf822e412e0f63",
+                "shasum": null
             },
             "require": {
                 "php": ">=7.1.0"
@@ -4227,7 +4228,8 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/EnterpriseAdminTheme",
-                "reference": "32558bb3100c2e1b5225f9299986b9634aafd4c5"
+                "reference": "32558bb3100c2e1b5225f9299986b9634aafd4c5",
+                "shasum": null
             },
             "require": {
                 "php": ">=7.1.0"
@@ -4260,7 +4262,8 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/FormBuilder",
-                "reference": "b8b77d1c7add25e80331fe78e64f6e6d95f9270d"
+                "reference": "b8b77d1c7add25e80331fe78e64f6e6d95f9270d",
+                "shasum": null
             },
             "require": {
                 "php": ">=7.1.0"
@@ -4293,7 +4296,8 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/FormResponse",
-                "reference": "d9e8e0876b45d9c0651ddb64a9e707a76862264e"
+                "reference": "d9e8e0876b45d9c0651ddb64a9e707a76862264e",
+                "shasum": null
             },
             "require": {
                 "php": ">=7.1.0"
@@ -4326,7 +4330,8 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Links",
-                "reference": "e5c75c5c48a04d8cfb76f9d2fa5bd200ca0b6f6a"
+                "reference": "e5c75c5c48a04d8cfb76f9d2fa5bd200ca0b6f6a",
+                "shasum": null
             },
             "require": {
                 "php": ">=7.1.0"
@@ -6889,6 +6894,42 @@
             "time": "2016-01-20T08:20:44+00:00"
         },
         {
+            "name": "jasonmccreary/laravel-test-assertions",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
+                "reference": "4bb1c078e39d5acb46b104c0347373b9623c6904"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/4bb1c078e39d5acb46b104c0347373b9623c6904",
+                "reference": "4bb1c078e39d5acb46b104c0347373b9623c6904",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JMac\\Testing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason McCreary",
+                    "email": "jason@pureconcepts.net"
+                }
+            ],
+            "description": "A set of helpful assertions when testing Laravel applications.",
+            "time": "2019-06-25T15:44:18+00:00"
+        },
+        {
             "name": "maximebf/debugbar",
             "version": "v1.15.1",
             "source": {
@@ -7013,6 +7054,52 @@
                 "testing"
             ],
             "time": "2019-09-30T08:30:27+00:00"
+        },
+        {
+            "name": "mpociot/laravel-test-factory-helper",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpociot/laravel-test-factory-helper.git",
+                "reference": "9554a512f64f8d013e0eb8ffef9af4e292751d79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpociot/laravel-test-factory-helper/zipball/9554a512f64f8d013e0eb8ffef9af4e292751d79",
+                "reference": "9554a512f64f8d013e0eb8ffef9af4e292751d79",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "~2.3",
+                "illuminate/console": "^5.5|^6.0",
+                "illuminate/filesystem": "^5.5|^6.0",
+                "illuminate/support": "^5.5|^6.0",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mpociot\\LaravelTestFactoryHelper\\TestFactoryHelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mpociot\\LaravelTestFactoryHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generate Laravel test factories from your existing models",
+            "keywords": [
+                "factory",
+                "laravel",
+                "tests"
+            ],
+            "time": "2019-08-31T22:09:54+00:00"
         },
         {
             "name": "myclabs/deep-copy",
