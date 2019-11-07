@@ -27,7 +27,7 @@ class Event extends Resource
         'title',
     ];
 
-    public static $group = 'Registration';
+    public static $group = '';
 
     public function fields(Request $request)
     {
