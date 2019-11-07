@@ -25,6 +25,11 @@ class Activity extends Resource
         'id', 'title'
     ];
 
+    public static $searchRelations = [
+        'schedule' => ['title'],
+        'schedule.event' => ['title'],
+    ];
+
     public function fields(Request $request)
     {
         return [
