@@ -263,6 +263,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["card"
@@ -286,31 +289,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("card", [
+  return _c("card", { staticClass: "overflow-scroll" }, [
     _c("div", { staticClass: "px-3 py-3" }, [
-      _c("p", [
+      _c(
+        "h1",
+        {
+          staticClass:
+            "text-xs font-normal uppercase tracking-wide text-gray-600 mb-2"
+        },
+        [_vm._v("Project Names & Descriptions")]
+      ),
+      _vm._v(" "),
+      _c("p", { staticClass: "leading-normal" }, [
         _c("strong", [_vm._v("Dawn:")]),
         _vm._v(" Donation management\n    ")
       ]),
       _vm._v(" "),
-      _c("p", [
+      _c("p", { staticClass: "leading-normal" }, [
         _c("strong", [_vm._v("Enterprise:")]),
         _vm._v(
-          " Began as just registration, but now is the all encompasing app\n    "
+          " Began as registration, but now is the all encompasing app\n    "
         )
       ]),
       _vm._v(" "),
-      _c("p", [
+      _c("p", { staticClass: "leading-normal" }, [
         _c("strong", [_vm._v("Gemini:")]),
         _vm._v(" Program Guide App\n    ")
       ]),
       _vm._v(" "),
-      _c("p", [
+      _c("p", { staticClass: "leading-normal" }, [
         _c("strong", [_vm._v("Genesis:")]),
         _vm._v(" On-site registration\n    ")
       ]),
       _vm._v(" "),
-      _c("p", [
+      _c("p", { staticClass: "leading-normal" }, [
         _c("strong", [_vm._v("Voyager:")]),
         _vm._v(" Dynamic form builder\n    ")
       ])

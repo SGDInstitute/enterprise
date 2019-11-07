@@ -40,7 +40,8 @@
         "titasgailius/search-relations": "^1.0",
         "vinkla/hashids": "^6.0",
         "vyuldashev/nova-permission": "^1.4",
-        "sgd/activitity-upload": "*"
+        "sgd/activitity-upload": "*",
+        "sgd/projects": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -85,6 +86,10 @@
         {
             "type": "path",
             "url": "./nova-components/ActivitityUpload"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Projects"
         }
     ],
     "autoload": {

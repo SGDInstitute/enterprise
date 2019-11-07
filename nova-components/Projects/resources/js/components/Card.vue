@@ -1,19 +1,22 @@
 <template>
-  <card>
+  <card class="overflow-scroll">
     <div class="px-3 py-3">
-      <p>
+      <h1
+        class="text-xs font-normal uppercase tracking-wide text-gray-600 mb-2"
+      >Project Names & Descriptions</h1>
+      <p class="leading-normal">
         <strong>Dawn:</strong> Donation management
       </p>
-      <p>
-        <strong>Enterprise:</strong> Began as just registration, but now is the all encompasing app
+      <p class="leading-normal">
+        <strong>Enterprise:</strong> Began as registration, but now is the all encompasing app
       </p>
-      <p>
+      <p class="leading-normal">
         <strong>Gemini:</strong> Program Guide App
       </p>
-      <p>
+      <p class="leading-normal">
         <strong>Genesis:</strong> On-site registration
       </p>
-      <p>
+      <p class="leading-normal">
         <strong>Voyager:</strong> Dynamic form builder
       </p>
     </div>
