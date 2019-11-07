@@ -16,6 +16,13 @@ class Schedule extends Resource
 
     public static $title = 'title';
 
+    public static $group = 'Gemini';
+
+    public function title()
+    {
+        return $this->event->title . ' ' . $this->title;
+    }
+
     public static $search = [
         'id', 'title'
     ];

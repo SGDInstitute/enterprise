@@ -33,6 +33,4 @@ Route::patch('/responses/{response}', 'ResponsesController@update');
 Route::get('/checkin', 'CheckInController');
 Route::get('/print/{ids}', 'PrintController');
 
-Route::get('/users/stop-impersonating', 'Admin\ImpersonationController@stopImpersonating')->name('admin.users.stop-impersonating');
-
 Route::get('/changelog', 'HomeController@changelog');

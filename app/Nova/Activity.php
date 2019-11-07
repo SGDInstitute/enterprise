@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Sgd\ActivitityUpload\ActivitityUpload;
 
 class Activity extends Resource
 {
@@ -17,6 +18,8 @@ class Activity extends Resource
     public static $model = 'App\Activity';
 
     public static $title = 'title';
+
+    public static $group = 'Gemini';
 
     public static $search = [
         'id', 'title'
@@ -36,7 +39,9 @@ class Activity extends Resource
 
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new ActivitityUpload
+        ];
     }
 
     public function filters(Request $request)
@@ -51,8 +56,6 @@ class Activity extends Resource
 
     public function actions(Request $request)
     {
-        return [
-            new ImportActivities,
-        ];
+        return [];
     }
 }

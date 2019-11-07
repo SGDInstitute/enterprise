@@ -18,7 +18,8 @@ class CreateActivitiesTable extends Migration
             $table->unsignedBigInteger('schedule_id');
             $table->unsignedBigInteger('activity_type_id');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->string('location')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->timestamps();
