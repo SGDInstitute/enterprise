@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d116aa74f0d81e02bc73c5df5d9093a3",
+    "content-hash": "718fc314d63c6a4a98405c22714c5c9f",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -6649,6 +6649,48 @@
                 "spatie-permission"
             ],
             "time": "2019-09-04T10:49:33+00:00"
+        },
+        {
+            "name": "wehaa/custom-links",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wehaa/custom-links.git",
+                "reference": "fa1af763080bfe04b561413091fff8bdd9142604"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wehaa/custom-links/zipball/fa1af763080bfe04b561413091fff8bdd9142604",
+                "reference": "fa1af763080bfe04b561413091fff8bdd9142604",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Wehaa\\CustomLinks\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Wehaa\\CustomLinks\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Adds custom links to Nova sidebar.",
+            "keywords": [
+                "laravel",
+                "nova",
+                "sidebar"
+            ],
+            "time": "2019-09-14T02:00:44+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",

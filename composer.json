@@ -12,6 +12,7 @@
         "barryvdh/laravel-cors": "^0.11.2",
         "barryvdh/laravel-dompdf": "^0.8.3",
         "benjaminhirsch/nova-slug-field": "^1.2",
+        "digitalcloud/laravel-model-notes": "^1.1",
         "digitalcloud/nova-resource-notes": "^1.4",
         "doctrine/dbal": "^2.6",
         "erusev/parsedown": "^1.7",
@@ -43,7 +44,8 @@
         "stripe/stripe-php": "^5.1",
         "titasgailius/search-relations": "^1.0",
         "vinkla/hashids": "^6.0",
-        "vyuldashev/nova-permission": "^1.4"
+        "vyuldashev/nova-permission": "^1.4",
+        "wehaa/custom-links": "^0.1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

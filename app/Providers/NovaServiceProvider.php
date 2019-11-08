@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Sgd\CheckinQueue\CheckinQueue;
 use Sgd\Projects\Projects;
+use Wehaa\CustomLinks\CustomLinks;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -44,6 +45,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
+            new CustomLinks(),
             new \Vyuldashev\NovaPermission\NovaPermissionTool,
             new CheckinQueue,
         ];
