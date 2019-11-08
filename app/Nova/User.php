@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
+use Eminiarts\Tabs\Tabs;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
@@ -75,10 +76,19 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:6'),
             Impersonate::make($this->id),
 
-            HasMany::make('Orders'),
-            HasMany::make('Tickets'),
-            MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
-            MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+            (new Tabs('Registration Details', [
+                HasMany::make('Orders'),
+                HasMany::make('Tickets'),
+            ])),
+
+            HasMany::make('Donations'),
+
+            HasMany::make('Responses'),
+
+            (new Tabs('Access Details', [
+                MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
+                MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+            ])),
 
             Notes::make('Notes', 'notes'),
         ];

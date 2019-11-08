@@ -15,6 +15,7 @@
         "digitalcloud/laravel-model-notes": "^1.1",
         "digitalcloud/nova-resource-notes": "^1.4",
         "doctrine/dbal": "^2.6",
+        "eminiarts/nova-tabs": "^1.1",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
         "gregoriohc/laravel-nova-theme-responsive": "^0.7.0",

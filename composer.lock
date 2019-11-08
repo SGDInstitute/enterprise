@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "718fc314d63c6a4a98405c22714c5c9f",
+    "content-hash": "c630dd066bcd707ccea82bb8098b11c7",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1120,6 +1120,55 @@
                 "validator"
             ],
             "time": "2019-08-13T17:33:27+00:00"
+        },
+        {
+            "name": "eminiarts/nova-tabs",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eminiarts/nova-tabs.git",
+                "reference": "2cd1249f91bd886197cc333738e4ddc9fd5b89c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eminiarts/nova-tabs/zipball/2cd1249f91bd886197cc333738e4ddc9fd5b89c4",
+                "reference": "2cd1249f91bd886197cc333738e4ddc9fd5b89c4",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": ">=2.1.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Eminiarts\\Tabs\\TabsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Eminiarts\\Tabs\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emini Arts GmbH",
+                    "email": "support@eminiarts.ch",
+                    "homepage": "https://eminiarts.ch"
+                }
+            ],
+            "description": "Laravel Nova - Tabs.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-10-16T06:27:27+00:00"
         },
         {
             "name": "erusev/parsedown",
