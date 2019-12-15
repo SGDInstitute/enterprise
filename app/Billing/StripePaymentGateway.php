@@ -62,7 +62,6 @@ class StripePaymentGateway implements PaymentGateway
                 'next_charge' => Carbon::createFromTimestamp($subscription->current_period_end)->toDateTimeString(),
             ]);
         } catch (InvalidRequest $e) {
-            dd($e);
             throw new SubscriptionFailedException;
         }
     }
