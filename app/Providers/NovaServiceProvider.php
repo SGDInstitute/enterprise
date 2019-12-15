@@ -8,6 +8,8 @@ use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Sgd\CheckinQueue\CheckinQueue;
+use Sgd\Projects\Projects;
+use Wehaa\CustomLinks\CustomLinks;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -36,12 +38,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new NewUsers,
+            new Projects,
         ];
     }
 
     public function tools()
     {
         return [
+            new CustomLinks(),
             new \Vyuldashev\NovaPermission\NovaPermissionTool,
             new CheckinQueue,
         ];

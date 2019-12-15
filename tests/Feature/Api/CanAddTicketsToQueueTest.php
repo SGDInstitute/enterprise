@@ -4,9 +4,9 @@ namespace Tests\Feature\Api;
 
 use App\Queue;
 use App\Ticket;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class CanAddTicketsToQueueTest extends TestCase
 {

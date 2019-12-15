@@ -12,11 +12,11 @@ use App\Mail\DonationEmail;
 use App\Queue;
 use App\Ticket;
 use App\User;
-use Illuminate\Support\Facades\Mail;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Passport\Passport;
+use Tests\TestCase;
 
 class CanCreateDonationTest extends TestCase
 {
@@ -31,7 +31,7 @@ class CanCreateDonationTest extends TestCase
     }
 
     /** @test */
-    function user_can_make_a_contribution_donation()
+    public function user_can_make_a_contribution_donation()
     {
         Mail::fake();
         $user = factory(User::class)->create(['name' => 'Harry Potter', 'email' => 'hpotter@hogwarts.edu']);
@@ -43,7 +43,7 @@ class CanCreateDonationTest extends TestCase
         $ad->quantity = 1;
         Passport::actingAs($user);
 
-        $response = $this->withoutExceptionHandling()->actingAs($user)->json("post", "/api/donations", [
+        $response = $this->withoutExceptionHandling()->actingAs($user)->json('post', '/api/donations', [
             'contributions' => [
                 'amount' => 1000,
                 'ads' => [$ad],

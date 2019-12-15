@@ -12,6 +12,7 @@ Route::get('/orders/{order}/receipt', 'OrderReceiptController@show');
 Route::patch('/orders/{order}/tickets', 'OrderTicketsController@update');
 
 Route::patch('/tickets/{hash}', 'TicketsController@update');
+Route::delete('/tickets/{hash}', 'TicketsController@destroy');
 Route::delete('/tickets/{hash}/users', 'TicketsUsersController@destroy');
 
 Route::get('/invoices/{invoice}', 'InvoicesController@show');

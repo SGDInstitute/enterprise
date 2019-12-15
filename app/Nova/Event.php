@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use Benjaminhirsch\NovaSlugField\Slug;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
@@ -25,14 +27,14 @@ class Event extends Resource
         'title',
     ];
 
-    public static $group = 'Registration';
+    public static $group = '';
 
     public function fields(Request $request)
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title')->sortable(),
-            Text::make('Slug')->hideFromIndex(),
+            TextWithSlug::make('Title')->slug('slug')->sortable(),
+            Slug::make('Slug')->disableAutoUpdateWhenUpdating()->hideFromIndex(),
             Text::make('Subtitle')->hideFromIndex(),
             Trix::make('Description')->hideFromIndex(),
             Select::make('Stripe')->options(['institute' => 'institute', 'mblgtacc' => 'mblgtacc'])->sortable(),

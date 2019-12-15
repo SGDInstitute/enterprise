@@ -22,7 +22,6 @@ class Response extends Resource
     ];
 
     public static $searchRelations = [
-        'event' => ['title'],
         'form' => ['name'],
         'user' => ['name', 'email'],
     ];

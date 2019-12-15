@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use JMac\Testing\Traits\HttpTestAssertions;
 use Illuminate\Support\Arr;
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Mail;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, HttpTestAssertions;
 
     public function setUp(): void
     {

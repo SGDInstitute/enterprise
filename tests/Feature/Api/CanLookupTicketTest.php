@@ -4,9 +4,9 @@ namespace Tests\Feature\Api;
 
 use App\Order;
 use App\Ticket;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class CanLookupTicketTest extends TestCase
 {
@@ -18,7 +18,7 @@ class CanLookupTicketTest extends TestCase
         factory(Ticket::class)->create();
         $ticket = factory(Ticket::class)->create();
 
-        $response = $this->withoutExceptionHandling()->json('get', '/api/tickets/' . $ticket->hash);
+        $response = $this->withoutExceptionHandling()->json('get', '/api/tickets/'.$ticket->hash);
 
         $response->assertStatus(200);
         $this->assertEquals($ticket->id, $response->json('id'));
@@ -30,7 +30,7 @@ class CanLookupTicketTest extends TestCase
         factory(Ticket::class)->create();
         $ticket = factory(Ticket::class)->create();
 
-        $response = $this->withoutExceptionHandling()->json('get', '/api/tickets/' . $ticket->id);
+        $response = $this->withoutExceptionHandling()->json('get', '/api/tickets/'.$ticket->id);
 
         $response->assertStatus(200);
         $this->assertEquals($ticket->id, $response->json('id'));

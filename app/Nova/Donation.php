@@ -18,6 +18,8 @@ class Donation extends Resource
 
     public static $title = 'id';
 
+    public static $group = 'Dawn';
+
     public static $search = [
         'id',
     ];

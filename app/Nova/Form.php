@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use App\Nova\Actions\DownloadResponses;
+use Benjaminhirsch\NovaSlugField\Slug;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
@@ -16,11 +18,7 @@ use Sgd\FormBuilder\FormBuilder;
 
 class Form extends Resource
 {
-    /**
-     * The model the resource corresponds to.
-     *
-     * @var string
-     */
+
     public static $model = \App\Form::class;
 
     public static $title = 'name';
@@ -39,14 +37,16 @@ class Form extends Resource
     {
         return [
             ID::make()->hideFromIndex(),
-            Text::make('Name')->sortable(),
+            TextWithSlug::make('Name')
+                ->slug('slug')->sortable(),
+            Slug::make('Slug')
+                ->disableAutoUpdateWhenUpdating()->hideFromIndex(),
             Select::make('Type')->options([
                 'survey' => 'Survey',
                 'workshop' => 'Workshop',
                 'default' => 'Default'
             ]),
             Boolean::make('Auth Required'),
-            Text::make('Slug')->hideFromIndex(),
             Text::make('List ID')->hideFromIndex(),
             BelongsTo::make('Event')->sortable(),
             DateTime::make('Start')->sortable()->format('DD MMM YYYY'),

@@ -63,6 +63,15 @@
         <a href="{{ asset('/documents/SGD-Institute-W9.pdf') }}" target="_blank" class="block px-6 py-4 border-gray-300 hover:bg-gray-100">
             <i class="fal fa-fw fa-file-alt mr-4"></i> Request W-9
         </a>
+        @if(!$order->isPaid())
+        <form action="/orders/{{ $order->id }}" class="w-full" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="w-full text-left block px-6 py-4 border-t border-b border-gray-300 hover:bg-gray-100">
+                <i class="fal fa-fw fa-trash mr-4"></i> Delete Order
+            </button>
+        </form>
+        @endif
     </div>
     @endif
 </div>

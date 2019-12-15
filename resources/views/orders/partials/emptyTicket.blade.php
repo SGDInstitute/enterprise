@@ -1,7 +1,19 @@
-<div class="bg-gray-100 rounded shadow hover:bg-white hover:shadow-lg transition mb-4 px-6 py-4">
-    <div class="mb-2">
-        <p class="float-right text-gray-600 mb-0">#{{ $ticket->hash }}</p>
+<div class="bg-gray-100 rounded shadow group hover:bg-white hover:shadow-lg transition mb-4 px-6 py-4">
+    <div class="flex justify-between mb-2">
         <h4 class="text-xl text-semibold">{{ $ticket->ticket_type->name }}</h4>
+        <div class="flex items-center">
+            @if(!$order->isPaid())
+            <form action="/tickets/{{ $ticket->hash }}" method="post" class="mr-4 invisible group-hover:visible">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-link btn-sm hover:bg-gray-200">
+                    <i class="fa fa-fw fa-trash"></i>
+                    <span class="sr-only">Delete Ticket</span>
+                </button>
+            </form>
+            @endif
+            <p class="text-gray-600 mb-0">#{{ $ticket->hash }}</p>
+        </div>
     </div>
 
     @if(Auth::user()->can('update', $order))

@@ -3,13 +3,12 @@
 namespace Tests\Feature\Api;
 
 use App\Queue;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class CanCompleteQueueItemTest extends TestCase
 {
-
     use RefreshDatabase;
 
     /** @test */
@@ -17,7 +16,7 @@ class CanCompleteQueueItemTest extends TestCase
     {
         $queue = factory(Queue::class)->create();
 
-        $response = $this->withoutExceptionHandling()->json('patch', '/api/queue/' . $queue->id . '/complete');
+        $response = $this->withoutExceptionHandling()->json('patch', '/api/queue/'.$queue->id.'/complete');
 
         $response->assertStatus(200);
         $this->assertEquals(1, $queue->fresh()->completed);
@@ -28,7 +27,7 @@ class CanCompleteQueueItemTest extends TestCase
     {
         $queues = factory(Queue::class)->times(5)->create();
 
-        $response = $this->withoutExceptionHandling()->json('patch', '/api/queue/' . $queues->implode('id', ',') . '/complete');
+        $response = $this->withoutExceptionHandling()->json('patch', '/api/queue/'.$queues->implode('id', ',').'/complete');
 
         $response->assertStatus(200);
         $this->assertEquals([1], $queues->fresh()->pluck('completed')->unique()->all());

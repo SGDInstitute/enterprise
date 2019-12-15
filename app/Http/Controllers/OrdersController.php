@@ -23,7 +23,8 @@ class OrdersController extends Controller
 
         if (!$order->isPaid()) {
             $order->delete();
-
+            flash()->success('Successfully deleted order for ' . $order->event->name);
+            
             return redirect('/home');
         }
 
