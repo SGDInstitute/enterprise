@@ -42,5 +42,8 @@ module.exports = {
     },
     variants: {},
     plugins: []
-  }
+  },
+  variants: {
+    visibility: ['responsive', 'hover', 'group-hover'],
+  },
 }
