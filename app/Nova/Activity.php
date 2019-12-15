@@ -37,8 +37,8 @@ class Activity extends Resource
             BelongsTo::make('Schedule'),
             Text::make('Title'),
             Trix::make('Description'),
-            DateTime::make('Start')->sortable()->format('MMM DD, YYYY'),
-            DateTime::make('End')->sortable()->format('MMM DD, YYYY'),
+            DateTime::make('Start')->sortable(),
+            DateTime::make('End')->sortable(),
         ];
     }
 

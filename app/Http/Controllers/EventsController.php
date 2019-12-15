@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param $slug
-     * @return \Illuminate\Http\Response
-     */
     public function show($slug)
     {
         $event = Event::published()->findBySlug($slug);

@@ -32,4 +32,21 @@ class TicketsController extends Controller
             $ticket->fillManually($data);
         }
     }
+
+    public function destroy($hash) 
+    {
+        $ticket = Ticket::findByHash($hash);
+        $this->authorize('delete', $ticket->order);
+
+        if (!$ticket->order->isPaid()) {
+            $ticket->delete();
+
+            flash()->error('Successfully deleted ticket.');
+            
+            return back();
+        }
+
+        flash()->error('Cannot delete an order that has been paid.');
+        return response([], 412);
+    }
 }
