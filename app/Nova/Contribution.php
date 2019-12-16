@@ -16,7 +16,7 @@ class Contribution extends Resource
 
     public static $title = 'title';
 
-    public static $displayInNavigation = false;
+    public static $group = 'Dawn';
 
     public static $search = [
         'id', 'title',
