@@ -3,4 +3,6 @@
     @includeWhen($ticket->user_id !== null, 'orders.partials.filledTicket')
 @endforeach
 
-<add-ticket :order="{{ $order }}" classes="btn btn-mint btn-sm"></add-ticket>
+@if(!$order->isPaid)
+    <add-ticket :order="{{ $order }}" classes="btn btn-mint btn-sm"></add-ticket>
+@endif
