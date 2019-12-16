@@ -6,8 +6,11 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/me', 'Api\UsersController@show');
 Route::post('/users', 'Api\RegisterController@register');
 
+Route::get('/events/{event}/ticket-types', 'Api\EventTicketTypeController');
+
 Route::get('/orders/{number}', 'Api\OrdersController@show');
 Route::post('/orders/{order}/charge', 'Api\OrderChargeController@store');
+Route::post('/orders/{order}/tickets', 'Api\OrderTicketsController@store');
 
 Route::get('/tickets/{hash}', 'Api\TicketsController@show');
 Route::patch('/tickets/{hash}', 'Api\TicketsController@update');

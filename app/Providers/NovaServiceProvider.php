@@ -19,6 +19,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
     }
 
+    protected function registerExceptionHandler()
+    {
+        // Don't register Nova's exception handler
+    }
+
     protected function routes()
     {
         Nova::routes()

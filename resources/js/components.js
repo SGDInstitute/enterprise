@@ -5,6 +5,7 @@ Vue.component('tab', Tab);
 
 Vue.component('alert', require('./components/Alert.vue').default);
 Vue.component('add-user-button', require('./components/AddUserToTicketButton.vue').default);
+Vue.component('add-ticket', require('./components/AddTicket.vue').default);
 Vue.component('donation-form', require('./components/DonationForm.vue').default);
 Vue.component('contribution-checkout', require('./components/ContributionCheckout.vue').default);
 Vue.component('contribution-form', require('./components/ContributionForm.vue').default);
