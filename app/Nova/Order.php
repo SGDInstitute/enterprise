@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Order extends Resource
 {
@@ -52,7 +53,7 @@ class Order extends Resource
                 return $this->tickets->count();
             })->onlyOnIndex(),
             Text::make('Completed', function () {
-                return $this->tickets()->completed()->count() / $this->tickets->count() * 100 . '% (' . $this->tickets()->completed()->count() . ')';
+                return $this->tickets()->completed()->count();
             })->onlyOnIndex(),
             HasMany::make('Tickets'),
 
