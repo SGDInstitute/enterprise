@@ -41,7 +41,7 @@ class TicketsController extends Controller
         if (!$ticket->order->isPaid()) {
             $ticket->delete();
 
-            flash()->error('Successfully deleted ticket.');
+            flash()->success('Successfully deleted ticket.');
             
             return back();
         }
