@@ -2489,9 +2489,9 @@ __webpack_require__.r(__webpack_exports__);
       this.form.vendor = vendor;
     },
     selectSponsor: function selectSponsor(sponsor) {
-      console.log(sponsor);
       this.form.amount = sponsor.amount / 100;
       this.form.sponsorship = sponsor;
+      console.log(sponsor);
     },
     selectType: function selectType(type) {
       this.form.type = type;

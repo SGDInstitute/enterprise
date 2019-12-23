@@ -439,9 +439,9 @@ export default {
       this.form.vendor = vendor;
     },
     selectSponsor(sponsor) {
-      console.log(sponsor);
       this.form.amount = sponsor.amount / 100;
       this.form.sponsorship = sponsor;
+      console.log(sponsor);
     },
     selectType(type) {
       this.form.type = type;
