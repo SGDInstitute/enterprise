@@ -441,7 +441,6 @@ export default {
     selectSponsor(sponsor) {
       this.form.amount = sponsor.amount / 100;
       this.form.sponsorship = sponsor;
-      console.log(sponsor);
     },
     selectType(type) {
       this.form.type = type;

@@ -63,7 +63,6 @@ export default {
         axios
           .get("/orders/" + self.order.id + "/receipt")
           .then(function(response) {
-            console.log(response);
             self.receipt = response.data.receipt;
           });
       }

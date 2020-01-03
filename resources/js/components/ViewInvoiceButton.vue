@@ -63,7 +63,6 @@ export default {
         axios
           .get("/invoices/" + self.order.invoice.id)
           .then(function(response) {
-            console.log(response);
             self.invoice = response.data.invoice;
           });
       }
