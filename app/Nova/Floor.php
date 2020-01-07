@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Imports\FloorsImport;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\File;
@@ -9,6 +10,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Sgd\ImportCard\ImportCard;
 
 class Floor extends Resource
 {
@@ -17,6 +19,8 @@ class Floor extends Resource
     public static $title = 'id';
 
     public static $group = 'Gemini';
+
+    public static $importer = FloorsImport::class;
 
     public function fields(Request $request)
     {
@@ -33,7 +37,9 @@ class Floor extends Resource
 
     public function cards(Request $request)
     {
-        return [];
+        return [
+            (new ImportCard(Floor::class))->withSample(url('documents/floors.xlsx')),
+        ];
     }
 
     public function filters(Request $request)

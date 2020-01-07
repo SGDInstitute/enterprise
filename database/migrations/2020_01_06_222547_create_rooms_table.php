@@ -12,7 +12,7 @@ class CreateRoomsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('floor_id');
             $table->string('number');
-            $table->string('name');
+            $table->string('title')->nullable();
             $table->timestamps();
         });
     }

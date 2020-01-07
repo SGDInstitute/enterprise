@@ -30,8 +30,6 @@
         "maatwebsite/excel": "^3.1.8",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "pragmarx/version": "^0.2.9",
-        "sentry/sentry": "^1.7",
-        "sentry/sentry-laravel": "^0.8.0",
         "sgd/activitity-upload": "*",
         "sgd/checkin-queue": "*",
         "sgd/enterprise-admin-theme": "*",
@@ -46,7 +44,8 @@
         "titasgailius/search-relations": "^1.0",
         "vinkla/hashids": "^6.0",
         "vyuldashev/nova-permission": "^1.4",
-        "wehaa/custom-links": "^0.1.1"
+        "wehaa/custom-links": "^0.1.1",
+        "sgd/import-card": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -95,6 +94,10 @@
         {
             "type": "path",
             "url": "./nova-components/Projects"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ImportCard"
         }
     ],
     "autoload": {

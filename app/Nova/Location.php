@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Sparclex\NovaImportCard\NovaImportCard;
+use Sgd\ImportCard\ImportCard;
 
 class Location extends Resource
 {
@@ -60,7 +60,7 @@ class Location extends Resource
     public function cards(Request $request)
     {
         return [
-            new NovaImportCard(Location::class),
+            (new ImportCard(Location::class))->withSample(url('documents/locations.xlsx')),
         ];
     }
 
