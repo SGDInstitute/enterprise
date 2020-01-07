@@ -9,14 +9,20 @@ use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Sgd\ImportCard\ImportCard;
 
 class Floor extends Resource
 {
     public static $model = 'App\Floor';
 
-    public static $title = 'id';
+    public function title()
+    {
+        if ($this->title) {
+            return $this->location->title . ' ' . $this->title;
+        }
+
+        return $this->location->title . ' Floor ' . $this->level;
+    }
 
     public static $group = 'Gemini';
 

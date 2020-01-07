@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -20,6 +21,7 @@ class Room extends Resource
     {
         return [
             ID::make()->sortable()->hideFromIndex(),
+            BelongsTo::make('Floor'),
             Text::make('Number'),
             Text::make('Title'),
         ];

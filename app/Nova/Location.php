@@ -35,7 +35,7 @@ class Location extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Event'),
             Text::make('Title'),
-            Text::make('Abreviation'),
+            Text::make('Abbreviation'),
             Select::make('Type')->options(['conference' => 'Conference', 'hotel' => 'Hotel', 'entertainment' => 'Entertainment', 'food' => 'Food']),
             File::make('Background'),
             $this->addressFields(),
