@@ -30,7 +30,6 @@
         "maatwebsite/excel": "^3.1.8",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "pragmarx/version": "^0.2.9",
-        "sgd/activitity-upload": "*",
         "sgd/checkin-queue": "*",
         "sgd/enterprise-admin-theme": "*",
         "sgd/form-builder": "*",

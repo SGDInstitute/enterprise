@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\ImportActivities;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -10,7 +9,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Sgd\ActivitityUpload\ActivitityUpload;
+use Sgd\ImportCard\ImportCard;
 
 class Activity extends Resource
 {
@@ -45,7 +44,7 @@ class Activity extends Resource
     public function cards(Request $request)
     {
         return [
-            new ActivitityUpload
+            (new ImportCard(Activity::class))->withSample(url('documents/schedule.xlsx')),
         ];
     }
 

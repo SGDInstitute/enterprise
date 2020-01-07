@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f3ecfbb291ff9e1a84740cb0ba6fb90",
+    "content-hash": "32875c24ee5be64acb480a7607238a51",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1310,13 +1310,13 @@
             "authors": [
                 {
                     "name": "Neuman Vong",
-                    "role": "Developer",
-                    "email": "neuman+pear@twilio.com"
+                    "email": "neuman+pear@twilio.com",
+                    "role": "Developer"
                 },
                 {
                     "name": "Anant Narayanan",
-                    "role": "Developer",
-                    "email": "anant@php.net"
+                    "email": "anant@php.net",
+                    "role": "Developer"
                 }
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
@@ -2390,8 +2390,8 @@
             "authors": [
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
-                    "role": "Developer",
-                    "email": "lcobucci@gmail.com"
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -2582,15 +2582,15 @@
             "authors": [
                 {
                     "name": "Alex Bilbie",
-                    "role": "Developer",
                     "email": "hello@alexbilbie.com",
-                    "homepage": "http://www.alexbilbie.com"
+                    "homepage": "http://www.alexbilbie.com",
+                    "role": "Developer"
                 },
                 {
                     "name": "Andy Millington",
-                    "role": "Developer",
                     "email": "andrew@noexceptions.io",
-                    "homepage": "https://www.noexceptions.io"
+                    "homepage": "https://www.noexceptions.io",
+                    "role": "Developer"
                 }
             ],
             "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
@@ -3738,8 +3738,8 @@
             "authors": [
                 {
                     "name": "Antonio Carlos Ribeiro",
-                    "role": "Creator & Designer",
-                    "email": "acr@antoniocarlosribeiro.com"
+                    "email": "acr@antoniocarlosribeiro.com",
+                    "role": "Creator & Designer"
                 }
             ],
             "description": "Take control over your Laravel app version",
@@ -3798,8 +3798,8 @@
             "authors": [
                 {
                     "name": "Antonio Carlos Ribeiro",
-                    "role": "Creator & Designer",
-                    "email": "acr@antoniocarlosribeiro.com"
+                    "email": "acr@antoniocarlosribeiro.com",
+                    "role": "Creator & Designer"
                 }
             ],
             "description": "Load your Laravel config files using yaml",
@@ -4303,41 +4303,8 @@
             "time": "2019-02-22T07:42:52+00:00"
         },
         {
-            "name": "sgd/activitity-upload",
-            "version": "dev-feature/schedule",
-            "dist": {
-                "type": "path",
-                "url": "./nova-components/ActivitityUpload",
-                "reference": "67b2ef4675dc346372128a20c9c72fe1090228a4"
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Sgd\\ActivitityUpload\\CardServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Sgd\\ActivitityUpload\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova card.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ]
-        },
-        {
             "name": "sgd/checkin-queue",
-            "version": "dev-shift-14264",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/CheckinQueue",
@@ -4370,7 +4337,7 @@
         },
         {
             "name": "sgd/enterprise-admin-theme",
-            "version": "dev-shift-14264",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/EnterpriseAdminTheme",
@@ -4403,7 +4370,7 @@
         },
         {
             "name": "sgd/form-builder",
-            "version": "dev-shift-14264",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/FormBuilder",
@@ -4436,7 +4403,7 @@
         },
         {
             "name": "sgd/form-response",
-            "version": "dev-shift-14264",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/FormResponse",
@@ -4502,7 +4469,7 @@
         },
         {
             "name": "sgd/links",
-            "version": "dev-shift-14264",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Links",
@@ -4535,7 +4502,7 @@
         },
         {
             "name": "sgd/projects",
-            "version": "dev-feature/schedule",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Projects",
