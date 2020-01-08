@@ -44,6 +44,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }
 
+    public function routeNotificationForSlack($notification)
+    {
+        return 'https://hooks.slack.com/services/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';
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class)->withDefault(new Profile());

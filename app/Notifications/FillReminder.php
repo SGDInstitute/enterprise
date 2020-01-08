@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PaymentReminder extends Notification
+class FillReminder extends Notification
 {
     use Queueable;
 
@@ -16,7 +16,7 @@ class PaymentReminder extends Notification
 
     public function __construct(Order $order)
     {
-        $this->order = $order->load('event');
+        $this->order = $order;
     }
 
     public function via($notifiable)
@@ -27,10 +27,16 @@ class PaymentReminder extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Please pay for your ' . $this->order->event->title . ' order')
-            ->markdown('emails.payment_reminder', ['order' => $this->order, 'url' => url('/orders/' . $this->order->id)]);
+            ->subject('Please finish filling out your ' . $this->order->event->title . ' order')
+            ->markdown('emails.fill_reminder', ['order' => $this->order, 'url' => url('/orders/' . $this->order->id)]);
     }
 
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function toArray($notifiable)
     {
         return [
