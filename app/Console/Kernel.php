@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('emails:payment mblgtacc-2020')->weekly()->mondays()->at('13:00')->timezone('America/New_York');
+        $schedule->command('emails:fill mblgtacc-2020')->weekly()->tuesdays()->at('13:00')->timezone('America/New_York');
     }
 
     /**
