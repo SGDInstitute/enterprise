@@ -26,6 +26,7 @@
         "laravel/framework": "5.8.*",
         "laravel/nova": "~2.0",
         "laravel/passport": "^7.4",
+        "laravel/slack-notification-channel": "^2.0",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1.8",
         "maatwebsite/laravel-nova-excel": "^1.1",
@@ -34,6 +35,7 @@
         "sgd/enterprise-admin-theme": "*",
         "sgd/form-builder": "*",
         "sgd/form-response": "*",
+        "sgd/import-card": "*",
         "sgd/links": "*",
         "sgd/projects": "*",
         "spatie/laravel-activitylog": "^3.5",
@@ -43,8 +45,7 @@
         "titasgailius/search-relations": "^1.0",
         "vinkla/hashids": "^6.0",
         "vyuldashev/nova-permission": "^1.4",
-        "wehaa/custom-links": "^0.1.1",
-        "sgd/import-card": "*"
+        "wehaa/custom-links": "^0.1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

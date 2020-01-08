@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('emails:payment mblgtacc-2020')->weekly()->mondays()->at('13:00')->timezone('America/New_York');
+        $schedule->command('emails:fill mblgtacc-2020')->weekly()->tuesdays()->at('13:00')->timezone('America/New_York');
     }
 
     /**
@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
