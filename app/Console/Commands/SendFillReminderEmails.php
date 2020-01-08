@@ -9,7 +9,7 @@ use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
-class SendPaymentReminderEmails extends Command
+class SendFillReminderEmails extends Command
 {
 
     protected $signature = 'emails:fill {event}';
