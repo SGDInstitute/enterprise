@@ -1,4 +1,6 @@
 @component('mail::message')
+Hello!
+
 MBLGTACC is coming up! Is all of your profile information up to date?
 
 @component('mail::table')
