@@ -22,3 +22,8 @@ Route::post('/donations', 'Api\DonationsController@store')->middleware('auth:api
 Route::get('/queue', 'Api\QueueController@index');
 Route::post('/queue/{ids}', 'Api\QueueController@store');
 Route::patch('/queue/{ids}/complete', 'Api\QueueCompletedController');
+
+
+Route::get('/gemini/schedules', 'Api\Gemini\SchedulesController@index')->middleware('auth:api');
+Route::get('/gemini/schedules/{id}', 'Api\Gemini\SchedulesController@show')->middleware('auth:api');
+Route::get('/gemini/event/{id}/activities', 'Api\Gemini\EventActivitiesController@index')->middleware('auth:api');
