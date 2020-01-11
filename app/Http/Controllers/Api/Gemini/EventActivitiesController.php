@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use App\Activity;
-use App\Event;
 use App\Schedule;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivitiesResource;
-use App\Http\Resources\ScheduleResource;
 
 class EventActivitiesController extends Controller
 {
@@ -23,9 +19,5 @@ class EventActivitiesController extends Controller
         });
 
         return ActivitiesResource::collection($activities);
-    }
-
-    public function show($id)
-    {
     }
 }
