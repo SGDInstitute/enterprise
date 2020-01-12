@@ -19,7 +19,9 @@
         "build-projects": "cd nova-components/Projects && npm run dev",
         "build-projects-prod": "cd nova-components/Projects && npm run prod",
         "build-import-card": "cd nova-components/ImportCard && npm run dev",
-        "build-import-card-prod": "cd nova-components/ImportCard && npm run prod"
+        "build-import-card-prod": "cd nova-components/ImportCard && npm run prod",
+        "build-bulletin-links": "cd nova-components/BulletinLinks && npm run dev",
+        "build-bulletin-links-prod": "cd nova-components/BulletinLinks && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",

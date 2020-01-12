@@ -9,18 +9,18 @@
     </div>
     <div class="w-4/5 px-8 py-6">
       <div class="flex mb-4">
-        <div class="w-1/4 inline-block text-80 pt-2 leading-tight pl-3">Icon</div>
+        <div class="w-1/4 inline-block text-80 pt-2 leading-tight pl-3">Text</div>
         <div class="w-1/3 inline-block text-80 pt-2 leading-tight pl-3">Link</div>
-        <div class="w-1/4 inline-block text-80 pt-2 leading-tight pl-3">Order</div>
+        <div class="w-1/4 inline-block text-80 pt-2 leading-tight pl-3">Color</div>
       </div>
-      <div v-for="(link, id) in links" class="mb-2">
+      <div v-for="(link, id) in links" :key="id" class="mb-2">
         <input
-          :id="'icon' + id"
+          :id="'text' + id"
           type="text"
           class="w-1/4 form-control form-input form-input-bordered"
           :class="errorClasses"
-          placeholder="Icon"
-          v-model="link.icon"
+          placeholder="Text"
+          v-model="link.text"
         />
         <input
           :id="'link' + id"
@@ -30,14 +30,15 @@
           placeholder="Link"
           v-model="link.link"
         />
-        <input
-          :id="'order' + id"
-          type="text"
+        <select
+          :id="'color' + id"
           class="w-1/4 form-control form-input form-input-bordered"
           :class="errorClasses"
-          placeholder="Order"
-          v-model="link.order"
-        />
+          v-model="link.color"
+        >
+          <option value="btn">Primary</option>
+          <option value="btnSecondary">Secondary</option>
+        </select>
         <button class="btn btn-default btn-primary" @click.prevent="removeRow(link)">X</button>
       </div>
 
@@ -68,7 +69,7 @@ export default {
      */
     setInitialValue() {
       this.value = this.field.value || [];
-      this.links = this.field.value || [];
+      this.links = JSON.parse(this.field.value);
     },
 
     /**
@@ -86,7 +87,7 @@ export default {
     },
 
     addRow() {
-      this.links.push({ icon: "", link: "", order: this.links.length + 1 });
+      this.links.push({ text: "", link: "", color: "btn" });
     },
 
     removeRow(link) {
