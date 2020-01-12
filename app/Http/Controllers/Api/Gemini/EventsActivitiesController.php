@@ -6,7 +6,7 @@ use App\Schedule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivitiesResource;
 
-class EventActivitiesController extends Controller
+class EventsActivitiesController extends Controller
 {
 
     public function index($id)

@@ -19,6 +19,18 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'roles' => $this->roles->pluck('name')->all(),
+            'pronouns' => $this->profile->pronouns,
+            'sexuality' => $this->profile->sexuality,
+            'gender' => $this->profile->gender,
+            'race' => $this->profile->race,
+            'college' => $this->profile->college,
+            'tshirt' => $this->profile->tshirt,
+            'accommodation' => $this->profile->accommodation,
+            'accessibility' => array_push(
+                $this->profile->accessibility,
+                $this->profile->other_accessibility
+            ),
+            'language' => array_push($this->profile->language, $this->profile->other_language),
         ];
     }
 }

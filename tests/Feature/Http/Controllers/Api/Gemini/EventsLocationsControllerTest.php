@@ -12,9 +12,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\Api\Gemini\EventLocationsController
+ * @see \App\Http\Controllers\Api\Gemini\EventsLocationsController
  */
-class EventLocationsControllerTest extends TestCase
+class EventsLocationsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -28,7 +28,7 @@ class EventLocationsControllerTest extends TestCase
 
         Passport::actingAs(factory(User::class)->create());
 
-        $response = $this->withoutExceptionHandling()->getJson("api/gemini/event/{$event->id}/locations");
+        $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/locations");
 
         $response->assertOk();
         $response->assertJsonStructure([
