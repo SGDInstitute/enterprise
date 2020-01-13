@@ -26,11 +26,8 @@ class UserResource extends JsonResource
             'college' => $this->profile->college,
             'tshirt' => $this->profile->tshirt,
             'accommodation' => $this->profile->accommodation,
-            'accessibility' => array_push(
-                $this->profile->accessibility,
-                $this->profile->other_accessibility
-            ),
-            'language' => array_push($this->profile->language, $this->profile->other_language),
+            'accessibility' => $this->profile->joinedAccessibility,
+            'language' => $this->profile->joinedLanguage,
         ];
     }
 }
