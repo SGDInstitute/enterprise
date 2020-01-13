@@ -69,7 +69,9 @@ export default {
      */
     setInitialValue() {
       this.value = this.field.value || [];
-      this.links = JSON.parse(this.field.value);
+      if (this.field.value !== null) {
+        this.links = JSON.parse(this.field.value);
+      }
     },
 
     /**
