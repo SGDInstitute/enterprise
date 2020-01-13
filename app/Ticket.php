@@ -18,7 +18,7 @@ class Ticket extends Model
 
     protected $fillable = ['ticket_type_id'];
 
-    
+
 
     /**
      * Boot function for using with User Events
@@ -122,7 +122,7 @@ class Ticket extends Model
         $this->type = 'manual';
         $this->save();
 
-        $user->profile->update($data);
+        $user->profile->update(Arr::except($data, ['name', 'email', 'send_email', 'message']));
 
         if (isset($data['send_email']) && $data['send_email']) {
             Mail::to($user->email)->send(new InviteUserEmail($user, request()->user(), $this, Arr::get($data, 'message')));

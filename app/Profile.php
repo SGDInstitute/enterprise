@@ -10,20 +10,7 @@ class Profile extends Model
 {
     use LogsActivity, SoftDeletes;
 
-    protected $fillable = [
-        'pronouns',
-        'sexuality',
-        'gender',
-        'race',
-        'college',
-        'tshirt',
-        'accommodation',
-        'accessibility',
-        'other_accessibility',
-        'language',
-        'other_language',
-        'agreement',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'accessibility' => 'array',
@@ -34,5 +21,15 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getJoinedAccessabilityAttribute()
+    {
+        return array_merge((array) $this->accessability, (array) $this->other_accessability);
+    }
+
+    public function getJoinedLanguageAttribute()
+    {
+        return array_merge((array) $this->language, (array) $this->other_language);
     }
 }

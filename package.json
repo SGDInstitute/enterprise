@@ -16,10 +16,12 @@
         "build-form-response-prod": "cd nova-components/FormResponse && npm run prod",
         "build-checkin-queue": "cd nova-components/CheckinQueue && npm run dev",
         "build-checkin-queue-prod": "cd nova-components/CheckinQueue && npm run prod",
-        "build-activitity-upload": "cd nova-components/ActivitityUpload && npm run dev",
-        "build-activitity-upload-prod": "cd nova-components/ActivitityUpload && npm run prod",
         "build-projects": "cd nova-components/Projects && npm run dev",
-        "build-projects-prod": "cd nova-components/Projects && npm run prod"
+        "build-projects-prod": "cd nova-components/Projects && npm run prod",
+        "build-import-card": "cd nova-components/ImportCard && npm run dev",
+        "build-import-card-prod": "cd nova-components/ImportCard && npm run prod",
+        "build-bulletin-links": "cd nova-components/BulletinLinks && npm run dev",
+        "build-bulletin-links-prod": "cd nova-components/BulletinLinks && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",
