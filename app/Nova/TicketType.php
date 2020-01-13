@@ -7,7 +7,9 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -18,10 +20,6 @@ class TicketType extends Resource
     public static $model = \App\TicketType::class;
 
     public static $title = 'name';
-
-    public static $search = [
-        'id',
-    ];
 
     public static $group = 'Registration';
 
@@ -35,14 +33,18 @@ class TicketType extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Event'),
+            Select::make('Type')->options(['regular' => 'Regular (Public)', 'discount' => 'Discount (Private)']),
             Text::make('Name')->sortable(),
             Textarea::make('Description')->sortable(),
-            Currency::make('Cost')
+            Number::make('Cost')
                 ->displayUsing(function ($cost) {
-                    return $cost / 100;
-                })->format('%.2n'),
+                    return '$' . $cost / 100;
+                })->help('Cost in cents. i.e. $20 would be 2000'),
+            Number::make('Num Tickets')->help('Max number of tickets per order with this ticket type, leave empty for regular tickets.'),
             DateTime::make('Availability Start'),
             DateTime::make('Availability End'),
+
+            BelongsToMany::make('Users'),
         ];
     }
 

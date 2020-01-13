@@ -79,6 +79,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Donation::class);
     }
 
+    public function discounts()
+    {
+        return $this->belongsToMany(TicketType::class, 'discounts');
+    }
+
     public function emailToken()
     {
         return $this->hasOne(UserToken::class)->where('type', 'email');

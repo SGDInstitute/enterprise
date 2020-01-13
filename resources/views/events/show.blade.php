@@ -94,7 +94,7 @@
                     @endif
                 </div>
                 <div class="w-full border-t md:border-t-0 md:border-l md:w-1/3 px-4 py-6">
-                    <start-order :ticket_types="{{ $event->ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
+                    <start-order :ticket_types="{{ $ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
                 </div>
             </div>
         </div>
