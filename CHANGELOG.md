@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.2.0] - 2020-12-13
+
+### Added
+
+- Ability to give users discounts
+
+___
+
 ## [0.1.19] - 2020-12-13
 
 ### Added
