@@ -15,4 +15,37 @@ class UsersController extends Controller
     {
         return new UserResource(auth()->user());
     }
+
+    public function update()
+    {
+        $userData = request()->validate([
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+
+        $profile = request()->validate([
+            'pronouns' => '',
+            'sexuality' => '',
+            'gender' => '',
+            'race' => '',
+            'college' => '',
+            'tshirt' => '',
+        ]);
+
+        $user = auth()->user();
+
+        $oldEmail = $user->email;
+
+        $user->update($userData);
+
+        if (request('email') !== $oldEmail) {
+            $user->sendConfirmationEmail();
+        }
+
+        $userProfile = $user->profile;
+
+        $userProfile->update($profile);
+
+        return new UserResource($user);
+    }
 }

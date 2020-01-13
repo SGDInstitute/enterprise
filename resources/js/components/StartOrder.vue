@@ -3,7 +3,7 @@
     <div
       class="bg-gray-200 p-4 mb-4 rounded shadow"
       :key="index"
-      v-for="(type, index) in sortedTypes"
+      v-for="(type, index) in ticket_types"
     >
       <h2 class="text-2xl md:flex md:justify-between">
         {{ type.formatted_cost }}
@@ -128,9 +128,6 @@ export default {
           ' <a data-toggle="collapse" href="#photo_policy" role="button" aria-expanded="false" aria-controls="photo_policy">photo policy</a>';
       }
       return (message += ".");
-    },
-    sortedTypes() {
-      return _.sortBy(this.ticket_types, "cost");
     }
   }
 };

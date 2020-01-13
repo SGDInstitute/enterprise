@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.2.2] - 2020-12-13
+
+### Added
+
+- Update users profile info through app
+
+___
+
 ## [0.2.1] - 2020-12-13
 
 ### Added
