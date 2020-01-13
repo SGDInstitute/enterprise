@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.1.19] - 2020-12-13
+
+### Added
+
+- API endpoints for conference app
+- Email notifications for reminding folks to pay for order, fill order, and update profile information
+
+### Fixed
+
+- Scroll issue when inviting many users to fill tickets
+
+___
+
 ## [0.1.18] - 2019-11-02
 
 ### Added
