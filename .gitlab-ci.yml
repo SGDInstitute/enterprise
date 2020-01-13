@@ -23,7 +23,7 @@ test:
   stage: test
   services:
     - mysql:5.7
-  image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
+  image: edbizarro/gitlab-ci-pipeline-php:7.3-alpine
   script:
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     - cp .env.ci .env
