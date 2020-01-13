@@ -37,6 +37,6 @@ class InvoiceEmail extends Mailable
         $pdf = PDF::loadView('pdf.invoice', ['order' => $this->order]);
 
         return $this->markdown('emails.invoice')
-                ->attachData($pdf->output(), 'invoice.pdf');
+            ->attachData($pdf->output(), 'invoice.pdf');
     }
 }
