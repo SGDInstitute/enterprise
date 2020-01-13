@@ -22,6 +22,11 @@ class TicketType extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'discounts');
+    }
+
     public function getFormattedCostAttribute()
     {
         return "$" . number_format($this->cost / 100, 2);

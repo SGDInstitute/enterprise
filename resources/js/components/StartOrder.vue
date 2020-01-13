@@ -1,15 +1,30 @@
 <template>
   <form @submit.prevent="submit">
-    <div class="bg-gray-200 p-4 mb-4 rounded shadow" v-for="(type, index) in ticket_types">
+    <div
+      class="bg-gray-200 p-4 mb-4 rounded shadow"
+      :key="index"
+      v-for="(type, index) in sortedTypes"
+    >
       <h2 class="text-2xl md:flex md:justify-between">
         {{ type.formatted_cost }}
         <span v-if="type.is_open" class="pr-0">
           <label :for="'ticket_quantity'+index" class="sr-only">Ticket Quantity</label>
           <input
+            v-if="type.num_tickets === null"
             type="number"
             :id="'ticket_quantity'+index"
             class="w-20 form-control text-lg px-1 py-2 text-right bg-gray-100"
             min="0"
+            v-model="form.tickets[index].quantity"
+            placeholder="Quantity"
+          />
+          <input
+            v-else
+            type="number"
+            :id="'ticket_quantity'+index"
+            class="w-20 form-control text-lg px-1 py-2 text-right bg-gray-100"
+            min="0"
+            :max="type.num_tickets"
             v-model="form.tickets[index].quantity"
             placeholder="Quantity"
           />
@@ -113,6 +128,9 @@ export default {
           ' <a data-toggle="collapse" href="#photo_policy" role="button" aria-expanded="false" aria-controls="photo_policy">photo policy</a>';
       }
       return (message += ".");
+    },
+    sortedTypes() {
+      return _.sortBy(this.ticket_types, "cost");
     }
   }
 };
