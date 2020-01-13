@@ -45,7 +45,8 @@
         "titasgailius/search-relations": "^1.0",
         "vinkla/hashids": "^6.0",
         "vyuldashev/nova-permission": "^1.4",
-        "wehaa/custom-links": "^0.1.1"
+        "wehaa/custom-links": "^0.1.1",
+        "sgd/bulletin-links": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -98,6 +99,14 @@
         {
             "type": "path",
             "url": "./nova-components/ImportCard"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/BulletinLinks"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/BulletinLinks"
         }
     ],
     "autoload": {

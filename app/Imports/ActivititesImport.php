@@ -16,7 +16,7 @@ class ActivititesImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        $schedule = Schedule::where('title', $row['schedule_title'])->first();
+        $schedule = Schedule::where('title', $row['schedule'])->first();
         $type = ActivityType::firstOrCreate(['title' => $row['type']]);
 
         $start = new Carbon(Date::excelToDateTimeObject($row['start'])->format('Y-m-d H:i:s'), $schedule->event->timezone);
