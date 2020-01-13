@@ -6,8 +6,6 @@ You’ve started the registration process, but still need to complete filling ou
 For sustainability reasons, we base our swag purchases on the number of paid registrants only.
 Help us make a more responsible impact and complete your order today!
 
-If you plan to pay by check, please email finance@sgdinstitute.org to let us know
-
 To complete your order for {{ $order->tickets->count() }} tickets, follow the link below:
 
 @component('mail::button', ['url' => $url])
@@ -20,7 +18,8 @@ Need to delete your order? We have that option in the order detail page as well.
 Delete Order
 @endcomponent
 
-As a reminder, be sure to pay by January 17th for guaranteed swag!
+As a reminder, be sure to pay by January 17th for guaranteed swag! If you plan to pay by check, please email finance@sgdinstitute.org to let us know.
+
 {{ $order->event->title }} is about envisioning a future together. We can’t wait to have you with us on that journey!
 
 Thanks,<br>
