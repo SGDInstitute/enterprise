@@ -44,7 +44,7 @@ class TicketType extends Resource
             DateTime::make('Availability Start'),
             DateTime::make('Availability End'),
 
-            BelongsToMany::make('Users'),
+            BelongsToMany::make('Users')->searchable(),
         ];
     }
 
