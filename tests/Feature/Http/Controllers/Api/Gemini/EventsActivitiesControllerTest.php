@@ -40,7 +40,11 @@ class EventActivitiesControllerTest extends TestCase
                     'id',
                     'schedule',
                     'title',
-                    'speaker',
+                    'speakers' => [
+                        '*' => [
+                            'name', 'email', 'pronouns'
+                        ]
+                    ],
                     'description',
                     'type',
                     'location',
@@ -49,7 +53,7 @@ class EventActivitiesControllerTest extends TestCase
                 ]
             ]
         ]);
-        $this->assertLessThan(5, count(DB::getQueryLog()));
+        $this->assertLessThan(10, count(DB::getQueryLog()));
     }
 
     /** @test */
@@ -75,7 +79,11 @@ class EventActivitiesControllerTest extends TestCase
                             'id',
                             'schedule',
                             'title',
-                            'speaker',
+                            'speakers' => [
+                                '*' => [
+                                    'name', 'email', 'pronouns'
+                                ]
+                            ],
                             'description',
                             'type',
                             'location',
@@ -91,7 +99,11 @@ class EventActivitiesControllerTest extends TestCase
                             'id',
                             'schedule',
                             'title',
-                            'speaker',
+                            'speakers' => [
+                                '*' => [
+                                    'name', 'email', 'pronouns'
+                                ]
+                            ],
                             'description',
                             'type',
                             'location',
@@ -107,7 +119,11 @@ class EventActivitiesControllerTest extends TestCase
                             'id',
                             'schedule',
                             'title',
-                            'speaker',
+                            'speakers' => [
+                                '*' => [
+                                    'name', 'email', 'pronouns'
+                                ]
+                            ],
                             'description',
                             'type',
                             'location',
@@ -120,6 +136,6 @@ class EventActivitiesControllerTest extends TestCase
             ]
         ]);
 
-        $this->assertLessThan(5, count(DB::getQueryLog()));
+        $this->assertLessThan(10, count(DB::getQueryLog()));
     }
 }
