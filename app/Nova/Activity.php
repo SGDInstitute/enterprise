@@ -10,7 +10,6 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Sgd\ImportCard\ImportCard;
 
 class Activity extends Resource
