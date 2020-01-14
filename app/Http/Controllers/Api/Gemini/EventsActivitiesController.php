@@ -20,8 +20,20 @@ class EventsActivitiesController extends Controller
             });
         });
 
+        list($workshops, $notWorkshops) = $activities->partition(function ($a) {
+            return $a->type->title === 'workshop';
+        });
+
+        $notWorkshops = $notWorkshops->sortBy('start');
+
+        foreach ($notWorkshops as $activity) {
+            if ($activity->type->title === 'group') {
+                $activity->workshops = $workshops->where('start', $activity->start)->sortBy('title')->map->toArray()->values();
+            }
+        }
+
         if (request()->query('groupBy') === 'date') {
-            return ActivitiesByDateCollection::collection($activities
+            return ActivitiesByDateCollection::collection($notWorkshops
                 ->groupBy(function ($activity) {
                     return $activity->start->format('Y-m-d');
                 }));

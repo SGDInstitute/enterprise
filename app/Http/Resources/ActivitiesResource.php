@@ -21,6 +21,7 @@ class ActivitiesResource extends JsonResource
             'start_time' => $this->start->tz($this->timezone)->format('g:i a'),
             'end' => $this->end->tz($this->timezone)->format('Y-m-d H:i'),
             'end_time' => $this->end->tz($this->timezone)->format('g:i a'),
+            'workshops' => $this->when($this->type->title === 'group', $this->workshops),
         ];
     }
 }
