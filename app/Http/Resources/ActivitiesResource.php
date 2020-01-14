@@ -21,9 +21,12 @@ class ActivitiesResource extends JsonResource
             'speaker' => $this->speaker,
             'description' => $this->description,
             'type' => $this->type->title,
+            'color' => $this->type->color,
             'location' => $this->location,
-            'start' => $this->start,
-            'end' => $this->end,
+            'start' => $this->start->tz($this->timezone)->format('Y-m-d H:i'),
+            'start_time' => $this->start->tz($this->timezone)->format('g:i a'),
+            'end' => $this->end->tz($this->timezone)->format('Y-m-d H:i'),
+            'end_time' => $this->end->tz($this->timezone)->format('g:i a'),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Imports\ActivitiesImport;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -23,6 +24,8 @@ class Activity extends Resource
     public static $search = [
         'id', 'title'
     ];
+
+    public static $importer = ActivitiesImport::class;
 
     public static $searchRelations = [
         'schedule' => ['title'],

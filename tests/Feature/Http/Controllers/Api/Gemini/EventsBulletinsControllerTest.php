@@ -8,6 +8,7 @@ use App\Schedule;
 use App\User;
 use App\Imports\ActivititesImport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\TestCase;
@@ -28,6 +29,7 @@ class EventBulletinsControllerTest extends TestCase
 
         Passport::actingAs(factory(User::class)->create());
 
+        DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/bulletins");
 
         $response->assertOk();
@@ -41,5 +43,7 @@ class EventBulletinsControllerTest extends TestCase
                 ]
             ]
         ]);
+
+        $this->assertLessThan(5, count(DB::getQueryLog()));
     }
 }
