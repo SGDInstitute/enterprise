@@ -31,7 +31,7 @@ class Receipt extends Resource
             Text::make('Transaction ID'),
             Currency::make('Amount')
                 ->displayUsing(function ($amount) {
-                    return money_format('$%.2n', $amount / 100);
+                    return '$' . $amount / 100;
                 }),
 
             new Panel('Charge Details', $this->stripeDetails()),

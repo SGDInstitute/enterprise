@@ -47,7 +47,7 @@ class Order extends Resource
 
             Currency::make('Amount')
                 ->displayUsing(function ($amount) {
-                    return money_format('$%.2n', $amount / 100);
+                    return '$' . $amount / 100;
                 }),
             Number::make('Tickets', function () {
                 return $this->tickets->count();
