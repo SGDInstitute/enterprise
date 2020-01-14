@@ -13,7 +13,8 @@ class BulletinResource extends JsonResource
             'id' => $this->id,
             'content' => $this->content,
             'image' => $this->image !== null ? url(Storage::url($this->image)) : null,
-            'links' => $this->links,
+            'published_at' => $this->published_at,
+            'links' => json_decode($this->links),
         ];
     }
 }

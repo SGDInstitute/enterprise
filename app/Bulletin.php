@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bulletin extends Model
 {
+    protected $dates = ['published_at'];
+
     protected $casts = [
-        'links' => 'arrray',
+        'links' => 'array',
     ];
 
     public function event()
