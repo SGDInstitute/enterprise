@@ -12,7 +12,7 @@ class BulletinResource extends JsonResource
         return [
             'id' => $this->id,
             'content' => $this->content,
-            'image' => Storage::url($this->image),
+            'image' => $this->image !== null ? url(Storage::url($this->image)) : null,
             'links' => $this->links,
         ];
     }
