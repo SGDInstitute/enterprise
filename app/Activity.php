@@ -15,7 +15,17 @@ class Activity extends Model
         return $this->belongsTo(Schedule::class);
     }
 
+    public function speakers()
+    {
+        return $this->belongsToMany(User::class, 'speakers');
+    }
+
     public function type()
+    {
+        return $this->belongsTo(ActivityType::class, 'activity_type_id');
+    }
+
+    public function activity_type()
     {
         return $this->belongsTo(ActivityType::class, 'activity_type_id');
     }
