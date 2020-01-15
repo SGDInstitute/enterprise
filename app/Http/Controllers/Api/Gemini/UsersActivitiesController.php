@@ -21,7 +21,8 @@ class UsersActivitiesController extends Controller
                 $activity->timezone = $activity->schedule->event->timezone;
                 $activity->schedule = $activity->schedule->title;
                 return $activity;
-            });
+            })
+            ->sortBy('start');
 
         return ActivitiesResource::collection($activities);
     }
@@ -38,7 +39,8 @@ class UsersActivitiesController extends Controller
                 $activity->timezone = $activity->schedule->event->timezone;
                 $activity->schedule = $activity->schedule->title;
                 return $activity;
-            });
+            })
+            ->sortBy('start');
 
         return ActivitiesResource::collection($activities);
     }
