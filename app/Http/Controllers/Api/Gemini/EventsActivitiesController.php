@@ -39,6 +39,6 @@ class EventsActivitiesController extends Controller
                 }));
         }
 
-        return ActivitiesResource::collection($activities);
+        return ActivitiesResource::collection($notWorkshops);
     }
 }

@@ -3,14 +3,11 @@
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
-use App\Imports\ActivititesImport;
 use App\Schedule;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
-use Maatwebsite\Excel\Facades\Excel;
 use Tests\TestCase;
 
 /**

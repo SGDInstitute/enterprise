@@ -40,6 +40,7 @@ class Activity extends Model
             'description' => $this->description,
             'type' => $this->type->title,
             'color' => $this->type->color,
+            'text_color' => $this->type->text_color,
             'location' => $this->location,
             'start' => $this->start->tz($this->timezone)->format('Y-m-d H:i'),
             'start_time' => $this->start->tz($this->timezone)->format('g:i a'),

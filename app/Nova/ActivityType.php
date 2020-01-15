@@ -21,6 +21,7 @@ class ActivityType extends Resource
             ID::make()->sortable(),
             Text::make('Title')->sortable(),
             Color::make('Color'),
+            Color::make('Text Color')->help('Should have a good contrast value with the main color. Try #fff or #000'),
         ];
     }
 
