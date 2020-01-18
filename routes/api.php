@@ -34,3 +34,4 @@ Route::get('/gemini/events/{event}/content', 'Api\Gemini\EventsContentController
 Route::get('/gemini/events/{event}/locations', 'Api\Gemini\EventsLocationsController@index')->middleware('auth:api');
 Route::get('/gemini/events/{event}/schedules', 'Api\Gemini\EventsSchedulesController@index')->middleware('auth:api');
 Route::get('/gemini/events/{event}/schedules/{id}', 'Api\Gemini\EventsSchedulesController@show')->middleware('auth:api');
+Route::post('/gemini/tickets', 'Api\Gemini\TicketsController@store')->middleware('auth:api');
