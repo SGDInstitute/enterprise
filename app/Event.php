@@ -36,6 +36,11 @@ class Event extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function forms()
+    {
+        return $this->hasMany(Form::class);
+    }
+
     public function scopeFindBySlug($query, $slug)
     {
         return $query->where('slug', $slug)->firstOrFail();

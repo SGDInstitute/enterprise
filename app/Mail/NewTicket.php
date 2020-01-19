@@ -12,13 +12,13 @@ class NewTicket extends Mailable
     use Queueable, SerializesModels;
 
     public $subject;
-    public $message;
+    public $emailMessage;
     public $email;
 
     public function __construct($subject, $message, $email)
     {
         $this->subject = $subject;
-        $this->message = $message;
+        $this->emailMessage = $message;
         $this->email = $email;
     }
 
@@ -26,7 +26,6 @@ class NewTicket extends Mailable
     {
         return $this->from($this->email)
             ->subject($this->subject)
-            ->text('emails.plain.ticket')
-            ->with(['message' => $this->message]);
+            ->text('emails.plain.ticket');
     }
 }

@@ -43,6 +43,7 @@ class Form extends Resource
                 ->disableAutoUpdateWhenUpdating()->hideFromIndex(),
             Select::make('Type')->options([
                 'survey' => 'Survey',
+                'evaluation' => 'Evaluation (Gemini)',
                 'workshop' => 'Workshop',
                 'default' => 'Default'
             ]),

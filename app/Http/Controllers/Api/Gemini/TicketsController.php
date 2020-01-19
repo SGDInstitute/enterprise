@@ -19,5 +19,7 @@ class TicketsController extends Controller
         Mail::to('support@mblgtacc.org')
             ->cc(auth()->user()->email)
             ->send(new NewTicket($data['subject'], $data['message'], auth()->user()->email));
+
+        return response()->json(['message' => 'Successful']);
     }
 }
