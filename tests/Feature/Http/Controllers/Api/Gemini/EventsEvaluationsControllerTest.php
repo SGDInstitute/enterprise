@@ -16,7 +16,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Api\Gemini\EventsEvaluationsController
  */
-class EventEvaluationsControllerTest extends TestCase
+class EventsEvaluationsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
