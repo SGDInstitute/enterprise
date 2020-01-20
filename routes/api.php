@@ -26,6 +26,7 @@ Route::patch('/queue/{ids}/complete', 'Api\QueueCompletedController');
 
 Route::get('/gemini/me', 'Api\Gemini\UsersController@show')->middleware('auth:api');
 Route::patch('/gemini/me', 'Api\Gemini\UsersController@update')->middleware('auth:api');
+Route::post('/gemini/me/push', 'Api\Gemini\UsersPushController@store')->middleware('auth:api');
 Route::get('/gemini/me/activities', 'Api\Gemini\UsersActivitiesController@index')->middleware('auth:api');
 Route::post('/gemini/me/activities/{id}', 'Api\Gemini\UsersActivitiesController@store')->middleware('auth:api');
 Route::get('/gemini/events/{event}/activities', 'Api\Gemini\EventsActivitiesController@index')->middleware('auth:api');

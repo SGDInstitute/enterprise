@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html class="bg-grey-lightest">
+
 <head>
     <meta charset="utf-8">
-    <title>@yield('title') | Midwest Institute for Sexuality and Gender Diversity</title>
+    <title>Check In | Midwest Institute for Sexuality and Gender Diversity</title>
     <meta name="description" content="event.discription">
     <meta name="title" content="event.name">
     <meta name="author" content="MBLGTACC 2018, Midwest Institute for Sexuality and Gender Diversity">
@@ -27,12 +28,14 @@
         ]);
     </script>
 </head>
-<body class="bg-grey-lightest">
-<div id="app">
-    <app></app>
-</div>
+
+<body class="bg-blue-300">
+    <div id="app">
+        <app></app>
+    </div>
 </body>
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script src="{{ mix('js/checkin.js') }}"></script>
+
 </html>
