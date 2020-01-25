@@ -20,6 +20,11 @@ class Activity extends Model
         return $this->belongsToMany(User::class, 'speakers');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function type()
     {
         return $this->belongsTo(ActivityType::class, 'activity_type_id');

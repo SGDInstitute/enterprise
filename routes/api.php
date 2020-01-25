@@ -7,6 +7,7 @@ Route::get('/me', 'Api\UsersController@show');
 Route::post('/users', 'Api\RegisterController@register');
 
 Route::get('/events/{event}/ticket-types', 'Api\EventTicketTypeController');
+Route::post('/events/{event}/discounts', 'Api\EventsDiscountController')->middleware('auth:api');
 
 Route::get('/orders/{number}', 'Api\OrdersController@show');
 Route::post('/orders/{order}/charge', 'Api\OrderChargeController@store');

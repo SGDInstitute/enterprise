@@ -32,17 +32,21 @@ class UsersActivitiesController extends Controller
     {
         auth()->user()->schedule()->toggle($id);
 
-        $activities = auth()->user()->fresh()->schedule()->with('speakers', 'schedule.event', 'type')->get()
-            ->filter(function ($activity) {
-                return $activity->schedule->event->id == request()->query('event');
-            })
-            ->map(function ($activity) {
-                $activity->timezone = $activity->schedule->event->timezone;
-                $activity->schedule = $activity->schedule->title;
-                return $activity;
-            })
-            ->sortBy('start');
+        if (request()->query('event')) {
+            $activities = auth()->user()->fresh()->schedule()->with('speakers', 'schedule.event', 'type')->get()
+                ->filter(function ($activity) {
+                    return $activity->schedule->event->id == request()->query('event');
+                })
+                ->map(function ($activity) {
+                    $activity->timezone = $activity->schedule->event->timezone;
+                    $activity->schedule = $activity->schedule->title;
+                    return $activity;
+                })
+                ->sortBy('start');
 
-        return ActivitiesResource::collection($activities);
+            return ActivitiesResource::collection($activities);
+        } else {
+            return response()->json([], 201);
+        }
     }
 }

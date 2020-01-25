@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Activity::class, function (Faker $faker) {
     return [
-        //
+        'start' => now(),
+        'end' => now(),
     ];
 });

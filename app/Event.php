@@ -21,8 +21,6 @@ class Event extends Model
         'links' => 'array',
     ];
 
-
-
     public function contributions()
     {
         return $this->hasMany(Contribution::class);
@@ -100,10 +98,16 @@ class Event extends Model
 
         foreach ($tickets as $ticket) {
             if ($ticket['quantity'] > 0) {
+                $ticketType = TicketType::find($ticket['ticket_type_id']);
+
                 foreach (range(1, $ticket['quantity']) as $i) {
                     $order->tickets()->create([
                         'ticket_type_id' => $ticket['ticket_type_id']
                     ]);
+
+                    if ($ticketType->cost === 0) {
+                        $order->markAsPaid(collect(['id' => 'comped', 'amount' => 0]));
+                    }
                 }
             }
         }

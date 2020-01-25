@@ -19,11 +19,22 @@
                     <td>{{ $activity->title }}</td>
                     <td>{{ $activity->location }}</td>
                     <td>
-                        {{ $activity->start->format('F j, Y') }}<br />
-                        {{ $activity->start->format('g:i a') }} - {{ $activity->end->format('g:i a') }}
+                        {{ $activity->start->timezone('America/Detroit')->format('F j, Y') }}<br />
+                        {{ $activity->start->timezone('America/Detroit')->format('g:i a') }} - {{ $activity->end->timezone('America/Detroit')->format('g:i a') }}
                     </td>
-                    <td class="text-right">{{ $activity->spots }}</td>
-                    <td><a href="#">Sign Up</a></td>
+                    <td class="text-right">
+                        {{ $activity->users->count() }} of
+                        {{ $activity->spots }}
+                    </td>
+                    <td>
+                        @if($activity->users->count() >= $activity->spots)
+                        <button type="button" disabled>Sign Up</button>
+                        @elseif($activity->users->firstWhere('id', auth()->id()))
+                        <add-to-schedule id="{{ $activity->id }}" class="btn btn-mint-outline btn-sm">Remove</add-to-schedule>
+                        @else
+                        <add-to-schedule id="{{ $activity->id }}" class="btn btn-mint btn-sm">Sign Up</add-to-schedule>
+                        @endif
+                    </td>
                 </tr>
                 @empty
                 <tr>
