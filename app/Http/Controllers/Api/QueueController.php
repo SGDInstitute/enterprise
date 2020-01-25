@@ -19,6 +19,7 @@ class QueueController extends Controller
     {
         $tickets = Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
             ->filter(function ($ticket) {
+                // remove tickets that are in the queue that have't been printed yet
                 return !Queue::where('ticket_id', $ticket->id)->where('completed', false)->exists();
             });
 
