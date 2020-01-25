@@ -48,15 +48,15 @@ class EventsSeeder extends Seeder
             [
                 'name' => 'Regular Registration',
                 'cost' => 7500,
-                'availability_start' => \Carbon\Carbon::now()->subMonth(),
-                'availability_end' => \Carbon\Carbon::parse('2018-02-16 19:00:00')->subMonth(),
+                'availability_start' => $event->start->subMonth(6),
+                'availability_end' => $event->start->subMonth(),
             ],
             [
                 'name' => 'Late Registration',
                 'description' => 'You are not guarenteed special items such as T-Shirts, Program Books, etc. Extras will be available on Sunday after the closing ceremony.',
                 'cost' => 7500,
-                'availability_start' => \Carbon\Carbon::parse('2018-02-17 19:00:00')->subMonth(),
-                'availability_end' => '2018-02-18 19:30:00',
+                'availability_start' => $event->start->subMonth(),
+                'availability_end' => $event->end,
             ],
         ]);
     }

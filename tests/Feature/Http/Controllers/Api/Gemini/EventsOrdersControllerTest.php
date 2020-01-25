@@ -59,6 +59,6 @@ class EventsOrdersControllerTest extends TestCase
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
         $this->assertCount(2, $response->decodeResponseJson()['data'][0]['tickets']);
-        $this->assertLessThan(6, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(6, count(DB::getQueryLog()));
     }
 }
