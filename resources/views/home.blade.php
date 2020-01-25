@@ -9,6 +9,7 @@
                     <a class="nav-link active" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="true">Orders</a>
                     <a class="nav-link" id="donations-tab" data-toggle="tab" href="#donations" role="tab" aria-controls="donations" aria-selected="false">Donations</a>
                     <a class="nav-link" id="workshops-tab" data-toggle="tab" href="#workshops" role="tab" aria-controls="workshops" aria-selected="false">Workshops</a>
+                    <a class="nav-link" id="volunteer-tab" data-toggle="tab" href="#volunteer" role="tab" aria-controls="volunteer" aria-selected="false">Volunteer</a>
                     <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
                 </div>
             </div>
@@ -22,6 +23,9 @@
                     </div>
                     <div class="tab-pane fade" id="workshops" role="tabpanel" aria-labelledby="workshops-tab">
                         @include('home.partials.workshops')
+                    </div>
+                    <div class="tab-pane fade" id="volunteer" role="tabpanel" aria-labelledby="volunteer-tab">
+                        @include('home.partials.volunteer')
                     </div>
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                         @include('home.partials.settings')

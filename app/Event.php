@@ -21,14 +21,16 @@ class Event extends Model
         'links' => 'array',
     ];
 
-    public function ticket_types()
-    {
-        return $this->hasMany(TicketType::class);
-    }
+
 
     public function contributions()
     {
         return $this->hasMany(Contribution::class);
+    }
+
+    public function forms()
+    {
+        return $this->hasMany(Form::class);
     }
 
     public function orders()
@@ -36,9 +38,14 @@ class Event extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function forms()
+    public function schedules()
     {
-        return $this->hasMany(Form::class);
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function ticket_types()
+    {
+        return $this->hasMany(TicketType::class);
     }
 
     public function scopeFindBySlug($query, $slug)

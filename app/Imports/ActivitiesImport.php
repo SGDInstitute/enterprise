@@ -16,22 +16,26 @@ class ActivitiesImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        $schedule = Schedule::where('title', $row['schedule'])->first();
-        $type = ActivityType::firstOrCreate(['title' => $row['type']]);
+        if ($row['type'] !== null) {
+            $schedule = Schedule::where('title', $row['schedule'])->first();
+            $type = ActivityType::firstOrCreate(['title' => $row['type']]);
 
-        $start = new Carbon(Date::excelToDateTimeObject($row['start'])->format('Y-m-d H:i:s'), $schedule->event->timezone);
-        $start->tz('UTC');
-        $end = new Carbon(Date::excelToDateTimeObject($row['end'])->format('Y-m-d H:i:s'), $schedule->event->timezone);
-        $end->tz('UTC');
+            $start = new Carbon(Date::excelToDateTimeObject($row['start'])->format('Y-m-d H:i:s'), $schedule->event->timezone);
+            $start->tz('UTC');
+            $end = new Carbon(Date::excelToDateTimeObject($row['end'])->format('Y-m-d H:i:s'), $schedule->event->timezone);
+            $end->tz('UTC');
 
-        return new Activity([
-            'schedule_id' => $schedule->id,
-            'activity_type_id' => $type->id,
-            'title' => $row['title'],
-            'description' => $row['description'],
-            'location' => $row['location'],
-            'start' => $start,
-            'end' => $end,
-        ]);
+            return new Activity([
+                'schedule_id' => $schedule->id,
+                'activity_type_id' => $type->id,
+                'title' => $row['title'],
+                'description' => $row['description'] ?? null,
+                'location' => $row['location'] ?? null,
+                'room' => $row['room'] ?? null,
+                'start' => $start,
+                'end' => $end,
+                'spots' => $row['spots'] ?? null,
+            ]);
+        }
     }
 }

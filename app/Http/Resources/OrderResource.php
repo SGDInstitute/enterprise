@@ -14,7 +14,7 @@ class OrderResource extends JsonResource
             'is_paid' => $this->confirmation_number !== null,
             'confirmation_number' => $this->confirmation_number,
             'amount' => $this->amount,
-            'tickets' => $this->tickets
+            'tickets' => TicketResource::collection($this->tickets),
         ];
     }
 }

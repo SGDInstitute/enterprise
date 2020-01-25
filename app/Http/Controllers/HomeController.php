@@ -13,9 +13,18 @@ class HomeController extends Controller
             return $form->type === 'workshop';
         });
 
-        list($submittedWorkshops, $submittedSurveys) = auth()->user()->responses->load('form')->partition(function ($response) {
+        $responses = auth()->user()->responses->load('form.event');
+        $submittedWorkshops = $responses->filter(function ($response) {
             return $response->form->type === 'workshop';
         });
+
+        $submittedUpcomingVolunteer = $responses->filter(function ($response) {
+            return $response->form->type === 'volunteer' && $response->form->event->start > now();
+        })->first();
+
+        if ($submittedUpcomingVolunteer !== null) {
+            $volunteerActivities = $submittedUpcomingVolunteer->form->event->schedules()->where('title', 'Volunteer Track')->with('activities.type')->get()->flatMap->activities;
+        }
 
         return view('home', [
             'orders' => [
@@ -27,7 +36,7 @@ class HomeController extends Controller
             'openWorkshops' => $openWorkshops,
             'openSurveys' => $openSurveys,
             'submittedWorkshops' => $submittedWorkshops,
-            'submittedSurveys' => $submittedSurveys,
+            'volunteerActivities' => $volunteerActivities ?? [],
         ]);
     }
 

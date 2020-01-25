@@ -45,6 +45,7 @@ class Form extends Resource
                 'survey' => 'Survey',
                 'evaluation' => 'Evaluation (Gemini)',
                 'workshop' => 'Workshop',
+                'volunteer' => 'Volunteer',
                 'default' => 'Default'
             ]),
             Boolean::make('Auth Required'),
