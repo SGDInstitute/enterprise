@@ -23,7 +23,7 @@ class QueueController extends Controller
             });
 
         if ($tickets->count() > 0) {
-            $batch = Hashids::encode($tickets[0]->order->id);
+            $batch = Hashids::encode($tickets->first()->order->id);
 
             $tickets->each(function ($ticket) use ($batch) {
                 Queue::create([
