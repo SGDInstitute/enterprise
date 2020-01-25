@@ -3,13 +3,11 @@
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
-use App\Imports\ActivititesImport;
 use App\Schedule;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
-use Maatwebsite\Excel\Facades\Excel;
 use Tests\TestCase;
 
 /**
@@ -30,6 +28,7 @@ class EventsSchedulesControllerTest extends TestCase
 
         Passport::actingAs(factory(User::class)->create());
 
+        DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$mblgtacc->id}/schedules");
 
         $response->assertOk();
@@ -44,6 +43,7 @@ class EventsSchedulesControllerTest extends TestCase
         ]);
 
         $this->assertCount(2, $response->decodeResponseJson()['data']);
+        $this->assertLessThan(5, count(DB::getQueryLog()));
     }
 
     /** @test */
@@ -55,6 +55,7 @@ class EventsSchedulesControllerTest extends TestCase
 
         Passport::actingAs(factory(User::class)->create());
 
+        DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/schedules/{$mainSchedule->id}");
 
         $response->assertOk();
@@ -68,5 +69,6 @@ class EventsSchedulesControllerTest extends TestCase
 
         $this->assertEquals('MBLGTACC', $response->decodeResponseJson()['data']['event']);
         $this->assertEquals('Main Track', $response->decodeResponseJson()['data']['title']);
+        $this->assertLessThan(5, count(DB::getQueryLog()));
     }
 }

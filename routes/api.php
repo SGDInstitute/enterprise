@@ -7,6 +7,7 @@ Route::get('/me', 'Api\UsersController@show');
 Route::post('/users', 'Api\RegisterController@register');
 
 Route::get('/events/{event}/ticket-types', 'Api\EventTicketTypeController');
+Route::post('/events/{event}/discounts', 'Api\EventsDiscountController')->middleware('auth:api');
 
 Route::get('/orders/{number}', 'Api\OrdersController@show');
 Route::post('/orders/{order}/charge', 'Api\OrderChargeController@store');
@@ -26,8 +27,16 @@ Route::patch('/queue/{ids}/complete', 'Api\QueueCompletedController');
 
 Route::get('/gemini/me', 'Api\Gemini\UsersController@show')->middleware('auth:api');
 Route::patch('/gemini/me', 'Api\Gemini\UsersController@update')->middleware('auth:api');
+Route::post('/gemini/me/push', 'Api\Gemini\UsersPushController@store')->middleware('auth:api');
+Route::get('/gemini/me/activities', 'Api\Gemini\UsersActivitiesController@index')->middleware('auth:api');
+Route::post('/gemini/me/activities/{id}', 'Api\Gemini\UsersActivitiesController@store')->middleware('auth:api');
 Route::get('/gemini/events/{event}/activities', 'Api\Gemini\EventsActivitiesController@index')->middleware('auth:api');
 Route::get('/gemini/events/{event}/bulletins', 'Api\Gemini\EventsBulletinsController@index')->middleware('auth:api');
+Route::get('/gemini/events/{event}/content', 'Api\Gemini\EventsContentController@index')->middleware('auth:api');
+Route::get('/gemini/events/{event}/evaluations', 'Api\Gemini\EventsEvaluationsController@index')->middleware('auth:api');
+Route::post('/gemini/evaluations/{evaluation}/responses', 'Api\Gemini\EvaluationsResponsesController@store')->middleware('auth:api');
 Route::get('/gemini/events/{event}/locations', 'Api\Gemini\EventsLocationsController@index')->middleware('auth:api');
+Route::get('/gemini/events/{event}/orders', 'Api\Gemini\EventsOrdersController@index')->middleware('auth:api');
 Route::get('/gemini/events/{event}/schedules', 'Api\Gemini\EventsSchedulesController@index')->middleware('auth:api');
 Route::get('/gemini/events/{event}/schedules/{id}', 'Api\Gemini\EventsSchedulesController@show')->middleware('auth:api');
+Route::post('/gemini/tickets', 'Api\Gemini\TicketsController@store')->middleware('auth:api');

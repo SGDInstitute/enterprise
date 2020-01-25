@@ -94,6 +94,12 @@
                     @endif
                 </div>
                 <div class="w-full border-t md:border-t-0 md:border-l md:w-1/3 px-4 py-6">
+                    @if($show_volunteer)
+                    <div class="bg-mint-200 border-l-4 border-mint-500 p-4 mb-4 rounded shadow">
+                        <p class="leading-normal mb-2">It looks like you're a volunteer! If you haven't signed up for any shifts please do so before registering, otherwise we can't calculate your discount!</p>
+                        <calculate-discount id="{{ $event->id }}" class="btn btn-mint rounded-lg btn-sm btn-block">Calculate</calculate-discount>
+                    </div>
+                    @endif
                     <start-order :ticket_types="{{ $ticket_types }}" :event="{{ $event }}" :user="{{ json_encode(Auth::user()) }}"></start-order>
                 </div>
             </div>

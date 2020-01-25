@@ -50,6 +50,11 @@ class Ticket extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function queue()
+    {
+        return $this->hasOne(Queue::class);
+    }
+
     public static function findByHash($hash)
     {
         return self::where('hash', $hash)->first();

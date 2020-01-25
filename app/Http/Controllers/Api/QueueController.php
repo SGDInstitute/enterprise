@@ -19,11 +19,12 @@ class QueueController extends Controller
     {
         $tickets = Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
             ->filter(function ($ticket) {
-                return !Queue::where('ticket_id', $ticket->id)->where('completed', false)->exists();
+                // remove tickets that are in the queue
+                return !Queue::where('ticket_id', $ticket->id)->exists();
             });
 
         if ($tickets->count() > 0) {
-            $batch = Hashids::encode($tickets[0]->order->id);
+            $batch = Hashids::encode($tickets->first()->order->id);
 
             $tickets->each(function ($ticket) use ($batch) {
                 Queue::create([

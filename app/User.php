@@ -49,6 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'https://hooks.slack.com/services/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';
     }
 
+    public function schedule()
+    {
+        return $this->belongsToMany(Activity::class);
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class)->withDefault(new Profile());

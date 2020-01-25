@@ -43,7 +43,9 @@ class Form extends Resource
                 ->disableAutoUpdateWhenUpdating()->hideFromIndex(),
             Select::make('Type')->options([
                 'survey' => 'Survey',
+                'evaluation' => 'Evaluation (Gemini)',
                 'workshop' => 'Workshop',
+                'volunteer' => 'Volunteer',
                 'default' => 'Default'
             ]),
             Boolean::make('Auth Required'),

@@ -36,3 +36,6 @@ Vue.component('dynamic-form', require('./components/voyager/DynamicForm.vue').de
 
 Vue.component('pay-tour', require('./components/PayTour.vue').default);
 Vue.component('invite-tour', require('./components/InviteTour.vue').default);
+
+Vue.component('add-to-schedule', require('./components/gemini/AddToSchedule.vue').default);
+Vue.component('calculate-discount', require('./components/CalculateDiscounts.vue').default);

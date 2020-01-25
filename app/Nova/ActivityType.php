@@ -5,7 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Timothyasp\Color\Color;
 
 class ActivityType extends Resource
 {
@@ -15,57 +15,31 @@ class ActivityType extends Resource
 
     public static $group = 'Gemini';
 
-    public static $search = [
-        'title',
-    ];
-
     public function fields(Request $request)
     {
         return [
             ID::make()->sortable(),
             Text::make('Title')->sortable(),
+            Color::make('Color'),
+            Color::make('Text Color')->help('Should have a good contrast value with the main color. Try #fff or #000'),
         ];
     }
 
-    /**
-     * Get the cards available for the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function cards(Request $request)
     {
         return [];
     }
 
-    /**
-     * Get the filters available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function filters(Request $request)
     {
         return [];
     }
 
-    /**
-     * Get the lenses available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function lenses(Request $request)
     {
         return [];
     }
 
-    /**
-     * Get the actions available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function actions(Request $request)
     {
         return [];

@@ -21,19 +21,29 @@ class Event extends Model
         'links' => 'array',
     ];
 
-    public function ticket_types()
-    {
-        return $this->hasMany(TicketType::class);
-    }
-
     public function contributions()
     {
         return $this->hasMany(Contribution::class);
     }
 
+    public function forms()
+    {
+        return $this->hasMany(Form::class);
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function ticket_types()
+    {
+        return $this->hasMany(TicketType::class);
     }
 
     public function scopeFindBySlug($query, $slug)
@@ -88,10 +98,16 @@ class Event extends Model
 
         foreach ($tickets as $ticket) {
             if ($ticket['quantity'] > 0) {
+                $ticketType = TicketType::find($ticket['ticket_type_id']);
+
                 foreach (range(1, $ticket['quantity']) as $i) {
                     $order->tickets()->create([
                         'ticket_type_id' => $ticket['ticket_type_id']
                     ]);
+
+                    if ($ticketType->cost === 0) {
+                        $order->markAsPaid(collect(['id' => 'comped', 'amount' => 0]));
+                    }
                 }
             }
         }

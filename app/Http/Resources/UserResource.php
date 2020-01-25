@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'push_token' => $this->push_token,
             'roles' => $this->roles->pluck('name')->all(),
             'pronouns' => $this->profile->pronouns,
             'sexuality' => $this->profile->sexuality,

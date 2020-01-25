@@ -2,13 +2,14 @@
 
 namespace App\Nova;
 
+use App\Imports\ActivitiesImport;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Sgd\ImportCard\ImportCard;
 
 class Activity extends Resource
@@ -24,6 +25,8 @@ class Activity extends Resource
         'id', 'title'
     ];
 
+    public static $importer = ActivitiesImport::class;
+
     public static $searchRelations = [
         'schedule' => ['title'],
         'schedule.event' => ['title'],
@@ -34,10 +37,13 @@ class Activity extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Schedule'),
+            BelongsTo::make('Activity Type')->sortable(),
             Text::make('Title'),
             Trix::make('Description'),
             DateTime::make('Start')->sortable(),
             DateTime::make('End')->sortable(),
+
+            BelongsToMany::make('Speakers', 'speakers', 'App\Nova\User')->searchable(),
         ];
     }
 

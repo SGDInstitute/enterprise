@@ -7,6 +7,7 @@ use App\User;
 use App\Imports\FloorsImport;
 use App\Imports\LocationsImport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\TestCase;
@@ -28,6 +29,7 @@ class EventsLocationsControllerTest extends TestCase
 
         Passport::actingAs(factory(User::class)->create());
 
+        DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/locations");
 
         $response->assertOk();
@@ -54,5 +56,7 @@ class EventsLocationsControllerTest extends TestCase
                 ]
             ]
         ]);
+
+        $this->assertLessThan(5, count(DB::getQueryLog()));
     }
 }

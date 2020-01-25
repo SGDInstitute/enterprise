@@ -35,7 +35,7 @@ class Donation extends Resource
             BelongsTo::make('User')->sortable(),
             Currency::make('Amount')
                 ->displayUsing(function ($amount) {
-                    return money_format('$%.2n', $amount / 100);
+                    return '$' . $amount / 100;
                 })->sortable(),
             Text::make('Type', function () {
                 if (!$this->contributions->isEmpty()) {

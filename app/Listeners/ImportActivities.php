@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\ActivititesUploaded;
-use App\Imports\ActivititesImport;
+use App\Events\ActivitiesUploaded;
+use App\Imports\ActivitiesImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ImportActivities
@@ -14,8 +14,8 @@ class ImportActivities
         //
     }
 
-    public function handle(ActivititesUploaded $event)
+    public function handle(ActivitiesUploaded $event)
     {
-        Excel::import(new ActivititesImport, $event->path);
+        Excel::import(new ActivitiesImport, $event->path);
     }
 }

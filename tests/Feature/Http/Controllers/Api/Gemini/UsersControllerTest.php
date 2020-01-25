@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers\Api\Gemini;
 use App\Profile;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -66,6 +67,7 @@ class UsersControllerTest extends TestCase
 
         Passport::actingAs($user);
 
+        DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->json('patch', "api/gemini/me", [
             'name' => 'Ginny Weasley',
             'email' => 'gweasley@hogwarts.edu',
@@ -85,5 +87,6 @@ class UsersControllerTest extends TestCase
         $this->assertEquals('white', $response->decodeResponseJson()['data']['race']);
         $this->assertEquals('Hogwarts', $response->decodeResponseJson()['data']['college']);
         $this->assertEquals('S', $response->decodeResponseJson()['data']['tshirt']);
+        $this->assertLessThan(5, count(DB::getQueryLog()));
     }
 }

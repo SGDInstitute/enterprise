@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\ActivititesUploaded;
+use App\Events\ActivitiesUploaded;
 use App\Listeners\ImportActivities;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,7 +24,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        ActivititesUploaded::class => [
+        ActivitiesUploaded::class => [
             ImportActivities::class
         ]
     ];
