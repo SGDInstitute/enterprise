@@ -25,6 +25,49 @@ class EventsOrdersControllerTest extends TestCase
     {
         $event = factory(Event::class)->states('published')->create();
         $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
+        $orderOwner = factory(User::class)->create(['email' => 'jo@example.com']);
+        $attendee = factory(User::class)->create(['email' => 'john@example.com']);
+        $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $orderOwner->id]);
+        $ticket1 = factory(Ticket::class)->create([
+            'order_id' => $order->id,
+            'user_id' => $orderOwner->id,
+            'ticket_type_id' => $ticketType->id,
+        ]);
+        $ticket2 = factory(Ticket::class)->create([
+            'order_id' => $order->id,
+            'user_id' => $attendee->id,
+            'ticket_type_id' => $ticketType->id,
+        ]);
+
+        Passport::actingAs($attendee);
+
+        DB::enableQueryLog();
+        $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/orders");
+
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'owner_id',
+                    'is_paid',
+                    'confirmation_number',
+                    'amount',
+                    'tickets'
+                ]
+            ]
+        ]);
+
+        $this->assertCount(1, $response->decodeResponseJson()['data']);
+        $this->assertCount(2, $response->decodeResponseJson()['data'][0]['tickets']);
+        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
+    }
+
+    /** @test */
+    public function user_that_is_in_order_returns_the_order()
+    {
+        $event = factory(Event::class)->states('published')->create();
+        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create(['email' => 'jo@example.com']);
         $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $user->id]);
         $ticket1 = factory(Ticket::class)->create([
@@ -59,6 +102,6 @@ class EventsOrdersControllerTest extends TestCase
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
         $this->assertCount(2, $response->decodeResponseJson()['data'][0]['tickets']);
-        $this->assertLessThanOrEqual(6, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
     }
 }
