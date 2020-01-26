@@ -70,8 +70,13 @@ export default {
     setInitialValue() {
       this.value = this.field.value || [];
 
+      console.log(this.field.value);
       if (this.field.value !== "[]" && this.field.value !== null) {
-        this.links = JSON.parse(this.field.value);
+        if (typeof this.field.value === "string") {
+          this.links = JSON.parse(this.field.value);
+        } else {
+          this.links = this.field.value;
+        }
       }
     },
 
