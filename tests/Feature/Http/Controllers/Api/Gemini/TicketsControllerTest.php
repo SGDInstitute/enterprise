@@ -33,7 +33,7 @@ class TicketsControllerTest extends TestCase
         $response->assertOk();
 
         Mail::assertSent(NewTicket::class, function ($mail) use ($user) {
-            return $mail->hasTo('support@mblgtacc.org') &&
+            return $mail->hasTo('support@sgdinstitute.org') &&
                 $mail->hasCc($user->email);
         });
     }

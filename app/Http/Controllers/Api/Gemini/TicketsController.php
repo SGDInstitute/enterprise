@@ -16,7 +16,7 @@ class TicketsController extends Controller
             'message' => 'required'
         ]);
 
-        Mail::to('support@mblgtacc.org')
+        Mail::to('support@sgdinstitute.org')
             ->cc(auth()->user()->email)
             ->send(new NewTicket($data['subject'], $data['message'], auth()->user()->email));
 
