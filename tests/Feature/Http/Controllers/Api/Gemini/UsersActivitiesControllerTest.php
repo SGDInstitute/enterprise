@@ -64,7 +64,7 @@ class UsersActivitiesControllerTest extends TestCase
         ]);
 
         $this->assertCount(4, $response->decodeResponseJson()['data']);
-        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(11, count(DB::getQueryLog()));
     }
 
     /** @test */
@@ -109,7 +109,7 @@ class UsersActivitiesControllerTest extends TestCase
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
         $this->assertEquals($randomActivity->id, $user->schedule->first()->id);
-        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(11, count(DB::getQueryLog()));
     }
 
     /** @test */
@@ -155,6 +155,6 @@ class UsersActivitiesControllerTest extends TestCase
 
         $this->assertCount(0, $response->decodeResponseJson()['data']);
         $this->assertCount(0, $user->schedule);
-        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(11, count(DB::getQueryLog()));
     }
 }
