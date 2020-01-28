@@ -28,7 +28,7 @@ class ActivitiesImport implements ToModel, WithHeadingRow
             $end->tz('UTC');
 
 
-            if ($row['location'] !== null) {
+            if ($row['location'] !== null && $row['location'] !== 'TBD') {
                 $location = Location::where('title', $row['location'])->orWhere('abbreviation', $row['location'])->first()->id;
             } else {
                 $location = null;

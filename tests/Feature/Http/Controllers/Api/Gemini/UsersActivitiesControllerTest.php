@@ -26,7 +26,7 @@ class UsersActivitiesControllerTest extends TestCase
     public function index_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
@@ -71,7 +71,7 @@ class UsersActivitiesControllerTest extends TestCase
     public function storing_new_activity_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
@@ -116,7 +116,7 @@ class UsersActivitiesControllerTest extends TestCase
     public function storing_existing_activity_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
