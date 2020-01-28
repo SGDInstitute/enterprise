@@ -12,7 +12,7 @@ class EventsActivitiesController extends Controller
 
     public function index($id)
     {
-        $activities = Schedule::where('event_id', $id)->with('activities.type', 'activities.speakers.profile', 'event')->get()->flatMap(function ($schedule) {
+        $activities = Schedule::where('event_id', $id)->with('activities.type', 'activities.location', 'activities.room', 'activities.speakers.profile', 'event')->get()->flatMap(function ($schedule) {
             return $schedule->activities->map(function ($activity) use ($schedule) {
                 $activity->schedule = $schedule->title;
                 $activity->timezone = $schedule->event->timezone;

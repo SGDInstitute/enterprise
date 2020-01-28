@@ -10,6 +10,21 @@ class Activity extends Model
 
     protected $dates = ['start', 'end'];
 
+    public function activity_type()
+    {
+        return $this->belongsTo(ActivityType::class, 'activity_type_id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
     public function schedule()
     {
         return $this->belongsTo(Schedule::class);
@@ -20,19 +35,14 @@ class Activity extends Model
         return $this->belongsToMany(User::class, 'speakers');
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
-
     public function type()
     {
         return $this->belongsTo(ActivityType::class, 'activity_type_id');
     }
 
-    public function activity_type()
+    public function users()
     {
-        return $this->belongsTo(ActivityType::class, 'activity_type_id');
+        return $this->belongsToMany(User::class);
     }
 
     public function toArray()

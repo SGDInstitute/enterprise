@@ -4,6 +4,8 @@ namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
 use App\Imports\ActivitiesImport;
+use App\Imports\FloorsImport;
+use App\Imports\LocationsImport;
 use App\Schedule;
 use App\User;
 use Tests\TestCase;
@@ -24,10 +26,12 @@ class UsersActivitiesControllerTest extends TestCase
     public function index_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
+        Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
+        Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
         Excel::import(new ActivitiesImport, public_path('documents/schedule.xlsx'));
 
         $randomActivities = $mainTrack->activities->random(4)->pluck('id');
@@ -60,17 +64,19 @@ class UsersActivitiesControllerTest extends TestCase
         ]);
 
         $this->assertCount(4, $response->decodeResponseJson()['data']);
-        $this->assertLessThan(10, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
     }
 
     /** @test */
     public function storing_new_activity_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
+        Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
+        Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
         Excel::import(new ActivitiesImport, public_path('documents/schedule.xlsx'));
 
         $randomActivity = $mainTrack->activities->random(1)->first();
@@ -103,17 +109,19 @@ class UsersActivitiesControllerTest extends TestCase
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
         $this->assertEquals($randomActivity->id, $user->schedule->first()->id);
-        $this->assertLessThan(10, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
     }
 
     /** @test */
     public function storing_existing_activity_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
+        Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
+        Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
         Excel::import(new ActivitiesImport, public_path('documents/schedule.xlsx'));
 
         $randomActivity = $mainTrack->activities->random(1)->first();
@@ -147,6 +155,6 @@ class UsersActivitiesControllerTest extends TestCase
 
         $this->assertCount(0, $response->decodeResponseJson()['data']);
         $this->assertCount(0, $user->schedule);
-        $this->assertLessThan(10, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
     }
 }

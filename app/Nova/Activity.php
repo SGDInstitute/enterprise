@@ -38,6 +38,8 @@ class Activity extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Schedule'),
             BelongsTo::make('Activity Type')->sortable(),
+            BelongsTo::make('Location')->sortable()->nullable(),
+            BelongsTo::make('Room')->sortable()->nullable(),
             Text::make('Title'),
             Trix::make('Description'),
             DateTime::make('Start')->sortable(),
