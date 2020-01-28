@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OrdersSeeder::class);
         $this->call(ResponsesSeeder::class);
         $this->call(OtherResponseSeeder::class);
+        $this->call(ActivityTypeSeeder::class);
     }
 }

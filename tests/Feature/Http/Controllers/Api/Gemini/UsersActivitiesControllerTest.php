@@ -4,6 +4,8 @@ namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
 use App\Imports\ActivitiesImport;
+use App\Imports\FloorsImport;
+use App\Imports\LocationsImport;
 use App\Schedule;
 use App\User;
 use Tests\TestCase;
@@ -28,6 +30,8 @@ class UsersActivitiesControllerTest extends TestCase
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
+        Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
+        Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
         Excel::import(new ActivitiesImport, public_path('documents/schedule.xlsx'));
 
         $randomActivities = $mainTrack->activities->random(4)->pluck('id');
@@ -71,6 +75,8 @@ class UsersActivitiesControllerTest extends TestCase
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
+        Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
+        Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
         Excel::import(new ActivitiesImport, public_path('documents/schedule.xlsx'));
 
         $randomActivity = $mainTrack->activities->random(1)->first();
@@ -114,6 +120,8 @@ class UsersActivitiesControllerTest extends TestCase
         $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
         $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
+        Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
+        Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
         Excel::import(new ActivitiesImport, public_path('documents/schedule.xlsx'));
 
         $randomActivity = $mainTrack->activities->random(1)->first();
