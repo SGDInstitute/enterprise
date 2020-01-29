@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Resources\SpeakersResource;
 use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
@@ -51,7 +52,7 @@ class Activity extends Model
             'id' => $this->id,
             'schedule' => $this->schedule,
             'title' => $this->title,
-            'speaker' => $this->speaker,
+            'speakers' => SpeakersResource::collection($this->speakers),
             'description' => $this->description,
             'type' => $this->type->title,
             'color' => $this->type->color,
