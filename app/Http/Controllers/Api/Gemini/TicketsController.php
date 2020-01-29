@@ -17,6 +17,7 @@ class TicketsController extends Controller
         ]);
 
         Mail::to('support@sgdinstitute.org')
+            ->from('support@sgdinstitute.org')
             ->cc(auth()->user()->email)
             ->send(new NewTicket($data['subject'], $data['message'], auth()->user()->email));
 
