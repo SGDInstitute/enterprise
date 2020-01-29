@@ -24,7 +24,8 @@ class NewTicket extends Mailable
 
     public function build()
     {
-        return $this->from($this->email)
+        return $this->from('no-reply@sgdinstitute.org')
+            ->replyTo($this->email)
             ->subject($this->subject)
             ->text('emails.plain.ticket');
     }
