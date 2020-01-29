@@ -16,8 +16,8 @@ class LocationResource extends JsonResource
             'background' => Storage::url($this->background),
             'description' => $this->description,
             'coordinates' => [
-                'latitude' => $this->latitude,
-                'longitude' => $this->longitude,
+                'latitude' => (int) $this->latitude,
+                'longitude' => (int) $this->longitude,
             ],
             'floors' => FloorResource::collection($this->whenLoaded('floors')),
         ];
