@@ -10,7 +10,7 @@ class FloorResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'floor_plan' => Storage::url($this->floor_plan),
+            'floor_plan' => url(Storage::url($this->floor_plan)),
             'level' => $this->level,
             'rooms' => RoomResource::collection($this->whenLoaded('rooms')),
         ];

@@ -13,7 +13,7 @@ class LocationResource extends JsonResource
             'id' => $this->id,
             'type' => $this->type,
             'title' => $this->title,
-            'background' => Storage::url($this->background),
+            'background' => url(Storage::url($this->background)),
             'description' => $this->description,
             'coordinates' => [
                 'latitude' => (int) $this->latitude,

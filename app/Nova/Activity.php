@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Sgd\ImportCard\ImportCard;
@@ -44,6 +45,7 @@ class Activity extends Resource
             Trix::make('Description'),
             DateTime::make('Start')->sortable(),
             DateTime::make('End')->sortable(),
+            Number::make('Spots')->sortable(),
 
             BelongsToMany::make('Speakers', 'speakers', 'App\Nova\User')->searchable(),
         ];
