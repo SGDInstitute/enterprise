@@ -36,6 +36,7 @@ class Location extends Resource
             BelongsTo::make('Event'),
             Text::make('Title'),
             Text::make('Abbreviation'),
+            Text::make('Description'),
             Select::make('Type')->options(['conference' => 'Conference', 'hotel' => 'Hotel', 'entertainment' => 'Entertainment', 'food' => 'Food']),
             File::make('Background'),
             $this->addressFields(),
