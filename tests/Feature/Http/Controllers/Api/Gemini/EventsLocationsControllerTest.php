@@ -57,6 +57,6 @@ class EventsLocationsControllerTest extends TestCase
             ]
         ]);
 
-        $this->assertLessThan(5, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));
     }
 }
