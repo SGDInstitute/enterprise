@@ -23,7 +23,9 @@ class HomeController extends Controller
         })->first();
 
         if ($submittedUpcomingVolunteer !== null) {
-            $volunteerActivities = $submittedUpcomingVolunteer->form->event->schedules()->where('title', 'Volunteer Track')->with('activities.type', 'activities.users')->get()->flatMap->activities;
+            $volunteerActivities = $submittedUpcomingVolunteer->form->event->schedules()->where('title', 'Volunteer Track')
+                ->with('activities.type', 'activities.users', 'activities.location')
+                ->get()->flatMap->activities;
         }
 
         return view('home', [

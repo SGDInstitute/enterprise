@@ -17,7 +17,7 @@
                 @forelse($volunteerActivities as $activity)
                 <tr>
                     <td>{{ $activity->title }}</td>
-                    <td>{{ $activity->location->title }}</td>
+                    <td>{{ optional($activity->location)->title }}</td>
                     <td>
                         {{ $activity->start->timezone('America/Detroit')->format('F j, Y') }}<br />
                         {{ $activity->start->timezone('America/Detroit')->format('g:i a') }} - {{ $activity->end->timezone('America/Detroit')->format('g:i a') }}
