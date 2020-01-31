@@ -18,13 +18,11 @@ class Ticket extends Model
 
     protected $fillable = ['ticket_type_id'];
 
+    protected $casts = [
+        'in_queue' => 'boolean',
+        'is_printed' => 'boolean',
+    ];
 
-
-    /**
-     * Boot function for using with User Events
-     *
-     * @return void
-     */
     protected static function boot()
     {
         parent::boot();
