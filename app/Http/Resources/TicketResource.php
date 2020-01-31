@@ -14,7 +14,7 @@ class TicketResource extends JsonResource
             'user' => $this->user_id === null ? null : new UserResource($this->user),
             'type' => $this->ticket_type->name,
             'in_queue' => $this->queue !== null,
-            'is_printed' => optional($this->queue)->completed,
+            'is_printed' => $this->queue ? $this->queue->completed ? true : false : false,
         ];
     }
 }
