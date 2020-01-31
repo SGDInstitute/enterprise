@@ -26,6 +26,7 @@
     </div>
     <div class="text-center mt-6 lg:mt-0 lg:text-left w-full hidden lg:flex lg:items-center lg:w-auto {{ isset($light) ? 'rounded shadow lg:shadow-none lg:rounded-none bg-gray-200 lg:bg-transparent' : '' }}" id="nav">
         <a class=" mt-4 p-4 lg:p-0 inline-block lg:mt-0 {{ isset($light) ? 'lg:text-gray-400 lg:hover:text-white' : 'text-gray-800 hover:text-gray-900' }} hover:underline mr-4" href="{{ Auth::guest() ? '/' : '/home' }}">Home</a>
+        <a class=" mt-4 p-4 lg:p-0 inline-block lg:mt-0 {{ isset($light) ? 'lg:text-gray-400 lg:hover:text-white' : 'text-gray-800 hover:text-gray-900' }} hover:underline mr-4" href="/">Events</a>
         <a class=" mt-4 p-4 lg:p-0 inline-block lg:mt-0 {{ isset($light) ? 'lg:text-gray-400 lg:hover:text-white' : 'text-gray-800 hover:text-gray-900' }} hover:underline mr-4" href="/donations/create">Donate</a>
         @if(isset($event))
         <a class=" mt-4 p-4 lg:p-0 inline-block lg:mt-0 {{ isset($light) ? 'lg:text-gray-400 lg:hover:text-white' : 'text-gray-800 hover:text-gray-900' }} hover:underline mr-4" target="_blank" href="{{ collect($event->links)->where('icon', 'website')->first()['link'] }}">Event Website</a>
