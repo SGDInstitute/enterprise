@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "853ad405f9efe6e1c824caa6899e7776",
+    "content-hash": "0c3a131b6d3045987944df1f1ac711d6",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -55,6 +55,59 @@
                 "toolkit"
             ],
             "time": "2015-05-16T19:24:58+00:00"
+        },
+        {
+            "name": "andymswick/expo",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andymswick/expo.git",
+                "reference": "6ba9d57cf87b5ea0351dd87d67d62f9583091750"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andymswick/expo/zipball/6ba9d57cf87b5ea0351dd87d67d62f9583091750",
+                "reference": "6ba9d57cf87b5ea0351dd87d67d62f9583091750",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "illuminate/notifications": "~5.5 || ~6.0",
+                "illuminate/support": "~5.5 || ~6.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\Expo\\ExpoServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\Expo\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andy Swick",
+                    "email": "andymswick@gmail.com",
+                    "homepage": "https://andymswick.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel notification driver for Expo Push Notifications.",
+            "homepage": "https://github.com/andymswick/expo",
+            "time": "2020-02-02T18:53:29+00:00"
         },
         {
             "name": "asm89/stack-cors",
