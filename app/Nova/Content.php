@@ -6,10 +6,8 @@ use App\Imports\ContentImport;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Sgd\ImportCard\ImportCard;
 
 class Content extends Resource
@@ -38,7 +36,7 @@ class Content extends Resource
             BelongsTo::make('Event')->sortable(),
             Text::make('Type')->sortable(),
             Text::make('Title')->sortable(),
-            Markdown::make('Content'),
+            Trix::make('Content'),
         ];
     }
 
