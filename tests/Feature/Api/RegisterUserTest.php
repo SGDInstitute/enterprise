@@ -4,7 +4,6 @@ namespace Tests\Feature\Api;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RegisterUserTest extends TestCase
@@ -21,7 +20,7 @@ class RegisterUserTest extends TestCase
             'password_confirmation' => 'Password1',
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $this->assertTrue(User::where('email', 'hpotter@hogwarts.edu')->exists());
     }
 }
