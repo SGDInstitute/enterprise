@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 Route::get('/me', 'Api\UsersController@show');
 Route::post('/users', 'Api\RegisterController@register');
+Route::post('/password/email', 'Api\ForgotPasswordController@sendResetLinkEmail');
 
 Route::get('/events/{event}/ticket-types', 'Api\EventTicketTypeController');
 Route::post('/events/{event}/discounts', 'Api\EventsDiscountController')->middleware('auth:api');
@@ -23,7 +21,6 @@ Route::post('/donations', 'Api\DonationsController@store')->middleware('auth:api
 Route::get('/queue', 'Api\QueueController@index');
 Route::post('/queue/{ids}', 'Api\QueueController@store');
 Route::patch('/queue/{ids}/complete', 'Api\QueueCompletedController');
-
 
 Route::get('/gemini/me', 'Api\Gemini\UsersController@show')->middleware('auth:api');
 Route::patch('/gemini/me', 'Api\Gemini\UsersController@update')->middleware('auth:api');
