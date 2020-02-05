@@ -4,8 +4,6 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use NotificationChannels\Expo\ExpoChannel;
 use NotificationChannels\Expo\ExpoMessage;
 
@@ -39,7 +37,7 @@ class CheckInTime extends Notification
         return (new ExpoMessage)
             ->title("It's time to check in!")
             ->body('Check in now for us to print your name badge')
-            ->setJsonData(['screen' => 'CheckIn']);
+            ->setJsonData(['screen' => 'Checkin']);
     }
 
     public function toArray($notifiable)
