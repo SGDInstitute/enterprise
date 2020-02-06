@@ -2,16 +2,15 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
+use App\Nova\Actions\ExportSignUps;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Schedule extends Resource
 {
-
     public static $model = 'App\Schedule';
 
     public static $title = 'title';
@@ -20,7 +19,7 @@ class Schedule extends Resource
 
     public function title()
     {
-        return $this->event->title . ' ' . $this->title;
+        return $this->event->title.' '.$this->title;
     }
 
     public static $search = [
@@ -55,6 +54,8 @@ class Schedule extends Resource
 
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ExportSignUps
+        ];
     }
 }
