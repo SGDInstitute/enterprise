@@ -11,7 +11,6 @@ use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
-use Maatwebsite\Excel\Facades\Excel;
 use Tests\TestCase;
 use Vinkla\Hashids\Facades\Hashids;
 

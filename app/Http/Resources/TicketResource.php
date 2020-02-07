@@ -11,6 +11,7 @@ class TicketResource extends JsonResource
         return [
             'id' => $this->id,
             'hash' => $this->hash,
+            'order' => $this->order_id,
             'user' => $this->user_id === null ? null : new UserResource($this->user),
             'type' => $this->ticket_type->name,
             'in_queue' => $this->queue !== null,
