@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c3a131b6d3045987944df1f1ac711d6",
+    "content-hash": "2d8ad90c1499c8eca3f8c774831a8fe7",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -4810,6 +4810,69 @@
                 "spatie"
             ],
             "time": "2019-09-04T06:55:15+00:00"
+        },
+        {
+            "name": "spatie/laravel-directory-cleanup",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-directory-cleanup.git",
+                "reference": "dd587505e009ea1b13ce343ef09c2fc3905e2774"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-directory-cleanup/zipball/dd587505e009ea1b13ce343ef09c2fc3905e2774",
+                "reference": "dd587505e009ea1b13ce343ef09c2fc3905e2774",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.0|^6.0",
+                "nesbot/carbon": "^1.0|^2.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "~3.8.0|^4.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\DirectoryCleanup\\DirectoryCleanupServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\DirectoryCleanup\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jolita Grazyte",
+                    "email": "jolita@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package will remove the expired files from the given directories. ",
+            "homepage": "https://github.com/spatie/laravel-directory-cleanup",
+            "keywords": [
+                "laravel-directory-cleanup",
+                "spatie"
+            ],
+            "time": "2019-12-12T16:47:16+00:00"
         },
         {
             "name": "spatie/laravel-permission",

@@ -5,12 +5,11 @@ namespace App\Nova\Actions;
 use App\Exports\ResponsesExport;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Bus\Queueable;
-use Laravel\Nova\Actions\Action;
-use Illuminate\Support\Collection;
-use Laravel\Nova\Fields\ActionFields;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
+use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Select;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -19,19 +18,14 @@ class DownloadResponses extends Action
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Perform the action on the given models.
-     *
-     * @param  \Laravel\Nova\Fields\ActionFields  $fields
-     * @param  \Illuminate\Support\Collection  $models
-     * @return mixed
-     */
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $form) {
             if ($fields->type === 'excel') {
-                $file = Excel::download(new ResponsesExport($form, $form->responses), "{$form->name}.xlsx");
-                return Action::download($this->getDownloadUrl($file, "{$form->name}.xlsx"), "{$form->name}.xlsx");
+                $fileName = "{$form->name}.xlsx";
+
+                Excel::store(new ResponsesExport($form, $form->responses), $fileName, 'temp');
+                return Action::download(url('temp/'.$fileName), $fileName);
             } elseif ($fields->type === 'pdf') {
                 $file = PDF::loadView('exports.voyager.pdf.responses', ['form' => $form]);
                 $file->save("temp/{$form->name}.pdf");
@@ -41,11 +35,6 @@ class DownloadResponses extends Action
         return Action::message('It worked! ');
     }
 
-    /**
-     * Get the fields available on the action.
-     *
-     * @return array
-     */
     public function fields()
     {
         return [
@@ -56,11 +45,11 @@ class DownloadResponses extends Action
         ];
     }
 
-    protected function getDownloadUrl(BinaryFileResponse $response, $filename): string
+    protected function getDownloadUrl(BinaryFileResponse $response, $filename) : string
     {
-        return url('/nova-vendor/maatwebsite/laravel-nova-excel/download?') . http_build_query([
-                'path'     => $response->getFile()->getPathname(),
-                'filename' => $filename,
-            ]);
+        return url('/nova-vendor/maatwebsite/laravel-nova-excel/download?').http_build_query([
+            'path' => $response->getFile()->getPathname(),
+            'filename' => $filename,
+        ]);
     }
 }
