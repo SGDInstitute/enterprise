@@ -21,6 +21,11 @@ class Activity extends Model
         return $this->belongsTo(Location::class);
     }
 
+    public function response()
+    {
+        return $this->belongsTo(Response::class);
+    }
+
     public function room()
     {
         return $this->belongsTo(Room::class);
