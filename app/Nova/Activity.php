@@ -24,7 +24,7 @@ class Activity extends Resource
     public static $group = 'Gemini';
 
     public static $search = [
-        'id', 'title'
+        'id', 'title', 'description'
     ];
 
     public static $importer = ActivitiesImport::class;
@@ -32,6 +32,9 @@ class Activity extends Resource
     public static $searchRelations = [
         'schedule' => ['title'],
         'schedule.event' => ['title'],
+        'activity_type' => ['title'],
+        'location' => ['title'],
+        'room' => ['number']
     ];
 
     public function fields(Request $request)
@@ -42,7 +45,7 @@ class Activity extends Resource
             BelongsTo::make('Activity Type')->sortable(),
             BelongsTo::make('Location')->sortable()->nullable(),
             BelongsTo::make('Room')->sortable()->nullable(),
-            Text::make('Title'),
+            Text::make('Title')->sortable(),
             Trix::make('Description'),
             DateTime::make('Start')->sortable(),
             DateTime::make('End')->sortable(),
