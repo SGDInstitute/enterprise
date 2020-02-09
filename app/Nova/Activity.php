@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use App\Imports\ActivitiesImport;
+use App\Nova\Filters\ActivityType;
+use App\Nova\Filters\Schedule;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -59,7 +61,10 @@ class Activity extends Resource
 
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new Schedule,
+            new ActivityType,
+        ];
     }
 
     public function lenses(Request $request)
