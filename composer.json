@@ -31,6 +31,7 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1.8",
         "maatwebsite/laravel-nova-excel": "^1.1",
+        "nemrutco/nova-filterable-metrics": "^1.0",
         "pragmarx/version": "^0.2.9",
         "sgd/bulletin-links": "*",
         "sgd/checkin-queue": "*",

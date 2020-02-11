@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
+use App\Nova\Metrics\EventTicketsFilled;
+use App\Nova\Metrics\EventTicketsStatus;
 use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Sgd\CheckinQueue\CheckinQueue;
 use Sgd\Projects\Projects;
@@ -13,7 +14,6 @@ use Wehaa\CustomLinks\CustomLinks;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
-
     public function boot()
     {
         parent::boot();
@@ -42,8 +42,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new NewUsers,
-            new Projects,
+            (new Projects)->width('1/2'),
+            (new NewUsers)->width('1/2'),
+            (new EventTicketsStatus)->width('1/2'),
+            (new EventTicketsFilled)->width('1/2'),
         ];
     }
 
