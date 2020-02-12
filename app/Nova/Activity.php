@@ -43,7 +43,7 @@ class Activity extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Schedule'),
             BelongsTo::make('Activity Type')->sortable(),
-            BelongsTo::make('Response')->hideFromIndex(),
+            BelongsTo::make('Response')->hideFromIndex()->nullable(),
             BelongsTo::make('Location')->sortable()->nullable(),
             BelongsTo::make('Room')->sortable()->nullable(),
             Text::make('Title')->sortable(),
