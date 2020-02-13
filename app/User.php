@@ -2,16 +2,16 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
 use App\Events\UserCreated;
 use App\Mail\UserConfirmationEmail;
 use Carbon\Carbon;
 use DigitalCloud\ModelNotes\HasNotes;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
@@ -41,12 +41,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getImageAttribute()
     {
-        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
     }
 
     public function routeNotificationForSlack($notification)
     {
         return 'https://hooks.slack.com/services/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';
+    }
+
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class);
     }
 
     public function schedule()
@@ -150,7 +155,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isConfirmed()
     {
-        return !is_null($this->confirmed_at);
+        return ! is_null($this->confirmed_at);
     }
 
     public function sendConfirmationEmail()
