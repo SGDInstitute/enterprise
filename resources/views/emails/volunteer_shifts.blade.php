@@ -14,8 +14,7 @@ Some quick reminders:
 - Wear jeans and a black shirt
 - Check-in and -out of your shift at Bernhard 105-107
 - Check nametags for pronouns when addressing folks
-- At check-in you will receive a bandana to wear on your arm or neck; please return the bandana at the end of your
-shift.
+- At check-in you will receive a ribbon to wear on your arm
 
 @if($activities->count() > 0)
 
