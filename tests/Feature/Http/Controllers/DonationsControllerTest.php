@@ -21,7 +21,7 @@ class DonationsControllerTest extends TestCase
 
     public $paymentGateway;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
