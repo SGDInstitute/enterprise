@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group">
+  <div class="pb-6">
     <textarea
       :name="question.id"
       :id="question.id"

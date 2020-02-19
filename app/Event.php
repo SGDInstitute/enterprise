@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -75,7 +75,7 @@ class Event extends Model
     public function getDurationAttribute()
     {
         return $this->start->timezone($this->timezone)->format('l F j, Y g:i A')
-            . " to " . $this->end->timezone($this->timezone)->format('l F j, Y g:i A T');
+            .' to '.$this->end->timezone($this->timezone)->format('l F j, Y g:i A T');
     }
 
     public function getTicketStringAttribute($ticketString)
@@ -87,6 +87,7 @@ class Event extends Model
     {
         return $this->orders()->where('email', $customerEmail)->count() > 0;
     }
+
     public function ordersFor($customerEmail)
     {
         return $this->orders()->where('email', $customerEmail)->get();

@@ -1,9 +1,9 @@
 <template>
   <form method="post" @submit.prevent="save">
-    <div v-for="(question, index) in dbform.form" :key="question.id" :id="question.id">
+    <div v-for="question in dbform.form" :key="question.id" :id="question.id">
       <div v-if="question.id != 'submit'">
         <div class="mb-4" :class="{'has-error': form.errors.has(question.id)}">
-          <div v-if="question.type !== 'select'">
+          <div v-if="question.type !== 'select' && question.type !== 'section'">
             <label :for="question.id" class="form-label">
               {{ question.question }}
               <span v-show="question.required">*</span>
@@ -22,14 +22,10 @@
             class="mt-2 block py-2 text-red-600"
             v-show="form.errors.has(question.id)"
           >{{ form.errors.get(question.id) }}</span>
-          <a
-            :href="nextId(index)"
-            class="btn btn-primary smooth"
-            v-if="nextIsSection(index) || question.type === 'section'"
-          >Next!</a>
         </div>
       </div>
     </div>
+
     <div :id="finishId">
       <h2 class="text-xl mb-2 font-semibold">All Done!</h2>
       <p class="text-lg mb-4">Don't forget to save your hard work by clicking the button below.</p>
