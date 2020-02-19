@@ -17,7 +17,7 @@ use Sgd\ImportCard\ImportCard;
 
 class Activity extends Resource
 {
-    public static $model = 'App\Activity';
+    public static $model = \App\Activity::class;
 
     public static $title = 'title';
 
@@ -52,7 +52,7 @@ class Activity extends Resource
             DateTime::make('End')->sortable(),
             Number::make('Spots')->sortable(),
 
-            BelongsToMany::make('Speakers', 'speakers', 'App\Nova\User')->searchable(),
+            BelongsToMany::make('Speakers', 'speakers', \App\Nova\User::class)->searchable(),
         ];
     }
 

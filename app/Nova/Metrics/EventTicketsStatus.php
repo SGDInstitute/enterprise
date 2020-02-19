@@ -20,8 +20,8 @@ class EventTicketsStatus extends Partition
 
     public function calculate(NovaRequest $request)
     {
-        if ($request->query('App\Nova\Filters\Event')) {
-            $event = Event::with('orders.tickets', 'orders.receipt')->find($request->query('App\Nova\Filters\Event'));
+        if ($request->query(\App\Nova\Filters\Event::class)) {
+            $event = Event::with('orders.tickets', 'orders.receipt')->find($request->query(\App\Nova\Filters\Event::class));
             $orders = $event->orders;
         } else {
             $orders = Order::with('tickets', 'receipt')->get();

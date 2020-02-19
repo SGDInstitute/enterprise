@@ -8,7 +8,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Discount extends Resource
 {
-    public static $model = 'App\Discount';
+    public static $model = \App\Discount::class;
 
     public static $group = 'Registration';
 

@@ -16,7 +16,7 @@ use Sgd\ImportCard\ImportCard;
 
 class Location extends Resource
 {
-    public static $model = 'App\Location';
+    public static $model = \App\Location::class;
 
     public static $title = 'title';
 

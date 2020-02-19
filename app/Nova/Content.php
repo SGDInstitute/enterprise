@@ -12,7 +12,7 @@ use Sgd\ImportCard\ImportCard;
 
 class Content extends Resource
 {
-    public static $model = 'App\Content';
+    public static $model = \App\Content::class;
 
     public static $group = 'Gemini';
 

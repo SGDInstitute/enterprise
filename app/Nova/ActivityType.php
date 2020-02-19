@@ -9,7 +9,7 @@ use Timothyasp\Color\Color;
 
 class ActivityType extends Resource
 {
-    public static $model = 'App\ActivityType';
+    public static $model = \App\ActivityType::class;
 
     public static $title = 'title';
 
