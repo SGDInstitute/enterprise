@@ -13,13 +13,13 @@ class ResponsesController extends Controller
     {
         return view('responses.edit', [
             'form' => $response->form,
-            'response' => $response
+            'response' => $response,
         ]);
     }
 
     public function update(Response $response)
     {
-        if ($response->form->type === 'workshop' && !auth()->check()) {
+        if ($response->form->type === 'workshop' && ! auth()->check()) {
             return response()->json(['message' => 'Not authenticated.'], 401);
         }
 

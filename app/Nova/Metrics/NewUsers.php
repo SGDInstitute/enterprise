@@ -8,7 +8,6 @@ use Laravel\Nova\Metrics\Value;
 
 class NewUsers extends Value
 {
-
     public function calculate(Request $request)
     {
         return $this->count($request, User::class);

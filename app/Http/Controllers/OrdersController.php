@@ -21,14 +21,15 @@ class OrdersController extends Controller
     {
         $this->authorize('delete', $order);
 
-        if (!$order->isPaid()) {
+        if (! $order->isPaid()) {
             $order->delete();
-            flash()->success('Successfully deleted order for ' . $order->event->name);
-            
+            flash()->success('Successfully deleted order for '.$order->event->name);
+
             return redirect('/home');
         }
 
         flash()->error('Cannot delete an order that has been paid.');
+
         return response([], 412);
     }
 }

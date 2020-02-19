@@ -13,7 +13,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Api\Gemini\EventsSchedulesController
  */
-class EventsSchedulesControllerTest extends TestCase
+class EventSchedulesControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -38,8 +38,8 @@ class EventsSchedulesControllerTest extends TestCase
                     'id',
                     'event',
                     'title',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertCount(2, $response->decodeResponseJson()['data']);
@@ -64,7 +64,7 @@ class EventsSchedulesControllerTest extends TestCase
                 'id',
                 'event',
                 'title',
-            ]
+            ],
         ]);
 
         $this->assertEquals('MBLGTACC', $response->decodeResponseJson()['data']['event']);

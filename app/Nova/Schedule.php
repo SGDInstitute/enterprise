@@ -23,7 +23,7 @@ class Schedule extends Resource
     }
 
     public static $search = [
-        'id', 'title'
+        'id', 'title',
     ];
 
     public function fields(Request $request)
@@ -55,7 +55,7 @@ class Schedule extends Resource
     public function actions(Request $request)
     {
         return [
-            new ExportSignUps
+            new ExportSignUps,
         ];
     }
 }

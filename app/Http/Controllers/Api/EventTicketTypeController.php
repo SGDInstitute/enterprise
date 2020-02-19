@@ -11,10 +11,10 @@ class EventTicketTypeController extends Controller
     {
         $ticketTypes = $event->ticket_types;
 
-        if(request()->query('select') === 'available') {
+        if (request()->query('select') === 'available') {
             return response()->json(['data' => $ticketTypes->filter->isOpen]);
         }
 
-        return response()->json([ 'data' => $ticketTypes ]);
+        return response()->json(['data' => $ticketTypes]);
     }
 }

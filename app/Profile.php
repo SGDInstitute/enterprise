@@ -15,7 +15,7 @@ class Profile extends Model
     protected $casts = [
         'accessibility' => 'array',
         'language' => 'array',
-        'wants_program' => 'boolean'
+        'wants_program' => 'boolean',
     ];
 
     public function user()

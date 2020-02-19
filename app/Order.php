@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
-use Facades\App\ConfirmationNumber;
 use Carbon\Carbon;
+use Facades\App\ConfirmationNumber;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
@@ -16,7 +16,7 @@ class Order extends Model
     protected $fillable = ['user_id'];
 
     protected $dates = [
-        'transaction_date'
+        'transaction_date',
     ];
 
     protected static function boot()
@@ -112,7 +112,7 @@ class Order extends Model
 
     public function isPaid()
     {
-        return !is_null($this->receipt);
+        return ! is_null($this->receipt);
     }
 
     public function isCheck()
@@ -132,7 +132,7 @@ class Order extends Model
                 'name' => $item[0]->ticket_type->name,
                 'count' => $item->count(),
                 'cost' => $item[0]->ticket_type->cost,
-                'amount' => $item[0]->ticket_type->cost * $item->count()
+                'amount' => $item[0]->ticket_type->cost * $item->count(),
             ];
         });
     }

@@ -14,7 +14,7 @@ class PermissionPolicy
     {
         return $user->hasRole('institute') || $user->hasRole('developer');
     }
-    
+
     public function view(User $user, Permission $permission)
     {
         //

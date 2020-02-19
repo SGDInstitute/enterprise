@@ -99,7 +99,7 @@ class EventsSeeder extends Seeder
             [
                 'name' => '100 Section',
                 'cost' => 10000,
-            ]
+            ],
         ]);
     }
 }

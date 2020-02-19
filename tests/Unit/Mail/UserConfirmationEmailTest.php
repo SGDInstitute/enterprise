@@ -4,18 +4,18 @@ namespace Tests\Unit\Mail;
 
 use App\Mail\UserConfirmationEmail;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class UserConfirmationEmailTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function email_has_token()
+    public function email_has_token()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $token = $user->createToken('email');
 
@@ -25,10 +25,10 @@ class UserConfirmationEmailTest extends TestCase
     }
 
     /** @test */
-    function email_has_email()
+    public function email_has_email()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $user->createToken('email');
 
@@ -38,7 +38,7 @@ class UserConfirmationEmailTest extends TestCase
     }
 
     /** @test */
-    function url_is_correct()
+    public function url_is_correct()
     {
         $user = factory(User::class)->create();
         $user->createToken('email');

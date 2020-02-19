@@ -3,8 +3,8 @@
 namespace App\Exports;
 
 use App\Response;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 
 class ResponsesExport implements FromView

@@ -24,7 +24,6 @@ class EventsController extends Controller
             }
         }
 
-
         return view('events.show', [
             'event' => $event,
             'ticket_types' => $ticketTypes,

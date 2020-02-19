@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function findByEmail($value)
     {
         $user = self::where('email', $value)->first();
+
         return $user;
     }
 
@@ -125,12 +126,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isCustomer($group)
     {
         $field = "{$group}_stripe_id";
+
         return $this->$field !== null;
     }
 
     public function getCustomer($group)
     {
         $field = "{$group}_stripe_id";
+
         return $this->$field;
     }
 

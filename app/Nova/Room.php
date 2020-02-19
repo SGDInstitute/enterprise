@@ -10,7 +10,6 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Room extends Resource
 {
-
     public static $model = 'App\Room';
 
     public static $title = 'number';

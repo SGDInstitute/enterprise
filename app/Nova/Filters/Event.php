@@ -7,7 +7,6 @@ use Laravel\Nova\Filters\Filter;
 
 class Event extends Filter
 {
-
     public function apply(Request $request, $query, $value)
     {
         return $query->where('event_id', $value);

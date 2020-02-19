@@ -25,7 +25,7 @@ class TicketsControllerTest extends TestCase
         $user = factory(User::class)->create(['email' => 'hpotter@hogwarts.edu']);
         Passport::actingAs($user);
 
-        $response = $this->withoutExceptionHandling()->postJson("api/gemini/tickets", [
+        $response = $this->withoutExceptionHandling()->postJson('api/gemini/tickets', [
             'subject' => 'Testing 123',
             'message' => 'Hello does is this thing on?',
         ]);

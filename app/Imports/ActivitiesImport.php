@@ -15,7 +15,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ActivitiesImport implements ToModel, WithHeadingRow
 {
-
     public function model(array $row)
     {
         if ($row['type'] !== null) {
@@ -26,7 +25,6 @@ class ActivitiesImport implements ToModel, WithHeadingRow
             $start->tz('UTC');
             $end = new Carbon(Date::excelToDateTimeObject($row['end'])->format('Y-m-d H:i:s'), $schedule->event->timezone);
             $end->tz('UTC');
-
 
             if ($row['location'] !== null && $row['location'] !== 'TBD') {
                 $location = Location::where('title', $row['location'])->orWhere('abbreviation', $row['location'])->first()->id;

@@ -12,7 +12,7 @@ class PrintController extends Controller
         $tickets = Queue::whereIn('id', explode(',', $ids))->get();
 
         return view('genesis.print', [
-            'tickets' => $tickets
+            'tickets' => $tickets,
         ]);
     }
 }

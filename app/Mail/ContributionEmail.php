@@ -4,9 +4,9 @@ namespace App\Mail;
 
 use App\Donation;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ContributionEmail extends Mailable
 {
@@ -18,7 +18,7 @@ class ContributionEmail extends Mailable
     public function __construct(Donation $donation)
     {
         $this->donation = $donation;
-        $this->url = url("/donations/" . $donation->id);
+        $this->url = url('/donations/'.$donation->id);
     }
 
     public function build()

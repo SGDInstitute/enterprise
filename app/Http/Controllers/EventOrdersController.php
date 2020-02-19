@@ -11,7 +11,7 @@ class EventOrdersController extends Controller
     public function store($slug)
     {
         request()->validate([
-            'tickets' => ['required', new TicketQuantityNotZero]
+            'tickets' => ['required', new TicketQuantityNotZero],
         ]);
 
         $event = Event::published()->findBySlug($slug);

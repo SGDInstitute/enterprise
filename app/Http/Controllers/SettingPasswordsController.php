@@ -17,7 +17,7 @@ class SettingPasswordsController extends Controller
                 'string',
                 'min:8',
                 'regex:/^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?\d)(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?\d)(?=.*?[^a-zA-Z0-9])).{8,}$/',
-            ]
+            ],
         ]);
 
         request()->user()->changePassword($data['password']);

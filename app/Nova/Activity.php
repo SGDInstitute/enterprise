@@ -24,7 +24,7 @@ class Activity extends Resource
     public static $group = 'Gemini';
 
     public static $search = [
-        'id', 'title', 'description'
+        'id', 'title', 'description',
     ];
 
     public static $importer = ActivitiesImport::class;
@@ -34,7 +34,7 @@ class Activity extends Resource
         'schedule.event' => ['title'],
         'activity_type' => ['title'],
         'location' => ['title'],
-        'room' => ['number']
+        'room' => ['number'],
     ];
 
     public function fields(Request $request)
@@ -59,7 +59,7 @@ class Activity extends Resource
     public function cards(Request $request)
     {
         return [
-            (new ImportCard(Activity::class))->withSample(url('documents/schedule.xlsx')),
+            (new ImportCard(self::class))->withSample(url('documents/schedule.xlsx')),
         ];
     }
 

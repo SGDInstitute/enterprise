@@ -3,14 +3,14 @@
 namespace Tests\Unit;
 
 use App\Event;
+use App\Mail\InviteUserEmail;
+use App\Order;
+use App\Profile;
 use App\Ticket;
 use App\TicketType;
 use App\User;
-use App\Profile;
-use App\Order;
-use App\Mail\InviteUserEmail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class TicketTest extends TestCase
@@ -34,7 +34,7 @@ class TicketTest extends TestCase
             'name' => 'Regular Ticket',
         ]));
         $order = $event->orderTickets(factory(User::class)->create(), [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
         $this->assertEquals(0, $order->tickets()->filled()->count());
@@ -120,7 +120,7 @@ class TicketTest extends TestCase
             'race' => 'White',
             'college' => 'Hogwarts',
             'tshirt' => 'L',
-            'accommodation' => 'My scar hurts sometimes'
+            'accommodation' => 'My scar hurts sometimes',
         ]);
 
         $ticket->fresh();

@@ -18,10 +18,10 @@ class Floor extends Resource
     public function title()
     {
         if ($this->title) {
-            return $this->location->title . ' ' . $this->title;
+            return $this->location->title.' '.$this->title;
         }
 
-        return $this->location->title . ' Floor ' . $this->level;
+        return $this->location->title.' Floor '.$this->level;
     }
 
     public static $group = 'Gemini';
@@ -44,7 +44,7 @@ class Floor extends Resource
     public function cards(Request $request)
     {
         return [
-            (new ImportCard(Floor::class))->withSample(url('documents/floors.xlsx')),
+            (new ImportCard(self::class))->withSample(url('documents/floors.xlsx')),
         ];
     }
 

@@ -16,7 +16,7 @@ class Form extends Model
         'form' => 'collection',
     ];
 
-    protected $dates = ['start', 'end',];
+    protected $dates = ['start', 'end'];
 
     public static function findBySlug($slug)
     {

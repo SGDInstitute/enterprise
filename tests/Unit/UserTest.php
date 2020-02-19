@@ -7,20 +7,20 @@ use App\Mail\UserConfirmationEmail;
 use App\Order;
 use App\Ticket;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function can_change_password()
+    public function can_change_password()
     {
         $user = factory(User::class)->create([
-            'password' => bcrypt('Password1')
+            'password' => bcrypt('Password1'),
         ]);
 
         $user->changePassword('Password2');
@@ -30,10 +30,10 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_get_user_by_email()
+    public function can_get_user_by_email()
     {
         factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
 
         $foundUser = User::findByEmail('jo@example.com');
@@ -43,10 +43,10 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_get_email_token()
+    public function can_get_email_token()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
 
         $token = $user->createToken('email');
@@ -58,10 +58,10 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_get_magic_token()
+    public function can_get_magic_token()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
 
         $token = $user->createToken('magic');
@@ -73,7 +73,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_see_if_user_is_confirmed()
+    public function can_see_if_user_is_confirmed()
     {
         $user = factory(User::class)->states('confirmed')->make();
 
@@ -81,7 +81,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_confirm_user()
+    public function can_confirm_user()
     {
         $user = factory(User::class)->create();
         $user->createToken('email');
@@ -93,7 +93,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_send_confirmation_email()
+    public function can_send_confirmation_email()
     {
         Mail::fake();
 
@@ -112,7 +112,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_get_orders_and_tickets_for_upcoming_events()
+    public function can_get_orders_and_tickets_for_upcoming_events()
     {
         $user = factory(User::class)->create();
         $ownedOrder = factory(Order::class)->create(['user_id' => $user]);
@@ -126,7 +126,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_get_orders_and_tickets_for_past_events()
+    public function can_get_orders_and_tickets_for_past_events()
     {
         $user = factory(User::class)->create();
         $pastEvent1 = factory(Event::class)->states('past')->create();
@@ -142,7 +142,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_test_if_user_is_a_stripe_customer()
+    public function can_test_if_user_is_a_stripe_customer()
     {
         $customer = factory(User::class)->create(['institute_stripe_id' => 'customer_id']);
         $this->assertTrue($customer->isCustomer('institute'));
@@ -152,7 +152,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_get_users_stripe_id()
+    public function can_get_users_stripe_id()
     {
         $customer = factory(User::class)->create(['institute_stripe_id' => 'customer_id']);
 

@@ -15,7 +15,7 @@ class Response extends Model
 
     protected $casts = [
         'responses' => 'array',
-        'request'   => 'array'
+        'request'   => 'array',
     ];
 
     public static function findByEmail($email)
@@ -34,5 +34,6 @@ class Response extends Model
     }
 
     public function event()
-    { }
+    {
+    }
 }

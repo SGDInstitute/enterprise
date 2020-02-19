@@ -10,10 +10,10 @@ class Invoice extends Model
 {
     use LogsActivity, SoftDeletes;
 
-    protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip', ];
+    protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip'];
 
     protected $dates = [
-        'due_date'
+        'due_date',
     ];
 
     public function order()

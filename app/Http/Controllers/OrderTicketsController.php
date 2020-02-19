@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InviteUserEmail;
+use App\Order;
 use App\Ticket;
 use App\User;
 use Illuminate\Http\Request;
-use App\Order;
 use Illuminate\Support\Facades\Mail;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -21,7 +21,7 @@ class OrderTicketsController extends Controller
         ]);
 
         foreach (request('emails') as $hash => $email) {
-            if (!empty($email)) {
+            if (! empty($email)) {
                 Ticket::findByHash($hash)->invite($email, request('message'));
             }
         }
@@ -31,7 +31,7 @@ class OrderTicketsController extends Controller
     {
         $rules = [];
         foreach (request('emails') as $hash => $email) {
-            $rules["emails.{$hash}"] = 'email|nullable|required_without_all:' . $this->buildString($hash, request('emails'));
+            $rules["emails.{$hash}"] = 'email|nullable|required_without_all:'.$this->buildString($hash, request('emails'));
         }
 
         return $rules;
@@ -44,7 +44,7 @@ class OrderTicketsController extends Controller
                 return $email !== $hash;
             })
             ->map(function ($email) {
-                return "emails." . $email;
+                return 'emails.'.$email;
             })
             ->implode(',');
     }

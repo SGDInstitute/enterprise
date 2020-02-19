@@ -8,7 +8,6 @@ use App\Http\Resources\ContentResource;
 
 class EventsContentController extends Controller
 {
-
     public function index($id)
     {
         $content = Content::where('event_id', $id)

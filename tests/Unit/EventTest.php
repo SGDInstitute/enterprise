@@ -2,19 +2,19 @@
 
 namespace Tests\Unit;
 
+use App\Event;
 use App\TicketType;
 use App\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Event;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class EventTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function events_with_a_published_at_date_in_the_past_are_published()
+    public function events_with_a_published_at_date_in_the_past_are_published()
     {
         $publishedEventA = factory(Event::class)->create(['published_at' => Carbon::parse('-1 week')]);
         $publishedEventB = factory(Event::class)->create(['published_at' => Carbon::now()]);
@@ -30,7 +30,7 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_find_event_by_slug()
+    public function can_find_event_by_slug()
     {
         factory(Event::class)->create(['slug' => 'hello-world']);
 
@@ -40,7 +40,7 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_order_concert_tickets()
+    public function can_order_concert_tickets()
     {
         $event = factory(Event::class)->create();
         $user = factory(User::class)->create();
@@ -67,7 +67,7 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_order_concert_tickets_without_getting_multiple_ticket_types()
+    public function can_order_concert_tickets_without_getting_multiple_ticket_types()
     {
         $event = factory(Event::class)->create();
         $user = factory(User::class)->create();
@@ -92,9 +92,9 @@ class EventTest extends TestCase
         $this->assertEquals(2, $order->tickets()->where('ticket_type_id', $ticket_type->id)->count());
         $this->assertEquals(0, $order->tickets()->where('ticket_type_id', $ticket_type2->id)->count());
     }
-    
+
     /** @test */
-    function can_get_stripe_keys_from_event()
+    public function can_get_stripe_keys_from_event()
     {
         $mblgtaccEvent = factory(Event::class)->create(['stripe' => 'mblgtacc']);
         $instituteEvent = factory(Event::class)->create(['stripe' => 'institute']);
@@ -106,7 +106,7 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_view_formatted_start()
+    public function can_view_formatted_start()
     {
         $event = factory(Event::class)->make([
             'start' => Carbon::parse('august 11 2017 5:50 PM'),
@@ -117,7 +117,7 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_view_formatted_end()
+    public function can_view_formatted_end()
     {
         $event = factory(Event::class)->make([
             'end' => Carbon::parse('august 11 2017 5:50 PM'),
@@ -128,7 +128,7 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_view_duration()
+    public function can_view_duration()
     {
         $event = factory(Event::class)->make([
             'start' => Carbon::parse('august 11 2017 5:00 PM', 'America/Chicago')->timezone('UTC'),
@@ -143,7 +143,7 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_upcoming_events()
+    public function can_upcoming_events()
     {
         $upcomingEvent1 = factory(Event::class)->states('published')->create([
             'start' => Carbon::now()->addMonth(2),
@@ -168,10 +168,10 @@ class EventTest extends TestCase
     }
 
     /** @test */
-    function can_change_ticket_string()
+    public function can_change_ticket_string()
     {
         $event = factory(Event::class)->make([
-            'ticket_string' => 'ticket'
+            'ticket_string' => 'ticket',
         ]);
 
         $this->assertEquals('Ticket', $event->ticket_string);

@@ -3,9 +3,9 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserConfirmationEmail extends Mailable
 {
@@ -23,7 +23,7 @@ class UserConfirmationEmail extends Mailable
     public function __construct($user)
     {
         $this->user = $user;
-        $this->url = url("/register/verify/{$user->emailToken->token}") . '?' . http_build_query([
+        $this->url = url("/register/verify/{$user->emailToken->token}").'?'.http_build_query([
                 'email' => $user->email,
             ]);
     }

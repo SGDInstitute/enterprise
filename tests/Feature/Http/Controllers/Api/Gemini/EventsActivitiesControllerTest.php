@@ -3,11 +3,11 @@
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
-use App\Schedule;
-use App\User;
 use App\Imports\ActivitiesImport;
 use App\Imports\FloorsImport;
 use App\Imports\LocationsImport;
+use App\Schedule;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
@@ -17,7 +17,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Api\Gemini\EventsActivitiesController
  */
-class EventActivitiesControllerTest extends TestCase
+class EventsActivitiesControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -46,16 +46,16 @@ class EventActivitiesControllerTest extends TestCase
                     'title',
                     'speakers' => [
                         '*' => [
-                            'name', 'email', 'pronouns'
-                        ]
+                            'name', 'email', 'pronouns',
+                        ],
                     ],
                     'description',
                     'type',
                     'location',
                     'start',
                     'end',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertLessThanOrEqual(7, count(DB::getQueryLog()));
@@ -88,17 +88,17 @@ class EventActivitiesControllerTest extends TestCase
                             'title',
                             'speakers' => [
                                 '*' => [
-                                    'name', 'email', 'pronouns'
-                                ]
+                                    'name', 'email', 'pronouns',
+                                ],
                             ],
                             'description',
                             'type',
                             'location',
                             'start',
                             'end',
-                        ]
+                        ],
                     ],
-                    'date'
+                    'date',
                 ],
                 '2020-02-15' => [
                     'data' => [
@@ -108,17 +108,17 @@ class EventActivitiesControllerTest extends TestCase
                             'title',
                             'speakers' => [
                                 '*' => [
-                                    'name', 'email', 'pronouns'
-                                ]
+                                    'name', 'email', 'pronouns',
+                                ],
                             ],
                             'description',
                             'type',
                             'location',
                             'start',
                             'end',
-                        ]
+                        ],
                     ],
-                    'date'
+                    'date',
                 ],
                 '2020-02-16' => [
                     'data' => [
@@ -128,19 +128,19 @@ class EventActivitiesControllerTest extends TestCase
                             'title',
                             'speakers' => [
                                 '*' => [
-                                    'name', 'email', 'pronouns'
-                                ]
+                                    'name', 'email', 'pronouns',
+                                ],
                             ],
                             'description',
                             'type',
                             'location',
                             'start',
                             'end',
-                        ]
+                        ],
                     ],
-                    'date'
+                    'date',
                 ],
-            ]
+            ],
         ]);
 
         $this->assertLessThan(10, count(DB::getQueryLog()));

@@ -44,7 +44,7 @@ class DonationsController extends Controller
                 $charge = $this->paymentGateway->charge($data['amount'] * 100, request('payment_token'));
                 $donation = Donation::createOneTime($data, $charge);
             } else {
-                if (!request()->user()->isCustomer(request()->group)) {
+                if (! request()->user()->isCustomer(request()->group)) {
                     request()->user()->createCustomer(request()->group, request()->payment_token);
                 }
 
@@ -87,7 +87,7 @@ class DonationsController extends Controller
         return view('donations.show', [
             'donation' => $donation,
             'subscription' => $subscription ?? null,
-            'charge' => $charge ?? null
+            'charge' => $charge ?? null,
         ]);
     }
 }

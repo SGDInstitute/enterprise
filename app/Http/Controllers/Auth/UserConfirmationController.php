@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Mail\UserConfirmationEmail;
 use App\UserToken;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class UserConfirmationController extends Controller
 {
     public function store(UserToken $token)
     {
-
         $user = $token->user;
         $user->confirm();
 

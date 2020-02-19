@@ -23,6 +23,7 @@ class ExportSignUps extends Action
             $fileName = now()->format('Y-m-d-h-i').'-'.Str::slug($schedule->title).'-sign-ups.xlsx';
 
             Excel::store(new ActivityUserExport($schedule), $fileName, 'temp');
+
             return Action::download(url('temp/'.$fileName), $fileName);
         }
 

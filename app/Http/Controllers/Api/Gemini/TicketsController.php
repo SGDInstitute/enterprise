@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\NewTicket;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class TicketsController extends Controller
@@ -13,7 +13,7 @@ class TicketsController extends Controller
     {
         $data = request()->validate([
             'subject' => 'required',
-            'message' => 'required'
+            'message' => 'required',
         ]);
 
         Mail::to('support@sgdinstitute.org')

@@ -7,8 +7,8 @@ use App\Mail\InviteUserEmail;
 use App\Order;
 use App\Ticket;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class InviteUserEmailTest extends TestCase
 {
@@ -31,25 +31,25 @@ class InviteUserEmailTest extends TestCase
     }
 
     /** @test */
-    function email_contains_link_to_set_password()
+    public function email_contains_link_to_set_password()
     {
         $this->assertContains(url('/password/reset/'), $this->email);
     }
 
     /** @test */
-    function email_contains_user_who_invited_them()
+    public function email_contains_user_who_invited_them()
     {
         $this->assertContains('Harry Potter', $this->email);
     }
 
     /** @test */
-    function email_contains_event()
+    public function email_contains_event()
     {
         $this->assertContains('Quidditch World Cup', $this->email);
     }
 
     /** @test */
-    function email_contains_message_if_set()
+    public function email_contains_message_if_set()
     {
         $this->assertContains('Hello world!', $this->email);
     }

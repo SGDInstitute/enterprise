@@ -3,10 +3,10 @@
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
-use App\Schedule;
-use App\User;
 use App\Imports\ActivitiesImport;
 use App\Imports\ContentImport;
+use App\Schedule;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
@@ -16,7 +16,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Api\Gemini\EventsContentController
  */
-class EventContentControllerTest extends TestCase
+class EventsContentControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -39,9 +39,9 @@ class EventContentControllerTest extends TestCase
                     'id',
                     'type',
                     'title',
-                    'content'
-                ]
-            ]
+                    'content',
+                ],
+            ],
         ]);
 
         $this->assertCount(3, $response->decodeResponseJson()['data']);
@@ -67,9 +67,9 @@ class EventContentControllerTest extends TestCase
                     'id',
                     'type',
                     'title',
-                    'content'
-                ]
-            ]
+                    'content',
+                ],
+            ],
         ]);
 
         $this->assertCount(2, $response->decodeResponseJson()['data']);

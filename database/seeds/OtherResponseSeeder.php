@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class OtherResponseSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class OtherResponseSeeder extends Seeder
             'start'     => '2017-09-08 00:00:00',
             'end'       => '2017-11-25 00:00:00',
             'is_public' => true,
-            'form'      => json_decode(file_get_contents(base_path("database/seeds/data/otherTestForm.json"))),
+            'form'      => json_decode(file_get_contents(base_path('database/seeds/data/otherTestForm.json'))),
         ]);
     }
 }

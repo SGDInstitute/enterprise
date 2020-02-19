@@ -43,7 +43,7 @@ class Content extends Resource
     public function cards(Request $request)
     {
         return [
-            (new ImportCard(Content::class))->withSample(url('documents/content.xlsx')),
+            (new ImportCard(self::class))->withSample(url('documents/content.xlsx')),
         ];
     }
 

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use App\Schedule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivitiesByDateCollection;
 use App\Http\Resources\ActivitiesResource;
+use App\Schedule;
 
 class EventsActivitiesController extends Controller
 {
-
     public function index($id)
     {
         $activities = Schedule::where('event_id', $id)
@@ -20,6 +19,7 @@ class EventsActivitiesController extends Controller
                 return $schedule->activities->map(function ($activity) use ($schedule) {
                     $activity->schedule = $schedule->title;
                     $activity->timezone = $schedule->event->timezone;
+
                     return $activity;
                 });
             });

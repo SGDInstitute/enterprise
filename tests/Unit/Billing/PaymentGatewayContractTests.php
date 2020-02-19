@@ -10,7 +10,7 @@ trait PaymentGatewayContractTests
     abstract protected function getPaymentGateway();
 
     /** @test */
-    function can_fetch_charges_created_during_a_callback()
+    public function can_fetch_charges_created_during_a_callback()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -27,7 +27,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function charges_with_a_valid_payment_token_are_successful()
+    public function charges_with_a_valid_payment_token_are_successful()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -40,7 +40,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function charges_with_an_invalid_payment_token_fail()
+    public function charges_with_an_invalid_payment_token_fail()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -58,7 +58,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function can_set_api_key()
+    public function can_set_api_key()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -68,7 +68,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function charge_returns_object_with_id_amount_and_card_last_four()
+    public function charge_returns_object_with_id_amount_and_card_last_four()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -80,7 +80,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function subscriptions_with_a_valid_payment_token_are_successful()
+    public function subscriptions_with_a_valid_payment_token_are_successful()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -92,7 +92,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function subscriptions_with_an_invalid_customer_fail()
+    public function subscriptions_with_an_invalid_customer_fail()
     {
         $paymentGateway = $this->getPaymentGateway();
 
@@ -100,6 +100,7 @@ trait PaymentGatewayContractTests
             $paymentGateway->subscribe('monthly-25', 'invalid-customer');
         } catch (SubscriptionFailedException $e) {
             $this->assertNotNull($e);
+
             return;
         }
 
@@ -107,7 +108,7 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
-    function subscription_returns_object_with_id_plan_card_last_four_and_next_charge()
+    public function subscription_returns_object_with_id_plan_card_last_four_and_next_charge()
     {
         $paymentGateway = $this->getPaymentGateway();
 

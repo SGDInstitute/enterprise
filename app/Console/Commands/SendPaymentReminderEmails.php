@@ -11,7 +11,6 @@ use Illuminate\Support\Carbon;
 
 class SendPaymentReminderEmails extends Command
 {
-
     protected $signature = 'emails:payment {event}';
 
     protected $description = 'Payment Reminder Email';

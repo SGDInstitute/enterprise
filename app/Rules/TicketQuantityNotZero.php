@@ -30,6 +30,7 @@ class TicketQuantityNotZero implements Rule
                 return true;
             }
         }
+
         return false;
     }
 

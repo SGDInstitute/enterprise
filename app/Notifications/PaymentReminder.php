@@ -4,9 +4,9 @@ namespace App\Notifications;
 
 use App\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class PaymentReminder extends Notification
 {
@@ -27,8 +27,8 @@ class PaymentReminder extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Please pay for your ' . $this->order->event->title . ' order')
-            ->markdown('emails.payment_reminder', ['order' => $this->order, 'url' => url('/orders/' . $this->order->id)]);
+            ->subject('Please pay for your '.$this->order->event->title.' order')
+            ->markdown('emails.payment_reminder', ['order' => $this->order, 'url' => url('/orders/'.$this->order->id)]);
     }
 
     public function toArray($notifiable)

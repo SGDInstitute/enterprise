@@ -8,7 +8,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ImportActivities
 {
-
     public function __construct()
     {
         //

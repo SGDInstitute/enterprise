@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Ticket;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class TicketsController extends Controller
 {
@@ -35,7 +35,7 @@ class TicketsController extends Controller
 
             $userData = request()->validate([
                 'name' => 'required',
-                'email' => 'required'
+                'email' => 'required',
             ]);
 
             $profile = request()->validate([
@@ -44,7 +44,7 @@ class TicketsController extends Controller
                 'gender' => '',
                 'race' => '',
                 'college' => '',
-                'tshirt' => ''
+                'tshirt' => '',
             ]);
 
             $user->update($userData);

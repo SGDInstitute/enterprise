@@ -2,10 +2,10 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -31,7 +31,7 @@ class Receipt extends Resource
             Text::make('Transaction ID'),
             Currency::make('Amount')
                 ->displayUsing(function ($amount) {
-                    return '$' . $amount / 100;
+                    return '$'.$amount / 100;
                 }),
 
             new Panel('Charge Details', $this->stripeDetails()),
@@ -43,7 +43,7 @@ class Receipt extends Resource
         if ($this->charge()) {
             return [
                 Text::make('Card Number', function () {
-                    return '****-****-****-' . $this->card_last_four;
+                    return '****-****-****-'.$this->card_last_four;
                 }),
                 Text::make('Address', function () {
                     return $this->charge()['source']['address_line1'];

@@ -54,9 +54,9 @@ class EventsOrdersControllerTest extends TestCase
                     'is_paid',
                     'confirmation_number',
                     'amount',
-                    'tickets'
-                ]
-            ]
+                    'tickets',
+                ],
+            ],
         ]);
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
@@ -96,9 +96,9 @@ class EventsOrdersControllerTest extends TestCase
                     'is_paid',
                     'confirmation_number',
                     'amount',
-                    'tickets'
-                ]
-            ]
+                    'tickets',
+                ],
+            ],
         ]);
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
@@ -148,9 +148,9 @@ class EventsOrdersControllerTest extends TestCase
                     'is_paid',
                     'confirmation_number',
                     'amount',
-                    'tickets'
-                ]
-            ]
+                    'tickets',
+                ],
+            ],
         ]);
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
@@ -205,9 +205,9 @@ class EventsOrdersControllerTest extends TestCase
                     'is_paid',
                     'confirmation_number',
                     'amount',
-                    'tickets'
-                ]
-            ]
+                    'tickets',
+                ],
+            ],
         ]);
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);

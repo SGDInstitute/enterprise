@@ -4,9 +4,9 @@ namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
 use App\Form;
+use App\Imports\ActivitiesImport;
 use App\Schedule;
 use App\User;
-use App\Imports\ActivitiesImport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
@@ -53,7 +53,7 @@ class EvaluationsResponsesControllerTest extends TestCase
                 'form',
                 'response',
                 'email',
-            ]
+            ],
         ]);
 
         $this->assertLessThan(5, count(DB::getQueryLog()));

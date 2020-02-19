@@ -2,10 +2,10 @@
 
 namespace App\Billing;
 
-use Illuminate\Support\Arr;
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Stripe\Charge;
 use Stripe\Customer;
@@ -100,6 +100,7 @@ class StripePaymentGateway implements PaymentGateway
     {
         $latestCharge = $this->lastCharge();
         $callback($this);
+
         return $this->newChargesSince($latestCharge)->pluck('amount');
     }
 

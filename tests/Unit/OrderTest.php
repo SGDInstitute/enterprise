@@ -4,12 +4,12 @@ namespace Tests\Unit;
 
 use App\Event;
 use App\Order;
+use App\Ticket;
 use App\TicketType;
 use App\User;
 use Carbon\Carbon;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Ticket;
+use Tests\TestCase;
 
 class OrderTest extends TestCase
 {

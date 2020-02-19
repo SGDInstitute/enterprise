@@ -25,13 +25,16 @@ class DownloadResponses extends Action
                 $fileName = "{$form->name}.xlsx";
 
                 Excel::store(new ResponsesExport($form, $form->responses), $fileName, 'temp');
+
                 return Action::download(url('temp/'.$fileName), $fileName);
             } elseif ($fields->type === 'pdf') {
                 $file = PDF::loadView('exports.voyager.pdf.responses', ['form' => $form]);
                 $file->save("temp/{$form->name}.pdf");
+
                 return Action::download(url("temp/{$form->name}.pdf"), "{$form->name}.pdf");
             }
         }
+
         return Action::message('It worked! ');
     }
 
@@ -41,7 +44,7 @@ class DownloadResponses extends Action
             Select::make('Type')->options([
                 'excel' => 'Excel',
                 'pdf' => 'PDF',
-            ])
+            ]),
         ];
     }
 
