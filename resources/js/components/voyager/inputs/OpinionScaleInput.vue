@@ -1,11 +1,12 @@
 <template>
-  <div class="form-group">
-    <div class="btn-group opinion-scale mb-2">
+  <div class="pb-6">
+    <div class="flex border border-gray-300 rounded mb-2">
       <label
-        class="btn btn-secondary opinion"
-        :class="{active: selected === index}"
-        v-for="(index, id) in question.max_value"
+        class="flex-1 text-center block text-mint-800 border-gray-300 px-3 py-2 hover:bg-gray-100"
+        :class="{'bg-gray-200': selected === index, 'border-r': index < question.max_value}"
+        v-for="index in range"
         :key="index"
+        @click="select(index)"
       >
         <input type="radio" class="hidden" v-model="selected" :value="index" :disabled="disabled" />
         {{ index }}
@@ -26,9 +27,16 @@ export default {
       selected: ""
     };
   },
-  watch: {
-    selected(value) {
+  methods: {
+    select(value) {
+      this.selected = value;
       this.$emit("input", value);
+    }
+  },
+  computed: {
+    range() {
+      const max = parseInt(this.question.max_value);
+      return [...Array(max).keys()].map(i => i + 1);
     }
   }
 };

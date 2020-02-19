@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div class="pb-6">
     <label class="form-label">
       {{ question.question }}
       <span v-show="question.required">*</span>

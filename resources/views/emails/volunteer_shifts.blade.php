@@ -30,7 +30,7 @@ $activity->end->timezone('America/Detroit')->format('g:i a') }} |
 @endcomponent
 
 @else
-Please sign up for shifts before coming!
+You haven't yet signed up for specific times to volunteer. Please sign up for shifts before coming!
 
 @component('mail::button', ['url' => 'https://apps.sgdinstitute.org/home#volunteering'])
 View Available Shifts
