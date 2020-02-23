@@ -42,7 +42,7 @@ class UsersController extends Controller
             $user->sendConfirmationEmail();
         }
 
-        $user->profile()->update($profile);
+        $user->profile->update($profile);
 
         return response()->json(['success' => true], 200);
     }

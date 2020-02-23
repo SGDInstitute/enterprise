@@ -48,7 +48,7 @@ class TicketsController extends Controller
             ]);
 
             $user->update($userData);
-            $user->profile()->update($profile);
+            $user->profile->update($profile);
         } else {
             $data = request()->validate([
                 'name' => 'required',
