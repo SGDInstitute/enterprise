@@ -22,7 +22,7 @@ class ReceiptEmailTest extends TestCase
 
         $email = (new ReceiptEmail($order))->render();
 
-        $this->assertContains('/orders/'.$order->id, $email);
+        $this->assertStringContainsString('/orders/'.$order->id, $email);
     }
 
     /** @test */
@@ -40,6 +40,6 @@ class ReceiptEmailTest extends TestCase
 
         $email = (new ReceiptEmail($order))->render();
 
-        $this->assertContains('Phoenix Johnson', $email);
+        $this->assertStringContainsString('Phoenix Johnson', $email);
     }
 }

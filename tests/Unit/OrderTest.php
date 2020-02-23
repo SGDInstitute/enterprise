@@ -158,9 +158,9 @@ class OrderTest extends TestCase
         $upcoming = $user->orders()->upcoming()->get()->pluck('id');
 
         $this->assertCount(3, $upcoming);
-        $this->assertContains($order1->id, $upcoming);
-        $this->assertContains($order2->id, $upcoming);
-        $this->assertContains($order3->id, $upcoming);
+        $this->assertStringContainsString($order1->id, $upcoming);
+        $this->assertStringContainsString($order2->id, $upcoming);
+        $this->assertStringContainsString($order3->id, $upcoming);
     }
 
     /** @test */
@@ -192,9 +192,9 @@ class OrderTest extends TestCase
         $past = $user->orders()->past()->get()->pluck('id');
 
         $this->assertCount(3, $past);
-        $this->assertContains($order1->id, $past);
-        $this->assertContains($order2->id, $past);
-        $this->assertContains($order3->id, $past);
+        $this->assertStringContainsString($order1->id, $past);
+        $this->assertStringContainsString($order2->id, $past);
+        $this->assertStringContainsString($order3->id, $past);
     }
 
     /** @test */

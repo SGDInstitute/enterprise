@@ -33,24 +33,24 @@ class InviteUserEmailTest extends TestCase
     /** @test */
     public function email_contains_link_to_set_password()
     {
-        $this->assertContains(url('/password/reset/'), $this->email);
+        $this->assertStringContainsString(url('/password/reset/'), $this->email);
     }
 
     /** @test */
     public function email_contains_user_who_invited_them()
     {
-        $this->assertContains('Harry Potter', $this->email);
+        $this->assertStringContainsString('Harry Potter', $this->email);
     }
 
     /** @test */
     public function email_contains_event()
     {
-        $this->assertContains('Quidditch World Cup', $this->email);
+        $this->assertStringContainsString('Quidditch World Cup', $this->email);
     }
 
     /** @test */
     public function email_contains_message_if_set()
     {
-        $this->assertContains('Hello world!', $this->email);
+        $this->assertStringContainsString('Hello world!', $this->email);
     }
 }

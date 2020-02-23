@@ -21,7 +21,7 @@ class InvoiceEmailTest extends TestCase
 
         $email = (new InvoiceEmail($order))->render();
 
-        $this->assertContains(url('/orders/'.$order->id), $email);
+        $this->assertStringContainsString(url('/orders/'.$order->id), $email);
     }
 
     /** @test */

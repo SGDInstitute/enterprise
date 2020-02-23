@@ -22,7 +22,7 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains($user->magicToken->token, $email);
+        $this->assertStringContainsString($user->magicToken->token, $email);
     }
 
     /** @test */
@@ -36,7 +36,7 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains(urlencode('jo@example.com'), $email);
+        $this->assertStringContainsString(urlencode('jo@example.com'), $email);
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains('remember=on', $email);
+        $this->assertStringContainsString('remember=on', $email);
     }
 
     /** @test */
@@ -72,6 +72,6 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains('login/magic/', $email);
+        $this->assertStringContainsString('login/magic/', $email);
     }
 }

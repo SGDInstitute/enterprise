@@ -121,8 +121,8 @@ class UserTest extends TestCase
 
         $orders = $user->upcomingOrdersAndTickets();
 
-        $this->assertContains($ownedOrder->id, $orders->pluck('id'));
-        $this->assertContains($invitedOrder->id, $orders->pluck('id'));
+        $this->assertStringContainsString($ownedOrder->id, $orders->pluck('id'));
+        $this->assertStringContainsString($invitedOrder->id, $orders->pluck('id'));
     }
 
     /** @test */
@@ -137,8 +137,8 @@ class UserTest extends TestCase
 
         $orders = $user->pastOrdersAndTickets();
 
-        $this->assertContains($ownedOrder->id, $orders->pluck('id'));
-        $this->assertContains($invitedOrder->id, $orders->pluck('id'));
+        $this->assertStringContainsString($ownedOrder->id, $orders->pluck('id'));
+        $this->assertStringContainsString($invitedOrder->id, $orders->pluck('id'));
     }
 
     /** @test */

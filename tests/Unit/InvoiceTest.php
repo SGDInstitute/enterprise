@@ -29,11 +29,11 @@ class InvoiceTest extends TestCase
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('123 Main', $view);
-        $this->assertContains('Suite 2', $view);
-        $this->assertContains('Chicago', $view);
-        $this->assertContains('IL', $view);
-        $this->assertContains('60660', $view);
+        $this->assertStringContainsString('123 Main', $view);
+        $this->assertStringContainsString('Suite 2', $view);
+        $this->assertStringContainsString('Chicago', $view);
+        $this->assertStringContainsString('IL', $view);
+        $this->assertStringContainsString('60660', $view);
     }
 
     /** @test */
@@ -60,7 +60,7 @@ class InvoiceTest extends TestCase
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('$100.00', $view);
+        $this->assertStringContainsString('$100.00', $view);
     }
 
     /** @test */
@@ -84,10 +84,10 @@ class InvoiceTest extends TestCase
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('Regular Ticket', $view);
-        $this->assertContains('<td>2</td>', $view);
-        $this->assertContains('Pro Ticket', $view);
-        $this->assertContains('<td>3</td>', $view);
+        $this->assertStringContainsString('Regular Ticket', $view);
+        $this->assertStringContainsString('<td>2</td>', $view);
+        $this->assertStringContainsString('Pro Ticket', $view);
+        $this->assertStringContainsString('<td>3</td>', $view);
     }
 
     /** @test */
@@ -113,7 +113,7 @@ class InvoiceTest extends TestCase
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains(config('institute.address'), $view);
+        $this->assertStringContainsString(config('institute.address'), $view);
     }
 
     /** @test */
@@ -131,8 +131,8 @@ class InvoiceTest extends TestCase
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('Due Date', $view);
-        $this->assertContains(Carbon::now()->addDays(60)->toFormattedDateString(), $view);
+        $this->assertStringContainsString('Due Date', $view);
+        $this->assertStringContainsString(Carbon::now()->addDays(60)->toFormattedDateString(), $view);
     }
 
     /** @test */

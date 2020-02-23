@@ -20,7 +20,7 @@ class DonationEmailTest extends TestCase
 
         $email = (new DonationEmail($donation))->render();
 
-        $this->assertContains('/donations/'.$donation->id, $email);
+        $this->assertStringContainsString('/donations/'.$donation->id, $email);
     }
 
     /** @test */
@@ -33,6 +33,6 @@ class DonationEmailTest extends TestCase
 
         $email = (new DonationEmail($donation))->render();
 
-        $this->assertContains('$35.00', $email);
+        $this->assertStringContainsString('$35.00', $email);
     }
 }
