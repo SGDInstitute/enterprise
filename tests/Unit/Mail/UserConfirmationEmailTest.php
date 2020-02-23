@@ -2,8 +2,9 @@
 
 namespace Tests\Unit\Mail;
 
-use App\Mail\UserConfirmationEmail;
-use App\User;
+use App\Invoice;
+use App\Mail\InvoiceEmail;
+use App\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,39 +13,24 @@ class UserConfirmationEmailTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function email_has_token()
+    public function email_contains_link_to_order_page()
     {
-        $user = factory(User::class)->create([
-            'email' => 'jo@example.com',
-        ]);
-        $token = $user->createToken('email');
+        $order = factory(Order::class)->create();
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
-        $email = (new UserConfirmationEmail($user))->render();
+        $email = (new InvoiceEmail($order))->render();
 
-        $this->assertContains($token->token, $email);
+        $this->assertStringContainsString(url('/orders/'.$order->id), $email);
     }
 
     /** @test */
-    public function email_has_email()
+    public function email_contains_invoice_attachment()
     {
-        $user = factory(User::class)->create([
-            'email' => 'jo@example.com',
-        ]);
-        $user->createToken('email');
+        $order = factory(Order::class)->create();
+        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
-        $email = (new UserConfirmationEmail($user))->render();
+        $email = (new InvoiceEmail($order))->build();
 
-        $this->assertContains(urlencode('jo@example.com'), $email);
-    }
-
-    /** @test */
-    public function url_is_correct()
-    {
-        $user = factory(User::class)->create();
-        $user->createToken('email');
-
-        $email = (new UserConfirmationEmail($user))->render();
-
-        $this->assertContains('/register/verify/', $email);
+        $this->assertNotNull($email->rawAttachments);
     }
 }
