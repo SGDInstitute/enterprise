@@ -18,6 +18,7 @@
         "eminiarts/nova-tabs": "^1.1",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
+        "fruitcake/laravel-cors": "^0.11.4",
         "gregoriohc/laravel-nova-theme-responsive": "^0.7.0",
         "guzzlehttp/guzzle": "^6.3",
         "hocza/sendy": "^1.1",
@@ -31,7 +32,7 @@
         "maatwebsite/excel": "^3.1.16",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "nemrutco/nova-filterable-metrics": "^1.0",
-        "pragmarx/version": "^0.2.9",
+        "pragmarx/version": "^1.0",
         "sgd/bulletin-links": "*",
         "sgd/checkin-queue": "*",
         "sgd/enterprise-admin-theme": "*",
@@ -48,9 +49,9 @@
         "timothyasp/nova-color-field": "^1.0",
         "titasgailius/search-relations": "^1.0",
         "vinkla/hashids": "^7.0",
-        "vyuldashev/nova-permission": "^1.4",
+        "vyuldashev/nova-permission": "^2.0",
         "wehaa/custom-links": "^0.1.1",
-        "fruitcake/laravel-cors": "^0.11.4"
+        "wildbit/swiftmailer-postmark": "^3.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -142,8 +143,7 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover",
-            "@php artisan version:refresh"
+            "@php artisan package:discover"
         ]
     },
     "config": {
