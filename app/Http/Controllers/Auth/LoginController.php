@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -51,7 +52,7 @@ class LoginController extends Controller
             return response()->json(compact('user'), 200);
         }
         if ($user->can('view dashboard')) {
-            return redirect('/admin');
+            return redirect('/nova');
         }
 
         return redirect()->intended($this->redirectPath());
