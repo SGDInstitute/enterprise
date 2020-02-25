@@ -71,7 +71,7 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        $user->sendConfirmationEmail();
+        // $user->sendConfirmationEmail();
 
         if ($request->ajax() || $request->isJson()) {
             return response()->json(compact('user'), 200);
