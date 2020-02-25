@@ -6,10 +6,10 @@ use App\Billing\PaymentGateway;
 use App\Donation;
 use App\Event;
 use App\Exceptions\PaymentFailedException;
+use App\Http\Controllers\Controller;
 use App\Mail\ContributionEmail;
 use App\Mail\DonationEmail;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class DonationsController extends Controller

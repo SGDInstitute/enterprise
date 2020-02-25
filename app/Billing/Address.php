@@ -8,7 +8,7 @@ class Address
     {
         $address = $data->address_line1;
 
-        if (!is_null($data->address_line2)) {
+        if (! is_null($data->address_line2)) {
             $address .= " {$data->address_line2}";
         }
 

@@ -2,8 +2,8 @@
 
 namespace App\Admin\Reports;
 
-use App\Profile;
 use App\Order;
+use App\Profile;
 
 class Orders extends Report
 {

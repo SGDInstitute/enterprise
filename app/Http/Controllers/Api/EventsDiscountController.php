@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Event;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class EventsDiscountController extends Controller
 {

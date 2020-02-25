@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 
 class ResponsesSeeder extends Seeder
 {
-
     private $faker;
 
     public function __construct()
@@ -36,16 +35,16 @@ class ResponsesSeeder extends Seeder
     {
         $responses = [];
         foreach ($form->form as $index => $field) {
-            if (!isset($field['type'])) {
+            if (! isset($field['type'])) {
                 dd($form, $field);
             }
             if ($field['type'] === 'list' || $field['type'] === 'select') {
                 $responses[$field['id']] = $field['choices'][array_rand($field['choices'], 1)];
-            } else if ($field['type'] === 'text') {
+            } elseif ($field['type'] === 'text') {
                 $responses[$field['id']] = $this->faker->word;
-            } else if ($field['type'] === 'textarea') {
+            } elseif ($field['type'] === 'textarea') {
                 $responses[$field['id']] = $this->faker->paragraph();
-            } else if ($field['type'] === 'opinion-scale') {
+            } elseif ($field['type'] === 'opinion-scale') {
                 $starting = ($field['start_at_one']) ? 1 : 0;
                 $responses[$field['id']] = rand($starting, $field['max_value']);
             }
@@ -56,7 +55,7 @@ class ResponsesSeeder extends Seeder
 
     private function getRequest()
     {
-        return ["USER" => $this->faker->userName, "HTTP_USER_AGENT" => $this->faker->userAgent];
+        return ['USER' => $this->faker->userName, 'HTTP_USER_AGENT' => $this->faker->userAgent];
     }
 
     private function getLocation()

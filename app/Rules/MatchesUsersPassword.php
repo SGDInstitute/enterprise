@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Hash;
 
 class MatchesUsersPassword implements Rule
 {
-
     /**
      * Create a new rule instance.
      *

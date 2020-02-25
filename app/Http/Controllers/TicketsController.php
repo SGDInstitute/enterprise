@@ -33,20 +33,21 @@ class TicketsController extends Controller
         }
     }
 
-    public function destroy($hash) 
+    public function destroy($hash)
     {
         $ticket = Ticket::findByHash($hash);
         $this->authorize('delete', $ticket->order);
 
-        if (!$ticket->order->isPaid()) {
+        if (! $ticket->order->isPaid()) {
             $ticket->delete();
 
             flash()->success('Successfully deleted ticket.');
-            
+
             return back();
         }
 
         flash()->error('Cannot delete an order that has been paid.');
+
         return response([], 412);
     }
 }

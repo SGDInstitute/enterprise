@@ -4,11 +4,11 @@ namespace App\Nova;
 
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Timezone;
@@ -18,7 +18,6 @@ use Sgd\Links\Links;
 
 class Event extends Resource
 {
-
     public static $model = \App\Event::class;
 
     public static $title = 'title';

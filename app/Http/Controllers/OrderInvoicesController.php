@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Arr;
 use App\Mail\InvoiceEmail;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 
 class OrderInvoicesController extends Controller
 {
-
     public function store(Order $order)
     {
         $data = request()->validate([
@@ -20,7 +19,7 @@ class OrderInvoicesController extends Controller
             'address_2' => '',
             'city' => '',
             'state' => '',
-            'zip' => ['nullable', 'numeric']
+            'zip' => ['nullable', 'numeric'],
         ]);
 
         $order->invoice()->create([

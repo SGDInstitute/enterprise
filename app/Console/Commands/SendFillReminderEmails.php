@@ -11,7 +11,6 @@ use Illuminate\Support\Carbon;
 
 class SendFillReminderEmails extends Command
 {
-
     protected $signature = 'emails:fill {event}';
 
     protected $description = 'Fill Reminder Email';

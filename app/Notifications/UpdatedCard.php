@@ -3,9 +3,9 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class UpdatedCard extends Notification
 {
@@ -45,7 +45,7 @@ class UpdatedCard extends Notification
         return (new MailMessage)
             ->subject('Updated Credit Card on your SGD Institute Account')
             ->line('The credit card on file for your account has been updated.')
-            ->line('Your new card on file is a ' . $this->card->brand . ' ending in ' . $this->card->last4)
+            ->line('Your new card on file is a '.$this->card->brand.' ending in '.$this->card->last4)
             ->line('If you did not make this change, please contact us immediately')
             ->action('Contact Us', 'mailto:support@sgdinstitute.org');
     }

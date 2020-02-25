@@ -11,7 +11,7 @@ class ProfileController extends Controller
     {
         $userData = request()->validate([
             'name' => 'required',
-            'email' => 'required'
+            'email' => 'required',
         ]);
 
         $profile = request()->validate([
@@ -25,7 +25,7 @@ class ProfileController extends Controller
             'other_accessibility' => '',
             'language' => '',
             'other_language' => '',
-            'agreement' => 'accepted'
+            'agreement' => 'accepted',
         ]);
 
         if (is_null($user)) {
@@ -36,9 +36,9 @@ class ProfileController extends Controller
 
         $user->update($userData);
 
-        if (request('email') !== $oldEmail) {
-            $user->sendConfirmationEmail();
-        }
+        // if (request('email') !== $oldEmail) {
+        //     $user->sendConfirmationEmail();
+        // }
 
         $userProfile = $user->profile;
 

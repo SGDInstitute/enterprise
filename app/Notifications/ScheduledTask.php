@@ -3,10 +3,10 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
 
 class ScheduledTask extends Notification
 {
@@ -17,7 +17,7 @@ class ScheduledTask extends Notification
     public function __construct($message)
     {
         if (env('APP_ENV') === 'local') {
-            $message = 'TEST: ' . $message;
+            $message = 'TEST: '.$message;
         }
 
         $this->message = $message;

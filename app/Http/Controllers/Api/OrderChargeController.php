@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Billing\PaymentGateway;
 use App\Exceptions\PaymentFailedException;
+use App\Http\Controllers\Controller;
 use App\Mail\ReceiptEmail;
 use App\Order;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class OrderChargeController extends Controller
@@ -31,7 +31,7 @@ class OrderChargeController extends Controller
 
             return response()->json([
                 'created' => true,
-                'order' => $order
+                'order' => $order,
             ], 201);
         } catch (PaymentFailedException $e) {
             return response()->json([

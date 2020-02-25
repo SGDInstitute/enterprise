@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Queue;
 use App\Ticket;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Vinkla\Hashids\Facades\Hashids;
 
 class QueueController extends Controller
@@ -20,7 +20,7 @@ class QueueController extends Controller
         $tickets = Ticket::findByIds(explode(',', $ids))->load(['user.profile', 'order.receipt'])
             ->filter(function ($ticket) {
                 // remove tickets that are in the queue
-                return !Queue::where('ticket_id', $ticket->id)->exists();
+                return ! Queue::where('ticket_id', $ticket->id)->exists();
             });
 
         if ($tickets->count() > 0) {

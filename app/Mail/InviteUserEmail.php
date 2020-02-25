@@ -4,9 +4,9 @@ namespace App\Mail;
 
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class InviteUserEmail extends Mailable
 {
@@ -52,6 +52,7 @@ class InviteUserEmail extends Mailable
     private function generateUrl($user)
     {
         $token = resolve(PasswordBrokerManager::class)->createToken($user);
+
         return url("/password/reset/{$token}");
     }
 }

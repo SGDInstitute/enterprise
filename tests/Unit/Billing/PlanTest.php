@@ -3,13 +3,13 @@
 namespace Tests\Unit\Billing;
 
 use App\Billing\Plan;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class PlanTest extends TestCase
 {
     /** @test */
-    function can_find_or_create_plan()
+    public function can_find_or_create_plan()
     {
         $monthly = Plan::findOrCreate('monthly-25', $this->key());
         $this->assertEquals($monthly->id, 'monthly-25');
@@ -30,7 +30,7 @@ class PlanTest extends TestCase
         $this->assertEquals($found->id, 'monthly-25');
     }
 
-    function key()
+    public function key()
     {
         return config('institute.stripe.secret');
     }

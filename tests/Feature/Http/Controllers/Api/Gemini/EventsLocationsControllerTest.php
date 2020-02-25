@@ -3,9 +3,9 @@
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
-use App\User;
 use App\Imports\FloorsImport;
 use App\Imports\LocationsImport;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
@@ -48,13 +48,13 @@ class EventsLocationsControllerTest extends TestCase
                             'level',
                             'rooms' => [
                                 '*' => [
-                                    'number'
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                    'number',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ]);
 
         $this->assertLessThanOrEqual(10, count(DB::getQueryLog()));

@@ -2,14 +2,14 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Timothyasp\Color\Color;
 
 class ActivityType extends Resource
 {
-    public static $model = 'App\ActivityType';
+    public static $model = \App\ActivityType::class;
 
     public static $title = 'title';
 

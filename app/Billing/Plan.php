@@ -6,7 +6,6 @@ use Stripe\Error\InvalidRequest;
 
 class Plan
 {
-
     public static function findOrCreate($plan, $key)
     {
         try {
@@ -27,13 +26,13 @@ class Plan
             }
 
             $plan = \Stripe\Plan::create([
-                "amount"         => $amount,
-                "interval"       => $interval,
-                "interval_count" => $interval_count,
-                "product" => ['name' => 'Recurring Donation'],
-                "nickname"           => $plan,
-                "currency"       => "usd",
-                "id"             => $plan,
+                'amount'         => $amount,
+                'interval'       => $interval,
+                'interval_count' => $interval_count,
+                'product' => ['name' => 'Recurring Donation'],
+                'nickname'           => $plan,
+                'currency'       => 'usd',
+                'id'             => $plan,
             ], ['api_key' => $key]);
         }
 

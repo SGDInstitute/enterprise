@@ -19,12 +19,12 @@ $factory->define(Order::class, function (Faker $faker) {
 
 $factory->state(Order::class, 'paid', function (Faker $faker) {
     return [
-        'confirmation_number' => Facades\App\ConfirmationNumber::generate()
+        'confirmation_number' => Facades\App\ConfirmationNumber::generate(),
     ];
 });
 
 $factory->state(Order::class, 'check', function (Faker $faker) {
     return [
-        'transaction_id' => '#1234'
+        'transaction_id' => '#1234',
     ];
 });

@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -75,12 +75,12 @@ class Ticket extends Model
 
     public function isComplete()
     {
-        return !is_null($this->user->profile->tshirt);
+        return ! is_null($this->user->profile->tshirt);
     }
 
     public function isFilled()
     {
-        return !is_null($this->user_id);
+        return ! is_null($this->user_id);
     }
 
     public function scopeUpcoming($query)

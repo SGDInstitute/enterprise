@@ -7,7 +7,6 @@ use Illuminate\View\View;
 
 class AdminComposer
 {
-
     protected $events;
 
     /**

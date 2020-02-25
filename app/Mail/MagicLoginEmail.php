@@ -2,11 +2,11 @@
 
 namespace App\Mail;
 
-use Illuminate\Support\Arr;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Arr;
 
 class MagicLoginEmail extends Mailable
 {
@@ -25,7 +25,7 @@ class MagicLoginEmail extends Mailable
     public function __construct($user, $data)
     {
         $this->user = $user;
-        $this->url = url("/login/magic/{$user->magicToken->token}") . '?' . http_build_query([
+        $this->url = url("/login/magic/{$user->magicToken->token}").'?'.http_build_query([
                 'email' => Arr::get($data, 'email'),
                 'remember' => Arr::get($data, 'remember'),
             ]);

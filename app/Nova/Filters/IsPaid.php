@@ -34,7 +34,7 @@ class IsPaid extends Filter
     {
         return [
             'Paid' => 'paid',
-            'Unpaid' => 'unpaid'
+            'Unpaid' => 'unpaid',
         ];
     }
 }

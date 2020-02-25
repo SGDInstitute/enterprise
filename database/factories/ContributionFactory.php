@@ -9,11 +9,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Contribution::class, function (Faker $faker) {
     return [
-        'event_id' => function() {
+        'event_id' => function () {
             return factory(Event::class)->create()->id;
         },
         'type' => 'sponsor',
         'title' => 'Premium Sponsor',
-        'amount' => 10000
+        'amount' => 10000,
     ];
 });

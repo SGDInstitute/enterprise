@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Arr;
 use App\Invoice;
 use App\Mail\InvoiceEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 
 class InvoicesController extends Controller

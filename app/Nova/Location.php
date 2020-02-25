@@ -16,8 +16,7 @@ use Sgd\ImportCard\ImportCard;
 
 class Location extends Resource
 {
-
-    public static $model = 'App\Location';
+    public static $model = \App\Location::class;
 
     public static $title = 'title';
 
@@ -26,7 +25,7 @@ class Location extends Resource
     public static $importer = LocationsImport::class;
 
     public static $search = [
-        'title'
+        'title',
     ];
 
     public function fields(Request $request)
@@ -61,7 +60,7 @@ class Location extends Resource
     public function cards(Request $request)
     {
         return [
-            (new ImportCard(Location::class))->withSample(url('documents/locations.xlsx')),
+            (new ImportCard(self::class))->withSample(url('documents/locations.xlsx')),
         ];
     }
 

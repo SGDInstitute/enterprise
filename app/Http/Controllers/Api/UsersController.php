@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-
     public function show(User $user = null)
     {
         if ($user === null) {
@@ -23,7 +22,7 @@ class UsersController extends Controller
     {
         $userData = request()->validate([
             'name' => 'required',
-            'email' => 'required'
+            'email' => 'required',
         ]);
 
         $profile = request()->validate([
@@ -43,7 +42,7 @@ class UsersController extends Controller
             $user->sendConfirmationEmail();
         }
 
-        $user->profile()->update($profile);
+        $user->profile->update($profile);
 
         return response()->json(['success' => true], 200);
     }

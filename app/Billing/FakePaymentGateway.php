@@ -50,7 +50,7 @@ class FakePaymentGateway implements PaymentGateway
             'id' => 'subscription_id',
             'plan' => $plan,
             'last4' => '1234',
-            'next_charge' => Carbon::now()->addMonth()
+            'next_charge' => Carbon::now()->addMonth(),
         ]);
     }
 
@@ -58,6 +58,7 @@ class FakePaymentGateway implements PaymentGateway
     {
         $chargesFrom = $this->charges->count();
         $callback($this);
+
         return $this->charges->slice($chargesFrom)->reverse()->values();
     }
 

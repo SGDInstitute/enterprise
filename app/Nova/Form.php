@@ -5,12 +5,12 @@ namespace App\Nova;
 use App\Nova\Actions\DownloadResponses;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -18,7 +18,6 @@ use Sgd\FormBuilder\FormBuilder;
 
 class Form extends Resource
 {
-
     public static $model = \App\Form::class;
 
     public static $title = 'name';
@@ -46,7 +45,7 @@ class Form extends Resource
                 'evaluation' => 'Evaluation (Gemini)',
                 'workshop' => 'Workshop',
                 'volunteer' => 'Volunteer',
-                'default' => 'Default'
+                'default' => 'Default',
             ]),
             Boolean::make('Auth Required'),
             Text::make('List ID')->hideFromIndex(),
@@ -56,7 +55,7 @@ class Form extends Resource
             Boolean::make('Is Public')->sortable(),
             FormBuilder::make('Form')->hideFromIndex(),
 
-            HasMany::make('Responses')
+            HasMany::make('Responses'),
         ];
     }
 

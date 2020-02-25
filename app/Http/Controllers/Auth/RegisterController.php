@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Mail\UserConfirmationEmail;
-use App\User;
 use App\Http\Controllers\Controller;
-use App\UserToken;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
+use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -27,11 +24,11 @@ class RegisterController extends Controller
             'string',
             'min:8',
             'regex:/^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?\d)(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?\d)(?=.*?[^a-zA-Z0-9])).{8,}$/',
-        ]
+        ],
     ];
 
     protected $messages = [
-        'password.regex' => 'Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.'
+        'password.regex' => 'Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.',
     ];
 
     public function __construct()
@@ -74,7 +71,7 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        $user->sendConfirmationEmail();
+        // $user->sendConfirmationEmail();
 
         if ($request->ajax() || $request->isJson()) {
             return response()->json(compact('user'), 200);

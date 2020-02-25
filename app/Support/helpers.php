@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-if (!function_exists('str_snake')) {
+if (! function_exists('str_snake')) {
     /**
      * Generate a HTML link.
      *
@@ -16,7 +16,7 @@ if (!function_exists('str_snake')) {
     }
 }
 
-if (!function_exists('str_title')) {
+if (! function_exists('str_title')) {
     /**
      * Generate a HTML link.
      *
@@ -30,7 +30,7 @@ if (!function_exists('str_title')) {
     }
 }
 
-if (!function_exists('cannot')) {
+if (! function_exists('cannot')) {
     /**
      * Generate a HTML link.
      *
@@ -42,7 +42,7 @@ if (!function_exists('cannot')) {
     function cannot($user, $permission)
     {
         if ($user->cannot($permission)) {
-            flash("You do not have permission to " . str_title($permission), 'danger');
+            flash('You do not have permission to '.str_title($permission), 'danger');
 
             return true;
         }
@@ -51,28 +51,28 @@ if (!function_exists('cannot')) {
     }
 }
 
-if (!function_exists('getStripeKey')) {
+if (! function_exists('getStripeKey')) {
     function getStripeKey($group)
     {
         return config("$group.stripe.key");
     }
 }
 
-if (!function_exists('getStripeSecret')) {
+if (! function_exists('getStripeSecret')) {
     function getStripeSecret($group)
     {
         return config("$group.stripe.secret");
     }
 }
 
-if (!function_exists('getNameFromGroup')) {
+if (! function_exists('getNameFromGroup')) {
     function getNameFromGroup($group)
     {
         return config("{$group}.short_name");
     }
 }
 
-if (!function_exists('markdown')) {
+if (! function_exists('markdown')) {
     function markdown($text)
     {
         return (new Parsedown)->text($text);

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\Gemini;
 
 use App\Event;
-use App\Schedule;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ScheduleResource;
 use App\Http\Resources\UserResource;
+use App\Schedule;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -20,7 +20,7 @@ class UsersController extends Controller
     {
         $userData = request()->validate([
             'name' => 'required',
-            'email' => 'required'
+            'email' => 'required',
         ]);
 
         $profile = request()->validate([

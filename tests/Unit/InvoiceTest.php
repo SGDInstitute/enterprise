@@ -8,8 +8,8 @@ use App\Order;
 use App\TicketType;
 use App\User;
 use Carbon\Carbon;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class InvoiceTest extends TestCase
 {
@@ -24,16 +24,16 @@ class InvoiceTest extends TestCase
             'address_2' => 'Suite 2',
             'city' => 'Chicago',
             'state' => 'IL',
-            'zip' => '60660'
+            'zip' => '60660',
         ]));
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('123 Main', $view);
-        $this->assertContains('Suite 2', $view);
-        $this->assertContains('Chicago', $view);
-        $this->assertContains('IL', $view);
-        $this->assertContains('60660', $view);
+        $this->assertStringContainsString('123 Main', $view);
+        $this->assertStringContainsString('Suite 2', $view);
+        $this->assertStringContainsString('Chicago', $view);
+        $this->assertStringContainsString('IL', $view);
+        $this->assertStringContainsString('60660', $view);
     }
 
     /** @test */
@@ -54,13 +54,13 @@ class InvoiceTest extends TestCase
         ]));
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('$100.00', $view);
+        $this->assertStringContainsString('$100.00', $view);
     }
 
     /** @test */
@@ -78,23 +78,23 @@ class InvoiceTest extends TestCase
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
-            ['ticket_type_id' => $ticketType2->id, 'quantity' => 3]
+            ['ticket_type_id' => $ticketType2->id, 'quantity' => 3],
         ]);
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('Regular Ticket', $view);
-        $this->assertContains('<td>2</td>', $view);
-        $this->assertContains('Pro Ticket', $view);
-        $this->assertContains('<td>3</td>', $view);
+        $this->assertStringContainsString('Regular Ticket', $view);
+        $this->assertStringContainsString('<td>2</td>', $view);
+        $this->assertStringContainsString('Pro Ticket', $view);
+        $this->assertStringContainsString('<td>3</td>', $view);
     }
 
     /** @test */
     public function invoice_pdf_has_mailto_address_for_event()
     {
         $event = factory(Event::class)->states('published')->create([
-            'stripe' => 'institute'
+            'stripe' => 'institute',
         ]);
         $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make([
             'cost' => 5000,
@@ -107,32 +107,32 @@ class InvoiceTest extends TestCase
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
-            ['ticket_type_id' => $ticketType2->id, 'quantity' => 3]
+            ['ticket_type_id' => $ticketType2->id, 'quantity' => 3],
         ]);
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains(config('institute.address'), $view);
+        $this->assertStringContainsString(config('institute.address'), $view);
     }
 
     /** @test */
     public function invoice_pdf_has_due_date()
     {
         $event = factory(Event::class)->states('published')->create([
-            'stripe' => 'institute'
+            'stripe' => 'institute',
         ]);
         $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make());
         $user = factory(User::class)->create();
         $order = $event->orderTickets($user, [
-            ['ticket_type_id' => $ticketType1->id, 'quantity' => 2]
+            ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
         ]);
         $invoice = $order->invoice()->save(factory(Invoice::class)->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
-        $this->assertContains('Due Date', $view);
-        $this->assertContains(Carbon::now()->addDays(60)->toFormattedDateString(), $view);
+        $this->assertStringContainsString('Due Date', $view);
+        $this->assertStringContainsString(Carbon::now()->addDays(60)->toFormattedDateString(), $view);
     }
 
     /** @test */

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
+use Illuminate\Support\Arr;
 
 $factory->define(App\Profile::class, function (Faker $faker) {
     return [

@@ -12,7 +12,7 @@ use Sgd\ImportCard\ImportCard;
 
 class Content extends Resource
 {
-    public static $model = 'App\Content';
+    public static $model = \App\Content::class;
 
     public static $group = 'Gemini';
 
@@ -43,7 +43,7 @@ class Content extends Resource
     public function cards(Request $request)
     {
         return [
-            (new ImportCard(Content::class))->withSample(url('documents/content.xlsx')),
+            (new ImportCard(self::class))->withSample(url('documents/content.xlsx')),
         ];
     }
 

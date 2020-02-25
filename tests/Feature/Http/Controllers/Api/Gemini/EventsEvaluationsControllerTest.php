@@ -4,9 +4,9 @@ namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Event;
 use App\Form;
+use App\Imports\ActivitiesImport;
 use App\Schedule;
 use App\User;
-use App\Imports\ActivitiesImport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
@@ -79,9 +79,9 @@ class EventsEvaluationsControllerTest extends TestCase
                     'slug',
                     'start',
                     'end',
-                    'form'
-                ]
-            ]
+                    'form',
+                ],
+            ],
         ]);
 
         $this->assertCount(2, $response->decodeResponseJson()['data']);

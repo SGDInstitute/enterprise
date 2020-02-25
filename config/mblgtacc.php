@@ -7,6 +7,6 @@ return [
     'stripe' => [
         'key' => env('MBLGTACC_STRIPE_KEY'),
         'secret' => env('MBLGTACC_STRIPE_SECRET'),
-        'statement' => 'MBLGTACC Conference Registration'
+        'statement' => 'MBLGTACC Conference Registration',
     ],
 ];

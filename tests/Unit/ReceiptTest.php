@@ -2,13 +2,13 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Billing\StripePaymentGateway;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Carbon\Carbon;
-use App\TicketType;
 use App\Event;
+use App\TicketType;
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ReceiptTest extends TestCase
 {

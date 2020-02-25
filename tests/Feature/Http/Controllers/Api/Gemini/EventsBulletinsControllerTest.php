@@ -13,7 +13,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Api\Gemini\EventsBulletinsController
  */
-class EventBulletinsControllerTest extends TestCase
+class EventsBulletinsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -37,8 +37,8 @@ class EventBulletinsControllerTest extends TestCase
                     'content',
                     'links',
                     'image',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertLessThan(5, count(DB::getQueryLog()));

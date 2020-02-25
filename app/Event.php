@@ -14,7 +14,7 @@ class Event extends Model
     protected $fillable = ['title', 'subtitle', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
 
     protected $dates = [
-        'start', 'end', 'published_at'
+        'start', 'end', 'published_at',
     ];
 
     protected $casts = [
@@ -103,7 +103,7 @@ class Event extends Model
 
                 foreach (range(1, $ticket['quantity']) as $i) {
                     $order->tickets()->create([
-                        'ticket_type_id' => $ticket['ticket_type_id']
+                        'ticket_type_id' => $ticket['ticket_type_id'],
                     ]);
 
                     if ($ticketType->cost === 0) {

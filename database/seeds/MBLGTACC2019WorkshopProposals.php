@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class MBLGTACC2019WorkshopProposals extends Seeder
 {
@@ -20,7 +20,7 @@ class MBLGTACC2019WorkshopProposals extends Seeder
             'end' => '2018-11-25 00:00:00',
             'is_public' => true,
             'button_text' => 'Submit Proposal',
-            'form' => json_decode(file_get_contents(base_path("database/seeds/data/mblgtacc2019WorkshopsForm.json"))),
+            'form' => json_decode(file_get_contents(base_path('database/seeds/data/mblgtacc2019WorkshopsForm.json'))),
         ]);
     }
 }
