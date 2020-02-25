@@ -7,7 +7,6 @@ use App\Mail\ResponseConfirmationEmail;
 use App\Response;
 use Hocza\Sendy\Facades\Sendy;
 use Illuminate\Support\Facades\Mail;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class FormsResponsesController extends Controller
 {
@@ -37,9 +36,9 @@ class FormsResponsesController extends Controller
             Sendy::setListId($form->list_id)->unsubscribe($response->email);
         }
 
-        if (isset($response->email)) {
-            Mail::to(request()->email)->send(new ResponseConfirmationEmail($response));
-        }
+        // if (isset($response->email)) {
+        //     Mail::to(request()->email)->send(new ResponseConfirmationEmail($response));
+        // }
 
         return response()->json([
             'response' => $response,
