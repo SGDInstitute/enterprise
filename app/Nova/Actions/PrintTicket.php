@@ -4,12 +4,12 @@ namespace App\Nova\Actions;
 
 use App\Nova\Queue;
 use Illuminate\Bus\Queueable;
-use Laravel\Nova\Actions\Action;
-use Illuminate\Support\Collection;
-use Laravel\Nova\Fields\ActionFields;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
+use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Fields\ActionFields;
 
 class PrintTicket extends Action
 {
@@ -24,7 +24,7 @@ class PrintTicket extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        return Action::redirect('/print/' . $models->implode('id', ','));
+        return Action::redirect('/print/'.$models->implode('id', ','));
     }
 
     /**

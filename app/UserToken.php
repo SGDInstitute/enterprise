@@ -13,8 +13,6 @@ class UserToken extends Model
 
     protected $fillable = ['token', 'type'];
 
-    
-
     /**
      * A token belongs to a registered user.
      *
@@ -41,10 +39,10 @@ class UserToken extends Model
 
         $tokenType = "{$this->type}Token";
 
-        if (!$user || $user->$tokenType == null) {
+        if (! $user || $user->$tokenType == null) {
             return false;
         }
 
-        return ($this->token === $user->$tokenType->token);
+        return $this->token === $user->$tokenType->token;
     }
 }

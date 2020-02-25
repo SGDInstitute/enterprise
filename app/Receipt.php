@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Stripe\Charge;
 
@@ -13,8 +13,6 @@ class Receipt extends Model
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['transaction_id', 'amount', 'card_last_four'];
-
-    
 
     public function order()
     {
@@ -30,8 +28,9 @@ class Receipt extends Model
     {
         if (Str::startsWith($this->transaction_id, 'ch')) {
             $stripe = $this->order->event->stripe ?? $this->donation->group;
+
             return Charge::retrieve($this->transaction_id, [
-                'api_key' => config($stripe . '.stripe.secret'),
+                'api_key' => config($stripe.'.stripe.secret'),
             ]);
         }
     }
@@ -40,8 +39,9 @@ class Receipt extends Model
     {
         if (Str::startsWith($this->transaction_id, 'sub')) {
             $stripe = $this->order->event->stripe ?? $this->donation->group;
+
             return \Stripe\Subscription::retrieve($this->transaction_id, [
-                'api_key' => config($stripe . '.stripe.secret'),
+                'api_key' => config($stripe.'.stripe.secret'),
             ]);
         }
     }

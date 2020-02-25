@@ -14,7 +14,7 @@ class TicketType extends Model
     protected $appends = ['formatted_cost', 'is_open'];
 
     protected $dates = [
-        'availability_start', 'availability_end'
+        'availability_start', 'availability_end',
     ];
 
     public function event()
@@ -29,7 +29,7 @@ class TicketType extends Model
 
     public function getFormattedCostAttribute()
     {
-        return "$" . number_format($this->cost / 100, 2);
+        return '$'.number_format($this->cost / 100, 2);
     }
 
     public function getIsOpenAttribute()
@@ -39,6 +39,7 @@ class TicketType extends Model
         }
 
         $now = Carbon::now();
+
         return $this->availability_start < $now && $now < $this->availability_end;
     }
 }

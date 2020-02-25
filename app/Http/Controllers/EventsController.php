@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
@@ -23,7 +21,6 @@ class EventsController extends Controller
                 $showVolunteer = auth()->user()->responses()->where('form_id', $volunteerForm->id)->exists();
             }
         }
-
 
         return view('events.show', [
             'event' => $event,

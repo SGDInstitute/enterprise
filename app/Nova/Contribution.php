@@ -2,9 +2,9 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
@@ -12,7 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Contribution extends Resource
 {
-    public static $model = 'App\Contribution';
+    public static $model = \App\Contribution::class;
 
     public static $title = 'title';
 
@@ -35,9 +35,9 @@ class Contribution extends Resource
             Text::make('Title')->sortable(),
             Text::make('Amount')
                 ->displayUsing(function ($amount) {
-                    return '$' . $amount / 100;
+                    return '$'.$amount / 100;
                 })->sortable(),
-            Trix::make('Description')
+            Trix::make('Description'),
         ];
     }
 

@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role;
 class RolesPermissionsSeeder extends Seeder
 {
     protected $roles = [
-        'institute', 'mblgtacc_planner', 'developer'
+        'institute', 'mblgtacc_planner', 'developer',
     ];
 
     protected $permission = [
@@ -30,7 +30,7 @@ class RolesPermissionsSeeder extends Seeder
         'create_event',
         'create_attendee',
         'manage_roles',
-        'create_permission'
+        'create_permission',
     ];
 
     /**

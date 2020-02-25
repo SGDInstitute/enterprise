@@ -4,9 +4,9 @@ namespace App\Mail;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ResponseConfirmationEmail extends Mailable
 {
@@ -33,10 +33,10 @@ class ResponseConfirmationEmail extends Mailable
     {
         $pdf = PDF::loadView('pdf.response', [
             'response' => $this->response,
-            'form' => $this->response->form->form
+            'form' => $this->response->form->form,
         ]);
 
-        return $this->subject($this->response->form->name . " Submission Confirmation")
+        return $this->subject($this->response->form->name.' Submission Confirmation')
             ->markdown('emails.response_confirmation', [
                 'response' => $this->response,
             ])

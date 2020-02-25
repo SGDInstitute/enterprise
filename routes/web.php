@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
     return view('welcome', [
-        'upcomingEvents' => App\Event::published()->upcoming()->get()
+        'upcomingEvents' => App\Event::published()->upcoming()->get(),
     ]);
 });
 

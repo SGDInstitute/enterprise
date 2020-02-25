@@ -7,10 +7,10 @@ use App\Billing\PaymentGateway;
 use App\Donation;
 use App\Event;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DonationTest extends TestCase
 {
@@ -18,7 +18,7 @@ class DonationTest extends TestCase
 
     public $paymentGateway;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ class DonationTest extends TestCase
     }
 
     /** @test */
-    function can_make_one_time_donation()
+    public function can_make_one_time_donation()
     {
         $request = [
             'amount' => 25,
@@ -48,7 +48,7 @@ class DonationTest extends TestCase
     }
 
     /** @test */
-    function can_make_donation_with_subscription()
+    public function can_make_donation_with_subscription()
     {
         $user = factory(User::class)->create();
         Auth::login($user);
@@ -78,7 +78,7 @@ class DonationTest extends TestCase
     }
 
     /** @test */
-    function find_by_hash()
+    public function find_by_hash()
     {
         $donation = factory(Donation::class)->create();
 

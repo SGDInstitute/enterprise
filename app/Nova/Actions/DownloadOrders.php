@@ -34,7 +34,7 @@ class DownloadOrders extends DownloadExcel implements WithMapping, WithHeadingRo
             'Amount',
             'Tickets',
             'Filled',
-            'Created At'
+            'Created At',
         ];
     }
 }

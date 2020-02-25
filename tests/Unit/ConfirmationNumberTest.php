@@ -3,13 +3,13 @@
 namespace Tests\Unit;
 
 use Facades\App\ConfirmationNumber;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ConfirmationNumberTest extends TestCase
 {
     /** @test */
-    function confirmation_number_is_sixteen_characters_long()
+    public function confirmation_number_is_sixteen_characters_long()
     {
         $confirmationNumber = ConfirmationNumber::generate();
 
@@ -17,7 +17,7 @@ class ConfirmationNumberTest extends TestCase
     }
 
     /** @test */
-    function confirmation_numbers_can_only_contain_uppercase_letters_and_numbers()
+    public function confirmation_numbers_can_only_contain_uppercase_letters_and_numbers()
     {
         $confirmationNumber = ConfirmationNumber::generate();
 
@@ -25,7 +25,7 @@ class ConfirmationNumberTest extends TestCase
     }
 
     /** @test */
-    function confirmation_numbers_cannot_contain_ambiguous_characters()
+    public function confirmation_numbers_cannot_contain_ambiguous_characters()
     {
         $confirmationNumber = ConfirmationNumber::generate();
 
@@ -36,7 +36,7 @@ class ConfirmationNumberTest extends TestCase
     }
 
     /** @test */
-    function confirmation_numbers_must_be_unique()
+    public function confirmation_numbers_must_be_unique()
     {
         $confirmationNumbers = collect(range(1, 50))->map(function () {
             return ConfirmationNumber::generate();

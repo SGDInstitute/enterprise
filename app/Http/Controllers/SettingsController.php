@@ -16,7 +16,7 @@ class SettingsController extends Controller
         }
 
         return view('settings.edit', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 }

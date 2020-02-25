@@ -8,12 +8,11 @@ use App\Imports\FloorsImport;
 use App\Imports\LocationsImport;
 use App\Schedule;
 use App\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
 use Maatwebsite\Excel\Facades\Excel;
+use Tests\TestCase;
 
 /**
  * @see \App\Http\Controllers\Api\Gemini\UsersActivitiesController
@@ -51,20 +50,20 @@ class UsersActivitiesControllerTest extends TestCase
                     'title',
                     'speakers' => [
                         '*' => [
-                            'name', 'email', 'pronouns'
-                        ]
+                            'name', 'email', 'pronouns',
+                        ],
                     ],
                     'description',
                     'type',
                     'location',
                     'start',
                     'end',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertCount(4, $response->decodeResponseJson()['data']);
-        $this->assertLessThanOrEqual(11, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(12, count(DB::getQueryLog()));
     }
 
     /** @test */
@@ -95,16 +94,16 @@ class UsersActivitiesControllerTest extends TestCase
                     'title',
                     'speakers' => [
                         '*' => [
-                            'name', 'email', 'pronouns'
-                        ]
+                            'name', 'email', 'pronouns',
+                        ],
                     ],
                     'description',
                     'type',
                     'location',
                     'start',
                     'end',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertCount(1, $response->decodeResponseJson()['data']);
@@ -141,16 +140,16 @@ class UsersActivitiesControllerTest extends TestCase
                     'title',
                     'speakers' => [
                         '*' => [
-                            'name', 'email', 'pronouns'
-                        ]
+                            'name', 'email', 'pronouns',
+                        ],
                     ],
                     'description',
                     'type',
                     'location',
                     'start',
                     'end',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertCount(0, $response->decodeResponseJson()['data']);

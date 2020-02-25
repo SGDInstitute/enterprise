@@ -23,7 +23,9 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 
+    <script defer src="https://js.stripe.com/v3/"></script>
     <script defer src="{{ asset('js/fontawesome.min.js') }}"></script>
+    <script defer src="{{ mix('js/app.js') }}"></script>
 
     <script>
         window.Spark = {};
@@ -46,10 +48,6 @@
         <portal-target name="modals"></portal-target>
     </div>
     @include('layouts.partials.footer')
-
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="{{ mix('js/app.js') }}"></script>
-
 </body>
 
 </html>

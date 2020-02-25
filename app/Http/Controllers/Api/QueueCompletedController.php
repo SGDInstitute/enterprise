@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Queue;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class QueueCompletedController extends Controller
 {

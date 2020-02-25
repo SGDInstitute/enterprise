@@ -4,21 +4,20 @@ namespace App\Nova;
 
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
 use Eminiarts\Tabs\Tabs;
+use Illuminate\Http\Request;
+use KABBOUCHI\NovaImpersonate\Impersonate;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\MorphToMany;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
-use KABBOUCHI\NovaImpersonate\Impersonate;
-use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Text;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class User extends Resource
 {
-
     public static $model = \App\User::class;
 
     public static $title = 'name';

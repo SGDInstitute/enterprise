@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Api\Gemini\UsersPushController
  */
-class UsersPushControllerTest extends TestCase
+class UsersPushConrollerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -26,7 +26,7 @@ class UsersPushControllerTest extends TestCase
 
         Passport::actingAs($user);
 
-        $response = $this->withoutExceptionHandling()->postJson("api/gemini/me/push", [
+        $response = $this->withoutExceptionHandling()->postJson('api/gemini/me/push', [
             'token' => 'EXAMPLE-PUSH-TOKEN',
         ]);
 

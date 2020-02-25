@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\DownloadOrders;
 use App\Nova\Actions\MarkAsPaid;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Currency;
@@ -11,14 +12,12 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Order extends Resource
 {
-
     public static $model = \App\Order::class;
 
     public static $title = 'id';
@@ -29,7 +28,7 @@ class Order extends Resource
 
     public static $searchRelations = [
         'event' => ['title'],
-        'user' => ['name', 'email']
+        'user' => ['name', 'email'],
     ];
 
     public static $with = ['tickets'];
@@ -47,7 +46,7 @@ class Order extends Resource
 
             Currency::make('Amount')
                 ->displayUsing(function ($amount) {
-                    return '$' . $amount / 100;
+                    return '$'.$amount / 100;
                 }),
             Number::make('Tickets', function () {
                 return $this->tickets->count();

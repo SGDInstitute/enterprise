@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivitiesByDateCollection;
 use App\Http\Resources\ActivitiesCollection;
 use App\Http\Resources\ActivitiesResource;
 use App\Schedule;
+use Illuminate\Http\Request;
 
 class UsersActivitiesController extends Controller
 {
-
     public function index()
     {
         $activities = auth()->user()->schedule()->with('speakers', 'schedule.event', 'type')->get()
@@ -21,6 +20,7 @@ class UsersActivitiesController extends Controller
             ->map(function ($activity) {
                 $activity->timezone = $activity->schedule->event->timezone;
                 $activity->schedule = $activity->schedule->title;
+
                 return $activity;
             })
             ->sortBy('start');
@@ -40,6 +40,7 @@ class UsersActivitiesController extends Controller
                 ->map(function ($activity) {
                     $activity->timezone = $activity->schedule->event->timezone;
                     $activity->schedule = $activity->schedule->title;
+
                     return $activity;
                 })
                 ->sortBy('start');

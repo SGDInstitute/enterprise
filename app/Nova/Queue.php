@@ -3,16 +3,15 @@
 namespace App\Nova;
 
 use App\Nova\Actions\PrintTicket;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Queue extends Resource
 {
-
     public static $model = \App\Queue::class;
 
     public static $title = 'id';

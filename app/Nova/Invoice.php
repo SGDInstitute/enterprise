@@ -3,17 +3,16 @@
 namespace App\Nova;
 
 use App\Nova\Actions\MarkAsPaid;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Invoice extends Resource
 {
-
     public static $model = \App\Invoice::class;
 
     public static $title = 'id';
@@ -33,7 +32,7 @@ class Invoice extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Invoice #', function () {
-                return '#' . str_pad($this->id, 6, "0", STR_PAD_LEFT);
+                return '#'.str_pad($this->id, 6, '0', STR_PAD_LEFT);
             }),
             BelongsTo::make('Order'),
             Boolean::make('Is Paid', function () {

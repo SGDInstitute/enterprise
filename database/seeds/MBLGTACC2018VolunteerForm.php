@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class MBLGTACC2018VolunteerForm extends Seeder
 {
@@ -19,7 +19,7 @@ class MBLGTACC2018VolunteerForm extends Seeder
             'start'     => '2017-09-08 00:00:00',
             'end'       => '2017-11-25 00:00:00',
             'is_public' => true,
-            'form'      => json_decode(file_get_contents(base_path("database/seeds/data/mblgtacc2018VolunteerForm.json"))),
+            'form'      => json_decode(file_get_contents(base_path('database/seeds/data/mblgtacc2018VolunteerForm.json'))),
         ]);
     }
 }

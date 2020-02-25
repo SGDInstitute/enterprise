@@ -31,7 +31,7 @@ class OrderChargeController extends Controller
 
             return response()->json([
                 'created' => true,
-                'order' => $order
+                'order' => $order,
             ], 201);
         } catch (PaymentFailedException $e) {
             return response()->json([

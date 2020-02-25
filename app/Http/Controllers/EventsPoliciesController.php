@@ -13,7 +13,7 @@ class EventsPoliciesController extends Controller
         return view('events.policies.show', [
             'event' => $event,
             'policy' => $policy,
-            'attribute' => $policy . '_policy',
+            'attribute' => $policy.'_policy',
         ]);
     }
 }

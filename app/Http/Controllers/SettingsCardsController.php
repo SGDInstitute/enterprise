@@ -14,7 +14,7 @@ class SettingsCardsController extends Controller
             'account' => 'required',
         ]);
 
-        $customerId = auth()->user()->{$data['account']."_stripe_id"};
+        $customerId = auth()->user()->{$data['account'].'_stripe_id'};
         $apiKey = config("{$data['account']}.stripe.secret");
 
         try {
@@ -26,6 +26,7 @@ class SettingsCardsController extends Controller
             $card = collect($customer->sources['data'])->firstWhere('id', $customer->default_source);
 
             request()->user()->notify(new UpdatedCard($card));
+
             return response()->json(['data' => ['card_last_four' => $card->last4]]);
         } catch (\Stripe\Error\InvalidRequest $e) {
             $body = $e->getJsonBody();

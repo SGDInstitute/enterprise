@@ -4,43 +4,43 @@ namespace Tests\Unit\Mail;
 
 use App\Mail\MagicLoginEmail;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class MagicLoginEmailTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function email_has_token()
+    public function email_has_token()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $user->createToken('magic');
         $data = ['email' => $user->email, 'remember' => 'on'];
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains($user->magicToken->token, $email);
+        $this->assertStringContainsString($user->magicToken->token, $email);
     }
 
     /** @test */
-    function email_has_email()
+    public function email_has_email()
     {
         $user = factory(User::class)->create([
-            'email' => 'jo@example.com'
+            'email' => 'jo@example.com',
         ]);
         $user->createToken('magic');
         $data = ['email' => $user->email, 'remember' => 'on'];
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains(urlencode('jo@example.com'), $email);
+        $this->assertStringContainsString(urlencode('jo@example.com'), $email);
     }
 
     /** @test */
-    function email_has_remember()
+    public function email_has_remember()
     {
         $user = factory(User::class)->create();
         $user->createToken('magic');
@@ -48,11 +48,11 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains('remember=on', $email);
+        $this->assertStringContainsString('remember=on', $email);
     }
 
     /** @test */
-    function email_doesnt_have_remember()
+    public function email_doesnt_have_remember()
     {
         $user = factory(User::class)->create();
         $user->createToken('magic');
@@ -60,11 +60,11 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertNotContains('remember=on', $email);
+        $this->assertStringNotContainsString('remember=on', $email);
     }
 
     /** @test */
-    function url_is_correct()
+    public function url_is_correct()
     {
         $user = factory(User::class)->create();
         $user->createToken('magic');
@@ -72,6 +72,6 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertContains('login/magic/', $email);
+        $this->assertStringContainsString('login/magic/', $email);
     }
 }

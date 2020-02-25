@@ -17,14 +17,14 @@ use Sgd\ImportCard\ImportCard;
 
 class Activity extends Resource
 {
-    public static $model = 'App\Activity';
+    public static $model = \App\Activity::class;
 
     public static $title = 'title';
 
     public static $group = 'Gemini';
 
     public static $search = [
-        'id', 'title', 'description'
+        'id', 'title', 'description',
     ];
 
     public static $importer = ActivitiesImport::class;
@@ -34,7 +34,7 @@ class Activity extends Resource
         'schedule.event' => ['title'],
         'activity_type' => ['title'],
         'location' => ['title'],
-        'room' => ['number']
+        'room' => ['number'],
     ];
 
     public function fields(Request $request)
@@ -52,14 +52,14 @@ class Activity extends Resource
             DateTime::make('End')->sortable(),
             Number::make('Spots')->sortable(),
 
-            BelongsToMany::make('Speakers', 'speakers', 'App\Nova\User')->searchable(),
+            BelongsToMany::make('Speakers', 'speakers', \App\Nova\User::class)->searchable(),
         ];
     }
 
     public function cards(Request $request)
     {
         return [
-            (new ImportCard(Activity::class))->withSample(url('documents/schedule.xlsx')),
+            (new ImportCard(self::class))->withSample(url('documents/schedule.xlsx')),
         ];
     }
 

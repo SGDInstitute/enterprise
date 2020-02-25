@@ -35,7 +35,7 @@ class UsersControllerTest extends TestCase
 
         Passport::actingAs($user);
 
-        $response = $this->withoutExceptionHandling()->getJson("api/gemini/me");
+        $response = $this->withoutExceptionHandling()->getJson('api/gemini/me');
 
         $this->assertEquals('Ginny Weasley', $response->decodeResponseJson()['data']['name']);
         $this->assertEquals('gweasley@hogwarts.edu', $response->decodeResponseJson()['data']['email']);
@@ -68,7 +68,7 @@ class UsersControllerTest extends TestCase
         Passport::actingAs($user);
 
         DB::enableQueryLog();
-        $response = $this->withoutExceptionHandling()->json('patch', "api/gemini/me", [
+        $response = $this->withoutExceptionHandling()->json('patch', 'api/gemini/me', [
             'name' => 'Ginny Weasley',
             'email' => 'gweasley@hogwarts.edu',
             'pronouns' => 'she/her',
