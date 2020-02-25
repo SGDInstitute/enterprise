@@ -36,9 +36,9 @@ class ProfileController extends Controller
 
         $user->update($userData);
 
-        if (request('email') !== $oldEmail) {
-            $user->sendConfirmationEmail();
-        }
+        // if (request('email') !== $oldEmail) {
+        //     $user->sendConfirmationEmail();
+        // }
 
         $userProfile = $user->profile;
 
