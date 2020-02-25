@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Mail\UserConfirmationEmail;
 use App\Profile;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -74,10 +72,6 @@ class ProfileControllerTest extends TestCase
             ]);
 
         $response->assertStatus(200);
-        Mail::assertSent(UserConfirmationEmail::class, function ($mail) {
-            return $mail->hasTo('hpotter@hogwarts.edu')
-                && $mail->user->id === User::findByEmail('hpotter@hogwarts.edu')->id;
-        });
     }
 
     /** @test */

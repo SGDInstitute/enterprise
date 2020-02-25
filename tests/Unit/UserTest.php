@@ -3,13 +3,11 @@
 namespace Tests\Unit;
 
 use App\Event;
-use App\Mail\UserConfirmationEmail;
 use App\Order;
 use App\Ticket;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -70,45 +68,6 @@ class UserTest extends TestCase
         $this->assertEquals($token->token, $user->magicToken->token);
         $this->assertEquals($user->id, $token->user_id);
         $this->assertEquals($user->id, $user->magicToken->user_id);
-    }
-
-    /** @test */
-    public function can_see_if_user_is_confirmed()
-    {
-        $user = factory(User::class)->states('confirmed')->make();
-
-        $this->assertTrue($user->isConfirmed());
-    }
-
-    /** @test */
-    public function can_confirm_user()
-    {
-        $user = factory(User::class)->create();
-        $user->createToken('email');
-
-        $user->confirm();
-
-        $this->assertTrue($user->isConfirmed());
-        $this->assertNull($user->fresh()->emailToken);
-    }
-
-    /** @test */
-    public function can_send_confirmation_email()
-    {
-        Mail::fake();
-
-        $user = factory(User::class)->states('confirmed')->create(['email' => 'phoenix@example.com']);
-        $this->assertNotNull($user->confirmed_at);
-
-        $user->sendConfirmationEmail();
-
-        $this->assertNull($user->confirmed_at);
-        $this->assertNotNull($user->emailToken);
-
-        Mail::assertSent(UserConfirmationEmail::class, function ($mail) {
-            return $mail->hasTo('phoenix@example.com')
-                && $mail->user->id === User::findByEmail('phoenix@example.com')->id;
-        });
     }
 
     /** @test */

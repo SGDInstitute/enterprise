@@ -9,7 +9,6 @@ use App\Imports\LocationsImport;
 use App\Schedule;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -64,7 +63,7 @@ class UsersActivitiesControllerTest extends TestCase
         ]);
 
         $this->assertCount(4, $response->decodeResponseJson()['data']);
-        $this->assertLessThanOrEqual(11, count(DB::getQueryLog()));
+        $this->assertLessThanOrEqual(12, count(DB::getQueryLog()));
     }
 
     /** @test */

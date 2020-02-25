@@ -60,7 +60,7 @@ class MagicLoginEmailTest extends TestCase
 
         $email = (new MagicLoginEmail($user, $data))->render();
 
-        $this->assertNotContains('remember=on', $email);
+        $this->assertStringNotContainsString('remember=on', $email);
     }
 
     /** @test */
