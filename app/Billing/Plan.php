@@ -2,7 +2,7 @@
 
 namespace App\Billing;
 
-use Stripe\Error\InvalidRequest;
+use Stripe\Exception\InvalidRequestException;
 
 class Plan
 {
@@ -10,7 +10,7 @@ class Plan
     {
         try {
             $plan = \Stripe\Plan::retrieve($plan, ['api_key' => $key]);
-        } catch (InvalidRequest $e) {
+        } catch (InvalidRequestException $e) {
             $duration = explode('-', $plan)[0];
             $amount = explode('-', $plan)[1] * 100;
 

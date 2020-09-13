@@ -5,15 +5,14 @@ namespace Tests;
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
-use JMac\Testing\Traits\HttpTestAssertions;
 use PHPUnit\Framework\Assert;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, HttpTestAssertions;
+    use CreatesApplication;
 
     protected function setUp(): void
     {

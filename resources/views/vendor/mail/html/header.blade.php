@@ -1,17 +1,11 @@
 <tr>
-    <td class="header">
-        <table>
-            <tr>
-                <td class="column-1">
-                    <a href="https://sgdinstitute.org" target="_blank" class="institute-logo">
-                        <img alt="Midwest Institute for Sexuality and Gender Diversity"
-                             src="https://sgdinstitute.org/storage/app/media/emails/logo-dark-text.png"/>
-                    </a>
-                </td>
-                <td class="column-2">
-                    {{ $slot }}
-                </td>
-            </tr>
-        </table>
-    </td>
+<td class="header">
+<a href="{{ $url }}" style="display: inline-block;">
+@if (trim($slot) === 'Laravel')
+<img src="https://laravel.com/img/notification-logo.png" class="logo" alt="Laravel Logo">
+@else
+{{ $slot }}
+@endif
+</a>
+</td>
 </tr>

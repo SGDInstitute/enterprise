@@ -27,6 +27,6 @@ class EventsPoliciesControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('MBLGTACC');
-        $response->assertSee('<p>Refund Policy</p>');
+        $response->assertSee('Refund Policy');
     }
 }
