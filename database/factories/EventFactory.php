@@ -1,9 +1,26 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Event::class, function (Faker $faker) {
-    return [
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class EventFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Event::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'title' => 'Leadership Conference',
         'slug' => 'leadership-conference',
         'stripe' => 'institute',
@@ -21,29 +38,42 @@ $factory->define(App\Event::class, function (Faker $faker) {
             ['icon' => 'website', 'link' => 'https://leadership.org', 'order' => 5],
         ],
     ];
-});
+    }
 
-$factory->state(App\Event::class, 'published', function (Faker $faker) {
-    return [
+    public function published()
+    {
+        return $this->state(function () {
+            return [
         'published_at' => \Carbon\Carbon::parse('-1 week'),
     ];
-});
+        });
+    }
 
-$factory->state(App\Event::class, 'unpublished', function (Faker $faker) {
-    return [
+    public function unpublished()
+    {
+        return $this->state(function () {
+            return [
         'published_at' => null,
     ];
-});
+        });
+    }
 
-$factory->state(App\Event::class, 'future', function (Faker $faker) {
-    return [
+    public function future()
+    {
+        return $this->state(function () {
+            return [
         'published_at' => \Carbon\Carbon::parse('+1 month'),
     ];
-});
+        });
+    }
 
-$factory->state(App\Event::class, 'past', function (Faker $faker) {
-    return [
+    public function past()
+    {
+        return $this->state(function () {
+            return [
         'start' => \Carbon\Carbon::parse('-1 year'),
         'end' => \Carbon\Carbon::parse('-1 year')->addDays(2),
     ];
-});
+        });
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +15,8 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class Ticket extends Model
 {
+    use HasFactory;
+
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['ticket_type_id'];

@@ -17,7 +17,7 @@ class UserTest extends TestCase
     /** @test */
     public function can_change_password()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'password' => bcrypt('Password1'),
         ]);
 
@@ -30,7 +30,7 @@ class UserTest extends TestCase
     /** @test */
     public function can_get_user_by_email()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'email' => 'jo@example.com',
         ]);
 
@@ -43,7 +43,7 @@ class UserTest extends TestCase
     /** @test */
     public function can_get_email_token()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'jo@example.com',
         ]);
 
@@ -58,7 +58,7 @@ class UserTest extends TestCase
     /** @test */
     public function can_get_magic_token()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'jo@example.com',
         ]);
 
@@ -73,10 +73,10 @@ class UserTest extends TestCase
     /** @test */
     public function can_get_orders_and_tickets_for_upcoming_events()
     {
-        $user = factory(User::class)->create();
-        $ownedOrder = factory(Order::class)->create(['user_id' => $user]);
-        $invitedOrder = factory(Order::class)->create();
-        $invitedOrder->tickets()->save(factory(Ticket::class)->make(['user_id' => $user->id]));
+        $user = User::factory()->create();
+        $ownedOrder = Order::factory()->create(['user_id' => $user]);
+        $invitedOrder = Order::factory()->create();
+        $invitedOrder->tickets()->save(Ticket::factory()->make(['user_id' => $user->id]));
 
         $orders = $user->upcomingOrdersAndTickets();
 
@@ -87,12 +87,12 @@ class UserTest extends TestCase
     /** @test */
     public function can_get_orders_and_tickets_for_past_events()
     {
-        $user = factory(User::class)->create();
-        $pastEvent1 = factory(Event::class)->states('past')->create();
-        $ownedOrder = factory(Order::class)->create(['event_id' => $pastEvent1->id, 'user_id' => $user]);
-        $pastEvent2 = factory(Event::class)->states('past')->create();
-        $invitedOrder = factory(Order::class)->create(['event_id' => $pastEvent2->id]);
-        $invitedOrder->tickets()->save(factory(Ticket::class)->make(['user_id' => $user->id]));
+        $user = User::factory()->create();
+        $pastEvent1 = Event::factory()->past()->create();
+        $ownedOrder = Order::factory()->create(['event_id' => $pastEvent1->id, 'user_id' => $user]);
+        $pastEvent2 = Event::factory()->past()->create();
+        $invitedOrder = Order::factory()->create(['event_id' => $pastEvent2->id]);
+        $invitedOrder->tickets()->save(Ticket::factory()->make(['user_id' => $user->id]));
 
         $orders = $user->pastOrdersAndTickets();
 
@@ -103,17 +103,17 @@ class UserTest extends TestCase
     /** @test */
     public function can_test_if_user_is_a_stripe_customer()
     {
-        $customer = factory(User::class)->create(['institute_stripe_id' => 'customer_id']);
+        $customer = User::factory()->create(['institute_stripe_id' => 'customer_id']);
         $this->assertTrue($customer->isCustomer('institute'));
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->assertFalse($user->isCustomer('institute'));
     }
 
     /** @test */
     public function can_get_users_stripe_id()
     {
-        $customer = factory(User::class)->create(['institute_stripe_id' => 'customer_id']);
+        $customer = User::factory()->create(['institute_stripe_id' => 'customer_id']);
 
         $this->assertEquals('customer_id', $customer->getCustomer('institute'));
     }

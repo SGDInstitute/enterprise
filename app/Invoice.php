@@ -2,12 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Invoice extends Model
 {
+    use HasFactory;
+
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip'];

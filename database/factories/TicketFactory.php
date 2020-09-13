@@ -1,18 +1,37 @@
 <?php
 
-use App\Ticket;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Ticket::class, function (Faker $faker) {
-    return [
+use App\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Ticket;
+
+class TicketFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Ticket::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'order_id' => function () {
-            return factory(App\Order::class)->create()->id;
+            return Order::factory()->create()->id;
         },
         'ticket_type_id' => function () {
-            return factory(App\TicketType::class)->create()->id;
+            return TicketType::factory()->create()->id;
         },
         'user_id' => function () {
-            return factory(App\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
     ];
-});
+    }
+}

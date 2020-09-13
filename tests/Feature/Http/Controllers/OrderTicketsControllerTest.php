@@ -24,16 +24,16 @@ class OrderTicketsControllerTest extends TestCase
     {
         Mail::fake();
 
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
-        $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $user->id]);
-        $ticket1 = factory(Ticket::class)->create([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
+        $order = Order::factory()->create(['event_id' => $event->id, 'user_id' => $user->id]);
+        $ticket1 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
         ]);
-        $ticket2 = factory(Ticket::class)->create([
+        $ticket2 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
@@ -65,26 +65,26 @@ class OrderTicketsControllerTest extends TestCase
     /** @test */
     public function email_is_required()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
-        $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $user->id]);
-        $ticket1 = factory(Ticket::class)->create([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
+        $order = Order::factory()->create(['event_id' => $event->id, 'user_id' => $user->id]);
+        $ticket1 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
         ]);
-        $ticket2 = factory(Ticket::class)->create([
+        $ticket2 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
         ]);
-        $ticket3 = factory(Ticket::class)->create([
+        $ticket3 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
         ]);
-        $ticket4 = factory(Ticket::class)->create([
+        $ticket4 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
@@ -110,26 +110,26 @@ class OrderTicketsControllerTest extends TestCase
     {
         Mail::fake();
 
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
-        $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $user->id]);
-        $ticket1 = factory(Ticket::class)->create([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
+        $order = Order::factory()->create(['event_id' => $event->id, 'user_id' => $user->id]);
+        $ticket1 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
         ]);
-        $ticket2 = factory(Ticket::class)->create([
+        $ticket2 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
         ]);
-        $ticket3 = factory(Ticket::class)->create([
+        $ticket3 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
         ]);
-        $ticket4 = factory(Ticket::class)->create([
+        $ticket4 = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,
@@ -159,11 +159,11 @@ class OrderTicketsControllerTest extends TestCase
     /** @test */
     public function email_must_be_email()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
-        $order = factory(Order::class)->create(['event_id' => $event->id, 'user_id' => $user->id]);
-        $ticket = factory(Ticket::class)->create([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
+        $order = Order::factory()->create(['event_id' => $event->id, 'user_id' => $user->id]);
+        $ticket = Ticket::factory()->create([
             'order_id' => $order->id,
             'user_id' => null,
             'ticket_type_id' => $ticketType->id,

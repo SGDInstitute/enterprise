@@ -50,7 +50,7 @@ class DonationTest extends TestCase
     /** @test */
     public function can_make_donation_with_subscription()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Auth::login($user);
         $request = [
             'amount' => 25,
@@ -80,7 +80,7 @@ class DonationTest extends TestCase
     /** @test */
     public function find_by_hash()
     {
-        $donation = factory(Donation::class)->create();
+        $donation = Donation::factory()->create();
 
         $foundDonation = Donation::findByHash($donation->hash);
 

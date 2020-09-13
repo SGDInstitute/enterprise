@@ -1,16 +1,35 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(\App\Queue::class, function (Faker $faker) {
-    return [
+use App\Ticket;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class QueueFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Queue::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'batch' => 'ABCDE',
-        'ticket_id' => factory(\App\Ticket::class)->create(),
-        'name' => $faker->name,
+        'ticket_id' => Ticket::factory()->create(),
+        'name' => $this->faker->name,
         'pronouns' => 'they/them',
         'college' => 'Hogwarts Edu.',
         'tshirt' => 'S',
         'order_created' => '2019-01-15 00:00:00',
         'order_paid' => '2019-01-15 00:00:00',
     ];
-});
+    }
+}

@@ -15,8 +15,8 @@ class CanLookupTicketTest extends TestCase
     /** @test */
     public function can_lookup_ticket_by_hash()
     {
-        factory(Ticket::class)->create();
-        $ticket = factory(Ticket::class)->create();
+        Ticket::factory()->create();
+        $ticket = Ticket::factory()->create();
 
         $response = $this->withoutExceptionHandling()->json('get', '/api/tickets/'.$ticket->hash);
 
@@ -27,8 +27,8 @@ class CanLookupTicketTest extends TestCase
     /** @test */
     public function can_lookup_ticket_by_ticket_id()
     {
-        factory(Ticket::class)->create();
-        $ticket = factory(Ticket::class)->create();
+        Ticket::factory()->create();
+        $ticket = Ticket::factory()->create();
 
         $response = $this->withoutExceptionHandling()->json('get', '/api/tickets/'.$ticket->id);
 

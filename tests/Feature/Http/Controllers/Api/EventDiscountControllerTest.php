@@ -24,33 +24,33 @@ class EventDiscountControllerTest extends TestCase
     /** @test */
     public function user_with_one_shift_gets_one_shift_discount()
     {
-        $event = factory(Event::class)->create();
-        $oneShift = factory(TicketType::class)->create([
+        $event = Event::factory()->create();
+        $oneShift = TicketType::factory()->create([
             'event_id' => $event->id,
             'name' => '1 Shift',
             'cost' => 6000,
             'type' => 'discount',
         ]);
-        $twoShifts = factory(TicketType::class)->create([
+        $twoShifts = TicketType::factory()->create([
             'event_id' => $event->id,
             'name' => '2 Shifts',
             'cost' => 3500,
             'type' => 'discount',
         ]);
-        $threeShifts = factory(TicketType::class)->create([
+        $threeShifts = TicketType::factory()->create([
             'event_id' => $event->id,
             'name' => '3 Shifts',
             'cost' => 0,
             'type' => 'discount',
         ]);
 
-        $schedule = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Volunteer Track']);
-        $activityType = factory(ActivityType::class)->create(['title' => 'General']);
-        $activity1 = factory(Activity::class)->create(['title' => 'Campus Wanderers 1', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
-        $activity2 = factory(Activity::class)->create(['title' => 'Campus Wanderers 2', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
-        $activity3 = factory(Activity::class)->create(['title' => 'Campus Wanderers 3', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
+        $schedule = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Volunteer Track']);
+        $activityType = ActivityType::factory()->create(['title' => 'General']);
+        $activity1 = Activity::factory()->create(['title' => 'Campus Wanderers 1', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
+        $activity2 = Activity::factory()->create(['title' => 'Campus Wanderers 2', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
+        $activity3 = Activity::factory()->create(['title' => 'Campus Wanderers 3', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->schedule()->toggle($activity1->id);
 
         Passport::actingAs($user);
@@ -68,33 +68,33 @@ class EventDiscountControllerTest extends TestCase
     /** @test */
     public function user_with_two_shift_gets_two_shift_discount()
     {
-        $event = factory(Event::class)->create();
-        $oneShift = factory(TicketType::class)->create([
+        $event = Event::factory()->create();
+        $oneShift = TicketType::factory()->create([
             'event_id' => $event->id,
             'name' => '1 Shift',
             'cost' => 6000,
             'type' => 'discount',
         ]);
-        $twoShifts = factory(TicketType::class)->create([
+        $twoShifts = TicketType::factory()->create([
             'event_id' => $event->id,
             'name' => '2 Shifts',
             'cost' => 3500,
             'type' => 'discount',
         ]);
-        $threeShifts = factory(TicketType::class)->create([
+        $threeShifts = TicketType::factory()->create([
             'event_id' => $event->id,
             'name' => '3 Shifts',
             'cost' => 0,
             'type' => 'discount',
         ]);
 
-        $schedule = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Volunteer Track']);
-        $activityType = factory(ActivityType::class)->create(['title' => 'General']);
-        $activity1 = factory(Activity::class)->create(['title' => 'Campus Wanderers 1', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
-        $activity2 = factory(Activity::class)->create(['title' => 'Campus Wanderers 2', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
-        $activity3 = factory(Activity::class)->create(['title' => 'Campus Wanderers 3', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
+        $schedule = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Volunteer Track']);
+        $activityType = ActivityType::factory()->create(['title' => 'General']);
+        $activity1 = Activity::factory()->create(['title' => 'Campus Wanderers 1', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
+        $activity2 = Activity::factory()->create(['title' => 'Campus Wanderers 2', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
+        $activity3 = Activity::factory()->create(['title' => 'Campus Wanderers 3', 'activity_type_id' => $activityType->id, 'schedule_id' => $schedule->id]);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->schedule()->toggle($activity1->id);
         $user->schedule()->toggle($activity2->id);
 

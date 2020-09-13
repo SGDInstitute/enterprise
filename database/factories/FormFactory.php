@@ -1,13 +1,30 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Form::class, function (Faker $faker) {
-    return [
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class FormFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Form::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'name'      => 'Test Survey',
         'slug'      => 'test-survey',
-        'start'     => $faker->date(),
-        'end'       => $faker->date(),
+        'start'     => $this->faker->date(),
+        'end'       => $this->faker->date(),
         'is_public' => true,
         'form'      => '[
                 {
@@ -18,4 +35,5 @@ $factory->define(App\Form::class, function (Faker $faker) {
                 }
             ]',
     ];
-});
+    }
+}

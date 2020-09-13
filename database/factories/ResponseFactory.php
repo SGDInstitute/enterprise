@@ -2,18 +2,37 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Response::class, function (Faker $faker) {
-    return [
+use App\Form;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ResponseFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Response::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'user_id' => function () {
-            return factory(App\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
         'form_id' => function () {
-            return factory(App\Form::class)->create()->id;
+            return Form::factory()->create()->id;
         },
-        'email' => $faker->safeEmail,
-        'responses' => $faker->text,
-        'request' => $faker->text,
+        'email' => $this->faker->safeEmail,
+        'responses' => $this->faker->text,
+        'request' => $this->faker->text,
     ];
-});
+    }
+}

@@ -1,17 +1,36 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Invoice::class, function (Faker $faker) {
-    return [
+use App\Order;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class InvoiceFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Invoice::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'order_id' => function () {
-            return factory(App\Order::class)->create()->id;
+            return Order::factory()->create()->id;
         },
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'address' => $faker->streetAddress,
-        'city' => $faker->city,
-        'state' => $faker->stateAbbr,
-        'zip' => $faker->postcode,
+        'name' => $this->faker->name,
+        'email' => $this->faker->email,
+        'address' => $this->faker->streetAddress,
+        'city' => $this->faker->city,
+        'state' => $this->faker->stateAbbr,
+        'zip' => $this->faker->postcode,
     ];
-});
+    }
+}

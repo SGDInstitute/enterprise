@@ -19,7 +19,7 @@ class OrdersSeeder extends Seeder
         foreach (range(1, 50) as $index) {
             $event = Event::all()->random();
             $ticketType = $event->ticket_types->random();
-            $order = $event->orderTickets(factory(User::class)->create(), [
+            $order = $event->orderTickets(User::factory()->create(), [
                 ['ticket_type_id' => $ticketType->id, 'quantity' => rand(1, 25)],
             ]);
 

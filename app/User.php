@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Events\UserCreated;
 use App\Mail\UserConfirmationEmail;
 use Carbon\Carbon;
@@ -19,6 +20,8 @@ use Stripe\Customer;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use HasFactory;
+
     use Notifiable, LogsActivity, SoftDeletes, HasRoles, HasApiTokens, HasNotes;
 
     protected $fillable = [

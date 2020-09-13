@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Queue extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['batch', 'ticket_id', 'name', 'pronouns', 'tshirt', 'college', 'order_created', 'order_paid', 'completed'];
 
     protected $casts = [

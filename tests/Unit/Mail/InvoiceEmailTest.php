@@ -16,8 +16,8 @@ class InvoiceEmailTest extends TestCase
     /** @test */
     public function email_contains_link_to_order_page()
     {
-        $order = factory(Order::class)->create();
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $order = Order::factory()->create();
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $email = (new InvoiceEmail($order))->render();
 
@@ -27,8 +27,8 @@ class InvoiceEmailTest extends TestCase
     /** @test */
     public function email_contains_invoice_attachment()
     {
-        $order = factory(Order::class)->create();
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $order = Order::factory()->create();
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $email = (new InvoiceEmail($order))->build();
 

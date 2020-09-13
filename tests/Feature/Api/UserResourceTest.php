@@ -15,7 +15,7 @@ class UserResourceTest extends TestCase
     /** @test */
     public function can_get_authenticated_user()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'name' => 'Harry Potter',
         ]);
         Passport::actingAs($user);

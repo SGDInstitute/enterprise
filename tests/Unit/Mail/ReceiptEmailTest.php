@@ -17,7 +17,7 @@ class ReceiptEmailTest extends TestCase
     /** @test */
     public function email_contains_link_to_order_page()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
         $order->markAsPaid($this->charge());
 
         $email = (new ReceiptEmail($order))->render();
@@ -28,9 +28,9 @@ class ReceiptEmailTest extends TestCase
     /** @test */
     public function email_contains_users_name()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create([
             'name' => 'Phoenix Johnson',
         ]);
         $order = $event->orderTickets($user, [

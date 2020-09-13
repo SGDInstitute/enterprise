@@ -20,11 +20,11 @@ class ReceiptTest extends TestCase
         $paymentGateway = new StripePaymentGateway(config('institute.stripe.secret'));
         $this->app->instance(PaymentGateway::class, $paymentGateway);
 
-        $user = factory(User::class)->create();
-        $upcomingEvent = factory(Event::class)->states('published')->create([
+        $user = User::factory()->create();
+        $upcomingEvent = Event::factory()->published()->create([
             'start' => Carbon::now()->addMonth(2),
         ]);
-        $ticketType = $upcomingEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $ticketType = $upcomingEvent->ticket_types()->save(TicketType::factory()->make());
         $order = $upcomingEvent->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);

@@ -19,7 +19,7 @@ class UsersPushConrollerTest extends TestCase
     /** @test */
     public function store_returns_an_ok_response()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'name' => 'Ginny Weasley',
             'email' => 'gweasley@hogwarts.edu',
         ]);

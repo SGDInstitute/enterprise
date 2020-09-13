@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,8 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class Donation extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     /**

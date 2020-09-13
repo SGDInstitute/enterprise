@@ -23,14 +23,14 @@ class InvoicesResendControllerTest extends TestCase
     {
         Mail::fake();
 
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make(['email' => 'pjohnson@example.com']));
+        $invoice = $order->invoice()->save(Invoice::factory()->make(['email' => 'pjohnson@example.com']));
 
         $response = $this->withoutExceptionHandling()->actingAs($user)->json('get', "/invoices/{$invoice->id}/resend");
 

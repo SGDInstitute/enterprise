@@ -23,9 +23,9 @@ class EventsEvaluationsControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $event = Event::factory()->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
 
-        $friday = factory(Form::class)->create([
+        $friday = Form::factory()->create([
             'name' => 'Friday Mini-Survey',
             'type' => 'evaluation',
             'event_id' => $event->id,
@@ -38,7 +38,7 @@ class EventsEvaluationsControllerTest extends TestCase
                 ],
             ],
         ]);
-        $saturday = factory(Form::class)->create([
+        $saturday = Form::factory()->create([
             'name' => 'Saturday Mini-Survey',
             'type' => 'evaluation',
             'event_id' => $event->id,
@@ -51,7 +51,7 @@ class EventsEvaluationsControllerTest extends TestCase
                 ],
             ],
         ]);
-        $sunday = factory(Form::class)->create([
+        $sunday = Form::factory()->create([
             'name' => 'Sunday Mini-Survey',
             'type' => 'survey',
             'event_id' => $event->id,
@@ -65,7 +65,7 @@ class EventsEvaluationsControllerTest extends TestCase
             ],
         ]);
 
-        Passport::actingAs(factory(User::class)->create());
+        Passport::actingAs(User::factory()->create());
 
         DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/evaluations");

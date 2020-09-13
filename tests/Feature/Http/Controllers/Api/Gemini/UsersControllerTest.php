@@ -19,7 +19,7 @@ class UsersControllerTest extends TestCase
     /** @test */
     public function show_returns_an_ok_response()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'name' => 'Ginny Weasley',
             'email' => 'gweasley@hogwarts.edu',
         ]);
@@ -51,7 +51,7 @@ class UsersControllerTest extends TestCase
     /** @test */
     public function update_returns_an_ok_response()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'name' => 'Ginny Weasley',
             'email' => 'gweasley@hogwarts.edu',
         ]);

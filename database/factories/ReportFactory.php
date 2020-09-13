@@ -1,10 +1,28 @@
 <?php
 
-use App\Admin\Report;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Report::class, function (Faker $faker) {
-    return [
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Admin\Report;
+
+class ReportFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Report::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         //
     ];
-});
+    }
+}

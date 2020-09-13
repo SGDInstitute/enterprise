@@ -17,7 +17,7 @@ class SettingsControllerTest extends TestCase
     /** @test */
     public function view_user_profile()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
         ]);
@@ -48,7 +48,7 @@ class SettingsControllerTest extends TestCase
     /** @test */
     public function view_user_profile_for_new_user()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'name' => 'Harry Potter',
             'email' => 'hpotter@hogwarts.edu',
         ]);

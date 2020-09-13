@@ -15,7 +15,7 @@ class CanAddTicketsToQueueTest extends TestCase
     /** @test */
     public function can_add_tickets_to_queue()
     {
-        $tickets = factory(Ticket::class)->times(5)->create();
+        $tickets = Ticket::factory()->times(5)->create();
         $response = $this->withoutExceptionHandling()->json('post', "/api/queue/{$tickets->implode('id', ',')}");
 
         $response->assertStatus(201);
@@ -25,7 +25,7 @@ class CanAddTicketsToQueueTest extends TestCase
     /** @test */
     public function cannot_add_double_tickets_to_queue()
     {
-        $tickets = factory(Ticket::class)->times(5)->create();
+        $tickets = Ticket::factory()->times(5)->create();
         $responseA = $this->withoutExceptionHandling()->json('post', "/api/queue/{$tickets->implode('id', ',')}");
         $responseB = $this->withoutExceptionHandling()->json('post', "/api/queue/{$tickets->implode('id', ',')}");
 

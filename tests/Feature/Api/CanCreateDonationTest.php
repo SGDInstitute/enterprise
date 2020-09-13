@@ -34,12 +34,12 @@ class CanCreateDonationTest extends TestCase
     public function user_can_make_a_contribution_donation()
     {
         Mail::fake();
-        $user = factory(User::class)->create(['name' => 'Harry Potter', 'email' => 'hpotter@hogwarts.edu']);
-        $event = factory(Event::class)->create();
-        $sponsorship = factory(Contribution::class)->create(['event_id' => $event->id, 'type' => 'sponsor', 'amount' => 100000]);
-        $vendor = factory(Contribution::class)->create(['event_id' => $event->id, 'type' => 'vendor', 'amount' => 20000]);
+        $user = User::factory()->create(['name' => 'Harry Potter', 'email' => 'hpotter@hogwarts.edu']);
+        $event = Event::factory()->create();
+        $sponsorship = Contribution::factory()->create(['event_id' => $event->id, 'type' => 'sponsor', 'amount' => 100000]);
+        $vendor = Contribution::factory()->create(['event_id' => $event->id, 'type' => 'vendor', 'amount' => 20000]);
         $vendor->quantity = 1;
-        $ad = factory(Contribution::class)->create(['event_id' => $event->id, 'type' => 'ad', 'amount' => 10000]);
+        $ad = Contribution::factory()->create(['event_id' => $event->id, 'type' => 'ad', 'amount' => 10000]);
         $ad->quantity = 1;
         Passport::actingAs($user);
 
