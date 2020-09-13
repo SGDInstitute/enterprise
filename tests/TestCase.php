@@ -5,9 +5,9 @@ namespace Tests;
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Assert;
 
 abstract class TestCase extends BaseTestCase
