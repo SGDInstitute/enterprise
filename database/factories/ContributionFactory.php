@@ -4,10 +4,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Contribution;
 use App\Event;
 use App\Model;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ContributionFactory extends Factory
 {

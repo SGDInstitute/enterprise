@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Bulletin;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BulletinFactory extends Factory
 {

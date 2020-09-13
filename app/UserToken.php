@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -11,7 +11,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class UserToken extends Model
 {
     use HasFactory;
-
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['token', 'type'];

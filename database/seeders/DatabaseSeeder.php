@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\RolesPermissionsSeeder;
-use Database\Seeders\ResponsesSeeder;
-use Database\Seeders\OtherResponseSeeder;
-use Database\Seeders\OrdersSeeder;
-use Database\Seeders\EventsSeeder;
-use Database\Seeders\DeveloperSeeder;
 use Database\Seeders\ActivityTypeSeeder;
+use Database\Seeders\DeveloperSeeder;
+use Database\Seeders\EventsSeeder;
+use Database\Seeders\OrdersSeeder;
+use Database\Seeders\OtherResponseSeeder;
+use Database\Seeders\ResponsesSeeder;
+use Database\Seeders\RolesPermissionsSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

@@ -34,7 +34,7 @@ class UserFactory extends Factory
     {
         static $password;
 
-    return [
+        return [
         'name' => $this->faker->name,
         'email' => $this->faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),

@@ -10,7 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Invoice extends Model
 {
     use HasFactory;
-
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name', 'email', 'address', 'address_2', 'city', 'state', 'zip'];

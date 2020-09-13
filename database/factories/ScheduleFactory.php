@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Schedule;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ScheduleFactory extends Factory
 {

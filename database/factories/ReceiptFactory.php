@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Receipt;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReceiptFactory extends Factory
 {

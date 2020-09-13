@@ -12,7 +12,6 @@ use Stripe\Charge;
 class Receipt extends Model
 {
     use HasFactory;
-
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['transaction_id', 'amount', 'card_last_four'];

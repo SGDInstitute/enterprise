@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Event;
 use App\Order;
 use App\Receipt;
 use App\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderFactory extends Factory
 {

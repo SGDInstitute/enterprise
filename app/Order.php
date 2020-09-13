@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
 use Facades\App\ConfirmationNumber;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -13,7 +13,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Order extends Model
 {
     use HasFactory;
-
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['user_id'];

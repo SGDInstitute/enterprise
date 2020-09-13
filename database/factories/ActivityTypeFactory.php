@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\ActivityType;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivityTypeFactory extends Factory
 {

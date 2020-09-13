@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Admin\Report;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReportFactory extends Factory
 {
