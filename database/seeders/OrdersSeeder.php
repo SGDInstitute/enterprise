@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use App\Event;
