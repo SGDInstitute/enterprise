@@ -3,10 +3,13 @@
 namespace App;
 
 use App\Http\Resources\SpeakersResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     protected $dates = ['start', 'end'];

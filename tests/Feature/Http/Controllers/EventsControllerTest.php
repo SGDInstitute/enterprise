@@ -19,7 +19,7 @@ class EventsControllerTest extends TestCase
     /** @test */
     public function user_can_view_published_event()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'MBLGTACC 2018',
             'slug' => 'mblgtacc-2018',
             'subtitle' => 'All Roads Lead to Intersectionality',
@@ -40,11 +40,11 @@ class EventsControllerTest extends TestCase
             'logo_light' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_White.png',
             'logo_dark' => 'https://mblgtacc.org/themes/mblgtacc2018/assets/images/mblgtacc-2018-horiz_Gray.png',
         ]);
-        $regular = factory(TicketType::class)->make([
+        $regular = TicketType::factory()->make([
             'cost' => 6500,
             'name' => 'Regular Ticket',
         ]);
-        $late = factory(TicketType::class)->make([
+        $late = TicketType::factory()->make([
             'cost' => 8500,
             'name' => 'Late Ticket',
             'description' => 'You are not guaranteed to receive a conference T-shirt, program, or other memorabilia.',
@@ -75,10 +75,10 @@ class EventsControllerTest extends TestCase
     /** @test */
     public function cannot_view_unpublished_event()
     {
-        $event = factory(Event::class)->create([
+        $event = Event::factory()->create([
             'published_at' => null,
         ]);
-        $event->ticket_types()->save(factory(TicketType::class)->make());
+        $event->ticket_types()->save(TicketType::factory()->make());
 
         $response = $this->get("/events/{$event->slug}");
 
@@ -88,10 +88,10 @@ class EventsControllerTest extends TestCase
     /** @test */
     public function cannot_view_event_with_published_at_date_in_future()
     {
-        $event = factory(Event::class)->create([
+        $event = Event::factory()->create([
             'published_at' => Carbon::parse('+1 week'),
         ]);
-        $event->ticket_types()->save(factory(TicketType::class)->make());
+        $event->ticket_types()->save(TicketType::factory()->make());
 
         $response = $this->get("/events/{$event->slug}");
 

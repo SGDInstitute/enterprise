@@ -15,8 +15,8 @@ class DonationEmailTest extends TestCase
     /** @test */
     public function email_contains_link_to_donation_page()
     {
-        $donation = factory(Donation::class)->create();
-        $donation->receipt()->save(factory(Receipt::class)->make());
+        $donation = Donation::factory()->create();
+        $donation->receipt()->save(Receipt::factory()->make());
 
         $email = (new DonationEmail($donation))->render();
 
@@ -26,10 +26,10 @@ class DonationEmailTest extends TestCase
     /** @test */
     public function email_contains_amount()
     {
-        $donation = factory(Donation::class)->create([
+        $donation = Donation::factory()->create([
             'amount' => 3500,
         ]);
-        $donation->receipt()->save(factory(Receipt::class)->make());
+        $donation->receipt()->save(Receipt::factory()->make());
 
         $email = (new DonationEmail($donation))->render();
 

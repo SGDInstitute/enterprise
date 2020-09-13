@@ -1,12 +1,29 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Activity;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Activity::class, function (Faker $faker) {
-    return [
-        'start' => now(),
-        'end' => now(),
-    ];
-});
+use App\Activity;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ActivityFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Activity::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'start' => now(),
+            'end' => now(),
+        ];
+    }
+}

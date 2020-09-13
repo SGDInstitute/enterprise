@@ -19,8 +19,8 @@ class ProfileControllerTest extends TestCase
     public function can_update_profile()
     {
         Mail::fake();
-        $user = factory(User::class)->create();
-        $profile = $user->profile()->save(factory(Profile::class)->make());
+        $user = User::factory()->create();
+        $profile = $user->profile()->save(Profile::factory()->make());
 
         $response = $this->withoutExceptionHandling()
             ->actingAs($user)->json('patch', '/profile', [
@@ -53,7 +53,7 @@ class ProfileControllerTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'hgranger@hogwarts.edu',
         ]);
 
@@ -77,8 +77,8 @@ class ProfileControllerTest extends TestCase
     /** @test */
     public function name_is_required_to_update()
     {
-        $user = factory(User::class)->create();
-        $profile = $user->profile()->save(factory(Profile::class)->make());
+        $user = User::factory()->create();
+        $profile = $user->profile()->save(Profile::factory()->make());
 
         $response = $this->actingAs($user)->json('patch', '/profile', [
             'email' => 'hpotter@hogwarts.edu',
@@ -98,8 +98,8 @@ class ProfileControllerTest extends TestCase
     /** @test */
     public function email_is_required_to_update()
     {
-        $user = factory(User::class)->create();
-        $profile = $user->profile()->save(factory(Profile::class)->make());
+        $user = User::factory()->create();
+        $profile = $user->profile()->save(Profile::factory()->make());
 
         $response = $this->actingAs($user)->json('patch', '/profile', [
             'name' => 'Harry Potter',

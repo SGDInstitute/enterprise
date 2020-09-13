@@ -1,30 +1,55 @@
 <?php
 
+namespace Database\Factories;
+
 use App\Event;
 use App\Order;
 use App\Receipt;
 use App\User;
-use Faker\Generator as Faker;
+use Facades\App\ConfirmationNumber;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Order::class, function (Faker $faker) {
-    return [
-        'event_id' => function () {
-            return factory(Event::class)->create()->id;
-        },
-        'user_id' => function () {
-            return factory(User::class)->create()->id;
-        },
-    ];
-});
+class OrderFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Order::class;
 
-$factory->state(Order::class, 'paid', function (Faker $faker) {
-    return [
-        'confirmation_number' => Facades\App\ConfirmationNumber::generate(),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'event_id' => function () {
+                return Event::factory()->create()->id;
+            },
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+        ];
+    }
 
-$factory->state(Order::class, 'check', function (Faker $faker) {
-    return [
-        'transaction_id' => '#1234',
-    ];
-});
+    public function paid()
+    {
+        return $this->state(function () {
+            return [
+                'confirmation_number' => ConfirmationNumber::generate(),
+            ];
+        });
+    }
+
+    public function check()
+    {
+        return $this->state(function () {
+            return [
+                'transaction_id' => '#1234',
+            ];
+        });
+    }
+}

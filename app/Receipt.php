@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -10,6 +11,7 @@ use Stripe\Charge;
 
 class Receipt extends Model
 {
+    use HasFactory;
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['transaction_id', 'amount', 'card_last_four'];

@@ -18,8 +18,8 @@ class InvoiceTest extends TestCase
     /** @test */
     public function invoice_pdf_has_user_address()
     {
-        $order = factory(Order::class)->create();
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make([
+        $order = Order::factory()->create();
+        $invoice = $order->invoice()->save(Invoice::factory()->make([
             'address' => '123 Main',
             'address_2' => 'Suite 2',
             'city' => 'Chicago',
@@ -39,7 +39,7 @@ class InvoiceTest extends TestCase
     /** @test */
     public function invoice_pdf_has_amount()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'Leadership Conference',
             'slug' => 'leadership-conference',
             'start' => '2018-02-16 19:00:00',
@@ -48,15 +48,15 @@ class InvoiceTest extends TestCase
             'place' => 'University of Nebraska',
             'location' => 'Omaha, Nebraska',
         ]);
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
@@ -66,21 +66,21 @@ class InvoiceTest extends TestCase
     /** @test */
     public function invoice_pdf_has_ticket_types_and_quantities()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $event = Event::factory()->published()->create();
+        $ticketType1 = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $ticketType2 = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType2 = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Pro Ticket',
         ]));
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
             ['ticket_type_id' => $ticketType2->id, 'quantity' => 3],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
@@ -93,23 +93,23 @@ class InvoiceTest extends TestCase
     /** @test */
     public function invoice_pdf_has_mailto_address_for_event()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'stripe' => 'institute',
         ]);
-        $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType1 = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $ticketType2 = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType2 = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Pro Ticket',
         ]));
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
             ['ticket_type_id' => $ticketType2->id, 'quantity' => 3],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
@@ -119,15 +119,15 @@ class InvoiceTest extends TestCase
     /** @test */
     public function invoice_pdf_has_due_date()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'stripe' => 'institute',
         ]);
-        $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create();
+        $ticketType1 = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $view = view('pdf.invoice', compact('order'))->render();
 
@@ -138,15 +138,15 @@ class InvoiceTest extends TestCase
     /** @test */
     public function can_get_due_date_attribute()
     {
-        $event = factory(Event::class)->create(['start' => Carbon::parse('+120 days')]);
-        $order = factory(Order::class)->create(['event_id' => $event->id]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $event = Event::factory()->create(['start' => Carbon::parse('+120 days')]);
+        $order = Order::factory()->create(['event_id' => $event->id]);
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $this->assertEquals(Carbon::parse('+60 days')->toFormattedDateString(), $invoice->due_date->toFormattedDateString());
 
-        $event = factory(Event::class)->create(['start' => Carbon::parse('+30 days')]);
-        $order = factory(Order::class)->create(['event_id' => $event->id]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $event = Event::factory()->create(['start' => Carbon::parse('+30 days')]);
+        $order = Order::factory()->create(['event_id' => $event->id]);
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $this->assertEquals(Carbon::parse('+30 days')->toFormattedDateString(), $invoice->due_date->toFormattedDateString());
     }

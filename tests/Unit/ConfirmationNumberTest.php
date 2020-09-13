@@ -21,7 +21,7 @@ class ConfirmationNumberTest extends TestCase
     {
         $confirmationNumber = ConfirmationNumber::generate();
 
-        $this->assertRegExp('/^[A-Z0-9]+$/', $confirmationNumber);
+        $this->assertMatchesRegularExpression('/^[A-Z0-9]+$/', $confirmationNumber);
     }
 
     /** @test */

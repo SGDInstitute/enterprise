@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\ActivityType;
 use Illuminate\Database\Seeder;
 

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['plan', 'subscription_id', 'next_charge'];
 
     protected $casts = ['active' => 'boolean'];

@@ -17,7 +17,7 @@ class EventsPoliciesControllerTest extends TestCase
     /** @test */
     public function can_view_event_refund_policy()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'MBLGTACC',
             'slug' => 'mblgtacc',
             'refund_policy' => '<p>Refund Policy</p>',

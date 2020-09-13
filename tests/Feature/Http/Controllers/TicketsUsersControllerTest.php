@@ -16,7 +16,7 @@ class TicketsUsersControllerTest extends TestCase
     /** @test */
     public function remove_user_from_ticket()
     {
-        $ticket = factory(Ticket::class)->create();
+        $ticket = Ticket::factory()->create();
 
         $response = $this->withoutExceptionHandling()->actingAs($ticket->order->user)
             ->delete("/tickets/{$ticket->hash}/users");

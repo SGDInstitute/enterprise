@@ -22,7 +22,7 @@ class FormsResponsesControllerTest extends TestCase
 
     public function can_take_survey()
     {
-        $form = factory(Form::class)->create([
+        $form = Form::factory()->create([
             'form' => [
                 [
                     'id' => 'hello-world',
@@ -50,7 +50,7 @@ class FormsResponsesControllerTest extends TestCase
     /** @test */
     public function required_fields_in_survey_form_are_required()
     {
-        $form = factory(Form::class)->create([
+        $form = Form::factory()->create([
             'form' => [
                 [
                     'id' => 'hello-world',
@@ -68,7 +68,7 @@ class FormsResponsesControllerTest extends TestCase
     /** @test */
     public function cannot_take_workshop_form_without_being_logged_in()
     {
-        $form = factory(Form::class)->create([
+        $form = Form::factory()->create([
             'type' => 'workshop',
             'form' => [
                 [
@@ -91,8 +91,8 @@ class FormsResponsesControllerTest extends TestCase
     /** @test */
     public function workshop_is_attached_to_user()
     {
-        $user = factory(User::class)->create();
-        $form = factory(Form::class)->create([
+        $user = User::factory()->create();
+        $form = Form::factory()->create([
             'type' => 'workshop',
             'form' => [
                 [
@@ -118,7 +118,7 @@ class FormsResponsesControllerTest extends TestCase
     /** @test */
     public function can_view_survey_by_slug()
     {
-        $form = factory(Form::class)->create([
+        $form = Form::factory()->create([
             'name' => 'Test Survey',
             'slug' => 'test-survey',
             'start' => Carbon::now()->subWeek(),
