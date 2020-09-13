@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Order;
+use App\TicketType;
 use App\Ticket;
 use App\User;
 use Illuminate\Database\Eloquent\Factories\Factory;

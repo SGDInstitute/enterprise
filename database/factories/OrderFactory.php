@@ -6,6 +6,7 @@ use App\Event;
 use App\Order;
 use App\Receipt;
 use App\User;
+use Facades\App\ConfirmationNumber;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderFactory extends Factory
@@ -38,7 +39,7 @@ class OrderFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'confirmation_number' => Facades\App\ConfirmationNumber::generate(),
+                'confirmation_number' => ConfirmationNumber::generate(),
             ];
         });
     }
