@@ -22,17 +22,17 @@ class UserTokenFactory extends Factory
     public function definition()
     {
         return [
-        'token' => Str::random(50),
-        'type' => 'magic',
-    ];
+            'token' => Str::random(50),
+            'type' => 'magic',
+        ];
     }
 
     public function expired()
     {
         return $this->state(function () {
             return [
-        'created_at' => Carbon\Carbon::now()->subMinutes(30),
-    ];
+                'created_at' => \Carbon\Carbon::now()->subMinutes(30),
+            ];
         });
     }
 
@@ -40,8 +40,8 @@ class UserTokenFactory extends Factory
     {
         return $this->state(function () {
             return [
-        'type' => 'magic',
-    ];
+                'type' => 'magic',
+            ];
         });
     }
 
@@ -49,8 +49,8 @@ class UserTokenFactory extends Factory
     {
         return $this->state(function () {
             return [
-        'type' => 'email',
-    ];
+                'type' => 'email',
+            ];
         });
     }
 }

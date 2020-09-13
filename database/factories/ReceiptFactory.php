@@ -22,8 +22,8 @@ class ReceiptFactory extends Factory
     public function definition()
     {
         return [
-        'transaction_id' => 'charge_id',
-        'amount' => 2500,
-    ];
+            'transaction_id' => 'charge_id',
+            'amount' => 2500,
+        ];
     }
 }

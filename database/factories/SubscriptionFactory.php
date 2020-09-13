@@ -24,14 +24,14 @@ class SubscriptionFactory extends Factory
     public function definition()
     {
         return [
-        'donation_id' => function () {
-            return Donation::factory()->create()->id;
-        },
-        'plan' => $this->faker->word,
-        'next_charge' => $this->faker->dateTime(),
-        'subscription_id' => $this->faker->word,
-        'active' => $this->faker->boolean,
-        'ended_at' => $this->faker->dateTime(),
-    ];
+            'donation_id' => function () {
+                return Donation::factory()->create()->id;
+            },
+            'plan' => $this->faker->word,
+            'next_charge' => $this->faker->dateTime(),
+            'subscription_id' => $this->faker->word,
+            'active' => $this->faker->boolean,
+            'ended_at' => $this->faker->dateTime(),
+        ];
     }
 }

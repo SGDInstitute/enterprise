@@ -22,7 +22,7 @@ class ActivityTypeFactory extends Factory
     public function definition()
     {
         return [
-        //
-    ];
+            //
+        ];
     }
 }

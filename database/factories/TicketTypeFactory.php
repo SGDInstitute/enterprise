@@ -22,14 +22,14 @@ class TicketTypeFactory extends Factory
     public function definition()
     {
         return [
-        'event_id' => function () {
-            return Event::factory()->create()->id;
-        },
-        'name' => 'Regular Ticket',
-        'description' => 'Regular admission to the event.',
-        'cost' => 1500,
-        'availability_start' => \Carbon\Carbon::now()->subMonth(),
-        'availability_end' => \Carbon\Carbon::now()->addMonth(3),
-    ];
+            'event_id' => function () {
+                return Event::factory()->create()->id;
+            },
+            'name' => 'Regular Ticket',
+            'description' => 'Regular admission to the event.',
+            'cost' => 1500,
+            'availability_start' => \Carbon\Carbon::now()->subMonth(),
+            'availability_end' => \Carbon\Carbon::now()->addMonth(3),
+        ];
     }
 }

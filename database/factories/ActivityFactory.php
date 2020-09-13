@@ -22,8 +22,8 @@ class ActivityFactory extends Factory
     public function definition()
     {
         return [
-        'start' => now(),
-        'end' => now(),
-    ];
+            'start' => now(),
+            'end' => now(),
+        ];
     }
 }

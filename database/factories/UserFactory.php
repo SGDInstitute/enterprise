@@ -35,19 +35,19 @@ class UserFactory extends Factory
         static $password;
 
         return [
-        'name' => $this->faker->name,
-        'email' => $this->faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => Str::random(10),
-    ];
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => $password ?: $password = bcrypt('secret'),
+            'remember_token' => Str::random(10),
+        ];
     }
 
     public function confirmed()
     {
         return $this->state(function () {
             return [
-        'confirmed_at' => Carbon\Carbon::now(),
-    ];
+                'confirmed_at' => Carbon\Carbon::now(),
+            ];
         });
     }
 }

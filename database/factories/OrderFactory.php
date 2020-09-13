@@ -25,21 +25,21 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-        'event_id' => function () {
-            return Event::factory()->create()->id;
-        },
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-    ];
+            'event_id' => function () {
+                return Event::factory()->create()->id;
+            },
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+        ];
     }
 
     public function paid()
     {
         return $this->state(function () {
             return [
-        'confirmation_number' => Facades\App\ConfirmationNumber::generate(),
-    ];
+                'confirmation_number' => Facades\App\ConfirmationNumber::generate(),
+            ];
         });
     }
 
@@ -47,8 +47,8 @@ class OrderFactory extends Factory
     {
         return $this->state(function () {
             return [
-        'transaction_id' => '#1234',
-    ];
+                'transaction_id' => '#1234',
+            ];
         });
     }
 }

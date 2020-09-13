@@ -23,15 +23,15 @@ class TicketFactory extends Factory
     public function definition()
     {
         return [
-        'order_id' => function () {
-            return Order::factory()->create()->id;
-        },
-        'ticket_type_id' => function () {
-            return TicketType::factory()->create()->id;
-        },
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-    ];
+            'order_id' => function () {
+                return Order::factory()->create()->id;
+            },
+            'ticket_type_id' => function () {
+                return TicketType::factory()->create()->id;
+            },
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+        ];
     }
 }

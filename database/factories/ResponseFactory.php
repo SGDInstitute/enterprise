@@ -24,15 +24,15 @@ class ResponseFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'form_id' => function () {
-            return Form::factory()->create()->id;
-        },
-        'email' => $this->faker->safeEmail,
-        'responses' => $this->faker->text,
-        'request' => $this->faker->text,
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'form_id' => function () {
+                return Form::factory()->create()->id;
+            },
+            'email' => $this->faker->safeEmail,
+            'responses' => $this->faker->text,
+            'request' => $this->faker->text,
+        ];
     }
 }

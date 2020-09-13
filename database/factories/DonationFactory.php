@@ -22,10 +22,10 @@ class DonationFactory extends Factory
     public function definition()
     {
         return [
-        'name' => $this->faker->name,
-        'email' => $this->faker->safeEmail,
-        'group' => 'institute',
-        'amount' => $this->faker->numberBetween(5, 999999) * 100,
-    ];
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+            'group' => 'institute',
+            'amount' => $this->faker->numberBetween(5, 999999) * 100,
+        ];
     }
 }

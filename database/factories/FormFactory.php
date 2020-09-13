@@ -21,19 +21,19 @@ class FormFactory extends Factory
     public function definition()
     {
         return [
-        'name'      => 'Test Survey',
-        'slug'      => 'test-survey',
-        'start'     => $this->faker->date(),
-        'end'       => $this->faker->date(),
-        'is_public' => true,
-        'form'      => '[
-                {
-                  "id": 1,
-                  "question": "Hello world.",
-                  "type": "textarea",
-                  "required": false,
-                }
-            ]',
-    ];
+            'name'      => 'Test Survey',
+            'slug'      => 'test-survey',
+            'start'     => $this->faker->date(),
+            'end'       => $this->faker->date(),
+            'is_public' => true,
+            'form'      => '[
+                    {
+                    "id": 1,
+                    "question": "Hello world.",
+                    "type": "textarea",
+                    "required": false,
+                    }
+                ]',
+        ];
     }
 }

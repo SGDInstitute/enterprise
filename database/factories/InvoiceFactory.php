@@ -22,15 +22,15 @@ class InvoiceFactory extends Factory
     public function definition()
     {
         return [
-        'order_id' => function () {
-            return Order::factory()->create()->id;
-        },
-        'name' => $this->faker->name,
-        'email' => $this->faker->email,
-        'address' => $this->faker->streetAddress,
-        'city' => $this->faker->city,
-        'state' => $this->faker->stateAbbr,
-        'zip' => $this->faker->postcode,
-    ];
+            'order_id' => function () {
+                return Order::factory()->create()->id;
+            },
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'address' => $this->faker->streetAddress,
+            'city' => $this->faker->city,
+            'state' => $this->faker->stateAbbr,
+            'zip' => $this->faker->postcode,
+        ];
     }
 }

@@ -21,31 +21,31 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-        'title' => 'Leadership Conference',
-        'slug' => 'leadership-conference',
-        'stripe' => 'institute',
-        'subtitle' => 'Learn something new every day',
-        'timezone' => 'America/Denver',
-        'place' => 'University of Colorado',
-        'location' => 'Denver, CO',
-        'start' => Carbon\Carbon::now()->addYear(),
-        'end' => Carbon\Carbon::now()->addYear()->addDay(2),
-        'links' => [
-            ['icon' => 'twitter', 'link' => 'https://twitter.com/leadership', 'order' => 1],
-            ['icon' => 'facebook', 'link' => 'https://www.facebook.com/leadership/', 'order' => 2],
-            ['icon' => 'instagram', 'link' => 'https://www.instagram.com/leadership', 'order' => 3],
-            ['icon' => 'snapchat-ghost', 'link' => 'https://www.snapchat.com/add/leadership', 'order' => 4],
-            ['icon' => 'website', 'link' => 'https://leadership.org', 'order' => 5],
-        ],
-    ];
+            'title' => 'Leadership Conference',
+            'slug' => 'leadership-conference',
+            'stripe' => 'institute',
+            'subtitle' => 'Learn something new every day',
+            'timezone' => 'America/Denver',
+            'place' => 'University of Colorado',
+            'location' => 'Denver, CO',
+            'start' => \Carbon\Carbon::now()->addYear(),
+            'end' => \Carbon\Carbon::now()->addYear()->addDay(2),
+            'links' => [
+                ['icon' => 'twitter', 'link' => 'https://twitter.com/leadership', 'order' => 1],
+                ['icon' => 'facebook', 'link' => 'https://www.facebook.com/leadership/', 'order' => 2],
+                ['icon' => 'instagram', 'link' => 'https://www.instagram.com/leadership', 'order' => 3],
+                ['icon' => 'snapchat-ghost', 'link' => 'https://www.snapchat.com/add/leadership', 'order' => 4],
+                ['icon' => 'website', 'link' => 'https://leadership.org', 'order' => 5],
+            ],
+        ];
     }
 
     public function published()
     {
         return $this->state(function () {
             return [
-        'published_at' => \Carbon\Carbon::parse('-1 week'),
-    ];
+                'published_at' => \Carbon\Carbon::parse('-1 week'),
+            ];
         });
     }
 
@@ -53,8 +53,8 @@ class EventFactory extends Factory
     {
         return $this->state(function () {
             return [
-        'published_at' => null,
-    ];
+                'published_at' => null,
+            ];
         });
     }
 
@@ -62,8 +62,8 @@ class EventFactory extends Factory
     {
         return $this->state(function () {
             return [
-        'published_at' => \Carbon\Carbon::parse('+1 month'),
-    ];
+                'published_at' => \Carbon\Carbon::parse('+1 month'),
+            ];
         });
     }
 
@@ -71,9 +71,9 @@ class EventFactory extends Factory
     {
         return $this->state(function () {
             return [
-        'start' => \Carbon\Carbon::parse('-1 year'),
-        'end' => \Carbon\Carbon::parse('-1 year')->addDays(2),
-    ];
+                'start' => \Carbon\Carbon::parse('-1 year'),
+                'end' => \Carbon\Carbon::parse('-1 year')->addDays(2),
+            ];
         });
     }
 }

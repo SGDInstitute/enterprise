@@ -26,12 +26,12 @@ class ContributionFactory extends Factory
     public function definition()
     {
         return [
-        'event_id' => function () {
-            return Event::factory()->create()->id;
-        },
-        'type' => 'sponsor',
-        'title' => 'Premium Sponsor',
-        'amount' => 10000,
-    ];
+            'event_id' => function () {
+                return Event::factory()->create()->id;
+            },
+            'type' => 'sponsor',
+            'title' => 'Premium Sponsor',
+            'amount' => 10000,
+        ];
     }
 }

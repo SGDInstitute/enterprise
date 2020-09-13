@@ -22,7 +22,7 @@ class BulletinFactory extends Factory
     public function definition()
     {
         return [
-        //
-    ];
+            //
+        ];
     }
 }

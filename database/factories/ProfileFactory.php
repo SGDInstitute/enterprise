@@ -23,16 +23,16 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'pronouns' => Arr::random(['he', 'she', 'they']),
-        'sexuality' => Arr::random(['Lesbian', 'Gay', 'Straight', 'Ace']),
-        'gender' => Arr::random(['Male', 'Female', 'GNC', 'Trans']),
-        'race' => $this->faker->colorName,
-        'college' => 'Illinois State',
-        'tshirt' => Arr::random(['S', 'M', 'L', 'XL', 'XXL']),
-        'accommodation' => $this->faker->paragraph(),
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'pronouns' => Arr::random(['he', 'she', 'they']),
+            'sexuality' => Arr::random(['Lesbian', 'Gay', 'Straight', 'Ace']),
+            'gender' => Arr::random(['Male', 'Female', 'GNC', 'Trans']),
+            'race' => $this->faker->colorName,
+            'college' => 'Illinois State',
+            'tshirt' => Arr::random(['S', 'M', 'L', 'XL', 'XXL']),
+            'accommodation' => $this->faker->paragraph(),
+        ];
     }
 }
