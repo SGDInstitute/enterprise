@@ -27,6 +27,7 @@
         "laravel/nova": "^3.9",
         "laravel/passport": "^10.0",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.2",
         "maatwebsite/excel": "^3.1.16",
         "maatwebsite/laravel-nova-excel": "^1.2",
         "nemrutco/nova-filterable-metrics": "^1.0",
@@ -48,8 +49,7 @@
         "vinkla/hashids": "^9.0",
         "vyuldashev/nova-permission": "^2.9",
         "wehaa/custom-links": "^0.1.1",
-        "wildbit/swiftmailer-postmark": "^3.3",
-        "laravel/ui": "^3.0"
+        "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
@@ -57,7 +57,6 @@
         "fzaninotto/faker": "^1.9.1",
         "jasonmccreary/laravel-test-assertions": "^1.0",
         "mockery/mockery": "^1.3.1",
-        "mpociot/laravel-test-factory-helper": "^2.1",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3"
     },
