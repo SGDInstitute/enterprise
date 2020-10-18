@@ -15,7 +15,7 @@ class UserTokenTest extends TestCase
     /** @test */
     public function can_get_user_token_by_token()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $magicToken = $user->createToken('magic');
 
         $userToken = (new UserToken)->resolveRouteBinding($magicToken->token);
@@ -27,10 +27,10 @@ class UserTokenTest extends TestCase
     /** @test */
     public function can_see_if_token_is_expired()
     {
-        $user1 = factory(User::class)->create();
-        $notExpiredToken = $user1->tokens()->save(factory(UserToken::class)->make());
-        $user2 = factory(User::class)->create();
-        $expiredToken = $user2->tokens()->save(factory(UserToken::class)->states('expired')->make());
+        $user1 = User::factory()->create();
+        $notExpiredToken = $user1->tokens()->save(UserToken::factory()->make());
+        $user2 = User::factory()->create();
+        $expiredToken = $user2->tokens()->save(UserToken::factory()->expired()->make());
 
         $this->assertFalse($notExpiredToken->isExpired());
         $this->assertTrue($expiredToken->isExpired());
@@ -39,9 +39,9 @@ class UserTokenTest extends TestCase
     /** @test */
     public function can_see_if_token_belongs_to_user()
     {
-        $user1 = factory(User::class)->create(['email' => 'jo@example.com']);
-        $token = $user1->tokens()->save(factory(UserToken::class)->make());
-        $user2 = factory(User::class)->create(['email' => 'phoenix@example.com']);
+        $user1 = User::factory()->create(['email' => 'jo@example.com']);
+        $token = $user1->tokens()->save(UserToken::factory()->make());
+        $user2 = User::factory()->create(['email' => 'phoenix@example.com']);
 
         $this->assertTrue($token->belongsToUser('jo@example.com'));
         $this->assertFalse($token->belongsToUser('phoenix@example.com'));
@@ -50,9 +50,9 @@ class UserTokenTest extends TestCase
     /** @test */
     public function can_get_token_by_type()
     {
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
-        $emailToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'email']));
-        $magicToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic']));
+        $user = User::factory()->create(['email' => 'jo@example.com']);
+        $emailToken = $user->tokens()->save(UserToken::factory()->make(['type' => 'email']));
+        $magicToken = $user->tokens()->save(UserToken::factory()->make(['type' => 'magic']));
 
         $this->assertEquals($emailToken->token, $user->emailToken->token);
         $this->assertEquals($magicToken->token, $user->magicToken->token);
@@ -61,10 +61,10 @@ class UserTokenTest extends TestCase
     /** @test */
     public function clear_out_old_tokens_of_type_before_creating_new_one()
     {
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
-        $emailToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'email']));
-        $magicToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic']));
-        $magicToken = $user->tokens()->save(factory(UserToken::class)->make(['type' => 'magic']));
+        $user = User::factory()->create(['email' => 'jo@example.com']);
+        $emailToken = $user->tokens()->save(UserToken::factory()->make(['type' => 'email']));
+        $magicToken = $user->tokens()->save(UserToken::factory()->make(['type' => 'magic']));
+        $magicToken = $user->tokens()->save(UserToken::factory()->make(['type' => 'magic']));
 
         $newToken = $user->createToken('magic');
 

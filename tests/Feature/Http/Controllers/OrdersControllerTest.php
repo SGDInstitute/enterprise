@@ -21,7 +21,7 @@ class OrdersControllerTest extends TestCase
     /** @test */
     public function can_view_order()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'Leadership Conference',
             'slug' => 'leadership-conference',
             'start' => '2018-02-16 19:00:00',
@@ -30,11 +30,11 @@ class OrdersControllerTest extends TestCase
             'place' => 'University of Nebraska',
             'location' => 'Omaha, Nebraska',
         ]);
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -55,7 +55,7 @@ class OrdersControllerTest extends TestCase
     /** @test */
     public function cannot_view_another_users_order()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'Leadership Conference',
             'slug' => 'leadership-conference',
             'start' => '2018-02-16 19:00:00',
@@ -64,16 +64,16 @@ class OrdersControllerTest extends TestCase
             'place' => 'University of Nebraska',
             'location' => 'Omaha, Nebraska',
         ]);
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
-        $notAllowedUser = factory(User::class)->create();
+        $notAllowedUser = User::factory()->create();
 
         $response = $this->actingAs($notAllowedUser)->get("/orders/{$order->id}");
 
@@ -83,15 +83,15 @@ class OrdersControllerTest extends TestCase
     /** @test */
     public function user_can_view_payment_details()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create();
-        $order = factory(Order::class)->states('paid')->create([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create();
+        $order = Order::factory()->paid()->create([
             'event_id' => $event->id,
             'user_id' => $user->id,
             'confirmation_number' => '1234123412341234',
         ]);
-        $order->receipt()->save(factory(Receipt::class)->make([
+        $order->receipt()->save(Receipt::factory()->make([
             'card_last_four' => '4242',
             'amount' => '5000',
         ]));
@@ -108,9 +108,9 @@ class OrdersControllerTest extends TestCase
     /** @test */
     public function user_can_delete_order()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create();
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -125,14 +125,14 @@ class OrdersControllerTest extends TestCase
     /** @test */
     public function cannot_delete_another_users_order()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create();
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
-        $notAllowedUser = factory(User::class)->create();
+        $notAllowedUser = User::factory()->create();
 
         $response = $this->actingAs($notAllowedUser)->delete("/orders/{$order->id}");
 
@@ -142,9 +142,9 @@ class OrdersControllerTest extends TestCase
     /** @test */
     public function cannot_delete_paid_order()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create();
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);

@@ -1,5 +1,14 @@
 <?php
 
+namespace Database\Seeders;
+
+use Database\Seeders\ActivityTypeSeeder;
+use Database\Seeders\DeveloperSeeder;
+use Database\Seeders\EventsSeeder;
+use Database\Seeders\OrdersSeeder;
+use Database\Seeders\OtherResponseSeeder;
+use Database\Seeders\ResponsesSeeder;
+use Database\Seeders\RolesPermissionsSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EventsSeeder::class);
         $this->call(RolesPermissionsSeeder::class);
         $this->call(DeveloperSeeder::class);
-        $this->call(MBLGTACC2017ConferenceEvaluation::class);
-        $this->call(MBLGTACC2018WorkshopProposals::class);
-        $this->call(MBLGTACC2018VolunteerForm::class);
-        $this->call(mblgtacc2018CareerResourceFair::class);
-        $this->call(MBLGTACC2019WorkshopProposals::class);
         $this->call(OrdersSeeder::class);
         $this->call(ResponsesSeeder::class);
         $this->call(OtherResponseSeeder::class);

@@ -14,7 +14,7 @@ class CanCompleteQueueItemTest extends TestCase
     /** @test */
     public function can_complete_single_queue_item()
     {
-        $queue = factory(Queue::class)->create();
+        $queue = Queue::factory()->create();
 
         $response = $this->withoutExceptionHandling()->json('patch', '/api/queue/'.$queue->id.'/complete');
 
@@ -25,7 +25,7 @@ class CanCompleteQueueItemTest extends TestCase
     /** @test */
     public function can_complete_many_queue_items()
     {
-        $queues = factory(Queue::class)->times(5)->create();
+        $queues = Queue::factory()->times(5)->create();
 
         $response = $this->withoutExceptionHandling()->json('patch', '/api/queue/'.$queues->implode('id', ',').'/complete');
 

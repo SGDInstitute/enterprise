@@ -23,11 +23,11 @@ class EventsContentControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc-2020']);
+        $event = Event::factory()->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc-2020']);
 
         Excel::import(new ContentImport, public_path('documents/content.xlsx'));
 
-        Passport::actingAs(factory(User::class)->create());
+        Passport::actingAs(User::factory()->create());
 
         DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/content");
@@ -51,11 +51,11 @@ class EventsContentControllerTest extends TestCase
     /** @test */
     public function type_filter_returns_an_ok_response()
     {
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc-2020']);
+        $event = Event::factory()->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc-2020']);
 
         Excel::import(new ContentImport, public_path('documents/content.xlsx'));
 
-        Passport::actingAs(factory(User::class)->create());
+        Passport::actingAs(User::factory()->create());
 
         DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/content?type=faq");

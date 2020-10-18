@@ -24,7 +24,7 @@ class SettingsCardsControllerTest extends TestCase
         $paymentGateway = new StripePaymentGateway(config('institute.stripe.secret'));
         $this->app->instance(PaymentGateway::class, $paymentGateway);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'andreamswick@gmail.com',
             'institute_stripe_id' => $paymentGateway->getValidTestCustomer(),
         ]);

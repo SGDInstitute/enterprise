@@ -28,7 +28,7 @@ class SettingsCardsController extends Controller
             request()->user()->notify(new UpdatedCard($card));
 
             return response()->json(['data' => ['card_last_four' => $card->last4]]);
-        } catch (\Stripe\Error\InvalidRequest $e) {
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
             $body = $e->getJsonBody();
             $err = $body['error'];
             $error = $err['message'];

@@ -1,29 +1,56 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-$factory->define(\App\UserToken::class, function (Faker $faker) {
-    return [
-        'token' => Str::random(50),
-        'type' => 'magic',
-    ];
-});
+class UserTokenFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\UserToken::class;
 
-$factory->state(App\UserToken::class, 'expired', function (Faker $faker) {
-    return [
-        'created_at' => Carbon\Carbon::now()->subMinutes(30),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'token' => Str::random(50),
+            'type' => 'magic',
+        ];
+    }
 
-$factory->state(App\UserToken::class, 'magic', function (Faker $faker) {
-    return [
-        'type' => 'magic',
-    ];
-});
+    public function expired()
+    {
+        return $this->state(function () {
+            return [
+                'created_at' => \Carbon\Carbon::now()->subMinutes(30),
+            ];
+        });
+    }
 
-$factory->state(App\UserToken::class, 'email', function (Faker $faker) {
-    return [
-        'type' => 'email',
-    ];
-});
+    public function magic()
+    {
+        return $this->state(function () {
+            return [
+                'type' => 'magic',
+            ];
+        });
+    }
+
+    public function email()
+    {
+        return $this->state(function () {
+            return [
+                'type' => 'email',
+            ];
+        });
+    }
+}

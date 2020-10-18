@@ -22,7 +22,7 @@ class TicketsControllerTest extends TestCase
     public function post_returns_an_ok_response()
     {
         Mail::fake();
-        $user = factory(User::class)->create(['email' => 'hpotter@hogwarts.edu']);
+        $user = User::factory()->create(['email' => 'hpotter@hogwarts.edu']);
         Passport::actingAs($user);
 
         $response = $this->withoutExceptionHandling()->postJson('api/gemini/tickets', [

@@ -16,10 +16,10 @@ class EventTest extends TestCase
     /** @test */
     public function events_with_a_published_at_date_in_the_past_are_published()
     {
-        $publishedEventA = factory(Event::class)->create(['published_at' => Carbon::parse('-1 week')]);
-        $publishedEventB = factory(Event::class)->create(['published_at' => Carbon::now()]);
-        $unpublishedEventA = factory(Event::class)->create(['published_at' => null]);
-        $unpublishedEventB = factory(Event::class)->create(['published_at' => Carbon::parse('+1 week')]);
+        $publishedEventA = Event::factory()->create(['published_at' => Carbon::parse('-1 week')]);
+        $publishedEventB = Event::factory()->create(['published_at' => Carbon::now()]);
+        $unpublishedEventA = Event::factory()->create(['published_at' => null]);
+        $unpublishedEventB = Event::factory()->create(['published_at' => Carbon::parse('+1 week')]);
 
         $publishedEvents = Event::published()->get();
 
@@ -32,7 +32,7 @@ class EventTest extends TestCase
     /** @test */
     public function can_find_event_by_slug()
     {
-        factory(Event::class)->create(['slug' => 'hello-world']);
+        Event::factory()->create(['slug' => 'hello-world']);
 
         $event = Event::findBySlug('hello-world');
 
@@ -42,13 +42,13 @@ class EventTest extends TestCase
     /** @test */
     public function can_order_concert_tickets()
     {
-        $event = factory(Event::class)->create();
-        $user = factory(User::class)->create();
-        $ticket_type = factory(TicketType::class)->make([
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        $ticket_type = TicketType::factory()->make([
             'name' => 'Regular Ticket',
             'cost' => 5000,
         ]);
-        $ticket_type2 = factory(TicketType::class)->make([
+        $ticket_type2 = TicketType::factory()->make([
             'name' => 'Late Ticket',
             'cost' => 10000,
         ]);
@@ -69,13 +69,13 @@ class EventTest extends TestCase
     /** @test */
     public function can_order_concert_tickets_without_getting_multiple_ticket_types()
     {
-        $event = factory(Event::class)->create();
-        $user = factory(User::class)->create();
-        $ticket_type = factory(TicketType::class)->make([
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        $ticket_type = TicketType::factory()->make([
             'name' => 'Regular Ticket',
             'cost' => 5000,
         ]);
-        $ticket_type2 = factory(TicketType::class)->make([
+        $ticket_type2 = TicketType::factory()->make([
             'name' => 'Late Ticket',
             'cost' => 10000,
         ]);
@@ -96,8 +96,8 @@ class EventTest extends TestCase
     /** @test */
     public function can_get_stripe_keys_from_event()
     {
-        $mblgtaccEvent = factory(Event::class)->create(['stripe' => 'mblgtacc']);
-        $instituteEvent = factory(Event::class)->create(['stripe' => 'institute']);
+        $mblgtaccEvent = Event::factory()->create(['stripe' => 'mblgtacc']);
+        $instituteEvent = Event::factory()->create(['stripe' => 'institute']);
 
         $this->assertNotNull($mblgtaccEvent->getPublicKey());
         $this->assertNotNull($mblgtaccEvent->getSecretKey());
@@ -108,7 +108,7 @@ class EventTest extends TestCase
     /** @test */
     public function can_view_formatted_start()
     {
-        $event = factory(Event::class)->make([
+        $event = Event::factory()->make([
             'start' => Carbon::parse('august 11 2017 5:50 PM'),
             'timezone' => 'America/Chicago',
         ]);
@@ -119,7 +119,7 @@ class EventTest extends TestCase
     /** @test */
     public function can_view_formatted_end()
     {
-        $event = factory(Event::class)->make([
+        $event = Event::factory()->make([
             'end' => Carbon::parse('august 11 2017 5:50 PM'),
             'timezone' => 'America/Chicago',
         ]);
@@ -130,7 +130,7 @@ class EventTest extends TestCase
     /** @test */
     public function can_view_duration()
     {
-        $event = factory(Event::class)->make([
+        $event = Event::factory()->make([
             'start' => Carbon::parse('august 11 2017 5:00 PM', 'America/Chicago')->timezone('UTC'),
             'end' => Carbon::parse('august 13 2017 5:00 PM', 'America/Chicago')->timezone('UTC'),
             'timezone' => 'America/Chicago',
@@ -145,16 +145,16 @@ class EventTest extends TestCase
     /** @test */
     public function can_upcoming_events()
     {
-        $upcomingEvent1 = factory(Event::class)->states('published')->create([
+        $upcomingEvent1 = Event::factory()->published()->create([
             'start' => Carbon::now()->addMonth(2),
         ]);
-        $upcomingEvent2 = factory(Event::class)->states('published')->create([
+        $upcomingEvent2 = Event::factory()->published()->create([
             'start' => Carbon::now()->addMonth(5),
         ]);
-        $pastEvent = factory(Event::class)->states('published')->create([
+        $pastEvent = Event::factory()->published()->create([
             'start' => Carbon::now()->subMonth(2),
         ]);
-        $unpublishedEvent = factory(Event::class)->states('unpublished')->create([
+        $unpublishedEvent = Event::factory()->unpublished()->create([
             'start' => Carbon::now()->addYear(),
         ]);
 
@@ -170,7 +170,7 @@ class EventTest extends TestCase
     /** @test */
     public function can_change_ticket_string()
     {
-        $event = factory(Event::class)->make([
+        $event = Event::factory()->make([
             'ticket_string' => 'ticket',
         ]);
 

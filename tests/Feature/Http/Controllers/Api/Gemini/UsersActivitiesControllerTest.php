@@ -24,10 +24,10 @@ class UsersActivitiesControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
-        $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
-        $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
+        $user = User::factory()->create();
+        $event = Event::factory()->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
+        $mainTrack = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Main Track']);
+        $advisorTrack = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
         Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
         Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
@@ -69,10 +69,10 @@ class UsersActivitiesControllerTest extends TestCase
     /** @test */
     public function storing_new_activity_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
-        $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
-        $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
+        $user = User::factory()->create();
+        $event = Event::factory()->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
+        $mainTrack = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Main Track']);
+        $advisorTrack = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
         Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
         Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));
@@ -114,10 +114,10 @@ class UsersActivitiesControllerTest extends TestCase
     /** @test */
     public function storing_existing_activity_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
-        $mainTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Main Track']);
-        $advisorTrack = factory(Schedule::class)->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
+        $user = User::factory()->create();
+        $event = Event::factory()->create(['title' => 'MBLGTACC 2020', 'slug' => 'mblgtacc']);
+        $mainTrack = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Main Track']);
+        $advisorTrack = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
 
         Excel::import(new LocationsImport, public_path('documents/locations.xlsx'));
         Excel::import(new FloorsImport, public_path('documents/floors.xlsx'));

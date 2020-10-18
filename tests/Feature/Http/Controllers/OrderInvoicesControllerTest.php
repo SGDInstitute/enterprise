@@ -22,9 +22,9 @@ class OrderInvoicesControllerTest extends TestCase
     {
         Mail::fake();
 
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -63,9 +63,9 @@ class OrderInvoicesControllerTest extends TestCase
     /** @test */
     public function cannot_create_invoice_without_name()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -88,9 +88,9 @@ class OrderInvoicesControllerTest extends TestCase
     /** @test */
     public function cannot_create_invoice_without_email()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -113,9 +113,9 @@ class OrderInvoicesControllerTest extends TestCase
     /** @test */
     public function cannot_create_invoice_without_valid_zip()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -140,9 +140,9 @@ class OrderInvoicesControllerTest extends TestCase
     public function can_create_invoice_without_address()
     {
         Mail::fake();
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);

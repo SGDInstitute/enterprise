@@ -18,14 +18,14 @@ class EventOrdersControllerTest extends TestCase
     /** @test */
     public function user_can_create_order()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'john@example.com',
         ]);
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'MBLGTACC',
             'slug' => 'mblgtacc',
         ]);
-        $ticket_type = factory(TicketType::class)->make([
+        $ticket_type = TicketType::factory()->make([
             'name' => 'Regular Ticket',
             'cost' => 5000,
         ]);
@@ -49,18 +49,18 @@ class EventOrdersControllerTest extends TestCase
     /** @test */
     public function user_can_create_order_with_multiple_ticket_types()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'john@example.com',
         ]);
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'MBLGTACC',
             'slug' => 'mblgtacc',
         ]);
-        $regular = factory(TicketType::class)->make([
+        $regular = TicketType::factory()->make([
             'name' => 'Regular Ticket',
             'cost' => 5000,
         ]);
-        $pro = factory(TicketType::class)->make([
+        $pro = TicketType::factory()->make([
             'name' => 'Pro Ticket',
             'cost' => 7500,
         ]);
@@ -88,9 +88,9 @@ class EventOrdersControllerTest extends TestCase
     /** @test */
     public function cannot_create_order_for_unpublished_event()
     {
-        $user = factory(User::class)->create();
-        $event = factory(Event::class)->states('unpublished')->create();
-        $ticket_type = factory(TicketType::class)->make();
+        $user = User::factory()->create();
+        $event = Event::factory()->unpublished()->create();
+        $ticket_type = TicketType::factory()->make();
         $event->ticket_types()->save($ticket_type);
 
         $response = $this->actingAs($user)
@@ -107,18 +107,18 @@ class EventOrdersControllerTest extends TestCase
     /** @test */
     public function cannot_create_order_without_ticket_quantity()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'john@example.com',
         ]);
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'MBLGTACC',
             'slug' => 'mblgtacc',
         ]);
-        $ticket_type = factory(TicketType::class)->make([
+        $ticket_type = TicketType::factory()->make([
             'name' => 'Regular Ticket',
             'cost' => 5000,
         ]);
-        $ticket_type2 = factory(TicketType::class)->make([
+        $ticket_type2 = TicketType::factory()->make([
             'name' => 'Pro Ticket',
             'cost' => 5000,
         ]);

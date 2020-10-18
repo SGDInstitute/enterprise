@@ -35,11 +35,11 @@ class OrderChargeControllerTest extends TestCase
         $paymentGateway = new FakePaymentGateway;
         $this->app->instance(PaymentGateway::class, $paymentGateway);
 
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
         ]));
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -72,8 +72,8 @@ class OrderChargeControllerTest extends TestCase
     /** @test */
     public function order_is_not_marked_as_paid_if_payment_fails()
     {
-        $user = factory(User::class)->create();
-        $order = factory(Order::class)->create();
+        $user = User::factory()->create();
+        $order = Order::factory()->create();
 
         $response = $this->withoutExceptionHandling()
             ->actingAs($user)

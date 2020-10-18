@@ -18,12 +18,12 @@ class InviteUserEmailTest extends TestCase
     {
         parent::setUp();
 
-        $invitee = factory(User::class)->create();
-        $coordinator = factory(User::class)->create(['name' => 'Harry Potter']);
+        $invitee = User::factory()->create();
+        $coordinator = User::factory()->create(['name' => 'Harry Potter']);
 
-        $event = factory(Event::class)->states('published')->create(['title' => 'Quidditch World Cup']);
-        $order = factory(Order::class)->create(['event_id' => $event->id]);
-        $ticket = factory(Ticket::class)->create(['order_id' => $order->id]);
+        $event = Event::factory()->published()->create(['title' => 'Quidditch World Cup']);
+        $order = Order::factory()->create(['event_id' => $event->id]);
+        $ticket = Ticket::factory()->create(['order_id' => $order->id]);
 
         $message = 'Hello world!';
 

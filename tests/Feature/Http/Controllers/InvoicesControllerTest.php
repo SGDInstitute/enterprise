@@ -21,15 +21,15 @@ class InvoicesControllerTest extends TestCase
     /** @test */
     public function can_view_invoice()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'stripe' => 'institute',
         ]);
-        $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create();
+        $ticketType1 = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $response = $this->withoutExceptionHandling()
             ->actingAs($user)
@@ -44,13 +44,13 @@ class InvoicesControllerTest extends TestCase
     {
         Mail::fake();
 
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jdoe@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jdoe@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make([
+        $invoice = $order->invoice()->save(Invoice::factory()->make([
             'name' => 'Phoenix Johnson',
             'email' => 'pjohnson@example.com',
             'address' => '123 Main',
@@ -89,13 +89,13 @@ class InvoicesControllerTest extends TestCase
     /** @test */
     public function cannot_edit_invoice_without_name()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $response = $this
             ->actingAs($user)
@@ -115,13 +115,13 @@ class InvoicesControllerTest extends TestCase
     /** @test */
     public function cannot_edit_invoice_without_email()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $response = $this
             ->actingAs($user)
@@ -141,13 +141,13 @@ class InvoicesControllerTest extends TestCase
     /** @test */
     public function cannot_create_invoice_without_valid_zip()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make());
+        $invoice = $order->invoice()->save(Invoice::factory()->make());
 
         $response = $this
             ->actingAs($user)
@@ -168,13 +168,13 @@ class InvoicesControllerTest extends TestCase
     /** @test */
     public function can_remove_address_from_invoice()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make());
-        $user = factory(User::class)->create(['email' => 'jo@example.com']);
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make());
+        $user = User::factory()->create(['email' => 'jo@example.com']);
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
-        $invoice = $order->invoice()->save(factory(Invoice::class)->make([
+        $invoice = $order->invoice()->save(Invoice::factory()->make([
             'address' => '123 Main',
             'address_2' => 'Suite 123',
             'city' => 'Chicago',

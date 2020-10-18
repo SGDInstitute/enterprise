@@ -2,17 +2,36 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Subscription::class, function (Faker $faker) {
-    return [
-        'donation_id' => function () {
-            return factory(App\Donation::class)->create()->id;
-        },
-        'plan' => $faker->word,
-        'next_charge' => $faker->dateTime(),
-        'subscription_id' => $faker->word,
-        'active' => $faker->boolean,
-        'ended_at' => $faker->dateTime(),
-    ];
-});
+use App\Donation;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class SubscriptionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Subscription::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'donation_id' => function () {
+                return Donation::factory()->create()->id;
+            },
+            'plan' => $this->faker->word,
+            'next_charge' => $this->faker->dateTime(),
+            'subscription_id' => $this->faker->word,
+            'active' => $this->faker->boolean,
+            'ended_at' => $this->faker->dateTime(),
+        ];
+    }
+}

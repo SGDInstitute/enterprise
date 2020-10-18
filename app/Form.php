@@ -4,11 +4,14 @@ namespace App;
 
 use App\Event;
 use App\Response;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 class Form extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['name', 'start', 'end', 'is_public', 'form'];
 
     protected $casts = [

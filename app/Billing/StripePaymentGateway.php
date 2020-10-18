@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Error\Card;
-use Stripe\Error\InvalidRequest;
+use Stripe\Exception\InvalidRequestException;
 use Stripe\Subscription;
 use Stripe\Token;
 
@@ -33,7 +33,7 @@ class StripePaymentGateway implements PaymentGateway
             ], ['api_key' => $this->apiKey]);
 
             return collect(['id' => $charge->id, 'amount' => $charge->amount, 'last4' => $charge->source->last4]);
-        } catch (InvalidRequest $e) {
+        } catch (InvalidRequestException $e) {
             throw new PaymentFailedException($e->getMessage());
         } catch (Card $e) {
             throw new PaymentFailedException($e->getMessage());
@@ -61,7 +61,7 @@ class StripePaymentGateway implements PaymentGateway
                 'last4' => $customer->sources['data'][0]['last4'],
                 'next_charge' => Carbon::createFromTimestamp($subscription->current_period_end)->toDateTimeString(),
             ]);
-        } catch (InvalidRequest $e) {
+        } catch (InvalidRequestException $e) {
             throw new SubscriptionFailedException;
         }
     }

@@ -1,11 +1,28 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Bulletin;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Bulletin::class, function (Faker $faker) {
-    return [
-        //
-    ];
-});
+use App\Bulletin;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class BulletinFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Bulletin::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            //
+        ];
+    }
+}

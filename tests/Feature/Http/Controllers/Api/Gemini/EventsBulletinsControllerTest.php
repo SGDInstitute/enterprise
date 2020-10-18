@@ -20,11 +20,11 @@ class EventsBulletinsControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
-        $event = factory(Event::class)->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
-        $maps = factory(Bulletin::class)->create(['event_id' => $event->id, 'content' => 'Get to know MBLGTACC']);
-        $intro = factory(Bulletin::class)->create(['event_id' => $event->id, 'content' => 'Hello world']);
+        $event = Event::factory()->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
+        $maps = Bulletin::factory()->create(['event_id' => $event->id, 'content' => 'Get to know MBLGTACC']);
+        $intro = Bulletin::factory()->create(['event_id' => $event->id, 'content' => 'Hello world']);
 
-        Passport::actingAs(factory(User::class)->create());
+        Passport::actingAs(User::factory()->create());
 
         DB::enableQueryLog();
         $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/bulletins");

@@ -1,8 +1,8 @@
 @component('mail::layout')
 {{-- Header --}}
 @slot('header')
-@component('mail::header')
-@yield('header-title')
+@component('mail::header', ['url' => config('app.url')])
+{{ config('app.name') }}
 @endcomponent
 @endslot
 
@@ -21,7 +21,7 @@
 {{-- Footer --}}
 @slot('footer')
 @component('mail::footer')
-© {{ date('Y') }} <a href="https://sgdinstitute.org" target="_blank">Midwest Institute for Sexuality and Gender Diversity</a> | PO Box 1053, East Lansing, MI, 48826 | <a href="mailto:webmaster@sgdinstitute.org" target="_blank">Contact</a> | <a href="https://sgdinstitute.org" target="_blank">sgdinstitute.org</a>
+© {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
 @endcomponent
 @endslot
 @endcomponent

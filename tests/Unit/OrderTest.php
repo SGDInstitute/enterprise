@@ -18,7 +18,7 @@ class OrderTest extends TestCase
     /** @test */
     public function can_get_amount_for_unpaid_order()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'Leadership Conference',
             'slug' => 'leadership-conference',
             'start' => '2018-02-16 19:00:00',
@@ -27,11 +27,11 @@ class OrderTest extends TestCase
             'place' => 'University of Nebraska',
             'location' => 'Omaha, Nebraska',
         ]);
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $order = $event->orderTickets(factory(User::class)->create(), [
+        $order = $event->orderTickets(User::factory()->create(), [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
@@ -41,12 +41,12 @@ class OrderTest extends TestCase
     /** @test */
     public function can_get_amount_for_paid_order()
     {
-        $event = factory(Event::class)->states('published')->create();
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $event = Event::factory()->published()->create();
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $order = $event->orderTickets(factory(User::class)->create(), [
+        $order = $event->orderTickets(User::factory()->create(), [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 1],
         ]);
 
@@ -60,7 +60,7 @@ class OrderTest extends TestCase
     /** @test */
     public function can_mark_as_paid()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
 
         $order->markAsPaid($this->charge());
 
@@ -74,7 +74,7 @@ class OrderTest extends TestCase
     /** @test */
     public function is_order_paid()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
         $order->markAsPaid($this->charge());
 
         $this->assertTrue($order->isPaid());
@@ -84,7 +84,7 @@ class OrderTest extends TestCase
     /** @test */
     public function can_mark_as_unpiad()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
         $order->markAsPaid($this->charge());
 
         $order->markAsUnpaid();
@@ -98,7 +98,7 @@ class OrderTest extends TestCase
     /** @test */
     public function can_get_tickets_with_name_count_and_amount()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'Leadership Conference',
             'slug' => 'leadership-conference',
             'start' => '2018-02-16 19:00:00',
@@ -107,15 +107,15 @@ class OrderTest extends TestCase
             'place' => 'University of Nebraska',
             'location' => 'Omaha, Nebraska',
         ]);
-        $ticketType1 = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType1 = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $ticketType2 = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType2 = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 6000,
             'name' => 'Pro Ticket',
         ]));
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $order = $event->orderTickets($user, [
             ['ticket_type_id' => $ticketType1->id, 'quantity' => 2],
             ['ticket_type_id' => $ticketType2->id, 'quantity' => 3],
@@ -132,11 +132,11 @@ class OrderTest extends TestCase
     /** @test */
     public function can_get_orders_with_upcoming_events()
     {
-        $user = factory(User::class)->create();
-        $upcomingEvent = factory(Event::class)->states('published')->create([
+        $user = User::factory()->create();
+        $upcomingEvent = Event::factory()->published()->create([
             'start' => Carbon::now()->addMonth(2),
         ]);
-        $ticketType = $upcomingEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $ticketType = $upcomingEvent->ticket_types()->save(TicketType::factory()->make());
         $order1 = $upcomingEvent->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -147,10 +147,10 @@ class OrderTest extends TestCase
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
-        $pastEvent = factory(Event::class)->states('published')->create([
+        $pastEvent = Event::factory()->published()->create([
             'end' => Carbon::now()->subMonth(2),
         ]);
-        $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $ticketType = $pastEvent->ticket_types()->save(TicketType::factory()->make());
         $order = $pastEvent->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -166,19 +166,19 @@ class OrderTest extends TestCase
     /** @test */
     public function can_get_orders_with_past_events()
     {
-        $user = factory(User::class)->create();
-        $upcomingEvent = factory(Event::class)->states('published')->create([
+        $user = User::factory()->create();
+        $upcomingEvent = Event::factory()->published()->create([
             'start' => Carbon::now()->addMonth(2),
         ]);
-        $ticketType = $upcomingEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $ticketType = $upcomingEvent->ticket_types()->save(TicketType::factory()->make());
         $order = $upcomingEvent->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
-        $pastEvent = factory(Event::class)->states('published')->create([
+        $pastEvent = Event::factory()->published()->create([
             'end' => Carbon::now()->subMonth(2),
         ]);
-        $ticketType = $pastEvent->ticket_types()->save(factory(TicketType::class)->make());
+        $ticketType = $pastEvent->ticket_types()->save(TicketType::factory()->make());
         $order1 = $pastEvent->orderTickets($user, [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
@@ -200,7 +200,7 @@ class OrderTest extends TestCase
     /** @test */
     public function can_see_if_order_was_paid_with_check()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
         $order->markAsPaid(collect(['id' => '#1234', 'amount' => $order->amount]));
 
         $this->assertTrue($order->refresh()->isCheck());
@@ -209,7 +209,7 @@ class OrderTest extends TestCase
     /** @test */
     public function can_see_if_order_was_paid_with_card()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
         $order->markAsPaid($this->charge());
 
         $this->assertTrue($order->refresh()->isCard());
@@ -218,7 +218,7 @@ class OrderTest extends TestCase
     /** @test */
     public function tickets_are_deleted_when_order_is()
     {
-        $event = factory(Event::class)->states('published')->create([
+        $event = Event::factory()->published()->create([
             'title' => 'Leadership Conference',
             'slug' => 'leadership-conference',
             'start' => '2018-02-16 19:00:00',
@@ -227,11 +227,11 @@ class OrderTest extends TestCase
             'place' => 'University of Nebraska',
             'location' => 'Omaha, Nebraska',
         ]);
-        $ticketType = $event->ticket_types()->save(factory(TicketType::class)->make([
+        $ticketType = $event->ticket_types()->save(TicketType::factory()->make([
             'cost' => 5000,
             'name' => 'Regular Ticket',
         ]));
-        $order = $event->orderTickets(factory(User::class)->create(), [
+        $order = $event->orderTickets(User::factory()->create(), [
             ['ticket_type_id' => $ticketType->id, 'quantity' => 2],
         ]);
 
@@ -243,10 +243,10 @@ class OrderTest extends TestCase
     /** @test */
     public function can_get_paid_orders()
     {
-        $paidOrder1 = factory(Order::class)->states('paid')->create();
-        $paidOrder2 = factory(Order::class)->states('paid')->create();
-        $unpaidOrder1 = factory(Order::class)->create();
-        $unpaidOrder2 = factory(Order::class)->create();
+        $paidOrder1 = Order::factory()->paid()->create();
+        $paidOrder2 = Order::factory()->paid()->create();
+        $unpaidOrder1 = Order::factory()->create();
+        $unpaidOrder2 = Order::factory()->create();
 
         $this->assertCount(2, Order::paid()->get());
     }
