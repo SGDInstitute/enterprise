@@ -45,30 +45,4 @@ class EventSchedulesControllerTest extends TestCase
         $this->assertCount(2, $response->decodeResponseJson()['data']);
         $this->assertLessThan(5, count(DB::getQueryLog()));
     }
-
-    /** @test */
-    public function show_returns_an_ok_response()
-    {
-        $event = Event::factory()->create(['title' => 'MBLGTACC', 'slug' => 'mblgtacc']);
-        $mainSchedule = Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Main Track']);
-        Schedule::factory()->create(['event_id' => $event->id, 'title' => 'Advisor Track']);
-
-        Passport::actingAs(User::factory()->create());
-
-        DB::enableQueryLog();
-        $response = $this->withoutExceptionHandling()->getJson("api/gemini/events/{$event->id}/schedules/{$mainSchedule->id}");
-
-        $response->assertOk();
-        $response->assertJsonStructure([
-            'data' => [
-                'id',
-                'event',
-                'title',
-            ],
-        ]);
-
-        $this->assertEquals('MBLGTACC', $response->decodeResponseJson()['data']['event']);
-        $this->assertEquals('Main Track', $response->decodeResponseJson()['data']['title']);
-        $this->assertLessThan(5, count(DB::getQueryLog()));
-    }
 }
