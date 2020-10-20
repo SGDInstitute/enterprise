@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ActivityType;
+use App\Models\ActivityType;
 use Illuminate\Http\Request;
 
 class ActivityTypeController extends Controller
@@ -41,7 +41,7 @@ class ActivityTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ActivityType  $activityType
+     * @param  \App\Models\ActivityType  $activityType
      * @return \Illuminate\Http\Response
      */
     public function show(ActivityType $activityType)
@@ -52,7 +52,7 @@ class ActivityTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ActivityType  $activityType
+     * @param  \App\Models\ActivityType  $activityType
      * @return \Illuminate\Http\Response
      */
     public function edit(ActivityType $activityType)
@@ -64,7 +64,7 @@ class ActivityTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ActivityType  $activityType
+     * @param  \App\Models\ActivityType  $activityType
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ActivityType $activityType)
@@ -75,7 +75,7 @@ class ActivityTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ActivityType  $activityType
+     * @param  \App\Models\ActivityType  $activityType
      * @return \Illuminate\Http\Response
      */
     public function destroy(ActivityType $activityType)

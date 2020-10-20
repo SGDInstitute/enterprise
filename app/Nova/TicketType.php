@@ -16,7 +16,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class TicketType extends Resource
 {
-    public static $model = \App\TicketType::class;
+    public static $model = \App\Models\TicketType::class;
 
     public static $title = 'name';
 

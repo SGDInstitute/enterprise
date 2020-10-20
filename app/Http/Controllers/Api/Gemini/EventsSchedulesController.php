@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use App\Event;
+use App\Models\Event;
 use App\Http\Controllers\Controller;
-use App\Schedule;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class EventsSchedulesController extends Controller

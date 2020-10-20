@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ResponseConfirmationEmail;
-use App\Response;
+use App\Models\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 

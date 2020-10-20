@@ -2,7 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Event;
+use App\Models\Event;
 use Illuminate\View\View;
 
 class AdminComposer

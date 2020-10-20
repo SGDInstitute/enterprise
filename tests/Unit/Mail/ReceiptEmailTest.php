@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Mail;
 
-use App\Event;
+use App\Models\Event;
 use App\Mail\ReceiptEmail;
-use App\Order;
-use App\TicketType;
-use App\User;
+use App\Models\Order;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

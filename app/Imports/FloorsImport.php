@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Floor;
-use App\Location;
+use App\Models\Floor;
+use App\Models\Location;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;

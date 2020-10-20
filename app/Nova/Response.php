@@ -12,7 +12,7 @@ use Sgd\FormResponse\FormResponse;
 
 class Response extends Resource
 {
-    public static $model = \App\Response::class;
+    public static $model = \App\Models\Response::class;
 
     public static $title = 'id';
 

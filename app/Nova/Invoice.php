@@ -13,7 +13,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Invoice extends Resource
 {
-    public static $model = \App\Invoice::class;
+    public static $model = \App\Models\Invoice::class;
 
     public static $title = 'id';
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Billing\PaymentGateway;
-use App\Donation;
+use App\Models\Donation;
 use App\Exceptions\PaymentFailedException;
 use App\Exceptions\SubscriptionFailedException;
 use App\Mail\DonationEmail;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
-use App\Form;
+use App\Models\Event;
+use App\Models\Form;
 
 class HomeController extends Controller
 {

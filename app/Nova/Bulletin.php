@@ -14,7 +14,7 @@ use Sgd\BulletinLinks\BulletinLinks;
 
 class Bulletin extends Resource
 {
-    public static $model = \App\Bulletin::class;
+    public static $model = \App\Models\Bulletin::class;
 
     public static $group = 'Gemini';
 

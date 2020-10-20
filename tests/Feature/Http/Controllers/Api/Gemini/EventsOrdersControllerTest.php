@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
-use App\Event;
-use App\Order;
-use App\Queue;
-use App\Ticket;
-use App\TicketType;
-use App\User;
+use App\Models\Event;
+use App\Models\Order;
+use App\Models\Queue;
+use App\Models\Ticket;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;

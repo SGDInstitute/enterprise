@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Mail;
 
-use App\Invoice;
+use App\Models\Invoice;
 use App\Mail\InvoiceEmail;
-use App\Order;
+use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Mail\InviteUserEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

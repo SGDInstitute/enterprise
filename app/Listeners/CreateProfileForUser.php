@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\UserCreated;
-use App\Profile;
+use App\Models\Profile;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 

@@ -2,7 +2,7 @@
 
 namespace App\Admin\Reports;
 
-use App\Order;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
 class AllRegistrants extends Report

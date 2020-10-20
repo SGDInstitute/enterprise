@@ -2,7 +2,7 @@
 
 namespace App\Admin\Reports;
 
-use App\Profile;
+use App\Models\Profile;
 
 class Tshirt extends Report
 {

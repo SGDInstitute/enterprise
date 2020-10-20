@@ -11,7 +11,7 @@ class FormFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Form::class;
+    protected $model = \App\Models\Form::class;
 
     /**
      * Define the model's default state.

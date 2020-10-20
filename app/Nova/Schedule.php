@@ -11,7 +11,7 @@ use Laravel\Nova\Fields\Text;
 
 class Schedule extends Resource
 {
-    public static $model = \App\Schedule::class;
+    public static $model = \App\Models\Schedule::class;
 
     public static $title = 'title';
 

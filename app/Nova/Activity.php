@@ -17,7 +17,7 @@ use Sgd\ImportCard\ImportCard;
 
 class Activity extends Resource
 {
-    public static $model = \App\Activity::class;
+    public static $model = \App\Models\Activity::class;
 
     public static $title = 'title';
 

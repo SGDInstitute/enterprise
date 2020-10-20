@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Invoice;
+use App\Models\Invoice;
 use App\Mail\InvoiceEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;

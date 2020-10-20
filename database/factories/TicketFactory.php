@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Order;
-use App\Ticket;
-use App\TicketType;
-use App\User;
+use App\Models\Order;
+use App\Models\Ticket;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketFactory extends Factory

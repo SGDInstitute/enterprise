@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Event;
-use App\Order;
-use App\Receipt;
-use App\TicketType;
-use App\User;
+use App\Models\Event;
+use App\Models\Order;
+use App\Models\Receipt;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

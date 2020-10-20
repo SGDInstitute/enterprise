@@ -28,6 +28,6 @@ class Form extends Filter
      */
     public function options(Request $request)
     {
-        return \App\Form::all()->pluck('id', 'name')->toArray();
+        return \App\Models\Form::all()->pluck('id', 'name')->toArray();
     }
 }

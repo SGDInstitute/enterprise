@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Donation;
-use App\User;
+use App\Models\Donation;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DonationPolicy

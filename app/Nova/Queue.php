@@ -12,7 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Queue extends Resource
 {
-    public static $model = \App\Queue::class;
+    public static $model = \App\Models\Queue::class;
 
     public static $title = 'id';
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Gemini;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivitiesByDateCollection;
 use App\Http\Resources\ActivitiesResource;
-use App\Schedule;
+use App\Models\Schedule;
 
 class EventsActivitiesController extends Controller
 {

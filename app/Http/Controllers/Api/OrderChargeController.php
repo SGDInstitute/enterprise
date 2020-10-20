@@ -6,7 +6,7 @@ use App\Billing\PaymentGateway;
 use App\Exceptions\PaymentFailedException;
 use App\Http\Controllers\Controller;
 use App\Mail\ReceiptEmail;
-use App\Order;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
