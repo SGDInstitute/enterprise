@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
-use App\Event;
-use App\Order;
-use App\User;
+use App\Models\Event;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class OrdersSeeder extends Seeder

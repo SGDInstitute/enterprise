@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use App\Event;
+use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ScheduleResource;
 use App\Http\Resources\UserResource;
-use App\Schedule;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller

@@ -20,7 +20,7 @@ class ResponsesSeeder extends Seeder
      */
     public function run()
     {
-        $forms = \App\Form::all();
+        $forms = \App\Models\Form::all();
 
         $forms->each(function ($form) {
             foreach (range(1, 100) as $item) {

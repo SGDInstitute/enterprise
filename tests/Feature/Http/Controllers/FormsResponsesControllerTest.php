@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Voyager;
 
-use App\Form;
+use App\Models\Form;
 use App\Survey;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -10,7 +10,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Profile extends Resource
 {
-    public static $model = \App\Profile::class;
+    public static $model = \App\Models\Profile::class;
 
     public static $title = 'id';
 

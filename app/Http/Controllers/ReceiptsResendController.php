@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ReceiptEmail;
-use App\Receipt;
+use App\Models\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 

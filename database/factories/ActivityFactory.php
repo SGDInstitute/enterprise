@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Activity;
+use App\Models\Activity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivityFactory extends Factory

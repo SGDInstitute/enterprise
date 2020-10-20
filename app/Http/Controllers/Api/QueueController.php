@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Queue;
-use App\Ticket;
+use App\Models\Queue;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
 

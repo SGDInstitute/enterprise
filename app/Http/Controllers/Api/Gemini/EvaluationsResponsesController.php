@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use App\Event;
-use App\Form;
+use App\Models\Event;
+use App\Models\Form;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FormsResource;
 use App\Http\Resources\ResponseResource;

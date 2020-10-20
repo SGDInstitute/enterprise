@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Event;
-use App\TicketType;
-use App\User;
+use App\Models\Event;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

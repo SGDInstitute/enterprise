@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Event;
-use App\Invoice;
-use App\Order;
-use App\TicketType;
-use App\User;
+use App\Models\Event;
+use App\Models\Invoice;
+use App\Models\Order;
+use App\Models\TicketType;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

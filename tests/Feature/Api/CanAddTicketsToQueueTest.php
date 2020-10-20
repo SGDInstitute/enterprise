@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api;
 
-use App\Queue;
-use App\Ticket;
+use App\Models\Queue;
+use App\Models\Ticket;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Mail;
 
-use App\Donation;
+use App\Models\Donation;
 use App\Mail\DonationEmail;
-use App\Receipt;
+use App\Models\Receipt;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

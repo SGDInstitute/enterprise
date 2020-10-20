@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.2.5] - 2020-10-20
+
+### Fixed
+
+- Missing user model
+
+___
+
 ## [0.2.4] - 2020-10-18
 
 ### Changed

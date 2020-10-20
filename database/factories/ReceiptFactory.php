@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Receipt;
+use App\Models\Receipt;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReceiptFactory extends Factory

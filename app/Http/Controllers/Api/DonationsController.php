@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Billing\PaymentGateway;
-use App\Donation;
-use App\Event;
+use App\Models\Donation;
+use App\Models\Event;
 use App\Exceptions\PaymentFailedException;
 use App\Http\Controllers\Controller;
 use App\Mail\ContributionEmail;

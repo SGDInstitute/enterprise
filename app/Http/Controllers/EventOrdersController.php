@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
+use App\Models\Event;
 use App\Rules\TicketQuantityNotZero;
 use Illuminate\Http\Request;
 

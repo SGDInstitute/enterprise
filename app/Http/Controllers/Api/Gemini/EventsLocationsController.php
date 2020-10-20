@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Gemini;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LocationResource;
-use App\Location;
+use App\Models\Location;
 
 class EventsLocationsController extends Controller
 {

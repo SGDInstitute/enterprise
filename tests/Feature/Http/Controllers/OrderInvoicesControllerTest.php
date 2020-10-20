@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Event;
+use App\Models\Event;
 use App\Mail\InvoiceEmail;
-use App\TicketType;
-use App\User;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;

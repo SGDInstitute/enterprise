@@ -13,7 +13,7 @@ use Sgd\ImportCard\ImportCard;
 
 class Floor extends Resource
 {
-    public static $model = \App\Floor::class;
+    public static $model = \App\Models\Floor::class;
 
     public function title()
     {

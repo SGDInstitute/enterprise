@@ -4,7 +4,7 @@
 
 namespace Database\Factories;
 
-use App\Form;
+use App\Models\Form;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ResponseFactory extends Factory
@@ -14,7 +14,7 @@ class ResponseFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Response::class;
+    protected $model = \App\Models\Response::class;
 
     /**
      * Define the model's default state.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Queue;
+use App\Models\Queue;
 use Illuminate\Http\Request;
 
 class PrintController extends Controller

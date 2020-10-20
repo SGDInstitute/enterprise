@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Event;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketTypeFactory extends Factory
@@ -12,7 +12,7 @@ class TicketTypeFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\TicketType::class;
+    protected $model = \App\Models\TicketType::class;
 
     /**
      * Define the model's default state.

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api;
 
-use App\Order;
-use App\Ticket;
+use App\Models\Order;
+use App\Models\Ticket;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

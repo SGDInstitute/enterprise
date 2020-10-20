@@ -12,7 +12,7 @@ use Laravel\Nova\Panel;
 
 class Receipt extends Resource
 {
-    public static $model = \App\Receipt::class;
+    public static $model = \App\Models\Receipt::class;
 
     public static $title = 'id';
 

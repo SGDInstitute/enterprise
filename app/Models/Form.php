@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Event;
-use App\Response;
+use App\Models\Event;
+use App\Models\Response;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;

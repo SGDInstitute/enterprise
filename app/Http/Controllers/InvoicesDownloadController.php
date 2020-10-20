@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Invoice;
+use App\Models\Invoice;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 

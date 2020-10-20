@@ -12,7 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Contribution extends Resource
 {
-    public static $model = \App\Contribution::class;
+    public static $model = \App\Models\Contribution::class;
 
     public static $title = 'title';
 

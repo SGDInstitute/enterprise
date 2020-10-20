@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Event;
-use App\TicketType;
-use App\User;
+use App\Models\Event;
+use App\Models\TicketType;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Subscription;
-use App\User;
+use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SubscriptionPolicy

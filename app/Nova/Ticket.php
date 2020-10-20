@@ -10,7 +10,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Ticket extends Resource
 {
-    public static $model = \App\Ticket::class;
+    public static $model = \App\Models\Ticket::class;
 
     public static $title = 'id';
 

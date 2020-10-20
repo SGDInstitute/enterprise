@@ -14,7 +14,7 @@ class MBLGTACC2018CareerResourceFair extends Seeder
      */
     public function run()
     {
-        \App\Form::create([
+        \App\Models\Form::create([
             'name'      => 'MBLGTACC 2018 Career and Resource Fair Registration',
             'slug'      => Str::slug('MBLGTACC 2018 Career and Resource Fair'),
             'event_id'  => 2,

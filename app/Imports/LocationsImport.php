@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Event;
-use App\Location;
+use App\Models\Event;
+use App\Models\Location;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 

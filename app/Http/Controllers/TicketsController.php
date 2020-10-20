@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Ticket;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class TicketsController extends Controller

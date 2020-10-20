@@ -14,7 +14,7 @@ class MBLGTACC2018VolunteerForm extends Seeder
      */
     public function run()
     {
-        \App\Form::create([
+        \App\Models\Form::create([
             'name'      => 'MBLGTACC 2018 Volunteer Interest Form',
             'slug'      => Str::slug('MBLGTACC 2018 Volunteer Interest Form'),
             'event_id'  => 2,

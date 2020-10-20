@@ -18,7 +18,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Order extends Resource
 {
-    public static $model = \App\Order::class;
+    public static $model = \App\Models\Order::class;
 
     public static $title = 'id';
 

@@ -18,7 +18,7 @@ use Sgd\FormBuilder\FormBuilder;
 
 class Form extends Resource
 {
-    public static $model = \App\Form::class;
+    public static $model = \App\Models\Form::class;
 
     public static $title = 'name';
 
