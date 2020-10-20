@@ -18,7 +18,7 @@ use Sgd\Links\Links;
 
 class Event extends Resource
 {
-    public static $model = \App\Event::class;
+    public static $model = \App\Models\Event::class;
 
     public static $title = 'title';
 

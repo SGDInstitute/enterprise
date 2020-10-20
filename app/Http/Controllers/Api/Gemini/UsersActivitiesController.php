@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivitiesByDateCollection;
 use App\Http\Resources\ActivitiesCollection;
 use App\Http\Resources\ActivitiesResource;
-use App\Schedule;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class UsersActivitiesController extends Controller

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\ActivityType;
+use App\Models\ActivityType;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 

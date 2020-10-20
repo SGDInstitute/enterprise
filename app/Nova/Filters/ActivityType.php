@@ -14,6 +14,6 @@ class ActivityType extends Filter
 
     public function options(Request $request)
     {
-        return \App\ActivityType::all()->pluck('id', 'title')->toArray();
+        return \App\Models\ActivityType::all()->pluck('id', 'title')->toArray();
     }
 }

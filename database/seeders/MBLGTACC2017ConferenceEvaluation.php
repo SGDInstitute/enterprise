@@ -14,7 +14,7 @@ class MBLGTACC2017ConferenceEvaluation extends Seeder
      */
     public function run()
     {
-        \App\Form::create([
+        \App\Models\Form::create([
             'name'      => 'MBLGTACC 2017 Conference Evaluation',
             'slug'      => Str::slug('MBLGTACC 2017 Conference Evaluation'),
             'list_id'   => 'BSx8zuuc0FGzkJ763l7iI67g',

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Billing\PaymentGateway;
 use App\Exceptions\PaymentFailedException;
 use App\Mail\ReceiptEmail;
-use App\Order;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;

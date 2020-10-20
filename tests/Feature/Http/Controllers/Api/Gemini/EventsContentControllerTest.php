@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
-use App\Event;
+use App\Models\Event;
 use App\Imports\ActivitiesImport;
 use App\Imports\ContentImport;
-use App\Schedule;
-use App\User;
+use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;

@@ -14,7 +14,7 @@ class MBLGTACC2018WorkshopProposals extends Seeder
      */
     public function run()
     {
-        \App\Form::create([
+        \App\Models\Form::create([
             'name' => 'MBLGTACC 2018 Workshop Proposals',
             'slug' => Str::slug('MBLGTACC 2018 Workshop Proposals'),
             'event_id' => 2,

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Order;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceFactory extends Factory
@@ -12,7 +12,7 @@ class InvoiceFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Invoice::class;
+    protected $model = \App\Models\Invoice::class;
 
     /**
      * Define the model's default state.

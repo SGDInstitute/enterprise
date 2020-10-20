@@ -14,6 +14,6 @@ class Event extends Filter
 
     public function options(Request $request)
     {
-        return \App\Event::all()->pluck('id', 'title')->toArray();
+        return \App\Models\Event::all()->pluck('id', 'title')->toArray();
     }
 }

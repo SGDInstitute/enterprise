@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\Gemini;
 
-use App\Event;
+use App\Models\Event;
 use App\Http\Controllers\Controller;
-use App\Schedule;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class EventsSchedulesController extends Controller
@@ -12,7 +12,7 @@ class EventsSchedulesController extends Controller
     public function index($event)
     {
         $event = Event::findOrFail($event);
-        $schedules = Schedule::where('event_id', $event->id)->with('event')->get()->map(function($schedule) {
+        $schedules = Schedule::where('event_id', $event->id)->with('event')->get()->map(function ($schedule) {
             return [
                 'id' => $schedule->id,
                 'event' => $schedule->event->title,
@@ -29,12 +29,13 @@ class EventsSchedulesController extends Controller
         dd($schedule);
         $schedule = Schedule::where('id', $id)->with('event')->first();
         dd($schedule);
+
         return response()->json([
             'data' => [
                 'id' => $schedule->id,
                 'event' => $schedule->event->title,
                 'title' => $schedule->title,
-            ]
+            ],
         ]);
     }
 }

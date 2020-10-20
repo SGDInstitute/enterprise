@@ -2,12 +2,12 @@
 
 namespace App\Imports;
 
-use App\Activity;
-use App\ActivityType;
-use App\Location;
+use App\Models\Activity;
+use App\Models\ActivityType;
+use App\Models\Location;
 use App\Nova\Activity as AppActivity;
-use App\Room;
-use App\Schedule;
+use App\Models\Room;
+use App\Models\Schedule;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;

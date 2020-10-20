@@ -12,7 +12,7 @@ class UserTokenFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\UserToken::class;
+    protected $model = \App\Models\UserToken::class;
 
     /**
      * Define the model's default state.

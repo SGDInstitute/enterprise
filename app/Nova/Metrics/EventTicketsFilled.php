@@ -2,9 +2,9 @@
 
 namespace App\Nova\Metrics;
 
-use App\Event;
+use App\Models\Event;
 use App\Nova\Filters\Event as EventFilter;
-use App\Ticket;
+use App\Models\Ticket;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Partition;
 use Nemrutco\Filterable\FilterablePartition;

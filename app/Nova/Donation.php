@@ -13,7 +13,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Donation extends Resource
 {
-    public static $model = \App\Donation::class;
+    public static $model = \App\Models\Donation::class;
 
     public static $title = 'id';
 

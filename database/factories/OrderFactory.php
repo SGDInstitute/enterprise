@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Event;
-use App\Order;
-use App\Receipt;
-use App\User;
+use App\Models\Event;
+use App\Models\Order;
+use App\Models\Receipt;
+use App\Models\User;
 use Facades\App\ConfirmationNumber;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

@@ -13,7 +13,7 @@ use Laravel\Nova\Panel;
 
 class Subscription extends Resource
 {
-    public static $model = \App\Subscription::class;
+    public static $model = \App\Models\Subscription::class;
 
     public static $title = 'id';
 

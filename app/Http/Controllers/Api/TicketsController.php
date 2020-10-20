@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Ticket;
-use App\User;
+use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TicketsController extends Controller

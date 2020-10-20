@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers;
 use App\Billing\PaymentGateway;
 use App\Billing\StripePaymentGateway;
 use App\Notifications\UpdatedCard;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;

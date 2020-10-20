@@ -4,8 +4,8 @@
 
 namespace Database\Factories;
 
-use App\Contribution;
-use App\Event;
+use App\Models\Contribution;
+use App\Models\Event;
 use App\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

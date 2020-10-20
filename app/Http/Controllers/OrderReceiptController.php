@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ReceiptEmail;
-use App\Order;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderReceiptController extends Controller

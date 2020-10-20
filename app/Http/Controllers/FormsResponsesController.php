@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Form;
+use App\Models\Form;
 use App\Mail\ResponseConfirmationEmail;
-use App\Response;
+use App\Models\Response;
 use Hocza\Sendy\Facades\Sendy;
 use Illuminate\Support\Facades\Mail;
 

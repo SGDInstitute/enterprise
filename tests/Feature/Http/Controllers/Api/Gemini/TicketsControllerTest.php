@@ -3,8 +3,8 @@
 namespace Tests\Feature\Http\Controllers\Api\Gemini;
 
 use App\Mail\NewTicket;
-use App\Profile;
-use App\User;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;

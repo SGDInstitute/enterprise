@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Ticket;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class QueueFactory extends Factory
@@ -12,7 +12,7 @@ class QueueFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Queue::class;
+    protected $model = \App\Models\Queue::class;
 
     /**
      * Define the model's default state.

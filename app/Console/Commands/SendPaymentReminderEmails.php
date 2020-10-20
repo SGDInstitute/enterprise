@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Event;
+use App\Models\Event;
 use App\Notifications\PaymentReminder;
 use App\Notifications\ScheduledTask;
-use App\User;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 

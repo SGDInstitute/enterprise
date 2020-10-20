@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
-use App\Activity;
-use App\ActivityType;
-use App\Event;
-use App\Schedule;
-use App\TicketType;
-use App\User;
+use App\Models\Activity;
+use App\Models\ActivityType;
+use App\Models\Event;
+use App\Models\Schedule;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;

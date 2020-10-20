@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Ticket;
+use App\Models\Ticket;
 
 class TicketsUsersController extends Controller
 {

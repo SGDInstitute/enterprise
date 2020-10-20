@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Bulletin;
+use App\Models\Bulletin;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BulletinFactory extends Factory

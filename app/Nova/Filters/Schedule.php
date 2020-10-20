@@ -14,6 +14,6 @@ class Schedule extends Filter
 
     public function options(Request $request)
     {
-        return \App\Schedule::all()->pluck('id', 'title')->toArray();
+        return \App\Models\Schedule::all()->pluck('id', 'title')->toArray();
     }
 }

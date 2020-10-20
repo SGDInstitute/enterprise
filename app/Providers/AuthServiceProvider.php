@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Donation;
-use App\Order;
+use App\Models\Donation;
+use App\Models\Order;
 use App\Policies\DonationPolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SubscriptionPolicy;
-use App\Subscription;
+use App\Models\Subscription;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
