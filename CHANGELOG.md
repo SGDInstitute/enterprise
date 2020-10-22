@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ___
 
+## [0.2.5] - 2020-10-22
+
+### Fixed
+
+- If event start/end dates are the same, don't show two dates
+
+___
+
 ## [0.2.5] - 2020-10-20
 
 ### Fixed
