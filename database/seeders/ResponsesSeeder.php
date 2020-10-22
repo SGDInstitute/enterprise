@@ -10,7 +10,7 @@ class ResponsesSeeder extends Seeder
 
     public function __construct()
     {
-        $this->faker = Faker\Factory::create();
+        $this->faker = \Faker\Factory::create();
     }
 
     /**

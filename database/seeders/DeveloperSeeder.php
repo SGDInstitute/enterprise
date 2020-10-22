@@ -18,7 +18,7 @@ class DeveloperSeeder extends Seeder
             'name' => 'Andy Swick',
             'email' => 'andy@sgdinstitute.org',
             'password' => bcrypt('Password1'),
-            'confirmed_at' => Carbon\Carbon::now(),
+            'confirmed_at' => \Carbon\Carbon::now(),
         ]);
 
         $user->assignRole('institute', 'developer');
