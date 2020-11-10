@@ -1,10 +1,6 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome', [
-        'upcomingEvents' => App\Models\Event::published()->upcoming()->get(),
-    ]);
-});
+Route::get('/', WelcomeController::class);
 
 Auth::routes(['verify' => true]);
 

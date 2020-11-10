@@ -147,15 +147,19 @@ class EventTest extends TestCase
     {
         $upcomingEvent1 = Event::factory()->published()->create([
             'start' => Carbon::now()->addMonth(2),
+            'end' => Carbon::now()->addMonth(2),
         ]);
         $upcomingEvent2 = Event::factory()->published()->create([
             'start' => Carbon::now()->addMonth(5),
+            'end' => Carbon::now()->addMonth(5),
         ]);
         $pastEvent = Event::factory()->published()->create([
             'start' => Carbon::now()->subMonth(2),
+            'end' => Carbon::now()->subMonth(2),
         ]);
         $unpublishedEvent = Event::factory()->unpublished()->create([
             'start' => Carbon::now()->addYear(),
+            'end' => Carbon::now()->addYear(),
         ]);
 
         $upcoming = Event::upcoming()->get();

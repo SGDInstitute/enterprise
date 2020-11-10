@@ -61,7 +61,7 @@ class Event extends Model
 
     public function scopeUpcoming($query)
     {
-        $query->whereDate('start', '>', Carbon::now());
+        $query->whereDate('end', '>', Carbon::now()->addHours(12));
     }
 
     public function getFormattedStartAttribute()
