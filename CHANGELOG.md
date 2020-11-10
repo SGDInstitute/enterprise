@@ -5,9 +5,19 @@ All notable changes to the SGD Institute Project Enterprise will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+
 ___
 
-## [0.2.5] - 2020-10-22
+## [0.2.7] - 2020-11-10
+
+### Fixed
+
+- Upcoming query to use end date plus timezone difference instead of start date
+
+___
+
+## [0.2.6] - 2020-10-22
 
 ### Fixed
 
