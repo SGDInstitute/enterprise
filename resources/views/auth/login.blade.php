@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <x-auth-card>
+    <x-auth.card>
         <x-slot name="logo">
             <a href="/">
                 <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
@@ -7,31 +7,27 @@
         </x-slot>
 
         <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <x-auth.session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-auth.validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <!-- Email Address -->
-            <div>
-                <x-input.label for="email" :value="__('Email')" />
-
-                <x-input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
+            <x-bit.input.group for="email" :label="__('Email')">
+                <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
+            </x-bit.input.group>
 
             <!-- Password -->
-            <div class="mt-4">
-                <x-input.label for="password" :value="__('Password')" />
-
-                <x-input.text id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
-            </div>
+            <x-bit.input.group for="password" :label="__('Password')" class="mt-4">
+                <x-bit.input.text id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
+            </x-bit.input.group>
 
             <!-- Remember Me -->
             <div class="block mt-4">
-                <x-input.checkbox id="remember_me" name="remember">{{ __('Remember me') }}</x-input.checkbox>
+                <x-bit.input.checkbox id="remember_me" name="remember">{{ __('Remember me') }}</x-input.checkbox>
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -41,10 +37,10 @@
                     </a>
                 @endif
 
-                <x-button.primary class="ml-3">
+                <x-bit.button.primary class="ml-3">
                     {{ __('Login') }}
-                </x-button.primary>
+                </x-bit.button.primary>
             </div>
         </form>
-    </x-auth-card>
+    </x-auth.card>
 </x-guest-layout>
