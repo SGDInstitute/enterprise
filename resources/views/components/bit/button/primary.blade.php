@@ -1,0 +1,1 @@
+<x-bit.button {{ $attributes->merge(['class' => 'text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-500 dark:hover:bg-blue-500 active:bg-blue-700 dark:active:bg-blue-700 border-blue-600 dark:border-blue-600']) }}>{{ $slot }}</x-button>
