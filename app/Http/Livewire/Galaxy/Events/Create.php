@@ -8,6 +8,7 @@ class Create extends Component
 {
     public function render()
     {
-        return view('livewire.galaxy.events.create');
+        return view('livewire.galaxy.events.create')
+            ->layout('layouts.galaxy', ['title' => 'Create an Event']);
     }
 }

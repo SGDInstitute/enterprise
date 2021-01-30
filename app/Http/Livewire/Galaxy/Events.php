@@ -8,6 +8,7 @@ class Events extends Component
 {
     public function render()
     {
-        return view('livewire.galaxy.events');
+        return view('livewire.galaxy.events')
+            ->layout('layouts.galaxy', ['title' => 'Events']);
     }
 }
