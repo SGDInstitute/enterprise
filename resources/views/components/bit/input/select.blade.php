@@ -1,19 +1,3 @@
-@props([
-    'placeholder' => null,
-    'trailingAddOn' => null,
-    'group' => null,
-])
-
-<div class="{{ $group ? 'flex-1' : 'flex' }}">
-  <select {{ $attributes->merge(['class' => 'form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 dark:bg-gray-500 dark:border-gray-400 dark:text-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5' . ($trailingAddOn || $group ? ' rounded-r-none' : '')]) }}>
-    @if ($placeholder)
-        <option disabled value="">{{ $placeholder }}</option>
-    @endif
-
+<select {{ $attributes->merge(['class' => 'py-2 pl-3 pr-10 text-base border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' . ($attributes->get('disabled') ? ' opacity-75 cursor-not-allowed' : '')]) }}>
     {{ $slot }}
-  </select>
-
-  @if ($trailingAddOn)
-    {{ $trailingAddOn }}
-  @endif
-</div>
+</select>
