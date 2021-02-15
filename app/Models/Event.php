@@ -6,16 +6,24 @@ use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Event extends Model
+class Event extends Model implements HasMedia
 {
-    use HasFactory, HasSettings;
+    use HasFactory, HasSettings, InteractsWithMedia;
 
     protected $guarded = [];
 
     public $appends = ['formattedEnd', 'formattedStart'];
     public $casts = ['settings' => 'array'];
     public $dates = ['start', 'end'];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('icon')
+            ->singleFile();
+    }
 
     public function getFormattedEndAttribute()
     {
