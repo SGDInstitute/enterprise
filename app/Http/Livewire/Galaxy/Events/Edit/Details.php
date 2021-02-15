@@ -15,8 +15,8 @@ class Details extends Component
 
     public $rules = [
         'event.name' => 'required',
-        'event.formattedStart' => 'required',
-        'event.formattedEnd' => 'required',
+        'event.start' => 'required',
+        'event.end' => 'required',
         'event.timezone' => 'required',
         'event.location' => '',
         'event.order_prefix' => '',

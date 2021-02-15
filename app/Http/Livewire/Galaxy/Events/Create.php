@@ -28,6 +28,7 @@ class Create extends Component
         'event.settings.presenter_discounts' => 'boolean',
         'event.settings.demographics' => 'boolean',
         'event.settings.add_ons' => 'boolean',
+        'event.settings.bulk' => 'boolean',
         'event.settings.invoices' => 'boolean',
         'event.settings.check_payment' => 'boolean',
         'event.settings.onsite' => 'boolean',
@@ -68,8 +69,8 @@ class Create extends Component
 
     public function save()
     {
-        $this->event->start = Carbon::parse($this->event->start);
-        $this->event->end = Carbon::parse($this->event->end);
+        $this->event->start = Carbon::parse($this->event->start->format('Y-m-d H:i'), $this->event->timezone)->timezone('UTC');
+        $this->event->end = Carbon::parse($this->event->end->format('Y-m-d H:i'), $this->event->timezone)->timezone('UTC');
         $this->event->save();
 
         return redirect()->route('galaxy.events.show', $this->event);

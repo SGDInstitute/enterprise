@@ -10,10 +10,10 @@
                         <x-bit.input.text id="name" class="block w-full mt-1" type="text" name="name" wire:model="event.name" />
                     </x-bit.input.group>
                     <x-bit.input.group for="start" label="Event Start" class="col-span-2">
-                        <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model="event.formattedStart" />
+                        <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model="event.start" />
                     </x-bit.input.group>
                     <x-bit.input.group for="end" label="Event End" class="col-span-2">
-                        <x-bit.input.date-time class="block w-full mt-1" id="end" name="end" wire:model="event.formattedEnd" />
+                        <x-bit.input.date-time class="block w-full mt-1" id="end" name="end" wire:model="event.end" />
                     </x-bit.input.group>
                     <x-bit.input.group for="timezone" label="Timezone" class="col-span-2">
                         <x-bit.input.select class="block w-full mt-1" wire:model="event.timezone" id="timezone">
