@@ -16,6 +16,8 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.3",
+        "spatie/laravel-medialibrary": "^9.0.0",
+        "spatie/laravel-medialibrary-pro": "^1.12",
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-schemaless-attributes": "^1.8"
     },
@@ -28,6 +30,12 @@
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://satis.spatie.be"
+        }
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

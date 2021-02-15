@@ -4,14 +4,16 @@
 ])
 
 @if($label)
-<div class="flex items-center">
-    <input {{ $attributes }} type="checkbox" class="w-4 h-4 transition duration-150 ease-in-out text-blue-gray-400 form-checkbox {{ $attributes->get('disabled') ? 'opacity-75 cursor-not-allowed' : '' }}">
-    <label for="{{ $attributes['id'] }}" class="block ml-3">
-        <span class="text-sm font-medium leading-5 text-gray-700 dark:text-gray-200 {{ $attributes->get('disabled') ? 'opacity-75 cursor-not-allowed' : '' }}">{{ $label }}</span>
+<div class="relative flex items-start">
+    <div class="flex items-center h-5">
+        <input {{ $attributes }} type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+    </div>
+    <div class="ml-3 text-sm">
+        <label for="{{ $attributes->get('id') }}" class="font-medium text-gray-700 dark:text-gray-200">{{ $label }}</label>
         @if($help)
-        <span class="text-xs text-gray-500">{{ $help }}</span>
+        <p class="text-gray-500 dark:text-gray-400">{{ $help }}</p>
         @endif
-    </label>
+    </div>
 </div>
 @else
 <div class="flex">

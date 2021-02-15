@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration
             $table->string('timezone');
             $table->string('location')->nullable();
             $table->string('order_prefix')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->schemalessAttributes('settings');
 
             $table->timestamps();
