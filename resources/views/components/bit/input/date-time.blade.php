@@ -5,7 +5,7 @@
     </span>
     <input x-data="{ value: @entangle($attributes->wire('model')), instance: undefined }"
         x-init="() => {
-            instance = flatpickr($refs.input, {enableTime: true, dateFormat:'m/d/Y G:i K', allowInput: true, onChange: function(selectedDates, dateStr, instance) {
+            instance = flatpickr($refs.input, {enableTime: true, dateFormat:'m/d/Y h:i K', allowInput: true, onChange: function(selectedDates, dateStr, instance) {
                 value = dateStr;
             }});
         }"

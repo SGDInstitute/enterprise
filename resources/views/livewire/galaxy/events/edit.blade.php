@@ -3,25 +3,23 @@
 
     @switch($page)
     @case('details')
-    <livewire:galaxy.events.details :event="$event" />
+    <livewire:galaxy.events.edit.details :event="$event" />
     @break
 
     @case('media')
-    <livewire:galaxy.events.media :event="$event" />
+    <livewire:galaxy.events.edit.media :event="$event" />
     @break
 
-    @case('media')
-    <livewire:galaxy.events.tickets :event="$event" />
+    @case('tickets')
+    <livewire:galaxy.events.edit.tickets :event="$event" />
     @break
 
-    @case('media')
-    <livewire:galaxy.events.addons :event="$event" />
+    @case('addons')
+    <livewire:galaxy.events.edit.addons :event="$event" />
     @break
 
     @case('settings')
-    <livewire:galaxy.events.settings :event="$event" />
+    <livewire:galaxy.events.edit.settings :event="$event" />
     @break
     @endswitch
-
-
 </div>

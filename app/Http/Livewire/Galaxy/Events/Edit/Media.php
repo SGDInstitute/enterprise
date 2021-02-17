@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Galaxy\Events;
+namespace App\Http\Livewire\Galaxy\Events\Edit;
 
 use App\Models\Event;
 use Livewire\Component;
@@ -18,7 +18,7 @@ class Media extends Component
 
     public function render()
     {
-        return view('livewire.galaxy.events.media')
+        return view('livewire.galaxy.events.edit.media')
             ->with([
                 'iconSrc' => $this->iconSrc,
             ]);

@@ -1,4 +1,4 @@
-<div>
+<form wire:submit.prevent="save">
     <x-bit.panel>
         <x-bit.panel.body class="space-y-8 divide-y divide-gray-200 dark:divide-gray-900">
             {{-- Tickets --}}
@@ -55,4 +55,4 @@
             @endif
         </x-bit.panel.footer>
     </x-bit.panel>
-</div>
+</form>

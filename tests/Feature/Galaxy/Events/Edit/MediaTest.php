@@ -13,14 +13,14 @@ class MediaTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_livewire_event_details_component_on_event_details_page()
+    public function can_see_livewire_component_on_page()
     {
         $user = User::factory()->create();
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/' . $event->id . '/media')
+            ->get('/galaxy/events/' . $event->id . '/edit/media')
             ->assertSuccessful()
-            ->assertSeeLivewire('galaxy.events.media');
+            ->assertSeeLivewire('galaxy.events.edit.media');
     }
 }

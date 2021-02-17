@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Galaxy\Events;
+namespace App\Http\Livewire\Galaxy\Events\Edit;
 
 use App\Models\Event;
 use Livewire\Component;
@@ -11,7 +11,6 @@ class Settings extends Component
     public $formChanged = false;
 
     public $rules = [
-        'event.description' => 'required',
         'event.settings.reservations' => 'boolean',
         'event.settings.volunteer_discounts' => 'boolean',
         'event.settings.presenter_discounts' => 'boolean',
@@ -29,8 +28,25 @@ class Settings extends Component
         'event.settings.allow_donations' => 'boolean',
     ];
 
+    public function updating($field)
+    {
+        if(in_array($field, array_keys($this->rules))) {
+            $this->formChanged = true;
+        }
+    }
+
     public function render()
     {
-        return view('livewire.galaxy.events.settings');
+        return view('livewire.galaxy.events.edit.settings');
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        $this->event->save();
+
+        $this->formChanged = false;
+        $this->emit('notify', ['message' => 'Successfully updated event settings.', 'type' => 'success']);
     }
 }
