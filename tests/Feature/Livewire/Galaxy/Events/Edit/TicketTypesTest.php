@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Galaxy\Events\Edit;
+namespace Tests\Feature\Livewire\Galaxy\Events\Edit;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -28,7 +28,7 @@ class TicketTypesTest extends TestCase
     /** @test */
     public function can_add_ticket_type_for_event()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create();
 
         // Livewire::actingAs($user)

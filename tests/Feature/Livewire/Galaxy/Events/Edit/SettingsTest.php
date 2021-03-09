@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Galaxy\Events\Edit;
+namespace Tests\Feature\Livewire\Galaxy\Events\Edit;
 
 use Tests\TestCase;
 use App\Models\User;

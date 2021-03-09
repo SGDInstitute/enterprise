@@ -1,14 +1,15 @@
 <?php
 
-namespace Tests\Feature\Galaxy\Events\Edit;
+namespace Tests\Feature\Livewire\Galaxy\Events\Show;
 
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Event;
+use Livewire\Livewire;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class MediaTest extends TestCase
+class DashboardTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,8 +20,8 @@ class MediaTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/' . $event->id . '/edit/media')
+            ->get('/galaxy/events/' . $event->id . '/dashboard')
             ->assertSuccessful()
-            ->assertSeeLivewire('galaxy.events.edit.media');
+            ->assertSeeLivewire('galaxy.events.show.dashboard');
     }
 }

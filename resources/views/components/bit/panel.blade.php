@@ -17,7 +17,7 @@
     </div>
     @endif
     @if($title)
-    <x-bit.panel.heading>{{ $title }}</x-bit.panel.heading>
+    <x-bit.panel.heading class="dark:text-gray-200">{{ $title }}</x-bit.panel.heading>
     @endif
 
     @if($collapsable)

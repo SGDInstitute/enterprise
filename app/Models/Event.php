@@ -37,4 +37,9 @@ class Event extends Model implements HasMedia
             return 'CST';
         }
     }
+
+    public function ticketTypes()
+    {
+        return $this->hasMany(TicketType::class);
+    }
 }
