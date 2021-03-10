@@ -36,10 +36,10 @@ class Edit extends Component
             ];
         } else {
             return [
-                ['value' => 'details', 'label' => 'Details', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'details']), 'icon' => 'heroicon-o-paper-clip', 'active' => $this->page === 'details'],
-                ['value' => 'media', 'label' => 'Media', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'media']), 'icon' => 'heroicon-o-camera', 'active' => $this->page === 'media'],
-                ['value' => 'tickets', 'label' => 'Ticket Types', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'tickets']), 'icon' => 'heroicon-o-ticket', 'active' => $this->page === 'tickets'],
-                ['value' => 'settings', 'label' => 'Settings', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'settings']), 'icon' => 'heroicon-o-cog', 'active' => $this->page === 'settings'],
+                ['value' => 'details', 'label' => 'Details', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'details']), 'icon' => 'heroicon-o-paper-clip', 'active' => $this->page === 'details'],
+                ['value' => 'media', 'label' => 'Media', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'media']), 'icon' => 'heroicon-o-camera', 'active' => $this->page === 'media'],
+                ['value' => 'tickets', 'label' => 'Ticket Types', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'tickets']), 'icon' => 'heroicon-o-ticket', 'active' => $this->page === 'tickets'],
+                ['value' => 'settings', 'label' => 'Settings', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'settings']), 'icon' => 'heroicon-o-cog', 'active' => $this->page === 'settings'],
             ];
         }
     }

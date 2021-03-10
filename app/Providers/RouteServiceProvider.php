@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::prefix('galaxy')
-                ->middleware(['web', 'auth'])
+                ->middleware(['web', 'auth', 'can:galaxy.view'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/galaxy.php'));
 

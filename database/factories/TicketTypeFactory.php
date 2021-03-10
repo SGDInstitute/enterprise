@@ -12,7 +12,11 @@ class TicketTypeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => 'Reg Reg',
+            'type' => 'reg',
+            'start' => now(),
+            'end' => now(),
+            'cost' => 500,
         ];
     }
 }

@@ -73,7 +73,7 @@ class Create extends Component
         $this->event->end = Carbon::parse($this->event->end->format('Y-m-d H:i'), $this->event->timezone)->timezone('UTC');
         $this->event->save();
 
-        return redirect()->route('galaxy.events.show', $this->event);
+        return redirect()->route('galaxy.events.edit', $this->event);
     }
 
     public function setUpPreset($preset)

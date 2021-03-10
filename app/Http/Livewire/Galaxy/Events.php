@@ -28,8 +28,8 @@ class Events extends Component
 
     public function getRowsProperty()
     {
-        return Event::
-            when($this->filters['search'], function ($query) {
+        return Event::query()
+            ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
                     $query->where('name', 'like', '%' . trim($this->filters['search']) . '%');
                 });

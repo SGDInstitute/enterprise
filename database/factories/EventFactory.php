@@ -49,6 +49,36 @@ class EventFactory extends Factory
                     ],
                 ];
             });
+        } elseif($type === 'tjt') {
+            return $this->state(function (array $attributes) {
+                $start = new Carbon('first Thursday of November');
+                return [
+                    'name' => 'Transgender Justice Teach-in',
+                    'start' => $start->addHours(17)->format('m/d/Y h:i A'),
+                    'end' => $start->subHours(19)->format('m/d/Y h:i A'),
+                    'timezone' => 'America/Chicago',
+                    'order_prefix' => 'TJT',
+                    'description' => 'TJT is for...',
+                    'settings' => [
+                        'reservations' => false,
+                        'volunteer_discounts' => false,
+                        'presenter_discounts' => false,
+                        'demographics' => true,
+                        'add_ons' => false,
+                        'bulk' => true,
+                        'invoices' => true,
+                        'check_payment' => false,
+                        'onsite' => false,
+                        'livestream' => true,
+                        'has_workshops' => false,
+                        'has_volunteers' => false,
+                        'has_sponsorship' => false,
+                        'has_vendors' => false,
+                        'has_ads' => false,
+                        'allow_donations' => true,
+                    ],
+                ];
+            });
         }
     }
 }

@@ -6,58 +6,104 @@ use App\Models\Event;
 use Livewire\Component;
 use App\Models\TicketType;
 use Illuminate\Support\Str;
+use Livewire\WithPagination;
+use Illuminate\Support\Carbon;
+use App\Http\Livewire\Traits\WithSorting;
+use App\Http\Livewire\Traits\WithFiltering;
 
 class Tickets extends Component
 {
+    use WithSorting, WithFiltering, WithPagination;
+
+    protected $listeners = ['sync' => '$refresh'];
+
     public Event $event;
-    public $ticketTypes;
-    public $formChanged = false;
+
+    public $filters =  [
+        'search' => '',
+    ];
 
     public $rules = [
-        'ticketTypes.*.type' => '',
-        'ticketTypes.*.name' => '',
-        'ticketTypes.*.description' => '',
-        'ticketTypes.*.cost' => '',
-        'ticketTypes.*.num_tickets' => '',
-        'ticketTypes.*.start' => '',
-        'ticketTypes.*.end' => '',
+        'editing.type' => '',
+        'editing.name' => '',
+        'editing.description' => '',
+        'editing.num_tickets' => '',
+        'costInDollars' => '',
+        'formattedStart' => '',
+        'formattedEnd' => '',
     ];
+
+    public $editing;
+    public $costInDollars;
+    public $formattedStart;
+    public $formattedEnd;
+    public $formChanged = false;
+    public $perPage = 10;
+    public $showModal = false;
 
     public function mount()
     {
-        $this->ticketTypes = $this->event->ticketTypes;
-    }
-
-    public function updating($field)
-    {
-        if(Str::startsWith($field, 'ticketTypes')) {
-            $this->formChanged = true;
-        }
+        $this->editing = TicketType::make(['event_id' => $this->event->id]);
     }
 
     public function render()
     {
-        return view('livewire.galaxy.events.edit.tickets');
+        return view('livewire.galaxy.events.edit.tickets')
+            ->with([
+                'ticketTypes' => $this->rows
+            ]);
     }
 
-    public function add()
+    public function getRowsProperty()
     {
-        $this->ticketTypes[] = new TicketType(['event_id' => $this->event->id, 'name' => 'New Ticket Type']);
-        $this->formChanged = true;
+        return TicketType::query()
+            ->when($this->filters['search'], function ($query) {
+                $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . trim($this->filters['search']) . '%');
+                });
+            })
+            ->where('event_id', $this->event->id)
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
     }
 
-    public function remove($index)
+    public function remove($id)
     {
-        $this->ticketTypes->forget($index);
-        $this->formChanged = true;
+        $tt = $this->rows->find($id);
+        $tt->delete();
+
+        $this->emit('sync');
+        $this->emit('notify', ['message' => 'Successfully deleted ticket type.', 'type' => 'success']);
     }
 
     public function save()
     {
-        $this->ticketTypes->each(function($type) {
-            $type->event_id = $this->event->id;
-            $type->save();
-        });
-        $this->formChanged = false;
+        $this->validate();
+
+        $this->editing->event_id = $this->event->id;
+        $this->editing->cost = $this->costInDollars * 100;
+        $this->editing->start = Carbon::parse($this->formattedStart, $this->event->timezone)->timezone('UTC');
+        $this->editing->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
+
+        $this->editing->save();
+        $this->showModal = false;
+        $this->emit('notify', ['message' => 'Successfully saved ticket type.', 'type' => 'success']);
+    }
+
+    public function showCreateModal()
+    {
+        if($this->editing->id) {
+            $this->editing = TicketType::make(['event_id' => $this->event->id]);
+        }
+        $this->showModal = true;
+    }
+
+    public function showEditModal($id)
+    {
+        $this->editing = $this->rows->find($id);
+        $this->costInDollars = $this->editing->costInDollars;
+        $this->formattedStart = $this->editing->formattedStart;
+        $this->formattedEnd = $this->editing->formattedEnd;
+        $this->showModal = true;
     }
 }

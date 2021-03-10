@@ -12,7 +12,7 @@ class Media extends Component
 
     public Event $event;
 
-    public $mediaComponentNames = ['icon'];
+    public $mediaComponentNames = ['background', 'logo'];
 
     public $icon;
 
@@ -20,21 +20,32 @@ class Media extends Component
     {
         return view('livewire.galaxy.events.edit.media')
             ->with([
-                'iconSrc' => $this->iconSrc,
+                'backgroundSrc' => $this->backgroundSrc,
+                'logoSrc' => $this->logoSrc,
             ]);
     }
 
-    public function getIconSrcProperty()
+    public function getBackgroundSrcProperty()
     {
-        if($this->icon !== null) {
-            return array_values($this->icon)[0]['previewUrl'];
+        if($this->background !== null) {
+            return array_values($this->background)[0]['previewUrl'];
         }
 
-        return $this->event->getFirstMediaUrl('icon');
+        return $this->event->getFirstMediaUrl('background');
+    }
+
+    public function getLogoSrcProperty()
+    {
+        if($this->logo !== null) {
+            return array_values($this->logo)[0]['previewUrl'];
+        }
+
+        return $this->event->getFirstMediaUrl('logo');
     }
 
     public function save()
     {
-        $this->event->syncFromMediaLibraryRequest($this->icon)->toMediaCollection('icon');
+        $this->event->syncFromMediaLibraryRequest($this->background)->toMediaCollection('background');
+        $this->event->syncFromMediaLibraryRequest($this->logo)->toMediaCollection('logo');
     }
 }
