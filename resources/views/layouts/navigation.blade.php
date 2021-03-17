@@ -18,9 +18,10 @@
                 </div>
             </div>
 
+            @auth
             <!-- Settings Dropdown -->
             <x-auth.user-settings />
-
+            @endauth
             <!-- Hamburger -->
             <div class="flex items-center -mr-2 sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
@@ -43,6 +44,7 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
+            @auth
             <div class="flex items-center px-4">
                 <div class="flex-shrink-0">
                     <svg class="w-10 h-10 text-gray-400 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,6 +57,7 @@
                     <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
             </div>
+            @endAuth
 
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
