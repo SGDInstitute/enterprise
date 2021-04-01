@@ -6,23 +6,25 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=News+Cycle:wght@400;700&amp;family=Raleway:wght@700&amp;display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <livewire:styles />
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <livewire:scripts />
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+        <script src="https://js.stripe.com/v3/"></script>
     </head>
-    <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
-        <div class="min-h-screen">
-            @include('layouts.app.nav')
+    <body class="font-sans antialiased dark:bg-gray-800">
+        @include('layouts.app.nav')
 
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+        <main>
+            {{ $slot }}
+        </main>
+
+
     </body>
 </html>

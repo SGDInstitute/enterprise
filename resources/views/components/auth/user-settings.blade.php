@@ -1,7 +1,7 @@
 <div class="hidden sm:flex sm:items-center sm:ml-6">
     <x-dropdown align="right" width="48">
         <x-slot name="trigger">
-            <button class="flex items-center text-sm font-medium text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300">
+            <button class="flex items-center text-sm font-medium text-gray-500 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300">
                 <div>{{ Auth::user()->name }}</div>
 
                 <div class="ml-1">

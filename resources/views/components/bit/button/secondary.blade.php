@@ -1,4 +1,3 @@
-<x-bit.button
-    class="text-gray-700 border-gray-300 active:bg-gray-100 active:text-gray-800 hover:text-gray-500 dark:hover:text-gray-200" {{ $attributes }}>
+<x-bit.button color="text-gray-600 dark:text-gray-400 border-gray-600 dark:border-gray-400 hover:bg-gray-600 dark:hover:bg-gray-400 hover:text-white" {{ $attributes }}>
     {{ $slot }}
 </x-bit.button>

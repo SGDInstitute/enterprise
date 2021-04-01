@@ -12,9 +12,10 @@ class Media extends Component
 
     public Event $event;
 
-    public $mediaComponentNames = ['background', 'logo'];
+    public $background;
+    public $logo;
 
-    public $icon;
+    public $mediaComponentNames = ['background', 'logo'];
 
     public function render()
     {

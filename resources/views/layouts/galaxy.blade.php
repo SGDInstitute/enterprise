@@ -9,13 +9,15 @@
     <title>{{ $title }} | {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@1.2.3/dist/trix.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <livewire:styles />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @stack('styles')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://unpkg.com/trix@1.2.3/dist/trix.js" defer></script>
     <livewire:scripts />
     @stack('scripts')
 </head>

@@ -37,7 +37,7 @@
                     </a>
                 @endif
 
-                <x-bit.button.primary class="ml-3">
+                <x-bit.button.primary type="submit" class="ml-3">
                     {{ __('Login') }}
                 </x-bit.button.primary>
             </div>

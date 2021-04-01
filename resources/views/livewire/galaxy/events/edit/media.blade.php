@@ -1,7 +1,7 @@
 <div>
     <div class="grid grid-cols-3 gap-4">
         <div>
-            <livewire:bit.event :event="$event" :logo="$logoSrc" :background="$backgroundSrc" />
+            <x-bit.event :event="$event" :logo="$logoSrc" :background="$backgroundSrc" />
         </div>
         <div class="col-span-2">
             <x-bit.panel>

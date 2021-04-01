@@ -3,5 +3,6 @@
 
 @import "vendor/medialibrary.css";
 @import "components/medialibrary.css";
+@import "components/trix.css";
 
 @import 'tailwindcss/utilities';

@@ -14,6 +14,7 @@ class Details extends Component
     public Event $event;
     public $formattedEnd;
     public $formattedStart;
+    public $tabs = [];
     public $formChanged = false;
 
     public $rules = [
@@ -24,7 +25,9 @@ class Details extends Component
         'event.location' => '',
         'event.order_prefix' => '',
         'event.description' => 'required',
+        'tabs' => ''
     ];
+
 
     public function mount()
     {
