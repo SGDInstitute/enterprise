@@ -11,6 +11,7 @@ class CreateTicketTypesTable extends Migration
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained('events');
+            $table->string('product_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('type');

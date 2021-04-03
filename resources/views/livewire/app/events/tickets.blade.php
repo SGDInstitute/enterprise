@@ -30,16 +30,58 @@
             <x-bit.button.secondary-filled size="large" class="-ml-px">
                 <x-heroicon-o-information-circle class="w-7 h-7" />
                 <span class="sr-only">Information about Reserving tickets</span>
-            </x-bit.button.secondary>
+                </x-bit.button.secondary>
         </div>
         @endif
 
         <div class="flex">
-            <x-bit.button.primary class="justify-center flex-1 border-r-0" size="large">Pay with Card</x-bit.button.primary>
+
+            <x-bit.button.primary wire:click="$toggle('showPayment')" class="justify-center flex-1 border-r-0" size="large">Pay with Card</x-bit.button.primary>
             <x-bit.button.primary-filled size="large" class="-ml-px">
                 <x-heroicon-o-information-circle class="w-7 h-7" />
                 <span class="sr-only">Information about Paying with a credit card</span>
             </x-bit.button.primary-filled>
         </div>
     </div>
+
+    @if($showPayment)
+    <div class="mt-4 space-y-4">
+        <x-bit.input.text class="w-full" id="card-holder-name" type="text" :value="auth()->user()->name" />
+
+        <!-- Stripe Elements Placeholder -->
+        <div id="card-element"></div>
+
+        <x-bit.button.primary id="card-button">Process Payment</x-bit.button.primary>
+
+
+        <script>
+            const stripe = Stripe('pk_test_OiojD3YZKx4LkcPWs8bwA5TN');
+
+            const elements = stripe.elements();
+            const cardElement = elements.create('card');
+
+            cardElement.mount('#card-element');
+
+            const cardHolderName = document.getElementById('card-holder-name');
+            const cardButton = document.getElementById('card-button');
+
+            cardButton.addEventListener('click', async (e) => {
+                console.log('clicked card button');
+                const {paymentMethod, error} = await stripe.createPaymentMethod(
+                    'card', cardElement, {
+                        billing_details: {
+                            name: cardHolderName.value
+                        }
+                    }
+                );
+
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(paymentMethod);
+                }
+            });
+        </script>
+    </div>
+    @endif
 </div>

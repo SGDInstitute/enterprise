@@ -12,3 +12,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::get('/billing-portal', function () {
+        return request()->user()->redirectToBillingPortal();
+    });
+});

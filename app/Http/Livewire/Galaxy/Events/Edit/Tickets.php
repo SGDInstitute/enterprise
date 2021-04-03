@@ -81,9 +81,32 @@ class Tickets extends Component
         $this->validate();
 
         $this->editing->event_id = $this->event->id;
-        $this->editing->cost = $this->costInDollars * 100;
         $this->editing->start = Carbon::parse($this->formattedStart, $this->event->timezone)->timezone('UTC');
         $this->editing->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
+        $cost = $this->costInDollars * 100;
+
+        // if existing ticket type, and existing stripe product, and price has changed => update price in stripe
+        if($this->editing->id && $this->editing->product_id !== null && $cost !== $this->editing->cost) {
+            $stripe = new \Stripe\StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
+            $price = $stripe->prices->all(['product' => $this->editing->product_id])->first();
+
+        }
+        $this->editing->cost = $cost;
+
+        if($this->editing->product_id === null) {
+            $stripe = new \Stripe\StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
+            $name = "{$this->event->name} {$this->editing->name}";
+
+            $price = $stripe->prices->create([
+                'unit_amount' => $this->editing->cost,
+                'currency' => 'usd',
+                'product_data' => [
+                    'name' => $name,
+                    'metadata' => ['event' => $this->event->id]
+                ]
+            ]);
+            $this->editing->product_id = $price->product;
+        }
 
         $this->editing->save();
         $this->showModal = false;

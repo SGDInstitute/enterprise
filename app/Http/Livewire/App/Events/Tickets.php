@@ -10,6 +10,7 @@ class Tickets extends Component
 
     public Event $event;
     public $tickets;
+    public $showPayment = false;
 
     protected $rules = [
         'tickets.*.amount' => 'required',
