@@ -25,9 +25,9 @@
             </x-bit.input.group>
 
             <div class="flex items-center justify-end mt-4">
-                <x-bit.button.primary>
+                <x-bit.button.flat.primary>
                     {{ __('Email Password Reset Link') }}
-                </x-bit.button.primary>
+                </x-bit.button.flat.primary>
             </div>
         </form>
     </x-auth.card>

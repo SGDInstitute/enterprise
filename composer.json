@@ -21,7 +21,8 @@
         "spatie/laravel-medialibrary-pro": "^1.12",
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-ray": "^1.12",
-        "spatie/laravel-schemaless-attributes": "^1.8"
+        "spatie/laravel-schemaless-attributes": "^1.8",
+        "spatie/laravel-sluggable": "^2.6"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

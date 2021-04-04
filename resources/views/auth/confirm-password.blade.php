@@ -22,9 +22,9 @@
             </x-bit.input.group>
 
             <div class="flex justify-end mt-4">
-                <x-bit.button.primary>
+                <x-bit.button.flat.primary>
                     {{ __('Confirm') }}
-                </x-bit.button.primary>
+                </x-bit.button.flat.primary>
             </div>
         </form>
     </x-auth.card>

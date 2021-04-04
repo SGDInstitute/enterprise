@@ -8,15 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Event extends Model implements HasMedia
 {
-    use HasFactory, HasSettings, InteractsWithMedia;
+    use HasFactory, HasSettings, InteractsWithMedia, HasSlug;
 
     protected $guarded = [];
 
     public $casts = ['settings' => 'array'];
     public $dates = ['start', 'end'];
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 
     public function getFormattedEndAttribute()
     {
@@ -41,5 +50,10 @@ class Event extends Model implements HasMedia
     public function ticketTypes()
     {
         return $this->hasMany(TicketType::class);
+    }
+
+    public function workshopForm()
+    {
+        return $this->hasOne(Form::class)->where('type', 'workshop')->where('event_id', $this->id);
     }
 }

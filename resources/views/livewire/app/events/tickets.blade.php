@@ -26,21 +26,21 @@
 
         @if($event->settings->reservations)
         <div class="flex">
-            <x-bit.button.secondary class="justify-center flex-1 border-r-0" size="large">Reserve & Pay Later</x-bit.button.secondary>
-            <x-bit.button.secondary-filled size="large" class="-ml-px">
+            <x-bit.button.flat.secondary class="justify-center flex-1 border-r-0" size="large">Reserve & Pay Later</x-bit.button.flat.secondary>
+            <x-bit.button.flat.secondary-filled size="large" class="-ml-px">
                 <x-heroicon-o-information-circle class="w-7 h-7" />
                 <span class="sr-only">Information about Reserving tickets</span>
-                </x-bit.button.secondary>
+                </x-bit.button.flat.secondary>
         </div>
         @endif
 
         <div class="flex">
 
-            <x-bit.button.primary wire:click="$toggle('showPayment')" class="justify-center flex-1 border-r-0" size="large">Pay with Card</x-bit.button.primary>
-            <x-bit.button.primary-filled size="large" class="-ml-px">
+            <x-bit.button.flat.primary wire:click="$toggle('showPayment')" class="justify-center flex-1 border-r-0" size="large">Pay with Card</x-bit.button.flat.primary>
+            <x-bit.button.flat.primary-filled size="large" class="-ml-px">
                 <x-heroicon-o-information-circle class="w-7 h-7" />
                 <span class="sr-only">Information about Paying with a credit card</span>
-            </x-bit.button.primary-filled>
+            </x-bit.button.flat.primary-filled>
         </div>
     </div>
 
@@ -51,7 +51,7 @@
         <!-- Stripe Elements Placeholder -->
         <div id="card-element"></div>
 
-        <x-bit.button.primary id="card-button">Process Payment</x-bit.button.primary>
+        <x-bit.button.flat.primary id="card-button">Process Payment</x-bit.button.flat.primary>
 
 
         <script>

@@ -37,9 +37,9 @@
                     </a>
                 @endif
 
-                <x-bit.button.primary type="submit" class="ml-3">
+                <x-bit.button.flat.primary type="submit" class="ml-3">
                     {{ __('Login') }}
-                </x-bit.button.primary>
+                </x-bit.button.flat.primary>
             </div>
         </form>
     </x-auth.card>

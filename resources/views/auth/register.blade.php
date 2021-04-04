@@ -42,9 +42,9 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-bit.button.primary class="ml-4">
+                <x-bit.button.flat.primary class="ml-4">
                     {{ __('Register') }}
-                </x-bit.button.primary>
+                </x-bit.button.flat.primary>
             </div>
         </form>
     </x-auth.card>

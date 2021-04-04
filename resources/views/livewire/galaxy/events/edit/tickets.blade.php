@@ -8,9 +8,9 @@
             </div>
             <div class="flex items-end mt-4 space-x-4 md:mt-0">
                 <x-bit.data-table.per-page />
-                <x-bit.button.secondary wire:click="showCreateModal" class="flex items-center space-x-2">
+                <x-bit.button.round.secondary wire:click="showCreateModal" class="flex items-center space-x-2">
                     <x-heroicon-o-plus class="w-4 h-4 text-gray-400 dark:text-gray-300" /> <span>Create</span>
-                </x-bit.button.secondary>
+                </x-bit.button.round.secondary>
             </div>
         </div>
 
@@ -23,10 +23,10 @@
                 <x-bit.table.heading sortable wire:click="sortBy('end')" :direction="$sortField === 'end' ? $sortDirection : null">End</x-bit.table.heading>
                 <x-bit.table.heading class="flex space-x-1">
                     <x-bit.button.link size="py-1 px-2">
-                        <x-heroicon-o-pencil class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                        <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
                     </x-bit.button.link>
                     <x-bit.button.link size="py-1 px-2">
-                        <x-heroicon-o-trash class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                        <x-heroicon-o-trash class="w-4 h-4 text-green-500 dark:text-green-400" />
                     </x-bit.button.link>
                 </x-bit.table.heading>
             </x-slot>
@@ -34,17 +34,17 @@
             <x-slot name="body">
                 @forelse($ticketTypes as $ticketType)
                 <x-bit.table.row wire:key="row-{{ $ticketType->id }}">
-                    <x-bit.table.cell><div class="w-64 truncate">{{ $ticketType->name }}</div></x-bit.table.cell>
+                    <x-bit.table.cell>{{ $ticketType->name }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $ticketType->type }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $ticketType->formattedCost }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $ticketType->formattedStart }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $ticketType->formattedEnd }}</x-bit.table.cell>
                     <x-bit.table.cell class="flex space-x-1">
                         <x-bit.button.link size="py-1 px-2" wire:click="showEditModal({{ $ticketType->id }})">
-                            <x-heroicon-o-pencil class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                            <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                         <x-bit.button.link size="py-1 px-2" wire:click="remove({{ $ticketType->id }})">
-                            <x-heroicon-o-trash class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                            <x-heroicon-o-trash class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                     </x-bit.table.cell>
 
@@ -102,8 +102,8 @@
             </x-slot>
 
             <x-slot name="footer">
-                <x-bit.button.secondary wire:click="$set('showModal', false)">Close</x-bit.button.secondary>
-                <x-bit.button.primary type="submit">Save</x-bit.button.primary>
+                <x-bit.button.flat.secondary wire:click="$set('showModal', false)">Close</x-bit.button.flat.secondary>
+                <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
             </x-slot>
         </x-bit.modal.dialog>
     </form>

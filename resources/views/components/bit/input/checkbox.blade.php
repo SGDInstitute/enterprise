@@ -6,7 +6,7 @@
 @if($label)
 <div class="relative flex items-start">
     <div class="flex items-center h-5">
-        <input {{ $attributes }} type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <input {{ $attributes }} type="checkbox" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
     </div>
     <div class="ml-3 text-sm">
         <label for="{{ $attributes->get('id') }}" class="font-medium text-gray-700 dark:text-gray-200">{{ $label }}</label>

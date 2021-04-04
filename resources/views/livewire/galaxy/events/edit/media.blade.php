@@ -8,7 +8,7 @@
                 <x-bit.panel.heading class="flex items-center justify-between">
                     <h2 class="text-lg font-bold leading-6 text-gray-900 dark:text-gray-200">Media</h2>
                     <div>
-                        <x-bit.button.primary type="button" wire:click="save">Save</x-bit.button.primary>
+                        <x-bit.button.round.primary type="button" wire:click="save">Save</x-bit.button.round.primary>
                     </div>
                 </x-bit.panel.heading>
                 <x-bit.panel.body>

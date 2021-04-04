@@ -18,6 +18,10 @@
     <livewire:galaxy.events.edit.addons :event="$event" />
     @break
 
+    @case('workshops')
+    <livewire:galaxy.events.edit.workshop-form :event="$event" />
+    @break
+
     @case('settings')
     <livewire:galaxy.events.edit.settings :event="$event" />
     @break
