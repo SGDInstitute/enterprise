@@ -112,7 +112,14 @@ class WorkshopForm extends Component
 
         $this->workshopForm->start = Carbon::parse($this->formattedStart, $this->event->timezone)->timezone('UTC');
         $this->workshopForm->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
-        $this->workshopForm->form = $this->form;
+
+        $form = $this->form->toArray();
+        foreach($form as $index => $item) {
+            if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
+                $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+            }
+        }
+        $this->workshopForm->form = $form;
 
         $this->workshopForm->save();
 

@@ -46,7 +46,7 @@
 
                 <x-bit.input.group :for="'question-list-other-'.$index" label="Other">
                     <div class="flex mt-1 space-x-4">
-                        <x-bit.input.checkbox wire:model="form.{{ $index }}.list-other" :id="'question-list-other-'.$index.'-checkbox'" value="checkbox" label="Enable Other Option" />
+                        <x-bit.input.checkbox wire:model="form.{{ $index }}.list-other" :id="'question-list-other-'.$index.'-checkbox'" label="Enable Other Option" />
                     </div>
                     <x-bit.input.help>Turn on if users are allowed to fill in their own option.</x-bit.input.help>
                 </x-bit.input.group>
