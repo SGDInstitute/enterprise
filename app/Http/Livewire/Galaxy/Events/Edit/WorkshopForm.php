@@ -29,7 +29,12 @@ class WorkshopForm extends Component
     public function mount()
     {
         if($this->event->workshopForm === null) {
-            $this->workshopForm = Form::create(['event_id' => $this->event->id, 'type' => 'workshop', 'name' => $this->event->name . ' Workshop Proposal']);
+            $this->workshopForm = Form::create([
+                'event_id' => $this->event->id,
+                'type' => 'workshop',
+                'name' => $this->event->name . ' Workshop Proposal',
+                'timezone' => $this->event->timezone,
+            ]);
             $this->form = [];
         } else {
             $this->workshopForm = $this->event->workshopForm;
@@ -113,13 +118,15 @@ class WorkshopForm extends Component
         $this->workshopForm->start = Carbon::parse($this->formattedStart, $this->event->timezone)->timezone('UTC');
         $this->workshopForm->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
 
-        $form = $this->form->toArray();
-        foreach($form as $index => $item) {
-            if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
-                $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+        if($this->form !== []) {
+            $form = $this->form->toArray();
+            foreach($form as $index => $item) {
+                if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
+                    $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+                }
             }
+            $this->workshopForm->form = $form;
         }
-        $this->workshopForm->form = $form;
 
         $this->workshopForm->save();
 

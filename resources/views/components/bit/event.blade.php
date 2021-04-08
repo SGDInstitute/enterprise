@@ -1,4 +1,4 @@
-<a href="{{ $url }}" class="h-64 transition duration-150 ease-in-out bg-white dark:bg-gray-800 group hover:bg-green-500 hover:shadow">
+<a href="{{ $url }}" class="block h-64 transition duration-150 ease-in-out bg-white dark:bg-gray-800 group hover:bg-green-500 hover:shadow">
     <div class="bg-center bg-cover h-2/3" style="background-image: url({{ $image }});">
         <img src="{{ $image }}" alt="{{ $title }}" class="sr-only">
     </div>

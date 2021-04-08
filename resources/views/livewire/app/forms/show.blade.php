@@ -1,6 +1,5 @@
 <div class="container px-12 py-12 mx-auto prose dark:prose-light">
     <h1>{{ $form->name }}</h1>
-    <p>This form can be saved an returned to later.</p>
 
     <div class="space-y-4">
         @foreach($form->form as $item)
@@ -53,9 +52,10 @@
                 @endif
             @elseif ($item['style'] === 'collaborators')
                 <div>
-                    <strong>Collaborators:</strong>
+                    <p><strong>Collaborators:</strong></p>
                     <x-bit.input.group :for="$item['id']" label="Add the emails of those who will be presenting with you (if any)">
                         <x-bit.input.textarea class="w-full mt-1" :id="$item['id']" wire:model="response.{{ $item['id'] }}" />
+                        <x-bit.input.help>Put each email on a new line or separate with commas.</x-bit.input.help>
                         <x-bit.input.help>They will be added as a collaborator and will be allowed to make changes to this submission.</x-bit.input.help>
                     </x-bit.input.group>
                 </div>
