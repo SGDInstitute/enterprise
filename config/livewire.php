@@ -38,6 +38,7 @@ return [
     | the view returned by SomeComponent will be wrapped in "layouts.app"
     |
     */
+    
     'layout' => 'layouts.app',
 
     /*
@@ -53,7 +54,7 @@ return [
     |
     */
 
-    'asset_url'  => null,
+    'asset_url' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -66,7 +67,7 @@ return [
     |
     */
 
-    'middleware_group'  => 'web',
+    'middleware_group' => 'web',
 
     /*
     |--------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 @props([
-'label',
-'for',
-'error' => false,
-'helpText' => false,
-'inline' => false,
-'paddingless' => false,
-'borderless' => false,
-'srOnly' => false
+    'label',
+    'for',
+    'error' => false,
+    'helpText' => false,
+    'inline' => false,
+    'paddingless' => false,
+    'borderless' => false,
+    'srOnly' => false
 ])
 
 @if(!$inline)
@@ -14,7 +14,7 @@
     @isset($label)
     @isset($for)
     <label for="{{ $for }}" class="{{ $srOnly ? 'sr-only' : 'block font-medium leading-5 text-gray-700 dark:text-gray-200 glacial' }}">{{ $label }}</label>
-    @else
+@else
     <span class="{{ $srOnly ? 'sr-only' : 'block text-sm font-medium leading-5 text-gray-700 dark:text-gray-200 glacial' }}">{{ $label }}</span>
     @endif
     @endif

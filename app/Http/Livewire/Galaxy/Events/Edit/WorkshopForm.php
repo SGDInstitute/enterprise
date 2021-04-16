@@ -14,9 +14,12 @@ class WorkshopForm extends Component
 
     public Event $event;
     public Form $workshopForm;
+
     public $form;
     public $formattedEnd;
     public $formattedStart;
+    public $openIndex = -1;
+    public $showSettings = false;
 
     public $rules = [
         'formattedStart' => 'required',
@@ -38,7 +41,7 @@ class WorkshopForm extends Component
             $this->form = [];
         } else {
             $this->workshopForm = $this->event->workshopForm;
-            $this->form = $this->workshopForm->form ?? [];
+            $this->form = $this->workshopForm->form ?? collect([]);
             $this->formattedStart = $this->workshopForm->formattedStart;
             $this->formattedEnd = $this->workshopForm->formattedEnd;
         }
@@ -48,8 +51,9 @@ class WorkshopForm extends Component
     {
         return view('livewire.galaxy.events.edit.workshop-form')
             ->with([
-                'typeOptions' => $this->typeOptions,
+                'fields' => $this->fields,
                 'timezones' => $this->timezones,
+                'typeOptions' => $this->typeOptions,
             ]);
     }
 
@@ -63,19 +67,38 @@ class WorkshopForm extends Component
         ];
     }
 
+    public function getFieldsProperty()
+    {
+        if(empty($this->form)) {
+            return [];
+        }
+
+        return $this->form->filter(fn($item) => $item['style'] === 'question')->map(fn($question) => $question['id']);
+    }
+
+    public function addCondition()
+    {
+        $question = $this->form[$this->openIndex];
+        $question['conditions'][] = ['field' => '', 'method' => '', 'value' => ''];
+        $this->form[$this->openIndex] = $question;
+    }
+
     public function addContent()
     {
         $this->form[] = ['style' => 'content', 'id' => 'content-', 'content' => ''];
+        $this->openIndex = count($this->form)-1;
     }
 
     public function addCollaborators()
     {
         $this->form[] = ['style' => 'collaborators', 'id' => 'collaborators'];
+        $this->openIndex = count($this->form)-1;
     }
 
     public function addQuestion()
     {
         $this->form[] = ['style' => 'question', 'id' => 'question-', 'question' => '', 'type' => '', 'rules' => ''];
+        $this->openIndex = count($this->form)-1;
     }
 
     public function delete($index)
@@ -111,6 +134,14 @@ class WorkshopForm extends Component
         }
     }
 
+    public function openSettings($index)
+    {
+        if($this->openIndex !== $index) {
+            //whoops;
+        }
+        $this->showSettings = true;
+    }
+
     public function save()
     {
         // validate
@@ -119,7 +150,12 @@ class WorkshopForm extends Component
         $this->workshopForm->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
 
         if($this->form !== []) {
-            $form = $this->form->toArray();
+            if(!is_array($this->form)) {
+                $form = $this->form->toArray();
+            } else {
+                $form = $this->form;
+            }
+
             foreach($form as $index => $item) {
                 if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
                     $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
@@ -131,5 +167,10 @@ class WorkshopForm extends Component
         $this->workshopForm->save();
 
         $this->emit('notify', ['message' => 'Successfully saved workshop form.', 'type' => 'success']);
+    }
+
+    public function setOpenIndex($index)
+    {
+        $this->openIndex = $index;
     }
 }

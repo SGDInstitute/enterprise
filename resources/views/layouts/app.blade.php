@@ -13,18 +13,19 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <livewire:styles />
 
-        <!-- Scripts -->
-        <livewire:scripts />
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
-        <script src="https://js.stripe.com/v3/"></script>
+
     </head>
     <body class="font-sans antialiased dark:bg-gray-800">
         @include('layouts.app.nav')
+        <livewire:notifications />
 
         <main>
             {{ $slot }}
         </main>
 
-
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        <livewire:scripts />
     </body>
 </html>
