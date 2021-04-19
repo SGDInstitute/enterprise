@@ -4,7 +4,11 @@ namespace App\Http\Livewire\App\Forms;
 
 use App\Models\Form;
 use App\Models\Response;
+use App\Models\User;
+use App\Notifications\AddedAsCollaborator;
+use App\Notifications\RemovedAsCollaborator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class Show extends Component
@@ -13,21 +17,36 @@ class Show extends Component
     public Form $form;
     public Response $response;
     public $answers;
-    public $showPreviousResponses = true;
+    public $showPreviousResponses = false;
 
     protected $rules;
 
     public function mount()
     {
-        $this->answers = $this->form->form
-            ->filter(fn($item) => $item['style'] === 'question')
-            ->mapWithKeys(function($question) {
-                if($question['type'] === 'list' && $question['list-style'] === 'checkbox') {
-                    return [$question['id'] => []];
-                }
+        if(request()->query('edit')) {
+            // check if user is authorized to view
+            $this->load(request()->query('edit'));
+        } else {
+            if($this->previousResponses->count() > 0) {
+                $this->showPreviousResponses = true;
+            }
 
-                return [$question['id'] => ''];
-            })->toArray();
+            $this->response = (new Response(['user_id' => auth()->id(), 'form_id' => $this->form->id]));
+
+            $this->answers = $this->form->form
+                ->filter(fn($item) => $item['style'] !== 'content')
+                ->mapWithKeys(function($item) {
+                    if($item['style'] === 'question') {
+                        if($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                            return [$item['id'] => []];
+                        }
+
+                        return [$item['id'] => ''];
+                    } elseif($item['style'] === 'collaborators') {
+                        return [$item['id'] => auth()->user()->email ?? ''];
+                    }
+                })->toArray();
+        }
 
         $this->rules = $this->form->form
             ->filter(fn($item) => $item['style'] === 'question')
@@ -40,13 +59,23 @@ class Show extends Component
     {
         return view('livewire.app.forms.show')
             ->with([
+                'fillable' => $this->fillable,
                 'previousResponses' => $this->previousResponses,
+
             ]);
+    }
+
+    public function getFillableProperty()
+    {
+        return $this->form->auth_required && auth()->check();
     }
 
     public function getPreviousResponsesProperty()
     {
-        return auth()->user()->responses()->where('form_id', $this->form->id)->get();
+        if(auth()->check()) {
+            return auth()->user()->responses()->where('form_id', $this->form->id)->get();
+        }
+        return collect([]);
     }
 
     public function isVisible($item)
@@ -83,27 +112,56 @@ class Show extends Component
         return true;
     }
 
+    public function load($id)
+    {
+        $this->response = $this->previousResponses->find($id);
+        $this->answers = $this->response->answers;
+        $this->emit('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
+        $this->showPreviousResponses = false;
+    }
+
     public function save()
     {
         // validate
 
-        $response = Response::create([
-            'user_id' => auth()->id(),
-            'form_id' => $this->form->id,
-            'answers' => $this->answers,
-        ]);
+        if($this->response->id !== null) {
+            // dd($this->response);
+            $this->response->answers = $this->answers;
+            $this->response->save();
+        } else {
+            $this->response = Response::create([
+                'user_id' => auth()->id(),
+                'type' => $this->form->type,
+                'form_id' => $this->form->id,
+                'answers' => $this->answers,
+            ]);
+        }
 
         // if form has collaborators
-        if(isset($this->answers['collaborators'])) {
-            $emails = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $this->answers['collaborators']));
-            $emails[] = auth()->user()->email;
+        if($this->form->hasCollaborators) {
+            $emails = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $this->answers['collaborators'] ?? auth()->user()->email));
 
             [$users, $invites] = collect($emails)->partition(function ($email) {
                 return DB::table('users')->where('email', $email)->exists();
             });
 
+            $oldCollaborators = $this->response->collaborators->pluck('id');
+
             $ids = DB::table('users')->whereIn('email', $users)->select('id')->get()->pluck('id');
-            $response->collaborators()->attach($ids);
+            $this->response->collaborators()->sync($ids);
+
+            $oldCollaborators->forget($oldCollaborators->search(auth()->id()));
+            $ids->forget($ids->search(auth()->id()));
+
+            if($oldCollaborators->diff($ids)->count() > 0) {
+                $users = User::find($oldCollaborators->diff($ids));
+                Notification::send($users, new RemovedAsCollaborator($this->response));
+            }
+            if($ids->diff($oldCollaborators)->count() > 0) {
+                $users = User::find($ids->diff($oldCollaborators));
+                Notification::send($users, new AddedAsCollaborator($this->response));
+            }
+
 
             // create invites for new users
         }

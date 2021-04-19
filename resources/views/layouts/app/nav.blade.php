@@ -15,9 +15,15 @@
                 </button>
             </div>
             <nav class="hidden space-x-10 md:flex">
+                @guest
                 <a href="/" class="text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
                     Home
                 </a>
+                @else
+                <a href="/dashboard" class="text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
+                    Home
+                </a>
+                @endguest
                 <a href="/events" class="text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
                     Events
                 </a>

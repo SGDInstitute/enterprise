@@ -11,5 +11,5 @@
     wire:ignore
 >
     <input id="x" type="hidden">
-    <trix-editor x-ref="trix" input="x" class="block w-full border-gray-300 rounded-md shadow-sm dark:text-gray-200 dark:bg-gray-800 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"></trix-editor>
+    <trix-editor x-ref="trix" input="x" class="block w-full border-gray-300 rounded-md shadow-sm dark:text-gray-200 dark:bg-gray-800 dark:border-gray-600 focus:ring-green-500 focus:border-green-500"></trix-editor>
 </div>

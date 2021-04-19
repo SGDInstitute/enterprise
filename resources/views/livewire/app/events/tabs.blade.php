@@ -2,7 +2,7 @@
     <div>
         <div class="sm:hidden">
             <label for="tabs" class="sr-only">Select a tab</label>
-            <select id="tabs" wire:model="$active" name="tabs" class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <select id="tabs" wire:model="$active" name="tabs" class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
                 @foreach($options as $option)
                 <option>{{ $option }}</option>
                 @endforeach

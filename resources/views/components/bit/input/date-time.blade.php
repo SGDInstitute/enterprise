@@ -12,7 +12,7 @@
         x-ref="input"
         x-bind:value="value"
         autocomplete="off"
-        class="flex-1 block w-full border-gray-300 rounded-none dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500 rounded-r-md sm:text-sm"
+        class="flex-1 block w-full border-gray-300 rounded-none dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 focus:ring-green-500 focus:border-green-500 rounded-r-md sm:text-sm"
         {{ $attributes->whereDoesntStartWith('wire:model') }}
     />
 </div>

@@ -15,7 +15,7 @@
 <div>
     @if($item['list-style'] === 'dropdown')
     <x-bit.input.group :for="$item['id']" :label="$item['question']">
-        <x-bit.input.select class="w-full mt-1" :id="$item['id']" wire:model="answers.{{ $item['id'] }}">
+        <x-bit.input.select class="w-full mt-1" :id="$item['id']" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable">
             <option value="" disabled>Select Option</option>
             @foreach($options as $key => $label)
             <option value="{{ $key }}">{{ $label }}</option>
@@ -36,10 +36,10 @@
     <x-bit.input.group :for="$item['id']" :label="$item['question']">
         <div class="mt-1 space-y-1">
             @foreach($options as $key => $label)
-            <x-bit.input.checkbox :value="$key" :id="$item['id'].'-'.$key" :label="$label" wire:model="answers.{{ $item['id'] }}" />
+            <x-bit.input.checkbox :value="$key" :id="$item['id'].'-'.$key" :label="$label" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
             @endforeach
             @if(isset($item['list-other']) && $item['list-other'] === true)
-            <x-bit.input.checkbox value="other" label="Other" wire:model="answers.{{ $item['id'] }}" />
+            <x-bit.input.checkbox value="other" label="Other" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
             @endif
         </div>
     </x-bit.input.group>
@@ -54,10 +54,10 @@
     <x-bit.input.group :for="$item['id']" :label="$item['question']">
         <div class="mt-1 space-y-1">
             @foreach($options as $key => $label)
-            <x-bit.input.radio :value="$key" :id="$item['id'].'-'.$key" :label="$label" wire:model="answers.{{ $item['id'] }}" />
+            <x-bit.input.radio :value="$key" :id="$item['id'].'-'.$key" :label="$label" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
             @endforeach
             @if(isset($item['list-other']) && $item['list-other'] === true)
-            <x-bit.input.radio value="other" label="Other" wire:model="answers.{{ $item['id'] }}" />
+            <x-bit.input.radio value="other" label="Other" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
             @endif
         </div>
     </x-bit.input.group>

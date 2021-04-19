@@ -11,7 +11,9 @@
         </div>
     </div>
 
-    <div class="px-6 py-4 text-right bg-gray-100 rounded-b-lg dark:bg-gray-500">
+    @isset($footer)
+    <div class="px-6 py-4 text-right bg-gray-100 rounded-b-lg dark:bg-gray-800">
         {{ $footer }}
     </div>
+    @endisset
 </x-modal>

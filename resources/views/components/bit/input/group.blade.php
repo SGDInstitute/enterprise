@@ -14,7 +14,7 @@
     @isset($label)
     @isset($for)
     <label for="{{ $for }}" class="{{ $srOnly ? 'sr-only' : 'block font-medium leading-5 text-gray-700 dark:text-gray-200 glacial' }}">{{ $label }}</label>
-@else
+    @else
     <span class="{{ $srOnly ? 'sr-only' : 'block text-sm font-medium leading-5 text-gray-700 dark:text-gray-200 glacial' }}">{{ $label }}</span>
     @endif
     @endif
@@ -29,7 +29,7 @@
     @endif
 </div>
 @else
-<div {{ $attributes->merge(['class' => 'sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200' . ($borderless ? '' : ' sm:border-t ') . ($paddingless ? '' : ' sm:py-5') ]) }}">
+<div {{ $attributes->merge(['class' => 'flex space-x-4 sm:items-center sm:border-gray-200' . ($borderless ? '' : ' sm:border-t ') . ($paddingless ? '' : ' sm:py-5') ]) }}">
     @isset($label)
     <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-200 glacial {{ $paddingless ? '' : 'sm:mt-px sm:pt-2' }}">
         {{ $label }}

@@ -1,35 +1,52 @@
 <div>
     <x-bit.form.header :form="$form" />
 
-@json($showPreviousResponses)
-
     <div class="container px-12 pb-12 mx-auto prose dark:prose-light">
-        <form wire:submit.prevent="save" class="space-y-8">
+        @if(!$fillable)
+        <div class="sticky z-50 mb-8 -mx-12 top-20">
+            <div class="px-4 bg-green-100 rounded-md dark:bg-green-800">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <x-heroicon-s-information-circle class="w-8 h-8 text-green-500" />
+                    </div>
+                    <div class="flex-1 ml-3 md:flex md:justify-between">
+                        <p class="text-lg">
+                            You must <a href="/login" class="text-gray-400">Login</a> or <a href="/register" class="text-gray-400">Create an Account</a> before filling out this form.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        <form wire:submit.prevent="submit" class="space-y-8">
             @foreach($form->form as $item)
-                @if($this->isVisible($item))
-                    @include('livewire.app.forms.partials.' . $item['style'])
-                @endif
+            @if($this->isVisible($item))
+            @include('livewire.app.forms.partials.' . $item['style'])
+            @endif
             @endforeach
 
-            <x-bit.button.flat.primary type="submit">Save Proposal</x-bit.button.flat.primary>
+            <x-bit.button.flat.secondary wire:click="save" :disabled="!$fillable">Save for Later</x-bit.button.flat.secondary>
+            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
         </form>
     </div>
 
-    <x-bit.modal.dialog wire:model="showPreviousResponses">
-        <x-slot name="title">Previous Responses</x-slot>
+    <x-bit.modal.dialog wire:model="showPreviousResponses" max-width="sm">
+        <x-slot name="title">Previous Submissions</x-slot>
 
         <x-slot name="content">
-            @foreach($previousResponses as $response)
-            <div class="flex justify-between">
-                {{ $response->id }}
-                <x-bit.button.round.secondary wire:click="laod({{ $response->id }})">Load</x-bit.button.round.secondary>
+            <div class="space-y-2">
+                @foreach($previousResponses as $response)
+                <div class="flex items-center justify-between">
+                    <p class="dark:text-gray-200">{{ $response->name }}</p>
+                    <x-bit.button.flat.primary size="xs" wire:click="load({{ $response->id }})">Load</x-bit.button.flat.primary>
+                </div>
+                @endforeach
             </div>
-            @endforeach
         </x-slot>
 
         <x-slot name="footer">
-            <x-bit.button.flat.secondary wire:click="$set('showPreviousResponses', false)">Close</x-bit.button.flat.secondary>
-            <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
+            <x-bit.button.flat.secondary size="xs" wire:click="$set('showPreviousResponses', false)">Close</x-bit.button.flat.secondary>
         </x-slot>
     </x-bit.modal.dialog>
 </div>

@@ -6,10 +6,10 @@
 @if($label)
 <div class="relative flex items-start">
     <div class="flex items-center h-5">
-        <input {{ $attributes }} type="checkbox" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+        <input {{ $attributes }} type="checkbox" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 {{ $attributes->get('disabled') ? 'opacity-75 cursor-not-allowed' : '' }}">
     </div>
     <div class="ml-3 text-sm">
-        <label for="{{ $attributes->get('id') }}" class="font-medium text-gray-700 dark:text-gray-200">{{ $label }}</label>
+        <label for="{{ $attributes->get('id') }}" class="font-medium text-gray-700 dark:text-gray-200 {{ $attributes->get('disabled') ? 'opacity-75 cursor-not-allowed' : '' }}">{{ $label }}</label>
         @if($help)
         <p class="text-gray-500 dark:text-gray-400">{{ $help }}</p>
         @endif

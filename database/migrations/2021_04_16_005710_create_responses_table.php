@@ -13,7 +13,9 @@ class CreateResponsesTable extends Migration
             $table->foreignId('form_id')->constrained('forms');
             $table->foreignId('user_id')->constrained('users')->nullable();
             $table->string('email')->nullable();
+            $table->string('type');
             $table->json('answers');
+            $table->dateTime('submitted_at')->nullable();
             $table->timestamps();
         });
     }

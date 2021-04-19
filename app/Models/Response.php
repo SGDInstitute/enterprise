@@ -15,6 +15,11 @@ class Response extends Model
         'answers' => 'collection',
     ];
 
+    public function collaborators()
+    {
+        return $this->belongsToMany(User::class, 'collaborators');
+    }
+
     public function form()
     {
         return $this->belongsTo(Form::class);
@@ -25,8 +30,11 @@ class Response extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function collaborators()
+
+    // Attributes
+
+    public function getNameAttribute()
     {
-        return $this->belongsToMany(User::class, 'collaborators');
+        return $this->answers['question-name'] ?? $this->answers['name'];
     }
 }

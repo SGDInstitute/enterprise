@@ -9,13 +9,10 @@ class CreateCollaboratorsTable extends Migration
     public function up()
     {
         Schema::create('collaborators', function (Blueprint $table) {
-            $table->integer('response_id')->unsigned()->index();
-            $table->foreign('response_id')->references('id')->on('responses')->onDelete('cascade');
+            $table->foreignId('response_id')->constrained('responses');
+            $table->foreignId('user_id')->constrained('users');
 
-            $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->primary(['user_id', 'role_id']);
+            $table->primary(['response_id', 'user_id']);
         });
     }
 }

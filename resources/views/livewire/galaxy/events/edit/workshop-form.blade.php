@@ -53,7 +53,7 @@
                                         Settings for: {{ $form[$openIndex]['question'] ?? 'Question' }}
                                     </h2>
                                     <div class="flex items-center ml-3 h-7">
-                                        <button @click="open = false" class="text-gray-400 bg-white rounded-md dark:bg-gray-800 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        <button @click="open = false" class="text-gray-400 bg-white rounded-md dark:bg-gray-800 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                                             <span class="sr-only">Close panel</span>
                                             <!-- Heroicon name: outline/x -->
                                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

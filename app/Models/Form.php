@@ -44,6 +44,11 @@ class Form extends Model
         return $this->start->timezone($this->timezone)->format('m/d/Y g:i A');
     }
 
+    public function getHasCollaboratorsAttribute()
+    {
+        return $this->form->contains('style', 'collaborators');
+    }
+
     public function event()
     {
         return $this->belongsTo(Event::class);

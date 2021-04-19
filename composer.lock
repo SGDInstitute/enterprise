@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbb8b4a773087c3776fc8e3a9f114509",
+    "content-hash": "3018e10dc91c108e4e0da95a29d7b8b4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7049,6 +7049,67 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "beyondcode/helo-laravel",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/helo-laravel.git",
+                "reference": "12ac15b592b0529e04fe9c9c5141ef860e9a8ed9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/helo-laravel/zipball/12ac15b592b0529e04fe9c9c5141ef860e9a8ed9",
+                "reference": "12ac15b592b0529e04fe9c9c5141ef860e9a8ed9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^6.0|^7.0|^8.0",
+                "illuminate/mail": "^6.0|^7.0|^8.0",
+                "illuminate/view": "^6.0|^7.0|^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.1|^6.3",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\HeloLaravel\\HeloLaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\HeloLaravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "HELO Laravel debug helper",
+            "homepage": "https://github.com/beyondcode/helo-laravel",
+            "keywords": [
+                "HELO",
+                "beyondcode"
+            ],
+            "support": {
+                "issues": "https://github.com/beyondcode/helo-laravel/issues",
+                "source": "https://github.com/beyondcode/helo-laravel/tree/1.2.0"
+            },
+            "time": "2021-03-30T08:58:13+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.4.0",

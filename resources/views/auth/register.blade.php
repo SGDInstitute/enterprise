@@ -13,17 +13,17 @@
             @csrf
 
             <!-- Name -->
-            <x-bit.input.group for="name" :label="__('Name')">
+            <x-bit.input.group for="name" :label="__('Name')"  :error="$errors->first('name')">
                 <x-bit.input.text id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')" required autofocus />
             </x-bit.input.group>
 
             <!-- Email Address -->
-            <x-bit.input.group for="email" :label="__('Email')" class="mt-4">
+            <x-bit.input.group for="email" :label="__('Email')" class="mt-4"  :error="$errors->first('email')">
                 <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required />
             </x-bit.input.group>
 
             <!-- Password -->
-            <x-bit.input.group for="password" :label="__('Password')" class="mt-4">
+            <x-bit.input.group for="password" :label="__('Password')" :error="$errors->first('password')" class="mt-4">
                 <x-bit.input.text id="password" class="block w-full mt-1"
                                 type="password"
                                 name="password"
@@ -31,7 +31,7 @@
             </x-bit.input.group>
 
             <!-- Confirm Password -->
-            <x-bit.input.group for="password_confirmation" :label="__('Confirm Password')" class="mt-4">
+            <x-bit.input.group for="password_confirmation" :label="__('Confirm Password')" :error="$errors->first('password_confirmation')" class="mt-4">
                 <x-bit.input.text id="password_confirmation" class="block w-full mt-1"
                                 type="password"
                                 name="password_confirmation" required />
@@ -42,7 +42,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-bit.button.flat.primary class="ml-4">
+                <x-bit.button.flat.primary type="submit" class="ml-4">
                     {{ __('Register') }}
                 </x-bit.button.flat.primary>
             </div>
