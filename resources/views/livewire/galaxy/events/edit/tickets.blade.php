@@ -102,8 +102,8 @@
             </x-slot>
 
             <x-slot name="footer">
-                <x-bit.button.flat.secondary wire:click="$set('showModal', false)">Close</x-bit.button.flat.secondary>
-                <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
+                <x-bit.button.round.secondary wire:click="$set('showModal', false)">Close</x-bit.button.round.secondary>
+                <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
             </x-slot>
         </x-bit.modal.dialog>
     </form>

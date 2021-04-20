@@ -26,6 +26,15 @@ class Form extends Model
             ->saveSlugsTo('slug');
     }
 
+    // Relations
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    // Attributes
+
     public function getFormattedEndAttribute()
     {
         if($this->timezone === null || $this->end === null) {
@@ -49,8 +58,12 @@ class Form extends Model
         return $this->form->contains('style', 'collaborators');
     }
 
-    public function event()
+    public function getRulesAttribute()
     {
-        return $this->belongsTo(Event::class);
+        return $this->form
+            ->filter(fn($item) => $item['style'] === 'question')
+            ->mapWithKeys(function($question) {
+                return ['answers.'.$question['id'] => $question['rules']];
+            })->toArray();
     }
 }

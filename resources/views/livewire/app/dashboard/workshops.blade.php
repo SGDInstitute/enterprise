@@ -25,7 +25,7 @@
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}">
                     <x-bit.table.cell>{{ $workshop->form->name }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $workshop->answers['question-name'] ?? $workshop->answers['name']  }}</x-bit.table.cell>
-                    <x-bit.table.cell>Status</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $workshop->status }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $workshop->created_at->format('M, d Y') }}</x-bit.table.cell>
 
                     <x-bit.table.cell>

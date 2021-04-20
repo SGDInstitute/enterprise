@@ -15,7 +15,7 @@ class CreateResponsesTable extends Migration
             $table->string('email')->nullable();
             $table->string('type');
             $table->json('answers');
-            $table->dateTime('submitted_at')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

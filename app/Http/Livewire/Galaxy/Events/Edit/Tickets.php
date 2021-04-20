@@ -15,7 +15,7 @@ class Tickets extends Component
 {
     use WithSorting, WithFiltering, WithPagination;
 
-    protected $listeners = ['sync' => '$refresh'];
+    protected $listeners = ['refresh' => '$refresh'];
 
     public Event $event;
 
@@ -72,7 +72,7 @@ class Tickets extends Component
         $tt = $this->rows->find($id);
         $tt->delete();
 
-        $this->emit('sync');
+        $this->emit('refresh');
         $this->emit('notify', ['message' => 'Successfully deleted ticket type.', 'type' => 'success']);
     }
 
@@ -89,8 +89,8 @@ class Tickets extends Component
         if($this->editing->id && $this->editing->product_id !== null && $cost !== $this->editing->cost) {
             $stripe = new \Stripe\StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
             $price = $stripe->prices->all(['product' => $this->editing->product_id])->first();
-
         }
+
         $this->editing->cost = $cost;
 
         if($this->editing->product_id === null) {

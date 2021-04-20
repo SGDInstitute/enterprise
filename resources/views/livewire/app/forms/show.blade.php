@@ -1,34 +1,42 @@
-<div>
+<div class="relative">
     <x-bit.form.header :form="$form" />
 
-    <div class="container px-12 pb-12 mx-auto prose dark:prose-light">
+    <div class="container px-12 pb-12 mx-auto {{ auth()->guest() ? 'prose dark:prose-light' : '' }}">
         @if(!$fillable)
-        <div class="sticky z-50 mb-8 -mx-12 top-20">
-            <div class="px-4 bg-green-100 rounded-md dark:bg-green-800">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <x-heroicon-s-information-circle class="w-8 h-8 text-green-500" />
-                    </div>
-                    <div class="flex-1 ml-3 md:flex md:justify-between">
-                        <p class="text-lg">
-                            You must <a href="/login" class="text-gray-400">Login</a> or <a href="/register" class="text-gray-400">Create an Account</a> before filling out this form.
-                        </p>
+            <div class="sticky z-50 mb-8 -mx-12 top-20">
+                <div class="px-4 bg-green-100 rounded-md dark:bg-green-800">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <x-heroicon-s-information-circle class="w-8 h-8 text-green-500" />
+                        </div>
+                        <div class="flex-1 ml-3 md:flex md:justify-between">
+                            <p class="text-lg">
+                                You must <a href="/login" class="text-gray-400">Login</a> or <a href="/register" class="text-gray-400">Create an Account</a> before filling out this form.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endif
 
-        <form wire:submit.prevent="submit" class="space-y-8">
-            @foreach($form->form as $item)
-            @if($this->isVisible($item))
-            @include('livewire.app.forms.partials.' . $item['style'])
-            @endif
-            @endforeach
+        <div class="{{ !$response->activities->isEmpty() ? 'flex justify-between' : '' }}">
+            <form wire:submit.prevent="submit" class="mx-auto space-y-8 prose dark:prose-light">
+                @foreach($form->form as $item)
+                @if($this->isVisible($item))
+                @include('livewire.app.forms.partials.' . $item['style'])
+                @endif
+                @endforeach
 
-            <x-bit.button.flat.secondary wire:click="save" :disabled="!$fillable">Save for Later</x-bit.button.flat.secondary>
-            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
-        </form>
+                <x-bit.button.flat.secondary wire:click="save" :disabled="!$fillable">Save for Later</x-bit.button.flat.secondary>
+                <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
+            </form>
+
+            @if(!$response->activities->isEmpty())
+            <livewire:bit.response-log :response="$response" />
+            @endif
+        </div>
+
+
     </div>
 
     <x-bit.modal.dialog wire:model="showPreviousResponses" max-width="sm">

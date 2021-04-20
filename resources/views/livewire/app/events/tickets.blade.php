@@ -13,6 +13,7 @@
             </div>
             <h2 class="dark:text-gray-200">{{ $ticket->name }}</h2>
             <p class="text-sm text-gray-600 dark:text-gray-400">{{ $ticket->description }}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">{{ $ticket->availablity }}</p>
         </div>
         @endforeach
 

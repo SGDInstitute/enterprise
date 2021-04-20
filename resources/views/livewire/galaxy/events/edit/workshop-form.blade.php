@@ -94,7 +94,7 @@
                                                 </x-bit.input.select>
                                             </x-bit.input.group>
 
-                                            <div class="col-span-3">
+                                            <div class="col-span-3 space-y-4">
                                                 @isset($form[$openIndex]['conditions'])
                                                 @foreach($form[$openIndex]['conditions'] as $index => $condition)
                                                 <div class="flex space-x-4">
@@ -120,6 +120,9 @@
                                                     <x-bit.input.group :for="'condition-value-'.$index" label="Value" sr-only>
                                                         <x-bit.input.text type="text" class="w-full mt-1" :id="'condition-value-'.$index" wire:model="form.{{ $openIndex }}.conditions.{{ $index }}.value" />
                                                     </x-bit.input.group>
+                                                    <x-bit.button.round.secondary size="xs" wire:click="removeCondition({{ $index }})">
+                                                        <x-heroicon-o-trash class="w-4 h-4" />
+                                                    </x-bit.button.round.secondary>
                                                 </div>
                                                 @endforeach
                                                 @endisset

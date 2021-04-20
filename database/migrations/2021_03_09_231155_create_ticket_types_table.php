@@ -14,10 +14,6 @@ class CreateTicketTypesTable extends Migration
             $table->string('product_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('type');
-            $table->integer('cost');
-            $table->dateTime('start')->nullable();
-            $table->dateTime('end')->nullable();
             $table->integer('num_tickets')->nullable();
             $table->timestamps();
         });

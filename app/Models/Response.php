@@ -4,16 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Response extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     public $guarded = [];
 
     protected $casts = [
         'answers' => 'collection',
     ];
+
+    protected static $logAttributes = ['answers', 'status'];
+    protected static $logOnlyDirty = true;
 
     public function collaborators()
     {
@@ -37,4 +41,6 @@ class Response extends Model
     {
         return $this->answers['question-name'] ?? $this->answers['name'];
     }
+
+    // Methods
 }

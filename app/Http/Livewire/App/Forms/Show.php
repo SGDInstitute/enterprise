@@ -19,8 +19,6 @@ class Show extends Component
     public $answers;
     public $showPreviousResponses = false;
 
-    protected $rules;
-
     public function mount()
     {
         if(request()->query('edit')) {
@@ -47,12 +45,6 @@ class Show extends Component
                     }
                 })->toArray();
         }
-
-        $this->rules = $this->form->form
-            ->filter(fn($item) => $item['style'] === 'question')
-            ->mapWithKeys(function($question) {
-                return [$question['id'] => $question['rules']];
-            })->toArray();
     }
 
     public function render()
@@ -115,17 +107,16 @@ class Show extends Component
     public function load($id)
     {
         $this->response = $this->previousResponses->find($id);
+        $this->response->load('activities.causer');
+
         $this->answers = $this->response->answers;
         $this->emit('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
         $this->showPreviousResponses = false;
     }
 
-    public function save()
+    public function save($withNotification = true)
     {
-        // validate
-
         if($this->response->id !== null) {
-            // dd($this->response);
             $this->response->answers = $this->answers;
             $this->response->save();
         } else {
@@ -134,6 +125,7 @@ class Show extends Component
                 'type' => $this->form->type,
                 'form_id' => $this->form->id,
                 'answers' => $this->answers,
+                'status' => 'work-in-progress',
             ]);
         }
 
@@ -145,7 +137,7 @@ class Show extends Component
                 return DB::table('users')->where('email', $email)->exists();
             });
 
-            $oldCollaborators = $this->response->collaborators->pluck('id');
+            $oldCollaborators = $this->response->fresh()->collaborators->pluck('id');
 
             $ids = DB::table('users')->whereIn('email', $users)->select('id')->get()->pluck('id');
             $this->response->collaborators()->sync($ids);
@@ -166,6 +158,18 @@ class Show extends Component
             // create invites for new users
         }
 
-        $this->emit('notify', ['message' => 'Successfully saved submission. You can leave this page and come back to continue working on the submission.', 'type' => 'success']);
+        if($withNotification) {
+            $this->emit('notify', ['message' => 'Successfully saved submission. You can leave this page and come back to continue working on the submission.', 'type' => 'success']);
+        }
+    }
+
+    public function submit()
+    {
+        $this->validate($this->form->rules);
+
+        $this->response->status = 'submitted';
+        $this->save(false);
+
+        $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
     }
 }
