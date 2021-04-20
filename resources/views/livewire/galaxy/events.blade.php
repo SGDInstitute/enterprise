@@ -20,14 +20,7 @@
                 <x-bit.table.heading sortable wire:click="sortBy('start')" :direction="$sortField === 'start' ? $sortDirection : null">Start</x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('end')" :direction="$sortField === 'end' ? $sortDirection : null">End</x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('location')" :direction="$sortField === 'location' ? $sortDirection : null">Location</x-bit.table.heading>
-                <x-bit.table.heading class="flex space-x-1">
-                    <x-bit.button.link size="py-1 px-2">
-                        <x-heroicon-o-eye class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
-                    </x-bit.button.link>
-                    <x-bit.button.link size="py-1 px-2">
-                        <x-heroicon-o-cog class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
-                    </x-bit.button.link>
-                </x-bit.table.heading>
+                <x-bit.table.heading />
             </x-slot>
 
             <x-slot name="body">
@@ -39,10 +32,10 @@
                     <x-bit.table.cell>{{ $event->location }}</x-bit.table.cell>
                     <x-bit.table.cell class="flex space-x-1">
                         <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.events.show', ['event' => $event ]) }}">
-                            <x-heroicon-o-eye class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                            <x-heroicon-o-eye class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                         <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.events.edit', ['event' => $event ]) }}">
-                            <x-heroicon-o-cog class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                            <x-heroicon-o-cog class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                     </x-bit.table.cell>
 
