@@ -11,10 +11,13 @@ class CreateTicketTypesTable extends Migration
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained('events');
-            $table->string('product_id')->nullable();
+            $table->string('stripe_product_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('num_tickets')->nullable();
+            $table->string('structure')->nullable();
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->string('timezone');
             $table->timestamps();
         });
     }

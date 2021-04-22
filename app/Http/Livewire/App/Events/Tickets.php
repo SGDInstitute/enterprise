@@ -9,35 +9,67 @@ class Tickets extends Component
 {
 
     public Event $event;
+    public $ticketTypes;
     public $tickets;
-    public $showPayment = false;
-
-    protected $rules = [
-        'tickets.*.amount' => 'required',
-    ];
 
     public function mount()
     {
-        $this->tickets = $this->event->ticketTypes;
+        $this->ticketTypes = $this->event->ticketTypes->load('prices');
+        $this->tickets = $this->ticketTypes->map(function($item) {
+            if($item->structure === 'flat') {
+                $price = $item->prices->where('start', '<', now())->where('end', '>', now())->first();
+                return [
+                    'type_id' => $item->id,
+                    'price_id' => $price->id,
+                    'name' => $price->name,
+                    'cost' => $price->cost/100,
+                    'amount' => 0,
+                ];
+            } elseif($item->structure === 'scaled-range') {
+                $price = $item->prices->first();
+                return [
+                    'type_id' => $item->id,
+                    'price_id' => $price->id,
+                    'name' => $price->name,
+                    'cost' => $price->min/100,
+                    'min' => $price->min/100,
+                    'max' => $price->max/100,
+                    'step' => $price->step,
+                    'amount' => 0,
+                ];
+            } else {
+                return [
+                    'type_id' => $item->id,
+                    'price_id' => null,
+                    'cost' => null,
+                    'amount' => 0,
+                ];
+            }
+        });
     }
 
     public function render()
     {
         return view('livewire.app.events.tickets')
             ->with([
-                'formattedAmount' => $this->formattedAmount,
+                'checkoutAmount' => $this->checkoutAmount,
             ]);
     }
 
-    public function getFormattedAmountProperty()
+    public function getCheckoutAmountProperty()
     {
-        $amount = $this->tickets->sum(function ($ticket) {
-            if ($ticket->amount) {
-                return $ticket->cost * $ticket->amount;
-            }
-            return 0;
-        });
+        $checkoutAmount = 0;
 
-        return '$' . number_format($amount / 100, 2);
+        foreach($this->tickets as $ticket) {
+            $checkoutAmount += $ticket['cost'] * $ticket['amount'];
+        }
+
+        return '$' . number_format($checkoutAmount, 2);
+    }
+
+    public function reserve()
+    {
+
+        dd('passed');
     }
 }

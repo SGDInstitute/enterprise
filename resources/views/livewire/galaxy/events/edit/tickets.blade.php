@@ -8,7 +8,7 @@
             </div>
             <div class="flex items-end mt-4 space-x-4 md:mt-0">
                 <x-bit.data-table.per-page />
-                <x-bit.button.round.secondary wire:click="showCreateModal" class="flex items-center space-x-2">
+                <x-bit.button.round.secondary :href="route('galaxy.ticket-types.create', ['event' => $event->id])" class="flex items-center space-x-2">
                     <x-heroicon-o-plus class="w-4 h-4 text-gray-400 dark:text-gray-300" /> <span>Create</span>
                 </x-bit.button.round.secondary>
             </div>
@@ -35,12 +35,12 @@
                 @forelse($ticketTypes as $ticketType)
                 <x-bit.table.row wire:key="row-{{ $ticketType->id }}">
                     <x-bit.table.cell>{{ $ticketType->name }}</x-bit.table.cell>
-                    <x-bit.table.cell>{{ $ticketType->type }}</x-bit.table.cell>
-                    <x-bit.table.cell>{{ $ticketType->formattedCost }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $ticketType->structure }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $ticketType->priceRange }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $ticketType->formattedStart }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $ticketType->formattedEnd }}</x-bit.table.cell>
                     <x-bit.table.cell class="flex space-x-1">
-                        <x-bit.button.link size="py-1 px-2" wire:click="showEditModal({{ $ticketType->id }})">
+                        <x-bit.button.link size="py-1 px-2" :href="route('galaxy.ticket-types.edit', $ticketType)">
                             <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                         <x-bit.button.link size="py-1 px-2" wire:click="remove({{ $ticketType->id }})">
@@ -66,46 +66,4 @@
             {{ $ticketTypes->links() }}
         </div>
     </div>
-
-    <form wire:submit.prevent="save">
-        <x-bit.modal.dialog wire:model.defer="showModal">
-            <x-slot name="title">{{ $editing->id ? 'Edit' : 'Create' }} Ticket Type</x-slot>
-
-            <x-slot name="content">
-            <div class="grid grid-cols-1 gap-4 py-8 md:grid-cols-2">
-                <x-bit.input.group for="ticket-name" label="Ticket Name">
-                    <x-bit.input.text id="ticket-name" class="w-full mt-1" type="text" name="name" wire:model="editing.name" />
-                </x-bit.input.group>
-                <x-bit.input.group for="ticket-description" label="Description">
-                    <x-bit.input.text id="ticket-description" class="w-full mt-1" type="text" name="description" wire:model="editing.description" />
-                </x-bit.input.group>
-                <x-bit.input.group for="ticket-type" label="Type">
-                    <x-bit.input.select id="ticket-type" class="w-full mt-1" name="type" wire:model="editing.type">
-                        <option value="">Select type</option>
-                        <option value="regular">Regular</option>
-                        <option value="discount">Discount</option>
-                    </x-bit.input.select>
-                </x-bit.input.group>
-                <x-bit.input.group for="ticket-cost" label="Cost">
-                    <x-bit.input.currency id="ticket-cost" class="w-full mt-1" type="text" name="cost" wire:model="costInDollars" />
-                </x-bit.input.group>
-                <x-bit.input.group for="start" label="Availability Start">
-                    <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model="formattedStart" />
-                </x-bit.input.group>
-                <x-bit.input.group for="end" label="Availability End">
-                    <x-bit.input.date-time class="block w-full mt-1" id="end" name="end" wire:model="formattedEnd" />
-                </x-bit.input.group>
-                <x-bit.input.group for="ticket-num_tickets" label="Number of Tickets">
-                    <x-bit.input.text id="ticket-num_tickets" class="w-full mt-1" type="text" name="num_tickets" wire:model="editing.num_tickets" />
-                </x-bit.input.group>
-            </div>
-            </x-slot>
-
-            <x-slot name="footer">
-                <x-bit.button.round.secondary wire:click="$set('showModal', false)">Close</x-bit.button.round.secondary>
-                <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
-            </x-slot>
-        </x-bit.modal.dialog>
-    </form>
-
 </div>

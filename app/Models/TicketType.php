@@ -19,6 +19,11 @@ class TicketType extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function prices()
+    {
+        return $this->hasMany(Price::class);
+    }
+
     // Attributes
 
     public function getAvailablityAttribute()
@@ -28,24 +33,23 @@ class TicketType extends Model
         }
     }
 
-    public function getCostInDollarsAttribute()
-    {
-        return number_format($this->cost/100, 2);
-    }
-
-    public function getFormattedCostAttribute()
-    {
-        return '$' . number_format($this->cost/100, 2);
-    }
-
     public function getFormattedEndAttribute()
     {
-        return optional($this->end)->timezone($this->event->timezone)->format('m/d/Y g:i A') ?? null;
+        return optional($this->end)->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
     }
 
     public function getFormattedStartAttribute()
     {
-        return optional($this->start)->timezone($this->event->timezone)->format('m/d/Y g:i A') ?? null;
+        return optional($this->start)->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
+    }
+
+    public function getPriceRangeAttribute()
+    {
+        if($this->structure === 'flat' || $this->structure === 'scaled-defined') {
+            return '$' . $this->prices->min('cost') / 100 . ' - $' . $this->prices->max('cost') / 100;
+        } elseif($this->structure === 'scaled-range') {
+            return '$' . $this->prices->first()->min / 100 . ' - $' . $this->prices->first()->max / 100;
+        }
     }
 
     // Methods

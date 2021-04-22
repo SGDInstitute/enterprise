@@ -13,12 +13,12 @@
             @csrf
 
             <!-- Name -->
-            <x-bit.input.group for="name" :label="__('Name')"  :error="$errors->first('name')">
+            <x-bit.input.group for="name" :label="__('Name')" :error="$errors->first('name')">
                 <x-bit.input.text id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')" required autofocus />
             </x-bit.input.group>
 
             <!-- Email Address -->
-            <x-bit.input.group for="email" :label="__('Email')" class="mt-4"  :error="$errors->first('email')">
+            <x-bit.input.group for="email" :label="__('Email')" class="mt-4" :error="$errors->first('email')">
                 <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required />
             </x-bit.input.group>
 
