@@ -12,6 +12,7 @@ class Settings extends Component
 
     public $rules = [
         'event.settings.reservations' => 'boolean',
+        'event.settings.reservation_length' => 'numeric',
         'event.settings.volunteer_discounts' => 'boolean',
         'event.settings.presenter_discounts' => 'boolean',
         'event.settings.demographics' => 'boolean',

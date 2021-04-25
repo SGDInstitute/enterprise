@@ -41,5 +41,15 @@ class Price extends Model
         return optional($this->start)->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
     }
 
+    public function getMaxInDollarsAttribute()
+    {
+        return number_format($this->max/100, 2);
+    }
+
+    public function getMinInDollarsAttribute()
+    {
+        return number_format($this->min/100, 2);
+    }
+
     // Methods
 }

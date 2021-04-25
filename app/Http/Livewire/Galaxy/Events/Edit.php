@@ -21,6 +21,7 @@ class Edit extends Component
             ->layout('layouts.galaxy', ['title' => 'Configure ' . $this->event->name])
             ->with([
                 'pages' => $this->pages,
+                'action' => ['label' => 'View', 'href' => route('galaxy.events.show', $this->event)],
             ]);
     }
 

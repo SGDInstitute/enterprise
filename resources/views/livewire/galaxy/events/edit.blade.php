@@ -1,5 +1,5 @@
 <div>
-    <x-bit.nav.tabs :options="$pages" class="mb-8" />
+    <x-bit.nav.tabs :options="$pages" :action="$action" class="mb-8" />
 
     @switch($page)
     @case('details')

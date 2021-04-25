@@ -3,6 +3,10 @@
 namespace App\Http\Livewire\App\Events;
 
 use App\Models\Event;
+use App\Models\Order;
+use App\Models\Ticket;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class Tickets extends Component
@@ -10,12 +14,12 @@ class Tickets extends Component
 
     public Event $event;
     public $ticketTypes;
-    public $tickets;
+    public $form;
 
     public function mount()
     {
         $this->ticketTypes = $this->event->ticketTypes->load('prices');
-        $this->tickets = $this->ticketTypes->map(function($item) {
+        $this->form = $this->ticketTypes->map(function($item) {
             if($item->structure === 'flat') {
                 $price = $item->prices->where('start', '<', now())->where('end', '>', now())->first();
                 return [
@@ -27,6 +31,15 @@ class Tickets extends Component
                 ];
             } elseif($item->structure === 'scaled-range') {
                 $price = $item->prices->first();
+
+                $options = [];
+
+                $value = $price->min/100;
+                while ($value <= $price->max/100) {
+                    $options[] = $value;
+                    $value += $price->step;
+                }
+
                 return [
                     'type_id' => $item->id,
                     'price_id' => $price->id,
@@ -35,6 +48,7 @@ class Tickets extends Component
                     'min' => $price->min/100,
                     'max' => $price->max/100,
                     'step' => $price->step,
+                    'options' => $options,
                     'amount' => 0,
                 ];
             } else {
@@ -60,7 +74,7 @@ class Tickets extends Component
     {
         $checkoutAmount = 0;
 
-        foreach($this->tickets as $ticket) {
+        foreach($this->form as $ticket) {
             $checkoutAmount += $ticket['cost'] * $ticket['amount'];
         }
 
@@ -69,7 +83,36 @@ class Tickets extends Component
 
     public function reserve()
     {
+        $this->checkValidation();
 
-        dd('passed');
+        $reservation = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->settings->reservation_length)]);
+        $reservation->tickets()->createMany($this->convertFormToTickets());
+
+        return redirect()->route('app.orders.show', $reservation);
+    }
+
+    private function checkValidation()
+    {
+        throw_if($this->form->pluck('amount')->unique()->count() === 1 && $this->form->pluck('amount')->unique()[0] === 0, ValidationException::withMessages([
+            'amounts' => ['Please enter the number of tickets.'],
+        ]));
+    }
+
+    private function convertFormToTickets()
+    {
+        return $this->form->filter(fn($item) => $item['amount'] > 0)
+            ->map(function($item) {
+                $ticketType = $this->ticketTypes->find($item['type_id']);
+                $data = ['ticket_type_id' => $item['type_id'], 'price_id' => $item['price_id']];
+
+                if($item['amount'] == 1) {
+                    $data['user_id'] = auth()->id();
+                }
+                if($ticketType->structure === 'scaled-range') {
+                    $data['scaled_price'] = $item['cost']*100;
+                }
+
+                return Ticket::factory()->times($item['amount'])->make($data);
+            })->flatten()->toArray();
     }
 }

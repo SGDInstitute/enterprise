@@ -11,7 +11,7 @@ $sizes = [
     'large' => 'px-4 py-2 text-base rounded-md',
     'xl' => 'px-6 py-3 text-base rounded-md',
 ];
-$class = "inline-flex items-center {$sizes[$size]} uppercase font-medium shadow-sm border border-transparent {$color} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500";
+$class = "inline-flex items-center {$sizes[$size]} font-medium shadow-sm border border-transparent {$color} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500";
 
 if($attributes->get('disabled')) {
     $class .= ' opacity-75 cursor-not-allowed';

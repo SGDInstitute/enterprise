@@ -27,9 +27,34 @@ class Event extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
+    public function getBackgroundUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('background') ?? 'https://sgdinstitute.org/assets/headers/homepage-hero1.jpg';
+    }
+
+    public function getFormattedDurationAttribute()
+    {
+        if($this->start->diffInHours($this->end) > 24) {
+            return $this->start->timezone($this->timezone)->format('D, M j') . ' - ' . $this->end->timezone($this->timezone)->format('D, M j, Y');
+        } else {
+            return $this->start->timezone($this->timezone)->format('D, M j Y g:i a') . ' - ' . $this->end->timezone($this->timezone)->format('g:i a');
+        }
+    }
+
     public function getFormattedEndAttribute()
     {
         return $this->end->timezone($this->timezone)->format('m/d/Y g:i A');
+    }
+
+    public function getFormattedLocationAttribute()
+    {
+        if($this->settings->onsite && $this->settings->livestream) {
+            return $this->location . ' & Virtual';
+        } elseif($this->settings->onsite) {
+            return $this->location;
+        } else {
+            return 'Virtual';
+        }
     }
 
     public function getFormattedStartAttribute()

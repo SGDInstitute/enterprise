@@ -7,6 +7,12 @@
                 <fieldset>
                     <div class="mt-4 space-y-4">
                         <x-bit.input.checkbox id="reservations" name="reservations" wire:model="event.settings.reservations" label="Enable reservations" help="This allows a user to not pay right away but reserve tickets to pay another time" />
+                        @if($event->settings->reservations)
+                        <x-bit.input.group class="ml-12" for="reservation-length" label="Reservation Length">
+                            <x-bit.input.text type="text" class="mt-1" id="reservation-length" name="reservation-length" wire:model="event.settings.reservation_length" label="Reservation Length" />
+                            <x-bit.input.help>How many days does a reservation have to be paid</x-bit.input.help>
+                        </x-bit.input.group>
+                        @endif
                         <x-bit.input.checkbox id="volunteer_discounts" name="volunteer_discounts" wire:model="event.settings.volunteer_discounts" label="Enable volunteer discounts" />
                         <x-bit.input.checkbox id="presenter_discounts" name="presenter_discounts" type="checkbox" wire:model="event.settings.presenter_discounts" label="Enable presenter discounts" />
                         <x-bit.input.checkbox id="demographics" name="demographics" wire:model="event.settings.demographics" label="Collect demographics" />

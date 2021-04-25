@@ -17,4 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/billing-portal', function () {
         return request()->user()->redirectToBillingPortal();
     })->name('app.billing-portal');
+
+    Route::get('/reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
+    Route::get('/orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
 });

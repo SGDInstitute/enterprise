@@ -4,6 +4,9 @@ return [
     'galaxy' => [
         ['name' => 'Dashboard', 'route' => 'galaxy.dashboard', 'icon' => 'heroicon-o-home'],
         ['name' => 'Events', 'route' => 'galaxy.events', 'icon' => 'heroicon-o-calendar'],
+        ['name' => 'View All'],
+        ['name' => 'Orders', 'route' => 'galaxy.orders', 'icon' => 'heroicon-o-currency-dollar'],
+        ['name' => 'Reservations', 'route' => 'galaxy.reservations', 'icon' => 'heroicon-o-cursor-click'],
     ],
     'app' => [
         'dashboard' => [

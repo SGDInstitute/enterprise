@@ -40,7 +40,7 @@ class TicketType extends Model
 
     public function getFormattedStartAttribute()
     {
-        return optional($this->start)->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
+        return $this->start->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
     }
 
     public function getPriceRangeAttribute()
@@ -53,4 +53,10 @@ class TicketType extends Model
     }
 
     // Methods
+
+    public function safeDelete()
+    {
+        $this->prices->each(fn($price) => $price->delete());
+        $this->delete();
+    }
 }
