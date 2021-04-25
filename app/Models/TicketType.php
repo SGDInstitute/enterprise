@@ -10,6 +10,8 @@ class TicketType extends Model
     use HasFactory;
 
     public $guarded = [];
+
+    protected $casts = ['form' => 'collection'];
     public $dates = ['start', 'end'];
 
     // Relationships

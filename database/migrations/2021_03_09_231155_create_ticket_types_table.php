@@ -18,6 +18,7 @@ class CreateTicketTypesTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('timezone');
+            $table->json('form')->nullable();
             $table->timestamps();
         });
     }

@@ -16,6 +16,6 @@
                 <x-bit.workshop :form="$form" />
             @endforeach
         </div>
-        @endif
     </div>
+    @endif
 </div>

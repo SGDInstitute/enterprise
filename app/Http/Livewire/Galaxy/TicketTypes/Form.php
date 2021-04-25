@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Galaxy\TicketTypes;
 
+use App\Http\Livewire\Traits\WithFormBuilder;
 use App\Models\Event;
 use App\Models\Price;
 use App\Models\TicketType;
@@ -10,11 +11,16 @@ use Livewire\Component;
 
 class Form extends Component
 {
+    use WithFormBuilder;
+
     public $prices;
     public Event $event;
     public $ticketType;
+    public $form;
     public $formattedStart;
     public $formattedEnd;
+    public $openIndex = -1;
+    public $showSettings = false;
 
     public $rules = [
         'ticketType.name' => 'required',
@@ -40,7 +46,11 @@ class Form extends Component
         }
 
         return view('livewire.galaxy.ticket-types.form')
-            ->layout('layouts.galaxy', ['title' => $title]);
+            ->layout('layouts.galaxy', ['title' => $title])
+            ->with([
+                'fields' => $this->fields,
+                'typeOptions' => $this->typeOptions,
+            ]);
     }
 
     public function addPrice()
@@ -65,6 +75,22 @@ class Form extends Component
             $this->ticketType->start = Carbon::parse($this->formattedStart, $this->ticketType->timezone)->timezone('UTC');
             $this->ticketType->end = Carbon::parse($this->formattedEnd, $this->ticketType->timezone)->timezone('UTC');
         }
+
+        if($this->form !== []) {
+            if(!is_array($this->form)) {
+                $form = $this->form->toArray();
+            } else {
+                $form = $this->form;
+            }
+
+            foreach($form as $index => $item) {
+                if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
+                    $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+                }
+            }
+            $this->ticketType->form = $form;
+        }
+
         $this->ticketType->save();
 
         [$existing, $creating] = $this->preparePrices($this->prices)->partition(function ($i) {
@@ -84,6 +110,7 @@ class Form extends Component
         $this->event = Event::find(request()->get('event'));
         $this->ticketType = new TicketType(['event_id' => request()->get('event') ?? null, 'structure' => '']);
         $this->prices[] = ['name' => '', 'costInDollars' => '0', 'formattedStart' => now('America/Chicago')->format('m/d/Y g:i A'), 'formattedEnd' => now('America/Chicago')->format('m/d/Y g:i A')];
+        $this->form = collect([]);
         $this->formattedStart = now('America/Chicago')->format('m/d/Y g:i A');
         $this->formattedEnd = now('America/Chicago')->format('m/d/Y g:i A');
     }
@@ -92,6 +119,7 @@ class Form extends Component
     {
         $this->ticketType = TicketType::find($this->ticketType)->load('event', 'prices');
         $this->event = $this->ticketType->event;
+        $this->form = $this->ticketType->form ?? collect([]);
         $this->formattedStart = $this->ticketType->formattedStart;
         $this->formattedEnd = $this->ticketType->formattedEnd;
 

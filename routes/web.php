@@ -9,6 +9,7 @@ Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
 Route::mediaLibrary();
 
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
+Route::get('/events', App\Http\Livewire\App\Events::class)->name('app.events');
 Route::get('/events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
 Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
 

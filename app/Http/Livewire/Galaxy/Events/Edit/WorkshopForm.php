@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Galaxy\Events\Edit;
 
+use App\Http\Livewire\Traits\WithFormBuilder;
 use App\Http\Livewire\Traits\WithTimezones;
 use App\Models\Event;
 use App\Models\Form;
@@ -10,7 +11,7 @@ use Livewire\Component;
 
 class WorkshopForm extends Component
 {
-    use WithTimezones;
+    use WithTimezones, WithFormBuilder;
 
     public Event $event;
     public Form $workshopForm;
@@ -55,91 +56,6 @@ class WorkshopForm extends Component
                 'timezones' => $this->timezones,
                 'typeOptions' => $this->typeOptions,
             ]);
-    }
-
-    public function getTypeOptionsProperty()
-    {
-        return [
-            'text' => 'Text',
-            'number' => 'Number',
-            'textarea' => 'Textarea',
-            'list' => 'List',
-        ];
-    }
-
-    public function getFieldsProperty()
-    {
-        if(empty($this->form)) {
-            return [];
-        }
-
-        return $this->form->filter(fn($item) => $item['style'] === 'question')->map(fn($question) => $question['id']);
-    }
-
-    public function addCondition()
-    {
-        $question = $this->form[$this->openIndex];
-        $question['conditions'][] = ['field' => '', 'method' => '', 'value' => ''];
-        $this->form[$this->openIndex] = $question;
-    }
-
-    public function addContent()
-    {
-        $this->form[] = ['style' => 'content', 'id' => 'content-', 'content' => ''];
-        $this->openIndex = count($this->form)-1;
-    }
-
-    public function addCollaborators()
-    {
-        $this->form[] = ['style' => 'collaborators', 'id' => 'collaborators'];
-        $this->openIndex = count($this->form)-1;
-    }
-
-    public function addQuestion()
-    {
-        $this->form[] = ['style' => 'question', 'id' => 'question-', 'question' => '', 'type' => '', 'rules' => ''];
-        $this->openIndex = count($this->form)-1;
-    }
-
-    public function delete($index)
-    {
-        unset($this->form[$index]);
-        $this->form = $this->form->values();
-    }
-
-    public function duplicate($index)
-    {
-        $this->form[] = $this->form[$index];
-    }
-
-    public function moveDown($index)
-    {
-        if($index !== 0) {
-            $original = $this->form[$index];
-            $below = $this->form[$index + 1];
-
-            $this->form[$index] = $below;
-            $this->form[$index + 1] = $original;
-        }
-    }
-
-    public function moveUp($index)
-    {
-        if($index !== 0) {
-            $original = $this->form[$index];
-            $above = $this->form[$index - 1];
-
-            $this->form[$index] = $above;
-            $this->form[$index - 1] = $original;
-        }
-    }
-
-    public function openSettings($index)
-    {
-        if($this->openIndex !== $index) {
-            //whoops;
-        }
-        $this->showSettings = true;
     }
 
     public function save()
