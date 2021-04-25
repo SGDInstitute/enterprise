@@ -13,10 +13,6 @@ class TicketTypeFactory extends Factory
     {
         return [
             'name' => 'Reg Reg',
-            'type' => 'reg',
-            'start' => now(),
-            'end' => now(),
-            'cost' => 500,
         ];
     }
 }

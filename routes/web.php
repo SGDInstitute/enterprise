@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
+
+
+Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
 
 Route::mediaLibrary();
 
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
 Route::get('/events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
 Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
-
 
 require __DIR__.'/auth.php';
 
@@ -20,4 +23,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
     Route::get('/orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
+    Route::get('/orders/{order}/finalize', function() {
+        return 'hi';
+    })->name('app.orders.finalize');
 });

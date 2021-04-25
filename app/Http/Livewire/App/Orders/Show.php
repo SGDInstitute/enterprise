@@ -7,6 +7,7 @@ use App\Http\Livewire\Traits\WithSorting;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -29,14 +30,18 @@ class Show extends Component
     public $editMode = false;
     public $editingTicket;
     public $form = [];
+    public $invoice = [];
     public $perPage = 10;
     public $ticketsView = 'grid';
+    public $showCheckModal = false;
+    public $showInvoiceModal = false;
     public $showTicketholderModal = false;
 
     protected $rules = [
         'ticketholder.name' => 'required',
         'ticketholder.email' => 'required',
         'ticketholder.pronouns' => '',
+        'order.invoice.billable' => '',
     ];
 
     public function mount()
@@ -69,26 +74,42 @@ class Show extends Component
     {
         return view('livewire.app.orders.show')
             ->with([
+                'checkout' => $this->checkout,
                 'filledCount' => $this->filledCount,
-                'subtotal' => $this->subtotal,
+                'subtotal' => $this->order->subtotal,
                 'tickets' => $this->tickets,
+                'progressSteps' => $this->progressSteps,
+                'progressCurrent' => $this->progressSteps->firstWhere('complete', false),
             ]);
     }
 
     // Properties
+
+    public function getCheckoutProperty()
+    {
+        return auth()->user()->checkout($this->order->ticketsFormattedForCheckout(), [
+            'success_url' => route('app.orders.show', ['order' => $this->order, 'success']),
+            'cancel_url' => route('app.orders.show', ['order' => $this->order, 'canceled']),
+            'billing_address_collection' => 'required',
+            'metadata' => [
+                'order_id' => $this->order->id,
+            ]
+        ]);
+    }
 
     public function getFilledCountProperty()
     {
         return $this->order->tickets->filter(fn($ticket) => $ticket->isFilled())->count();
     }
 
-    public function getSubtotalProperty()
+    public function getProgressStepsProperty()
     {
-        $sum = $this->order->tickets->sum(function($ticket) {
-            return $ticket->price->cost ?? $ticket->scaled_price;
-        });
-
-        return '$' . number_format($sum/100, 2);
+        return collect([
+            ['name' => 'Create Reservation', 'complete' => true],
+            ['name' => 'Pay', 'complete' => $this->order->isPaid(), 'help' => 'app.help.pay'],
+            ['name' => 'Add Folks to Tickets', 'complete' => $this->order->isFilled(), 'help' => 'app.help.tickets'],
+            ['name' => 'Get Ready', 'complete' => false],
+        ]);
     }
 
     public function getTicketsProperty()
@@ -120,13 +141,29 @@ class Show extends Component
         }
     }
 
+    public function createInvoice()
+    {
+        $this->order->generateInvoice();
+        $this->invoice = $this->order->invoice;
+        $this->showInvoiceModal = true;
+    }
+
     public function delete()
     {
         $this->order->delete();
         return redirect('/');
     }
 
-    public function download()
+    public function downloadInvoice()
+    {
+        $this->saveInvoice();
+
+        $pdf = PDF::loadView('pdf.invoice', ['order' => $this->order])->output();
+        $filename = 'Invoice-' . $this->order->formattedId . '.pdf';
+        return response()->streamDownload(fn() => print($pdf), $filename);
+    }
+
+    public function downloadW9()
     {
         return response()->download(public_path('documents/SGD-Institute-W9.pdf'));
     }
@@ -178,15 +215,47 @@ class Show extends Component
     {
         foreach($this->form as $item) {
             $ticket = $this->tickets->find($item['ticket_id']);
-            $ticket->user_id = $item['user_id'];
-            $ticket->save();
-            $user = $ticket->user;
-            $user->name = $item['name'];
-            $user->email = $item['email'];
-            $user->pronouns = $item['pronouns'];
-            $user->save();
+
+            // skip items that aren't filled
+            if($item['email'] === '')
+                continue;
+
+            // if user was found, fill ticket and update user info
+            if($item['user_id'] !== null || $user = User::where('email', $item['email'])->first()) {
+                $ticket->user_id = $item['user_id'] ?? $user->id;
+                $ticket->save();
+
+                $ticket->fresh()->user->update([
+                    'name' => $item['name'],
+                    'email' => $item['email'],
+                    'pronouns' => $item['pronouns'],
+                ]);
+                continue;
+            }
+
+            if($item['user_id'] === null) {
+                $user = User::create([
+                    'name' => $item['name'],
+                    'email' => $item['email'],
+                    'pronouns' => $item['pronouns'],
+                    'password' => Hash::make(Str::random(16)),
+                ]);
+
+                $ticket->user_id = $user->id;
+                $ticket->save();
+                continue;
+            }
         }
 
+        $this->emit('notify', ['message' => 'Successfully saved ticket changes', 'type' => 'success']);
+
+        $this->emit('refresh');
         $this->editMode = false;
     }
-}
+
+    public function saveInvoice()
+    {
+        $this->order->save();
+        $this->emit('notify', ['message' => 'Successfully saved invoice details.', 'type' => 'success']);
+    }
+ }

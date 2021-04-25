@@ -31,6 +31,7 @@ class EventFactory extends Factory
                     'description' => 'MBGLTACC is the longest running blah blah blah',
                     'settings' => [
                         'reservations' => true,
+                        'reservation_length' => 60,
                         'volunteer_discounts' => true,
                         'presenter_discounts' => true,
                         'demographics' => true,

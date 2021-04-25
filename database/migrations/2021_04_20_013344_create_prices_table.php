@@ -11,6 +11,7 @@ class CreatePricesTable extends Migration
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ticket_type_id')->constrained('ticket_types');
+            $table->string('stripe_price_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('cost')->nullable();

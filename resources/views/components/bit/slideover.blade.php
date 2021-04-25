@@ -10,7 +10,7 @@
         </button>
         @else
         <button type="button" @click="isOpen = !isOpen"
-            class="absolute top-0 right-0 z-50 px-3 py-1 mr-8 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out transform bg-blue-600 border border-blue-600 rounded-b-md focus:outline-none focus:border-blue-300 focus:shadow-outline-blue dark:bg-blue-600 hover:bg-blue-500 dark:hover:bg-blue-700 active:bg-blue-700 dark:active:bg-blue-700 dark:border-blue-600">
+            class="absolute top-0 right-0 z-50 px-3 py-1 mr-8 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out transform bg-green-600 border border-green-600 rounded-b-md focus:outline-none focus:border-green-300 focus:shadow-outline-green dark:bg-green-600 hover:bg-green-500 dark:hover:bg-green-700 active:bg-green-700 dark:active:bg-green-700 dark:border-green-600">
             <x-heroicon-o-question-mark-circle class="w-6 h-6" />
         </button>
         @endif

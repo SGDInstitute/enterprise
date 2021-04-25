@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
             $table->string('transaction_id')->nullable();
             $table->string('amount')->nullable();
             $table->dateTime('reservation_ends')->nullable();
-            $table->schemalessAttributes('settings');
+            $table->json('invoice')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Event;
 use App\Models\Form;
+use App\Models\Price;
+use App\Models\TicketType;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,8 +16,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create(['name' => 'Andy Newhouse', 'email' => 'andy@sgdinstitute.org'])->assignRole('institute');
         User::factory()->create(['name' => 'Justin Drwencke', 'email' => 'justin@sgdinstitute.org'])->assignRole('institute');
 
-        $mblgtacc = Event::factory()->preset('mblgtacc')->create(['name' => 'MBLGTACC 2021', 'timezone' => 'America/Chicago']);
-        Event::factory()->preset('tjt')->create();
+        $mblgtacc = Event::factory()->preset('mblgtacc')->create(['name' => 'MBLGTACC 2021', 'location' => 'Madison, WI', 'timezone' => 'America/Chicago']);
         Form::factory()->create([
             'name' => $mblgtacc->name . ' Workshop Proposal',
             'type' => 'workshop',
@@ -48,6 +49,14 @@ class DatabaseSeeder extends Seeder
                 ["id" => "question-other-info", "type" => "textarea", "rules" => "", "style" => "question", "question" => "Is there anything else we should know about you or your presentation?"]
             ]
         ]);
+        $inPerson = TicketType::create(['event_id' => $mblgtacc->id, 'name' => 'In-person Attendee', 'structure' => 'flat', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
+        $inPerson->prices()->create(['name' => 'Regular', 'cost' => 8500, 'start' => '2021-04-26 17:00:00', 'end' => '2021-10-08 04:59:00', 'timezone' => 'America/Chicago']);
+        $inPerson->prices()->create(['name' => 'On-site', 'cost' => 10000, 'start' => '2021-10-08 05:00:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
+        $inPerson->prices()->create(['name' => 'Early-Bird', 'cost' => 4000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago']);
+        $virtual = TicketType::create(['event_id' => $mblgtacc->id, 'name' => 'Virtual Attendee', 'description' => 'We recommend individuals purchasing virtual tickets pay $25-50 to attend and institutions sponsoring students to attend pay $35-60 per person.', 'structure' => 'scaled-range', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
+        $virtual->prices()->create(['name' => 'Sliding Scale', 'min' => 2500, 'max' => 6000, 'step' => 5, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago']);
+
+        $tjt = Event::factory()->preset('tjt')->create();
 
     }
 }
