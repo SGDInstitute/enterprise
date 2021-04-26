@@ -12,9 +12,13 @@ use Livewire\Component;
 class Tickets extends Component
 {
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public Event $event;
-    public $ticketTypes;
+    public $order;
+
     public $form;
+    public $ticketTypes;
 
     public function mount()
     {
@@ -55,8 +59,24 @@ class Tickets extends Component
     {
         return view('livewire.app.events.tickets')
             ->with([
+                'checkoutButton' => $this->checkoutButton,
                 'checkoutAmount' => $this->checkoutAmount,
             ]);
+    }
+
+    public function getCheckoutButtonProperty()
+    {
+        if($this->order !== null) {
+            return auth()->user()->checkout($this->order->ticketsFormattedForCheckout(), [
+                'success_url' => route('app.orders.show', ['order' => $this->order, 'success']),
+                'cancel_url' => route('app.orders.show', ['order' => $this->order, 'canceled']),
+                'billing_address_collection' => 'required',
+                'metadata' => [
+                    'order_id' => $this->order->id,
+                    'event_id' => $this->event->id,
+                ]
+            ]);
+        }
     }
 
     public function getCheckoutAmountProperty()
@@ -79,6 +99,14 @@ class Tickets extends Component
         $reservation->tickets()->createMany($this->convertFormToTickets());
 
         return redirect()->route('app.orders.show', $reservation);
+    }
+
+    public function pay()
+    {
+        $this->checkValidation();
+
+        $this->order = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->settings->reservation_length)]);
+        $this->order->tickets()->createMany($this->convertFormToTickets());
     }
 
     private function checkValidation()
