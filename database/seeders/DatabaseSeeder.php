@@ -54,7 +54,16 @@ class DatabaseSeeder extends Seeder
         $inPerson->prices()->create(['name' => 'On-site', 'cost' => 10000, 'start' => '2021-10-08 05:00:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
         $inPerson->prices()->create(['name' => 'Early-Bird', 'cost' => 4000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago']);
         $virtual = TicketType::create(['event_id' => $mblgtacc->id, 'name' => 'Virtual Attendee', 'description' => 'We recommend individuals purchasing virtual tickets pay $25-50 to attend and institutions sponsoring students to attend pay $35-60 per person.', 'structure' => 'scaled-range', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
-        $virtual->prices()->create(['name' => 'Sliding Scale', 'min' => 2500, 'max' => 6000, 'step' => 5, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago']);
+        $virtual->prices()->createMany(
+            ['name' => 'Sliding Scale', 'cost' => 2500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+            ['name' => 'Sliding Scale', 'cost' => 3000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+            ['name' => 'Sliding Scale', 'cost' => 3500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+            ['name' => 'Sliding Scale', 'cost' => 4000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+            ['name' => 'Sliding Scale', 'cost' => 4500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+            ['name' => 'Sliding Scale', 'cost' => 5000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+            ['name' => 'Sliding Scale', 'cost' => 5500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+            ['name' => 'Sliding Scale', 'cost' => 6000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
+        );
 
         $tjt = Event::factory()->preset('tjt')->create();
 
