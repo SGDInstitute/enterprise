@@ -93,4 +93,9 @@ trait WithFormBuilder
         }
         $this->showSettings = true;
     }
+
+    public function setOpenIndex($index)
+    {
+        $this->openIndex = $index;
+    }
 }

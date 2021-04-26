@@ -84,9 +84,4 @@ class WorkshopForm extends Component
 
         $this->emit('notify', ['message' => 'Successfully saved workshop form.', 'type' => 'success']);
     }
-
-    public function setOpenIndex($index)
-    {
-        $this->openIndex = $index;
-    }
 }
