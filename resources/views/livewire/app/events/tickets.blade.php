@@ -22,7 +22,6 @@
             </div>
             @elseif($ticket->structure === 'scaled-range')
             <div class="p-4 space-y-2 bg-gray-100 dark:bg-gray-700">
-                <span class='text-gray-200'>@json($form[$index])</span>
                 <div class="flex justify-between">
                     <x-bit.input.group :for="'ticket-cost'.$index" label="Number of Tickets" sr-only>
                         <span class="text-2xl dark:text-gray-200">$</span>

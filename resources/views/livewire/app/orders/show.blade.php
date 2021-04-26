@@ -18,20 +18,25 @@
                         <x-heroicon-o-ticket class="w-6 h-6" />
                         <span>{{ $order->tickets->count() }} Tickets</span>
                     </p>
+                    <p class="text-gray-900 dark:text-gray-200">Tickets filled: {{ $filledCount }} of {{ $order->tickets->count() }}</p>
                 </div>
             </div>
 
             <div class="p-4 space-y-2 bg-gray-100 shadow dark:bg-gray-700">
-                <p class="text-xl font-bold text-gray-700 dark:text-gray-400">{{ $subtotal }}</p>
-                <p class="text-gray-700 dark:text-gray-400">Tickets filled: {{ $filledCount }} of {{ $order->tickets->count() }}</p>
+                @if($order->isPaid())
+                <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Paid</span> {{ $order->formattedAmount }}</p>
+                <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Confirmation Number</span> {{ $order->formattedConfirmationNumber }}</p>
+                @else
+                <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Payment</span> {{ $order->subtotal }}</p>
+                @endif
             </div>
 
             <div class="grid grid-cols-1 overflow-hidden bg-gray-100 divide-y divide-gray-200 shadow dark:divide-gray-800 dark:bg-gray-700">
                 @if($order->isPaid() && auth()->id() === $order->user_id)
-                <button class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200">
+                <a href="{{ route('app.orders.show.receipt', $order) }}" target="_blank" class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200">
                     <x-heroicon-o-receipt-tax class="w-6 h-6" />
                     <span>View Receipt</span>
-                </button>
+                </a>
                 @else
                 <div>
                     {!! $checkout->button('Pay with Card', ['class' => 'flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200' ]) !!}

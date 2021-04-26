@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
     public $guarded = [];
-    public $dates = ['reservation_ends'];
+    public $dates = ['reservation_ends', 'paid_at'];
     public $casts = ['invoice' => 'collection'];
 
     // Scopes
@@ -45,6 +46,33 @@ class Order extends Model
 
     // Attributes
 
+    public function getDatePaidAttribute()
+    {
+        if($this->isPaid()) {
+            return $this->paid_at->format('M d, Y');
+        }
+
+        return null;
+    }
+
+    public function getFormattedAmountAttribute()
+    {
+        if($this->isPaid()) {
+            return '$' . number_format($this->amount/100, 2);
+        }
+
+        return $this->subtotal;
+    }
+
+    public function getFormattedConfirmationNumberAttribute()
+    {
+        if($this->isPaid()) {
+            return hyphenate($this->confirmation_number);
+        }
+
+        return 'n/a';
+    }
+
     public function getFormattedIdAttribute()
     {
         return $this->event->order_prefix . $this->id;
@@ -53,7 +81,7 @@ class Order extends Model
     public function getSubtotalAttribute()
     {
         $sum = $this->tickets->sum(function($ticket) {
-            return $ticket->price->cost ?? $ticket->scaled_price;
+            return $ticket->price->cost;
         });
 
         return '$' . number_format($sum/100, 2);
@@ -80,6 +108,18 @@ class Order extends Model
     public function isPaid()
     {
         return $this->transaction_id !== null;
+    }
+
+    public function transactionDetails()
+    {
+        if($this->isPaid()) {
+            if(Str::startsWith($this->transaction_id, 'ch_')) {
+                //
+            } elseif (Str::startsWith($this->transaction_id, 'pi_')) {
+                $stripe = new \Stripe\StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
+                dd($stripe->paymentIntents->retrieve($this->transaction_id,[]));
+            }
+        }
     }
 
     public function ticketsFormattedForCheckout()

@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->dateTime('reservation_ends')->nullable();
             $table->json('invoice')->nullable();
             $table->timestamps();
+            $table->dateTime('paid_at')->nullable();
             $table->softDeletes();
         });
     }

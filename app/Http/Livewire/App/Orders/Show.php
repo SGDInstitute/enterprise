@@ -47,6 +47,7 @@ class Show extends Component
             'billing_address_collection' => 'required',
             'metadata' => [
                 'order_id' => $this->order->id,
+                'event_id' => $this->order->event->id,
             ]
         ]);
     }

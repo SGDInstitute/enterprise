@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
     Route::get('/orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
+    Route::get('/orders/{order}/receipt', function(App\Models\Order $order) {
+        return view('pdf.receipt', ['order' => $order]);
+    })->name('app.orders.show.receipt');
     Route::get('/orders/{order}/finalize', function() {
         return 'hi';
     })->name('app.orders.finalize');

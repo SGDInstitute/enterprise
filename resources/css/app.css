@@ -6,3 +6,5 @@
 @import "components/trix.css";
 
 @import 'tailwindcss/utilities';
+
+[x-cloak] { display: none; }

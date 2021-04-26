@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
         $inPerson = TicketType::create(['event_id' => $mblgtacc->id, 'stripe_product_id' => 'prod_JMv3xouI9pZ6Vp', 'name' => 'In-person Attendee', 'structure' => 'flat', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
-        $inPerson->prices()->create(['name' => 'Regular', 'stripe_price_id' => 'price_1IkBDgI7BmcylBPU2P1RSoKR', 'cost' => 8500, 'start' => '2021-04-26 17:00:00', 'end' => '2021-10-08 04:59:00', 'timezone' => 'America/Chicago']);
+        $inPerson->prices()->create(['name' => 'Regular', 'stripe_price_id' => 'price_1IkBDgI7BmcylBPU2P1RSoKR', 'cost' => 8500, 'start' => '2021-04-26 00:00:00', 'end' => '2021-10-08 04:59:59', 'timezone' => 'America/Chicago']);
         $inPerson->prices()->create(['name' => 'On-site', 'stripe_price_id' => 'price_1IkBDgI7BmcylBPUqQuVAmdm', 'cost' => 10000, 'start' => '2021-10-08 05:00:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
         $virtual = TicketType::create(['event_id' => $mblgtacc->id, 'stripe_product_id' => 'prod_JNBpBhNjaW37YD', 'name' => 'Virtual Attendee', 'description' => 'We recommend individuals purchasing virtual tickets pay $25-50 to attend and institutions sponsoring students to attend pay $35-60 per person.', 'structure' => 'scaled-range', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
         $virtual->prices()->createMany([
