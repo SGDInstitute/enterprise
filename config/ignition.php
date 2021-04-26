@@ -10,11 +10,11 @@ return [
     | Choose your preferred editor to use when clicking any edit button.
     |
     | Supported: "phpstorm", "vscode", "vscode-insiders",
-    |            "sublime", "atom"
+    |            "sublime", "atom", "nova"
     |
     */
 
-    'editor' => env('IGNITION_EDITOR', 'phpstorm'),
+    'editor' => env('IGNITION_EDITOR', 'vscode'),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ return [
     |
     */
 
-    'theme' => env('IGNITION_THEME', 'light'),
+    'theme' => env('IGNITION_THEME', 'auto'),
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +69,7 @@ return [
     */
 
     'ignored_solution_providers' => [
-        //
+        \Facade\Ignition\SolutionProviders\MissingPackageSolutionProvider::class,
     ],
 
     /*

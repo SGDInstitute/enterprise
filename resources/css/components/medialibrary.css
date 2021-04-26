@@ -1,0 +1,21 @@
+@media (prefers-color-scheme: dark) {
+    .media-library-dropzone {
+        @apply bg-transparent;
+    }
+
+    .media-library-dropzone-add {
+        @apply border-gray-300;
+    }
+
+    .media-library-item {
+        @apply bg-transparent;
+    }
+
+    .media-library-row-drag, .media-library-filled.media-library-sortable .media-library-add .media-library-dropzone:before {
+        @apply text-gray-300 bg-gray-600;
+    }
+
+    .media-library-help, .media-library-property, .media-library-label {
+        @apply text-gray-300;
+    }
+}

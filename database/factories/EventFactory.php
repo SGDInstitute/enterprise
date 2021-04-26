@@ -2,78 +2,84 @@
 
 namespace Database\Factories;
 
+use App\Models\Event;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EventFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = \App\Models\Event::class;
+    protected $model = Event::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            'title' => 'Leadership Conference',
-            'slug' => 'leadership-conference',
-            'stripe' => 'institute',
-            'subtitle' => 'Learn something new every day',
-            'timezone' => 'America/Denver',
-            'place' => 'University of Colorado',
-            'location' => 'Denver, CO',
-            'start' => \Carbon\Carbon::now()->addYear(),
-            'end' => \Carbon\Carbon::now()->addYear()->addDay(2),
-            'links' => [
-                ['icon' => 'twitter', 'link' => 'https://twitter.com/leadership', 'order' => 1],
-                ['icon' => 'facebook', 'link' => 'https://www.facebook.com/leadership/', 'order' => 2],
-                ['icon' => 'instagram', 'link' => 'https://www.instagram.com/leadership', 'order' => 3],
-                ['icon' => 'snapchat-ghost', 'link' => 'https://www.snapchat.com/add/leadership', 'order' => 4],
-                ['icon' => 'website', 'link' => 'https://leadership.org', 'order' => 5],
-            ],
+            'name' => '',
         ];
     }
 
-    public function published()
+    public function preset($type)
     {
-        return $this->state(function () {
-            return [
-                'published_at' => \Carbon\Carbon::parse('-1 week'),
-            ];
-        });
-    }
-
-    public function unpublished()
-    {
-        return $this->state(function () {
-            return [
-                'published_at' => null,
-            ];
-        });
-    }
-
-    public function future()
-    {
-        return $this->state(function () {
-            return [
-                'published_at' => \Carbon\Carbon::parse('+1 month'),
-            ];
-        });
-    }
-
-    public function past()
-    {
-        return $this->state(function () {
-            return [
-                'start' => \Carbon\Carbon::parse('-1 year'),
-                'end' => \Carbon\Carbon::parse('-1 year')->addDays(2),
-            ];
-        });
+        if($type === 'mblgtacc') {
+            return $this->state(function (array $attributes) {
+                $start = new Carbon('first Friday of October');
+                return [
+                    'name' => 'MBLGTACC 20XX',
+                    'start' => $start->addHours(17)->format('m/d/Y h:i A'),
+                    'end' => $start->addDays(2)->subHours(4)->format('m/d/Y h:i A'),
+                    'timezone' => 'America/New_York',
+                    'order_prefix' => 'MBL',
+                    'description' => 'MBGLTACC is the longest running blah blah blah',
+                    'settings' => [
+                        'reservations' => true,
+                        'reservation_length' => 60,
+                        'volunteer_discounts' => true,
+                        'presenter_discounts' => true,
+                        'demographics' => true,
+                        'add_ons' => true,
+                        'bulk' => true,
+                        'invoices' => true,
+                        'check_payment' => true,
+                        'onsite' => true,
+                        'livestream' => false,
+                        'has_workshops' => true,
+                        'has_volunteers' => true,
+                        'has_sponsorship' => true,
+                        'has_vendors' => true,
+                        'has_ads' => true,
+                        'allow_donations' => true,
+                    ],
+                ];
+            });
+        } elseif($type === 'tjt') {
+            return $this->state(function (array $attributes) {
+                $start = new Carbon('first Thursday of November');
+                return [
+                    'name' => 'Transgender Justice Teach-in',
+                    'start' => $start->addHours(17)->format('m/d/Y h:i A'),
+                    'end' => $start->subHours(19)->format('m/d/Y h:i A'),
+                    'timezone' => 'America/Chicago',
+                    'order_prefix' => 'TJT',
+                    'description' => 'TJT is for...',
+                    'settings' => [
+                        'reservations' => false,
+                        'volunteer_discounts' => false,
+                        'presenter_discounts' => false,
+                        'demographics' => true,
+                        'add_ons' => false,
+                        'bulk' => true,
+                        'invoices' => true,
+                        'check_payment' => false,
+                        'onsite' => false,
+                        'livestream' => true,
+                        'has_workshops' => false,
+                        'has_volunteers' => false,
+                        'has_sponsorship' => false,
+                        'has_vendors' => false,
+                        'has_ads' => false,
+                        'allow_donations' => true,
+                    ],
+                ];
+            });
+        }
     }
 }

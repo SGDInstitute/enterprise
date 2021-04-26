@@ -1,80 +1,44 @@
 <?php
 
+use function GuzzleHttp\json_encode;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
-if (! function_exists('str_snake')) {
-    /**
-     * Generate a HTML link.
-     *
-     * @param $string
-     *
-     * @return string
-     */
-    function str_snake($string)
+if (! function_exists('isInternetExplorer')) {
+    function isInternetExplorer()
     {
-        return strtolower(str_replace(' ', '_', $string));
-    }
-}
-
-if (! function_exists('str_title')) {
-    /**
-     * Generate a HTML link.
-     *
-     * @param $string
-     *
-     * @return string
-     */
-    function str_title($string)
-    {
-        return Str::title(str_replace('_', ' ', $string));
-    }
-}
-
-if (! function_exists('cannot')) {
-    /**
-     * Generate a HTML link.
-     *
-     * @param $user
-     * @param $permission
-     *
-     * @return string
-     */
-    function cannot($user, $permission)
-    {
-        if ($user->cannot($permission)) {
-            flash('You do not have permission to '.str_title($permission), 'danger');
-
-            return true;
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            return preg_match('~MSIE|Internet Explorer~i', $_SERVER['HTTP_USER_AGENT']) ||
+            (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0; rv:11.0') !== false) ||
+            (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0; Touch; rv:11.0') !== false);
         }
-
-        return false;
     }
 }
 
-if (! function_exists('getStripeKey')) {
-    function getStripeKey($group)
+if (! function_exists('hyphenate')) {
+    function hyphenate($str, $number = 4, $deliminator = '-')
     {
-        return config("$group.stripe.key");
-    }
-}
-
-if (! function_exists('getStripeSecret')) {
-    function getStripeSecret($group)
-    {
-        return config("$group.stripe.secret");
-    }
-}
-
-if (! function_exists('getNameFromGroup')) {
-    function getNameFromGroup($group)
-    {
-        return config("{$group}.short_name");
+        return implode($deliminator, str_split($str, $number));
     }
 }
 
 if (! function_exists('markdown')) {
     function markdown($text)
     {
-        return (new Parsedown)->text($text);
+        return (new ParsedownExtra)->text($text);
+    }
+}
+
+if (! function_exists('stripeUrl')) {
+    function stripeUrl($text)
+    {
+        if (env('APP_ENV') === 'production') {
+            return 'https://dashboard.stripe.com/search?query='.$text;
+        }
+
+        return 'https://dashboard.stripe.com/test/search?query='.$text;
     }
 }

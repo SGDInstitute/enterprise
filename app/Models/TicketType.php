@@ -2,46 +2,59 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class TicketType extends Model
 {
     use HasFactory;
-    use LogsActivity, SoftDeletes;
 
-    protected $appends = ['formatted_cost', 'is_open'];
+    public $guarded = [];
 
-    protected $dates = [
-        'availability_start', 'availability_end',
-    ];
+    protected $casts = ['form' => 'collection'];
+    public $dates = ['start', 'end'];
+
+    // Relationships
 
     public function event()
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function users()
+    public function prices()
     {
-        return $this->belongsToMany(User::class, 'discounts');
+        return $this->hasMany(Price::class);
     }
 
-    public function getFormattedCostAttribute()
-    {
-        return '$'.number_format($this->cost / 100, 2);
-    }
+    // Attributes
 
-    public function getIsOpenAttribute()
+    public function getAvailablityAttribute()
     {
-        if (is_null($this->availability_start) && is_null($this->availability_end)) {
-            return true;
+        if($this->start && $this->end) {
+            return 'Available: ' . $this->start->timezone($this->timezone)->format('M j') . ' - ' . $this->end->timezone($this->timezone)->format('M j, Y');
         }
+    }
 
-        $now = Carbon::now();
+    public function getFormattedEndAttribute()
+    {
+        return optional($this->end)->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
+    }
 
-        return $this->availability_start < $now && $now < $this->availability_end;
+    public function getFormattedStartAttribute()
+    {
+        return $this->start->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
+    }
+
+    public function getPriceRangeAttribute()
+    {
+        return '$' . $this->prices->min('cost') / 100 . ' - $' . $this->prices->max('cost') / 100;
+    }
+
+    // Methods
+
+    public function safeDelete()
+    {
+        $this->prices->each(fn($price) => $price->delete());
+        $this->delete();
     }
 }

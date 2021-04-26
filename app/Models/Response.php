@@ -4,26 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Response extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
-    protected $fillable = [
-        'responses',
-        'request',
-        'email',
-        'user_id',
-    ];
+    public $guarded = [];
 
     protected $casts = [
-        'responses' => 'array',
-        'request'   => 'array',
+        'answers' => 'collection',
     ];
 
-    public static function findByEmail($email)
+    protected static $logAttributes = ['answers', 'status'];
+    protected static $logOnlyDirty = true;
+
+    public function collaborators()
     {
-        return self::where('email', $email)->first();
+        return $this->belongsToMany(User::class, 'collaborators');
     }
 
     public function form()
@@ -31,12 +29,18 @@ class Response extends Model
         return $this->belongsTo(Form::class);
     }
 
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function event()
+
+    // Attributes
+
+    public function getNameAttribute()
     {
+        return $this->answers['question-name'] ?? $this->answers['name'];
     }
+
+    // Methods
 }

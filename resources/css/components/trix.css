@@ -1,0 +1,5 @@
+@media (prefers-color-scheme: dark) {
+    trix-toolbar .trix-button-group {
+        @apply bg-gray-500;
+    }
+}

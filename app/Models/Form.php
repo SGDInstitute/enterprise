@@ -2,64 +2,68 @@
 
 namespace App\Models;
 
-use App\Models\Event;
-use App\Models\Response;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Form extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
-    protected $fillable = ['name', 'start', 'end', 'is_public', 'form'];
+    public $guarded = [];
 
     protected $casts = [
-        'is_public' => 'boolean',
+        'auth_required' => 'boolean',
         'form' => 'collection',
     ];
+    public $dates = ['start', 'end'];
 
-    protected $dates = ['start', 'end'];
-
-    public static function findBySlug($slug)
+    public function getSlugOptions() : SlugOptions
     {
-        return self::where('slug', $slug)->firstOrFail();
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 
-    public function scopeOpen($query)
-    {
-        return $query->where('is_public', true)
-            ->whereDate('start', '<=', Carbon::now())
-            ->whereDate('end', '>=', Carbon::now());
-    }
-
-    public function responses()
-    {
-        return $this->hasMany(Response::class);
-    }
+    // Relations
 
     public function event()
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function getRules()
-    {
-        return $this->compileRules($this->form, []);
-    }
+    // Attributes
 
-    private function compileRules($form, $rules, $pre = '')
+    public function getFormattedEndAttribute()
     {
-        foreach ($form as $question) {
-            if (isset($question['rules'])) {
-                $rules["{$pre}{$question['id']}"] = $question['rules'];
-            }
-
-            if (isset($question['type']) && $question['type'] === 'repeat') {
-                $rules = $this->compileRules($question['form'], $rules, "{$question['id']}.*.");
-            }
+        if($this->timezone === null || $this->end === null) {
+            return now()->format('m/d/Y g:i A');
         }
 
-        return $rules;
+        return $this->end->timezone($this->timezone)->format('m/d/Y g:i A');
+    }
+
+    public function getFormattedStartAttribute()
+    {
+        if($this->timezone === null || $this->start === null) {
+            return now()->format('m/d/Y g:i A');
+        }
+
+        return $this->start->timezone($this->timezone)->format('m/d/Y g:i A');
+    }
+
+    public function getHasCollaboratorsAttribute()
+    {
+        return $this->form->contains('style', 'collaborators');
+    }
+
+    public function getRulesAttribute()
+    {
+        return $this->form
+            ->filter(fn($item) => $item['style'] === 'question')
+            ->mapWithKeys(function($question) {
+                return ['answers.'.$question['id'] => $question['rules']];
+            })->toArray();
     }
 }

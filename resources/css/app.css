@@ -1,0 +1,10 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+@import "vendor/medialibrary.css";
+@import "components/medialibrary.css";
+@import "components/trix.css";
+
+@import 'tailwindcss/utilities';
+
+[x-cloak] { display: none; }

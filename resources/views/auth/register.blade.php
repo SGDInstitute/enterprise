@@ -1,70 +1,51 @@
-@extends('layouts.app', ['title' => 'Register'])
+<x-guest-layout>
+    <x-auth.card>
+        <x-slot name="logo">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
+            </a>
+        </x-slot>
 
-@section('content')
-<main role="main" class="mt-40">
-    <div class="bg-mint-500 h-80 absolute top-0 w-full -z-1 overflow-hidden" style="background: #38AFAD; background: -webkit-linear-gradient(to left, #1a7796, #38AFAD); background: linear-gradient(to left, #1a7796, #38AFAD);">
-    </div>
-    <div class="w-full px-4 md:px-0 md:w-1/2 mx-auto">
-        <div class="bg-white p-6 rounded shadow mb-16">
-            <h1 class="text-xl mb-6">Create an Account</h1>
-            <form method="POST" action="{{ route('register') }}">
-                {{ csrf_field() }}
+        <!-- Validation Errors -->
+        <x-auth.validation-errors class="mb-4" :errors="$errors" />
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-                    <input id="name" type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+            <!-- Name -->
+            <x-bit.input.group for="name" :label="__('Name')" :error="$errors->first('name')">
+                <x-bit.input.text id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')" required autofocus />
+            </x-bit.input.group>
 
-                    @if ($errors->has('name'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('name') }}</strong>
-                    </span>
-                    @endif
-                </div>
+            <!-- Email Address -->
+            <x-bit.input.group for="email" :label="__('Email')" class="mt-4" :error="$errors->first('email')">
+                <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required />
+            </x-bit.input.group>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-Mail Address</label>
+            <!-- Password -->
+            <x-bit.input.group for="password" :label="__('Password')" :error="$errors->first('password')" class="mt-4">
+                <x-bit.input.text id="password" class="block w-full mt-1"
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password" />
+            </x-bit.input.group>
 
-                    <input id="email" type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+            <!-- Confirm Password -->
+            <x-bit.input.group for="password_confirmation" :label="__('Confirm Password')" :error="$errors->first('password_confirmation')" class="mt-4">
+                <x-bit.input.text id="password_confirmation" class="block w-full mt-1"
+                                type="password"
+                                name="password_confirmation" required />
+            </x-bit.input.group>
 
-                    @if ($errors->has('email'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                    @endif
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-
-                    <div class="input-group">
-                        <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password" required>
-                        <div class="input-group-append">
-                            <span class="input-group-text" data-container="body" data-toggle="popover" data-placement="top" title="Password Requirements" data-content="Your password must be at least 8 characters in length, with at least 3 of the following: upper case letter, lower case letter, number, or special character.">
-                                <i class="fa fa-info"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    @if ($errors->has('password'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                    @endif
-                </div>
-
-                <div class="mb-3">
-                    <label for="password-confirm" class="form-label">Confirm Password</label>
-
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                </div>
-
-                <button type="submit" class="btn btn-mint">Create Account</button>
-                <a class="btn btn-link" href="{{ route('login') }}">
-                    Already have an account? Login
+            <div class="flex items-center justify-end mt-4">
+                <a class="text-sm text-gray-600 underline dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
                 </a>
-            </form>
-        </div>
-    </div>
-</main>
-@endsection
+
+                <x-bit.button.flat.primary type="submit" class="ml-4">
+                    {{ __('Register') }}
+                </x-bit.button.flat.primary>
+            </div>
+        </form>
+    </x-auth.card>
+</x-guest-layout>

@@ -2,129 +2,83 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Carbon;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
-class Event extends Model
+class Event extends Model implements HasMedia
 {
-    use HasFactory;
-    use LogsActivity, SoftDeletes;
+    use HasFactory, HasSettings, InteractsWithMedia, HasSlug;
 
-    protected $fillable = ['title', 'subtitle', 'description', 'location', 'slug', 'stripe', 'start', 'end', 'published_at'];
+    protected $guarded = [];
 
-    protected $dates = [
-        'start', 'end', 'published_at',
-    ];
+    public $casts = ['settings' => 'array'];
+    public $dates = ['start', 'end'];
 
-    protected $casts = [
-        'links' => 'array',
-    ];
-
-    public function contributions()
+    public function getSlugOptions() : SlugOptions
     {
-        return $this->hasMany(Contribution::class);
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 
-    public function forms()
+    public function getBackgroundUrlAttribute()
     {
-        return $this->hasMany(Form::class);
+        return $this->getFirstMediaUrl('background') ?? 'https://sgdinstitute.org/assets/headers/homepage-hero1.jpg';
     }
 
-    public function orders()
+    public function getFormattedDurationAttribute()
     {
-        return $this->hasMany(Order::class);
-    }
-
-    public function schedules()
-    {
-        return $this->hasMany(Schedule::class);
-    }
-
-    public function ticket_types()
-    {
-        return $this->hasMany(TicketType::class);
-    }
-
-    public function scopeFindBySlug($query, $slug)
-    {
-        return $query->where('slug', $slug)->firstOrFail();
-    }
-
-    public function scopePublished($query)
-    {
-        return $query->whereNotNull('published_at')
-            ->whereDate('published_at', '<=', Carbon::now());
-    }
-
-    public function scopeUpcoming($query)
-    {
-        $query->whereDate('end', '>', Carbon::now()->subHours(12));
-    }
-
-    public function getFormattedStartAttribute()
-    {
-        return $this->start->timezone($this->timezone)->format('D, M j');
+        if($this->start->diffInHours($this->end) > 24) {
+            return $this->start->timezone($this->timezone)->format('D, M j') . ' - ' . $this->end->timezone($this->timezone)->format('D, M j, Y');
+        } else {
+            return $this->start->timezone($this->timezone)->format('D, M j Y g:i a') . ' - ' . $this->end->timezone($this->timezone)->format('g:i a');
+        }
     }
 
     public function getFormattedEndAttribute()
     {
-        return $this->end->timezone($this->timezone)->format('D, M j');
+        return $this->end->timezone($this->timezone)->format('m/d/Y g:i A');
     }
 
-    public function getDurationAttribute()
+    public function getFormattedLocationAttribute()
     {
-        return $this->start->timezone($this->timezone)->format('l F j, Y g:i A')
-            .' to '.$this->end->timezone($this->timezone)->format('l F j, Y g:i A T');
-    }
-
-    public function getTicketStringAttribute($ticketString)
-    {
-        return ucwords($ticketString);
-    }
-
-    public function hasOrderFor($customerEmail)
-    {
-        return $this->orders()->where('email', $customerEmail)->count() > 0;
-    }
-
-    public function ordersFor($customerEmail)
-    {
-        return $this->orders()->where('email', $customerEmail)->get();
-    }
-
-    public function orderTickets($user, $tickets)
-    {
-        $order = $this->orders()->create(['user_id' => $user->id]);
-
-        foreach ($tickets as $ticket) {
-            if ($ticket['quantity'] > 0) {
-                $ticketType = TicketType::find($ticket['ticket_type_id']);
-
-                foreach (range(1, $ticket['quantity']) as $i) {
-                    $order->tickets()->create([
-                        'ticket_type_id' => $ticket['ticket_type_id'],
-                    ]);
-
-                    if ($ticketType->cost === 0) {
-                        $order->markAsPaid(collect(['id' => 'comped', 'amount' => 0]));
-                    }
-                }
-            }
+        if($this->settings->onsite && $this->settings->livestream) {
+            return $this->location . ' & Virtual';
+        } elseif($this->settings->onsite) {
+            return $this->location;
+        } else {
+            return 'Virtual';
         }
-
-        return $order;
     }
 
-    public function getPublicKey()
+    public function getFormattedStartAttribute()
     {
-        return config("{$this->stripe}.stripe.key");
+        return $this->start->timezone($this->timezone)->format('m/d/Y g:i A');
     }
 
-    public function getSecretKey()
+    public function getFormattedTimezoneAttribute()
     {
-        return config("{$this->stripe}.stripe.secret");
+        if($this->timezone === 'America/New_York') {
+            return 'EST';
+        }
+        if($this->timezone === 'America/Chicago') {
+            return 'CST';
+        }
+    }
+
+    public function ticketTypes()
+    {
+        return $this->hasMany(TicketType::class);
+    }
+
+    public function workshopForm()
+    {
+        return $this->hasOne(Form::class)->where('type', 'workshop')->where('event_id', $this->id);
     }
 }

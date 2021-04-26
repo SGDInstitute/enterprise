@@ -1,0 +1,1 @@
+<input {{ $attributes->merge(['class' => 'border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 focus:ring-green-500 focus:border-green-500 sm:text-sm' . ($attributes->get('disabled') ? ' opacity-75 cursor-not-allowed' : '')]) }}/>

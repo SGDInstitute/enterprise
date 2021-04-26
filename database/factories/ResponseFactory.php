@@ -1,38 +1,19 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
-
 namespace Database\Factories;
 
-use App\Models\Form;
+use App\Models\Response;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ResponseFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = \App\Models\Response::class;
+    protected $model = Response::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'form_id' => function () {
-                return Form::factory()->create()->id;
-            },
-            'email' => $this->faker->safeEmail,
-            'responses' => $this->faker->text,
-            'request' => $this->faker->text,
+            'form_id' => 1,
+            'user_id' => 1,
         ];
     }
 }

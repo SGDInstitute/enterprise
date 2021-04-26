@@ -1,32 +1,35 @@
 <?php
 
-Route::get('/', WelcomeController::class);
+use App\Http\Controllers\WebhookController;
+use Illuminate\Support\Facades\Route;
 
-Auth::routes(['verify' => true]);
 
-Route::get('/login/magic', 'Auth\MagicLoginController@show')->name('login.magic');
-Route::post('/login/magic', 'Auth\MagicLoginController@sendToken');
-Route::get('/login/magic/{token}', 'Auth\MagicLoginController@authenticate');
-Route::get('/register/verify/{token}', 'Auth\UserConfirmationController@store');
-Route::get('/register/email', 'Auth\UserConfirmationController@create');
+Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
 
-Route::get('/events/{slug}', 'EventsController@show');
-Route::get('/events/{slug}/policies/{policy}', 'EventsPoliciesController@show');
+Route::mediaLibrary();
 
-Route::get('/donations/create', 'DonationsController@create');
-Route::view('/donations/create/institute', 'donations.institute');
-Route::view('/donations/create/mblgtacc', 'donations.mblgtacc');
-Route::get('/donations/create/{event}', 'SponsorshipsController@create');
-Route::post('/donations', 'DonationsController@store');
-Route::get('/donations/{hash}', 'DonationsController@show');
+Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
 
-Route::view('/forms/thank-you', 'forms.thank_you');
-Route::get('/forms/{slug}', 'FormsResponsesController@create')->name('forms.create');
-Route::post('/forms/{form}/responses', 'FormsResponsesController@store');
-Route::get('/responses/{response}/edit', 'ResponsesController@edit');
-Route::patch('/responses/{response}', 'ResponsesController@update');
+Route::get('/donations/create/{type?}', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
 
-Route::get('/checkin', 'CheckInController');
-Route::get('/print/{ids}', 'PrintController');
+Route::get('/events', App\Http\Livewire\App\Events::class)->name('app.events');
+Route::get('/events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
 
-Route::get('/changelog', 'HomeController@changelog');
+Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
+
+require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
+
+    Route::get('/billing-portal', function () {
+        return request()->user()->redirectToBillingPortal();
+    })->name('app.billing-portal');
+
+    Route::get('/reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
+
+    Route::get('/orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
+    Route::get('/orders/{order}/receipt', function(App\Models\Order $order) {
+        return view('pdf.receipt', ['order' => $order]);
+    })->name('app.orders.show.receipt');
+});

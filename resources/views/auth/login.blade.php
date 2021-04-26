@@ -1,54 +1,46 @@
-@extends('layouts.app', ['title' => 'Login'])
+<x-guest-layout>
+    <x-auth.card>
+        <x-slot name="logo">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
+            </a>
+        </x-slot>
 
-@section('content')
-<main role="main" class="mt-40">
-    <div class="bg-mint-500 h-80 absolute top-0 w-full -z-1 overflow-hidden" style="background: #38AFAD; background: -webkit-linear-gradient(to left, #1a7796, #38AFAD); background: linear-gradient(to left, #1a7796, #38AFAD);">
-    </div>
-    <div class="w-full px-4 md:px-0 md:w-1/2 mx-auto">
-        <div class="bg-white p-6 rounded shadow mb-16">
-            <h1 class="text-xl mb-6">Login</h1>
-            <form method="POST" action="{{ route('login') }}">
-                {{ csrf_field() }}
+        <!-- Session Status -->
+        <x-auth.session-status class="mb-4" :status="session('status')" />
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-Mail Address</label>
+        <!-- Validation Errors -->
+        <x-auth.validation-errors class="mb-4" :errors="$errors" />
 
-                    <input id="email" type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
 
-                    @if ($errors->has('email'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                    @endif
-                </div>
+            <!-- Email Address -->
+            <x-bit.input.group for="email" :label="__('Email')">
+                <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
+            </x-bit.input.group>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+            <!-- Password -->
+            <x-bit.input.group for="password" :label="__('Password')" class="mt-4">
+                <x-bit.input.text id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
+            </x-bit.input.group>
 
-                    <input id="password" type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            <!-- Remember Me -->
+            <div class="block mt-4">
+                <x-bit.input.checkbox id="remember_me" name="remember" :label="__('Remember me')" />
+            </div>
 
-                    @if ($errors->has('password'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                    @endif
-                </div>
+            <div class="flex items-center justify-end mt-4">
+                @if (Route::has('password.request'))
+                    <a class="text-sm text-gray-600 underline dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
 
-                <div class="mb-3">
-                    <label class="form-label">
-                        <input class="form-check-input" type="checkbox" name="remember"> Remember Me
-                    </label>
-                </div>
-
-                <button type="submit" class="btn btn-mint">Login</button>
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                    Forgot Your Password?
-                </a>
-                <a class="btn btn-link" href="{{ route('login.magic') }}">
-                    Login with magic link instead
-                </a>
-            </form>
-        </div>
-    </div>
-</main>
-@endsection
+                <x-bit.button.flat.primary type="submit" class="ml-3">
+                    {{ __('Login') }}
+                </x-bit.button.flat.primary>
+            </div>
+        </form>
+    </x-auth.card>
+</x-guest-layout>

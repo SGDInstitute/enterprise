@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Invoice {{ $order->invoice->id }}</title>
+    <title>Order {{ $order->formattedId }}</title>
     <style>
         body {
             font-family: verdana, sans-serif;
@@ -53,7 +53,7 @@
             <tr>
                 <td class="sixty">
                     <img src="{{ asset('img/logo.png') }}" alt="Midwest Institute for Sexuality and Gender Diversity logo" width="250px"><br><br>
-                    {{ config($order->event->stripe . ".address") }}<br>
+                    {{ config('globals.institute_address') }}<br>
                     <a href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>
                 </td>
                 <td class="forty">
@@ -64,15 +64,12 @@
         <table>
             <tr>
                 <td class="sixty">
-                    {{ $order->invoice->name }}<br>
-                    {{ $order->invoice->email }}<br>
-                    {{ $order->invoice->address }} {{ $order->invoice->address_2 }}<br>
-                    {{ $order->invoice->city }}, {{ $order->invoice->state }} {{ $order->invoice->zip }}
+                    {!! nl2br($order->invoice['billable']) !!}
                 </td>
-                <td class="forty text-right">
-                    <strong>Invoice:</strong> #{{ str_pad($order->invoice->id, 6, "0", STR_PAD_LEFT) }}<br>
-                    <strong>Created Date:</strong> {{ $order->invoice->created_at->toFormattedDateString() }}<br>
-                    <strong>Due Date:</strong> {{ $order->invoice->due_date->toFormattedDateString() }}
+                <td class="text-right forty">
+                    <strong>Invoice:</strong> {{ $order->formattedId }}<br>
+                    <strong>Created Date:</strong> {{ $order->invoice['created_at'] }}<br>
+                    <strong>Due Date:</strong> {{ $order->invoice['due_date'] }}
                 </td>
             </tr>
         </table>
@@ -83,25 +80,25 @@
                 <th>Price</th>
                 <th>Total</th>
             </tr>
-            @foreach($order->getTicketsWithNameAndAmount() as $ticket)
+            @foreach($order->ticketsFormattedForInvoice() as $ticket)
             <tr>
-                <td>{{ $ticket['name'] }} for {{ $order->event->title }}</td>
-                <td>{{ $ticket['count'] }}</td>
-                <td>${{ number_format($ticket['cost']/100, 2) }}</td>
-                <td>${{ number_format($ticket['amount']/100, 2) }}</td>
+                <td>{{ $ticket['item'] }}</td>
+                <td>{{ $ticket['quantity'] }}</td>
+                <td>{{ $ticket['price'] }}</td>
+                <td>{{ $ticket['total'] }}</td>
             </tr>
             @endforeach
             <tr>
                 <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
-                <td>${{ number_format($order->amount/100, 2) }}</td>
+                <td>{{ $order->subtotal }}</td>
             </tr>
         </table>
         <table>
             <tr>
                 <td>
-                    <p>Payment must be postmarked by <strong>{{ $order->invoice->due_date->toFormattedDateString() }}</strong>. For any concerns or questions regarding payment or the invoice please contact <a href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>.
+                    <p>Payment must be postmarked by <strong>{{ $order->invoice['due_date'] }}</strong>. For any concerns or questions regarding payment or the invoice please contact <a href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>.
                         Include your issue or concern, invoice and order numbers, and best method of contact.</p>
-                    <p>Please mail payment to: {{ config($order->event->stripe . ".address") }}</p>
+                    <p>Please mail payment to: {{ config('globals.institute_address') }}</p>
                 </td>
             </tr>
             @if($order->event->refund_policy)

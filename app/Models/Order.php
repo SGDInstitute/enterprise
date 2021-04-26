@@ -2,34 +2,41 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Facades\App\ConfirmationNumber;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
 {
-    use HasFactory;
-    use LogsActivity, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id'];
+    public $guarded = [];
+    public $dates = ['reservation_ends', 'paid_at'];
+    public $casts = ['invoice' => 'collection'];
 
-    protected $dates = [
-        'transaction_date',
-    ];
+    // Scopes
 
-    protected static function boot()
+    public function scopeForEvent($query, $event)
     {
-        parent::boot();
+        return $query->where('event_id', $event->id);
+    }
 
-        static::deleting(function ($order) {
-            foreach ($order->tickets as $ticket) {
-                $ticket->delete();
-            }
-        });
+    public function scopeReservations($query)
+    {
+        return $query->whereNull('transaction_id');
+    }
+
+    public function scopePaid($query)
+    {
+        return $query->whereNotNull('transaction_id');
+    }
+
+    // Relations
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 
     public function tickets()
@@ -37,104 +44,100 @@ class Order extends Model
         return $this->hasMany(Ticket::class);
     }
 
-    public function event()
-    {
-        return $this->belongsTo(Event::class);
-    }
+    // Attributes
 
-    public function user()
+    public function getDatePaidAttribute()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function invoice()
-    {
-        return $this->hasOne(Invoice::class);
-    }
-
-    public function receipt()
-    {
-        return $this->hasOne(Receipt::class);
-    }
-
-    public function getAmountAttribute()
-    {
-        if ($this->isPaid()) {
-            return $this->receipt->amount;
+        if($this->isPaid()) {
+            return $this->paid_at->format('M d, Y');
         }
 
-        return $this->tickets->map(function ($ticket) {
-            return $ticket->ticket_type->cost;
-        })->sum();
+        return null;
     }
 
-    public function scopeUpcoming($query)
+    public function getFormattedAmountAttribute()
     {
-        return $query->select('orders.*', 'events.start')
-            ->join('events', 'orders.event_id', '=', 'events.id')
-            ->whereDate('end', '>', Carbon::now());
+        if($this->isPaid()) {
+            return '$' . number_format($this->amount/100, 2);
+        }
+
+        return $this->subtotal;
     }
 
-    public function scopePast($query)
+    public function getFormattedConfirmationNumberAttribute()
     {
-        return $query
-            ->select('orders.*', 'events.start')
-            ->join('events', 'orders.event_id', '=', 'events.id')
-            ->whereDate('end', '<', Carbon::now());
+        if($this->isPaid()) {
+            return hyphenate($this->confirmation_number);
+        }
+
+        return 'n/a';
     }
 
-    public function scopePaid($query)
+    public function getFormattedIdAttribute()
     {
-        return $query->whereNotNull('confirmation_number');
+        return $this->event->order_prefix . $this->id;
     }
 
-    public function scopeUnpaid($query)
+    public function getSubtotalAttribute()
     {
-        return $query->whereNull('confirmation_number');
+        $sum = $this->tickets->sum(function($ticket) {
+            return $ticket->price->cost;
+        });
+
+        return '$' . number_format($sum/100, 2);
     }
 
-    public function markAsPaid($charge)
-    {
-        $this->receipt()->create([
-            'transaction_id' => $charge->get('id'),
-            'amount' => $charge->get('amount'),
-            'card_last_four' => $charge->get('last4'),
-        ]);
+    // Methods
 
-        $this->confirmation_number = ConfirmationNumber::generate();
+    public function generateInvoice()
+    {
+        $this->invoice = [
+            'due_date' => $this->reservation_ends->format('m/d/Y'),
+            'created_at' => now()->format('m/d/Y'),
+            'billable' => auth()->user()->name . "\n" . auth()->user()->email,
+        ];
+
         $this->save();
     }
 
-    public function markAsUnpaid()
+    public function isFilled()
     {
-        $this->receipt->delete();
-        $this->confirmation_number = null;
-        $this->save();
+        return $this->tickets->where('user_id', null)->count() > 0 ? false : true;
     }
 
     public function isPaid()
     {
-        return ! is_null($this->receipt);
+        return $this->transaction_id !== null;
     }
 
-    public function isCheck()
+    public function transactionDetails()
     {
-        return Str::startsWith($this->receipt->transaction_id, '#');
+        if($this->isPaid()) {
+            if(Str::startsWith($this->transaction_id, 'ch_')) {
+                //
+            } elseif (Str::startsWith($this->transaction_id, 'pi_')) {
+                $stripe = new \Stripe\StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
+                dd($stripe->paymentIntents->retrieve($this->transaction_id,[]));
+            }
+        }
     }
 
-    public function isCard()
+    public function ticketsFormattedForCheckout()
     {
-        return Str::startsWith($this->receipt->transaction_id, 'ch');
+        return $this->tickets->groupBy('ticket_type_id')->mapWithKeys(function ($group) {
+            return [$group->first()->price->stripe_price_id => $group->count()];
+        })->toArray();
     }
 
-    public function getTicketsWithNameAndAmount()
+    public function ticketsFormattedForInvoice()
     {
-        return $this->tickets->groupBy('ticket_type_id')->map(function ($item) {
+        return $this->tickets->groupBy('ticket_type_id')->map(function ($group) {
+            $price = $group->first()->scaled_price ?? $group->first()->price->cost;
             return [
-                'name' => $item[0]->ticket_type->name,
-                'count' => $item->count(),
-                'cost' => $item[0]->ticket_type->cost,
-                'amount' => $item[0]->ticket_type->cost * $item->count(),
+                'item' => $this->event->name . ' ' . $group->first()->ticketType->name . ' - ' . $group->first()->price->name,
+                'quantity' => $group->count(),
+                'price' => '$' . number_format($price / 100, 2),
+                'total' => '$' . number_format($group->count() * $price / 100, 2),
             ];
         });
     }
