@@ -92,7 +92,6 @@
     </div>
     @endif
 
-    @if($orders->count() > 0)
     <div class="space-y-4">
         <div class="flex items-center justify-between">
             <h2 class="text-lg dark:text-gray-200">Paid Orders</h2>
@@ -162,24 +161,28 @@
         </div>
         @else
             <div class="grid grid-cols-3 gap-8">
-                @foreach($orders as $reservation)
-                <a href="{{ route('app.orders.show', $reservation) }}" class="block h-64 transition duration-150 ease-in-out bg-white dark:bg-gray-800 group hover:bg-green-500 hover:shadow">
-                    <div class="bg-center bg-cover h-1/2" style="background-image: url({{ $reservation->event->backgroundUrl }});">
-                        <img src="{{ $reservation->event->backgroundUrl }}" alt="{{ $reservation->event->name }}" class="sr-only">
+                @forelse($orders as $order)
+                <a href="{{ route('app.orders.show', $order) }}" class="block h-64 transition duration-150 ease-in-out bg-white dark:bg-gray-800 group hover:bg-green-500 hover:shadow">
+                    <div class="bg-center bg-cover h-1/2" style="background-image: url({{ $order->event->backgroundUrl }});">
+                        <img src="{{ $order->event->backgroundUrl }}" alt="{{ $order->event->name }}" class="sr-only">
                     </div>
                     <div class="px-4 py-2 mx-4 -mt-8 transition duration-150 ease-in-out bg-white dark:bg-gray-800 group-hover:bg-green-500">
-                        <p class="text-2xl text-gray-900 dark:text-gray-200 group-hover:text-gray-200">{{ $reservation->event->name }}</p>
-                        <p class="text-sm text-gray-700 dark:text-gray-400 text-italic group-hover:text-gray-300">{{ $reservation->event->formattedDuration }}</p>
-                        <p class="text-sm text-gray-700 dark:text-gray-400 text-italic group-hover:text-gray-300">{{ $reservation->event->formattedLocation }}</p>
+                        <p class="text-2xl text-gray-900 dark:text-gray-200 group-hover:text-gray-200">{{ $order->event->name }}</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-400 text-italic group-hover:text-gray-300">{{ $order->event->formattedDuration }}</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-400 text-italic group-hover:text-gray-300">{{ $order->event->formattedLocation }}</p>
                         <p class="flex items-center mt-2 space-x-2 text-lg text-gray-900 dark:text-gray-200 text-italic group-hover:text-gray-200">
                             <x-heroicon-o-ticket class="w-6 h-6" />
-                            <span>{{ $reservation->tickets->count() }} Tickets</span>
+                            <span>{{ $order->tickets->count() }} Tickets</span>
                         </p>
                     </div>
                 </a>
-                @endforeach
+                @empty
+                    <div class="flex items-center justify-center space-x-2 bg-gray-100 dark:bg-gray-700">
+                        <x-heroicon-o-calendar class="w-8 h-8 text-gray-400" />
+                        <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No orders found</span>
+                    </div>
+                @endforelse
             </div>
         @endif
     </div>
-    @endif
 </div>
