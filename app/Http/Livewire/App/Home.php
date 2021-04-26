@@ -20,11 +20,11 @@ class Home extends Component
 
     public function getEventsProperty()
     {
-        return Event::all();
+        return Event::where('end', '>=', now())->get();
     }
 
     public function getWorkshopFormsProperty()
     {
-        return Form::where('type', 'workshop')->get();
+        return Form::where('type', 'workshop')->where('start', '<', now())->where('end', '>', now())->get();
     }
 }

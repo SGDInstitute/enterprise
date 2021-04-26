@@ -39,7 +39,7 @@ class Response extends Model
 
     public function getNameAttribute()
     {
-        return $this->answers['question-name'] ?? $this->answers['name'];
+        return $this->answers['question-name'] ?? $this->answers['name'] ?? 'Indertiminable';
     }
 
     // Methods

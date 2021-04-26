@@ -31,6 +31,7 @@ class Workshops extends Component
         return Response::query()
             ->with(['form', 'collaborators'])
             ->where('type', 'workshop')
+            ->where('user_id', auth()->id())
             ->paginate($this->perPage);
     }
 }

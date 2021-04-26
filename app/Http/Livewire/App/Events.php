@@ -19,6 +19,6 @@ class Events extends Component
 
     public function getEventsProperty()
     {
-        return Event::all();
+        return Event::where('end', '>=', now())->get();
     }
 }

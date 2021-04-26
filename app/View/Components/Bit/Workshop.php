@@ -30,7 +30,7 @@ class Workshop extends Component
 
     public function image()
     {
-        return $this->form->event->getFirstMediaUrl('background') ?? 'https://sgdinstitute.org/assets/headers/homepage-hero1.jpg';
+        return optional($this->form->event)->getFirstMediaUrl('background') ?? 'https://sgdinstitute.org/assets/headers/homepage-hero1.jpg';
     }
 
     public function dates()
