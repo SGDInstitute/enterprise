@@ -27,7 +27,7 @@
 
             <!-- Remember Me -->
             <div class="block mt-4">
-                <x-bit.input.checkbox id="remember_me" name="remember">{{ __('Remember me') }}</x-input.checkbox>
+                <x-bit.input.checkbox id="remember_me" name="remember" :label="__('Remember me')" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
