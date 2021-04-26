@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
 
         $mblgtacc = Event::factory()->preset('mblgtacc')->create(['name' => 'MBLGTACC 2021', 'location' => 'Madison, WI', 'timezone' => 'America/Chicago']);
         Form::factory()->create([
-            'name' => $mblgtacc->name . ' Workshop Proposal',
+            'name' => 'MBLGTACC 2021 Workshop Proposal',
             'type' => 'workshop',
-            'event_id' => $mblgtacc->id,
+            'event_id' => 6,
             'auth_required' => 1,
             'start' => '2021-04-01 07:25:00',
             'end' => '2021-07-15 07:25:00',

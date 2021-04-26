@@ -29,6 +29,6 @@
     </div>
 
     <div class="py-4 prose dark:prose-light">
-        {{ $event->description }}
+        {!! $event->description !!}
     </div>
 </div>
