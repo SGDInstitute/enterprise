@@ -11,7 +11,7 @@ class CreateResponsesTable extends Migration
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_id')->constrained('forms');
-            $table->foreignId('user_id')->constrained('users')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('email')->nullable();
             $table->string('type');
             $table->json('answers');

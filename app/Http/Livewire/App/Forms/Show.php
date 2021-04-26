@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Notifications\AddedAsCollaborator;
 use App\Notifications\RemovedAsCollaborator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Show extends Component
@@ -133,13 +135,17 @@ class Show extends Component
         if($this->form->hasCollaborators) {
             $emails = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $this->answers['collaborators'] ?? auth()->user()->email));
 
-            [$users, $invites] = collect($emails)->partition(function ($email) {
-                return DB::table('users')->where('email', $email)->exists();
+            $users = collect($emails)->map(function ($email) {
+                if($user = User::firstWhere('email', $email)) {
+                    return $user;
+                } else {
+                    return User::create(['email' => $email, 'password' => Hash::make(Str::random(15))]);
+                }
             });
 
             $oldCollaborators = $this->response->fresh()->collaborators->pluck('id');
 
-            $ids = DB::table('users')->whereIn('email', $users)->select('id')->get()->pluck('id');
+            $ids = $users->pluck('id');
             $this->response->collaborators()->sync($ids);
 
             $oldCollaborators->forget($oldCollaborators->search(auth()->id()));
@@ -153,9 +159,6 @@ class Show extends Component
                 $users = User::find($ids->diff($oldCollaborators));
                 Notification::send($users, new AddedAsCollaborator($this->response));
             }
-
-
-            // create invites for new users
         }
 
         if($withNotification) {

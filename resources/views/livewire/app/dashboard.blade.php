@@ -13,6 +13,8 @@
             <livewire:app.dashboard.workshops />
             @elseif($page === 'donations')
             <livewire:app.dashboard.donations />
+            @elseif($page === 'settings')
+            <livewire:app.dashboard.settings />
             @endif
         </div>
     </div>

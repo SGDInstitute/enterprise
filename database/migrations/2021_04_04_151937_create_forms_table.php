@@ -13,7 +13,7 @@ class CreateFormsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('type');
-            $table->foreignId('event_id')->constrained('events')->nullable();
+            $table->foreignId('event_id')->nullable()->constrained('events');
             $table->boolean('auth_required')->default(true);
             $table->string('list_id')->nullable();
             $table->dateTime('start')->nullable();

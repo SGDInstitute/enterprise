@@ -7,6 +7,7 @@ use App\Http\Livewire\Traits\WithSorting;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Notifications\AddedToTicket;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -87,14 +88,20 @@ class Tickets extends Component
 
     public function addUser()
     {
+        $newUser = false;
         if($this->ticketholder->id === null) {
             $this->ticketholder->password = Hash::make(Str::random(15));
+            $newUser = true;
         }
         $this->ticketholder->save();
 
         $ticket = $this->tickets->firstWhere('user_id', null);
         $ticket->user_id = $this->ticketholder->id;
         $ticket->save();
+
+        if($this->ticketholder->id !== auth()->id()) {
+            $this->ticketholder->notify(new AddedToTicket($ticket, $newUser, auth()->user()->name));
+        }
 
         $this->emit('refresh');
         $this->ticketholder = new User;
@@ -168,12 +175,19 @@ class Tickets extends Component
             if($item['user_id'] !== null || $user = User::where('email', $item['email'])->first()) {
                 $ticket->user_id = $item['user_id'] ?? $user->id;
                 $ticket->save();
+                $ticket->refresh();
 
-                $ticket->fresh()->user->update([
+                $ticket->user->update([
                     'name' => $item['name'],
                     'email' => $item['email'],
                     'pronouns' => $item['pronouns'],
                 ]);
+
+                // if not authenticated user, send notification that they were added to a ticket
+                if($ticket->user_id !== auth()->id()) {
+                    $ticket->user->notify(new AddedToTicket($ticket, false, auth()->user()->name));
+                }
+
                 continue;
             }
 
@@ -187,6 +201,9 @@ class Tickets extends Component
 
                 $ticket->user_id = $user->id;
                 $ticket->save();
+
+                // send notification that they were created and added to a ticket
+                $user->notify(new AddedToTicket($ticket, true, auth()->user()->name));
                 continue;
             }
         }
