@@ -22,12 +22,13 @@
             </div>
             @elseif($ticket->structure === 'scaled-range')
             <div class="p-4 space-y-2 bg-gray-100 dark:bg-gray-700">
+                <span class='text-gray-200'>@json($form[$index])</span>
                 <div class="flex justify-between">
                     <x-bit.input.group :for="'ticket-cost'.$index" label="Number of Tickets" sr-only>
                         <span class="text-2xl dark:text-gray-200">$</span>
-                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500" wire:model.lazy="form.{{ $index }}.cost">
-                            @foreach($form[$index]['options'] as $option)
-                                <option value="{{ $option }}">{{ $option }}</option>
+                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500" wire:model.lazy="form.{{ $index }}.price_id">
+                            @foreach($form[$index]['options'] as $priceId => $option)
+                                <option value="{{ $priceId }}">{{ $option }}</option>
                             @endforeach
                         </select>
                     </x-bit.input.group>

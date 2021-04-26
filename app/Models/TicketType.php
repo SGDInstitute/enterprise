@@ -47,11 +47,7 @@ class TicketType extends Model
 
     public function getPriceRangeAttribute()
     {
-        if($this->structure === 'flat' || $this->structure === 'scaled-defined') {
-            return '$' . $this->prices->min('cost') / 100 . ' - $' . $this->prices->max('cost') / 100;
-        } elseif($this->structure === 'scaled-range') {
-            return '$' . $this->prices->first()->min / 100 . ' - $' . $this->prices->first()->max / 100;
-        }
+        return '$' . $this->prices->min('cost') / 100 . ' - $' . $this->prices->max('cost') / 100;
     }
 
     // Methods

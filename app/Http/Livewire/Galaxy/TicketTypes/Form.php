@@ -60,8 +60,10 @@ class Form extends Component
 
     public function removePrice($index)
     {
-        unset($this->prices[$index]);
-        $this->prices = $this->prices->values();
+        $prices = $this->prices;
+        unset($prices[$index]);
+        array_values($prices);
+        $this->prices = $prices;
     }
 
     public function save()
@@ -93,14 +95,33 @@ class Form extends Component
 
         $this->ticketType->save();
 
-        [$existing, $creating] = $this->preparePrices($this->prices)->partition(function ($i) {
-            return isset($i['id']);
-        });
+        if($this->ticketType->structure === 'scaled-range' && $this->ticketType->prices->count() === 0) {
+            $creating = [];
 
-        foreach($existing as $item) {
-            Price::where('id', $item['id'])->update($item);
+            $generating = $this->prices[0];
+            $value = $generating['minInDollars'];
+            while ($value <= $generating['maxInDollars']) {
+                $creating[] = [
+                    'name' => $generating['name'],
+                    'cost' => $value * 100,
+                    'start' => Carbon::parse($generating['formattedStart'], $this->ticketType->timezone ?? $this->event->timezone)->timezone('UTC'),
+                    'end' => Carbon::parse($generating['formattedEnd'], $this->ticketType->timezone ?? $this->event->timezone)->timezone('UTC'),
+                    'timezone' => $this->ticketType->timezone ?? $this->event->timezone,
+                ];
+                $value += $generating['step'];
+            }
+
+            $this->ticketType->prices()->createMany($creating);
+        } else {
+            [$existing, $creating] = $this->preparePrices($this->prices)->partition(function ($i) {
+                return isset($i['id']);
+            });
+
+            foreach($existing as $item) {
+                Price::where('id', $item['id'])->update($item);
+            }
+            $this->ticketType->prices()->createMany($creating);
         }
-        $this->ticketType->prices()->createMany($creating);
 
         return redirect()->route('galaxy.events.edit', ['event' => $this->event, 'page' => 'tickets']);
     }
@@ -131,9 +152,6 @@ class Form extends Component
                 'costInDollars' => $price->costInDollars,
                 'formattedStart' => $price->formattedStart,
                 'formattedEnd' => $price->formattedEnd,
-                'maxInDollars' => $price->maxInDollars,
-                'minInDollars' => $price->minInDollars,
-                'step' => $price->step,
             ];
         }
     }
@@ -141,18 +159,11 @@ class Form extends Component
     private function preparePrices($prices)
     {
         foreach($prices as $index => $price) {
-            if($this->ticketType->structure === 'flat') {
-                $prices[$index]['cost'] = $price['costInDollars'] * 100;
-                $prices[$index]['start'] = Carbon::parse($price['formattedStart'], $this->event->timezone)->timezone('UTC');
-                $prices[$index]['end'] = Carbon::parse($price['formattedEnd'], $this->event->timezone)->timezone('UTC');
-                $prices[$index]['timezone'] = $this->ticketType->timezone;
-            } elseif($this->ticketType->structure === 'scaled-defined') {
-                $prices[$index]['cost'] = $price['costInDollars'] * 100;
-            } else {
-                $prices[$index]['min'] = $price['minInDollars'] * 100;
-                $prices[$index]['max'] = $price['maxInDollars'] * 100;
-            }
-            unset($prices[$index]['costInDollars'], $prices[$index]['minInDollars'], $prices[$index]['maxInDollars'], $prices[$index]['formattedStart'], $prices[$index]['formattedEnd']);
+            $prices[$index]['cost'] = $price['costInDollars'] * 100;
+            $prices[$index]['start'] = Carbon::parse($price['formattedStart'], $this->ticketType->timezone ?? $this->event->timezone)->timezone('UTC');
+            $prices[$index]['end'] = Carbon::parse($price['formattedEnd'], $this->ticketType->timezone ?? $this->event->timezone)->timezone('UTC');
+            $prices[$index]['timezone'] = $this->ticketType->timezone ?? $this->event->timezone;
+            unset($prices[$index]['costInDollars'], $prices[$index]['formattedStart'], $prices[$index]['formattedEnd']);
         }
 
         return collect($prices);

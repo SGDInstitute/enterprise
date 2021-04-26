@@ -15,9 +15,6 @@ class CreatePricesTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('cost')->nullable();
-            $table->integer('min')->nullable();
-            $table->integer('max')->nullable();
-            $table->integer('step')->nullable();
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
             $table->string('timezone')->nullable();

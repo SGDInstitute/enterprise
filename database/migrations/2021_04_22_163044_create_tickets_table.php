@@ -14,7 +14,6 @@ class CreateTicketsTable extends Migration
             $table->foreignId('ticket_type_id')->constrained('ticket_types');
             $table->foreignId('price_id')->nullable()->constrained('prices');
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->integer('scaled_price')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

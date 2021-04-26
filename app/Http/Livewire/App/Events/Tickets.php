@@ -32,23 +32,12 @@ class Tickets extends Component
             } elseif($item->structure === 'scaled-range') {
                 $price = $item->prices->first();
 
-                $options = [];
-
-                $value = $price->min/100;
-                while ($value <= $price->max/100) {
-                    $options[] = $value;
-                    $value += $price->step;
-                }
-
                 return [
                     'type_id' => $item->id,
                     'price_id' => $price->id,
                     'name' => $price->name,
-                    'cost' => $price->min/100,
-                    'min' => $price->min/100,
-                    'max' => $price->max/100,
-                    'step' => $price->step,
-                    'options' => $options,
+                    'cost' => $price->cost/100,
+                    'options' => $item->prices->mapWithKeys(fn($price) => [$price->id => $price->cost/100]),
                     'amount' => 0,
                 ];
             } else {
@@ -75,10 +64,11 @@ class Tickets extends Component
         $checkoutAmount = 0;
 
         foreach($this->form as $ticket) {
-            $checkoutAmount += $ticket['cost'] * $ticket['amount'];
+            $price = $this->ticketTypes->firstWhere('id', $ticket['type_id'])->prices->firstWhere('id', $ticket['price_id']);
+            $checkoutAmount += $price->cost * $ticket['amount'];
         }
 
-        return '$' . number_format($checkoutAmount, 2);
+        return '$' . number_format($checkoutAmount/100, 2);
     }
 
     public function reserve()
@@ -107,9 +97,6 @@ class Tickets extends Component
 
                 if($item['amount'] == 1) {
                     $data['user_id'] = auth()->id();
-                }
-                if($ticketType->structure === 'scaled-range') {
-                    $data['scaled_price'] = $item['cost']*100;
                 }
 
                 return Ticket::factory()->times($item['amount'])->make($data);
