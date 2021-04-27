@@ -11,18 +11,40 @@
 
         <x-bit.table>
             <x-slot name="head">
-                <x-bit.table.heading>Event</x-bit.table.heading>
+            <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
+                @if($this->user === null)
+                <x-bit.table.heading sortable wire:click="sortBy('users.name')" :direction="$sortField === 'users.name' ? $sortDirection : null">Creator</x-bit.table.heading>
+                @endif
+                @if($this->event === null)
+                <x-bit.table.heading sortable wire:click="sortBy('events.name')" :direction="$sortField === 'events.name' ? $sortDirection : null">Event</x-bit.table.heading>
+                @endif
                 <x-bit.table.heading># Tickets</x-bit.table.heading>
-                <x-bit.table.heading>Created At</x-bit.table.heading>
+                <x-bit.table.heading sortable wire:click="sortBy('invoice')" :direction="$sortField === 'invoice' ? $sortDirection : null">Has Invoice</x-bit.table.heading>
+                <x-bit.table.heading sortable wire:click="sortBy('amount')" :direction="$sortField === 'amount' ? $sortDirection : null">Amount</x-bit.table.heading>
+                <x-bit.table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Created At</x-bit.table.heading>
+                <x-bit.table.heading sortable wire:click="sortBy('paid_at')" :direction="$sortField === 'reservation_ends' ? $sortDirection : null">Paid At</x-bit.table.heading>
                 <x-bit.table.heading />
             </x-slot>
 
             <x-slot name="body">
                 @forelse($orders as $order)
                 <x-bit.table.row wire:key="row-{{ $order->id }}">
-                    <x-bit.table.cell>{{ $order->event->name }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $order->formattedId }}</x-bit.table.cell>
+                    @if($this->user === null)
+                    <x-bit.table.cell><a href="{{ route('galaxy.users.show', $order->user) }}" class="hover:underline">{{ $order->user->name }}</a></x-bit.table.cell>
+                    @endif
+                    @if($this->event === null)
+                    <x-bit.table.cell><a href="{{ route('galaxy.events.show', $order->event) }}" class="hover:underline">{{ $order->event->name }}</a></x-bit.table.cell>
+                    @endif
                     <x-bit.table.cell>{{ $order->tickets->count()  }}</x-bit.table.cell>
+                    <x-bit.table.cell class="text-center">
+                        @if($order->invoice !== null)
+                        <x-heroicon-o-check class="w-4 h-4" />
+                        @endif
+                    </x-bit.table.cell>
+                    <x-bit.table.cell>{{ $order->formattedAmount }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $order->created_at->format('M, d Y') }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ optional($order->paid_at)->format('M, d Y') }}</x-bit.table.cell>
 
                     <x-bit.table.cell>
                         <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.orders.show', $order) }}">

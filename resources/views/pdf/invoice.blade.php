@@ -52,7 +52,7 @@
         <table>
             <tr>
                 <td class="sixty">
-                    <img src="{{ asset('img/logo.png') }}" alt="Midwest Institute for Sexuality and Gender Diversity logo" width="250px"><br><br>
+                    <img src="{{ asset('img/institute-logo_horiz-color.png') }}" alt="Midwest Institute for Sexuality and Gender Diversity logo" width="250px"><br><br>
                     {{ config('globals.institute_address') }}<br>
                     <a href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>
                 </td>
@@ -98,7 +98,7 @@
                 <td>
                     <p>Payment must be postmarked by <strong>{{ $order->invoice['due_date'] }}</strong>. For any concerns or questions regarding payment or the invoice please contact <a href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>.
                         Include your issue or concern, invoice and order numbers, and best method of contact.</p>
-                    <p>Please mail payment to: {{ config('globals.institute_address') }}</p>
+                    <p>Please make check payable to “Midwest Institute for Sexuality and Gender Diversity” and mail payment to: {{ config('globals.institute_address') }}</p>
                 </td>
             </tr>
             @if($order->event->refund_policy)

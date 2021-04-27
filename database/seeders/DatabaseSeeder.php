@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         Form::factory()->create([
             'name' => 'MBLGTACC 2021 Workshop Proposal',
             'type' => 'workshop',
-            'event_id' => 6,
+            'event_id' => $mblgtacc->id,
             'auth_required' => 1,
             'start' => '2021-04-01 07:25:00',
             'end' => '2021-07-15 07:25:00',

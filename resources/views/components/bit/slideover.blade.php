@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                         </header>
-                        <div class="relative flex-1 px-4 sm:px-6">
+                        <div class="relative flex-1 px-4 prose sm:px-6 dark:prose-light">
                             {{ $slot }}
                         </div>
                     </div>

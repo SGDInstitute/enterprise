@@ -4,8 +4,68 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a9d49a915920b7c93ba0c522e8f533c",
+    "content-hash": "50c4659d532f04af5bc8f1431efe4800",
     "packages": [
+        {
+            "name": "akaunting/laravel-version",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/laravel-version.git",
+                "reference": "5d632c8ce54131bbe15f22ea135934efbf1fad85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/laravel-version/zipball/5d632c8ce54131bbe15f22ea135934efbf1fad85",
+                "reference": "5d632c8ce54131bbe15f22ea135934efbf1fad85",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.2.0",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Version\\Provider"
+                    ],
+                    "aliases": {
+                        "Version": "Akaunting\\Version\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akaunting\\Version\\": "./src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Version management package for Laravel",
+            "keywords": [
+                "laravel",
+                "version"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/laravel-version/issues",
+                "source": "https://github.com/akaunting/laravel-version/tree/1.0.4"
+            },
+            "time": "2021-03-05T11:00:11+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.3",

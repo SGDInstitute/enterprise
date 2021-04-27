@@ -14,9 +14,12 @@ Route::get('/orders', App\Http\Livewire\Galaxy\Orders::class)->name('galaxy.orde
 Route::get('/orders/{order}', App\Http\Livewire\Galaxy\Orders\Show::class)->name('galaxy.orders.show');
 
 Route::get('/reservations', App\Http\Livewire\Galaxy\Reservations::class)->name('galaxy.reservations');
-Route::get('/reservations/{reservation}', App\Http\Livewire\Galaxy\Reservations\Show::class)->name('galaxy.reservations.show');
+Route::get('/reservations/{order}', App\Http\Livewire\Galaxy\Orders\Show::class)->name('galaxy.reservations.show');
 
 Route::get('/responses/{response}', App\Http\Livewire\Galaxy\Responses\Show::class)->name('galaxy.responses.show');
 
 Route::get('/ticket-types/create', App\Http\Livewire\Galaxy\TicketTypes\Form::class)->name('galaxy.ticket-types.create');
 Route::get('/ticket-types/{ticketType}/edit', App\Http\Livewire\Galaxy\TicketTypes\Form::class)->name('galaxy.ticket-types.edit');
+
+Route::get('/users', App\Http\Livewire\Galaxy\Users::class)->name('galaxy.users');
+Route::get('/users/{user}/{page?}', App\Http\Livewire\Galaxy\Users\Show::class)->name('galaxy.users.show');

@@ -25,7 +25,7 @@
                 <div class="flex justify-between">
                     <x-bit.input.group :for="'ticket-cost'.$index" label="Number of Tickets" sr-only>
                         <span class="text-2xl dark:text-gray-200">$</span>
-                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500" disabled="{{$order !== null}}" wire:model.lazy="form.{{ $index }}.price_id">
+                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500 {{ $order !== null ? 'opacity-75 cursor-not-allowed' : '' }}" {{ $order !== null ? 'disabled' : '' }} wire:model.lazy="form.{{ $index }}.price_id">
                             @foreach($form[$index]['options'] as $priceId => $option)
                                 <option value="{{ $priceId }}">{{ $option }}</option>
                             @endforeach
