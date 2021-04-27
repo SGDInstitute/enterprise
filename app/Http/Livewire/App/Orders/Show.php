@@ -27,7 +27,6 @@ class Show extends Component
     {
         return view('livewire.app.orders.show')
             ->with([
-                'checkout' => $this->checkout,
                 'filledCount' => $this->filledCount,
                 'subtotal' => $this->order->subtotal,
                 'progressSteps' => $this->progressSteps,
@@ -36,19 +35,6 @@ class Show extends Component
     }
 
     // Properties
-
-    public function getCheckoutProperty()
-    {
-        return auth()->user()->checkout($this->order->ticketsFormattedForCheckout(), [
-            'success_url' => route('app.orders.show', ['order' => $this->order, 'success']),
-            'cancel_url' => route('app.orders.show', ['order' => $this->order, 'canceled']),
-            'billing_address_collection' => 'required',
-            'metadata' => [
-                'order_id' => $this->order->id,
-                'event_id' => $this->order->event->id,
-            ]
-        ]);
-    }
 
     public function getFilledCountProperty()
     {
