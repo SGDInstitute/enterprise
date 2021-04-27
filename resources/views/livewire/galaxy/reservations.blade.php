@@ -2,7 +2,7 @@
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">
             <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
-                <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search resrvations..." />
+                <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search reservations..." />
             </div>
             <div class="flex items-end mt-4 md:mt-0">
                 <x-bit.data-table.per-page />
@@ -11,7 +11,10 @@
 
         <x-bit.table>
             <x-slot name="head">
+                <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
+                @if($this->event === null)
                 <x-bit.table.heading>Event</x-bit.table.heading>
+                @endif
                 <x-bit.table.heading># Tickets</x-bit.table.heading>
                 <x-bit.table.heading>Created At</x-bit.table.heading>
                 <x-bit.table.heading>Ends At</x-bit.table.heading>
@@ -21,7 +24,10 @@
             <x-slot name="body">
                 @forelse($reservations as $reservation)
                 <x-bit.table.row wire:key="row-{{ $reservation->id }}">
+                    <x-bit.table.cell>{{ $reservation->event->order_prefix }}{{ $reservation->id }}</x-bit.table.cell>
+                    @if($this->event === null)
                     <x-bit.table.cell>{{ $reservation->event->name }}</x-bit.table.cell>
+                    @endif
                     <x-bit.table.cell>{{ $reservation->tickets->count()  }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $reservation->created_at->format('M, d Y') }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $reservation->reservation_ends->format('M, d Y') }}</x-bit.table.cell>

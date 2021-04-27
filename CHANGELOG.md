@@ -16,9 +16,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - _Issue 10:_ Change last line of invoice
+- _Issue 11:_ Search bar in reservations is spelled correctly
+- _Issue 13:_ Broken image link on invoice
+- _Issue 15:_ Sliding Scale disabled only when order created
+- _Issue 16:_ Add real help text for payment options
+- _Issue 18:_ Only one order created if click pay then reserve
+- _Issue 19:_ Able to remove ticket from unpaid order
 
 ---
 
-## [3.0.0] - 2021-04-26
+## [3.0.0] - 2021-04-26\
 
 Initial release

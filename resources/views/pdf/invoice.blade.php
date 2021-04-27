@@ -52,7 +52,7 @@
         <table>
             <tr>
                 <td class="sixty">
-                    <img src="{{ asset('img/logo.png') }}" alt="Midwest Institute for Sexuality and Gender Diversity logo" width="250px"><br><br>
+                    <img src="{{ asset('img/institute-logo_horiz-color.png') }}" alt="Midwest Institute for Sexuality and Gender Diversity logo" width="250px"><br><br>
                     {{ config('globals.institute_address') }}<br>
                     <a href="mailto:finance@sgdinstitute.org">finance@sgdinstitute.org</a>
                 </td>

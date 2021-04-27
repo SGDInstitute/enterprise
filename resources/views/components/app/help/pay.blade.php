@@ -1,7 +1,6 @@
 <x-bit.slideover title="How To Pay">
-    <p class="mb-4 dark:text-gray-200">On this page you can manage your products.</p>
+    <p>Your reservation is not confirmed until payment is received. Please note, your order may be canceled if payment is not received within 60 days and your tickets may be released for other attendees to purchase. If your payment takes more than 60 days to process, don’t worry! You will receive a notification before your order is canceled with an option to extend the reservation.</p>
 
-    <p class="mb-4 dark:text-gray-200">Each product has multiple builds, think of each build as a revision of the product. For instance, whenever a module is published from Voltage Module Designer, a new build is created for that product.</p>
-
-    <p class="mb-4 dark:text-gray-200">Every time a new build for a product is created, it will need to be submitted and approved before you'll be able to publish it.</p>
+    <p>You can pay by card or by check.</p>
+    <p>If you choose to pay by check, please make it payable to “Midwest Institute for Sexuality and Gender Diversity” and mail payment to: {{ config('globals.institute_address') }}</p>
 </x-bit.slideover>

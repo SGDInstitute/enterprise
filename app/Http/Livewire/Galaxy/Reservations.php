@@ -34,6 +34,7 @@ class Reservations extends Component
             ->when($this->event, function($query) {
                 $query->forEvent($this->event);
             })
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 }

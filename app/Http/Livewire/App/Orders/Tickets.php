@@ -117,6 +117,17 @@ class Tickets extends Component
         $this->showTicketholderModal = false;
     }
 
+    public function delete($id)
+    {
+        if($this->order->isPaid()) {
+            return $this->emit('notify', ['message' => 'Cannot delete a ticket from a paid order.', 'type' => 'error']);
+        }
+
+        $this->tickets->find($id)->delete();
+        $this->emit('notify', ['message' => 'Successfully deleted ticket from order', 'type' => 'success']);
+        $this->emit('refresh');
+    }
+
     public function editUser()
     {
         $this->ticketholder->save();
