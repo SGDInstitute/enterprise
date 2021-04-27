@@ -15,8 +15,6 @@ use Livewire\WithPagination;
 
 class Show extends Component
 {
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Order $order;
     public $showCheckModal = false;
     public $showInvoiceModal = false;
