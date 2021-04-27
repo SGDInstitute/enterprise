@@ -10,6 +10,10 @@ Route::mediaLibrary();
 
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
 
+Route::get('/changelog', function() {
+    return view('app.changelog')->with(['content' => markdown(app('files')->get(base_path('/CHANGELOG.md')))]);
+});
+
 Route::get('/donations/create/{type?}', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
 
 Route::get('/events', App\Http\Livewire\App\Events::class)->name('app.events');

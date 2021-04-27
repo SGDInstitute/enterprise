@@ -23,6 +23,8 @@
             {{ $slot }}
         </main>
 
+        @include('layouts.app.footer')
+
         <!-- Scripts -->
         <livewire:scripts />
         <script src="https://js.stripe.com/v3/"></script>
