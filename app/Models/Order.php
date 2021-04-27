@@ -22,6 +22,11 @@ class Order extends Model
         return $query->where('event_id', $event->id);
     }
 
+    public function scopeForUser($query, $user)
+    {
+        return $query->where('user_id', $user->id);
+    }
+
     public function scopeReservations($query)
     {
         return $query->whereNull('transaction_id');
@@ -42,6 +47,11 @@ class Order extends Model
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     // Attributes
@@ -108,6 +118,11 @@ class Order extends Model
     public function isPaid()
     {
         return $this->transaction_id !== null;
+    }
+
+    public function isReservation()
+    {
+        return $this->transaction_id === null;
     }
 
     public function transactionDetails()
