@@ -62,12 +62,14 @@
         <p class="text-sm text-gray-600 dark:text-gray-400">By clicking Next you accept the refund policy and photo policy.</p>
 
         @guest
-        <p class="text-sm text-gray-600 dark:text-gray-400">Please create an account or log in before starting an order.</p>
+        <div class="px-4 py-2 text-gray-200 bg-red-500 rounded">
+            <p>Please create an account or log in before starting an order.</p>
+        </div>
         @endguest
 
         @if($event->settings->reservations)
         <div class="flex">
-            <x-bit.button.flat.secondary class="justify-center flex-1 border-r-0" size="large" wire:click="reserve">Reserve & Pay Later</x-bit.button.flat.secondary>
+            <x-bit.button.flat.secondary class="justify-center flex-1 border-r-0" size="large" wire:click="reserve" :disabled="auth()->guest()">Reserve & Pay Later</x-bit.button.flat.secondary>
             <x-bit.button.flat.secondary-filled size="large" class="-ml-px">
                 <x-heroicon-o-information-circle class="w-7 h-7" />
                 <span class="sr-only">Information about Reserving tickets</span>
@@ -79,7 +81,7 @@
             @if($order !== null && $checkoutButton !== null)
                 {!! $checkoutButton->button('Go to Checkout', ['class' => 'space-x-2 justify-center flex-1 inline-flex items-center uppercase font-bold px-4 py-2 text-lg border-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 text-green-500 dark:text-green-400 border-green-500 dark:border-green-400 hover:bg-green-500 dark:hover:bg-green-400 hover:text-white' ]) !!}
             @else
-            <x-bit.button.flat.primary wire:click="pay" class="justify-center flex-1 border-r-0" size="large">Pay with Card</x-bit.button.flat.primary>
+            <x-bit.button.flat.primary wire:click="pay" class="justify-center flex-1 border-r-0" size="large" :disabled="auth()->guest()">Pay with Card</x-bit.button.flat.primary>
             <x-bit.button.flat.primary-filled size="large" class="-ml-px">
                 <x-heroicon-o-information-circle class="w-7 h-7" />
                 <span class="sr-only">Information about Paying with a credit card</span>

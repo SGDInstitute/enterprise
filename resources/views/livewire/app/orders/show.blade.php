@@ -38,9 +38,7 @@
                     <span>View Receipt</span>
                 </a>
                 @else
-                <div>
-                    {!! $checkout->button('Pay with Card', ['class' => 'flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200' ]) !!}
-                </div>
+                <livewire:app.orders.checkout :order="$order" />
                 <button wire:click="$set('showCheckModal', true)" class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200">
                     <x-heroicon-o-mail class="w-6 h-6" />
                     <span>Pay with Check</span>
