@@ -11,12 +11,12 @@
         <div class="flex items-center justify-between">
             <p class="text-lg text-gray-900 dark:text-gray-200">{{ $ticket->user->name }} <span class="text-sm">({{ $ticket->user->email }})</span> <span class="text-sm italic">{{ $ticket->user->pronouns }}</span></p>
             <div>
-                <x-bit.button.round.secondary size="xs" wire:click="loadTicketholder({{ $ticket->id }})">Edit User</x-bit.button.round.secondary>
-                <x-bit.button.round.secondary size="xs" wire:click="removeTicketholder({{ $ticket->id }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">Remove User</x-bit.button.round.secondary>
+                <x-bit.button.round.secondary size="xs" wire:click="loadTicket({{ $ticket->id }})">Edit User</x-bit.button.round.secondary>
+                <x-bit.button.round.secondary size="xs" wire:click="removeUserFromTicket({{ $ticket->id }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">Remove User</x-bit.button.round.secondary>
             </div>
         </div>
         @else
-        <x-bit.button.round.secondary wire:click="$toggle('showTicketholderModal')">Assign/Add Ticketholder Information</x-bit.button.round.secondary>
+        <x-bit.button.round.secondary wire:click="loadTicket({{ $ticket->id }})">Assign/Add Ticketholder Information</x-bit.button.round.secondary>
         @endif
     </div>
 @endforeach

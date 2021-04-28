@@ -6,6 +6,10 @@
     <livewire:galaxy.events.edit.details :event="$event" />
     @break
 
+    @case('tabs')
+    <livewire:galaxy.events.edit.tabs :event="$event" />
+    @break
+
     @case('media')
     <livewire:galaxy.events.edit.media :event="$event" />
     @break

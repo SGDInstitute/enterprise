@@ -5,6 +5,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.3] - 2021-04-28
+
+### Added
+
+- Galaxy: Policy tabs section to event editor
+- _Issue 17:_ Accessibility form to ticket modal
+
+### Fixed
+
+- _Issue 14:_ Properly render policy tabs on events.show
+
+---
+
 ## [3.0.2] - 2021-04-27
 
 ### Fixed

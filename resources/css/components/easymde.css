@@ -1,0 +1,21 @@
+@media (prefers-color-scheme: dark) {
+    .CodeMirror {
+        @apply text-gray-200 bg-gray-800;
+    }
+
+    .editor-toolbar {
+        @apply text-gray-200;
+    }
+
+    .editor-toolbar button.active, .editor-toolbar button:hover {
+        @apply bg-gray-600 border-gray-800;
+    }
+
+    span.CodeMirror-selectedtext {
+        @apply text-gray-700;
+    }
+
+    .CodeMirror-cursor {
+        @apply border-blue-500;
+    }
+}

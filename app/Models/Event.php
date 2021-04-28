@@ -79,6 +79,6 @@ class Event extends Model implements HasMedia
 
     public function workshopForm()
     {
-        return $this->hasOne(Form::class)->where('type', 'workshop')->where('event_id', $this->id);
+        return $this->hasOne(Form::class)->where('type', 'workshop');
     }
 }

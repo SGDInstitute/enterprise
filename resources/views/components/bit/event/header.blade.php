@@ -1,7 +1,7 @@
 <div>
     <div class="bg-center bg-cover h-1/2-screen" style="background-image: url({{ $image }})"></div>
     <div class="py-6 bg-white dark:bg-gray-800 h-1/4">
-        <div class="container px-12 mx-auto">
+        <div class="container px-4 mx-auto md:px-12">
             <div class="md:grid md:grid-cols-5">
                 <div class="relative col-span-4 p-8 -mt-24 bg-white dark:bg-gray-800">
                     <h1 class="text-4xl font-bold leading-none text-green-500 lg:text-7xl font-raleway md:text-6xl dark:text-green-200">{{ $title }}</h1>
