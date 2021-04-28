@@ -24,7 +24,7 @@
                 <x-bit.button.round.secondary wire:click="enableEditMode">Enable In-line Editing</x-bit.button.round.secondary>
                 @else
                 <x-bit.button.round.secondary wire:click="$set('editMode', false)">Disable Editing</x-bit.button.round.secondary>
-                <x-bit.button.round.primary wire:click="save">Save Changes</x-bit.button.round.primary>
+                <x-bit.button.round.primary wire:click="saveTickets">Save Changes</x-bit.button.round.primary>
                 @endif
             </div>
         </div>

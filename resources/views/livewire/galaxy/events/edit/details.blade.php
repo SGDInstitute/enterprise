@@ -29,28 +29,6 @@
                     <x-bit.input.group for="description" label="Event Description" class="col-span-6">
                         <x-bit.input.trix id="description" class="block w-full mt-1" name="description" wire:model="event.description" />
                     </x-bit.input.group>
-
-                    <x-bit.input.group class="col-span-6">
-                        <x-bit.input.checkbox id="photo-policy" name="photo-policy" wire:model="tabs" label="Enable Photo Policy" value="photo" />
-                        @if(in_array('photo', $tabs))
-                        <x-bit.input.trix id="photo-policy-text" key="photo-policy-text" class="block w-full mt-1" name="photo-policy-text" wire:model="event.settings.policies.photo" />
-                        @endif
-                    </x-bit.input.group>
-
-                    <x-bit.input.group class="col-span-6">
-                        <x-bit.input.checkbox id="refund-policy" name="refund-policy" wire:model="tabs" label="Enable Refund Policy" value="refund" />
-                        @if(in_array('refund', $tabs))
-                        <x-bit.input.trix id="refund-policy-text" key="refund-policy-text" class="block w-full mt-1" name="refund-policy-text" wire:model="event.settings.policies.refund" />
-                        @endif
-                    </x-bit.input.group>
-
-                    <x-bit.input.group class="col-span-6">
-                        <x-bit.input.checkbox id="code-for-inclusion" name="code-for-inclusion" wire:model="tabs" label="Enable Code for Inclusion" value="code" />
-                        @if(in_array('code', $tabs))
-                        <x-bit.input.trix id="code-text" key="code-text" class="block w-full mt-1" name="code-text" wire:model="event.settings.policies.code" />
-                        @endif
-                    </x-bit.input.group>
-
                 </div>
             </div>
         </x-bit.panel.body>

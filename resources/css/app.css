@@ -2,6 +2,7 @@
 @import 'tailwindcss/components';
 
 @import "vendor/medialibrary.css";
+@import "components/easymde.css";
 @import "components/medialibrary.css";
 @import "components/trix.css";
 

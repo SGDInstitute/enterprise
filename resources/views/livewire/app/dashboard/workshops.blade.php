@@ -1,5 +1,5 @@
 <div>
-    <h1 class="text-2xl dark:text-gray-200">Workshop Proposals</h1>
+    <h1 class="text-2xl text-gray-900 dark:text-gray-200">Workshop Proposals</h1>
 
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">

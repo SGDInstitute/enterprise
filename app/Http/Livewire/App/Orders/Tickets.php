@@ -20,19 +20,26 @@ class Tickets extends Component
     protected $listeners = ['refresh' => '$refresh'];
 
     public Order $order;
-    public User $ticketholder;
 
     public $filters = [
         'search' => ''
     ];
 
+    public $ticketholder = [
+        'name' => '',
+        'email' => '',
+        'pronouns' => '',
+    ];
+    public $answers;
     public $continue = false;
     public $editMode = false;
     public $editingTicket;
     public $form = [];
+    public $emailChanged = false;
     public $perPage = 10;
     public $ticketsView = 'grid';
     public $showTicketholderModal = false;
+    public $updateEmail = null;
 
     protected $rules = [
         'ticketholder.name' => 'required',
@@ -42,14 +49,19 @@ class Tickets extends Component
 
     public function mount()
     {
-        $this->ticketholder = new User;
+        $this->editingTicket = $this->tickets->first();
+        $this->answers = $this->editingTicket->answers ?? $this->getAnswerForm($this->editingTicket);
     }
 
     public function updated($field, $value)
     {
         if($field === 'ticketholder.email') {
+            if($this->editingTicket->user_id !== null) {
+                $this->emailChanged = true;
+            }
             if($user = User::whereEmail($value)->first()) {
-                $this->ticketholder = $user;
+                $this->ticketholder['name'] = $user->name;
+                $this->ticketholder['pronouns'] = $user->pronouns;
             }
         }
         if(Str::startsWith($field, 'form.') && Str::endsWith($field, '.email')) {
@@ -71,10 +83,16 @@ class Tickets extends Component
         return view('livewire.app.orders.tickets')
             ->with([
                 'tickets' => $this->tickets,
+                'fillable' => $this->fillable,
             ]);
     }
 
     // Properties
+
+    public function getFillableProperty()
+    {
+        return auth()->check();
+    }
 
     public function getTicketsProperty()
     {
@@ -85,58 +103,6 @@ class Tickets extends Component
     }
 
     // Methods
-
-    public function addUser()
-    {
-        $newUser = false;
-        if($this->ticketholder->id === null) {
-            $this->ticketholder->password = Hash::make(Str::random(15));
-            $newUser = true;
-        }
-        $this->ticketholder->save();
-
-        $ticket = $this->tickets->firstWhere('user_id', null);
-        $ticket->user_id = $this->ticketholder->id;
-        $ticket->save();
-
-        if($this->ticketholder->id !== auth()->id()) {
-            $this->ticketholder->notify(new AddedToTicket($ticket, $newUser, auth()->user()->name));
-        }
-
-        $this->emit('refresh');
-        $this->ticketholder = new User;
-
-        if(!$this->continue) {
-            $this->showTicketholderModal = false;
-        }
-    }
-
-    public function cancelTicketModal()
-    {
-        $this->ticketholder = new User;
-        $this->showTicketholderModal = false;
-    }
-
-    public function delete($id)
-    {
-        if($this->order->isPaid()) {
-            return $this->emit('notify', ['message' => 'Cannot delete a ticket from a paid order.', 'type' => 'error']);
-        }
-
-        $this->tickets->find($id)->delete();
-        $this->emit('notify', ['message' => 'Successfully deleted ticket from order', 'type' => 'success']);
-        $this->emit('refresh');
-    }
-
-    public function editUser()
-    {
-        $this->ticketholder->save();
-        $this->emit('refresh');
-        $this->ticketholder = new User;
-        if(!$this->continue) {
-            $this->showTicketholderModal = false;
-        }
-    }
 
     public function enableEditMode()
     {
@@ -154,17 +120,22 @@ class Tickets extends Component
 
     public function loadAuthUser()
     {
-        $this->ticketholder = auth()->user();
+        $this->ticketholder = auth()->user()->only(['name', 'email', 'pronouns']);
     }
 
-    public function loadTicketholder($id)
+    public function loadTicket($id)
     {
         $this->editingTicket = $this->tickets->find($id);
-        $this->ticketholder = $this->editingTicket->user;
+        $this->answers = $this->editingTicket->answers ?? $this->getAnswerForm($this->editingTicket);
+
+        if($this->editingTicket->user_id !== null) {
+            $this->ticketholder = $this->editingTicket->user->only(['name', 'email', 'pronouns']);
+        }
+
         $this->showTicketholderModal = true;
     }
 
-    public function removeTicketholder($id)
+    public function removeUserFromTicket($id)
     {
         $ticket = $this->tickets->find($id);
 
@@ -173,7 +144,50 @@ class Tickets extends Component
         $this->emit('refresh');
     }
 
-    public function save()
+    public function saveTicket()
+    {
+        $newUser = false;
+        $sendNotification = true;
+
+        if($this->editingTicket->user_id !== null) {
+            $user = $this->editingTicket->user;
+            $sendNotification = false;
+        }
+
+        if($this->editingTicket->user_id === null || $this->updateEmail === false) {
+            $user = User::whereEmail($this->ticketholder['email'])->first();
+            if($user === null && !$this->updateEmail) {
+                $user = new User;
+                $user->email = $this->ticketholder['email'];
+                $user->password = Hash::make(Str::random(15));
+                $newUser = true;
+            }
+            $sendNotification = true;
+        }
+        $user->name = $this->ticketholder['name'];
+        $user->pronouns = $this->ticketholder['pronouns'];
+        if($this->updateEmail) {
+            $user->email = $this->ticketholder['email'];
+        }
+        $user->save();
+
+        $this->editingTicket->user_id = $user->id;
+        $this->editingTicket->answers = $this->answers;
+        $this->editingTicket->save();
+
+        if($user->id !== auth()->id() && $sendNotification) {
+            $user->notify(new AddedToTicket($this->editingTicket, $newUser, auth()->user()->name));
+        }
+
+        $this->emit('refresh');
+        $this->reset('ticketholder', 'updateEmail', 'emailChanged');
+
+        if(!$this->continue) {
+            $this->showTicketholderModal = false;
+        }
+    }
+
+    public function saveTickets()
     {
         foreach($this->form as $item) {
             $ticket = $this->tickets->find($item['ticket_id']);
@@ -225,4 +239,19 @@ class Tickets extends Component
         $this->editMode = false;
     }
 
+    private function getAnswerForm($ticket) {
+        return $ticket->ticketType->form
+                    ->filter(fn($item) => $item['style'] !== 'content')
+                    ->mapWithKeys(function($item) {
+                        if($item['style'] === 'question') {
+                            if($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                                return [$item['id'] => []];
+                            }
+
+                            return [$item['id'] => ''];
+                        } elseif($item['style'] === 'collaborators') {
+                            return [$item['id'] => auth()->user()->email ?? ''];
+                        }
+                    })->toArray();
+    }
  }
