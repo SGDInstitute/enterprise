@@ -14,7 +14,7 @@ class Tabs extends Component
 
     public function mount()
     {
-        $this->tabs = $this->event->settings->tabs;
+        $this->tabs = $this->event->settings->tabs ?? [];
     }
 
     public function render()
