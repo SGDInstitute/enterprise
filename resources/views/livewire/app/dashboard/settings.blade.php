@@ -1,5 +1,5 @@
 <div>
-    <h1 class="text-2xl dark:text-gray-200">Settings</h1>
+    <h1 class="text-2xl text-gray-900 dark:text-gray-200">Settings</h1>
     <div class="mt-8 space-y-6">
         <div class="px-4 py-5 bg-gray-100 shadow dark:bg-gray-700 sm:p-6">
             <div class="md:grid md:grid-cols-3 md:gap-6">

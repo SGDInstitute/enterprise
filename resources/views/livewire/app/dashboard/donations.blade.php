@@ -1,5 +1,5 @@
 <div>
-    <h1 class="text-2xl dark:text-gray-200">Donations</h1>
+    <h1 class="text-2xl text-gray-900 dark:text-gray-200">Donations</h1>
 
     <div class="flex items-center justify-center mt-8 space-x-2 bg-gray-100 dark:bg-gray-700">
         <x-heroicon-o-gift class="w-8 h-8 text-gray-400" />

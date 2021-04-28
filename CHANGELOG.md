@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - _Issue 14:_ Properly render policy tabs on events.show
+- _Issue 27:_ Text color of heading in light mode
 
 ---
 
