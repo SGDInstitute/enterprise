@@ -72,8 +72,8 @@ class Tickets extends Component
         $tt = $this->rows->find($id);
         $tt->safeDelete();
 
-        $this->emit('refresh');
         $this->emit('notify', ['message' => 'Successfully deleted ticket type.', 'type' => 'success']);
+        $this->emit('refresh');
     }
 
     public function save()

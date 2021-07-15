@@ -10,6 +10,8 @@ use Tests\TestCase;
 
 class HomeTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function the_component_can_render()
     {
@@ -19,14 +21,14 @@ class HomeTest extends TestCase
     }
 
     /** @test */
-    public function can_see_upcoming_events()
-    {
+    // public function can_see_upcoming_events()
+    // {
 
-    }
+    // }
 
     /** @test */
-    public function can_see_past_events()
-    {
+    // public function can_see_past_events()
+    // {
 
-    }
+    // }
 }

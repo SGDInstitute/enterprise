@@ -17,7 +17,7 @@ class DetailsTest extends TestCase
     /** @test */
     public function can_see_livewire_component_on_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
@@ -29,7 +29,7 @@ class DetailsTest extends TestCase
     /** @test */
     public function can_update_details_for_event()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create([
             'start' => '2021-10-01 21:00:00',
             'end' => '2021-10-03 17:00:00',
