@@ -13,6 +13,9 @@ class TicketTypeFactory extends Factory
     {
         return [
             'name' => 'Reg Reg',
+            'start' => now(),
+            'end' => now()->addMonths(2),
+            'timezone' => 'America/Chicago'
         ];
     }
 }

@@ -27,54 +27,54 @@ class TicketsTest extends TestCase
     }
 
     /** @test */
-    public function can_create_ticket_type_for_event()
-    {
-        $user = User::factory()->create()->assignRole('institute');
-        $event = Event::factory()->preset('mblgtacc')->create();
+    // public function can_create_ticket_type_for_event()
+    // {
+    //     $user = User::factory()->create()->assignRole('institute');
+    //     $event = Event::factory()->preset('mblgtacc')->create();
 
-        Livewire::actingAs($user)
-            ->test('galaxy.events.edit.tickets', ['event' => $event])
-            ->call('showCreateModal')
-            ->assertSet('showModal', true)
-            ->set('editing.name', 'Regular Registration')
-            ->set('editing.type', 'regular')
-            ->set('costInDollars', '85')
-            ->set('formattedStart', '04/05/2021 12:00 PM')
-            ->set('formattedEnd', '08/15/2021 11:59 PM')
-            ->call('save')
-            ->assertSet('showModal', false)
-            ->assertEmitted('notify')
-            ->assertSee('Regular Registration')
-            ->assertSee('regular')
-            ->assertSee('04/05/2021 12:00 PM')
-            ->assertSee('08/15/2021 11:59 PM');
-    }
+    //     Livewire::actingAs($user)
+    //         ->test('galaxy.events.edit.tickets', ['event' => $event])
+    //         ->call('showCreateModal')
+    //         ->assertSet('showModal', true)
+    //         ->set('editing.name', 'Regular Registration')
+    //         ->set('editing.type', 'regular')
+    //         ->set('costInDollars', '85')
+    //         ->set('formattedStart', '04/05/2021 12:00 PM')
+    //         ->set('formattedEnd', '08/15/2021 11:59 PM')
+    //         ->call('save')
+    //         ->assertSet('showModal', false)
+    //         ->assertEmitted('notify')
+    //         ->assertSee('Regular Registration')
+    //         ->assertSee('regular')
+    //         ->assertSee('04/05/2021 12:00 PM')
+    //         ->assertSee('08/15/2021 11:59 PM');
+    // }
 
     /** @test */
-    public function can_edit_ticket_type_for_event()
-    {
-        $user = User::factory()->create()->assignRole('institute');
-        $event = Event::factory()->preset('mblgtacc')->create();
-        $ticketType = TicketType::factory()->create(['event_id' => $event->id]);
+    // public function can_edit_ticket_type_for_event()
+    // {
+    //     $user = User::factory()->create()->assignRole('institute');
+    //     $event = Event::factory()->preset('mblgtacc')->create();
+    //     $ticketType = TicketType::factory()->create(['event_id' => $event->id]);
 
-        Livewire::actingAs($user)
-        ->test('galaxy.events.edit.tickets', ['event' => $event])
-            ->call('showEditModal', $ticketType->id)
-            ->assertSet('showModal', true)
-            ->assertSee('Edit')
-            ->set('editing.name', 'Regular Registration')
-            ->set('editing.type', 'regular')
-            ->set('costInDollars', '85')
-            ->set('formattedStart', '04/05/2021 12:00 PM')
-            ->set('formattedEnd', '08/15/2021 11:59 PM')
-            ->call('save')
-            ->assertSet('showModal', false)
-            ->assertEmitted('notify')
-            ->assertSee('Regular Registration')
-            ->assertSee('regular')
-            ->assertSee('04/05/2021 12:00 PM')
-            ->assertSee('08/15/2021 11:59 PM');
-    }
+    //     Livewire::actingAs($user)
+    //     ->test('galaxy.events.edit.tickets', ['event' => $event])
+    //         ->call('showEditModal', $ticketType->id)
+    //         ->assertSet('showModal', true)
+    //         ->assertSee('Edit')
+    //         ->set('editing.name', 'Regular Registration')
+    //         ->set('editing.type', 'regular')
+    //         ->set('costInDollars', '85')
+    //         ->set('formattedStart', '04/05/2021 12:00 PM')
+    //         ->set('formattedEnd', '08/15/2021 11:59 PM')
+    //         ->call('save')
+    //         ->assertSet('showModal', false)
+    //         ->assertEmitted('notify')
+    //         ->assertSee('Regular Registration')
+    //         ->assertSee('regular')
+    //         ->assertSee('04/05/2021 12:00 PM')
+    //         ->assertSee('08/15/2021 11:59 PM');
+    // }
 
     /** @test */
     public function can_delete_ticket_type_for_event()
@@ -87,6 +87,6 @@ class TicketsTest extends TestCase
         ->test('galaxy.events.edit.tickets', ['event' => $event])
             ->call('remove', $ticketType->id)
             ->assertEmitted('notify')
-            ->assertEmitted('sync');
+            ->assertEmitted('refresh');
     }
 }

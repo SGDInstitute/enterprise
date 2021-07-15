@@ -15,7 +15,7 @@ class AddOnsTest extends TestCase
     /** @test */
     public function can_see_livewire_component_on_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)

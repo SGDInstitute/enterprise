@@ -17,7 +17,7 @@ class CreateTest extends TestCase
     /** @test */
     public function can_see_livewire_events_create_component_on_events_create_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
 
         $this->actingAs($user)
             ->get('/galaxy/events/create')
@@ -28,7 +28,7 @@ class CreateTest extends TestCase
     /** @test */
     public function can_create_event()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
 
         Livewire::actingAs($user)
             ->test('galaxy.events.create')
@@ -85,7 +85,7 @@ class CreateTest extends TestCase
     /** @test */
     public function can_create_event_with_preset()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
 
         Livewire::actingAs($user)
             ->test('galaxy.events.create')

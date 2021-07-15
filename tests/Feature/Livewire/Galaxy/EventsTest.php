@@ -14,7 +14,7 @@ class EventsTest extends TestCase
     /** @test */
     public function can_see_livewire_events_component_on_events_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('institute');
 
         $this->actingAs($user)
             ->get('/galaxy/events')

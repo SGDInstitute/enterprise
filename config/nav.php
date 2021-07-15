@@ -7,6 +7,7 @@ return [
         ['name' => 'View All'],
         ['name' => 'Orders', 'route' => 'galaxy.orders', 'icon' => 'heroicon-o-currency-dollar'],
         ['name' => 'Reservations', 'route' => 'galaxy.reservations', 'icon' => 'heroicon-o-cursor-click'],
+        ['name' => 'Users', 'route' => 'galaxy.users', 'icon' => 'heroicon-o-user-group'],
     ],
     'app' => [
         'dashboard' => [

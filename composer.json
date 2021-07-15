@@ -18,6 +18,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "lab404/laravel-impersonate": "^1.2",
         "laravel/cashier": "^12.11",
         "laravel/framework": "^8.12",
         "laravel/horizon": "^5.7",

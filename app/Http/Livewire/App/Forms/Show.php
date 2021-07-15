@@ -55,9 +55,10 @@ class Show extends Component
             ->with([
                 'fillable' => $this->fillable,
                 'previousResponses' => $this->previousResponses,
-
             ]);
     }
+
+    // Properties
 
     public function getFillableProperty()
     {
@@ -71,6 +72,8 @@ class Show extends Component
         }
         return collect([]);
     }
+
+    // Methods
 
     public function isVisible($item)
     {
@@ -108,7 +111,7 @@ class Show extends Component
 
     public function load($id)
     {
-        $this->response = $this->previousResponses->find($id);
+        $this->response = Response::find($id);
         $this->response->load('activities.causer');
 
         $this->answers = $this->response->answers;
