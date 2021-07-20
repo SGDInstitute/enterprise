@@ -30,6 +30,7 @@ require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
+    Route::get('/donations/{donation}', App\Http\Livewire\App\Donations\Show::class)->name('app.donations.show');
 
     Route::get('/billing-portal', function () {
         return request()->user()->redirectToBillingPortal();

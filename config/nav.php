@@ -10,7 +10,7 @@ return [
         ['name' => 'Reservations', 'route' => 'galaxy.reservations', 'icon' => 'heroicon-o-cursor-click'],
         ['name' => 'Users', 'route' => 'galaxy.users', 'icon' => 'heroicon-o-user-group'],
         ['name' => 'Configure'],
-        ['name' => 'Recurring Donations', 'route' => 'galaxy.config.recurring-donations', 'icon' => 'heroicon-o-cursor-click'],
+        ['name' => 'Donation Plans', 'route' => 'galaxy.config.donation-plans', 'icon' => 'heroicon-o-cursor-click'],
     ],
     'app' => [
         'dashboard' => [

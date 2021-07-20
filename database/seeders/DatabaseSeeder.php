@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DonationPlan;
 use App\Models\Event;
 use App\Models\Form;
 use App\Models\Price;
@@ -66,5 +67,6 @@ class DatabaseSeeder extends Seeder
 
         $tjt = Event::factory()->preset('tjt')->create();
 
+        DonationPlan::factory()->create(['stripe_product_id' => 'prod_BVDuBxx2x4AiyF', 'stripe_price_id' => 'monthly-15', 'name' => '$15/month', 'cost' => 1500]);
     }
 }
