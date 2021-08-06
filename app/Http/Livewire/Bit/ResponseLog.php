@@ -75,7 +75,8 @@ class ResponseLog extends Component
         }
 
         if(($this->comment !== '' && !$this->internal) || $this->statusChanged) {
-            Notification::send($this->response->collaborators->where('id', '<>', auth()->id()), new WorkshopStatusChanged($this->response, $this->comment, $this->statusChanged, auth()->user()->name));
+            $comment = $this->internal ? '' : $this->comment;
+            Notification::send($this->response->collaborators->where('id', '<>', auth()->id()), new WorkshopStatusChanged($this->response, $comment, $this->statusChanged, auth()->user()->name));
         }
 
         $this->emit('refresh');

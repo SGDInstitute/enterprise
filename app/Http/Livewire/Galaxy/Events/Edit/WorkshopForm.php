@@ -21,12 +21,14 @@ class WorkshopForm extends Component
     public $formattedStart;
     public $openIndex = -1;
     public $showSettings = false;
+    public $searchable = [];
 
     public $rules = [
         'formattedStart' => 'required',
         'formattedEnd' => 'required',
         'workshopForm.timezone' => 'required',
         'workshopForm.auth_required' => '',
+        'searchable' => '',
         'form' => 'required',
     ];
 
@@ -55,7 +57,16 @@ class WorkshopForm extends Component
                 'fields' => $this->fields,
                 'timezones' => $this->timezones,
                 'typeOptions' => $this->typeOptions,
+                'searchableFields' => $this->searchableFields,
             ]);
+    }
+
+    public function getSearchableFieldsProperty()
+    {
+        return collect($this->form)
+            ->filter(fn($question) => $question['style'] === 'question')
+            ->filter(fn($question) => $question['type'] !== 'textarea')
+            ->pluck('question', 'id');
     }
 
     public function save()
@@ -80,6 +91,9 @@ class WorkshopForm extends Component
             $this->workshopForm->form = $form;
         }
 
+        if($this->searchable !== []) {
+            $this->workshopForm->settings->set('searchable', $this->searchable);
+        }
         $this->workshopForm->save();
 
         $this->emit('notify', ['message' => 'Successfully saved workshop form.', 'type' => 'success']);
