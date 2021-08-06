@@ -16,6 +16,14 @@
                 @endforeach
             </x-bit.input.select>
         </x-bit.input.group>
+
+        <x-bit.input.group for="searchable" label="Searchable Questions">
+            <x-bit.input.select multiple class="block w-full mt-1" id="searchable" name="searchable" wire:model="searchable">
+                @foreach($searchableFields as $id => $question)
+                <option value="{{ $id }}">{{ $question }}</option>
+                @endforeach
+            </x-bit.input.select>
+        </x-bit.input.group>
     </div>
 
     <h2 class="text-gray-600 dark:text-gray-400">Form</h2>

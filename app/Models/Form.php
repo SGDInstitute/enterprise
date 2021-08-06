@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -9,13 +10,14 @@ use Spatie\Sluggable\SlugOptions;
 
 class Form extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, HasSettings;
 
     public $guarded = [];
 
     protected $casts = [
         'auth_required' => 'boolean',
         'form' => 'collection',
+        'settings' => 'array',
     ];
     public $dates = ['start', 'end'];
 
