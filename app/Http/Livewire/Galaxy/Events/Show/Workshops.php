@@ -51,7 +51,9 @@ class Workshops extends Component
 
     public function getAdvancedSearchFormProperty()
     {
-        return $this->form->form->whereIn('id', $this->form->settings->searchable);
+        if($this->form->settings->get('searchable')) {
+            return $this->form->form->whereIn('id', $this->form->settings->searchable);
+        }
     }
 
     public function getWorkshopsProperty()
