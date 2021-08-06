@@ -3,5 +3,5 @@
 return [
     'major'     => '3',
     'minor'     => '0',
-    'patch'     => '4',
+    'patch'     => '5',
 ];
