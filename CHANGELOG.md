@@ -5,11 +5,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.6] - 2021-08-06
+
+### Fixed
+
+- Galaxy: Error on form without searchable field set
+
+---
+
 ## [3.0.5] - 2021-08-06
 
 ### Added
 
-- Searchable fields to forms
+- Galaxy: Searchable fields to forms
 
 ### Fixed
 
