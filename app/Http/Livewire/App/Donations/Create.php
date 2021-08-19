@@ -60,6 +60,17 @@ class Create extends Component
                     'donation_id' => $this->donation->id,
                 ]
             ]);
+        } elseif($this->donation !== null && $this->donation->type === 'monthly') {
+            return auth()->user()->newSubscription('Recurring Monthly Donation', 'price_1JPxtdI7BmcylBPUa30AdWha')
+                ->checkout([
+                    'success_url' => route('app.donations.show', ['donation' => $this->donation, 'success']),
+                    'cancel_url' => route('app.donations.create', ['donation' => $this->donation, 'canceled']),
+                    'billing_address_collection' => 'required',
+                    'metadata' => [
+                        'user_id' => auth()->id(),
+                        'donation_id' => $this->donation->id,
+                    ]
+                ]);
         }
     }
 
