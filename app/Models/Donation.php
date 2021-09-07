@@ -13,9 +13,26 @@ class Donation extends Model
 
     public $casts = ['is_anonymous' => 'boolean', 'is_company' => 'boolean'];
 
+    // Scopes
+
+    public function scopeOneTime($query)
+    {
+        return $query->where('type', 'one-time');
+    }
+
+    public function scopeRecurring($query)
+    {
+        return $query->where('type', 'monthly');
+    }
+
     // Relations
 
     // Attributes
+
+    public function getFormattedAmountAttribute()
+    {
+        return '$' . number_format($this->amount/100, 2);
+    }
 
     // Methods
 }
