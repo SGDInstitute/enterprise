@@ -25,6 +25,8 @@ class Donations extends Component
             ]);
     }
 
+    // Properties
+
     public function getOneTimeDonationsProperty()
     {
         return Donation::query()
@@ -35,9 +37,20 @@ class Donations extends Component
 
     public function getRecurringDonationsProperty()
     {
+        // dd(auth()->user()->subscriptions);
         return Donation::query()
             ->recurring()
             ->where('user_id', auth()->id())
             ->paginate($this->recurringPerPage);
+    }
+
+    // Methods
+
+    public function cancel()
+    {
+        auth()->user()->subscription('default')->cancel();
+
+        $this->emit('notify', ['message' => 'Successfully cancelled subscription.', 'type' => 'success']);
+        $this->emit('$refresh');
     }
 }

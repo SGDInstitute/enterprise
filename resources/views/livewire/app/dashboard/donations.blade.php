@@ -73,7 +73,7 @@
                         <x-bit.table.cell>{{ $donation->is_anonymous ? 'Yes' : '' }}</x-bit.table.cell>
                         <x-bit.table.cell class="text-right">
                             <x-bit.button.link>Update Card</x-bit.button.link>
-                            <x-bit.button.link>Cancel</x-bit.button.link>
+                            <x-bit.button.link wire:click="cancel">Cancel</x-bit.button.link>
                         </x-bit.table.cell>
 
                     </x-bit.table.row>
