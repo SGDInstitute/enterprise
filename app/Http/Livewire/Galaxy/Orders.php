@@ -18,7 +18,15 @@ class Orders extends Component
     public $filters = [
         'search' => '',
     ];
+    public $selectAll = false;
+    public $selectPage = false;
+    public $selected = [];
     public $perPage = 25;
+
+    public function updatedSelectPage($value)
+    {
+        $this->selected = ($value) ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)->toArray() : [];
+    }
 
     public function render()
     {
@@ -34,10 +42,10 @@ class Orders extends Component
         return Order::paid()
             ->join('events', 'orders.event_id', '=', 'events.id')
             ->join('users', 'orders.user_id', '=', 'users.id')
-            ->when($this->user, function($query) {
+            ->when($this->user, function ($query) {
                 $query->forUser($this->user);
             })
-            ->when($this->event, function($query) {
+            ->when($this->event, function ($query) {
                 $query->forEvent($this->event);
             })
             ->when($this->filters['search'], function ($query, $search) {
@@ -56,5 +64,10 @@ class Orders extends Component
             ->with('tickets', 'event', 'user')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+    }
+
+    public function selectAll()
+    {
+        $this->selectAll = true;
     }
 }
