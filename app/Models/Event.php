@@ -27,6 +27,30 @@ class Event extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
+    // Relations
+
+    public function items()
+    {
+        return $this->hasMany(EventItem::class);
+    }
+
+    public function ticketTypes()
+    {
+        return $this->hasMany(TicketType::class);
+    }
+
+    public function tracks()
+    {
+        return $this->hasMany(EventTrack::class);
+    }
+
+    public function workshopForm()
+    {
+        return $this->hasOne(Form::class)->where('type', 'workshop');
+    }
+
+    // Attributes
+
     public function getBackgroundUrlAttribute()
     {
         return $this->getFirstMediaUrl('background') ?? 'https://sgdinstitute.org/assets/headers/homepage-hero1.jpg';
@@ -72,13 +96,5 @@ class Event extends Model implements HasMedia
         }
     }
 
-    public function ticketTypes()
-    {
-        return $this->hasMany(TicketType::class);
-    }
-
-    public function workshopForm()
-    {
-        return $this->hasOne(Form::class)->where('type', 'workshop');
-    }
+    // Methods
 }

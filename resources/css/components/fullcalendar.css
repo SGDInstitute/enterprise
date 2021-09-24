@@ -1,0 +1,9 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fc-border-color: theme('colors.gray.700');
+  }
+
+  .fc-toolbar-title, .fc-col-header-cell-cushion, .fc-scrollgrid-shrink-cushion {
+      @apply text-gray-300;
+  }
+}

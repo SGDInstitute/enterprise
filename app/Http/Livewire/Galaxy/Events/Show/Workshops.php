@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Galaxy\Events\Show;
 use App\Http\Livewire\Traits\WithFiltering;
 use App\Http\Livewire\Traits\WithSorting;
 use App\Models\Event;
+use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
 use Livewire\Component;
@@ -19,14 +20,26 @@ class Workshops extends Component
 
     public $advanced = [];
     public $advancedChanged = false;
+    public $editingItem;
+    public $editingTracks;
     public $filters =  [
         'search' => ''
     ];
     public $perPage = 25;
+    public $showItemModal = false;
+
+    public $rules = [
+        'editingItem.name' => 'required',
+        'editingItem.parent_id' => 'required',
+        'editingItem.track_id' => 'required',
+        'editingItem.description' => 'required',
+        'editingItem.location' => 'required',
+    ];
 
     public function mount()
     {
         $this->form = $this->event->workshopForm;
+        $this->editingItem = new EventItem;
 
         if($this->form->settings->get('searchable')) {
             $this->setAdvancedForm();
@@ -46,6 +59,8 @@ class Workshops extends Component
             ->with([
                 'workshops' => $this->workshops,
                 'advancedSearchForm' => $this->advancedSearchForm,
+                'slots' => $this->event->items->whereNull('parent_id'),
+                'tracks' => $this->event->tracks,
             ]);
     }
 
@@ -87,6 +102,24 @@ class Workshops extends Component
             })
             ->where('form_id', $this->form->id)
             ->paginate($this->perPage);
+    }
+
+    public function assignTime($id)
+    {
+        $workshop = $this->workshops->firstWhere('id', $id);
+
+        $this->editingItem->name = $workshop->answers->get('name');
+        $this->editingItem->description = $workshop->answers->get('question-description');
+
+        $this->showItemModal = true;
+        // $this->editingItem->name = $workshop->answers['name'];
+
+    }
+
+    public function resetItemModal()
+    {
+        $this->showItemModal = false;
+        $this->editingItem = new EventItem;
     }
 
     public function setAdvancedForm()

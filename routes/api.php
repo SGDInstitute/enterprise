@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/events/{event}/schedule', function (Event $event) {
+    return $event->items->each(function($item) {
+        $item->title = $item->name;
+        $item->start = $item->start->timezone($item->timezone);
+        $item->end = $item->end->timezone($item->timezone);
+        $item->backgroundColor = $item->track->color;
+        $item->borderColor = $item->track->color;
+    });
 });
