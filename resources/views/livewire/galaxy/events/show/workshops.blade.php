@@ -59,7 +59,11 @@
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}">
                     <x-bit.table.cell class="flex items-center space-x-1">
                         <span>{{ $workshop->status }}</span>
-                        @if($workshop->status === 'approved' && $event->items->count() > 0)
+                        @if(isset($assignedWorkshops[$workshop->id]))
+                        <x-bit.button.link size="py-1 px-2" wire:click="editItem({{ $assignedWorkshops[$workshop->id] }})">
+                            <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
+                        </x-bit.button.link>
+                        @elseif($workshop->status === 'approved' && $event->items->count() > 0)
                         <x-bit.button.link size="py-1 px-2" wire:click="assignTime({{ $workshop->id }})">
                             <x-heroicon-o-calendar class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
@@ -122,12 +126,7 @@
                         <x-bit.input.text class="w-full mt-1" wire:model="editingItem.name" id="editing-item-name" />
                     </x-bit.input.group>
                     <x-bit.input.group for="editing-item-track" label="Tracks">
-                        <x-bit.input.tags class="w-full mt-1" wire:model="editingTracks" id="editing-item-track">
-                            <option value="default" disabled>Select Track</option>
-                            @foreach($tracks as $track)
-                            <option value="{{ $track->id }}">{{ $track->name }}</option>
-                            @endforeach
-                        </x-bit.input.tags>
+                        <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-item-track" />
                     </x-bit.input.group>
                     <x-bit.input.group for="editing-item-description" label="Description">
                         <x-bit.input.textarea rows="8" class="w-full mt-1" wire:model="editingItem.description" id="editing-item-description" />

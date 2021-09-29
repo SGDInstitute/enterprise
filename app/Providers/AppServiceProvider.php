@@ -2,26 +2,18 @@
 
 namespace App\Providers;
 
+use App\Models\EventItem;
+use App\Observers\EventItemObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function boot()
     {
-        //
+        EventItem::observe(EventItemObserver::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function register()
     {
         //
     }

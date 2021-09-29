@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Galaxy\Events\Show;
 
 use App\Models\Event;
 use App\Models\EventItem;
-use App\Models\EventTrack;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -14,9 +13,8 @@ class Schedule extends Component
     public Event $event;
 
     public $editingItem;
-    public $editingTrack;
+    public $editingTracks;
     public $showItemModal = false;
-    public $showTrackModal = false;
 
     public $form = [
         'date' => '',
@@ -26,7 +24,6 @@ class Schedule extends Component
 
     public $rules = [
         'editingItem.name' => 'required',
-        'editingItem.track_id' => 'required',
         'editingItem.description' => '',
         'editingTrack.name' => 'required',
         'editingTrack.description' => '',
@@ -35,7 +32,6 @@ class Schedule extends Component
 
     public function mount()
     {
-        $this->editingTrack = new EventTrack;
         $this->editingItem = new EventItem(['track_id' => 'default']);
     }
 
@@ -86,6 +82,7 @@ class Schedule extends Component
         if(is_numeric($id)) {
             $item = $this->items->firstWhere('id', $id);
             $this->editingItem = $item;
+            $this->editingTracks = $item->tagsWithType('tracks')->pluck('name')->join(',');
 
             $this->form['date'] = $item->start->timezone($item->timezone)->format('m/d/Y');
             $this->form['start'] = $item->start->timezone($item->timezone)->format('H:i');
@@ -101,26 +98,16 @@ class Schedule extends Component
         $this->showItemModal = true;
     }
 
-    public function openTrackModal($track = null)
+    public function redirectToSlot()
     {
-        if($track) {
-            $this->editingTrack = $track;
-        }
-
-        $this->showTrackModal = true;
+        return redirect()->route('galaxy.events.show.slots', [$this->event, $this->editingItem]);
     }
 
     public function resetItemModal()
     {
         $this->showItemModal = false;
         $this->editingItem = new EventItem;
-        $this->reset('form');
-    }
-
-    public function resetTrackModal()
-    {
-        $this->showTrackModal = false;
-        $this->editingTrack = new EventTrack;
+        $this->reset('form', 'editingTracks');
     }
 
     public function saveItem()
@@ -131,21 +118,11 @@ class Schedule extends Component
         $this->editingItem->timezone = $this->event->timezone;
         $this->editingItem->save();
 
+        $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+
         $this->emit('notify', ['message' => 'Successfully saved item', 'type' => 'success']);
 
         $this->resetItemModal();
         $this->emit("refreshCalendar");
-    }
-
-    public function saveTrack()
-    {
-        $this->validate();
-
-        $this->editingTrack->event_id = $this->event->id;
-        $this->editingTrack->save();
-
-        $this->emit('notify', ['message' => 'Successfully saved track', 'type' => 'success']);
-
-        $this->resetTrackModal();
     }
 }

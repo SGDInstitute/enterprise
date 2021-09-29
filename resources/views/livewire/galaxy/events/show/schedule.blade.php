@@ -1,35 +1,20 @@
 <div class="space-y-8">
-    <div class="flex items-center justify-between px-4 py-2 bg-white rounded shadow dark:bg-gray-900">
-        <div>
-            @foreach($tracks as $track)
-            <x-bit.badge>{{ $track->name }}</x-bit.badge>
-            @endforeach
-        </div>
-
-        <x-bit.button.round.secondary wire:click="openTrackModal">New</x-bit.button.round.secondary>
-    </div>
-
     <div id="calendar-container" wire:ignore>
         <div id="calendar"></div>
     </div>
 
     <form wire:submit.prevent="saveItem">
         <x-bit.modal.dialog wire:model.defer="showItemModal">
-            <x-slot name="title">{{ $editingTrack->id ? 'Create' : 'Edit'}} Item</x-slot>
+            <x-slot name="title">{{ $editingItem->id === null  ? 'Create' : 'Edit'}} Item</x-slot>
 
             <x-slot name="content">
                 <div class="space-y-2">
-                    <div class="grid grid-cols-1 gap-2 md:grid-cols-4">
+                    <div class="grid grid-cols-1 gap-2 md:grid-cols-5">
                         <x-bit.input.group for="editing-item-name" class="md:col-span-3" label="Name">
                             <x-bit.input.text class="w-full mt-1" wire:model="editingItem.name" id="editing-item-name" />
                         </x-bit.input.group>
-                        <x-bit.input.group for="editing-item-track" label="Track">
-                            <x-bit.input.select class="w-full mt-1" wire:model="editingItem.track_id" id="editing-item-track">
-                                    <option value="default" disabled>Select Track</option>
-                                @foreach($tracks as $track)
-                                    <option value="{{ $track->id }}">{{ $track->name }}</option>
-                                @endforeach
-                            </x-bit.input.select>
+                        <x-bit.input.group for="editing-tracks" class="md:col-span-2" label="Tracks">
+                            <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-tracks" />
                         </x-bit.input.group>
                     </div>
                     <x-bit.input.group for="editing-item-description" label="Description">
@@ -53,36 +38,19 @@
             </x-slot>
 
             <x-slot name="footer">
-                <x-bit.button.round.secondary wire:click="resetItemModal">Cancel</x-bit.button.round.secondary>
-                <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
-            </x-slot>
-        </x-bit.modal.dialog>
-    </form>
-
-    <form wire:submit.prevent="saveTrack">
-        <x-bit.modal.dialog wire:model.defer="showTrackModal">
-            <x-slot name="title">{{ $editingTrack->id ? 'Create' : 'Edit'}} Track</x-slot>
-
-            <x-slot name="content">
-                <div class="space-y-2">
-                    <x-bit.input.group for="editing-name" label="Name">
-                        <x-bit.input.text class="w-full mt-1" wire:model="editingTrack.name" id="editing-name" />
-                    </x-bit.input.group>
-                    <x-bit.input.group for="editing-description" label="Description">
-                        <x-bit.input.text class="w-full mt-1" wire:model="editingTrack.description" id="editing-description" />
-                    </x-bit.input.group>
-                    <x-bit.input.group for="editing-color" label="Color">
-                        <x-bit.input.text class="w-full mt-1" wire:model="editingTrack.color" id="editing-color" />
-                    </x-bit.input.group>
+                <div class="flex items-center justify-between w-full">
+                    <div>
+                        <x-bit.button.round.secondary wire:click="redirectToSlot">Add Item to Slot</x-bit.button.round.secondary>
+                    </div>
+                    <div>
+                        <x-bit.button.round.secondary wire:click="resetItemModal">Cancel</x-bit.button.round.secondary>
+                        <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
+                    </div>
                 </div>
             </x-slot>
-
-            <x-slot name="footer">
-                <x-bit.button.round.secondary wire:click="resetTrackModal">Cancel</x-bit.button.round.secondary>
-                <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
-            </x-slot>
         </x-bit.modal.dialog>
     </form>
+
 </div>
 
 @push('scripts')

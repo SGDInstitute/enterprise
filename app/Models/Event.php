@@ -34,14 +34,14 @@ class Event extends Model implements HasMedia
         return $this->hasMany(EventItem::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function ticketTypes()
     {
         return $this->hasMany(TicketType::class);
-    }
-
-    public function tracks()
-    {
-        return $this->hasMany(EventTrack::class);
     }
 
     public function workshopForm()
@@ -97,4 +97,12 @@ class Event extends Model implements HasMedia
     }
 
     // Methods
+
+    public function paidAttendees()
+    {
+        return $this->orders()->whereNotNull('transaction_id')->with('tickets.user')->get()
+            ->flatMap->tickets
+            ->filter(fn($ticket) => $ticket->user_id !== null)
+            ->map->user;
+    }
 }
