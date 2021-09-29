@@ -41,7 +41,7 @@ module.exports = {
             },
             fontFamily: {
                 'raleway': ['Raleway', ...fontFamily.sans],
-                'newscycle': ['Raleway', ...fontFamily.sans],
+                'newscycle': ['News Cycle', ...fontFamily.sans],
                 'sans': ['Lato', ...fontFamily.sans],
             },
             fontSize: {
