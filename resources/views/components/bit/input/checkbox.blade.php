@@ -19,7 +19,7 @@
 <div class="flex">
     <input {{ $attributes }}
         type="checkbox"
-        class="block transition duration-150 ease-in-out border-gray-300 form-checkbox sm:text-sm sm:leading-5 {{ $attributes->get('disabled') ? 'opacity-75 cursor-not-allowed' : '' }}"
+        class="block transition duration-150 ease-in-out border-gray-300 rounded form-checkbox sm:text-sm sm:leading-5 {{ $attributes->get('disabled') ? 'opacity-75 cursor-not-allowed' : '' }}"
     />
 </div>
 @endif

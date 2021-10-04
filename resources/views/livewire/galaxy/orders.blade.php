@@ -1,7 +1,7 @@
 <div>
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">
-            <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
+            <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row">
                 <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search orders..." />
             </div>
             <div class="flex items-end mt-4 md:mt-0">
@@ -11,7 +11,10 @@
 
         <x-bit.table>
             <x-slot name="head">
-            <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
+                <x-bit.table.heading class="w-8 pr-0">
+                    <x-bit.input.checkbox wire:model="selectPage" />
+                </x-bit.table.heading>
+                <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
                 @if($this->user === null)
                 <x-bit.table.heading sortable wire:click="sortBy('users.name')" :direction="$sortField === 'users.name' ? $sortDirection : null">Creator</x-bit.table.heading>
                 @endif
@@ -27,8 +30,26 @@
             </x-slot>
 
             <x-slot name="body">
+                @if ($selectPage)
+                <x-bit.table.row class="bg-gray-200" wire:key="row-message">
+                    <x-bit.table.cell colspan="11">
+                        @unless ($selectAll)
+                        <div>
+                            <span>You have selected <strong>{{ $orders->count() }}</strong> orders, do you want to select all <strong>{{ number_format($orders->total()) }}</strong>?</span>
+                            <x-bit.button.link wire:click="selectAll" class="ml-1 text-blue-600">Select All</x-bit.button.link>
+                        </div>
+                        @else
+                        <span>You have selected all <strong>{{ number_format($orders->total()) }}</strong> orders.</span>
+                        @endif
+                    </x-bit.table.cell>
+                </x-bit.table.row>
+                @endif
+
                 @forelse($orders as $order)
                 <x-bit.table.row wire:key="row-{{ $order->id }}">
+                    <x-bit.table.cell class="pr-0">
+                        <x-bit.input.checkbox wire:model="selected" value="{{ $order->id }}" />
+                    </x-bit.table.cell>
                     <x-bit.table.cell>{{ $order->formattedId }}</x-bit.table.cell>
                     @if($this->user === null)
                     <x-bit.table.cell><a href="{{ route('galaxy.users.show', $order->user) }}" class="hover:underline">{{ $order->user->name }}</a></x-bit.table.cell>

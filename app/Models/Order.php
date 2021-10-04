@@ -125,6 +125,16 @@ class Order extends Model
         return $this->transaction_id === null;
     }
 
+    public function markAsPaid($transactionId, $amount)
+    {
+        $this->transaction_id = $transactionId;
+        $this->reservation_ends = null;
+        $this->paid_at = now();
+        $this->confirmation_number = substr(str_shuffle(str_repeat('ABCDEFGHJKLMNPQRSTUVWXYZ23456789', 20)), 0, 20);
+        $this->amount = $amount;
+        $this->save();
+    }
+
     public function transactionDetails()
     {
         if($this->isPaid()) {
