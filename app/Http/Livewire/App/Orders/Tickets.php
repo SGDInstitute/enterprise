@@ -240,18 +240,20 @@ class Tickets extends Component
     }
 
     private function getAnswerForm($ticket) {
-        return $ticket->ticketType->form
-                    ->filter(fn($item) => $item['style'] !== 'content')
-                    ->mapWithKeys(function($item) {
-                        if($item['style'] === 'question') {
-                            if($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
-                                return [$item['id'] => []];
-                            }
+        if($ticket->ticketType->form !== null) {
+            return $ticket->ticketType->form
+                        ->filter(fn($item) => $item['style'] !== 'content')
+                        ->mapWithKeys(function($item) {
+                            if($item['style'] === 'question') {
+                                if($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                                    return [$item['id'] => []];
+                                }
 
-                            return [$item['id'] => ''];
-                        } elseif($item['style'] === 'collaborators') {
-                            return [$item['id'] => auth()->user()->email ?? ''];
-                        }
-                    })->toArray();
+                                return [$item['id'] => ''];
+                            } elseif($item['style'] === 'collaborators') {
+                                return [$item['id'] => auth()->user()->email ?? ''];
+                            }
+                        })->toArray();
+        }
     }
  }

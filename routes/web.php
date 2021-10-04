@@ -24,6 +24,8 @@ Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name(
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
+    Route::get('/checkin/{ticket}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
+
     Route::get('/dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
 
     Route::get('/billing-portal', function () {

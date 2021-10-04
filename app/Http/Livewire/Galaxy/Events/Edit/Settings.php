@@ -43,6 +43,12 @@ class Settings extends Component
         return view('livewire.galaxy.events.edit.settings');
     }
 
+    public function closeCheckin()
+    {
+        $this->event->settings->allow_checkin = false;
+        $this->event->save();
+    }
+
     public function openCheckin()
     {
         $this->event->settings->allow_checkin = true;

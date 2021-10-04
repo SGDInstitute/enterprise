@@ -30,4 +30,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Response::class, 'collaborators');
     }
+
+    public function ticketForEvent($event)
+    {
+        return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->firstOrFail();
+    }
 }

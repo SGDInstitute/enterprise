@@ -9,6 +9,7 @@
                     <p class="text-sm text-blue-700 dark:text-blue-200">
                         Check-in is open.
                     </p>
+                    <button wire:loading.remove wire:click="closeCheckin" class="font-medium text-blue-700 dark:text-blue-200 whitespace-nowrap hover:text-blue-600 dark:hover:text-blue-50">Close <span aria-hidden="true">&rarr;</span></button>
                 </div>
             </div>
         </div>
