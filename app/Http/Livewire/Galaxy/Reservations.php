@@ -34,7 +34,9 @@ class Reservations extends Component
 
     public function updatedSelected($value)
     {
-        $this->invoices[$value[0]] = ['check' => '', 'amount' => ''];
+        if(isset($value[0])) {
+            $this->invoices[$value[0]] = ['check' => '', 'amount' => ''];
+        }
     }
 
     public function render()
