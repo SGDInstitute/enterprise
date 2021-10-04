@@ -32,6 +32,21 @@ class SettingsTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create([
             'settings' => [
                 'reservations' => true,
+                'reservation_length' => 60,
+                'volunteer_discounts' => false,
+                'presenter_discounts' => false,
+                'demographics' => false,
+                'add_ons' => false,
+                'invoices' => false,
+                'check_payment' => false,
+                'onsite' => false,
+                'livestream' => false,
+                'has_workshops' => false,
+                'has_volunteers' => false,
+                'has_sponsorship' => false,
+                'has_vendors' => false,
+                'has_ads' => false,
+                'allow_donations' => false,
             ]
         ]);
 
@@ -40,6 +55,7 @@ class SettingsTest extends TestCase
             ->assertSet('event.settings.reservations', true)
             ->set('event.settings.reservations', false)
             ->call('save')
+            ->assertHasNoErrors()
             ->assertSet('formChanged', false)
             ->assertEmitted('notify');
 
