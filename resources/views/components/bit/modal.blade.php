@@ -64,7 +64,7 @@ switch ($maxWidth ?? '2xl') {
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
     id="{{ $id }}"
-    class="fixed inset-x-0 top-0 z-50 px-4 pt-6 sm:px-0 sm:flex sm:items-top sm:justify-center"
+    class="fixed inset-x-0 top-0 z-50 max-h-screen px-4 pt-6 overflow-auto sm:px-0 sm:flex sm:items-top sm:justify-center"
     style="display: none;"
 >
     <div x-show="show" class="fixed inset-0 transition-all transform" x-on:click="show = false" x-transition:enter="ease-out duration-300"
