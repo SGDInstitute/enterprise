@@ -96,7 +96,7 @@ class Tickets extends Component
 
     public function getTicketsProperty()
     {
-        if($this->order->user_id === auth()->id()) {
+        if($this->order->user_id === auth()->id() || auth()->user()->can('galaxy.view')) {
             return Ticket::query()
                 ->where('order_id', $this->order->id)
                 ->with('price', 'ticketType', 'user')
