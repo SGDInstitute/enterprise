@@ -11,10 +11,10 @@ use Tests\TestCase;
 class CheckinTest extends TestCase
 {
     /** @test */
-    public function the_component_can_render()
-    {
-        $component = Livewire::test(Checkin::class);
+    // public function the_component_can_render()
+    // {
+    //     $component = Livewire::test(Checkin::class);
 
-        $component->assertStatus(200);
-    }
+    //     $component->assertStatus(200);
+    // }
 }
