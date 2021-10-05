@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Galaxy\Events\Show;
+namespace App\Http\Livewire\Galaxy\Events\Edit;
 
 use App\Models\Event;
 use App\Models\EventItem;
@@ -30,7 +30,7 @@ class Slots extends Component
 
     public function render()
     {
-        return view('livewire.galaxy.events.show.slots')
+        return view('livewire.galaxy.events.edit.slots')
             ->layout('layouts.galaxy', ['title' => $this->event->name . ' ' . $this->item->name])
             ->with([
                 'collisions' => $this->collisions,

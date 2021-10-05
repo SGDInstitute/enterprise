@@ -101,7 +101,7 @@ class Schedule extends Component
 
     public function redirectToSlot()
     {
-        return redirect()->route('galaxy.events.show.slots', [$this->event, $this->editingItem]);
+        return redirect()->route('galaxy.events.edit.slots', [$this->event, $this->editingItem]);
     }
 
     public function resetItemModal()
