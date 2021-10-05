@@ -1,4 +1,4 @@
-<nav x-data="{open: false}" class="bg-gray-100 dark:bg-gray-900">
+<nav x-data="{open: false}" class="fixed z-50 w-full bg-gray-100 dark:bg-gray-900">
   <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -56,3 +56,4 @@
     </div>
   </div>
 </nav>
+<div style="height:80px"></div>

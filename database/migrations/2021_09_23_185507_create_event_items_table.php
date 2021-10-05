@@ -13,6 +13,7 @@ class CreateEventItemsTable extends Migration
             $table->foreignId('event_id')->constrained('events');
             $table->foreignId('parent_id')->nullable()->constrained('event_items');
             $table->string('name');
+            $table->string('slug');
             $table->text('description')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');

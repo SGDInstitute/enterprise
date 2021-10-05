@@ -12,6 +12,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <livewire:styles />
+        @stack('styles')
     </head>
     <body class="font-sans antialiased dark:bg-gray-800">
         @include('layouts.gemini.nav')
@@ -24,5 +25,6 @@
         <!-- Scripts -->
         <livewire:scripts />
         <script src="{{ mix('js/app.js') }}"></script>
+        @stack('scripts')
     </body>
 </html>

@@ -42,4 +42,5 @@ Route::middleware('auth')->group(function () {
     })->name('app.orders.show.receipt');
 
     Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
+    Route::get('{event:slug}/program/schedule/{item:slug}', App\Http\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
 });

@@ -6,16 +6,25 @@ use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
 
 class EventItem extends Model
 {
-    use HasFactory, HasSettings, HasTags;
+    use HasFactory, HasSettings, HasSlug, HasTags;
 
     public $guarded = [];
 
     public $casts = ['settings' => 'array'];
     public $dates = ['start', 'end'];
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 
     // Relations
 

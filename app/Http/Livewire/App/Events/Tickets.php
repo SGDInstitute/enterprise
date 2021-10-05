@@ -11,7 +11,6 @@ use Livewire\Component;
 
 class Tickets extends Component
 {
-
     protected $listeners = ['refresh' => '$refresh'];
 
     public Event $event;

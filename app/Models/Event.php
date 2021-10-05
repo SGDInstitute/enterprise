@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
@@ -29,6 +28,11 @@ class Event extends Model implements HasMedia
 
     // Relations
 
+    public function bulletins()
+    {
+        return $this->hasMany(EventBulletin::class);
+    }
+
     public function items()
     {
         return $this->hasMany(EventItem::class);
@@ -37,6 +41,11 @@ class Event extends Model implements HasMedia
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function publishedBulletins()
+    {
+        return $this->hasMany(EventBulletin::class)->where('published_at', '<', now());
     }
 
     public function ticketTypes()
