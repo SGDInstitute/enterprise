@@ -1,8 +1,8 @@
-<div class="py-12 mx-auto space-y-8 max-w-prose">
+<div class="px-4 py-12 mx-auto space-y-8 max-w-prose">
     <h1 class="text-4xl font-bold text-center text-gray-700 dark:text-gray-100">Checkin for {{ $ticket->event->name }}</h1>
 
     <div class="space-y-2">
-        <div class="relative w-full bg-white shadow-md dark:bg-gray-200 h-96">
+        <div class="relative w-full h-64 bg-white shadow-md dark:bg-gray-200 lg:h-96">
             @if($ticket->isQueued())
             <div class="absolute top-0 left-0 z-30 p-2 -mt-4 -ml-4 bg-green-500 rounded-full">
                 <x-heroicon-o-check class="w-8 h-8 text-white" />
@@ -27,7 +27,7 @@
                 </div>
                 @endif
             </div>
-            <div title="We'll send you a notification using this email when your name badge is ready" class="absolute flex items-center w-2/3 py-1 pl-4 space-x-2 text-blue-900 bg-blue-300 rounded-l-full shadow -right-1 bottom-4">
+            <div title="We'll send you a notification using this email when your name badge is ready" class="absolute flex items-center w-full py-1 pl-4 space-x-2 text-blue-900 bg-blue-300 rounded-l-full shadow lg:w-2/3 -right-1 bottom-4">
                 <label for="editing-email">Notification Email:</span>
                 @if($editing)
                 <input id="editing-email" wire:model="user.email" class="leading-none" placeholder="email" />
@@ -38,7 +38,11 @@
         </div>
         <div class="space-x-2 text-center">
             @if($ticket->isQueued())
-                <span class="text-xl font-bold text-center text-gray-700 dark:text-gray-200">Checked in, we are preparing your badge.</span>
+            <div class="space-y-4">
+                <p class="text-xl font-bold text-center text-gray-700 dark:text-gray-200">You are checked in and we are preparing your badge.</p>
+
+                <x-bit.button.round.primary size="lg" :href="route('app.program', $ticket->event)">View Virtual Program Book</x-bit.button.round.primary>
+            </div>
             @elseif($editing)
             <x-bit.button.round.primary wire:click="save">Save Changes</x-bit.button.round.primary>
             @else

@@ -40,4 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{order}/receipt', function(App\Models\Order $order) {
         return view('pdf.receipt', ['order' => $order]);
     })->name('app.orders.show.receipt');
+
+    Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
 });

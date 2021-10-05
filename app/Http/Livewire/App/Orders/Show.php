@@ -2,16 +2,9 @@
 
 namespace App\Http\Livewire\App\Orders;
 
-use App\Http\Livewire\Traits\WithFiltering;
-use App\Http\Livewire\Traits\WithSorting;
 use App\Models\Order;
-use App\Models\Ticket;
-use App\Models\User;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class Show extends Component
 {
@@ -47,7 +40,7 @@ class Show extends Component
             ['name' => 'Create Reservation', 'complete' => true],
             ['name' => 'Pay', 'complete' => $this->order->isPaid(), 'help' => 'app.help.pay'],
             ['name' => 'Add Folks to Tickets', 'complete' => $this->order->isFilled(), 'help' => 'app.help.tickets'],
-            ['name' => 'Get Ready', 'complete' => false],
+            ['name' => 'Check in', 'complete' => $this->checkinComplete(), 'available' => $this->order->event->settings->get('allow_checkin', false), 'help' => 'app.help.checkin', 'link' => $this->checkinLink()],
         ]);
     }
 
@@ -57,6 +50,24 @@ class Show extends Component
     {
         $this->order->generateInvoice();
         $this->showInvoiceModal = true;
+    }
+
+    public function checkinComplete()
+    {
+        if($this->order->tickets->firstWhere('user_id', auth()->id()) !== null) {
+            return $this->order->tickets->firstWhere('user_id', auth()->id())->isQueued();
+        }
+
+        return false;
+    }
+
+    public function checkinLink()
+    {
+        if($this->order->tickets->firstWhere('user_id', auth()->id()) !== null) {
+            $ticket = $this->order->tickets->firstWhere('user_id', auth()->id());
+
+            return route('app.checkin', $ticket);
+        }
     }
 
     public function delete()
