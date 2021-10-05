@@ -34,7 +34,9 @@ class Reservations extends Component
 
     public function updatedSelected($value)
     {
-        $this->invoices[$value[0]] = ['check' => '', 'amount' => ''];
+        if(isset($value[0])) {
+            $this->invoices[$value[0]] = ['check' => '', 'amount' => ''];
+        }
     }
 
     public function render()
@@ -63,7 +65,8 @@ class Reservations extends Component
                     $query->where('events.name', 'like', '%' . $search . '%')
                         ->orWhere('users.email', 'like', '%' . $search . '%')
                         ->orWhere('users.name', 'like', '%' . $search . '%')
-                        ->orWhere('orders.id', $search);
+                        ->orWhere('orders.id', $search)
+                        ->orWhere('orders.id', substr($search, 3));
                 });
             })
             ->select('orders.*', 'users.name', 'events.name', 'users.email')

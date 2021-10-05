@@ -1,0 +1,29 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fc-border-color: theme('colors.gray.700');
+    --fc-neutral-bg-color: theme('colors.gray.900');
+    --fc-list-event-hover-bg-color: theme('colors.gray.700');
+  }
+
+  .fc-toolbar-title, .fc-col-header-cell-cushion, .fc-scrollgrid-shrink-cushion {
+      @apply text-gray-400;
+  }
+
+  .fc-theme-standard .fc-list-day-cushion {
+      @apply text-gray-400;
+  }
+
+  .fc-list-event {
+      @apply text-gray-200;
+  }
+
+  .fc .fc-list-event:hover td {
+      background-color: theme('colors.gray.700') !important;
+  }
+}
+
+@media (max-width: 768px) {
+    .fc .fc-toolbar {
+        @apply flex-col space-y-2;
+    }
+}

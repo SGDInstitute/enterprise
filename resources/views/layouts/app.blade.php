@@ -12,8 +12,6 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <livewire:styles />
-
-
     </head>
     <body class="font-sans antialiased dark:bg-gray-800">
         @include('layouts.app.nav')

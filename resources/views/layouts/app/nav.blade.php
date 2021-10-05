@@ -14,7 +14,12 @@
                     </svg>
                 </button>
             </div>
-            <nav class="hidden space-x-10 md:flex">
+            <nav class="hidden space-x-8 md:flex">
+                @foreach($links as $link)
+                <a href="{{ $link['url'] }}" class="text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
+                    {{ $link['text'] }}
+                </a>
+                @endforeach
                 @guest
                 <a href="/" class="text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
                     Home
@@ -63,21 +68,49 @@
                         </div>
                         <div>
                             <nav class="grid grid-cols-1 gap-7">
+                                @guest
                                 <a href="/" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     Home
                                 </a>
+                                @else
+                                <a href="/dashboard" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    Home
+                                </a>
+                                @endguest
                                 <a href="/events" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     Events
                                 </a>
                                 <a href="/donate" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     Donate
                                 </a>
-                                <a href="/login" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                    Login
-                                </a>
-                                <a href="/register" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                    Create an Account
-                                </a>
+                                @guest
+                                    <a href="/login" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Login
+                                    </a>
+                                    <a href="/register" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Create an Account
+                                    </a>
+                                @else
+                                    @can('galaxy.view')
+                                    <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('app.dashboard') }}">Frontend</a>
+                                    <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('galaxy.dashboard') }}">Galaxy</a>
+                                    @endcan
+
+                                    @impersonating
+                                    <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('impersonation.leave') }}">Leave Impersonation</a>
+                                    @endImpersonating
+
+                                    <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('app.dashboard', 'settings') }}">Settings</a>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+
+                                        <a class="block p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                            href="route('logout')" onclick="event.preventDefault();
+                                                                        this.closest('form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </form>
+                                @endguest
                             </nav>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ Route::get('/', App\Http\Livewire\Galaxy\Dashboard::class)->name('galaxy.dashboa
 Route::get('/events', App\Http\Livewire\Galaxy\Events::class)->name('galaxy.events');
 Route::get('/events/create', App\Http\Livewire\Galaxy\Events\Create::class)->name('galaxy.events.create');
 Route::get('/events/{event}/edit/{page?}', App\Http\Livewire\Galaxy\Events\Edit::class)->name('galaxy.events.edit');
+Route::get('/events/{event}/slots/{item}', App\Http\Livewire\Galaxy\Events\Edit\Slots::class)->name('galaxy.events.edit.slots');
 Route::get('/events/{event}/{page?}', App\Http\Livewire\Galaxy\Events\Show::class)->name('galaxy.events.show');
 
 Route::get('/orders', App\Http\Livewire\Galaxy\Orders::class)->name('galaxy.orders');

@@ -9,11 +9,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoles, Billable, HasProfilePhoto, Impersonate;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Billable, HasProfilePhoto, Impersonate;
 
     protected $guarded = [];
 
@@ -29,5 +30,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function responses()
     {
         return $this->belongsToMany(Response::class, 'collaborators');
+    }
+
+    public function schedule()
+    {
+        return $this->belongsToMany(EventItem::class, 'user_schedule', 'user_id', 'item_id');
+    }
+
+    public function isInSchedule($item)
+    {
+        return $this->schedule()->where('item_id', $item->id)->exists();
+    }
+
+    public function ticketForEvent($event)
+    {
+        return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->firstOrFail();
     }
 }

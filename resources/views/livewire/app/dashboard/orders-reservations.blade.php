@@ -177,7 +177,7 @@
                     </div>
                 </a>
                 @empty
-                    <div class="flex items-center justify-center space-x-2 bg-gray-100 dark:bg-gray-700">
+                    <div class="flex items-center justify-center col-span-3 space-x-2 bg-gray-100 dark:bg-gray-700">
                         <x-heroicon-o-calendar class="w-8 h-8 text-gray-400" />
                         <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No orders found</span>
                     </div>
