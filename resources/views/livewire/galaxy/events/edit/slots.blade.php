@@ -123,7 +123,7 @@
 
     <form wire:submit.prevent="saveItem">
         <x-bit.modal.dialog wire:model.defer="showItemModal">
-            <x-slot name="title">{{ $editingItem->id !== null ? 'Create' : 'Edit'}} Item</x-slot>
+            <x-slot name="title">Create/Edit Item</x-slot>
 
             <x-slot name="content">
                 <div class="space-y-2">
