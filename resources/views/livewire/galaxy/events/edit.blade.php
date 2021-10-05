@@ -29,5 +29,17 @@
     @case('settings')
     <livewire:galaxy.events.edit.settings :event="$event" />
     @break
+
+    @case('program-schedule')
+    <livewire:galaxy.events.edit.schedule :event="$event" />
+    @break
+
+    @case('program-bulletin')
+    <livewire:galaxy.events.edit.bulletin :event="$event" />
+    @break
+
+    @case('program-support')
+    <livewire:galaxy.events.edit.support :event="$event" />
+    @break
     @endswitch
 </div>

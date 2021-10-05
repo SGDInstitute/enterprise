@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
 
+Route::get('/impersonation/leave', App\Http\Controllers\ImpersonationController::class)->name('impersonation.leave');
+
 Route::mediaLibrary();
 
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
@@ -24,6 +26,8 @@ Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name(
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
+    Route::get('/checkin/{ticket}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
+
     Route::get('/dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
 
     Route::get('/billing-portal', function () {
@@ -36,4 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{order}/receipt', function(App\Models\Order $order) {
         return view('pdf.receipt', ['order' => $order]);
     })->name('app.orders.show.receipt');
+
+    Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
+    Route::get('{event:slug}/program/schedule/{item:slug}', App\Http\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
 });

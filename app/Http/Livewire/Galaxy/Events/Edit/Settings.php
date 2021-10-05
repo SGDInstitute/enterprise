@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Galaxy\Events\Edit;
 
 use App\Models\Event;
+use App\Notifications\EventCheckIn;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class Settings extends Component
@@ -39,6 +41,20 @@ class Settings extends Component
     public function render()
     {
         return view('livewire.galaxy.events.edit.settings');
+    }
+
+    public function closeCheckin()
+    {
+        $this->event->settings->allow_checkin = false;
+        $this->event->save();
+    }
+
+    public function openCheckin()
+    {
+        $this->event->settings->allow_checkin = true;
+        $this->event->save();
+
+        Notification::send($this->event->paidAttendees(), new EventCheckIn($this->event));
     }
 
     public function save()

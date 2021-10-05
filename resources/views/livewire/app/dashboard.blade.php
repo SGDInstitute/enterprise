@@ -1,4 +1,4 @@
-<div class="container px-12 py-12 mx-auto">
+<div class="container px-4 pt-4 pb-12 mx-auto md:py-12 md:px-12">
     <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
         <nav class="space-y-1" aria-label="Sidebar">
             @foreach(config('nav.app.dashboard') as $link)
@@ -18,5 +18,4 @@
             @endif
         </div>
     </div>
-
 </div>

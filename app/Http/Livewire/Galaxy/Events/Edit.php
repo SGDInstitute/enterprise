@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Galaxy\Events;
 
 use App\Models\Event;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Edit extends Component
@@ -39,6 +40,16 @@ class Edit extends Component
         }
         if($this->event->settings->has_workshops) {
                 $pages[] = ['value' => 'workshops', 'label' => 'Workshop Form', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'workshops']), 'icon' => 'heroicon-o-puzzle', 'active' => $this->page === 'workshops'];
+        }
+
+        if($this->event->end->diffInDays($this->event->start) > 0) {
+            $pages[] = ['value' => 'program', 'label' => 'Program', 'icon' => 'heroicon-o-book-open', 'active' => Str::startsWith($this->page, 'program'),
+                'children' => [
+                    ['value' => 'schedule', 'label' => 'Schedule', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'program-schedule']), 'icon' => 'heroicon-o-calendar', 'active' => $this->page === 'program-schedule'],
+                    ['value' => 'bulletin', 'label' => 'Bulletin', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'program-bulletin']), 'icon' => 'heroicon-o-bookmark', 'active' => $this->page === 'program-bulletin'],
+                    ['value' => 'support', 'label' => 'Support', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'program-support']), 'icon' => 'heroicon-o-question-mark-circle', 'active' => $this->page === 'program-support'],
+                ]
+            ];
         }
 
         $pages[] = ['value' => 'settings', 'label' => 'Settings', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'settings']), 'icon' => 'heroicon-o-cog', 'active' => $this->page === 'settings'];

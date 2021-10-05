@@ -1,4 +1,4 @@
-<div class="container px-12 py-12 mx-auto space-y-8">
+<div class="container px-4 py-12 mx-auto space-y-8 md:px-12">
     <div class="space-y-4">
         <h1 class="text-2xl font-bold leading-7 text-gray-900 dark:text-gray-100 sm:text-3xl sm:truncate">{{ $order->event->name }} {{ $order->isPaid() ? 'Order Details' : 'Reservation Details'}}</h1>
         <x-bit.progress :steps="$progressSteps" :current="$progressCurrent" />
@@ -23,7 +23,9 @@
             </div>
 
             <div class="p-4 space-y-2 bg-gray-100 shadow dark:bg-gray-700">
-                @if($order->isPaid())
+                @if(!$userIsOwner)
+                <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Confirmation Number</span> {{ $order->formattedConfirmationNumber }}</p>
+                @elseif($order->isPaid())
                 <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Paid</span> {{ $order->formattedAmount }}</p>
                 <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Confirmation Number</span> {{ $order->formattedConfirmationNumber }}</p>
                 @else
@@ -31,6 +33,7 @@
                 @endif
             </div>
 
+            @if($userIsOwner)
             <div class="grid grid-cols-1 overflow-hidden bg-gray-100 divide-y divide-gray-200 shadow dark:divide-gray-800 dark:bg-gray-700">
                 @if($order->isPaid() && auth()->id() === $order->user_id)
                 <a href="{{ route('app.orders.show.receipt', $order) }}" target="_blank" class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200">
@@ -66,12 +69,15 @@
                 </button>
                 @endif
             </div>
+            @endif
         </div>
         <div class="md:col-span-2">
             <livewire:app.orders.tickets :order="$order" />
         </div>
     </div>
 
-    @include('livewire.app.orders.partials.check-modal')
-    @include('livewire.app.orders.partials.invoice-modal')
+    @if($userIsOwner)
+        @include('livewire.app.orders.partials.check-modal')
+        @include('livewire.app.orders.partials.invoice-modal')
+    @endif
 </div>

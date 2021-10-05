@@ -11,7 +11,6 @@ use Livewire\Component;
 
 class Tickets extends Component
 {
-
     protected $listeners = ['refresh' => '$refresh'];
 
     public Event $event;
@@ -123,7 +122,10 @@ class Tickets extends Component
         return $this->form->filter(fn($item) => $item['amount'] > 0)
             ->map(function($item) {
                 $ticketType = $this->ticketTypes->find($item['type_id']);
-                $data = ['ticket_type_id' => $item['type_id'], 'price_id' => $item['price_id']];
+                $data = [
+                    'event_id' => $this->event->id,
+                    'ticket_type_id' => $item['type_id'], 'price_id' => $item['price_id']
+                ];
 
                 if($item['amount'] == 1) {
                     $data['user_id'] = auth()->id();

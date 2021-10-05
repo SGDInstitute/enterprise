@@ -25,19 +25,29 @@ class Ticket extends Model
 
     // Relations
 
-    public function price()
+    public function event()
     {
-        return $this->belongsTo(Price::class);
-    }
-
-    public function ticketType()
-    {
-        return $this->belongsTo(TicketType::class);
+        return $this->belongsTo(Event::class);
     }
 
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function price()
+    {
+        return $this->belongsTo(Price::class);
+    }
+
+    public function queue()
+    {
+        return $this->hasOne(EventBadgeQueue::class);
+    }
+
+    public function ticketType()
+    {
+        return $this->belongsTo(TicketType::class);
     }
 
     public function user()
@@ -49,8 +59,22 @@ class Ticket extends Model
 
     // Methods
 
+    public function addToQueue($user = null)
+    {
+        if($user === null) {
+            $this->queue()->create(['user_id' => $this->user->id, 'name' => $this->user->name, 'email' => $this->user->email, 'pronouns' => $this->user->pronouns]);
+        } else {
+            $this->queue()->create(['user_id' => $this->user->id, 'name' => $user->name, 'email' => $user->email, 'pronouns' => $user->pronouns]);
+        }
+    }
+
     public function isFilled()
     {
         return $this->user_id !== null;
+    }
+
+    public function isQueued()
+    {
+        return $this->queue !== null;
     }
 }
