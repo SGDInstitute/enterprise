@@ -25,3 +25,4 @@ Reset Password
 @endcomponent
 
 @endif
+@endcomponent

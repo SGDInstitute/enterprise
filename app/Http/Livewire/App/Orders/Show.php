@@ -24,6 +24,7 @@ class Show extends Component
                 'subtotal' => $this->order->subtotal,
                 'progressSteps' => $this->progressSteps,
                 'progressCurrent' => $this->progressSteps->firstWhere('complete', false),
+                'userIsOwner' => $this->userIsOwner,
             ]);
     }
 
@@ -42,6 +43,11 @@ class Show extends Component
             ['name' => 'Add Folks to Tickets', 'complete' => $this->order->isFilled(), 'help' => 'app.help.tickets'],
             ['name' => 'Check in', 'complete' => $this->checkinComplete(), 'available' => $this->order->event->settings->get('allow_checkin', false), 'help' => 'app.help.checkin', 'link' => $this->checkinLink()],
         ]);
+    }
+
+    public function getUserIsOwnerProperty()
+    {
+        return auth()->id() === $this->order->user_id;
     }
 
     // Methods
@@ -72,6 +78,7 @@ class Show extends Component
 
     public function delete()
     {
+        $this->order->tickets->each->delete();
         $this->order->delete();
         return redirect('/');
     }

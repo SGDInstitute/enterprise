@@ -29,7 +29,7 @@ class ScheduleItem extends Component
 
     public function add()
     {
-        auth()->user()->schedule()->attach($this->item, ['event_id' => $this->event->id]);
+        auth()->user()->schedule()->attach($this->item);
 
         $this->emit('notify', ['message' => 'Successfully added ' . $this->item->name . ' to your schedule.', 'type' => 'success']);
         $this->emit('refresh');

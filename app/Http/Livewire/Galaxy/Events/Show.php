@@ -39,10 +39,6 @@ class Show extends Component
             $pages[] = ['value' => 'workshops', 'label' => 'Workshops', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'workshops']), 'icon' => 'heroicon-o-ticket', 'active' => $this->page === 'workshops'];
         }
 
-        if($this->event->end->diffInDays($this->event->start) > 0) {
-            $pages[] = ['value' => 'schedule', 'label' => 'Schedule', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'schedule']), 'icon' => 'heroicon-o-calendar', 'active' => $this->page === 'schedule'];
-        }
-
         return $pages;
     }
 }

@@ -81,6 +81,11 @@ class Slots extends Component
 
     public function saveItem()
     {
+        $this->editingItem->event_id = $this->event->id;
+        $this->editingItem->start = $this->item->start;
+        $this->editingItem->end = $this->item->end;
+        $this->editingItem->timezone = $this->item->timezone;
+        $this->editingItem->parent_id = $this->item->id;
         $this->editingItem->save();
 
         $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');

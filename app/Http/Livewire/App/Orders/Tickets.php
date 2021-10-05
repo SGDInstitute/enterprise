@@ -96,7 +96,15 @@ class Tickets extends Component
 
     public function getTicketsProperty()
     {
+        if($this->order->user_id === auth()->id()) {
+            return Ticket::query()
+                ->where('order_id', $this->order->id)
+                ->with('price', 'ticketType', 'user')
+                ->paginate($this->perPage);
+        }
+
         return Ticket::query()
+            ->where('user_id', auth()->id())
             ->where('order_id', $this->order->id)
             ->with('price', 'ticketType', 'user')
             ->paginate($this->perPage);

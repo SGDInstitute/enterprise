@@ -115,6 +115,11 @@ class Order extends Model
         return $this->tickets->where('user_id', null)->count() > 0 ? false : true;
     }
 
+    public function isStripe()
+    {
+        return Str::startsWith($this->transaction_id, ['pi_', 'ch_']);
+    }
+
     public function isPaid()
     {
         return $this->transaction_id !== null;

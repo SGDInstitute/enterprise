@@ -23,8 +23,15 @@
                 @if($this->event === null)
                 <x-bit.table.heading sortable wire:click="sortBy('events.name')" :direction="$sortField === 'events.name' ? $sortDirection : null">Event</x-bit.table.heading>
                 @endif
-                <x-bit.table.heading># Tickets</x-bit.table.heading>
-                <x-bit.table.heading sortable wire:click="sortBy('invoice')" :direction="$sortField === 'invoice' ? $sortDirection : null">Has Invoice</x-bit.table.heading>
+                <x-bit.table.heading>
+                    <div class="flex items-center space-x-2" title="Number of Tickets">
+                        <span>#</span>
+                        <x-heroicon-o-ticket class="w-4 h-4"/>
+                    </div>
+                </x-bit.table.heading>
+                <x-bit.table.heading sortable title="Has Invoice" wire:click="sortBy('invoice')" :direction="$sortField === 'invoice' ? $sortDirection : null">
+                <x-heroicon-o-document-text class="w-4 h-4"/>
+                </x-bit.table.heading>
                 <x-bit.table.heading>Amount</x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Created At</x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('reservation_ends')" :direction="$sortField === 'reservation_ends' ? $sortDirection : null">Due Date</x-bit.table.heading>
@@ -78,7 +85,7 @@
                 </x-bit.table.row>
                 @empty
                 <x-bit.table.row>
-                    <x-bit.table.cell colspan="9">
+                    <x-bit.table.cell colspan="11">
                         <div class="flex items-center justify-center space-x-2">
                             <x-heroicon-o-users class="w-8 h-8 text-gray-400" />
                             <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No resrvations found...</span>

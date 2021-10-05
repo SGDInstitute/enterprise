@@ -9,11 +9,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoles, Billable, HasProfilePhoto, Impersonate;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Billable, HasProfilePhoto, Impersonate;
 
     protected $guarded = [];
 

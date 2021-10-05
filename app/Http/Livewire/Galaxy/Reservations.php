@@ -65,7 +65,8 @@ class Reservations extends Component
                     $query->where('events.name', 'like', '%' . $search . '%')
                         ->orWhere('users.email', 'like', '%' . $search . '%')
                         ->orWhere('users.name', 'like', '%' . $search . '%')
-                        ->orWhere('orders.id', $search);
+                        ->orWhere('orders.id', $search)
+                        ->orWhere('orders.id', substr($search, 3));
                 });
             })
             ->select('orders.*', 'users.name', 'events.name', 'users.email')
