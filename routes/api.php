@@ -4,8 +4,8 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/events/{event}/schedule', function (Event $event) {
-    return $event->items->whereNull('parent_id')->each(function ($item) {
+Route::middleware('auth:sanctum')->get('/events/{event}/schedule', function (Event $event) {
+    return $event->items->whereNull('parent_id')->values()->each(function ($item) {
         $item->title = $item->name;
         $item->start = $item->start->timezone($item->timezone);
         $item->end = $item->end->timezone($item->timezone);
