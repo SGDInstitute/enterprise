@@ -2,19 +2,29 @@
 
 namespace App\Http\Livewire\Galaxy\Events\Edit;
 
+use App\Http\Livewire\Traits\WithFiltering;
+use App\Http\Livewire\Traits\WithSorting;
 use App\Models\Event;
 use App\Models\EventItem;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Schedule extends Component
 {
+    use WithFiltering, WithPagination, WithSorting;
+
     public Event $event;
 
     public $editingItem;
     public $editingTracks;
     public $showItemModal = false;
+    public $perPage = 25;
+
+    public $filters = [
+        'search' => ''
+    ];
 
     public $form = [
         'date' => '',
@@ -34,6 +44,9 @@ class Schedule extends Component
     public function mount()
     {
         $this->editingItem = new EventItem;
+
+        $this->sortField = 'start';
+        $this->sortDirection = 'asc';
     }
 
     public function render()
@@ -56,7 +69,17 @@ class Schedule extends Component
 
     public function getItemsProperty()
     {
-        return $this->event->items;
+        return EventItem::where('event_id', $this->event->id)
+            ->when($this->filters['search'], function ($query, $search) {
+                return $query->where(function ($query) use ($search) {
+                    $search = trim($search);
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%')
+                        ->orWhere('location', 'like', '%' . $search . '%');
+                });
+            })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
     }
 
     public function getStartProperty()
