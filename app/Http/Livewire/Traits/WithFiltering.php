@@ -8,4 +8,9 @@ trait WithFiltering
     {
         $this->resetPage();
     }
+
+    public function updatedPerPage()
+    {
+        $this->resetPage();
+    }
 }

@@ -1,6 +1,61 @@
 <div class="space-y-8">
+    <h2 class="text-xl text-gray-900 dark:text-gray-200">Calendar</h2>
     <div id="calendar-container" wire:ignore>
         <div id="calendar"></div>
+    </div>
+
+    <h2 class="text-xl text-gray-900 dark:text-gray-200">List of All Items</h2>
+
+    <div class="space-y-4">
+        <div class="md:flex md:justify-between">
+            <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
+                <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search..." />
+            </div>
+            <div class="flex items-end mt-4 md:mt-0">
+                <x-bit.data-table.per-page />
+            </div>
+        </div>
+
+        <x-bit.table>
+            <x-slot name="head">
+                <x-bit.table.heading sortable wire:click="sortBy('start')" :direction="$sortField === 'start' ? $sortDirection : null">Duration</x-bit.table.heading>
+                <x-bit.table.heading sortable wire:click="sortBy('location')" :direction="$sortField === 'location' ? $sortDirection : null">Location</x-bit.table.heading>
+                <x-bit.table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-bit.table.heading>
+                <x-bit.table.heading>Tracks</x-bit.table.heading>
+                <x-bit.table.heading>Description</x-bit.table.heading>
+                <x-bit.table.heading />
+            </x-slot>
+
+            <x-slot name="body">
+                @forelse($items as $item)
+                <x-bit.table.row wire:key="row-{{ $item->id }}">
+                    <x-bit.table.cell>{{ $item->formattedDuration ?? '?' }}</x-bit.table.cell>
+                    <x-bit.table.cell class="flex items-end space-x-4">{{ $item->location }}</x-bit.table.cell>
+                    <x-bit.table.cell><span title="{{ $item->name }}">{{ $item->shortName ?? '?' }}</span></x-bit.table.cell>
+                    <x-bit.table.cell>{{ $item->tracks ?? '?' }}</x-bit.table.cell>
+                    <x-bit.table.cell><span title="{{ $item->description }}">{{ $item->shortDescription ?? '?' }}</span></x-bit.table.cell>
+                    <x-bit.table.cell>
+                        <x-bit.button.link size="py-1 px-2" wire:click="openItemModal({{ $item->id }})">
+                            <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
+                        </x-bit.button.link>
+                    </x-bit.table.cell>
+                </x-bit.table.row>
+                @empty
+                <x-bit.table.row>
+                    <x-bit.table.cell colspan="9">
+                        <div class="flex items-center justify-center space-x-2">
+                            <x-heroicon-o-calendar class="w-8 h-8 text-gray-400" />
+                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No sub items found...</span>
+                        </div>
+                    </x-bit.table.cell>
+                </x-bit.table.row>
+                @endforelse
+            </x-slot>
+        </x-bit.table>
+
+        <div>
+            {{ $items->links() }}
+        </div>
     </div>
 
     <form wire:submit.prevent="saveItem">
@@ -91,18 +146,18 @@
                 @this.openItemModal(info.event.id);
             },
             eventResize(info) {
-                var start = info.event.start.toISOString().slice(0, 16).replace('T',' ');
-                var end = info.event.end.toISOString().slice(0, 16).replace('T',' ')
+                var start = info.event.start.toISOString().slice(0, 16).replace('T', ' ');
+                var end = info.event.end.toISOString().slice(0, 16).replace('T', ' ')
                 @this.changeItemDateTime(info.event.id, start, end);
             },
             eventDrop(info) {
-                var start = info.event.start.toISOString().slice(0, 16).replace('T',' ');
-                var end = info.event.end.toISOString().slice(0, 16).replace('T',' ')
+                var start = info.event.start.toISOString().slice(0, 16).replace('T', ' ');
+                var end = info.event.end.toISOString().slice(0, 16).replace('T', ' ')
                 @this.changeItemDateTime(info.event.id, start, end);
             }
         });
 
-        calendar.addEventSource( {
+        calendar.addEventSource({
             url: '/api/events/{{ $event->id }}/schedule'
         });
 
