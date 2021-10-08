@@ -38,7 +38,13 @@
             </div>
         </div>
         <div class="space-x-2 text-center">
-            @if($ticket->isQueued())
+            @if($ticket->isPrinted())
+            <div class="space-y-4">
+                <p class="text-xl font-bold text-center text-gray-700 dark:text-gray-200">Your badge is ready!!</p>
+
+                <x-bit.button.round.primary size="lg" :href="route('app.program', $ticket->event)">View Virtual Program Book</x-bit.button.round.primary>
+            </div>
+            @elseif($ticket->isQueued())
             <div class="space-y-4">
                 <p class="text-xl font-bold text-center text-gray-700 dark:text-gray-200">You are checked in and we are preparing your badge.</p>
 
