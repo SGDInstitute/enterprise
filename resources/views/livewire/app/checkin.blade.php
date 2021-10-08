@@ -1,5 +1,5 @@
 <div class="px-4 py-12 mx-auto space-y-8 max-w-prose">
-    <h1 class="text-4xl font-bold text-center text-gray-700 dark:text-gray-100">Checkin for MBLGTACC</h1>
+    <h1 class="text-4xl font-bold text-center text-gray-700 dark:text-gray-100">Check In for MBLGTACC</h1>
 
     @if($ticket)
     <div class="space-y-2">
@@ -81,7 +81,7 @@
 
         <div class="space-x-2">
             <x-bit.button.round.primary href="/login">Log In</x-bit.button.round.primary>
-            <x-bit.button.round.primary href="/forgot-password">Create an Account</x-bit.button.round.primary>
+            <x-bit.button.round.primary href="/forgot-password">Forgot Password</x-bit.button.round.primary>
         </div>
     </div>
     @endif
