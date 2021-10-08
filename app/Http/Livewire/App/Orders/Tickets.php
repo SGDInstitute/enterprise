@@ -47,12 +47,6 @@ class Tickets extends Component
         'ticketholder.pronouns' => '',
     ];
 
-    public function mount()
-    {
-        $this->editingTicket = $this->tickets->first();
-        $this->answers = $this->editingTicket->answers ?? $this->getAnswerForm($this->editingTicket);
-    }
-
     public function updated($field, $value)
     {
         if($field === 'ticketholder.email') {
