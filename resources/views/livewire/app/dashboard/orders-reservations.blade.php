@@ -70,7 +70,7 @@
             </div>
         </div>
         @else
-            <div class="grid grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
                 @foreach($reservations as $reservation)
                 <a href="{{ route('app.reservations.show', $reservation) }}" class="block h-64 transition duration-150 ease-in-out bg-white dark:bg-gray-800 group hover:bg-green-500 hover:shadow">
                     <div class="bg-center bg-cover h-1/2" style="background-image: url({{ $reservation->event->backgroundUrl }});">
@@ -160,7 +160,7 @@
             </div>
         </div>
         @else
-            <div class="grid grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
                 @forelse($orders as $order)
                 <a href="{{ route('app.orders.show', $order) }}" class="block h-64 transition duration-150 ease-in-out bg-white dark:bg-gray-800 group hover:bg-green-500 hover:shadow">
                     <div class="bg-center bg-cover h-1/2" style="background-image: url({{ $order->event->backgroundUrl }});">
