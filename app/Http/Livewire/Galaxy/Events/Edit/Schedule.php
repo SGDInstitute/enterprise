@@ -104,7 +104,7 @@ class Schedule extends Component
     public function openItemModal($id = null)
     {
         if(is_numeric($id)) {
-            $item = $this->items->firstWhere('id', $id);
+            $item = $this->items->firstWhere('id', $id) ?? EventItem::find($id);
             $this->editingItem = $item;
             $this->editingTracks = $item->tagsWithType('tracks')->pluck('name')->join(',');
 
