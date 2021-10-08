@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Event;
+use App\Models\EventBadgeQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,12 @@ Route::middleware('auth:sanctum')->get('/events/{event}/my-schedule', function (
             $item->backgroundColor = '#07807b';
             $item->borderColor = '#07807b';
         });
+});
+
+Route::get('/queue', function () {
+    return EventBadgeQueue::where('printed', false)->select('ticket_id', 'user_id', 'name', 'pronouns')->get();
+});
+
+Route::post('/queue/{ticket}/printed', function ($ticket) {
+    return EventBadgeQueue::where('ticket_id', $ticket)->first()->markAsPrinted();
 });
