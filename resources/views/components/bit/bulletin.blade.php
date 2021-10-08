@@ -7,6 +7,6 @@
     <div></div>
     @endif
     <h2>{{ $bulletin->title }}</h2>
-    <p>{{ markdown($bulletin->content) }}</p>
+    <p>{!! markdown($bulletin->content) !!}</p>
     <span class="text-sm text-gray-700 dark:text-gray-400">{{ $bulletin->formattedPublishedAt }}</span>
 </div>
