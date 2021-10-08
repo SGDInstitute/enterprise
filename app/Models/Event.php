@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
@@ -111,6 +112,15 @@ class Event extends Model implements HasMedia
     {
         return $this->orders()->whereNotNull('transaction_id')->with('tickets.user')->get()
             ->flatMap->tickets
+            ->filter(fn($ticket) => $ticket->user_id !== null)
+            ->map->user;
+    }
+
+    public function paidInPersonAttendees()
+    {
+        return $this->orders()->whereNotNull('transaction_id')->with('tickets.user')->get()
+            ->flatMap->tickets
+            ->filter(fn($ticket) => !Str::contains($ticket->ticketType->name, ['Virtual', 'virtual']))
             ->filter(fn($ticket) => $ticket->user_id !== null)
             ->map->user;
     }

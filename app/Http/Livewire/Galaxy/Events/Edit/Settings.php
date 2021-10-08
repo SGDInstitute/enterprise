@@ -54,7 +54,7 @@ class Settings extends Component
         $this->event->settings->allow_checkin = true;
         $this->event->save();
 
-        Notification::send($this->event->paidAttendees(), new EventCheckIn($this->event));
+        Notification::send($this->event->paidInPersonAttendees(), new EventCheckIn($this->event));
     }
 
     public function save()
