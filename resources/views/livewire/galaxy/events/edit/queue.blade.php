@@ -18,7 +18,6 @@
             <x-bit.table.heading sortable wire:click="sortBy('email')" :direction="$sortField === 'email' ? $sortDirection : null">Email</x-bit.table.heading>
             <x-bit.table.heading sortable wire:click="sortBy('printed')" :direction="$sortField === 'printed' ? $sortDirection : null">Printed</x-bit.table.heading>
             <x-bit.table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Created At</x-bit.table.heading>
-            <x-bit.table.heading />
         </x-slot>
 
         <x-slot name="body">
