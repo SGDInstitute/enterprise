@@ -77,4 +77,9 @@ class Ticket extends Model
     {
         return $this->queue !== null;
     }
+
+    public function isPrinted()
+    {
+        return $this->isQueued() && $this->queue->printed;
+    }
 }
