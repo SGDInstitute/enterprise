@@ -16,6 +16,8 @@ Route::get('/changelog', function() {
     return view('app.changelog')->with(['content' => markdown(app('files')->get(base_path('/CHANGELOG.md')))]);
 });
 
+Route::get('/checkin/{ticket?}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
+
 Route::get('/donations/create/{type?}', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
 
 Route::get('/events', App\Http\Livewire\App\Events::class)->name('app.events');
@@ -23,11 +25,11 @@ Route::get('/events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->na
 
 Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
 
+Route::get('/onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
+
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('/checkin/{ticket}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
-
     Route::get('/dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
 
     Route::get('/billing-portal', function () {

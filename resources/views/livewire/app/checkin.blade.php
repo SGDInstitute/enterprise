@@ -1,6 +1,7 @@
 <div class="px-4 py-12 mx-auto space-y-8 max-w-prose">
-    <h1 class="text-4xl font-bold text-center text-gray-700 dark:text-gray-100">Checkin for {{ $ticket->event->name }}</h1>
+    <h1 class="text-4xl font-bold text-center text-gray-700 dark:text-gray-100">Checkin for MBLGTACC</h1>
 
+    @if($ticket)
     <div class="space-y-2">
         <div class="relative w-full h-64 bg-white shadow-md dark:bg-gray-200 lg:h-96">
             @if($ticket->isQueued())
@@ -51,4 +52,38 @@
             @endif
         </div>
     </div>
+    @else
+    @auth
+    <div class="space-y-4">
+        <div class="px-4 py-2 text-gray-200 bg-red-500 rounded">
+            <p>Looks like there isn't a ticket with that email. If you're sure you have a ticket, please try logging in under a different email.</p>
+            <p>If you don't have a ticket you can purchase one.</p>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-bit.button.round.primary :href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                    {{ __('Logout') }}
+                </x-bit.button.round.primary>
+            </form>
+            <x-bit.button.round.primary href="/events">Purchase Ticket</x-bit.button.round.primary>
+        </div>
+    </div>
+    @else
+    <div class="space-y-4">
+        <div class="px-4 py-2 text-gray-200 bg-red-500 rounded">
+            <p>Please create an account or log in before checking in.</p>
+            <p>If you have never logged in, but know you have a ticket click the "Forgot Password" button.</p>
+        </div>
+
+        <div class="space-x-2">
+            <x-bit.button.round.primary href="/login">Log In</x-bit.button.round.primary>
+            <x-bit.button.round.primary href="/forgot-password">Create an Account</x-bit.button.round.primary>
+        </div>
+    </div>
+    @endif
+    @endif
 </div>
