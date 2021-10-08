@@ -44,6 +44,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function ticketForEvent($event)
     {
-        return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->firstOrFail();
+        return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->first();
     }
 }
