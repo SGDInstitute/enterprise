@@ -70,6 +70,13 @@
                         </div>
                         <div>
                             <nav class="grid grid-cols-1 gap-7">
+                                @isset($links)
+                                @foreach($links as $link)
+                                <a href="{{ $link['url'] }}" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    {{ $link['text'] }}
+                                </a>
+                                @endforeach
+                                @endisset
                                 @guest
                                 <a href="/" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     Home
