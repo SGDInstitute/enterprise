@@ -24,6 +24,7 @@ Route::get('/events', App\Http\Livewire\App\Events::class)->name('app.events');
 Route::get('/events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
 
 Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
+Route::get('/forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
 
 Route::get('/onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
 

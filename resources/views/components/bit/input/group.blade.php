@@ -13,9 +13,9 @@
 <div {{ $attributes }}>
     @isset($label)
     @isset($for)
-    <label for="{{ $for }}" class="{{ $srOnly ? 'sr-only' : 'block font-medium leading-5 text-gray-700 dark:text-gray-200 glacial' }}">{{ $label }}</label>
+    <label for="{{ $for }}" class="{{ $srOnly ? 'sr-only' : 'block font-medium mb-1 leading-5 text-gray-700 dark:text-gray-200' }}">{{ $label }}</label>
     @else
-    <span class="{{ $srOnly ? 'sr-only' : 'block text-sm font-medium leading-5 text-gray-700 dark:text-gray-200 glacial' }}">{{ $label }}</span>
+    <span class="{{ $srOnly ? 'sr-only' : 'block font-medium leading-5 mb-1 text-gray-700 dark:text-gray-200' }}">{{ $label }}</span>
     @endif
     @endif
     {{ $slot }}
@@ -31,7 +31,7 @@
 @else
 <div {{ $attributes->merge(['class' => 'flex space-x-4 sm:items-center sm:border-gray-200' . ($borderless ? '' : ' sm:border-t ') . ($paddingless ? '' : ' sm:py-5') ]) }}">
     @isset($label)
-    <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-200 glacial {{ $paddingless ? '' : 'sm:mt-px sm:pt-2' }}">
+    <label for="{{ $for }}" class="block font-medium leading-5 mb-1 text-gray-700 dark:text-gray-200 {{ $paddingless ? '' : 'sm:mt-px sm:pt-2' }}">
         {{ $label }}
     </label>
     @endif

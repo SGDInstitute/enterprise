@@ -29,13 +29,13 @@
     <h2 class="text-gray-600 dark:text-gray-400">Form</h2>
 
     @forelse($form as $index => $question)
-    @if($question['style'] === 'question')
-    @include('livewire.galaxy.events.edit.workshop-form.question')
-    @elseif ($question['style'] === 'content')
-    @include('livewire.galaxy.events.edit.workshop-form.content')
-    @elseif ($question['style'] === 'collaborators')
-    @include('livewire.galaxy.events.edit.workshop-form.collaborators')
-    @endif
+        @if($question['style'] === 'question')
+            @include('livewire.galaxy.forms.question')
+        @elseif ($question['style'] === 'content')
+            @include('livewire.galaxy.forms.content')
+        @elseif ($question['style'] === 'collaborators')
+            @include('livewire.galaxy.forms.collaborators')
+        @endif
     @empty
     <div class="p-4 rounded-md dark:bg-gray-700">
         <p class="dark:text-gray-200">This form is empty! Get started by adding a content section or a question below.</p>
@@ -150,7 +150,6 @@
                     </div>
                 </div>
             </div>
+        </section>
     </div>
-    </section>
-</div>
 </div>

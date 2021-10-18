@@ -20,6 +20,11 @@ Route::get('/reservations/{order}', App\Http\Livewire\Galaxy\Orders\Show::class)
 
 Route::get('/responses/{response}', App\Http\Livewire\Galaxy\Responses\Show::class)->name('galaxy.responses.show');
 
+Route::get('/surveys', App\Http\Livewire\Galaxy\Surveys::class)->name('galaxy.surveys');
+Route::get('/surveys/create', App\Http\Livewire\Galaxy\Surveys\Create::class)->name('galaxy.surveys.create');
+Route::get('/surveys/{survey}', App\Http\Livewire\Galaxy\Surveys\Show::class)->name('galaxy.surveys.show');
+Route::get('/surveys/{survey}/edit', App\Http\Livewire\Galaxy\Surveys\Edit::class)->name('galaxy.surveys.edit');
+
 Route::get('/ticket-types/create', App\Http\Livewire\Galaxy\TicketTypes\Form::class)->name('galaxy.ticket-types.create');
 Route::get('/ticket-types/{ticketType}/edit', App\Http\Livewire\Galaxy\TicketTypes\Form::class)->name('galaxy.ticket-types.edit');
 

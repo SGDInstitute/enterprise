@@ -25,6 +25,8 @@ trait WithFormBuilder
             'number' => 'Number',
             'textarea' => 'Textarea',
             'list' => 'List',
+            'matrix' => 'Matrix',
+            'opinion-scale' => 'Opinion Scale'
         ];
     }
 
@@ -97,5 +99,12 @@ trait WithFormBuilder
     public function setOpenIndex($index)
     {
         $this->openIndex = $index;
+    }
+
+    public function removeCondition($index)
+    {
+        $question = $this->form[$this->openIndex];
+        unset($question['conditions'][$index]);
+        $this->form[$this->openIndex] = $question;
     }
 }

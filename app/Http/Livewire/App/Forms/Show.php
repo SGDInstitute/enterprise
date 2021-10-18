@@ -77,7 +77,10 @@ class Show extends Component
 
     public function isVisible($item)
     {
-        if(isset($item['visibility']) && $item['visibility'] === 'conditional') {
+        // if($item['id'] === 'question-presenter-engaged') {
+        //    dd(isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0);
+        // }
+        if(isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0) {
             [$passes, $fails] = collect($item['conditions'])->partition(function ($condition) {
                 if($condition['method'] === 'equals') {
                     return $this->answers[$condition['field']] == $condition['value'];
@@ -94,15 +97,10 @@ class Show extends Component
                 }
             });
 
-            if(!isset($item['visibility-andor'])) {
-                dd($item, 'no and/or');
-            }
-
-            if($item['visibility-andor'] === 'and') {
-                return $fails->count() === 0;
-            }
-            if($item['visibility-andor'] === 'pr') {
+            if(isset($item['visibility-andor']) && $item['visibility-andor'] === 'or') {
                 return $passes->count() > 0;
+            } else {
+                return $fails->count() === 0;
             }
         }
 
@@ -176,6 +174,11 @@ class Show extends Component
         $this->response->status = 'submitted';
         $this->save(false);
 
-        $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
+        if($this->form->type === 'workshop') {
+            $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
+        } else {
+            $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
+            return redirect()->route('app.forms.thanks', $this->form);
+        }
     }
 }

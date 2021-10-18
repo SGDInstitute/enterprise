@@ -1,13 +1,11 @@
 @if($item['type'] === 'textarea')
-<x-bit.input.group :for="$item['id']" :label="$item['question']" :error="$errors->first('answers.' . $item['id'])">
-    <x-bit.input.textarea wire:ignore class="w-full mt-1" :id="$item['id']" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
-</x-bit.input.group>
+    @include('livewire.app.forms.partials.question-textarea')
 @elseif($item['type'] === 'text')
-<x-bit.input.group :for="$item['id']" :label="$item['question']" :error="$errors->first('answers.' . $item['id'])">
-    <x-bit.input.text type="text" class="w-full mt-1" :id="$item['id']" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
-</x-bit.input.group>
+    @include('livewire.app.forms.partials.question-text')
 @elseif($item['type'] === 'list')
     @include('livewire.app.forms.partials.question-list')
+@elseif($item['type'] === 'matrix')
+    @include('livewire.app.forms.partials.question-matrix')
 @else
-@json($item)
+    @json($item)
 @endif
