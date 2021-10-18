@@ -9,4 +9,5 @@
 
 @import 'tailwindcss/utilities';
 
+@import "components/important.css";
 [x-cloak] { display: none; }

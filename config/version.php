@@ -2,6 +2,6 @@
 
 return [
     'major'     => '3',
-    'minor'     => '0',
-    'patch'     => '6',
+    'minor'     => '1',
+    'patch'     => '0',
 ];

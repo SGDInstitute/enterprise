@@ -1,7 +1,7 @@
 <div class="rounded-md dark:bg-gray-700">
     <div class="flex items-center justify-between p-4 bg-gray-100 dark:bg-gray-900 rounded-t-md">
         <span class="dark:text-gray-400">Collaborators {{ $index + 1 }}</span>
-        @include('livewire.galaxy.events.edit.workshop-form.toolbar')
+        @include('livewire.galaxy.forms.toolbar')
     </div>
     @if($openIndex === $index)
     <div class="p-4 space-y-4 rounded-b-md">

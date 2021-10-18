@@ -3,6 +3,16 @@
     <h2 class="text-gray-600 dark:text-gray-400">Options</h2>
 
     <div class="grid grid-cols-1 gap-6 p-4 bg-gray-700 rounded-md md:grid-cols-3">
+        <x-bit.input.group for="name" label="Name">
+            <x-bit.input.text class="block w-full mt-1" id="name" name="name" wire:model="survey.name" />
+        </x-bit.input.group>
+        <x-bit.input.group for="event" label="Event">
+            <x-bit.input.select class="block w-full mt-1" id="event" name="event" placeholder="Select event (optional)" wire:model="survey.event_id">
+                @foreach($events as $event)
+                <option value="{{ $event->id }}">{{ $event->name }}</option>
+                @endforeach
+            </x-bit.input.select>
+        </x-bit.input.group>
         <x-bit.input.group for="start" label="Availability Start">
             <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model="formattedStart" />
         </x-bit.input.group>
@@ -10,7 +20,7 @@
             <x-bit.input.date-time class="block w-full mt-1" id="end" name="end" wire:model="formattedEnd" />
         </x-bit.input.group>
         <x-bit.input.group for="timezone" label="Timezone">
-            <x-bit.input.select class="block w-full mt-1" wire:model="workshopForm.timezone" id="timezone">
+            <x-bit.input.select class="block w-full mt-1" wire:model="survey.timezone" id="timezone">
                 @foreach($timezones as $value => $label)
                 <option value="{{ $value }}">{{ $label }}</option>
                 @endforeach
@@ -47,7 +57,6 @@
     <x-bit.button.round.secondary wire:click="addCollaborators">Add Collaborators</x-bit.button.round.secondary>
 
     <div>
-        <!-- This example requires Tailwind CSS v2.0+ -->
         <section class="fixed inset-0 z-50 overflow-hidden" x-show="open" x-data="{ open: @entangle('showSettings') }" @keydown.window.escape="open = false" x-ref="dialog" aria-labelledby="settings-panel" role="dialog" aria-modal="true">
             <div class="absolute inset-0 overflow-hidden">
                 <div class="absolute inset-0" x-description="Background overlay, show/hide based on slide-over state." @click="open = false" aria-hidden="true"></div>

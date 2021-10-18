@@ -20,7 +20,7 @@
             @foreach($options as $key => $label)
             <option value="{{ $key }}">{{ $label }}</option>
             @endforeach
-            @if($item['list-other'] === true)
+            @if(isset($item['list-other']) && $item['list-other'] === true)
             <option value="other">Other</option>
             @endif
         </x-bit.input.select>

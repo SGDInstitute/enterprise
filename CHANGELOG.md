@@ -5,6 +5,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.0] - 2021-10-17
+
+### Added
+
+- Surveys
+
+---
+
 ## [3.0.6] - 2021-08-06
 
 ### Fixed

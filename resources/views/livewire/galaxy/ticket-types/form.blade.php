@@ -90,11 +90,11 @@
 
         @forelse($form as $index => $question)
         @if($question['style'] === 'question')
-        @include('livewire.galaxy.events.edit.workshop-form.question')
+        @include('livewire.galaxy.forms.question')
         @elseif ($question['style'] === 'content')
-        @include('livewire.galaxy.events.edit.workshop-form.content')
+        @include('livewire.galaxy.forms.content')
         @elseif ($question['style'] === 'collaborators')
-        @include('livewire.galaxy.events.edit.workshop-form.collaborators')
+        @include('livewire.galaxy.forms.collaborators')
         @endif
         @empty
         <div class="p-4 rounded-md dark:bg-gray-700">
