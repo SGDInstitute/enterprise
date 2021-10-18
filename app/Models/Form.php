@@ -35,6 +35,11 @@ class Form extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
     // Attributes
 
     public function getFormattedEndAttribute()
