@@ -4,17 +4,31 @@
         <h3>{{ $qa['question']['question'] }}</h3>
 
         @if($qa['question']['type'] === 'list')
-        <div class="w-2/3">
-            <table>
-                <tbody>
-                    @foreach($qa['question']['options'] as $option)
-                    <tr>
-                        <th>{{ $option }}</th>
-                        <td>{{ $qa['answers'][$option] ?? 0 }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="flex">
+            <div class="w-2/3">
+                <table>
+                    <tbody>
+                        @foreach($qa['question']['options'] as $option)
+                        <tr>
+                            <th>{{ $option }}</th>
+                            <td>{{ $qa['answers'][$option] ?? 0 }}</td>
+                        </tr>
+                        @endforeach
+                        @if(isset($qa['question']['list-other']) && $qa['question']['list-other'])
+                        <tr>
+                            <th>Other</th>
+                            <td>{{ $qa['answers']['other'] ?? 0 }}</td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+            @isset($qa['others'])
+            <div class="w-1/3 px-8">
+                <h4>Other Answers</h4>
+                {{ $qa['others'] }}
+            </div>
+            @endisset
         </div>
         @elseif($qa['question']['type'] === 'matrix')
         <table>
