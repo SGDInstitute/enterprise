@@ -62,7 +62,7 @@ class Show extends Component
 
     public function getFillableProperty()
     {
-        return $this->form->auth_required && auth()->check();
+        return $this->form->auth_required ? auth()->check() : true;
     }
 
     public function getPreviousResponsesProperty()
@@ -77,9 +77,6 @@ class Show extends Component
 
     public function isVisible($item)
     {
-        // if($item['id'] === 'question-presenter-engaged') {
-        //    dd(isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0);
-        // }
         if(isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0) {
             [$passes, $fails] = collect($item['conditions'])->partition(function ($condition) {
                 if($condition['method'] === 'equals') {
