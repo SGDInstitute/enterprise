@@ -1,4 +1,4 @@
-@props(['icon', 'title', 'value', 'color', 'route'])
+@props(['icon', 'title', 'value', 'color', 'route', 'subtitle' => null])
 
 <div class="flex flex-col justify-between overflow-hidden bg-white rounded-lg shadow dark:bg-gray-700">
     <div class="px-4 py-5 sm:p-6">
@@ -10,8 +10,9 @@
             @endif
             <div class="flex-1 w-0 {{ isset($icon) ? 'ml-5' : ''}}">
                 <dl>
-                    <dt class="text-sm font-medium leading-5 text-gray-500 truncate dark:text-gray-200 dark:text-gray-300 glacial">
-                        {{ $title }}
+                    <dt class="text-sm font-medium leading-5 text-gray-500 dark:text-gray-300">
+                        <span class="truncate">{{ $title }}</span>
+                        <span class="block text-xs">{{ $subtitle }}</span>
                     </dt>
                     <dd class="flex items-baseline">
                         <div class="text-2xl font-semibold leading-8 text-gray-900 dark:text-gray-100">
