@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Galaxy\Surveys;
 
 use App\Models\Form;
+use Illuminate\Support\Arr;
 use Livewire\Component;
 
 class Show extends Component
@@ -47,7 +48,7 @@ class Show extends Component
                     $answers = [];
 
                     foreach($question['options'] as $option) {
-                        $answers[$option] = $questionsAnswers->map(fn($answer) => $answer[$option])->countBy();
+                        $answers[$option] = $questionsAnswers->map(fn($answer) => Arr::get($answer, $option) ?? Arr::get($answer, " ".$option) ?? Arr::get($answer, $option." "))->countBy();
                     }
 
                     return [$question['id'] => ['question' => $question, 'answers' => $answers]];
