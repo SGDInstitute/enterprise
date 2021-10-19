@@ -27,6 +27,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    // protected static function booted()
+    // {
+    //     static::updated(queueable(function ($customer) {
+    //         $customer->syncStripeCustomerDetails();
+    //     }));
+    // }
+
     public function responses()
     {
         return $this->belongsToMany(Response::class, 'collaborators');

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', App\Http\Livewire\Galaxy\Dashboard::class)->name('galaxy.dashboard');
 
+Route::get('/config/recurring-donations', App\Http\Livewire\Galaxy\Config\RecurringDonations::class)->name('galaxy.config.recurring-donations');
+
 Route::get('/events', App\Http\Livewire\Galaxy\Events::class)->name('galaxy.events');
 Route::get('/events/create', App\Http\Livewire\Galaxy\Events\Create::class)->name('galaxy.events.create');
 Route::get('/events/{event}/queue', App\Http\Livewire\Galaxy\Events\Edit\Queue::class)->name('galaxy.events.edit.queue');

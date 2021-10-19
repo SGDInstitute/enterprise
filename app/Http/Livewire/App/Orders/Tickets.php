@@ -47,6 +47,12 @@ class Tickets extends Component
         'ticketholder.pronouns' => '',
     ];
 
+    public function mount()
+    {
+        $this->editingTicket = $this->tickets->first();
+        $this->answers = $this->editingTicket->answers ?? $this->getAnswerForm($this->editingTicket);
+    }
+
     public function updated($field, $value)
     {
         if($field === 'ticketholder.email') {
@@ -90,15 +96,7 @@ class Tickets extends Component
 
     public function getTicketsProperty()
     {
-        if($this->order->user_id === auth()->id() || auth()->user()->can('galaxy.view')) {
-            return Ticket::query()
-                ->where('order_id', $this->order->id)
-                ->with('price', 'ticketType', 'user')
-                ->paginate($this->perPage);
-        }
-
         return Ticket::query()
-            ->where('user_id', auth()->id())
             ->where('order_id', $this->order->id)
             ->with('price', 'ticketType', 'user')
             ->paginate($this->perPage);
@@ -242,7 +240,7 @@ class Tickets extends Component
     }
 
     private function getAnswerForm($ticket) {
-        if($ticket->ticketType->form !== null) {
+        if(isset($ticket->ticketType->form)) {
             return $ticket->ticketType->form
                         ->filter(fn($item) => $item['style'] !== 'content')
                         ->mapWithKeys(function($item) {
