@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\App\Donations;
 
 use App\Models\Donation;
+use App\Models\DonationPlan as Plan;
+use App\Models\DonationPrice as Price;
 use Livewire\Component;
+use NumberFormatter;
 
 class Create extends Component
 {
@@ -16,7 +19,7 @@ class Create extends Component
         'company_name' => '',
         'tax_id' => '',
         'type' => '',
-        'amount' => '25.00',
+        'amount' => '',
     ];
 
     public $rules = [
@@ -38,11 +41,23 @@ class Create extends Component
         }
     }
 
+    public function updating($field, $value)
+    {
+        if($field === 'form.type') {
+            if($value === 'monthly') {
+                $this->form['amount'] = 'monthly-25';
+            } else {
+                $this->form['amount'] = '25.00';
+            }
+        }
+    }
+
     public function render()
     {
         return view('livewire.app.donations.create')
             ->with([
                 'checkoutButton' => $this->checkoutButton,
+                'prices' => $this->prices,
             ]);
     }
 
@@ -61,10 +76,11 @@ class Create extends Component
                 ]
             ]);
         } elseif($this->donation !== null && $this->donation->type === 'monthly') {
-            return auth()->user()->newSubscription('Recurring Monthly Donation', 'price_1JPxtdI7BmcylBPUa30AdWha')
+            return auth()->user()
+                ->newSubscription('recurring-monthly', 'monthly-25')
                 ->checkout([
-                    'success_url' => route('app.donations.show', ['donation' => $this->donation, 'success']),
-                    'cancel_url' => route('app.donations.create', ['donation' => $this->donation, 'canceled']),
+                    'success_url' => route('app.dashboard'),
+                    'cancel_url' => route('app.dashboard'),
                     'billing_address_collection' => 'required',
                     'metadata' => [
                         'user_id' => auth()->id(),
@@ -72,6 +88,16 @@ class Create extends Component
                     ]
                 ]);
         }
+    }
+
+    public function getPlanProperty()
+    {
+        return Plan::find(1);
+    }
+
+    public function getPricesProperty()
+    {
+        return Price::where('plan_id', 1)->get();
     }
 
     // Methods

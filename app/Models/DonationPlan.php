@@ -12,6 +12,10 @@ class DonationPlan extends Model
     public $guarded = [];
 
     // Relations
+    public function prices()
+    {
+        return $this->hasMany(DonationPrice::class, 'plan_id');
+    }
 
     // Attributes
 

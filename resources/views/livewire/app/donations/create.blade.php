@@ -49,9 +49,19 @@
                 </div>
             </x-bit.input.group>
 
+            @if(! empty($form['type']))
             <x-bit.input.group for="amount" label="Amount" :error="$errors->first('form.amount')">
+                @if($form['type'] === 'monthly')
+                <x-bit.input.select class="w-full mt-1" id="amount" wire:model="form.amount">
+                    @foreach($prices as $price)
+                    <option value="{{ $price->name }}">{{ $price->formattedCost }}</option>
+                    @endforeach
+                </x-bit.input.select>
+                @else
                 <x-bit.input.currency type="text" class="w-full mt-1" id="amount" wire:model="form.amount" />
+                @endif
             </x-bit.input.group>
+            @endif
 
             <div>
                 @if($donation !== null && $checkoutButton !== null)

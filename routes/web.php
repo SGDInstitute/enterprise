@@ -3,8 +3,7 @@
 use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
+// Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
 
 Route::get('/impersonation/leave', App\Http\Controllers\ImpersonationController::class)->name('impersonation.leave');
 
