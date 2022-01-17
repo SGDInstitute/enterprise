@@ -29,9 +29,9 @@ class Create extends Component
         'survey.name' => 'required',
         'survey.event_id' => 'nullable',
         'survey.timezone' => 'required',
-        'survey.auth_required' => '',
+        'survey.auth_required' => 'boolean',
         'searchable' => '',
-        'form' => 'required',
+        'form' => '',
     ];
 
     public function mount()
@@ -76,8 +76,8 @@ class Create extends Component
     {
         // validate
 
-        $this->survey->start = Carbon::parse($this->formattedStart, $this->event->timezone)->timezone('UTC');
-        $this->survey->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
+        $this->survey->start = Carbon::parse($this->formattedStart, $this->event->timezone ?? $this->survey->timezone)->timezone('UTC');
+        $this->survey->end = Carbon::parse($this->formattedEnd, $this->event->timezone ?? $this->survey->timezone)->timezone('UTC');
 
         if($this->form !== []) {
             if(!is_array($this->form)) {
@@ -97,8 +97,14 @@ class Create extends Component
         if($this->searchable !== []) {
             $this->survey->settings->set('searchable', $this->searchable);
         }
+
+        if($this->survey->event_id == "") {
+            $this->survey->event_id = null;
+        }
+        $this->survey->type = 'survey';
         $this->survey->save();
 
-        $this->emit('notify', ['message' => 'Successfully saved workshop form.', 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Successfully saved survey.', 'type' => 'success']);
+        return redirect()->route('galaxy.surveys.edit', $this->survey);
     }
 }

@@ -8,8 +8,6 @@ Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
 
 Route::get('/impersonation/leave', App\Http\Controllers\ImpersonationController::class)->name('impersonation.leave');
 
-Route::mediaLibrary();
-
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
 
 Route::get('/changelog', function() {
