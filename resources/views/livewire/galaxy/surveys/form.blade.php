@@ -34,6 +34,10 @@
                 @endforeach
             </x-bit.input.select>
         </x-bit.input.group>
+
+        <x-bit.input.group for="auth_required" label="Auth Required">
+            <x-bit.input.checkbox label="Is authentication required?" id="auth_required" name="auth_required" wire:model="survey.auth_required" />
+        </x-bit.input.group>
     </div>
 
     <h2 class="text-gray-600 dark:text-gray-400">Form</h2>

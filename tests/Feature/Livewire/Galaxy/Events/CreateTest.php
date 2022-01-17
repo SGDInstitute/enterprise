@@ -91,8 +91,6 @@ class CreateTest extends TestCase
             ->test('galaxy.events.create')
             ->set('preset', 'mblgtacc')
             ->assertSet('event.name', 'MBLGTACC 20XX')
-            ->assertSet('event.start', '2021-10-01 17:00:00')
-            ->assertSet('event.end', '2021-10-03 13:00:00')
             ->assertSet('event.timezone', 'America/New_York')
             ->assertSet('event.order_prefix', 'MBL')
             ->assertSet('event.settings.reservations', true)
