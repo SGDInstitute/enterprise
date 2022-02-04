@@ -1,4 +1,8 @@
-@props(['size' => 'default', 'block' => false, 'color' => 'text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-white'])
+@props([
+    'size' => 'default',
+    'block' => false,
+    'color' => 'text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-white'
+])
 
 @php
 $sizes = [

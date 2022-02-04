@@ -23,9 +23,7 @@
 
         @include('layouts.app.footer')
 
-        <!-- Scripts -->
         <livewire:scripts />
-        <script src="https://js.stripe.com/v3/"></script>
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        @stack('scripts')
     </body>
 </html>
