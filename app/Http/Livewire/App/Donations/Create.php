@@ -14,11 +14,7 @@ class Create extends Component
     public $form = [
         'name' => '',
         'email' => '',
-        'is_anonymous' => false,
-        'is_company' => false,
-        'company_name' => '',
-        'tax_id' => '',
-        'type' => '',
+        'type' => 'monthly',
         'amount' => '',
     ];
 
@@ -77,7 +73,7 @@ class Create extends Component
             ]);
         } elseif($this->donation !== null && $this->donation->type === 'monthly') {
             return auth()->user()
-                ->newSubscription('recurring-monthly', 'monthly-25')
+                ->newSubscription('fan-monthly', 'price_1K86dlI7BmcylBPU02nCkIOH')
                 ->checkout([
                     'success_url' => route('app.dashboard'),
                     'cancel_url' => route('app.dashboard'),

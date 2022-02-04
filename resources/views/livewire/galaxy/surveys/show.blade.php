@@ -4,6 +4,10 @@
         @if($numberOfResponses > $numberOfUniqueResponses)
         <x-bit.stat title="Total - Likely Duplicates" subtitle="only unique answers are shown" :value="$numberOfUniqueResponses"/>
         @endif
+
+        <div>
+            <x-bit.button.round.secondary wire:click="download">Download</x-bit.button.round.secondary>
+        </div>
     </div>
 
     <div class="mt-8 space-y-12">

@@ -16,58 +16,34 @@
             </div>
             @endif
 
-            <x-bit.input.group for="name" label="Name" :error="$errors->first('form.name')">
-                <x-bit.input.text type="text" class="w-full mt-1" id="name" wire:model="form.name" />
-            </x-bit.input.group>
+            <span class="relative z-0 inline-flex w-full mx-auto rounded-md shadow-sm">
+                <button type="button" wire:click="$set('form.type', 'monthly')" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                    Monthly
+                </button>
+                <button type="button" wire:click="$set('form.type', 'one-time')" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                    One-Time
+                </button>
+            </span>
 
-            <x-bit.input.group for="email" label="Email" :error="$errors->first('form.email')">
-                <x-bit.input.text type="email" class="w-full mt-1" id="email" wire:model="form.email" />
-            </x-bit.input.group>
-
-            <x-bit.input.group :error="$errors->first('form.is_anonymous')">
-                <x-bit.input.checkbox id="anonymous" wire:model="form.is_anonymous" label="Keep donation anonymous" />
-            </x-bit.input.group>
-
-            <x-bit.input.group :error="$errors->first('form.is_company')">
-                <x-bit.input.checkbox id="is_company" wire:model="form.is_company" label="This donation is on behalf of a company" />
-            </x-bit.input.group>
-
-            @if($form['is_company'])
-            <x-bit.input.group for="company_name" label="Company Name" :error="$errors->first('form.company_name')">
-                <x-bit.input.text type="text" class="w-full mt-1" id="company_name" wire:model="form.company_name" />
-            </x-bit.input.group>
-
-            <x-bit.input.group for="tax_id" label="Tax ID" :error="$errors->first('form.tax_id')">
-                <x-bit.input.text type="text" class="w-full mt-1" id="tax_id" wire:model="form.tax_id" />
-            </x-bit.input.group>
-            @endif
-
-            <x-bit.input.group for="type" label="Is this a one-time or recurring donation?" :error="$errors->first('form.type')">
-                <div class="mt-1 space-y-2">
-                    <x-bit.input.radio name="type" id="type-one-time" wire:model="form.type" value="one-time" label="One-time" />
-                    <x-bit.input.radio name="type" id="type-monthly" wire:model="form.type" value="monthly" label="Recurring Monthly" />
-                </div>
-            </x-bit.input.group>
-
-            @if(! empty($form['type']))
-            <x-bit.input.group for="amount" label="Amount" :error="$errors->first('form.amount')">
-                @if($form['type'] === 'monthly')
-                <x-bit.input.select class="w-full mt-1" id="amount" wire:model="form.amount">
-                    @foreach($prices as $price)
-                    <option value="{{ $price->name }}">{{ $price->formattedCost }}</option>
-                    @endforeach
-                </x-bit.input.select>
-                @else
-                <x-bit.input.currency type="text" class="w-full mt-1" id="amount" wire:model="form.amount" />
-                @endif
-            </x-bit.input.group>
+            @if($form['type'] === 'monthly')
+                $5
+                $10
+                $20
+                $25
+                $50
+            @else
+                $10
+                $25
+                $50
+                $100
+                _fill in_
             @endif
 
             <div>
                 @if($donation !== null && $checkoutButton !== null)
                     {!! $checkoutButton->button('Go to Checkout', ['class' => 'space-x-2 justify-center flex-1 inline-flex items-center uppercase font-bold px-4 py-2 text-lg border-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 text-green-500 dark:text-green-400 border-green-500 dark:border-green-400 hover:bg-green-500 dark:hover:bg-green-400 hover:text-white' ]) !!}
                 @else
-                <x-bit.button.flat.primary wire:click="pay" size="large" :disabled="auth()->guest()">Pay with Card</x-bit.button.flat.primary>
+                <x-bit.button.flat.primary wire:click="pay" size="large" :disabled="auth()->guest()">Donate {{ $form['type'] === 'monthly' ? 'Monthly' : 'Now' }}</x-bit.button.flat.primary>
                 @endif
             </div>
         </div>

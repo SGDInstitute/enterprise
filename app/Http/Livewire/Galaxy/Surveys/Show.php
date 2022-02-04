@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Galaxy\Surveys;
 
+use App\Exports\ResponsesExport;
 use App\Models\Form;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Show extends Component
 {
@@ -78,6 +81,12 @@ class Show extends Component
         if($this->showModal) {
             $this->foundResponses = $this->survey->responses()->where('answers', 'like', '%' . $this->foundAnswer . '%')->get();
         }
+    }
+
+    public function download()
+    {
+        $name = Str::slug($this->survey->name);
+        return Excel::download(new ResponsesExport($this->survey->id), "{$name}.xlsx");
     }
 
     public function showFullResponse($answer)
