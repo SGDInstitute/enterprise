@@ -30,6 +30,7 @@ class Show extends Component
         $answers = $this->survey->responses->unique('answers')->pluck('answers');
 
         return $this->survey->form
+            ->filter(fn($question) => $question['style'] !== 'content')
             ->mapWithKeys(function($question) use ($answers) {
                 $questionsAnswers = $answers->pluck($question['id']);
 
