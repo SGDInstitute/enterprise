@@ -34,6 +34,16 @@ class User extends Authenticatable implements MustVerifyEmail
     //     }));
     // }
 
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
+
+    public function pendingDonations()
+    {
+        return $this->donations()->where('status', 'pending');
+    }
+
     public function responses()
     {
         return $this->belongsToMany(Response::class, 'collaborators');

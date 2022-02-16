@@ -12,8 +12,8 @@
     </div>
 
     @isset($footer)
-    <div class="px-6 py-4 text-right bg-gray-100 rounded-b-lg dark:bg-gray-800">
-        {{ $footer }}
+    <div class="px-6 py-4 text-right bg-gray-100 rounded-b-lg dark:bg-gray-800 dark:border-t dark:border-gray-700">
+    {{ $footer }}
     </div>
     @endisset
 </x-modal>

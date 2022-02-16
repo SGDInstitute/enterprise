@@ -8,8 +8,6 @@ use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 
 class Media extends Component
 {
-    use WithMedia;
-
     public Event $event;
 
     public $background;

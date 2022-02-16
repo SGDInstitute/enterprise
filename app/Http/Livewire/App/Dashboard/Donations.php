@@ -13,35 +13,23 @@ class Donations extends Component
 {
     use WithPagination, WithSorting, WithFiltering;
 
-    public $oneTimePerPage = 10;
-    public $recurringPerPage = 10;
+    public $perPage = 10;
 
     public function render()
     {
         return view('livewire.app.dashboard.donations')
             ->with([
-                'oneTimeDonations' => $this->oneTimeDonations,
-                'recurringDonations' => $this->recurringDonations,
+                'donations' => $this->donations,
             ]);
     }
 
     // Properties
 
-    public function getOneTimeDonationsProperty()
+    public function getDonationsProperty()
     {
         return Donation::query()
-            ->oneTime()
             ->where('user_id', auth()->id())
-            ->paginate($this->oneTimePerPage);
-    }
-
-    public function getRecurringDonationsProperty()
-    {
-        // dd(auth()->user()->subscriptions);
-        return Donation::query()
-            ->recurring()
-            ->where('user_id', auth()->id())
-            ->paginate($this->recurringPerPage);
+            ->paginate($this->perPage);
     }
 
     // Methods

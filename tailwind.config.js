@@ -1,15 +1,10 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
-    purge: {
-        content: [
-            './resources/**/*.blade.php',
-        ],
-        options: {
-            safelist: ['prose-light', 'dark:prose-dark'],
-        },
-    },
-    darkMode: 'media',
+    content: [
+        './resources/**/*.blade.php',
+    ],
+
     theme: {
         extend: {
             colors: {
@@ -201,12 +196,7 @@ module.exports = {
             }),
         },
     },
-    variants: {
-        extend: {
-            display: ['dark'],
-            typography: ['dark']
-        }
-    },
+
     plugins: [
         require('@tailwindcss/typography'),
         require('@tailwindcss/forms'),

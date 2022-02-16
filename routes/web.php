@@ -15,7 +15,8 @@ Route::get('/changelog', function() {
 
 Route::get('/checkin/{ticket?}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
 
-Route::get('/donations/create/{type?}', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
+Route::get('/donations/create', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
+Route::get('/donations/process', App\Http\Controllers\DonationsProcessController::class)->name('app.donations.process');
 
 Route::get('/events', App\Http\Livewire\App\Events::class)->name('app.events');
 Route::get('/events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');

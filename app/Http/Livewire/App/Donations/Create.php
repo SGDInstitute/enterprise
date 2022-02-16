@@ -3,60 +3,72 @@
 namespace App\Http\Livewire\App\Donations;
 
 use App\Models\Donation;
-use App\Models\DonationPlan as Plan;
-use App\Models\DonationPrice as Price;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use NumberFormatter;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 
 class Create extends Component
 {
+    protected $listeners = ['refresh' => '$refresh'];
+
+    public $type = 'monthly';
+    public $amount = '';
+    public $name = '';
+    public $email = '';
+    public $address = [
+        'line1' => '',
+        'line2' => '',
+        'city' => '',
+        'state' => '',
+        'zip' => '',
+        'country' => '',
+    ];
+
     public $clientSecret;
     public $donation;
+    public $hasLogin = false;
+    public $newUser = null;
     public $otherAmount = false;
-    public $form = [
-        'type' => 'monthly',
-        'amount' => '',
-        'name' => '',
-        'email' => '',
-    ];
-    public $newUser;
     public $step = 1;
 
     public $oneTimeOptions = [10,20,50,100];
     public $monthlyOptions = [5,10,20,25,50,100];
 
     public $rules = [
-        'form.type' => 'required',
-        'form.amount' => 'required',
+        'type' => 'required',
+        'amount' => 'required',
     ];
 
     protected $messages = [
-        'form.type.required' => 'Please select a one-time or monthly donation.',
-        'form.amount.required' => 'Please select an amount to donate before continuing.',
+        'type.required' => 'Please select a one-time or monthly donation.',
+        'amount.required' => 'Please select an amount to donate before continuing.',
     ];
 
-    public function updatedFormEmail($value)
-    {
-        $user = User::firstWhere('email', $value);
+    protected $queryString = [
+        'type' => ['except' => 'monthly'],
+        'amount' => ['except' => ''],
+        'name' => ['except' => ''],
+        'email' => ['except' => ''],
+    ];
 
-        if(!$user && auth()->check()) {
-            $this->emit('notify', ['message' => 'Looks like the email entered does not match the email that is logged in.', 'type' => 'error']);
-        } elseif(!$user) {
-            $this->emit('notify', ['message' => 'No user with that email was found, we will create one for you.', 'type' => 'info']);
-        } elseif($user && !auth()->check()) {
-            $this->emit('notify', ['message' => 'Please login', 'type' => 'error']);
-        }
+    public function updatedEmail($value)
+    {
+        $this->checkEmail($value);
     }
 
     public function mount()
     {
         if(auth()->check()) {
-            $this->form['name'] = auth()->user()->name;
-            $this->form['email'] = auth()->user()->email;
+            $this->name = auth()->user()->name;
+            $this->email = auth()->user()->email;
         }
+
+        $this->checkEmail($this->email);
     }
 
     public function render()
@@ -64,8 +76,6 @@ class Create extends Component
         return view('livewire.app.donations.create')
             ->with([
                 'amountLabel' => $this->amountLabel,
-                'checkoutButton' => $this->checkoutButton,
-                'prices' => $this->prices,
             ]);
     }
 
@@ -73,54 +83,31 @@ class Create extends Component
 
     public function getAmountLabelProperty()
     {
-        if($this->form['amount'] != '') {
-            return '$' . $this->form['amount'] . ' ';
+        if($this->amount != '') {
+            return '$' . $this->amount . ' ';
         }
-    }
-
-    public function getCheckoutButtonProperty()
-    {
-        if($this->donation !== null && $this->donation->type === 'one-time') {
-            return auth()->user()->checkoutCharge($this->donation->amount, 'One Time Donation', 1, [
-                'success_url' => route('app.donations.show', ['donation' => $this->donation, 'success']),
-                'cancel_url' => route('app.donations.create', ['donation' => $this->donation, 'canceled']),
-                'billing_address_collection' => 'required',
-                'metadata' => [
-                    'user_id' => auth()->id(),
-                    'donation_id' => $this->donation->id,
-                ]
-            ]);
-        } elseif($this->donation !== null && $this->donation->type === 'monthly') {
-            return auth()->user()
-                ->newSubscription('fan-monthly', 'price_1K86dlI7BmcylBPU02nCkIOH')
-                ->checkout([
-                    'success_url' => route('app.dashboard'),
-                    'cancel_url' => route('app.dashboard'),
-                    'billing_address_collection' => 'required',
-                    'metadata' => [
-                        'user_id' => auth()->id(),
-                        'donation_id' => $this->donation->id,
-                    ]
-                ]);
-        }
-    }
-
-    public function getPlanProperty()
-    {
-        return Plan::find(1);
-    }
-
-    public function getPricesProperty()
-    {
-        return Price::where('plan_id', 1)->get();
     }
 
     // Methods
 
+    public function checkEmail($email)
+    {
+        $user = User::firstWhere('email', $email);
+
+        if(!$user && auth()->check()) {
+            $this->emit('notify', ['message' => 'Looks like the email entered does not match the email that is logged in.', 'type' => 'error']);
+        } elseif(!$user && $email !== '') {
+            $this->newUser = true;
+        } elseif($user && !auth()->check()) {
+            $this->hasLogin = true;
+            $this->showLogin($email);
+        }
+    }
+
     public function chooseAmount($amount)
     {
-        $this->form['amount'] = $amount;
-        if($this->form['type'] === 'one-time' && $this->otherAmount) {
+        $this->amount = $amount;
+        if($this->type === 'one-time' && $this->otherAmount) {
             $this->otherAmount = false;
         }
     }
@@ -128,21 +115,44 @@ class Create extends Component
     public function chooseOther()
     {
         $this->otherAmount = true;
-        $this->form['amount'] = '';
+        $this->amount = '';
+    }
+
+    public function showLogin($email = null)
+    {
+        $this->emit('showLogin', ['email' => $email ?? $this->email]);
     }
 
     public function startPayment()
     {
         $this->validate();
 
-        Stripe::setApiKey(config('services.stripe.secret'));
-        $paymentIntent = PaymentIntent::create([
-            'amount' => $this->form['amount'] * 100,
-            'currency' => 'usd',
-            'automatic_payment_methods' => [
-                'enabled' => true,
-            ],
-        ]);
+        if(auth()->guest() && $this->newUser) {
+            $password = Str::random(15);
+            $user = User::create(['name' => $this->name, 'email' => $this->email, 'password' => Hash::make($password)]);
+            Auth::attempt(['email' => $this->email, 'password' => $password]);
+        } elseif(auth()->guest()) {
+            return $this->emit('notify', ['message' => 'Please login before continuing.', 'type' => 'error']);
+        }
+
+        if($donation = auth()->user()->pendingDonations()->where('amount', $this->amount)->where('type', $this->type)->first()) {
+            $paymentIntent = PaymentIntent::retrieve($donation->transaction_id);
+        } else {
+            $paymentIntent = PaymentIntent::create([
+                'amount' => $this->amount * 100,
+                'currency' => 'usd',
+                'automatic_payment_methods' => [
+                    'enabled' => true,
+                ],
+            ]);
+
+            $donation = Donation::create([
+                'user_id' => auth()->id(),
+                'transaction_id' => $paymentIntent->id,
+                'amount' => $this->amount * 100,
+                'type' => $this->type
+            ]);
+        }
 
         $this->clientSecret = $paymentIntent->client_secret;
 

@@ -11,17 +11,11 @@ class CreateDonationsTable extends Migration
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('donation_plan_id')->nullable()->constrained('donation_plans');
-            $table->string('confirmation_number')->nullable();
+            $table->foreignId('parent_id')->nullable()->constrained('donations');
             $table->string('transaction_id')->nullable();
-            $table->string('name');
-            $table->string('email');
+            $table->integer('amount');
             $table->string('type');
-            $table->boolean('is_anonymous')->default(false);
-            $table->boolean('is_company')->default(false);
-            $table->string('company_name')->nullable();
-            $table->string('tax_id')->nullable();
-            $table->integer('amount')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

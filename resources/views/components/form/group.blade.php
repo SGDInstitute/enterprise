@@ -5,7 +5,7 @@
 
     @if($type === 'select')
     <x-dynamic-component component="form.select" :id="$model" wire:model="{{ $model }}" :options="$options" :placeholder="$placeholder" {{ $attributes }}/>
-    @elseif($type === 'email')
+    @elseif($type === 'email' || $type === 'password')
     <x-dynamic-component :type="$type ?? 'text'" component="form.input" :id="$model" wire:model.lazy="{{ $model }}" :placeholder="$placeholder" :leading="$leading" :trailing="$trailing" {{ $attributes }}/>
     @elseif($type === 'input' || $type === 'number' || $type === 'text')
     <x-dynamic-component :type="$type ?? 'text'" component="form.input" :id="$model" wire:model="{{ $model }}" :placeholder="$placeholder" :leading="$leading" :trailing="$trailing" {{ $attributes }}/>
