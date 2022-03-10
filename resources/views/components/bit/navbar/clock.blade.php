@@ -1,4 +1,4 @@
-<div class="p-1 text-gray-400 glacial">
+<div class="p-1 text-gray-400 ">
     <div id="clock"></div>
 
     <script>

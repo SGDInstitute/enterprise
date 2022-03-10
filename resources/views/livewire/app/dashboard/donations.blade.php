@@ -12,6 +12,7 @@
             <x-bit.table>
                 <x-slot name="head">
                     <x-bit.table.heading>Date Donated</x-bit.table.heading>
+                    <x-bit.table.heading>Type</x-bit.table.heading>
                     <x-bit.table.heading>Amount</x-bit.table.heading>
                     <x-bit.table.heading>Status</x-bit.table.heading>
                     <x-bit.table.heading></x-bit.table.heading>
@@ -21,6 +22,7 @@
                     @forelse($donations as $donation)
                     <x-bit.table.row wire:key="row-{{ $donation->id }}">
                         <x-bit.table.cell>{{ $donation->created_at->format('M, d Y') }}</x-bit.table.cell>
+                        <x-bit.table.cell>{{ $donation->formattedType }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->formattedAmount }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->status }}</x-bit.table.cell>
                         <x-bit.table.cell class="text-right">
@@ -36,7 +38,7 @@
                         <x-bit.table.cell colspan="9">
                             <div class="flex items-center justify-center space-x-2">
                                 <x-heroicon-o-users class="w-8 h-8 text-gray-400" />
-                                <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No donations found...</span>
+                                <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No donations found...</span>
                             </div>
                         </x-bit.table.cell>
                     </x-bit.table.row>

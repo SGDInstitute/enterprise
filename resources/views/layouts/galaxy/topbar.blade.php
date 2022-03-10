@@ -1,4 +1,4 @@
-<div class="relative z-10 flex flex-shrink-0 h-16 bg-white border-b border-gray-200 shadow dark:bg-gray-900 dark:border-gray-700">
+<div class="relative z-10 flex flex-shrink-0 h-16 bg-white border-b border-gray-200 shadow dark:bg-gray-850 dark:border-gray-700">
     <button @click.stop="sidebarOpen = true" class="px-4 text-gray-500 border-r border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500 md:hidden">
         <span class="sr-only">Open sidebar</span>
         <svg class="w-6 h-6" x-description="Heroicon name: menu-alt-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

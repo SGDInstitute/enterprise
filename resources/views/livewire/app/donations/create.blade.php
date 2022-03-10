@@ -1,10 +1,10 @@
 <div>
     <section class="mb-4">
-        <div class="bg-center bg-no-repeat bg-cover h-60 md:h-96" style="background-image: url(https://sgdinstitute.org/assets/headers/header-test2.jpg)">
+        <div class="bg-center bg-no-repeat bg-cover h-60 md:h-96" style="background-image: url({{ $image }})">
 
         </div>
-        <div class="w-4/5 px-8 py-4 -mt-6 bg-yellow-300 md:w-2/3">
-            <h1 class="text-4xl text-gray-700 font-news-cycle">Support our work</h1>
+        <div class="w-4/5 px-8 py-4 -mt-6 bg-yellow-500 md:w-2/3">
+            <h1 class="text-4xl text-gray-700 font-news-cycle">{{ $title }}</h1>
         </div>
     </section>
 
@@ -15,9 +15,7 @@
         </div>
         <div class="prose dark:prose-light">
             <div class="md:sticky md:top-24">
-                <p>The Midwest Institute for Sexuality and Gender Diversity re-envisions an educational climate that centers the needs and experiences of systemically disadvantaged students and affirms and encourages sexuality and gender diversity.</p>
-
-                <p>Our life-saving work is made possible through the generous financial support of grassroots donors. We invite you to join us with a monthly or one-time gift. Your donation will support our efforts to build community and build strong movements.</p>
+                {!! markdown($content) !!}
             </div>
         </div>
     </div>

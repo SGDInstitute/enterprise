@@ -8,9 +8,11 @@ return [
         ['name' => 'View All'],
         ['name' => 'Orders', 'route' => 'galaxy.orders', 'icon' => 'heroicon-o-currency-dollar'],
         ['name' => 'Reservations', 'route' => 'galaxy.reservations', 'icon' => 'heroicon-o-cursor-click'],
+        ['name' => 'Donations', 'route' => 'galaxy.donations', 'icon' => 'heroicon-o-gift'],
         ['name' => 'Users', 'route' => 'galaxy.users', 'icon' => 'heroicon-o-user-group'],
         ['name' => 'Configure'],
-        ['name' => 'Donation Plans', 'route' => 'galaxy.config.donation-plans', 'icon' => 'heroicon-o-cursor-click'],
+        ['name' => 'Donations', 'route' => 'galaxy.config.donations', 'icon' => 'heroicon-o-gift'],
+        ['name' => 'Emails', 'route' => 'galaxy.config.emails', 'icon' => 'heroicon-o-mail'],
     ],
     'app' => [
         'dashboard' => [

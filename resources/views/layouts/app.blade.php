@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <livewire:styles />
     </head>
-    <body class="font-sans antialiased dark:bg-gray-800">
+    <body class="font-sans antialiased dark:bg-gray-900">
         @include('layouts.app.nav')
         <livewire:notifications />
 

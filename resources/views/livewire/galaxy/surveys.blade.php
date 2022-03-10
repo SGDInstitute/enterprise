@@ -43,7 +43,7 @@
                     <x-bit.table.cell colspan="7">
                         <div class="flex items-center justify-center space-x-2">
                             <x-heroicon-o-calendar class="w-8 h-8 text-gray-400" />
-                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No surveys found...</span>
+                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No surveys found...</span>
                         </div>
                     </x-bit.table.cell>
                 </x-bit.table.row>

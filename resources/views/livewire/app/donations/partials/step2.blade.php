@@ -10,17 +10,15 @@
         <div id="payment-element" wire:ignore></div>
     </div>
 
-    <x-bit.button.flat.accent-filled type="submit" block id="submit" size="large">
-        <span id="spinner" class="hidden">
-            <svg class="w-6 h-6 text-gray-900 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-        </span>
-        <span id="button-text">Donate {{ $amountLabel }}{{ $type === 'monthly' ? 'Monthly' : 'Now' }}</span>
+    <x-bit.button.flat.accent-filled wire:ignore type="submit" block id="submit" size="large">
+        <svg class="hidden w-6 h-6 mr-2 text-gray-900 animate-spin" id="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Donate {{ $amountLabel }}{{ $type === 'monthly' ? 'Monthly' : 'Now' }}</span>
     </x-bit.button.flat.accent-filled>
 
-    <div id="payment-message" class="hidden"></div>
+    <div id="payment-message" class="hidden text-red-500 dark:text-red-400"></div>
 
     <script>
         const stripe = Stripe("{{ config('services.stripe.key') }}");
@@ -106,6 +104,8 @@
             e.preventDefault();
             setLoading(true);
 
+            @this.saveAddress();
+
             const {
                 error
             } = await stripe.confirmPayment({
@@ -126,11 +126,6 @@
                 },
             });
 
-            // This point will only be reached if there is an immediate error when
-            // confirming the payment. Otherwise, your customer will be redirected to
-            // your `return_url`. For some payment methods like iDEAL, your customer will
-            // be redirected to an intermediate site first to authorize the payment, then
-            // redirected to the `return_url`.
             if (error.type === "card_error" || error.type === "validation_error") {
                 showMessage(error.message);
             } else {
@@ -187,14 +182,13 @@
         // Show a spinner on payment submission
         function setLoading(isLoading) {
             if (isLoading) {
-                // Disable the button and show a spinner
                 document.querySelector("#submit").disabled = true;
+                document.querySelector("#submit").classList.add("disabled");
                 document.querySelector("#spinner").classList.remove("hidden");
-                document.querySelector("#button-text").classList.add("hidden");
             } else {
                 document.querySelector("#submit").disabled = false;
+                document.querySelector("#submit").classList.remove("disabled");
                 document.querySelector("#spinner").classList.add("hidden");
-                document.querySelector("#button-text").classList.remove("hidden");
             }
         }
     </script>

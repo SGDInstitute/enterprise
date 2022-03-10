@@ -1,5 +1,5 @@
 <div x-data="{ isOpen: false, isSearchOpen: false}">
-    <div id="navbar" class="fixed z-50 w-full bg-white shadow-md dark:bg-gray-900">
+    <div id="navbar" class="fixed z-50 w-full bg-white shadow-md dark:bg-gray-850">
         <div class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
             <div class="lg:w-0 lg:flex-1">
                 <a href="/" class="flex">

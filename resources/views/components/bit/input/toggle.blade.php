@@ -12,7 +12,7 @@
     </button>
     @if($label)
     <span class="ml-3" id="toggleLabel">
-        <span class="text-sm text-gray-900 glacial dark:text-gray-200">{{ $label }}</span>
+        <span class="text-sm text-gray-900 dark:text-gray-200">{{ $label }}</span>
     </span>
     @endif
 </div>

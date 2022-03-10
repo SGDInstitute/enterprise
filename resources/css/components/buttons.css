@@ -46,3 +46,7 @@
 .btn-block {
     @apply justify-center w-full;
 }
+
+.disabled {
+    @apply cursor-not-allowed opacity-70;
+}

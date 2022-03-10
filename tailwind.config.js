@@ -1,3 +1,4 @@
+const colors = require('tailwindcss/colors')
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
@@ -8,6 +9,10 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                gray: {
+                    850: '#172033',
+                    ...colors.slate
+                },
                 green: {
                     50: '#F3F9F8',
                     100: '#E6F2F2',

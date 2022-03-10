@@ -6,9 +6,9 @@
 ])
 
 @if($collapsable)
-<div x-data="{collapsed: {{ $collapsedDefault }}}" {{ $attributes->merge(['class' => 'relative overflow-hidden bg-white dark:bg-gray-700 rounded-lg shadow' ]) }}>
+<div x-data="{collapsed: {{ $collapsedDefault }}}" {{ $attributes->merge(['class' => 'relative overflow-hidden bg-white dark:bg-gray-800 rounded-lg shadow' ]) }}>
 @else
-<div {{ $attributes->merge(['class' => 'relative bg-white dark:bg-gray-700 rounded-lg shadow' ]) }}>
+<div {{ $attributes->merge(['class' => 'relative bg-white dark:bg-gray-800 dark:border dark:border-gray-700 rounded-lg shadow' ]) }}>
 @endif
     @if($collapsable)
     <div class="absolute top-0 right-0 mt-3 mr-4" x-cloak>

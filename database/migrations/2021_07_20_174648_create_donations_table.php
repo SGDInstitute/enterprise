@@ -13,9 +13,10 @@ class CreateDonationsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('parent_id')->nullable()->constrained('donations');
             $table->string('transaction_id')->nullable();
+            $table->string('subscription_id')->nullable();
             $table->integer('amount');
             $table->string('type');
-            $table->string('status')->default('pending');
+            $table->string('status')->default('incomplete');
             $table->timestamps();
         });
     }

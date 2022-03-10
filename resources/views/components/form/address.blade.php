@@ -7,6 +7,7 @@
                 <x-heroicon-o-x class="w-6 h-6" />
             </button>
         </div>
+        <x-form.error :error="$errors->first('address.line1')" />
         <div x-show="open" class="absolute z-10 mt-2 overflow-hidden text-gray-900 bg-gray-700 border-gray-300 divide-y divide-gray-300 rounded-md border-x dark:divide-gray-600 dark:border-gray-600 dark:text-gray-200">
             <template x-for="option in options">
                 <button @click="choose(option)" type="button" class="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" x-text="option.place_name"></button>
@@ -16,19 +17,23 @@
     <div class="relative">
         <x-form.label>Address 2</x-form.label>
         <x-form.input x-model="address.line2" id="form-line2" placeholder="Unit" />
+        <x-form.error :error="$errors->first('address.line2')" />
     </div>
     <div class="relative">
         <x-form.label>City</x-form.label>
         <x-form.input x-model="address.city" id="form-city" placeholder="City" />
+        <x-form.error :error="$errors->first('address.city')" />
     </div>
     <div class="grid grid-cols-2 gap-4">
         <div class="relative">
             <x-form.label>State</x-form.label>
             <x-form.input x-model="address.state" id="form-state" placeholder="State" />
+            <x-form.error :error="$errors->first('address.state')" />
         </div>
         <div class="relative">
             <x-form.label>ZIP code</x-form.label>
             <x-form.input  x-model="address.zip" id="form-zip" placeholder="ZIP code" />
+            <x-form.error :error="$errors->first('address.zip')" />
         </div>
     </div>
 </div>

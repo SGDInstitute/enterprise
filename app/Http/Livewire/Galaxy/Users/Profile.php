@@ -11,6 +11,7 @@ class Profile extends Component
 {
     public User $user;
 
+    public $addressChanged;
     public $profileChanged;
     public $passwordChanged;
 
@@ -22,12 +23,14 @@ class Profile extends Component
         return [
             'user.name' => ['required', 'string', 'max:255'],
             'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user->id)],
+            'user.pronouns' => ['string', 'max:255'],
+            'user.address' => [],
         ];
     }
 
     public function updating($field, $value)
     {
-        $profileFields = ['user.name', 'user.email', 'user.username', 'user.allow_notifications'];
+        $profileFields = ['user.name', 'user.email', 'user.pronouns'];
         if (in_array($field, $profileFields)) {
             $this->profileChanged = true;
         }

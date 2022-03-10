@@ -40,6 +40,7 @@ class Show extends Component
             ['value' => 'orders', 'label' => 'Orders', 'href' => route('galaxy.users.show', ['user' => $this->user, 'page' => 'orders']), 'icon' => 'heroicon-o-shopping-bag', 'active' => $this->page === 'orders'],
             ['value' => 'reservations', 'label' => 'Reservations', 'href' => route('galaxy.users.show', ['user' => $this->user, 'page' => 'reservations']), 'icon' => 'heroicon-o-shopping-cart', 'active' => $this->page === 'reservations'],
             ['value' => 'workshops', 'label' => 'Workshops', 'href' => route('galaxy.users.show', ['user' => $this->user, 'page' => 'workshops']), 'icon' => 'heroicon-o-light-bulb', 'active' => $this->page === 'workshops'],
+            ['value' => 'donations', 'label' => 'Donations', 'href' => route('galaxy.users.show', ['user' => $this->user, 'page' => 'donations']), 'icon' => 'heroicon-o-gift', 'active' => $this->page === 'donations'],
         ];
     }
 

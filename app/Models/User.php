@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Address;
 use App\Traits\HasProfilePhoto;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,7 @@ use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Stripe\Customer;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -25,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'address' => 'array',
     ];
 
     // protected static function booted()
@@ -34,14 +37,16 @@ class User extends Authenticatable implements MustVerifyEmail
     //     }));
     // }
 
+    // Relationships
+
     public function donations()
     {
         return $this->hasMany(Donation::class);
     }
 
-    public function pendingDonations()
+    public function incompleteDonations()
     {
-        return $this->donations()->where('status', 'pending');
+        return $this->donations()->where('status', 'incomplete');
     }
 
     public function responses()
@@ -52,6 +57,30 @@ class User extends Authenticatable implements MustVerifyEmail
     public function schedule()
     {
         return $this->belongsToMany(EventItem::class, 'user_schedule', 'user_id', 'item_id');
+    }
+
+    // Methods
+
+    public function findOrCreateCustomerId()
+    {
+        if($this->stripe_id) {
+            return $this->stripe_id;
+        } else {
+            $customer = Customer::create([
+                'name' => $this->name,
+                'email' => $this->email,
+            ]);
+
+            $this->stripe_id = $customer->id;
+            $this->save();
+
+            return $this->stripe_id;
+        }
+    }
+
+    public function hasRecurringDonation()
+    {
+        return $this->donations()->whereNull('parent_id')->whereNotNull('subscription_id')->where('status', 'succeeded')->exists();
     }
 
     public function isInSchedule($item)

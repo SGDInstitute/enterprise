@@ -15,6 +15,11 @@ class Donation extends Model
 
     // Scopes
 
+    public function scopeForUser($query, $user)
+    {
+        return $query->where('user_id', $user->id);
+    }
+
     public function scopeOneTime($query)
     {
         return $query->where('type', 'one-time');
@@ -27,11 +32,21 @@ class Donation extends Model
 
     // Relations
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // Attributes
 
     public function getFormattedAmountAttribute()
     {
         return '$' . number_format($this->amount/100, 2);
+    }
+
+    public function getFormattedTypeAttribute()
+    {
+        return $this->type === 'monthly' ? 'Recurring Monthly' : 'One-Time';
     }
 
     // Methods
