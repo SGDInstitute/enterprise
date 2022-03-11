@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\Address;
 use App\Traits\HasProfilePhoto;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +12,8 @@ use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Stripe\Customer;
+
+use function Illuminate\Events\queueable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,12 +31,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'address' => 'array',
     ];
 
-    // protected static function booted()
-    // {
-    //     static::updated(queueable(function ($customer) {
-    //         $customer->syncStripeCustomerDetails();
-    //     }));
-    // }
+    protected static function booted()
+    {
+        static::updated(queueable(function ($customer) {
+            $customer->syncStripeCustomerDetails();
+        }));
+    }
 
     // Relationships
 
