@@ -21,7 +21,7 @@
                 <x-slot name="body">
                     @forelse($donations as $donation)
                     <x-bit.table.row wire:key="row-{{ $donation->id }}">
-                        <x-bit.table.cell>{{ $donation->created_at->format('M, d Y') }}</x-bit.table.cell>
+                        <x-bit.table.cell>{{ $donation->created_at->timezone('America/Chicago')->format('M, d Y') }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->formattedType }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->formattedAmount }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->status }}</x-bit.table.cell>
