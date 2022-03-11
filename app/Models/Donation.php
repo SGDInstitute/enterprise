@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Stripe\Subscription;
 
 class Donation extends Model
 {
@@ -50,4 +51,13 @@ class Donation extends Model
     }
 
     // Methods
+
+    public function cancel()
+    {
+        if($this->type === 'monthly') {
+            Subscription::update($this->subscription_id, ['cancel_at_period_end' => true,]);
+            $this->status = 'cancelled';
+            $this->save();
+        }
+    }
 }

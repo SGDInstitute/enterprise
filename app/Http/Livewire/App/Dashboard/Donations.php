@@ -46,9 +46,9 @@ class Donations extends Component
 
     // Methods
 
-    public function cancel()
+    public function cancel($id)
     {
-        auth()->user()->subscription('default')->cancel();
+        $this->donations->firstWhere('id', $id)->cancel();
 
         $this->emit('notify', ['message' => 'Successfully cancelled subscription.', 'type' => 'success']);
         $this->emit('$refresh');
