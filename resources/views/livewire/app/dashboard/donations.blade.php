@@ -25,12 +25,12 @@
                         <x-bit.table.cell>{{ $donation->formattedType }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->formattedAmount }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->status }}</x-bit.table.cell>
-                        <x-bit.table.cell class="text-right">
-                            @if($donation->type === 'subscription')
-                            <x-bit.button.link>Update Card</x-bit.button.link>
-                            <x-bit.button.link wire:click="cancel">Cancel</x-bit.button.link>
+                        <x-bit.table.cell class="space-x-1 text-right">
+                            @if($donation->type === 'monthly')
+                            <x-bit.button.link size="px-2 py-1">Update Card</x-bit.button.link>
+                            <x-bit.button.link size="px-2 py-1" wire:click="cancel({{ $donation->id }})">Cancel</x-bit.button.link>
                             @endif
-                            <x-bit.button.link href="/donations/{{ $donation->id }}">View</x-bit.button.link>
+                            <x-bit.button.link size="px-2 py-1" href="/donations/{{ $donation->id }}">View</x-bit.button.link>
                         </x-bit.table.cell>
                     </x-bit.table.row>
                     @empty
