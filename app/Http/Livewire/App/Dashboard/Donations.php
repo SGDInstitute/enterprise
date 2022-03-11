@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Stripe\BillingPortal\Session;
 
 class Donations extends Component
 {
@@ -52,5 +53,12 @@ class Donations extends Component
 
         $this->emit('notify', ['message' => 'Successfully canceled subscription.', 'type' => 'success']);
         $this->emit('$refresh');
+    }
+
+    public function openPortal()
+    {
+        $session = Session::create(['customer' => auth()->user()->stripe_id, 'return_url' => route('app.dashboard', ['page' => 'donations'])]);
+
+        return redirect($session->url);
     }
 }

@@ -27,8 +27,11 @@
                         <x-bit.table.cell>{{ $donation->status }}</x-bit.table.cell>
                         <x-bit.table.cell class="space-x-1 text-right">
                             @if($donation->type === 'monthly')
-                            <x-bit.button.link size="px-2 py-1">Update Card</x-bit.button.link>
+                            <x-bit.button.link size="px-2 py-1" wire:click="openPortal">Change Amount</x-bit.button.link>
+                            <x-bit.button.link size="px-2 py-1" wire:click="openPortal">Update Card</x-bit.button.link>
+                            @if($donation->status !== 'canceled')
                             <x-bit.button.link size="px-2 py-1" wire:click="cancel({{ $donation->id }})">Cancel</x-bit.button.link>
+                            @endif
                             @endif
                         </x-bit.table.cell>
                     </x-bit.table.row>
