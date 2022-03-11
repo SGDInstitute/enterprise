@@ -30,7 +30,6 @@
                             <x-bit.button.link size="px-2 py-1">Update Card</x-bit.button.link>
                             <x-bit.button.link size="px-2 py-1" wire:click="cancel({{ $donation->id }})">Cancel</x-bit.button.link>
                             @endif
-                            <x-bit.button.link size="px-2 py-1" href="/donations/{{ $donation->id }}">View</x-bit.button.link>
                         </x-bit.table.cell>
                     </x-bit.table.row>
                     @empty
