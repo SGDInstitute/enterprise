@@ -52,4 +52,16 @@
         </div>
     </div>
 
+    <x-bit.modal.dialog wire:model="thankYouModal" max-width="sm">
+        <x-slot name="title">{{ $thankYouTitle }}</x-slot>
+
+        <x-slot name="content">
+            {!! markdown($thankYouContent) !!}
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-bit.button.flat.secondary size="xs" wire:click="$set('thankYouModal', false)">Close</x-bit.button.flat.secondary>
+        </x-slot>
+    </x-bit.modal.dialog>
+
 </div>

@@ -14,6 +14,6 @@ class DonationsProcessController extends Controller
 
         Donation::where('transaction_id', $paymentIntent->id)->update(['status' => $paymentIntent->status]);
 
-        return redirect('/dashboard/donations');
+        return redirect('/dashboard/donations?thank-you=true');
     }
 }
