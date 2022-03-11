@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use Stripe\Customer;
 use Stripe\PaymentIntent;
-use Stripe\Stripe;
 use Stripe\Subscription;
 
 class Create extends Component
@@ -155,7 +153,7 @@ class Create extends Component
             'address.country.required' => 'Country is required',
         ]);
 
-        auth()->user()->address = $data;
+        auth()->user()->address = $data['address'];
         auth()->user()->save();
     }
 
