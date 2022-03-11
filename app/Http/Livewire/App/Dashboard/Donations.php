@@ -50,7 +50,7 @@ class Donations extends Component
     {
         $this->donations->firstWhere('id', $id)->cancel();
 
-        $this->emit('notify', ['message' => 'Successfully cancelled subscription.', 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Successfully canceled subscription.', 'type' => 'success']);
         $this->emit('$refresh');
     }
 }

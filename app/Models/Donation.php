@@ -56,7 +56,7 @@ class Donation extends Model
     {
         if($this->type === 'monthly') {
             Subscription::update($this->subscription_id, ['cancel_at_period_end' => true,]);
-            $this->status = 'cancelled';
+            $this->status = 'canceled';
             $this->save();
         }
     }
