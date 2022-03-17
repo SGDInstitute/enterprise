@@ -15,7 +15,7 @@ class Workshops extends Component
     use WithFiltering;
 
     public $filters =  [
-        'search' => ''
+        'search' => '',
     ];
     public $perPage = 25;
 

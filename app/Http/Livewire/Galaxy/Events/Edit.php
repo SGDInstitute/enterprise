@@ -48,7 +48,7 @@ class Edit extends Component
                     ['value' => 'schedule', 'label' => 'Schedule', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'program-schedule']), 'icon' => 'heroicon-o-calendar', 'active' => $this->page === 'program-schedule'],
                     ['value' => 'bulletin', 'label' => 'Bulletin', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'program-bulletin']), 'icon' => 'heroicon-o-bookmark', 'active' => $this->page === 'program-bulletin'],
                     ['value' => 'support', 'label' => 'Support', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'program-support']), 'icon' => 'heroicon-o-question-mark-circle', 'active' => $this->page === 'program-support'],
-                ]
+                ],
             ];
         }
 

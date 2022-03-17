@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Stripe\StripeClient;
 
 class Order extends Model
 {
@@ -13,8 +14,12 @@ class Order extends Model
     use SoftDeletes;
 
     public $guarded = [];
-    public $dates = ['reservation_ends', 'paid_at'];
-    public $casts = ['invoice' => 'collection'];
+
+    protected $casts = [
+        'invoice' => 'collection',
+        'reservation_ends' => 'datetime',
+        'paid_at' => 'datetime',
+    ];
 
     // Scopes
 
@@ -147,8 +152,8 @@ class Order extends Model
             if (Str::startsWith($this->transaction_id, 'ch_')) {
                 //
             } elseif (Str::startsWith($this->transaction_id, 'pi_')) {
-                $stripe = new \Stripe\StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
-                dd($stripe->paymentIntents->retrieve($this->transaction_id, []));
+                $stripe = new StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
+                // dd($stripe->paymentIntents->retrieve($this->transaction_id, []));
             }
         }
     }

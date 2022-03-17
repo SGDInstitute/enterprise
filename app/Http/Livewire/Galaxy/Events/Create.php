@@ -64,7 +64,7 @@ class Create extends Component
         return view('livewire.galaxy.events.create')
             ->layout('layouts.galaxy', ['title' => 'Create an Event'])
             ->with([
-                'timezones' => $this->timezones
+                'timezones' => $this->timezones,
             ]);
     }
 

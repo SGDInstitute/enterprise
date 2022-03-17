@@ -24,7 +24,7 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($events as $event)
+                @forelse ($events as $event)
                 <x-bit.table.row wire:key="row-{{ $event->id }}">
                     <x-bit.table.cell><div class="w-64 truncate">{{ $event->name }}</div></x-bit.table.cell>
                     <x-bit.table.cell>{{ $event->formattedStart }} {{ $event->formattedTimezone }}</x-bit.table.cell>

@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
                 ['id' => 'question-recording', 'type' => 'list', 'rules' => '', 'style' => 'question', 'options' => ['My presentation can be streamed/hosted for the conference', 'Please do not stream/host my presentation; I will provide resources'], 'question' => 'We will keep a recording online behind a protected link only for the duration of the conference. If you are not comfortable having it streamed/hosted, we will ask you later to provide resources for virtual attendees on your topic.', 'list-style' => 'radio'],
                 ['id' => 'question-virtually-experience', 'type' => 'list', 'rules' => '', 'style' => 'question', 'options' => ['Yes', 'No'], 'question' => 'Have you presented virtually before?', 'conditions' => [['field' => 'question-modality', 'value' => 'online', 'method' => 'equals']], 'list-style' => 'radio', 'visibility' => 'conditional', 'visibility-andor' => 'and'],
                 ['id' => 'question-other-info', 'type' => 'textarea', 'rules' => '', 'style' => 'question', 'question' => 'Is there anything else we should know about you or your presentation?']
-            ]
+            ],
         ]);
         $inPerson = TicketType::create(['event_id' => $mblgtacc->id, 'stripe_product_id' => 'prod_JMv3xouI9pZ6Vp', 'name' => 'In-person Attendee', 'structure' => 'flat', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
         $inPerson->prices()->create(['name' => 'Regular', 'stripe_price_id' => 'price_1IkBDgI7BmcylBPU2P1RSoKR', 'cost' => 8500, 'start' => '2021-04-26 00:00:00', 'end' => '2021-10-08 04:59:59', 'timezone' => 'America/Chicago']);

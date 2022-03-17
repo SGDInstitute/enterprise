@@ -3,7 +3,7 @@
 
 We wanted to let you know that {{ $causer }} added you to a ticket for {{ $ticket->order->event->name }}
 
-@if($newUser)
+@if ($newUser)
 Since you are a new user, we generated a password for you.
 You can reset it by following the link below.
 

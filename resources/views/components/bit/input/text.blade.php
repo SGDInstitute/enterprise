@@ -4,7 +4,7 @@
     'group' => false
 ])
 
-@if($leadingAddOn || $trailingAddOn)
+@if ($leadingAddOn || $trailingAddOn)
 <div class="flex mt-1 rounded-md shadow-sm">
     @if ($leadingAddOn)
         <span class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 dark:text-gray-200 dark:bg-gray-800 dark:border-gray-600 rounded-l-md bg-gray-50 sm:text-sm">

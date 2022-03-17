@@ -17,7 +17,7 @@ if($width === '33/66') {
         {{ $key }}
     </dt>
     <dd class="mt-1 text-sm leading-5 text-gray-900 dark:text-gray-100 sm:mt-0 {{ $dd }}">
-        @if($value === '')
+        @if ($value === '')
         {{ $slot }}
         @else
         {{ $value }}

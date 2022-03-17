@@ -10,7 +10,11 @@ class Price extends Model
     use HasFactory;
 
     public $guarded = [];
-    public $dates = ['start', 'end'];
+
+    protected $casts = [
+        'end' => 'datetime',
+        'start' => 'datetime',
+    ];
 
     // Relations
 

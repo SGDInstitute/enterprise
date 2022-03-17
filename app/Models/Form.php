@@ -18,10 +18,11 @@ class Form extends Model
 
     protected $casts = [
         'auth_required' => 'boolean',
+        'end' => 'datetime',
         'form' => 'collection',
         'settings' => 'array',
+        'start' => 'datetime',
     ];
-    public $dates = ['start', 'end'];
 
     public function getSlugOptions(): SlugOptions
     {

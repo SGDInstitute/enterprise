@@ -541,7 +541,7 @@
 
                                                                                                 </td>
                                                                                             </tr>
-                                                                                            @foreach($order->ticketsFormattedForInvoice() as $lineItem)
+                                                                                            @foreach ($order->ticketsFormattedForInvoice() as $lineItem)
                                                                                             <tr>
                                                                                                 <td class="Table-description Font Font--body" style="border: 0;border-collapse: collapse;margin: 0;padding: 0;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, sans-serif;mso-line-height-rule: exactly;vertical-align: middle;color: #525f7f;font-size: 15px;line-height: 24px; width: 100%; ">
                                                                                                     {{ $lineItem['item'] }} × {{ $lineItem['quantity'] }}

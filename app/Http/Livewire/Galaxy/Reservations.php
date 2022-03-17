@@ -14,8 +14,6 @@ class Reservations extends Component
     use WithSorting;
     use WithFiltering;
 
-    protected $listeners = ['refresh' => '$refresh'];
-
     public $event;
     public $user;
 
@@ -28,6 +26,8 @@ class Reservations extends Component
     public $selected = [];
     public $showInvoiceModal = false;
     public $perPage = 25;
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function updatedSelectPage($value)
     {

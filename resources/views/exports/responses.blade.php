@@ -1,8 +1,8 @@
 <table>
     <thead>
     <tr>
-        @foreach($questions as $question)
-            @if($question['type'] === 'matrix')
+        @foreach ($questions as $question)
+            @if ($question['type'] === 'matrix')
             <th colspan="{{ count($question['options']) }}">{{ $question['question'] }}</th>
             @else
             <th>{{ $question['question'] }}</th>
@@ -10,9 +10,9 @@
         @endforeach
     </tr>
     <tr>
-        @foreach($questions as $question)
-            @if($question['type'] === 'matrix')
-                @foreach($question['options'] as $option)
+        @foreach ($questions as $question)
+            @if ($question['type'] === 'matrix')
+                @foreach ($question['options'] as $option)
                     <th>{{ $option }}</th>
                 @endforeach
             @else
@@ -22,11 +22,11 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($responses as $response)
+    @foreach ($responses as $response)
         <tr>
-            @foreach($questions as $question)
-                @if($question['type'] === 'matrix')
-                    @foreach($question['options'] as $option)
+            @foreach ($questions as $question)
+                @if ($question['type'] === 'matrix')
+                    @foreach ($question['options'] as $option)
                         <td>{{ $response->answers[$question['id']][$option] ?? '-' }}</td>
                     @endforeach
                 @else

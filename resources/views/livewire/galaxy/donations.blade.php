@@ -15,7 +15,7 @@
                     <x-form.checkbox id="select-page" wire:model="selectPage" />
                 </x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
-                @if($this->user === null)
+                @if ($this->user === null)
                 <x-bit.table.heading sortable wire:click="sortBy('users.name')" :direction="$sortField === 'users.name' ? $sortDirection : null">User</x-bit.table.heading>
                 @endif
                 <x-bit.table.heading sortable wire:click="sortBy('type')" :direction="$sortField === 'type' ? $sortDirection : null">Type</x-bit.table.heading>
@@ -41,13 +41,13 @@
                 </x-bit.table.row>
                 @endif
 
-                @forelse($donations as $donation)
+                @forelse ($donations as $donation)
                 <x-bit.table.row wire:key="row-{{ $donation->id }}">
                     <x-bit.table.cell class="pr-0">
                         <x-form.checkbox id="select-donation-{{ $donation->id }}" wire:model="selected" value="{{ $donation->id }}" />
                     </x-bit.table.cell>
                     <x-bit.table.cell>{{ $donation->id }}</x-bit.table.cell>
-                    @if($this->user === null)
+                    @if ($this->user === null)
                     <x-bit.table.cell><a href="{{ route('galaxy.users.show', $donation->user) }}" class="hover:underline">{{ $donation->user->name }}</a></x-bit.table.cell>
                     @endif
                     <x-bit.table.cell>{{ $donation->formattedType }}</x-bit.table.cell>

@@ -16,15 +16,15 @@ class Tickets extends Component
     use WithFiltering;
     use WithPagination;
 
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
 
     public $filters =  [
         'search' => '',
     ];
 
-    public $rules = [
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
         'editing.type' => '',
         'editing.name' => '',
         'editing.description' => '',
@@ -51,7 +51,7 @@ class Tickets extends Component
     {
         return view('livewire.galaxy.events.edit.tickets')
             ->with([
-                'ticketTypes' => $this->rows
+                'ticketTypes' => $this->rows,
             ]);
     }
 

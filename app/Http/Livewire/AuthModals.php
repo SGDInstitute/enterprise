@@ -9,8 +9,6 @@ use Livewire\Component;
 
 class AuthModals extends Component
 {
-    protected $listeners = ['showLogin'];
-
     public $loginModal = false;
     public $forgotModal = false;
     public $sent = false;
@@ -18,6 +16,8 @@ class AuthModals extends Component
     public $form = [
         'email' => '',
     ];
+
+    protected $listeners = ['showLogin'];
 
     public function render()
     {

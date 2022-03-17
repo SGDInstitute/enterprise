@@ -23,7 +23,7 @@ class OnsiteCheckin extends Component
     {
         return view('livewire.app.onsite-checkin')
             ->with([
-                'hideAddButton' => $this->hideAddButton
+                'hideAddButton' => $this->hideAddButton,
             ]);
     }
 

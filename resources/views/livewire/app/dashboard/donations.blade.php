@@ -2,7 +2,7 @@
     <h1 class="text-2xl text-gray-900 dark:text-gray-200">Donations</h1>
 
     <div class="space-y-8">
-        @if($subscription)
+        @if ($subscription)
         <div class="overflow-hidden bg-white rounded-md shadow dark:bg-gray-800">
             <div class="flex items-center justify-between px-8 py-6 space-x-4">
                 <div>
@@ -10,7 +10,7 @@
                     <span class="text-base text-gray-600 dark:text-gray-400">/monthly</span>
                 </div>
 
-                @if($subscription->card)
+                @if ($subscription->card)
                 <div>
                     <p class="text-gray-700 dark:text-gray-400">Card Used</p>
                     <p class="text-xl text-gray-900 dark:text-gray-200">
@@ -35,7 +35,7 @@
             <div class="flex justify-end w-full px-8 py-2 space-x-1 bg-gray-50 dark:bg-gray-850">
                 <x-bit.button.link size="px-2 py-1" wire:click="openPortal">Change Amount</x-bit.button.link>
                 <x-bit.button.link size="px-2 py-1" wire:click="openPortal">Update Card</x-bit.button.link>
-                @if($subscription->status !== 'canceled')
+                @if ($subscription->status !== 'canceled')
                 <x-bit.button.link size="px-2 py-1" wire:click="cancel({{ $subscription->id }})">Cancel</x-bit.button.link>
                 @else
                 <x-bit.button.link size="px-2 py-1" wire:click="openPortal">Renew</x-bit.button.link>
@@ -44,10 +44,10 @@
         </div>
         @endif
 
-        @if($donations->count() > 0)
+        @if ($donations->count() > 0)
         <div class="flex-col mt-5 space-y-4">
             <div class="md:flex md:justify-between md:items-center">
-                @if($subscription)
+                @if ($subscription)
                 <h2 class="text-xl text-gray-900 dark:text-gray-200">One-Time Donations</h2>
                 @endif
                 <div class="flex items-end mt-4 md:mt-0">
@@ -64,7 +64,7 @@
                 </x-slot>
 
                 <x-slot name="body">
-                    @forelse($donations as $donation)
+                    @forelse ($donations as $donation)
                     <x-bit.table.row wire:key="row-{{ $donation->id }}">
                         <x-bit.table.cell>{{ $donation->created_at->timezone('America/Chicago')->format('M, d Y') }}</x-bit.table.cell>
                         <x-bit.table.cell>{{ $donation->formattedType }}</x-bit.table.cell>

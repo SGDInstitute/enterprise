@@ -46,7 +46,7 @@ class SettingsTest extends TestCase
                 'has_vendors' => false,
                 'has_ads' => false,
                 'allow_donations' => false,
-            ]
+            ],
         ]);
 
         Livewire::actingAs($user)

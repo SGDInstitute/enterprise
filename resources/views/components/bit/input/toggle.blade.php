@@ -10,7 +10,7 @@
         <span aria-hidden="true" :class="{'translate-x-5': on, 'translate-x-0': !on }" class="inline-block w-5 h-5 transition duration-200 ease-in-out transform translate-x-0 bg-white rounded-full shadow dark:bg-gray-400">
         </span>
     </button>
-    @if($label)
+    @if ($label)
     <span class="ml-3" id="toggleLabel">
         <span class="text-sm text-gray-900 dark:text-gray-200">{{ $label }}</span>
     </span>

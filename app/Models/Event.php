@@ -20,8 +20,11 @@ class Event extends Model implements HasMedia
 
     protected $guarded = [];
 
-    public $casts = ['settings' => 'array'];
-    public $dates = ['start', 'end'];
+    protected $casts = [
+        'end' => 'datetime',
+        'settings' => 'array',
+        'start' => 'datetime',
+    ];
 
     public function getSlugOptions(): SlugOptions
     {

@@ -14,7 +14,7 @@ class Show extends Component
         return view('livewire.galaxy.responses.show')
             ->layout('layouts.galaxy', ['title' => $this->response->name])
             ->with([
-                'qa' => $this->questionsAndAnswers
+                'qa' => $this->questionsAndAnswers,
             ]);
     }
 

@@ -22,7 +22,7 @@ class Tabs extends Component
         return view('livewire.app.events.tabs')
             ->with([
                 'activeContent' => $this->activeContent,
-                'options' => $this->options
+                'options' => $this->options,
             ]);
     }
 

@@ -21,7 +21,7 @@
         </x-slot>
 
         <x-slot name="body">
-            @forelse($queue as $item)
+            @forelse ($queue as $item)
             <x-bit.table.row wire:key="row-{{ $item->id }}">
                 <x-bit.table.cell class="pr-0">
                     <x-bit.input.checkbox wire:model="selected" value="{{ $item->id }}" />

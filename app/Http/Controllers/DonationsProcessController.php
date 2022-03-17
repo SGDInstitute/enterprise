@@ -10,7 +10,7 @@ class DonationsProcessController extends Controller
 {
     public function __invoke()
     {
-        $paymentIntent = PaymentIntent::retrieve(request()->get('payment_intent'));
+        $paymentIntent = PaymentIntent::retrieve(request('payment_intent'));
 
         $donation = Donation::firstWhere('transaction_id', $paymentIntent->id);
 

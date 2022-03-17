@@ -24,7 +24,7 @@ class Schedule extends Component
     public $perPage = 25;
 
     public $filters = [
-        'search' => ''
+        'search' => '',
     ];
 
     public $form = [

@@ -7,8 +7,8 @@
             </div>
             <div class="flex flex-col flex-grow mt-5">
                 <nav class="flex-1 px-2 space-y-1 bg-white dark:bg-gray-850">
-                    @foreach(config('nav.galaxy') as $link)
-                    @isset($link['route'])
+                    @foreach (config('nav.galaxy') as $link)
+                    @isset ($link['route'])
                     <x-galaxy.nav-link :href="route($link['route'])" :icon="$link['icon']" :active="request()->routeIs($link['route'])">{{ $link['name'] }}</x-galaxy.nav-link>
                     @else
                     <span class="block pt-8 pb-2 pl-2 text-sm tracking-wide text-gray-700 uppercase dark:text-gray-400">{{ $link['name'] }}</span>

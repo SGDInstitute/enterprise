@@ -26,7 +26,7 @@ trait WithFormBuilder
             'textarea' => 'Textarea',
             'list' => 'List',
             'matrix' => 'Matrix',
-            'opinion-scale' => 'Opinion Scale'
+            'opinion-scale' => 'Opinion Scale',
         ];
     }
 

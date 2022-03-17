@@ -8,7 +8,7 @@
                     <x-form.group model="user.pronouns" label="Pronouns" type="text" />
 
                     <div class="space-y-4">
-                        @if($profileChanged)
+                        @if ($profileChanged)
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
                             <x-bit.badge>Unsaved Changes</x-bit.badge>
                         @else
@@ -25,7 +25,7 @@
                     <x-form.address wire:model="user.address" />
 
                     <div class="space-y-4">
-                        @if($addressChanged)
+                        @if ($addressChanged)
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
                             <x-bit.badge>Unsaved Changes</x-bit.badge>
                         @else
@@ -45,7 +45,7 @@
                     <x-form.group model="password_confirmation" label="Confirm Password" type="password" />
 
                     <div class="space-y-4">
-                        @if($passwordChanged)
+                        @if ($passwordChanged)
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
                             <x-bit.badge>Unsaved Changes</x-bit.badge>
                         @else
@@ -64,7 +64,7 @@
                 </x-bit.panel.heading>
                 <x-bit.panel.body class="space-y-4">
                     <ul class="ml-8 list-disc">
-                        @forelse($userRoles as $role)
+                        @forelse ($userRoles as $role)
                         <li class="dark:text-gray-200">
                             <div class="flex items-center space-x-4 group">
                                 <span>{{ $role->name }}</span>
@@ -83,7 +83,7 @@
                     <form wire:submit.prevent="addRole" class="text-sm leading-5">
                         <x-bit.input.group for="new-role" label="Role" class="flex" srOnly>
                             <x-bit.input.select wire:model="newRole" id="new-role" placeholder="Select Role..." class="w-full rounded-r-none">
-                                @foreach($roles as $id => $value)
+                                @foreach ($roles as $id => $value)
                                     <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
                             </x-bit.input.select>

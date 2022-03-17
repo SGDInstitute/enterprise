@@ -8,10 +8,10 @@ use Livewire\Component;
 
 class ScheduleItem extends Component
 {
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
     public EventItem $item;
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function render()
     {

@@ -17,7 +17,7 @@ class ImpersonationController extends Controller
         $this->manager = app()->make(ImpersonateManager::class);
 
         $guard = $this->manager->getDefaultSessionGuard();
-        $this->middleware('auth:' . $guard)->only('take');
+        // $this->middleware('auth:' . $guard)->only('take');
     }
 
     public function __invoke()

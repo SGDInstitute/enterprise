@@ -17,10 +17,10 @@
                     <x-bit.input.checkbox wire:model="selectPage" />
                 </x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
-                @if($this->user === null)
+                @if ($this->user === null)
                 <x-bit.table.heading sortable wire:click="sortBy('users.name')" :direction="$sortField === 'users.name' ? $sortDirection : null">Creator</x-bit.table.heading>
                 @endif
-                @if($this->event === null)
+                @if ($this->event === null)
                 <x-bit.table.heading sortable wire:click="sortBy('events.name')" :direction="$sortField === 'events.name' ? $sortDirection : null">Event</x-bit.table.heading>
                 @endif
                 <x-bit.table.heading>
@@ -54,21 +54,21 @@
                 </x-bit.table.row>
                 @endif
 
-                @forelse($reservations as $reservation)
+                @forelse ($reservations as $reservation)
                 <x-bit.table.row wire:key="row-{{ $reservation->id }}">
                     <x-bit.table.cell class="pr-0">
                         <x-bit.input.checkbox wire:model="selected" value="{{ $reservation->id }}" />
                     </x-bit.table.cell>
                     <x-bit.table.cell>{{ $reservation->formattedId }}</x-bit.table.cell>
-                    @if($this->user === null)
+                    @if ($this->user === null)
                     <x-bit.table.cell><a href="{{ route('galaxy.users.show', $reservation->user) }}" class="hover:underline">{{ $reservation->user->name }}</a></x-bit.table.cell>
                     @endif
-                    @if($this->event === null)
+                    @if ($this->event === null)
                     <x-bit.table.cell><a href="{{ route('galaxy.events.show', $reservation->event) }}" class="hover:underline">{{ $reservation->event->name }}</a></x-bit.table.cell>
                     @endif
-                    <x-bit.table.cell>{{ $reservation->tickets->count()  }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $reservation->tickets->count() }}</x-bit.table.cell>
                     <x-bit.table.cell class="text-center">
-                        @if($reservation->invoice !== null)
+                        @if ($reservation->invoice !== null)
                         <x-heroicon-o-check class="w-4 h-4" />
                         @endif
                     </x-bit.table.cell>
@@ -107,7 +107,7 @@
 
             <x-slot name="content">
                 <div class="space-y-2">
-                    @foreach($selected as $id)
+                    @foreach ($selected as $id)
                     <div wire:key="{{ $id }}">
                         <span class="dark:text-gray-200">Order {{ $id }}</span>
                         <div class="grid grid-cols-2 gap-8">

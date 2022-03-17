@@ -32,7 +32,7 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($ticketTypes as $ticketType)
+                @forelse ($ticketTypes as $ticketType)
                 <x-bit.table.row wire:key="row-{{ $ticketType->id }}">
                     <x-bit.table.cell>{{ $ticketType->name }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $ticketType->structure }}</x-bit.table.cell>

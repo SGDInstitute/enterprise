@@ -65,10 +65,10 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($items as $subItem)
+                @forelse ($items as $subItem)
                 <x-bit.table.row wire:key="row-{{ $subItem->id }}">
                     <x-bit.table.cell class="flex items-end space-x-4">
-                        @if($editingItem !== null && $editingItem->id === $subItem->id && $showItemModal === false)
+                        @if ($editingItem !== null && $editingItem->id === $subItem->id && $showItemModal === false)
                         <form wire:submit.prevent="saveLocation">
                             <x-bit.input.text wire:model="editingItem.location" />
                         </form>
@@ -78,7 +78,7 @@
                         </button>
                         @endif
 
-                        @isset($collisions[$subItem->location])
+                        @isset ($collisions[$subItem->location])
                         <span>
                             <x-heroicon-o-exclamation class="w-4 h-4 text-red-500" />
                         </span>

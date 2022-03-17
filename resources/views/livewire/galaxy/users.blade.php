@@ -19,7 +19,7 @@
         </x-slot>
 
         <x-slot name="body">
-            @forelse($users as $user)
+            @forelse ($users as $user)
             <x-bit.table.row wire:key="row-{{ $user->id }}">
                 <x-bit.table.cell>
                     {{ $user->id }}
@@ -34,7 +34,7 @@
                 </x-bit.table.cell>
 
                 <x-bit.table.cell>
-                    @if($user->email_verified_at)
+                    @if ($user->email_verified_at)
                         <x-heroicon-o-thumb-up class="w-4 h-4 text-green-500" />
                     @else
                         <x-heroicon-o-thumb-down class="w-4 h-4 text-red-400" />

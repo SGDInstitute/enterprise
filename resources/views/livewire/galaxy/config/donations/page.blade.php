@@ -36,7 +36,7 @@
                                     <button type="button" wire:click="$set('type', 'one-time')" class="inline-flex items-center justify-center w-full px-4 py-2 -ml-px uppercase border-2 border-green-500 font-bold dark:border-green-400 {{ $type === 'one-time' ? 'bg-green-600 dark:bg-green-500 text-white' : 'text-green-500 dark:text-green-400 hover:bg-green-500 hover:text-white dark:hover:bg-green-400' }}">Give Once</button>
                                 </div>
 
-                                @if($type === 'monthly')
+                                @if ($type === 'monthly')
                                 <div class="relative grid grid-cols-3 gap-2">
                                     <button wire:click="show('monthly')" id="page-monthly-options" class="absolute p-2 text-gray-900 rounded-full -top-4 -right-4 bg-cyan-500">
                                         <x-heroicon-o-pencil class="w-4 h-4" />
@@ -51,8 +51,8 @@
                                         <x-heroicon-o-pencil class="w-4 h-4" />
                                     </button>
                                     @foreach ($oneTimeOptions->payload as $option)
-                                    @if($option === 'other')
-                                    @if($otherAmount)
+                                    @if ($option === 'other')
+                                    @if ($otherAmount)
                                     <x-bit.input.group for="other-amount" class="col-span-2" label="Other Amount" sr-only>
                                         <x-bit.input.text id="other-amount" class="block w-full" type="number" name="other-amount" disabled placeholder="Other Amount" required leading-add-on="$" />
                                     </x-bit.input.group>
@@ -126,18 +126,18 @@
                     </x-bit.panel.heading>
                     <x-bit.panel.body>
                         <ul class="space-y-1 list-disc list-inside">
-                            @foreach($monthlyOptions->payload as $option)
+                            @foreach ($monthlyOptions->payload as $option)
                             <li class="items-center space-x-2 text-gray-900 dark:text-gray-200 group">
                                 <span>{{ $option }}</span>
                                 <button type="button" wire:click="removeOption('monthlyOptions', '{{ $option }}')" class="px-2 py-1 rounded hover:bg-gray-500 dark:hover:bg-gray-600">
                                     <x-heroicon-o-trash class="w-4 h-4 text-green-500 transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
                                 </button>
-                                @if(!$loop->first)
+                                @if (!$loop->first)
                                 <button type="button" wire:click="moveOption('monthlyOptions', 'up', '{{ $option }}')" class="px-2 py-1 rounded hover:bg-gray-500 dark:hover:bg-gray-600">
                                     <x-heroicon-o-chevron-up class="w-4 h-4 text-green-500 transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
                                 </button>
                                 @endif
-                                @if(!$loop->last)
+                                @if (!$loop->last)
                                 <button type="button" wire:click="moveOption('monthlyOptions', 'down', '{{ $option }}')" class="px-2 py-1 rounded hover:bg-gray-500 dark:hover:bg-gray-600">
                                     <x-heroicon-o-chevron-down class="w-4 h-4 text-green-500 transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
                                 </button>
@@ -161,11 +161,11 @@
                         </button>
                     </x-bit.panel.heading>
                     <x-bit.panel.body>
-                        @if(!in_array('other', $oneTimeOptions->payload))
+                        @if (!in_array('other', $oneTimeOptions->payload))
                         <x-bit.alert>You can add `other` to have the user define their own amount to donate.</x-bit.alert>
                         @endif
                         <ul class="space-y-1 list-disc list-inside">
-                            @foreach($oneTimeOptions->payload as $option)
+                            @foreach ($oneTimeOptions->payload as $option)
                             <li class="items-center space-x-2 text-gray-900 dark:text-gray-200 group">
                                 <span>{{ $option }}</span>
                                 <button type="button" wire:click="removeOption('oneTimeOptions', '{{ $option }}')" class="px-2 py-1 rounded hover:bg-gray-500 dark:hover:bg-gray-600">

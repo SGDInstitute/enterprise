@@ -27,7 +27,7 @@
                     <p class="text-sm text-gray-600 dark:text-gray-200">Forgot your password? No problem. Enter your email address and we'll send you a link to reset your password.</p>
                     <x-form.group label="Email" model="form.email" type="email" autocomplete="email" />
 
-                    @if($sent)
+                    @if ($sent)
                     <p class="text-sm text-gray-600 dark:text-gray-200">We have emailed your password reset link.</p>
                     <p class="text-sm text-gray-600 dark:text-gray-200">Follow the instructions in your email to reset your password and log in. Once you do, refresh this page. All of your progress will be saved.</p>
                     @endif

@@ -23,9 +23,9 @@
             </div>
 
             <div class="p-4 space-y-2 bg-gray-100 shadow dark:bg-gray-700">
-                @if(!$userIsOwner)
+                @if (!$userIsOwner)
                 <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Confirmation Number</span> {{ $order->formattedConfirmationNumber }}</p>
-                @elseif($order->isPaid())
+                @elseif ($order->isPaid())
                 <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Paid</span> {{ $order->formattedAmount }}</p>
                 <p class="text-xl font-bold text-gray-900 dark:text-gray-200"><span class="block text-sm text-gray-700 dark:text-gray-400">Confirmation Number</span> {{ $order->formattedConfirmationNumber }}</p>
                 @else
@@ -33,9 +33,9 @@
                 @endif
             </div>
 
-            @if($userIsOwner)
+            @if ($userIsOwner)
             <div class="grid grid-cols-1 overflow-hidden bg-gray-100 divide-y divide-gray-200 shadow dark:divide-gray-800 dark:bg-gray-700">
-                @if($order->isPaid() && auth()->id() === $order->user_id)
+                @if ($order->isPaid() && auth()->id() === $order->user_id)
                 <a href="{{ route('app.orders.show.receipt', $order) }}" target="_blank" class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200">
                     <x-heroicon-o-receipt-tax class="w-6 h-6" />
                     <span>View Receipt</span>
@@ -47,7 +47,7 @@
                     <span>Pay with Check</span>
                 </button>
                 @endif
-                @if($order->invoice !== null)
+                @if ($order->invoice !== null)
                 <button wire:click="$set('showInvoiceModal', true)" class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200">
                     <x-heroicon-o-document-text class="w-6 h-6" />
                     <span>Edit Invoice</span>
@@ -62,7 +62,7 @@
                     <x-heroicon-o-document-download class="w-6 h-6" />
                     <span>Download W-9</span>
                 </button>
-                @if(!$order->isPaid() && auth()->id() === $order->user_id)
+                @if (!$order->isPaid() && auth()->id() === $order->user_id)
                 <button wire:click="delete" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-gray-200">
                     <x-heroicon-o-trash class="w-6 h-6" />
                     <span>Delete Order</span>
@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    @if($userIsOwner)
+    @if ($userIsOwner)
         @include('livewire.app.orders.partials.check-modal')
         @include('livewire.app.orders.partials.invoice-modal')
     @endif

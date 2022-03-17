@@ -16,10 +16,10 @@
                     <x-bit.input.checkbox wire:model="selectPage" />
                 </x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
-                @if($this->user === null)
+                @if ($this->user === null)
                 <x-bit.table.heading sortable wire:click="sortBy('users.name')" :direction="$sortField === 'users.name' ? $sortDirection : null">Creator</x-bit.table.heading>
                 @endif
-                @if($this->event === null)
+                @if ($this->event === null)
                 <x-bit.table.heading sortable wire:click="sortBy('events.name')" :direction="$sortField === 'events.name' ? $sortDirection : null">Event</x-bit.table.heading>
                 @endif
                 <x-bit.table.heading>
@@ -53,21 +53,21 @@
                 </x-bit.table.row>
                 @endif
 
-                @forelse($orders as $order)
+                @forelse ($orders as $order)
                 <x-bit.table.row wire:key="row-{{ $order->id }}">
                     <x-bit.table.cell class="pr-0">
                         <x-bit.input.checkbox wire:model="selected" value="{{ $order->id }}" />
                     </x-bit.table.cell>
                     <x-bit.table.cell>{{ $order->formattedId }}</x-bit.table.cell>
-                    @if($this->user === null)
+                    @if ($this->user === null)
                     <x-bit.table.cell><a href="{{ route('galaxy.users.show', $order->user) }}" class="hover:underline">{{ $order->user->name }}</a></x-bit.table.cell>
                     @endif
-                    @if($this->event === null)
+                    @if ($this->event === null)
                     <x-bit.table.cell><a href="{{ route('galaxy.events.show', $order->event) }}" class="hover:underline">{{ $order->event->name }}</a></x-bit.table.cell>
                     @endif
-                    <x-bit.table.cell>{{ $order->tickets->count()  }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $order->tickets->count() }}</x-bit.table.cell>
                     <x-bit.table.cell class="text-center">
-                        @if($order->invoice !== null)
+                        @if ($order->invoice !== null)
                         <x-heroicon-o-check class="w-4 h-4" />
                         @endif
                     </x-bit.table.cell>
@@ -100,21 +100,21 @@
         </div>
     </div>
 
-    @if($editingOrder)
+    @if ($editingOrder)
     <form wire:submit.prevent="partialRefund">
         <x-bit.modal.dialog wire:model.defer="showPartialModal">
             <x-slot name="title">Partial Refund</x-slot>
 
             <x-slot name="content">
                 <div class="space-y-2">
-                    @foreach($editingOrder->tickets as $ticket)
+                    @foreach ($editingOrder->tickets as $ticket)
                     <div class="flex items-center px-3 py-2 space-x-2 border border-gray-900 rounded">
                         <x-bit.input.checkbox wire:model="editingTickets" value="{{ $ticket->id }}" />
                         <span class="dark:text-gray-200">{{ $ticket->user_id ? $ticket->user->name : 'Not filled' }}</span>
                     </div>
                     @endforeach
 
-                    @if(count($editingTickets) > 0)
+                    @if (count($editingTickets) > 0)
                     <div class="flex items-center justify-between p-4">
                         <span class="text-lg dark:text-gray-200">{{ count($editingTickets) }} Tickets to Refund</span>
                         <span class="text-lg dark:text-gray-200">Amount to Refund: ${{ $editingTicketsAmount/100 }}</span>

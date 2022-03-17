@@ -28,7 +28,7 @@ if (! function_exists('markdown')) {
 if (! function_exists('stripeUrl')) {
     function stripeUrl($text)
     {
-        if (env('APP_ENV') === 'production') {
+        if (config('app.env') === 'production') {
             return 'https://dashboard.stripe.com/search?query=' . $text;
         }
 
@@ -43,9 +43,9 @@ if (! function_exists('array_shove')) {
 
         foreach ($array as $key => $value) {
             if ($key !== $selected_key) {
-                $new_array["$key"] = $value;
+                $new_array["{$key}"] = $value;
                 $last = ['key' => $key, 'value' => $value];
-                unset($array["$key"]);
+                unset($array["{$key}"]);
             } else {
                 if ($direction !== 'up') {
                     // Value of next, moves pointer
@@ -58,15 +58,15 @@ if (! function_exists('array_shove')) {
                     // indicating there is no more elements in the array
                     if ($next_key !== null) {
                         // Add -next- to $new_array, keeping -current- in $array
-                        $new_array["$next_key"] = $next_value;
-                        unset($array["$next_key"]);
+                        $new_array["{$next_key}"] = $next_value;
+                        unset($array["{$next_key}"]);
                     }
                 } else {
                     if (isset($last['key'])) {
                         unset($new_array["{$last['key']}"]);
                     }
                     // Add current $array element to $new_array
-                    $new_array["$key"] = $value;
+                    $new_array["{$key}"] = $value;
                     // Re-add $last to $new_array
                     $new_array["{$last['key']}"] = $last['value'];
                 }

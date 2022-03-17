@@ -4,9 +4,9 @@
         <x-form.group label="Name" model="name" type="text" />
         <x-form.group label="Email" model="email" type="email" autocomplete="email" />
 
-        @if($newUser)
+        @if ($newUser)
         <x-bit.alert>Looks like you're a new user, we will create an account for you and email you instructions on how to set your password</x-bit.alert>
-        @elseif($hasLogin)
+        @elseif ($hasLogin)
         <x-bit.alert>
             Looks like you have an account, but haven't logged in yet.
             <x-slot name="button">
@@ -25,7 +25,7 @@
                 <button type="button" wire:click="$set('type', 'one-time')" class="inline-flex items-center justify-center w-full px-4 py-2 -ml-px uppercase border-2 border-green-500 font-bold dark:border-green-400 {{ $type === 'one-time' ? 'bg-green-600 dark:bg-green-500 text-white' : 'text-green-500 dark:text-green-400 hover:bg-green-500 hover:text-white dark:hover:bg-green-400' }}">Give Once</button>
             </div>
 
-            @if($type === 'monthly')
+            @if ($type === 'monthly')
             <div class="grid grid-cols-3 gap-2">
                 @foreach ($monthlyOptions as $option)
                 <button class="btn btn-base btn-block {{ $amount == $option ? 'btn-green' : 'btn-gray' }}" id="monthly-button-{{ $option }}" wire:click="chooseAmount({{ $option }})">${{ $option }}</button>
@@ -34,8 +34,8 @@
             @else
             <div class="grid grid-cols-3 gap-2">
                 @foreach ($oneTimeOptions as $option)
-                    @if($option === 'other')
-                        @if($otherAmount)
+                    @if ($option === 'other')
+                        @if ($otherAmount)
                         <x-bit.input.group for="other-amount" class="col-span-2" label="Other Amount" sr-only>
                             <x-bit.input.text id="other-amount" class="block w-full" type="number" name="other-amount" wire:model="amount" placeholder="Other Amount" required leading-add-on="$" />
                         </x-bit.input.group>

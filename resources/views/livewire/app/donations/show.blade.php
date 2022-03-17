@@ -34,7 +34,7 @@
                     </dd>
                 </div>
 
-                @if($donation->is_company)
+                @if ($donation->is_company)
                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                         Company Name
@@ -52,7 +52,7 @@
                     </dd>
                 </div>
                 @endif
-                @if($donation->type === 'monthly')
+                @if ($donation->type === 'monthly')
                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                         Invoices
@@ -98,8 +98,4 @@
             </dl>
         </div>
     </div>
-
-    <span class="block max-w-full p-4 mt-8 overflow-scroll text-gray-200 bg-gray-900 rounded">
-        @json($donation)
-    </span>
 </div>

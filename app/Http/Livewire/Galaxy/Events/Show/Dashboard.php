@@ -17,7 +17,7 @@ class Dashboard extends Component
                 'daysLeft' => $this->daysLeft,
                 'reservations' => $this->reservations->count(),
                 'orders' => $this->orders->count(),
-                'tickets' => $this->tickets
+                'tickets' => $this->tickets,
             ]);
     }
 

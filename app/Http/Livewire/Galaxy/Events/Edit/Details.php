@@ -25,7 +25,7 @@ class Details extends Component
         'event.location' => '',
         'event.order_prefix' => '',
         'event.description' => 'required',
-        'tabs' => ''
+        'tabs' => '',
     ];
 
 

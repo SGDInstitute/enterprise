@@ -77,7 +77,7 @@ class CreateTest extends TestCase
             'has_sponsorship' => true,
             'has_vendors' => true,
             'has_ads' => true,
-            'allow_donations' => true
+            'allow_donations' => true,
         ], $event->settings->toArray());
     }
 

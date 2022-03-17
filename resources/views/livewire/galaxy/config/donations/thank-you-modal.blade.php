@@ -4,7 +4,7 @@
         <div class="relative w-3/4 p-4 overflow-hidden border border-gray-300 rounded-md shadow dark:border-gray-700">
             <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
                 <nav class="space-y-1" aria-label="Sidebar">
-                    @foreach(config('nav.app.dashboard') as $link)
+                    @foreach (config('nav.app.dashboard') as $link)
                     <x-galaxy.nav-link :href="route($link['route'], $link['route-param'])" :icon="$link['icon']" :active="$link['route-param'] === 'donations'">{{ $link['name'] }}</x-galaxy.nav-link>
                     @endforeach
                 </nav>

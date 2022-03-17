@@ -23,7 +23,7 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($surveys as $form)
+                @forelse ($surveys as $form)
                 <x-bit.table.row wire:key="row-{{ $form->id }}">
                     <x-bit.table.cell><div class="w-64 truncate">{{ $form->name }}</div></x-bit.table.cell>
                     <x-bit.table.cell>{{ $form->formattedStart }} {{ $form->formattedTimezone }}</x-bit.table.cell>

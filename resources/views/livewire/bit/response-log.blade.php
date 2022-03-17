@@ -2,13 +2,13 @@
     <div class="max-w-lg mx-auto bg-gray-100 rounded-md shadow dark:bg-gray-700">
         <div class="flow-root p-6">
             <ul class="-mb-8">
-                @foreach($activities as $activity)
+                @foreach ($activities as $activity)
                 <li>
                     <div class="relative pb-8">
-                        @if(!$loop->last)
+                        @if (!$loop->last)
                         <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200 dark:bg-gray-800" aria-hidden="true"></span>
                         @endif
-                        @if($activity['description'] === 'created')
+                        @if ($activity['description'] === 'created')
                         <div class="relative flex items-start space-x-3">
                             <div>
                                 <div class="relative px-1">
@@ -24,8 +24,8 @@
                                 </div>
                             </div>
                         </div>
-                        @elseif($activity['description'] === 'updated')
-                        @if(isset($activity['properties']['old']['status']))
+                        @elseif ($activity['description'] === 'updated')
+                        @if (isset($activity['properties']['old']['status']))
                         <div class="relative flex items-start space-x-3">
                             <div>
                                 <div class="relative px-1">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         @endif
-                        @elseif($activity['description'] === 'submitted')
+                        @elseif ($activity['description'] === 'submitted')
                         <div class="relative flex items-start space-x-3">
                             <div>
                                 <div class="relative px-1">
@@ -74,10 +74,10 @@
                                 </div>
                             </div>
                         </div>
-                        @elseif($activity['description'] === 'commented')
+                        @elseif ($activity['description'] === 'commented')
                         <div class="relative flex items-start space-x-3">
                             <div class="relative">
-                                @isset($activity->causer)
+                                @isset ($activity->causer)
                                 <img class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full ring-8 ring-gray-100 dark:ring-gray-700" src="{{ $activity->causer->profile_photo_url }}" alt="{{ $activity->causer->name }}">
                                 @else
                                 <div class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full ring-8 ring-gray-100 dark:ring-gray-700"></div>
@@ -89,11 +89,11 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div>
-                                    @if(isset($activity['properties']['internal']) && $activity['properties']['internal'])
+                                    @if (isset($activity['properties']['internal']) && $activity['properties']['internal'])
                                     <x-bit.badge class="float-right">Internal</x-bit.badge>
                                     @endif
                                     <div class="text-sm">
-                                        @isset($activity->causer)
+                                        @isset ($activity->causer)
                                         <a href="#" class="font-medium text-gray-900 dark:text-gray-200">{{ $activity->causer->name }}</a>
                                         @endif
                                     </div>
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         @else
-                            @json($activity)
+                            {!! json_encode($activity) !!}
                         @endif
                     </div>
                 </li>
@@ -121,7 +121,7 @@
             <x-bit.input.group for="comment" label="Add Comment" :error="$errors->first('comment')">
                 <x-bit.input.textarea wire:ignore class="w-full mt-1" id="comment" wire:model="comment" />
             </x-bit.input.group>
-            @if($isGalaxy)
+            @if ($isGalaxy)
             <x-bit.input.group for="status" label="Status">
                 <x-bit.input.select id="status" wire:model="status">
                     <option value="work-in-progress">Work in Progress</option>

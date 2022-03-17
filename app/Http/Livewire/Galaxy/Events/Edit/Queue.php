@@ -15,13 +15,13 @@ class Queue extends Component
     use WithFiltering;
     use WithPagination;
 
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
 
     public $perPage = 100;
 
     public $selected = [];
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function updated($field, $value)
     {

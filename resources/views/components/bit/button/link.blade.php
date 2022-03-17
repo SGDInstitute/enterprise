@@ -2,7 +2,7 @@
     'href' => null
 ])
 
-@if($href)
+@if ($href)
 <a
     href="{{ $href }}"
     {{ $attributes->merge([

@@ -3,7 +3,7 @@
         <span class="dark:text-gray-400">Content {{ $index + 1 }}</span>
         @include('livewire.galaxy.forms.toolbar')
     </div>
-    @if($openIndex === $index)
+    @if ($openIndex === $index)
     <div class="p-4 space-y-4 rounded-b-md">
         <x-bit.input.group :for="'question-id-'.$index" label="ID">
             <x-bit.input.text type="text" class="w-full mt-1" :id="'question-id-'.$index" wire:model="form.{{ $index }}.id" />

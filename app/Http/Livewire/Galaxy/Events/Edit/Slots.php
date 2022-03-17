@@ -8,8 +8,6 @@ use Livewire\Component;
 
 class Slots extends Component
 {
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
     public EventItem $item;
 
@@ -17,7 +15,9 @@ class Slots extends Component
     public $editingTracks;
     public $showItemModal = false;
 
-    public $rules = [
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.location' => 'required',
         'editingItem.description' => 'required',

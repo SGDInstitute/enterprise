@@ -17,8 +17,6 @@ class Workshops extends Component
     use WithSorting;
     use WithFiltering;
 
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
     public Form $form;
 
@@ -28,12 +26,14 @@ class Workshops extends Component
     public $editingTracks;
     public $editingWorkshopId;
     public $filters =  [
-        'search' => ''
+        'search' => '',
     ];
     public $perPage = 25;
     public $showItemModal = false;
 
-    public $rules = [
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.parent_id' => 'required',
         'editingItem.description' => 'required',

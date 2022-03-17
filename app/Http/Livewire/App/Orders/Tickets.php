@@ -19,12 +19,10 @@ class Tickets extends Component
     use WithFiltering;
     use WithSorting;
 
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Order $order;
 
     public $filters = [
-        'search' => ''
+        'search' => '',
     ];
 
     public $ticketholder = [
@@ -42,6 +40,8 @@ class Tickets extends Component
     public $ticketsView = 'grid';
     public $showTicketholderModal = false;
     public $updateEmail = null;
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     protected $rules = [
         'ticketholder.name' => 'required',

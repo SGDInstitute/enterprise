@@ -14,8 +14,6 @@ use Stripe\Subscription;
 
 class Create extends Component
 {
-    protected $listeners = ['refresh' => '$refresh'];
-
     public $type = 'monthly';
     public $amount = '';
     public $name = '';
@@ -42,7 +40,9 @@ class Create extends Component
     public $oneTimeOptions;
     public $monthlyOptions;
 
-    public $rules = [
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
         'type' => 'required',
         'amount' => 'required',
     ];
@@ -189,7 +189,7 @@ class Create extends Component
                 'user_id' => $user->id,
                 'transaction_id' => $paymentIntent->id,
                 'amount' => $this->amount * 100,
-                'type' => $this->type
+                'type' => $this->type,
             ]);
         } elseif ($this->type === 'monthly') {
             $subscription = Subscription::create([
@@ -207,7 +207,7 @@ class Create extends Component
                 'transaction_id' => $paymentIntent->id,
                 'subscription_id' => $subscription->id,
                 'amount' => $this->amount * 100,
-                'type' => $this->type
+                'type' => $this->type,
             ]);
         }
 

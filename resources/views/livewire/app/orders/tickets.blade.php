@@ -14,13 +14,13 @@
         </span>
     </div>
 
-    @if($ticketsView === 'table')
+    @if ($ticketsView === 'table')
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">
             <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search tickets..." />
             <div class="flex space-x-4">
                 <x-bit.data-table.per-page />
-                @if(!$editMode)
+                @if (!$editMode)
                 <x-bit.button.round.secondary wire:click="enableEditMode">Enable In-line Editing</x-bit.button.round.secondary>
                 @else
                 <x-bit.button.round.secondary wire:click="$set('editMode', false)">Disable Editing</x-bit.button.round.secondary>
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        @if(!$editMode)
+        @if (!$editMode)
         @include('livewire.app.orders.partials.table-tickets')
         @else
         @include('livewire.app.orders.partials.table-tickets-editable')
@@ -43,7 +43,7 @@
     @include('livewire.app.orders.partials.grid-tickets')
     @endif
 
-    @if($editingTicket)
+    @if ($editingTicket)
     @include('livewire.app.orders.partials.ticket-modal')
     @endif
 </div>

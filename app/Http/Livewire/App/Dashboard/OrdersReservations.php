@@ -15,7 +15,7 @@ class OrdersReservations extends Component
     use WithFiltering;
 
     public $filters =  [
-        'search' => ''
+        'search' => '',
     ];
     public $ordersPerPage = 25;
     public $ordersView = 'grid';

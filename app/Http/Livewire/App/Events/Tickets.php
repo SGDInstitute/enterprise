@@ -10,13 +10,13 @@ use Livewire\Component;
 
 class Tickets extends Component
 {
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
     public $order;
 
     public $form;
     public $ticketTypes;
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
     {
@@ -72,7 +72,7 @@ class Tickets extends Component
                 'metadata' => [
                     'order_id' => $this->order->id,
                     'event_id' => $this->event->id,
-                ]
+                ],
             ]);
         }
     }

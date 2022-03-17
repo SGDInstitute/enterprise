@@ -1,5 +1,5 @@
 <div class="container px-4 pb-12 mx-auto space-y-4 md:px-0">
-    @if($item->children->count() > 0)
+    @if ($item->children->count() > 0)
         <div class="prose dark:prose-light">
             <h1>{{ $item->name }}</h1>
             <p>{{ $item->formattedDuration }}</p>
@@ -19,7 +19,7 @@
             <p>{{ $item->location }}</p>
             <p>{!! markdown($item->description) !!}</p>
 
-            @if($isInSchedule)
+            @if ($isInSchedule)
             <x-bit.button.flat.secondary wire:click="remove">Remove from Schedule</x-bit.button.flat.secondary>
             @else
             <x-bit.button.flat.primary wire:click="add">Add to Schedule</x-bit.button.flat.primary>
