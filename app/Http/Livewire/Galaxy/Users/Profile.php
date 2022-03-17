@@ -19,7 +19,8 @@ class Profile extends Component
     public $password;
     public $password_confirmation;
 
-    protected function rules() {
+    protected function rules()
+    {
         return [
             'user.name' => ['required', 'string', 'max:255'],
             'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user->id)],

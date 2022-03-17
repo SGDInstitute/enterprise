@@ -15,7 +15,9 @@ use Livewire\WithPagination;
 
 class Tickets extends Component
 {
-    use WithPagination, WithFiltering, WithSorting;
+    use WithPagination;
+    use WithFiltering;
+    use WithSorting;
 
     protected $listeners = ['refresh' => '$refresh'];
 
@@ -55,17 +57,17 @@ class Tickets extends Component
 
     public function updated($field, $value)
     {
-        if($field === 'ticketholder.email') {
-            if($this->editingTicket->user_id !== null) {
+        if ($field === 'ticketholder.email') {
+            if ($this->editingTicket->user_id !== null) {
                 $this->emailChanged = true;
             }
-            if($user = User::whereEmail($value)->first()) {
+            if ($user = User::whereEmail($value)->first()) {
                 $this->ticketholder['name'] = $user->name;
                 $this->ticketholder['pronouns'] = $user->pronouns;
             }
         }
-        if(Str::startsWith($field, 'form.') && Str::endsWith($field, '.email')) {
-            if($user = User::whereEmail($value)->first()) {
+        if (Str::startsWith($field, 'form.') && Str::endsWith($field, '.email')) {
+            if ($user = User::whereEmail($value)->first()) {
                 $index = str_replace(['form.', '.email'], '', $field);
                 $this->form[$index] = [
                     'ticket_id' => $this->form[$index]['ticket_id'],
@@ -107,7 +109,7 @@ class Tickets extends Component
     public function enableEditMode()
     {
         $this->editMode = true;
-        foreach($this->tickets as $ticket) {
+        foreach ($this->tickets as $ticket) {
             $this->form[] = [
                 'ticket_id' => $ticket->id,
                 'user_id' => $ticket->user->id ?? null,
@@ -128,7 +130,7 @@ class Tickets extends Component
         $this->editingTicket = $this->tickets->find($id);
         $this->answers = $this->editingTicket->answers ?? $this->getAnswerForm($this->editingTicket);
 
-        if($this->editingTicket->user_id !== null) {
+        if ($this->editingTicket->user_id !== null) {
             $this->ticketholder = $this->editingTicket->user->only(['name', 'email', 'pronouns']);
         }
 
@@ -149,15 +151,15 @@ class Tickets extends Component
         $newUser = false;
         $sendNotification = true;
 
-        if($this->editingTicket->user_id !== null) {
+        if ($this->editingTicket->user_id !== null) {
             $user = $this->editingTicket->user;
             $sendNotification = false;
         }
 
-        if($this->editingTicket->user_id === null || $this->updateEmail === false) {
+        if ($this->editingTicket->user_id === null || $this->updateEmail === false) {
             $user = User::whereEmail($this->ticketholder['email'])->first();
-            if($user === null && !$this->updateEmail) {
-                $user = new User;
+            if ($user === null && ! $this->updateEmail) {
+                $user = new User();
                 $user->email = $this->ticketholder['email'];
                 $user->password = Hash::make(Str::random(15));
                 $newUser = true;
@@ -166,7 +168,7 @@ class Tickets extends Component
         }
         $user->name = $this->ticketholder['name'];
         $user->pronouns = $this->ticketholder['pronouns'];
-        if($this->updateEmail) {
+        if ($this->updateEmail) {
             $user->email = $this->ticketholder['email'];
         }
         $user->save();
@@ -175,29 +177,30 @@ class Tickets extends Component
         $this->editingTicket->answers = $this->answers;
         $this->editingTicket->save();
 
-        if($user->id !== auth()->id() && $sendNotification) {
+        if ($user->id !== auth()->id() && $sendNotification) {
             $user->notify(new AddedToTicket($this->editingTicket, $newUser, auth()->user()->name));
         }
 
         $this->emit('refresh');
         $this->reset('ticketholder', 'updateEmail', 'emailChanged');
 
-        if(!$this->continue) {
+        if (! $this->continue) {
             $this->showTicketholderModal = false;
         }
     }
 
     public function saveTickets()
     {
-        foreach($this->form as $item) {
+        foreach ($this->form as $item) {
             $ticket = $this->tickets->find($item['ticket_id']);
 
             // skip items that aren't filled
-            if($item['email'] === '')
+            if ($item['email'] === '') {
                 continue;
+            }
 
             // if user was found, fill ticket and update user info
-            if($item['user_id'] !== null || $user = User::where('email', $item['email'])->first()) {
+            if ($item['user_id'] !== null || $user = User::where('email', $item['email'])->first()) {
                 $ticket->user_id = $item['user_id'] ?? $user->id;
                 $ticket->save();
                 $ticket->refresh();
@@ -209,14 +212,14 @@ class Tickets extends Component
                 ]);
 
                 // if not authenticated user, send notification that they were added to a ticket
-                if($ticket->user_id !== auth()->id()) {
+                if ($ticket->user_id !== auth()->id()) {
                     $ticket->user->notify(new AddedToTicket($ticket, false, auth()->user()->name));
                 }
 
                 continue;
             }
 
-            if($item['user_id'] === null) {
+            if ($item['user_id'] === null) {
                 $user = User::create([
                     'name' => $item['name'],
                     'email' => $item['email'],
@@ -239,21 +242,22 @@ class Tickets extends Component
         $this->editMode = false;
     }
 
-    private function getAnswerForm($ticket) {
-        if(isset($ticket->ticketType->form)) {
+    private function getAnswerForm($ticket)
+    {
+        if (isset($ticket->ticketType->form)) {
             return $ticket->ticketType->form
                         ->filter(fn($item) => $item['style'] !== 'content')
-                        ->mapWithKeys(function($item) {
-                            if($item['style'] === 'question') {
-                                if($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                        ->mapWithKeys(function ($item) {
+                            if ($item['style'] === 'question') {
+                                if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
                                     return [$item['id'] => []];
                                 }
 
                                 return [$item['id'] => ''];
-                            } elseif($item['style'] === 'collaborators') {
+                            } elseif ($item['style'] === 'collaborators') {
                                 return [$item['id'] => auth()->user()->email ?? ''];
                             }
                         })->toArray();
         }
     }
- }
+}

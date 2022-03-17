@@ -23,12 +23,12 @@ class Price extends Model
 
     public function getCostInDollarsAttribute()
     {
-        return number_format($this->cost/100, 2);
+        return number_format($this->cost / 100, 2);
     }
 
     public function getFormattedCostAttribute()
     {
-        return '$' . number_format($this->cost/100);
+        return '$' . number_format($this->cost / 100);
     }
 
     public function getFormattedEndAttribute()
@@ -43,12 +43,12 @@ class Price extends Model
 
     public function getMaxInDollarsAttribute()
     {
-        return number_format($this->max/100, 2);
+        return number_format($this->max / 100, 2);
     }
 
     public function getMinInDollarsAttribute()
     {
-        return number_format($this->min/100, 2);
+        return number_format($this->min / 100, 2);
     }
 
     // Methods

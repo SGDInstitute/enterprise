@@ -2,11 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', App\Http\Livewire\Galaxy\Dashboard::class)->name('galaxy.dashboard');
 
 Route::view('/config/donations', 'livewire.galaxy.config.donations', ['title' => 'Configure Donations'])->name('galaxy.config.donations');
-Route::get('/config/emails', App\Http\Livewire\Galaxy\Config\Emails::class)->name('galaxy.config.emails');
+Route::view('/config/emails', 'livewire.galaxy.config.emails', ['title' => 'Configure Emails'])->name('galaxy.config.emails');
 
 Route::get('/donations', App\Http\Livewire\Galaxy\Donations::class)->name('galaxy.donations');
 Route::get('/donations/{donation}', App\Http\Livewire\Galaxy\Donations\Show::class)->name('galaxy.donations.show');

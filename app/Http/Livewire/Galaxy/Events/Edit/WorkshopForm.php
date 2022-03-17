@@ -11,7 +11,8 @@ use Livewire\Component;
 
 class WorkshopForm extends Component
 {
-    use WithTimezones, WithFormBuilder;
+    use WithTimezones;
+    use WithFormBuilder;
 
     public Event $event;
     public Form $workshopForm;
@@ -34,7 +35,7 @@ class WorkshopForm extends Component
 
     public function mount()
     {
-        if($this->event->workshopForm === null) {
+        if ($this->event->workshopForm === null) {
             $this->workshopForm = Form::create([
                 'event_id' => $this->event->id,
                 'type' => 'workshop',
@@ -76,22 +77,22 @@ class WorkshopForm extends Component
         $this->workshopForm->start = Carbon::parse($this->formattedStart, $this->event->timezone)->timezone('UTC');
         $this->workshopForm->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
 
-        if($this->form !== []) {
-            if(!is_array($this->form)) {
+        if ($this->form !== []) {
+            if (! is_array($this->form)) {
                 $form = $this->form->toArray();
             } else {
                 $form = $this->form;
             }
 
-            foreach($form as $index => $item) {
-                if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
-                    $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+            foreach ($form as $index => $item) {
+                if ($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
+                    $form[$index]['options'] = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
                 }
             }
             $this->workshopForm->form = $form;
         }
 
-        if($this->searchable !== []) {
+        if ($this->searchable !== []) {
             $this->workshopForm->settings->set('searchable', $this->searchable);
         }
         $this->workshopForm->save();

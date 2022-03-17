@@ -28,7 +28,7 @@ class AuthModals extends Component
     {
         $status = Password::sendResetLink(['email' => $this->form['email']]);
 
-        if($status == Password::RESET_LINK_SENT) {
+        if ($status == Password::RESET_LINK_SENT) {
             $this->sent = true;
         } else {
             throw ValidationException::withMessages([
@@ -53,7 +53,6 @@ class AuthModals extends Component
                 'form.email' => __('auth.failed'),
             ]);
         }
-
     }
 
     public function showLogin($data)

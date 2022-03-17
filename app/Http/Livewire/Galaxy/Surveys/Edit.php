@@ -11,7 +11,8 @@ use Livewire\Component;
 
 class Edit extends Component
 {
-    use WithTimezones, WithFormBuilder;
+    use WithTimezones;
+    use WithFormBuilder;
 
     public Event $event;
     public Form $survey;
@@ -74,25 +75,25 @@ class Edit extends Component
         $this->survey->start = Carbon::parse($this->formattedStart, $this->survey->timezone)->timezone('UTC');
         $this->survey->end = Carbon::parse($this->formattedEnd, $this->survey->timezone)->timezone('UTC');
 
-        if($this->form !== []) {
-            if(!is_array($this->form)) {
+        if ($this->form !== []) {
+            if (! is_array($this->form)) {
                 $form = $this->form->toArray();
             } else {
                 $form = $this->form;
             }
 
-            foreach($form as $index => $item) {
-                if($item['style'] === 'question' && ($item['type'] === 'list' || $item['type'] === 'matrix') && is_string($item['options'])) {
-                    $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+            foreach ($form as $index => $item) {
+                if ($item['style'] === 'question' && ($item['type'] === 'list' || $item['type'] === 'matrix') && is_string($item['options'])) {
+                    $form[$index]['options'] = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
                 }
-                if($item['style'] === 'question' && $item['type'] === 'matrix' && is_string($item['scale'])) {
-                    $form[$index]['scale'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['scale']));
+                if ($item['style'] === 'question' && $item['type'] === 'matrix' && is_string($item['scale'])) {
+                    $form[$index]['scale'] = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['scale']));
                 }
             }
             $this->survey->form = $form;
         }
 
-        if($this->searchable !== []) {
+        if ($this->searchable !== []) {
             $this->survey->settings->set('searchable', $this->searchable);
         }
         $this->survey->save();

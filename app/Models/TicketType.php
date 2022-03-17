@@ -30,7 +30,7 @@ class TicketType extends Model
 
     public function getAvailablityAttribute()
     {
-        if($this->start && $this->end) {
+        if ($this->start && $this->end) {
             return 'Available: ' . $this->start->timezone($this->timezone)->format('M j') . ' - ' . $this->end->timezone($this->timezone)->format('M j, Y');
         }
     }

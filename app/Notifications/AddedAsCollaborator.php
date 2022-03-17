@@ -26,7 +26,7 @@ class AddedAsCollaborator extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('Added as collaborator to ' . $this->response->name)
             ->line('We are letting you know that you have been added as a collaborator to ' . $this->response->name . '.')
             ->line('You can work on the submission with the other collaborators and submit it for review.')

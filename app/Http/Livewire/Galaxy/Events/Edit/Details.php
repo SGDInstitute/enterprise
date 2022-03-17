@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Galaxy\Events\Edit;
 
-use App\Models\Event;
-use Livewire\Component;
-use Illuminate\Support\Carbon;
 use App\Http\Livewire\Traits\WithTimezones;
+use App\Models\Event;
+use Illuminate\Support\Carbon;
+use Livewire\Component;
 
 class Details extends Component
 {
@@ -37,7 +37,7 @@ class Details extends Component
 
     public function updating($field)
     {
-        if(in_array($field, array_keys($this->rules))) {
+        if (in_array($field, array_keys($this->rules))) {
             $this->formChanged = true;
         }
     }

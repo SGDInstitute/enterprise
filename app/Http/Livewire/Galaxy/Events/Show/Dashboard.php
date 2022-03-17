@@ -23,10 +23,10 @@ class Dashboard extends Component
 
     public function getDaysLeftProperty()
     {
-        if($this->event->hasEnded) {
+        if ($this->event->hasEnded) {
             return 0;
         }
-        if($this->event->hasStarted) {
+        if ($this->event->hasStarted) {
             return $this->event->end->diffInDays(now());
         }
 
@@ -49,7 +49,7 @@ class Dashboard extends Component
         $orderTicketTypes = $this->orders->flatMap->tickets;
 
         $tickets = [];
-        foreach($this->event->ticketTypes as $ticketType) {
+        foreach ($this->event->ticketTypes as $ticketType) {
             $tickets[] = [
                 'ticketType' => $ticketType,
                 'reservations_count' => $reservationTicketTypes->where('ticket_type_id', $ticketType->id)->count(),

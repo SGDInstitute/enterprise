@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\App;
 
 use App\Models\Event;
-use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -27,13 +26,13 @@ class Checkin extends Component
 
     public function mount($ticket = null)
     {
-        if($ticket) {
+        if ($ticket) {
             $this->ticket = $ticket;
             $this->authorize('update', $this->ticket);
             $this->user = $this->ticket->user;
-        } elseif(auth()->check()) {
+        } elseif (auth()->check()) {
             $ticket = auth()->user()->ticketForEvent(Event::find(6));
-            if($ticket !== null) {
+            if ($ticket !== null) {
                 $this->ticket = $ticket;
                 $this->authorize('update', $this->ticket);
                 $this->user = $this->ticket->user;
@@ -66,5 +65,4 @@ class Checkin extends Component
 
         $this->emit('notify', ['message' => 'Successfully saved changes', 'type' => 'success']);
     }
-
 }

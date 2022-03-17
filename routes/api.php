@@ -2,7 +2,6 @@
 
 use App\Models\Event;
 use App\Models\EventBadgeQueue;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/events/{event}/schedule', function (Event $event) {

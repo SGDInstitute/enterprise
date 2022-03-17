@@ -31,7 +31,7 @@ class Bulletin extends Component
 
     public function updating($field)
     {
-        if(in_array($field, array_keys($this->rules))) {
+        if (in_array($field, array_keys($this->rules))) {
             $this->formChanged = true;
         }
     }

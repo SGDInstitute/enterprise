@@ -13,14 +13,17 @@ use Spatie\Sluggable\SlugOptions;
 
 class Event extends Model implements HasMedia
 {
-    use HasFactory, HasSettings, InteractsWithMedia, HasSlug;
+    use HasFactory;
+    use HasSettings;
+    use InteractsWithMedia;
+    use HasSlug;
 
     protected $guarded = [];
 
     public $casts = ['settings' => 'array'];
     public $dates = ['start', 'end'];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -68,7 +71,7 @@ class Event extends Model implements HasMedia
 
     public function getFormattedDurationAttribute()
     {
-        if($this->start->diffInHours($this->end) > 24) {
+        if ($this->start->diffInHours($this->end) > 24) {
             return $this->start->timezone($this->timezone)->format('D, M j') . ' - ' . $this->end->timezone($this->timezone)->format('D, M j, Y');
         } else {
             return $this->start->timezone($this->timezone)->format('D, M j Y g:i a') . ' - ' . $this->end->timezone($this->timezone)->format('g:i a');
@@ -82,9 +85,9 @@ class Event extends Model implements HasMedia
 
     public function getFormattedLocationAttribute()
     {
-        if($this->settings->onsite && $this->settings->livestream) {
+        if ($this->settings->onsite && $this->settings->livestream) {
             return $this->location . ' & Virtual';
-        } elseif($this->settings->onsite) {
+        } elseif ($this->settings->onsite) {
             return $this->location;
         } else {
             return 'Virtual';
@@ -98,10 +101,10 @@ class Event extends Model implements HasMedia
 
     public function getFormattedTimezoneAttribute()
     {
-        if($this->timezone === 'America/New_York') {
+        if ($this->timezone === 'America/New_York') {
             return 'EST';
         }
-        if($this->timezone === 'America/Chicago') {
+        if ($this->timezone === 'America/Chicago') {
             return 'CST';
         }
     }
@@ -120,7 +123,7 @@ class Event extends Model implements HasMedia
     {
         return $this->orders()->whereNotNull('transaction_id')->with('tickets.user')->get()
             ->flatMap->tickets
-            ->filter(fn($ticket) => !Str::contains($ticket->ticketType->name, ['Virtual', 'virtual']))
+            ->filter(fn($ticket) => ! Str::contains($ticket->ticketType->name, ['Virtual', 'virtual']))
             ->filter(fn($ticket) => $ticket->user_id !== null)
             ->map->user;
     }

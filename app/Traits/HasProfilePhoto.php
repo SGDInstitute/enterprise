@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Laravel\Jetstream\Features;
 
 trait HasProfilePhoto
 {
@@ -13,7 +12,8 @@ trait HasProfilePhoto
         tap($this->profile_photo_path, function ($previous) use ($photo) {
             $this->forceFill([
                 'profile_photo_path' => $photo->storePublicly(
-                    'profile-photos', ['disk' => $this->profilePhotoDisk()]
+                    'profile-photos',
+                    ['disk' => $this->profilePhotoDisk()]
                 ),
             ])->save();
 
@@ -41,7 +41,7 @@ trait HasProfilePhoto
 
     protected function defaultProfilePhotoUrl()
     {
-        return 'https://www.gravatar.com/avatar/'. md5(strtolower(trim( $this->email))). '?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/' . urlencode($this->name). '/128';
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/' . urlencode($this->name) . '/128';
     }
 
     protected function profilePhotoDisk()

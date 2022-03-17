@@ -13,7 +13,7 @@ class QueueObserver
 
     public function updated(EventBadgeQueue $badge)
     {
-        if($badge->printed) {
+        if ($badge->printed) {
             $badge->markAsPrinted();
         }
     }

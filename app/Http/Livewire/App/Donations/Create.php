@@ -5,10 +5,9 @@ namespace App\Http\Livewire\App\Donations;
 use App\Models\Donation;
 use App\Models\Setting;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Stripe\PaymentIntent;
 use Stripe\Subscription;
@@ -61,10 +60,10 @@ class Create extends Component
 
     public function mount()
     {
-        if(auth()->check()) {
+        if (auth()->check()) {
             $this->name = auth()->user()->name;
             $this->email = auth()->user()->email;
-            if(auth()->user()->address) {
+            if (auth()->user()->address) {
                 $this->address = auth()->user()->address;
             }
         }
@@ -96,7 +95,7 @@ class Create extends Component
 
     public function getAmountLabelProperty()
     {
-        if($this->amount != '') {
+        if ($this->amount != '') {
             return '$' . $this->amount . ' ';
         }
     }
@@ -107,11 +106,11 @@ class Create extends Component
     {
         $user = User::firstWhere('email', $email);
 
-        if(!$user && auth()->check()) {
+        if (! $user && auth()->check()) {
             $this->emit('notify', ['message' => 'Looks like the email entered does not match the email that is logged in.', 'type' => 'error']);
-        } elseif(!$user && $email !== '') {
+        } elseif (! $user && $email !== '') {
             $this->newUser = true;
-        } elseif($user && !auth()->check()) {
+        } elseif ($user && ! auth()->check()) {
             $this->hasLogin = true;
             $this->showLogin($email);
         }
@@ -120,7 +119,7 @@ class Create extends Component
     public function chooseAmount($amount)
     {
         $this->amount = $amount;
-        if($this->type === 'one-time' && $this->otherAmount) {
+        if ($this->type === 'one-time' && $this->otherAmount) {
             $this->otherAmount = false;
         }
     }
@@ -161,19 +160,23 @@ class Create extends Component
     {
         $this->validate();
 
-        if(auth()->guest() && $this->newUser) {
+        if (auth()->guest() && $this->newUser) {
             $password = Str::random(15);
             $user = User::create(['name' => $this->name, 'email' => $this->email, 'password' => Hash::make($password)]);
+            session(['was_created' => true]);
+
             Auth::attempt(['email' => $this->email, 'password' => $password]);
-        } elseif(auth()->guest()) {
+        } elseif (auth()->guest()) {
             return $this->emit('notify', ['message' => 'Please login before continuing.', 'type' => 'error']);
-        } elseif($this->type === 'monthly' && auth()->user()->hasRecurringDonation()) {
+        } elseif ($this->type === 'monthly' && auth()->user()->hasRecurringDonation()) {
             return $this->emit('notify', ['message' => 'You already have an active recurring donation.', 'type' => 'error']);
+        } else {
+            $user = auth()->user();
         }
 
-        if($donation = auth()->user()->incompleteDonations()->where('amount', $this->amount * 100)->where('type', $this->type)->first()) {
+        if ($donation = auth()->user()->incompleteDonations()->where('amount', $this->amount * 100)->where('type', $this->type)->first()) {
             $paymentIntent = PaymentIntent::retrieve($donation->transaction_id);
-        } elseif($this->type === 'one-time') {
+        } elseif ($this->type === 'one-time') {
             $paymentIntent = PaymentIntent::create([
                 'amount' => $this->amount * 100,
                 'currency' => 'usd',
@@ -183,14 +186,14 @@ class Create extends Component
             ]);
 
             $donation = Donation::create([
-                'user_id' => auth()->id(),
+                'user_id' => $user->id,
                 'transaction_id' => $paymentIntent->id,
                 'amount' => $this->amount * 100,
                 'type' => $this->type
             ]);
-        } elseif($this->type === 'monthly') {
+        } elseif ($this->type === 'monthly') {
             $subscription = Subscription::create([
-                'customer' => auth()->user()->createOrGetStripeCustomer()->id,
+                'customer' => $user->createOrGetStripeCustomer()->id,
                 'items' => [[
                     'price' => array_search($this->amount, $this->monthlyOptions),
                 ]],
@@ -200,7 +203,7 @@ class Create extends Component
 
             $paymentIntent = $subscription->latest_invoice->payment_intent;
             $donation = Donation::create([
-                'user_id' => auth()->id(),
+                'user_id' => $user->id,
                 'transaction_id' => $paymentIntent->id,
                 'subscription_id' => $subscription->id,
                 'amount' => $this->amount * 100,
@@ -211,6 +214,5 @@ class Create extends Component
         $this->clientSecret = $paymentIntent->client_secret;
 
         $this->step = 2;
-
     }
 }

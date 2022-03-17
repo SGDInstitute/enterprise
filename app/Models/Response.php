@@ -8,7 +8,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Response extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory;
+    use LogsActivity;
 
     public $guarded = [];
 

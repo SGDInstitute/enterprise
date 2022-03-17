@@ -29,7 +29,7 @@ class OnsiteCheckin extends Component
 
     public function getHideAddButtonProperty()
     {
-        if($this->order !== null) {
+        if ($this->order !== null) {
             $queued = $this->order->tickets->filter(fn($ticket) => $ticket->isQueued());
 
             return $queued->count() === $this->order->tickets->count();
@@ -60,7 +60,7 @@ class OnsiteCheckin extends Component
             ->with(['tickets.user'])
             ->first();
 
-        if($order === null) {
+        if ($order === null) {
             $this->notFound = true;
         } else {
             $this->order = $order;

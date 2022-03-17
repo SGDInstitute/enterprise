@@ -43,5 +43,4 @@ class ThankYouModal extends Component
         $this->emit('notify', ['message' => 'Saved content.', 'type' => 'success']);
         $this->editPanel = false;
     }
-
 }

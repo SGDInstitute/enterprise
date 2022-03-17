@@ -5,7 +5,6 @@ namespace App\Http\Livewire\App\Events;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Ticket;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -22,25 +21,25 @@ class Tickets extends Component
     public function mount()
     {
         $this->ticketTypes = $this->event->ticketTypes->load('prices');
-        $this->form = $this->ticketTypes->map(function($item) {
-            if($item->structure === 'flat') {
+        $this->form = $this->ticketTypes->map(function ($item) {
+            if ($item->structure === 'flat') {
                 $price = $item->prices->where('start', '<', now())->where('end', '>', now())->first();
                 return [
                     'type_id' => $item->id,
                     'price_id' => $price->id,
                     'name' => $price->name,
-                    'cost' => $price->cost/100,
+                    'cost' => $price->cost / 100,
                     'amount' => 0,
                 ];
-            } elseif($item->structure === 'scaled-range') {
+            } elseif ($item->structure === 'scaled-range') {
                 $price = $item->prices->first();
 
                 return [
                     'type_id' => $item->id,
                     'price_id' => $price->id,
                     'name' => $price->name,
-                    'cost' => $price->cost/100,
-                    'options' => $item->prices->mapWithKeys(fn($price) => [$price->id => $price->cost/100]),
+                    'cost' => $price->cost / 100,
+                    'options' => $item->prices->mapWithKeys(fn($price) => [$price->id => $price->cost / 100]),
                     'amount' => 0,
                 ];
             } else {
@@ -65,7 +64,7 @@ class Tickets extends Component
 
     public function getCheckoutButtonProperty()
     {
-        if($this->order !== null) {
+        if ($this->order !== null) {
             return auth()->user()->checkout($this->order->ticketsFormattedForCheckout(), [
                 'success_url' => route('app.orders.show', ['order' => $this->order, 'success']),
                 'cancel_url' => route('app.orders.show', ['order' => $this->order, 'canceled']),
@@ -82,17 +81,19 @@ class Tickets extends Component
     {
         $checkoutAmount = 0;
 
-        foreach($this->form as $ticket) {
+        foreach ($this->form as $ticket) {
             $price = $this->ticketTypes->firstWhere('id', $ticket['type_id'])->prices->firstWhere('id', $ticket['price_id']);
             $checkoutAmount += $price->cost * $ticket['amount'];
         }
 
-        return '$' . number_format($checkoutAmount/100, 2);
+        return '$' . number_format($checkoutAmount / 100, 2);
     }
 
     public function reserve()
     {
-        if($this->order !== null) return redirect()->route('app.orders.show', $this->order);
+        if ($this->order !== null) {
+            return redirect()->route('app.orders.show', $this->order);
+        }
 
         $this->checkValidation();
 
@@ -120,14 +121,14 @@ class Tickets extends Component
     private function convertFormToTickets()
     {
         return $this->form->filter(fn($item) => $item['amount'] > 0)
-            ->map(function($item) {
+            ->map(function ($item) {
                 $ticketType = $this->ticketTypes->find($item['type_id']);
                 $data = [
                     'event_id' => $this->event->id,
                     'ticket_type_id' => $item['type_id'], 'price_id' => $item['price_id']
                 ];
 
-                if($item['amount'] == 1) {
+                if ($item['amount'] == 1) {
                     $data['user_id'] = auth()->id();
                 }
 

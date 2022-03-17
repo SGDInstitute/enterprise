@@ -4,14 +4,15 @@ namespace App\Http\Livewire\App\Dashboard;
 
 use App\Http\Livewire\Traits\WithFiltering;
 use App\Http\Livewire\Traits\WithSorting;
-use App\Models\Form;
 use App\Models\Response;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Workshops extends Component
 {
-    use WithPagination, WithSorting, WithFiltering;
+    use WithPagination;
+    use WithSorting;
+    use WithFiltering;
 
     public $filters =  [
         'search' => ''

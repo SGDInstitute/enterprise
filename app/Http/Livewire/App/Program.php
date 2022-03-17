@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class Program extends Component
 {
-
     public Event $event;
     public $page;
     public $ticket;

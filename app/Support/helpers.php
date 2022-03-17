@@ -1,11 +1,5 @@
 <?php
 
-use function GuzzleHttp\json_encode;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 if (! function_exists('isInternetExplorer')) {
     function isInternetExplorer()
@@ -28,7 +22,7 @@ if (! function_exists('hyphenate')) {
 if (! function_exists('markdown')) {
     function markdown($text)
     {
-        return (new ParsedownExtra)->text($text);
+        return (new ParsedownExtra())->text($text);
     }
 }
 
@@ -36,22 +30,22 @@ if (! function_exists('stripeUrl')) {
     function stripeUrl($text)
     {
         if (env('APP_ENV') === 'production') {
-            return 'https://dashboard.stripe.com/search?query='.$text;
+            return 'https://dashboard.stripe.com/search?query=' . $text;
         }
 
-        return 'https://dashboard.stripe.com/test/search?query='.$text;
+        return 'https://dashboard.stripe.com/test/search?query=' . $text;
     }
 }
 
 if (! function_exists('array_shove')) {
     function array_shove(array $array, $selected_key, $direction)
     {
-        $new_array = array();
+        $new_array = [];
 
         foreach ($array as $key => $value) {
             if ($key !== $selected_key) {
                 $new_array["$key"] = $value;
-                $last = array('key' => $key, 'value' => $value);
+                $last = ['key' => $key, 'value' => $value];
                 unset($array["$key"]);
             } else {
                 if ($direction !== 'up') {

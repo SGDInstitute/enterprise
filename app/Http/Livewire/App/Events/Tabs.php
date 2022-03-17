@@ -29,7 +29,7 @@ class Tabs extends Component
     public function getActiveContentProperty()
     {
         $content = '';
-        if($this->active === 'Description') {
+        if ($this->active === 'Description') {
             $content = $this->event->description;
         } else {
             $filtered = array_values(array_filter($this->tabs, fn($tab) => $tab['name'] === $this->active));
@@ -42,7 +42,7 @@ class Tabs extends Component
     public function getOptionsProperty()
     {
         $tabs = array_column($this->tabs, 'name');
-        array_unshift($tabs , 'Description');
+        array_unshift($tabs, 'Description');
 
         return $tabs;
     }

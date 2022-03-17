@@ -2,18 +2,19 @@
 
 namespace App\Http\Livewire\Galaxy\Events\Edit;
 
-use App\Models\Event;
-use Livewire\Component;
-use App\Models\TicketType;
-use Illuminate\Support\Str;
-use Livewire\WithPagination;
-use Illuminate\Support\Carbon;
-use App\Http\Livewire\Traits\WithSorting;
 use App\Http\Livewire\Traits\WithFiltering;
+use App\Http\Livewire\Traits\WithSorting;
+use App\Models\Event;
+use App\Models\TicketType;
+use Illuminate\Support\Carbon;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Tickets extends Component
 {
-    use WithSorting, WithFiltering, WithPagination;
+    use WithSorting;
+    use WithFiltering;
+    use WithPagination;
 
     protected $listeners = ['refresh' => '$refresh'];
 
@@ -94,7 +95,7 @@ class Tickets extends Component
 
     public function showCreateModal()
     {
-        if($this->editing->id) {
+        if ($this->editing->id) {
             $this->editing = TicketType::make(['event_id' => $this->event->id]);
         }
         $this->showModal = true;

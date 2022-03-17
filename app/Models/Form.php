@@ -10,7 +10,9 @@ use Spatie\Sluggable\SlugOptions;
 
 class Form extends Model
 {
-    use HasFactory, HasSlug, HasSettings;
+    use HasFactory;
+    use HasSlug;
+    use HasSettings;
 
     public $guarded = [];
 
@@ -21,7 +23,7 @@ class Form extends Model
     ];
     public $dates = ['start', 'end'];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -44,7 +46,7 @@ class Form extends Model
 
     public function getFormattedEndAttribute()
     {
-        if($this->timezone === null || $this->end === null) {
+        if ($this->timezone === null || $this->end === null) {
             return now()->format('m/d/Y g:i A');
         }
 
@@ -53,7 +55,7 @@ class Form extends Model
 
     public function getFormattedStartAttribute()
     {
-        if($this->timezone === null || $this->start === null) {
+        if ($this->timezone === null || $this->start === null) {
             return now()->format('m/d/Y g:i A');
         }
 
@@ -69,8 +71,8 @@ class Form extends Model
     {
         return $this->form
             ->filter(fn($item) => $item['style'] === 'question')
-            ->mapWithKeys(function($question) {
-                return ['answers.'.$question['id'] => $question['rules']];
+            ->mapWithKeys(function ($question) {
+                return ['answers.' . $question['id'] => $question['rules']];
             })->toArray();
     }
 }

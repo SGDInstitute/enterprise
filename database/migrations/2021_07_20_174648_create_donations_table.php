@@ -17,7 +17,9 @@ class CreateDonationsTable extends Migration
             $table->integer('amount');
             $table->string('type');
             $table->string('status')->default('incomplete');
+            $table->dateTime('next_bill_date')->nullable();
             $table->timestamps();
+            $table->dateTime('ends_at')->nullable();
         });
     }
 }

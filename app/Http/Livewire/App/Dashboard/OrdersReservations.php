@@ -10,7 +10,9 @@ use Livewire\WithPagination;
 
 class OrdersReservations extends Component
 {
-    use WithPagination, WithSorting, WithFiltering;
+    use WithPagination;
+    use WithSorting;
+    use WithFiltering;
 
     public $filters =  [
         'search' => ''
@@ -35,7 +37,7 @@ class OrdersReservations extends Component
             ->paid()
             ->join('tickets', 'tickets.order_id', '=', 'orders.id')
             ->with('tickets')
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('orders.user_id', auth()->id())
                     ->orWhere('tickets.user_id', auth()->id());
             })

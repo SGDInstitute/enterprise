@@ -7,13 +7,14 @@ use App\Http\Livewire\Traits\WithSorting;
 use App\Models\Event;
 use App\Models\EventItem;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Schedule extends Component
 {
-    use WithFiltering, WithPagination, WithSorting;
+    use WithFiltering;
+    use WithPagination;
+    use WithSorting;
 
     public Event $event;
 
@@ -43,7 +44,7 @@ class Schedule extends Component
 
     public function mount()
     {
-        $this->editingItem = new EventItem;
+        $this->editingItem = new EventItem();
 
         $this->sortField = 'start';
         $this->sortDirection = 'asc';
@@ -103,7 +104,7 @@ class Schedule extends Component
 
     public function openItemModal($id = null)
     {
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             $item = $this->items->firstWhere('id', $id) ?? EventItem::find($id);
             $this->editingItem = $item;
             $this->editingTracks = $item->tagsWithType('tracks')->pluck('name')->join(',');
@@ -130,7 +131,7 @@ class Schedule extends Component
     public function resetItemModal()
     {
         $this->showItemModal = false;
-        $this->editingItem = new EventItem;
+        $this->editingItem = new EventItem();
         $this->reset('form', 'editingTracks');
     }
 
@@ -147,6 +148,6 @@ class Schedule extends Component
         $this->emit('notify', ['message' => 'Successfully saved item', 'type' => 'success']);
 
         $this->resetItemModal();
-        $this->emit("refreshCalendar");
+        $this->emit('refreshCalendar');
     }
 }

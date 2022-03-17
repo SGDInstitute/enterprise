@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Livewire\Galaxy\Events\Edit;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Event;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AddOnsTest extends TestCase
 {

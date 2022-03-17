@@ -9,7 +9,7 @@ Route::get('/impersonation/leave', App\Http\Controllers\ImpersonationController:
 
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
 
-Route::get('/changelog', function() {
+Route::get('/changelog', function () {
     return view('app.changelog')->with(['content' => markdown(app('files')->get(base_path('/CHANGELOG.md')))]);
 });
 
@@ -26,7 +26,7 @@ Route::get('/forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou:
 
 Route::get('/onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
 
     Route::get('/orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
-    Route::get('/orders/{order}/receipt', function(App\Models\Order $order) {
+    Route::get('/orders/{order}/receipt', function (App\Models\Order $order) {
         return view('pdf.receipt', ['order' => $order]);
     })->name('app.orders.show.receipt');
 

@@ -10,7 +10,8 @@ class Settings extends Component
 {
     public User $user;
 
-    protected function rules() {
+    protected function rules()
+    {
         return [
             'user.name' => ['required', 'string', 'max:255'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user->id)],

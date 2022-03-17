@@ -44,9 +44,9 @@ class Page extends Component
 
     public function getPricesProperty()
     {
-        return collect($this->stripe->prices->all()->data)->filter(function($price) {
-            return !array_key_exists($price->id, $this->monthlyOptions->payload) && $price->type === 'recurring';
-         });
+        return collect($this->stripe->prices->all()->data)->filter(function ($price) {
+            return ! array_key_exists($price->id, $this->monthlyOptions->payload) && $price->type === 'recurring';
+        });
     }
 
     public function getStripeProperty()
@@ -61,14 +61,14 @@ class Page extends Component
 
     public function addOption($type)
     {
-        if($type === 'oneTimeOptions') {
+        if ($type === 'oneTimeOptions') {
             $options = $this->$type->payload;
             $options[] = $this->newPrice;
         } else {
             $options = $this->$type->payload;
 
             $existing = $this->prices->firstWhere('unit_amount', $this->newPrice * 100);
-            if($existing) {
+            if ($existing) {
                 $options[$existing->id] = $this->newPrice;
             } else {
                 $price = $this->stripe->prices->create([

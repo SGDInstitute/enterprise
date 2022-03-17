@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donation;
-use Illuminate\Http\Request;
+use App\Notifications\DonationReceipt;
 use Stripe\PaymentIntent;
 
 class DonationsProcessController extends Controller
@@ -12,7 +12,10 @@ class DonationsProcessController extends Controller
     {
         $paymentIntent = PaymentIntent::retrieve(request()->get('payment_intent'));
 
-        Donation::where('transaction_id', $paymentIntent->id)->update(['status' => $paymentIntent->status]);
+        $donation = Donation::firstWhere('transaction_id', $paymentIntent->id);
+
+        $donation->update(['status' => $paymentIntent->status]);
+        $donation->user->notify(new DonationReceipt($donation));
 
         return redirect('/dashboard/donations?thank-you=true');
     }

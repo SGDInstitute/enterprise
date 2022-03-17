@@ -13,11 +13,15 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Stripe\Customer;
 
-use function Illuminate\Events\queueable;
-
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Billable, HasProfilePhoto, Impersonate;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasRoles;
+    use Billable;
+    use HasProfilePhoto;
+    use Impersonate;
 
     protected $guarded = [];
 
@@ -31,12 +35,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'address' => 'array',
     ];
 
-    protected static function booted()
-    {
-        static::updated(queueable(function ($customer) {
-            $customer->syncStripeCustomerDetails();
-        }));
-    }
+    // protected static function booted()
+    // {
+    //     static::updated(queueable(function ($customer) {
+    //         $customer->syncStripeCustomerDetails();
+    //     }));
+    // }
 
     // Relationships
 
@@ -64,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function findOrCreateCustomerId()
     {
-        if($this->stripe_id) {
+        if ($this->stripe_id) {
             return $this->stripe_id;
         } else {
             $customer = Customer::create([

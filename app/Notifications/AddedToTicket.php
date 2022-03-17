@@ -29,7 +29,7 @@ class AddedToTicket extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('mail.added-to-ticket', [
+        return (new MailMessage())->markdown('mail.added-to-ticket', [
             'ticket' => $this->ticket,
             'newUser' => $this->newUser,
             'causer' => $this->causer,
