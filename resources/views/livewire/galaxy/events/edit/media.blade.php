@@ -15,11 +15,9 @@
                     <div class="space-y-6">
                         <div>
                             <p class="mb-1 text-sm leading-5 text-gray-500 dark:text-gray-400">Logo used when {{ $event->name }} is viewed in a list of other events as well as in navbar.</p>
-                            <x-media-library-attachment name="logo" rules="mimes:png,jpeg|max:500" />
                         </div>
                         <div>
                             <p class="mb-1 text-sm leading-5 text-gray-500 dark:text-gray-400">Background used when {{ $event->name }} is viewed in a list of other events.</p>
-                            <x-media-library-attachment name="background" rules="mimes:png,jpeg|max:500" />
                         </div>
                     </div>
                 </x-bit.panel.body>

@@ -8,8 +8,6 @@ use Livewire\Component;
 
 class Slots extends Component
 {
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
     public EventItem $item;
 
@@ -17,7 +15,9 @@ class Slots extends Component
     public $editingTracks;
     public $showItemModal = false;
 
-    public $rules = [
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.location' => 'required',
         'editingItem.description' => 'required',
@@ -25,7 +25,7 @@ class Slots extends Component
 
     public function mount()
     {
-        $this->editingItem = new EventItem;
+        $this->editingItem = new EventItem();
     }
 
     public function render()
@@ -43,7 +43,7 @@ class Slots extends Component
         return $this->items
             ->groupBy('location')
             ->filter(fn($location) => $location->count() > 1)
-            ->map(function($location) {
+            ->map(function ($location) {
                 return $location->map(fn($item) => $item->id);
             });
     }
@@ -55,7 +55,7 @@ class Slots extends Component
 
     public function openItemModal($id = null)
     {
-        if($id !== null) {
+        if ($id !== null) {
             $item = $this->items->firstWhere('id', $id);
             $this->editingItem = $item;
             $this->editingTracks = $item->tracks;
@@ -66,7 +66,7 @@ class Slots extends Component
 
     public function resetItemModal()
     {
-        $this->editingItem = new EventItem;
+        $this->editingItem = new EventItem();
         $this->reset('editingTracks', 'showItemModal');
     }
 
@@ -93,7 +93,7 @@ class Slots extends Component
         $this->emit('notify', ['message' => 'Successfully saved item', 'type' => 'success']);
 
         $this->resetItemModal();
-        $this->emit("refresh");
+        $this->emit('refresh');
     }
 
     public function setLocation($id)

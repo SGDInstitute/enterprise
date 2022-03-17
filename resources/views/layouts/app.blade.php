@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <livewire:styles />
     </head>
-    <body class="font-sans antialiased dark:bg-gray-800">
+    <body class="font-sans antialiased dark:bg-gray-900">
         @include('layouts.app.nav')
         <livewire:notifications />
 
@@ -23,9 +23,8 @@
 
         @include('layouts.app.footer')
 
-        <!-- Scripts -->
         <livewire:scripts />
-        <script src="https://js.stripe.com/v3/"></script>
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="{{ mix('js/app.js') }}"></script>
+        @stack('scripts')
     </body>
 </html>

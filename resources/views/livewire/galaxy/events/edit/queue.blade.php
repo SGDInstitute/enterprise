@@ -21,7 +21,7 @@
         </x-slot>
 
         <x-slot name="body">
-            @forelse($queue as $item)
+            @forelse ($queue as $item)
             <x-bit.table.row wire:key="row-{{ $item->id }}">
                 <x-bit.table.cell class="pr-0">
                     <x-bit.input.checkbox wire:model="selected" value="{{ $item->id }}" />
@@ -39,7 +39,7 @@
                 <x-bit.table.cell colspan="9">
                     <div class="flex items-center justify-center space-x-2">
                         <x-heroicon-o-calendar class="w-8 h-8 text-gray-400" />
-                        <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No badges in queue...</span>
+                        <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No badges in queue...</span>
                     </div>
                 </x-bit.table.cell>
             </x-bit.table.row>

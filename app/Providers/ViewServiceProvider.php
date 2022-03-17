@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Event;
-use App\View\Composers\ProfileComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,7 +21,7 @@ class ViewServiceProvider extends ServiceProvider
 
                 if ($events->count() > 0) {
                     $links = $events->filter(fn ($event) => auth()->user()->ticketForEvent($event) !== null)
-                        ->map(fn ($event) => ['text' => $event->name . " Program", 'url' => route('app.program', $event)]);
+                        ->map(fn ($event) => ['text' => $event->name . ' Program', 'url' => route('app.program', $event)]);
 
                     $view->with('links', $links);
                 }

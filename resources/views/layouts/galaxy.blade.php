@@ -27,7 +27,7 @@
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-800">
     <livewire:notifications />
 
-    <div class="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-800" x-data="{ sidebarOpen: false }" @keydown.window.escape="sidebarOpen = false">
+    <div class="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900" x-data="{ sidebarOpen: false }" @keydown.window.escape="sidebarOpen = false">
         @include('layouts.galaxy.mobile')
         <!-- Static sidebar for desktop -->
         @include('layouts.galaxy.sidebar')

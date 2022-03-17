@@ -3,7 +3,7 @@
 
 We wanted to let you know that {{ $causer }} added you to a ticket for {{ $event }}.
 
-@if($newUser)
+@if ($newUser)
 
 We noticed you are a new user so we created an account for you. Click the link below to set your password and add your information (e.g. pronouns, accessibility requests) to the ticket.
 

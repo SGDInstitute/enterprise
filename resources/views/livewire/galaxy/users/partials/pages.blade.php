@@ -11,7 +11,8 @@
     <livewire:galaxy.reservations :user="$user" />
     @break
 
-
-
+    @case('donations')
+    <livewire:galaxy.donations :user="$user" />
+    @break
 
 @endswitch

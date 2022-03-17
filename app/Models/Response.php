@@ -8,16 +8,17 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Response extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory;
+    use LogsActivity;
+
+    protected static $logAttributes = ['answers', 'status'];
+    protected static $logOnlyDirty = true;
 
     public $guarded = [];
 
     protected $casts = [
         'answers' => 'collection',
     ];
-
-    protected static $logAttributes = ['answers', 'status'];
-    protected static $logOnlyDirty = true;
 
     public function collaborators()
     {

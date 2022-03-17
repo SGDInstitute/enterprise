@@ -7,7 +7,6 @@ use App\Models\Response;
 use App\Models\User;
 use App\Notifications\AddedAsCollaborator;
 use App\Notifications\RemovedAsCollaborator;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
@@ -15,7 +14,6 @@ use Livewire\Component;
 
 class Show extends Component
 {
-
     public Form $form;
     public Response $response;
     public $answers;
@@ -23,11 +21,11 @@ class Show extends Component
 
     public function mount()
     {
-        if(request()->query('edit')) {
+        if (request()->query('edit')) {
             // check if user is authorized to view
             $this->load(request()->query('edit'));
         } else {
-            if($this->previousResponses->count() > 0) {
+            if ($this->previousResponses->count() > 0) {
                 $this->showPreviousResponses = true;
             }
 
@@ -35,14 +33,14 @@ class Show extends Component
 
             $this->answers = $this->form->form
                 ->filter(fn($item) => $item['style'] !== 'content')
-                ->mapWithKeys(function($item) {
-                    if($item['style'] === 'question') {
-                        if($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                ->mapWithKeys(function ($item) {
+                    if ($item['style'] === 'question') {
+                        if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
                             return [$item['id'] => []];
                         }
 
                         return [$item['id'] => ''];
-                    } elseif($item['style'] === 'collaborators') {
+                    } elseif ($item['style'] === 'collaborators') {
                         return [$item['id'] => auth()->user()->email ?? ''];
                     }
                 })->toArray();
@@ -67,7 +65,7 @@ class Show extends Component
 
     public function getPreviousResponsesProperty()
     {
-        if(auth()->check()) {
+        if (auth()->check()) {
             return auth()->user()->responses()->where('form_id', $this->form->id)->get();
         }
         return collect([]);
@@ -77,24 +75,24 @@ class Show extends Component
 
     public function isVisible($item)
     {
-        if(isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0) {
+        if (isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0) {
             [$passes, $fails] = collect($item['conditions'])->partition(function ($condition) {
-                if($condition['method'] === 'equals') {
+                if ($condition['method'] === 'equals') {
                     return $this->answers[$condition['field']] == $condition['value'];
-                } elseif($condition['method'] === 'not') {
+                } elseif ($condition['method'] === 'not') {
                     return $this->answers[$condition['field']] != $condition['value'];
-                } elseif($condition['method'] === '>') {
+                } elseif ($condition['method'] === '>') {
                     return $this->answers[$condition['field']] > $condition['value'];
-                } elseif($condition['method'] === '>=') {
+                } elseif ($condition['method'] === '>=') {
                     return $this->answers[$condition['field']] >= $condition['value'];
-                } elseif($condition['method'] === '<') {
+                } elseif ($condition['method'] === '<') {
                     return $this->answers[$condition['field']] < $condition['value'];
-                } elseif($condition['method'] === '<=') {
+                } elseif ($condition['method'] === '<=') {
                     return $this->answers[$condition['field']] <= $condition['value'];
                 }
             });
 
-            if(isset($item['visibility-andor']) && $item['visibility-andor'] === 'or') {
+            if (isset($item['visibility-andor']) && $item['visibility-andor'] === 'or') {
                 return $passes->count() > 0;
             } else {
                 return $fails->count() === 0;
@@ -116,7 +114,7 @@ class Show extends Component
 
     public function save($withNotification = true)
     {
-        if($this->response->id !== null) {
+        if ($this->response->id !== null) {
             $this->response->answers = $this->answers;
             $this->response->save();
         } else {
@@ -130,11 +128,11 @@ class Show extends Component
         }
 
         // if form has collaborators
-        if($this->form->hasCollaborators) {
-            $emails = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $this->answers['collaborators'] ?? auth()->user()->email));
+        if ($this->form->hasCollaborators) {
+            $emails = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $this->answers['collaborators'] ?? auth()->user()->email));
 
             $users = collect($emails)->map(function ($email) {
-                if($user = User::firstWhere('email', $email)) {
+                if ($user = User::firstWhere('email', $email)) {
                     return $user;
                 } else {
                     return User::create(['email' => $email, 'password' => Hash::make(Str::random(15))]);
@@ -149,17 +147,17 @@ class Show extends Component
             $oldCollaborators->forget($oldCollaborators->search(auth()->id()));
             $ids->forget($ids->search(auth()->id()));
 
-            if($oldCollaborators->diff($ids)->count() > 0) {
+            if ($oldCollaborators->diff($ids)->count() > 0) {
                 $users = User::find($oldCollaborators->diff($ids));
                 Notification::send($users, new RemovedAsCollaborator($this->response));
             }
-            if($ids->diff($oldCollaborators)->count() > 0) {
+            if ($ids->diff($oldCollaborators)->count() > 0) {
                 $users = User::find($ids->diff($oldCollaborators));
                 Notification::send($users, new AddedAsCollaborator($this->response));
             }
         }
 
-        if($withNotification) {
+        if ($withNotification) {
             $this->emit('notify', ['message' => 'Successfully saved submission. You can leave this page and come back to continue working on the submission.', 'type' => 'success']);
         }
     }
@@ -171,7 +169,7 @@ class Show extends Component
         $this->response->status = 'submitted';
         $this->save(false);
 
-        if($this->form->type === 'workshop') {
+        if ($this->form->type === 'workshop') {
             $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
         } else {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);

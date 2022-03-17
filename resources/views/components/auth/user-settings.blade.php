@@ -13,7 +13,7 @@
         </x-slot>
 
         <x-slot name="content">
-            @can('galaxy.view')
+            @can ('galaxy.view')
             <x-dropdown-link :href="route('app.dashboard')">Frontend</x-dropdown-link>
             <x-dropdown-link :href="route('galaxy.dashboard')">Galaxy</x-dropdown-link>
             @endcan

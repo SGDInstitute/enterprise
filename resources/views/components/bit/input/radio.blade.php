@@ -2,7 +2,7 @@
     'label' => null
 ])
 
-@if($label)
+@if ($label)
 <div class="flex items-center">
     <input {{ $attributes }} type="radio" class="w-4 h-4 text-green-600 transition duration-150 ease-in-out form-radio focus:ring-green-500 {{ $attributes->get('disabled') ? 'opacity-75 cursor-not-allowed' : '' }}">
     <label for="{{ $attributes['id'] }}" class="ml-3">

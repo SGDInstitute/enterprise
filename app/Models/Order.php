@@ -6,14 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Stripe\StripeClient;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     public $guarded = [];
-    public $dates = ['reservation_ends', 'paid_at'];
-    public $casts = ['invoice' => 'collection'];
+
+    protected $casts = [
+        'invoice' => 'collection',
+        'reservation_ends' => 'datetime',
+        'paid_at' => 'datetime',
+    ];
 
     // Scopes
 
@@ -58,7 +64,7 @@ class Order extends Model
 
     public function getDatePaidAttribute()
     {
-        if($this->isPaid()) {
+        if ($this->isPaid()) {
             return $this->paid_at->format('M d, Y');
         }
 
@@ -67,8 +73,8 @@ class Order extends Model
 
     public function getFormattedAmountAttribute()
     {
-        if($this->isPaid()) {
-            return '$' . number_format($this->amount/100, 2);
+        if ($this->isPaid()) {
+            return '$' . number_format($this->amount / 100, 2);
         }
 
         return $this->subtotal;
@@ -76,7 +82,7 @@ class Order extends Model
 
     public function getFormattedConfirmationNumberAttribute()
     {
-        if($this->isPaid()) {
+        if ($this->isPaid()) {
             return hyphenate($this->confirmation_number);
         }
 
@@ -90,11 +96,11 @@ class Order extends Model
 
     public function getSubtotalAttribute()
     {
-        $sum = $this->tickets->sum(function($ticket) {
+        $sum = $this->tickets->sum(function ($ticket) {
             return $ticket->price->cost;
         });
 
-        return '$' . number_format($sum/100, 2);
+        return '$' . number_format($sum / 100, 2);
     }
 
     // Methods
@@ -142,12 +148,12 @@ class Order extends Model
 
     public function transactionDetails()
     {
-        if($this->isPaid()) {
-            if(Str::startsWith($this->transaction_id, 'ch_')) {
+        if ($this->isPaid()) {
+            if (Str::startsWith($this->transaction_id, 'ch_')) {
                 //
             } elseif (Str::startsWith($this->transaction_id, 'pi_')) {
-                $stripe = new \Stripe\StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
-                dd($stripe->paymentIntents->retrieve($this->transaction_id,[]));
+                $stripe = new StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
+                // dd($stripe->paymentIntents->retrieve($this->transaction_id, []));
             }
         }
     }

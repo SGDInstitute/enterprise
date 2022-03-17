@@ -1,5 +1,5 @@
 <div class="container max-w-6xl p-4 mx-auto md:pb-12 md:pt-6 md:px-0">
-    @if(!$checkedIn)
+    @if (!$checkedIn)
     <div class="p-4 mb-8 bg-green-600 rounded-md">
         <div class="flex">
             <div class="flex-shrink-0">

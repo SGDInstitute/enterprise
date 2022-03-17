@@ -8,7 +8,7 @@
         <div class="flex items-center justify-center w-full h-full">
             <div>
                 <h1 id="name" class="mt-8 mb-2 text-3xl font-semibold leading-none tracking-wide text-center font-raleway">{{ $user->name }}</h1>
-                @if($user->pronouns)
+                @if ($user->pronouns)
                 <p id="pronouns" class="mb-1 font-sans text-xl leading-none text-center">{{ $user->pronouns }}</p>
                 @endif
             </div>

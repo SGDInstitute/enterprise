@@ -1,12 +1,5 @@
 <?php
 
-use function GuzzleHttp\json_encode;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-
 if (! function_exists('isInternetExplorer')) {
     function isInternetExplorer()
     {
@@ -28,17 +21,58 @@ if (! function_exists('hyphenate')) {
 if (! function_exists('markdown')) {
     function markdown($text)
     {
-        return (new ParsedownExtra)->text($text);
+        return (new ParsedownExtra())->text($text);
     }
 }
 
 if (! function_exists('stripeUrl')) {
     function stripeUrl($text)
     {
-        if (env('APP_ENV') === 'production') {
-            return 'https://dashboard.stripe.com/search?query='.$text;
+        if (config('app.env') === 'production') {
+            return 'https://dashboard.stripe.com/search?query=' . $text;
         }
 
-        return 'https://dashboard.stripe.com/test/search?query='.$text;
+        return 'https://dashboard.stripe.com/test/search?query=' . $text;
+    }
+}
+
+if (! function_exists('array_shove')) {
+    function array_shove(array $array, $selected_key, $direction)
+    {
+        $new_array = [];
+
+        foreach ($array as $key => $value) {
+            if ($key !== $selected_key) {
+                $new_array["{$key}"] = $value;
+                $last = ['key' => $key, 'value' => $value];
+                unset($array["{$key}"]);
+            } else {
+                if ($direction !== 'up') {
+                    // Value of next, moves pointer
+                    $next_value = next($array);
+
+                    // Key of next
+                    $next_key = key($array);
+
+                    // Check if $next_key is null,
+                    // indicating there is no more elements in the array
+                    if ($next_key !== null) {
+                        // Add -next- to $new_array, keeping -current- in $array
+                        $new_array["{$next_key}"] = $next_value;
+                        unset($array["{$next_key}"]);
+                    }
+                } else {
+                    if (isset($last['key'])) {
+                        unset($new_array["{$last['key']}"]);
+                    }
+                    // Add current $array element to $new_array
+                    $new_array["{$key}"] = $value;
+                    // Re-add $last to $new_array
+                    $new_array["{$last['key']}"] = $last['value'];
+                }
+                // Merge new and old array
+                return $new_array + $array;
+            }
+        }
     }
 }

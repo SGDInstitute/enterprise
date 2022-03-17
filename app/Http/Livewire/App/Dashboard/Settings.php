@@ -10,14 +10,6 @@ class Settings extends Component
 {
     public User $user;
 
-    protected function rules() {
-        return [
-            'user.name' => ['required', 'string', 'max:255'],
-            'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user->id)],
-            'user.pronouns' => [],
-        ];
-    }
-
     public function mount()
     {
         $this->user = auth()->user();
@@ -34,5 +26,14 @@ class Settings extends Component
 
         $this->user->save();
         $this->emit('notify', ['message' => 'Successfully saved your settings', 'type' => 'success']);
+    }
+
+    protected function rules()
+    {
+        return [
+            'user.name' => ['required', 'string', 'max:255'],
+            'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user->id)],
+            'user.pronouns' => [],
+        ];
     }
 }

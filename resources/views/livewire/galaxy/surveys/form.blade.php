@@ -8,7 +8,7 @@
         </x-bit.input.group>
         <x-bit.input.group for="event" label="Event">
             <x-bit.input.select class="block w-full mt-1" id="event" name="event" placeholder="Select event (optional)" wire:model="survey.event_id">
-                @foreach($events as $event)
+                @foreach ($events as $event)
                 <option value="{{ $event->id }}">{{ $event->name }}</option>
                 @endforeach
             </x-bit.input.select>
@@ -21,7 +21,7 @@
         </x-bit.input.group>
         <x-bit.input.group for="timezone" label="Timezone">
             <x-bit.input.select class="block w-full mt-1" wire:model="survey.timezone" id="timezone">
-                @foreach($timezones as $value => $label)
+                @foreach ($timezones as $value => $label)
                 <option value="{{ $value }}">{{ $label }}</option>
                 @endforeach
             </x-bit.input.select>
@@ -29,7 +29,7 @@
 
         <x-bit.input.group for="searchable" label="Searchable Questions">
             <x-bit.input.select multiple class="block w-full mt-1" id="searchable" name="searchable" wire:model="searchable">
-                @foreach($searchableFields as $id => $question)
+                @foreach ($searchableFields as $id => $question)
                 <option value="{{ $id }}">{{ $question }}</option>
                 @endforeach
             </x-bit.input.select>
@@ -42,8 +42,8 @@
 
     <h2 class="text-gray-600 dark:text-gray-400">Form</h2>
 
-    @forelse($form as $index => $question)
-        @if($question['style'] === 'question')
+    @forelse ($form as $index => $question)
+        @if ($question['style'] === 'question')
             @include('livewire.galaxy.forms.question')
         @elseif ($question['style'] === 'content')
             @include('livewire.galaxy.forms.content')
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="relative flex-1 px-4 mt-6 sm:px-6">
-                                @if(isset($form[$openIndex]) && $form[$openIndex]['style'] === 'question')
+                                @if (isset($form[$openIndex]) && $form[$openIndex]['style'] === 'question')
                                 <div class="space-y-8">
                                     <div class="space-y-4">
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-200">Validation</h3>
@@ -106,7 +106,7 @@
                                                 </x-bit.input.select>
                                             </x-bit.input.group>
 
-                                            @if(isset($form[$openIndex]['visibility']) && $form[$openIndex]['visibility'] === 'conditional')
+                                            @if (isset($form[$openIndex]['visibility']) && $form[$openIndex]['visibility'] === 'conditional')
                                             <x-bit.input.group class="col-span-2" :for="'question-visibility-andor-'.$openIndex" label="And/Or for conditions" sr-only>
                                                 <x-bit.input.select class="w-full mt-1" :id="'question-visibility-andor-'.$openIndex" wire:model="form.{{ $openIndex }}.visibility-andor">
                                                     <option value="" disabled>-</option>
@@ -116,13 +116,13 @@
                                             </x-bit.input.group>
 
                                             <div class="col-span-3 space-y-4">
-                                                @isset($form[$openIndex]['conditions'])
-                                                @foreach($form[$openIndex]['conditions'] as $index => $condition)
+                                                @isset ($form[$openIndex]['conditions'])
+                                                @foreach ($form[$openIndex]['conditions'] as $index => $condition)
                                                 <div class="flex space-x-4">
                                                     <x-bit.input.group :for="'condition-field-'.$index" label="Field" sr-only>
                                                         <x-bit.input.select class="w-full mt-1" :id="'condition-field-'.$index" wire:model="form.{{ $openIndex }}.conditions.{{ $index }}.field">
                                                             <option value="" disabled>-</option>
-                                                            @foreach($fields as $field)
+                                                            @foreach ($fields as $field)
                                                             <option value="{{ $field }}">{{ $field }}</option>
                                                             @endforeach
                                                         </x-bit.input.select>
@@ -152,7 +152,7 @@
                                         </div>
 
 
-                                        @if(isset($form[$openIndex]['visibility']) && $form[$openIndex]['visibility'] === 'conditional')
+                                        @if (isset($form[$openIndex]['visibility']) && $form[$openIndex]['visibility'] === 'conditional')
                                         <x-bit.button.round.secondary wire:click="addCondition">Add Condition</x-bit.button.round.secondary>
                                         @endif
                                     </div>

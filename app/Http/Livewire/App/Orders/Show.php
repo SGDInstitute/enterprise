@@ -60,7 +60,7 @@ class Show extends Component
 
     public function checkinComplete()
     {
-        if($this->order->tickets->firstWhere('user_id', auth()->id()) !== null) {
+        if ($this->order->tickets->firstWhere('user_id', auth()->id()) !== null) {
             return $this->order->tickets->firstWhere('user_id', auth()->id())->isQueued();
         }
 
@@ -69,7 +69,7 @@ class Show extends Component
 
     public function checkinLink()
     {
-        if($this->order->tickets->firstWhere('user_id', auth()->id()) !== null) {
+        if ($this->order->tickets->firstWhere('user_id', auth()->id()) !== null) {
             $ticket = $this->order->tickets->firstWhere('user_id', auth()->id());
 
             return route('app.checkin', $ticket);
@@ -102,4 +102,4 @@ class Show extends Component
         $this->order->save();
         $this->emit('notify', ['message' => 'Successfully saved invoice details.', 'type' => 'success']);
     }
- }
+}

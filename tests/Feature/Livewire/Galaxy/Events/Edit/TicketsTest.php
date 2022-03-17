@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Livewire\Galaxy\Events\Edit;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Event;
-use Livewire\Livewire;
 use App\Models\TicketType;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
+use Tests\TestCase;
 
 class TicketsTest extends TestCase
 {

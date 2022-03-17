@@ -10,9 +10,9 @@ use Livewire\WithPagination;
 
 class Reservations extends Component
 {
-    use WithPagination, WithSorting, WithFiltering;
-
-    protected $listeners = ['refresh' => '$refresh'];
+    use WithPagination;
+    use WithSorting;
+    use WithFiltering;
 
     public $event;
     public $user;
@@ -27,6 +27,8 @@ class Reservations extends Component
     public $showInvoiceModal = false;
     public $perPage = 25;
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function updatedSelectPage($value)
     {
         $this->selected = ($value) ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)->toArray() : [];
@@ -34,7 +36,7 @@ class Reservations extends Component
 
     public function updatedSelected($value)
     {
-        if(isset($value[0])) {
+        if (isset($value[0])) {
             $this->invoices[$value[0]] = ['check' => '', 'amount' => ''];
         }
     }
@@ -53,10 +55,10 @@ class Reservations extends Component
         return Order::reservations()
             ->join('events', 'orders.event_id', '=', 'events.id')
             ->join('users', 'orders.user_id', '=', 'users.id')
-            ->when($this->user, function($query) {
+            ->when($this->user, function ($query) {
                 $query->forUser($this->user);
             })
-            ->when($this->event, function($query) {
+            ->when($this->event, function ($query) {
                 $query->forEvent($this->event);
             })
             ->when($this->filters['search'], function ($query, $search) {

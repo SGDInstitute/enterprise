@@ -24,20 +24,20 @@ class Responses extends Component
     {
         return Response::query()
             ->with(['form', 'collaborators'])
-            ->when($this->formId !== null, function($query) {
+            ->when($this->formId !== null, function ($query) {
                 $query->where('form_id', $this->formId);
             })
-            ->when($this->type !== null, function($query) {
+            ->when($this->type !== null, function ($query) {
                 $query->where('type', $this->type);
             })
-            ->when($this->userId !== null, function($query) {
+            ->when($this->userId !== null, function ($query) {
                 $query->where('user_id', $this->userId);
             })
-            ->when($this->filters['search'] !== '', function($query) {
+            ->when($this->filters['search'] !== '', function ($query) {
                 $search = trim($this->filters['search']);
 
-                if($this->form->settings->get('searchable', []) !== []) {
-                    foreach($this->form->settings->get('searchable') as $index => $item) {
+                if ($this->form->settings->get('searchable', []) !== []) {
+                    foreach ($this->form->settings->get('searchable') as $index => $item) {
                         $function = $index === 0 ? 'where' : 'orWhere';
 
                         $query->$function('answers->' . $item, 'LIKE', '%' . $search . '%');
@@ -48,11 +48,11 @@ class Responses extends Component
 
                 $query->orWhere('status', 'LIKE', '%' . $search . '%');
             })
-            ->when($this->advancedChanged, function($query) {
-                foreach($this->advanced as $id => $value) {
-                    if(is_array($value) && $value !== []) {
+            ->when($this->advancedChanged, function ($query) {
+                foreach ($this->advanced as $id => $value) {
+                    if (is_array($value) && $value !== []) {
                         $query->whereIn('answers->' . $id, $value);
-                    } elseif(is_string($value)) {
+                    } elseif (is_string($value)) {
                         $query->where('answers->' . $id, 'LIKE', '%' . trim($value) . '%');
                     }
                 }

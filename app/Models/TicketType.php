@@ -11,8 +11,11 @@ class TicketType extends Model
 
     public $guarded = [];
 
-    protected $casts = ['form' => 'collection'];
-    public $dates = ['start', 'end'];
+    protected $casts = [
+        'end' => 'datetime',
+        'form' => 'collection',
+        'start' => 'datetime',
+    ];
 
     // Relationships
 
@@ -30,7 +33,7 @@ class TicketType extends Model
 
     public function getAvailablityAttribute()
     {
-        if($this->start && $this->end) {
+        if ($this->start && $this->end) {
             return 'Available: ' . $this->start->timezone($this->timezone)->format('M j') . ' - ' . $this->end->timezone($this->timezone)->format('M j, Y');
         }
     }

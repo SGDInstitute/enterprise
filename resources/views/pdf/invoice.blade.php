@@ -80,7 +80,7 @@
                 <th>Price</th>
                 <th>Total</th>
             </tr>
-            @foreach($order->ticketsFormattedForInvoice() as $ticket)
+            @foreach ($order->ticketsFormattedForInvoice() as $ticket)
             <tr>
                 <td>{{ $ticket['item'] }}</td>
                 <td>{{ $ticket['quantity'] }}</td>
@@ -101,7 +101,7 @@
                     <p>Please make check payable to “Midwest Institute for Sexuality and Gender Diversity” and mail payment to: {{ config('globals.institute_address') }}</p>
                 </td>
             </tr>
-            @if($order->event->refund_policy)
+            @if ($order->event->refund_policy)
             <tr>
                 <td>
                     {!! $order->event->refund_policy !!}

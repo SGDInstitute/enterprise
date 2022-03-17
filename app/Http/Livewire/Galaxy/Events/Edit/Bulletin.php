@@ -9,15 +9,15 @@ use Livewire\Component;
 
 class Bulletin extends Component
 {
-    protected $listeners = ['refresh' => '$refresh'];
-
     public Event $event;
     public EventBulletin $bulletin;
 
     public $formChanged = false;
     public $formattedPublish;
 
-    public $rules = [
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
         'bulletin.title' => 'required',
         'bulletin.content' => 'required',
         'formattedPublish' => 'required',
@@ -31,7 +31,7 @@ class Bulletin extends Component
 
     public function updating($field)
     {
-        if(in_array($field, array_keys($this->rules))) {
+        if (in_array($field, array_keys($this->rules))) {
             $this->formChanged = true;
         }
     }

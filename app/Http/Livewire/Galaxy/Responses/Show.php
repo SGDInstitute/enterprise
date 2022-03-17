@@ -14,14 +14,14 @@ class Show extends Component
         return view('livewire.galaxy.responses.show')
             ->layout('layouts.galaxy', ['title' => $this->response->name])
             ->with([
-                'qa' => $this->questionsAndAnswers
+                'qa' => $this->questionsAndAnswers,
             ]);
     }
 
     public function getQuestionsAndAnswersProperty()
     {
         return $this->response->form->form->filter(fn($item) => $item['style'] === 'question')
-            ->mapWithKeys(function($item) {
+            ->mapWithKeys(function ($item) {
                 return [$item['question'] => $this->response->answers[$item['id']] ? $this->response->answers[$item['id']] : 'was not answered'];
             });
     }

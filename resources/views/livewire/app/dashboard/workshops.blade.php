@@ -21,10 +21,10 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($workshops as $workshop)
+                @forelse ($workshops as $workshop)
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}">
                     <x-bit.table.cell>{{ $workshop->form->name }}</x-bit.table.cell>
-                    <x-bit.table.cell>{{ $workshop->name  }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $workshop->name }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $workshop->status }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $workshop->created_at->format('M, d Y') }}</x-bit.table.cell>
 
@@ -40,7 +40,7 @@
                     <x-bit.table.cell colspan="9">
                         <div class="flex items-center justify-center space-x-2">
                             <x-heroicon-o-users class="w-8 h-8 text-gray-400" />
-                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No workshops found...</span>
+                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No workshops found...</span>
                         </div>
                     </x-bit.table.cell>
                 </x-bit.table.row>

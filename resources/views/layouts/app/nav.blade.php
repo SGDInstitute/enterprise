@@ -1,5 +1,5 @@
 <div x-data="{ isOpen: false, isSearchOpen: false}">
-    <div id="navbar" class="fixed z-50 w-full bg-white shadow-md dark:bg-gray-900">
+    <div id="navbar" class="fixed z-50 w-full bg-white shadow-md dark:bg-gray-850">
         <div class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
             <div class="lg:w-0 lg:flex-1">
                 <a href="/" class="flex">
@@ -15,8 +15,8 @@
                 </button>
             </div>
             <nav class="hidden space-x-8 md:flex">
-                @isset($links)
-                @foreach($links as $link)
+                @isset ($links)
+                @foreach ($links as $link)
                 <a href="{{ $link['url'] }}" class="text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
                     {{ $link['text'] }}
                 </a>
@@ -70,8 +70,8 @@
                         </div>
                         <div>
                             <nav class="grid grid-cols-1 gap-7">
-                                @isset($links)
-                                @foreach($links as $link)
+                                @isset ($links)
+                                @foreach ($links as $link)
                                 <a href="{{ $link['url'] }}" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     {{ $link['text'] }}
                                 </a>
@@ -100,7 +100,7 @@
                                         Create an Account
                                     </a>
                                 @else
-                                    @can('galaxy.view')
+                                    @can ('galaxy.view')
                                     <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('app.dashboard') }}">Frontend</a>
                                     <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('galaxy.dashboard') }}">Galaxy</a>
                                     @endcan

@@ -10,7 +10,9 @@ use Livewire\WithPagination;
 
 class Surveys extends Component
 {
-    use WithFiltering, WithPagination, WithSorting;
+    use WithFiltering;
+    use WithPagination;
+    use WithSorting;
 
     public $perPage = 10;
 
@@ -27,6 +29,4 @@ class Surveys extends Component
     {
         return Form::where('type', 'survey')->paginate($this->perPage);
     }
-
-
 }

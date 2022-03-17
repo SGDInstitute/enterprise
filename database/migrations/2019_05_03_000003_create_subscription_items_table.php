@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSubscriptionItemsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('subscription_items', function (Blueprint $table) {
@@ -25,11 +20,6 @@ class CreateSubscriptionItemsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('subscription_items');

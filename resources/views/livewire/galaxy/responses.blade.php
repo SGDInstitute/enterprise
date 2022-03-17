@@ -12,7 +12,7 @@
         <x-bit.table>
             <x-slot name="head">
                 <x-bit.table.heading>Status</x-bit.table.heading>
-                @forelse($form->settings->searchable as $label)
+                @forelse ($form->settings->searchable as $label)
                 <x-bit.table.heading>{{ str_replace(['question', '_', '-'], '', $label) }}</x-bit.table.heading>
                 @empty
                 <x-bit.table.heading>Workshop</x-bit.table.heading>
@@ -22,21 +22,21 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($workshops as $workshop)
+                @forelse ($workshops as $workshop)
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}">
                     <x-bit.table.cell class="flex items-center space-x-1">
                         <span>{{ $workshop->status }}</span>
-                        @if(isset($assignedWorkshops[$workshop->id]))
+                        @if (isset($assignedWorkshops[$workshop->id]))
                         <x-bit.button.link size="py-1 px-2" wire:click="editItem({{ $assignedWorkshops[$workshop->id] }})">
                             <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
-                        @elseif($workshop->status === 'approved' && $event->items->count() > 0)
+                        @elseif ($workshop->status === 'approved' && $event->items->count() > 0)
                         <x-bit.button.link size="py-1 px-2" wire:click="assignTime({{ $workshop->id }})">
                             <x-heroicon-o-calendar class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                         @endif
                     </x-bit.table.cell>
-                    @forelse($form->settings->searchable as $item)
+                    @forelse ($form->settings->searchable as $item)
                     <x-bit.table.cell>
                         {{ $workshop->answers[$item] ?? '?' }}
                     </x-bit.table.cell>
@@ -57,7 +57,7 @@
                     <x-bit.table.cell colspan="9">
                         <div class="flex items-center justify-center space-x-2">
                             <x-heroicon-o-users class="w-8 h-8 text-gray-400" />
-                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No {{ $type ?? 'responses' }} found...</span>
+                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No {{ $type ?? 'responses' }} found...</span>
                         </div>
                     </x-bit.table.cell>
                 </x-bit.table.row>

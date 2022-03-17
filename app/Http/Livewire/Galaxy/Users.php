@@ -10,7 +10,9 @@ use Livewire\WithPagination;
 
 class Users extends Component
 {
-    use WithSorting, WithFiltering, WithPagination;
+    use WithSorting;
+    use WithFiltering;
+    use WithPagination;
 
     public $filters =  [
         'search' => '',

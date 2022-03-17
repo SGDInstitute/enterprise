@@ -41,19 +41,20 @@ class Create extends Component
         'event.settings.allow_donations' => 'boolean',
     ];
 
-    public function mount() {
+    public function mount()
+    {
         $this->event = Event::make(['name' => '', 'start' => '', 'end' => '']);
     }
 
     public function updating($field, $value)
     {
-        if($field === 'preset') {
+        if ($field === 'preset') {
             $this->event = Event::make(['name' => '', 'start' => '', 'end' => '']);
             $this->setUpPreset($value);
             $this->formChanged = true;
         }
 
-        if(in_array($field, array_keys($this->rules))) {
+        if (in_array($field, array_keys($this->rules))) {
             $this->formChanged = true;
         }
     }
@@ -63,7 +64,7 @@ class Create extends Component
         return view('livewire.galaxy.events.create')
             ->layout('layouts.galaxy', ['title' => 'Create an Event'])
             ->with([
-                'timezones' => $this->timezones
+                'timezones' => $this->timezones,
             ]);
     }
 
@@ -79,7 +80,7 @@ class Create extends Component
     public function setUpPreset($preset)
     {
         $this->event->timezone = 'America/New_York';
-        if($preset === 'mblgtacc') {
+        if ($preset === 'mblgtacc') {
             $this->event->name = 'MBLGTACC 20XX';
             $start = new Carbon('first Friday of October');
             $this->event->start = $start->addHours(17)->format('m/d/Y h:i A');
@@ -87,7 +88,7 @@ class Create extends Component
             $this->event->order_prefix = 'MBL';
             $this->event->description = 'The Midwest Bisexual Lesbian Gay Transgender Asexual College Conference (MBLGTACC) is an annual conference held to connect, educate, and empower LGBTQIA+ college students, faculty, and staff around the Midwest and beyond. It has attracted advocates and thought leaders including Angela Davis, Robyn Ochs, Janet Mock, Laverne Cox, Kate Bornstein, Faisal Alam, and LZ Granderson; and entertainers and artists including Margaret Cho, J Mase III, Chely Wright, and Loren Cameron.';
         }
-        if($preset === 'mblgtacc' || $preset === 'conference') {
+        if ($preset === 'mblgtacc' || $preset === 'conference') {
             $this->event->settings = [
                 'reservations' => true,
                 'volunteer_discounts' => true,
@@ -107,7 +108,7 @@ class Create extends Component
                 'allow_donations' => true,
             ];
         }
-        if($preset === 'small') {
+        if ($preset === 'small') {
             $this->event->settings = [
                 'reservations' => true,
                 'volunteer_discounts' => true,
@@ -127,7 +128,7 @@ class Create extends Component
                 'allow_donations' => true,
             ];
         }
-        if($preset === 'virtual') {
+        if ($preset === 'virtual') {
             $this->event->settings = [
                 'reservations' => false,
                 'volunteer_discounts' => false,
@@ -148,5 +149,4 @@ class Create extends Component
             ];
         }
     }
-
 }

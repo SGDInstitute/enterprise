@@ -1,5 +1,5 @@
 <div class="mt-5">
-    @if(!$user->hasVerifiedEmail())
+    @if (!$user->hasVerifiedEmail())
         @include('livewire.galaxy.users.partials.verified-email')
     @endif
 

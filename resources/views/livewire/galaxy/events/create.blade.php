@@ -30,7 +30,7 @@
                     </x-bit.input.group>
                     <x-bit.input.group for="timezone" label="Timezone" class="col-span-2">
                         <x-bit.input.select class="block w-full mt-1" wire:model="event.timezone" id="timezone">
-                            @foreach($timezones as $value => $label)
+                            @foreach ($timezones as $value => $label)
                             <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-bit.input.select>
@@ -94,7 +94,7 @@
         </x-bit.panel.body>
 
         <x-bit.panel.footer>
-            @if($formChanged)
+            @if ($formChanged)
             <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
             <x-bit.badge color="indigo" class="ml-4">
                 Unsaved Changes

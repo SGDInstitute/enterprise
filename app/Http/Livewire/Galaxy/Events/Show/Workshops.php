@@ -13,9 +13,9 @@ use Livewire\WithPagination;
 
 class Workshops extends Component
 {
-    use WithPagination, WithSorting, WithFiltering;
-
-    protected $listeners = ['refresh' => '$refresh'];
+    use WithPagination;
+    use WithSorting;
+    use WithFiltering;
 
     public Event $event;
     public Form $form;
@@ -26,12 +26,14 @@ class Workshops extends Component
     public $editingTracks;
     public $editingWorkshopId;
     public $filters =  [
-        'search' => ''
+        'search' => '',
     ];
     public $perPage = 25;
     public $showItemModal = false;
 
-    public $rules = [
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.parent_id' => 'required',
         'editingItem.description' => 'required',
@@ -41,20 +43,20 @@ class Workshops extends Component
     public function mount()
     {
         $this->form = $this->event->workshopForm;
-        $this->editingItem = new EventItem;
+        $this->editingItem = new EventItem();
 
-        if($this->form->settings->get('searchable')) {
+        if ($this->form->settings->get('searchable')) {
             $this->setAdvancedForm();
         }
     }
 
     public function updating($field, $value)
     {
-        if(strpos($field, 'advanced') !== false) {
+        if (strpos($field, 'advanced') !== false) {
             $this->advancedChanged = true;
         }
 
-        if($field === 'editingItem.parent_id') {
+        if ($field === 'editingItem.parent_id') {
             $this->editingTracks = $this->slots->firstWhere('id', $value)->tagsWithType('tracks')->pluck('name')->join(',');
         }
     }
@@ -73,7 +75,7 @@ class Workshops extends Component
 
     public function getAdvancedSearchFormProperty()
     {
-        if($this->form->settings->get('searchable')) {
+        if ($this->form->settings->get('searchable')) {
             return $this->form->form->whereIn('id', $this->form->settings->searchable);
         }
     }
@@ -93,11 +95,11 @@ class Workshops extends Component
         return Response::query()
             ->with(['form', 'collaborators'])
             ->where('type', 'workshop')
-            ->when($this->filters['search'] !== '', function($query) {
+            ->when($this->filters['search'] !== '', function ($query) {
                 $search = trim($this->filters['search']);
 
-                if($this->form->settings->get('searchable', []) !== []) {
-                    foreach($this->form->settings->get('searchable') as $index => $item) {
+                if ($this->form->settings->get('searchable', []) !== []) {
+                    foreach ($this->form->settings->get('searchable') as $index => $item) {
                         $function = $index === 0 ? 'where' : 'orWhere';
 
                         $query->$function('answers->' . $item, 'LIKE', '%' . $search . '%');
@@ -108,11 +110,11 @@ class Workshops extends Component
 
                 $query->orWhere('status', 'LIKE', '%' . $search . '%');
             })
-            ->when($this->advancedChanged, function($query) {
-                foreach($this->advanced as $id => $value) {
-                    if(is_array($value) && $value !== []) {
+            ->when($this->advancedChanged, function ($query) {
+                foreach ($this->advanced as $id => $value) {
+                    if (is_array($value) && $value !== []) {
                         $query->whereIn('answers->' . $id, $value);
-                    } elseif(is_string($value)) {
+                    } elseif (is_string($value)) {
                         $query->where('answers->' . $id, 'LIKE', '%' . trim($value) . '%');
                     }
                 }
@@ -145,7 +147,7 @@ class Workshops extends Component
     public function resetItemModal()
     {
         $this->showItemModal = false;
-        $this->editingItem = new EventItem;
+        $this->editingItem = new EventItem();
         $this->reset('editingTracks', 'editingWorkshopId');
     }
 
@@ -163,7 +165,7 @@ class Workshops extends Component
 
         $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
 
-        if($this->editingWorkshop->status !== 'scheduled') {
+        if ($this->editingWorkshop->status !== 'scheduled') {
             $this->editingWorkshop->status = 'scheduled';
             activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => 'Scheduled for ' . $this->editingItem->formattedDuration])->log('scheduled');
             // send notification
@@ -180,9 +182,9 @@ class Workshops extends Component
     {
         $this->advanced = $this->form->form
             ->whereIn('id', $this->form->settings->searchable)
-            ->mapWithKeys(function($item) {
-                if($item['style'] === 'question') {
-                    if($item['type'] === 'list') {
+            ->mapWithKeys(function ($item) {
+                if ($item['style'] === 'question') {
+                    if ($item['type'] === 'list') {
                         return [$item['id'] => []];
                     }
                     return [$item['id'] => ''];

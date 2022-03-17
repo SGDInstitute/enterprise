@@ -11,7 +11,7 @@ class EventBulletin extends Model
 
     public $guarded = [];
 
-    public $dates = ['published_at'];
+    protected $casts = ['published_at' => 'datetime'];
 
     // Relations
 

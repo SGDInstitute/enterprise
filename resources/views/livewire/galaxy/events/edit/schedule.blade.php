@@ -27,7 +27,7 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($items as $item)
+                @forelse ($items as $item)
                 <x-bit.table.row wire:key="row-{{ $item->id }}">
                     <x-bit.table.cell>{{ $item->formattedDuration ?? '?' }}</x-bit.table.cell>
                     <x-bit.table.cell class="flex items-end space-x-4">{{ $item->location }}</x-bit.table.cell>
@@ -45,7 +45,7 @@
                     <x-bit.table.cell colspan="9">
                         <div class="flex items-center justify-center space-x-2">
                             <x-heroicon-o-calendar class="w-8 h-8 text-gray-400" />
-                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No sub items found...</span>
+                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No sub items found...</span>
                         </div>
                     </x-bit.table.cell>
                 </x-bit.table.row>
@@ -72,7 +72,7 @@
                             <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-tracks" />
                         </x-bit.input.group>
                     </div>
-                    @if($showItemModal)
+                    @if ($showItemModal)
                     <x-bit.input.group for="editing-item-description" label="Description">
                         <x-bit.input.markdown id="editing-item-description" class="block w-full mt-1" type="text" name="description" wire:model="editingItem.description" />
                     </x-bit.input.group>

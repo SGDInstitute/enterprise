@@ -2,10 +2,9 @@
 
 use App\Models\Event;
 use App\Models\EventBadgeQueue;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->get('/events/{event}/schedule', function (Event $event) {
+Route::middleware('auth:sanctum')->get('events/{event}/schedule', function (Event $event) {
     return $event->items->whereNull('parent_id')->values()->each(function ($item) {
         $item->title = $item->name;
         $item->start = $item->start->timezone($item->timezone);
@@ -15,7 +14,7 @@ Route::middleware('auth:sanctum')->get('/events/{event}/schedule', function (Eve
     });
 });
 
-Route::middleware('auth:sanctum')->get('/events/{event}/my-schedule', function (Event $event) {
+Route::middleware('auth:sanctum')->get('events/{event}/my-schedule', function (Event $event) {
     return request()->user()->schedule()
         ->where('event_id', $event->id)
         ->get()
@@ -28,10 +27,10 @@ Route::middleware('auth:sanctum')->get('/events/{event}/my-schedule', function (
         });
 });
 
-Route::get('/queue', function () {
+Route::get('queue', function () {
     return EventBadgeQueue::where('printed', false)->select('ticket_id', 'user_id', 'name', 'pronouns')->get();
 });
 
-Route::post('/queue/{ticket}/printed', function ($ticket) {
+Route::post('queue/{ticket}/printed', function ($ticket) {
     return EventBadgeQueue::where('ticket_id', $ticket)->first()->markAsPrinted();
 });

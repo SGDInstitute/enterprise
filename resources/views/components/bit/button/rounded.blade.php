@@ -21,7 +21,7 @@ if($block) {
 }
 @endphp
 
-@if($attributes->get('href'))
+@if ($attributes->get('href'))
 <a {{ $attributes->merge(['class' => $class]) }}>{{ $slot }}</a>
 @else
 <button {{ $attributes->merge(['type' => 'button', 'class' => $class]) }}>{{ $slot }}</button>

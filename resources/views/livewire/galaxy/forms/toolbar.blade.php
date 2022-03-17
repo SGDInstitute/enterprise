@@ -1,6 +1,6 @@
 <div class="flex items-center space-x-6">
     <div class="flex space-x-2">
-        @if($openIndex === $index)
+        @if ($openIndex === $index)
         <button wire:click="setOpenIndex(null)" class="text-gray-500">
             <x-heroicon-o-minus class="w-4 h-4" />
         </button>
@@ -11,7 +11,7 @@
         @endif
     </div>
     <div class="flex space-x-2">
-        @if($loop->first)
+        @if ($loop->first)
         <button disabled class="text-gray-500 opacity-75 cursor-not-allowed">
             <x-heroicon-o-chevron-up class="w-4 h-4" />
         </button>
@@ -21,7 +21,7 @@
         </button>
         @endif
 
-        @if($loop->last)
+        @if ($loop->last)
         <button disabled class="text-gray-500 opacity-75 cursor-not-allowed">
             <x-heroicon-o-chevron-down class="w-4 h-4" />
         </button>

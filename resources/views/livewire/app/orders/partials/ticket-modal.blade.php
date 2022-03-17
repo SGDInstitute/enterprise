@@ -6,13 +6,13 @@
 
         <x-slot name="content">
             <div class="space-y-4">
-                @if($editingTicket->user_id === null || $editingTicket->id === auth()->id())
+                @if ($editingTicket->user_id === null || $editingTicket->id === auth()->id())
                 <x-bit.button.round.secondary size="xs" wire:click="loadAuthUser">Load My Information</x-bit.button.round.secondary>
                 @endif
                 <x-bit.input.group for="ticketholder-email" label="Email">
                     <x-bit.input.text class="w-full mt-1" type="email" id="ticketholder-email" wire:model.lazy="ticketholder.email" />
                 </x-bit.input.group>
-                @if($emailChanged)
+                @if ($emailChanged)
                 <div>
                     <p class="dark:text-gray-200">Looks like the email changed, did you want to fix a typo or invite someone else?</p>
 
@@ -27,8 +27,8 @@
                     <x-bit.input.text class="w-full mt-1" type="text" id="ticketholder-pronouns" wire:model="ticketholder.pronouns" />
                 </x-bit.input.group>
 
-                @if($editingTicket !== null && $editingTicket->ticketType->form)
-                    @foreach($editingTicket->ticketType->form as $item)
+                @if ($editingTicket !== null && $editingTicket->ticketType->form)
+                    @foreach ($editingTicket->ticketType->form as $item)
                         @include('livewire.app.forms.partials.' . $item['style'])
                     @endforeach
                 @endif
@@ -39,7 +39,7 @@
             <div class="space-x-2">
                 <x-bit.button.flat.secondary wire:click="$set('showTicketholderModal', false)">Cancel</x-bit.button.flat.secondary>
 
-                @if($editingTicket->user_id !== null)
+                @if ($editingTicket->user_id !== null)
                 <x-bit.button.flat.primary type="submit" wire:click="$set('continue', false)">Save</x-bit.button.flat.primary>
                 @else
                 <x-bit.button.flat.primary type="submit" wire:click="$set('continue', false)">Add</x-bit.button.flat.primary>

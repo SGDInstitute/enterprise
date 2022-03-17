@@ -1,10 +1,10 @@
 @props(['title', 'icon', 'button'])
 
 <div x-data="{ isOpen: false }">
-    @isset($button)
+    @isset ($button)
         {{ $button }}
     @else
-        @isset($icon)
+        @isset ($icon)
         <button type="button" @click="isOpen = !isOpen" class="text-gray-500 transition duration-150 ease-in-out dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
             <x-dynamic-component :component="$icon" class="w-6 h-6" />
         </button>

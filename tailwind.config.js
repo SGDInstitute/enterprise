@@ -1,18 +1,18 @@
+const colors = require('tailwindcss/colors')
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
-    purge: {
-        content: [
-            './resources/**/*.blade.php',
-        ],
-        options: {
-            safelist: ['prose-light', 'dark:prose-dark'],
-        },
-    },
-    darkMode: 'media',
+    content: [
+        './resources/**/*.blade.php',
+    ],
+
     theme: {
         extend: {
             colors: {
+                gray: {
+                    850: '#172033',
+                    ...colors.slate
+                },
                 green: {
                     50: '#F3F9F8',
                     100: '#E6F2F2',
@@ -24,6 +24,11 @@ module.exports = {
                     700: '#044D4A',
                     800: '#033A37',
                     900: '#022625',
+                },
+                yellow: {
+                    400: '#F4C33E',
+                    500: '#F2B716',
+                    600: '#D49F0C',
                 },
             },
             height: {
@@ -196,12 +201,7 @@ module.exports = {
             }),
         },
     },
-    variants: {
-        extend: {
-            display: ['dark'],
-            typography: ['dark']
-        }
-    },
+
     plugins: [
         require('@tailwindcss/typography'),
         require('@tailwindcss/forms'),

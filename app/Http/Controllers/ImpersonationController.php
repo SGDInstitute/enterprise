@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Lab404\Impersonate\Services\ImpersonateManager;
 
 class ImpersonationController extends Controller
@@ -18,18 +17,18 @@ class ImpersonationController extends Controller
         $this->manager = app()->make(ImpersonateManager::class);
 
         $guard = $this->manager->getDefaultSessionGuard();
-        $this->middleware('auth:' . $guard)->only('take');
+        // $this->middleware('auth:' . $guard)->only('take');
     }
 
     public function __invoke()
     {
-        if (!$this->manager->isImpersonating()) {
+        if (! $this->manager->isImpersonating()) {
             abort(403);
         }
 
         $this->manager->leave();
 
-        if(session('after_impersonation') !== null) {
+        if (session('after_impersonation') !== null) {
             return redirect(session('after_impersonation'));
         }
 

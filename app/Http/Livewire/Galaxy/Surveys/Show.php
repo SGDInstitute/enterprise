@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Galaxy\Surveys;
 
+use App\Exports\ResponsesExport;
 use App\Models\Form;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Show extends Component
 {
@@ -31,35 +34,35 @@ class Show extends Component
 
         return $this->survey->form
             ->filter(fn($question) => $question['style'] !== 'content')
-            ->mapWithKeys(function($question) use ($answers) {
+            ->mapWithKeys(function ($question) use ($answers) {
                 $questionsAnswers = $answers->pluck($question['id']);
 
-                if($question['type'] === 'list' && (!isset($question['list-style']) || $question['list-style'] !== 'checkbox')) {
-                    if(isset($question['list-other']) && $question['list-other']) {
+                if ($question['type'] === 'list' && (! isset($question['list-style']) || $question['list-style'] !== 'checkbox')) {
+                    if (isset($question['list-other']) && $question['list-other']) {
                         $others = $answers->pluck($question['id'] . '-other')->filter(fn($answer) => $answer !== null && $answer != '');
 
                         return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->countBy(), 'others' => $others->join(', ')]];
                     }
 
                     return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->countBy()]];
-                } elseif($question['type'] === 'list' && $question['list-style'] === 'checkbox') {
-                    if(isset($question['list-other']) && $question['list-other']) {
+                } elseif ($question['type'] === 'list' && $question['list-style'] === 'checkbox') {
+                    if (isset($question['list-other']) && $question['list-other']) {
                         $others = $answers->pluck($question['id'] . '-other')->filter(fn($answer) => $answer !== null && $answer != '');
 
                         return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->flatten()->countBy(), 'others' => $others->join(', ')]];
                     }
 
                     return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->flatten()->countBy()]];
-                } elseif($question['type'] === 'matrix') {
+                } elseif ($question['type'] === 'matrix') {
                     $answers = [];
 
-                    foreach($question['options'] as $option) {
-                        $answers[$option] = $questionsAnswers->map(fn($answer) => Arr::get($answer, $option) ?? Arr::get($answer, " ".$option) ?? Arr::get($answer, $option." "))->countBy();
+                    foreach ($question['options'] as $option) {
+                        $answers[$option] = $questionsAnswers->map(fn($answer) => Arr::get($answer, $option) ?? Arr::get($answer, ' ' . $option) ?? Arr::get($answer, $option . ' '))->countBy();
                     }
 
                     return [$question['id'] => ['question' => $question, 'answers' => $answers]];
                 } else {
-                    return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->filter(fn($answer) => $answer !== null && $answer != '' && $answer != 'n/a' && $answer != 'N/A' && $answer != "-")]];
+                    return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->filter(fn($answer) => $answer !== null && $answer != '' && $answer != 'n/a' && $answer != 'N/A' && $answer != '-')]];
                 }
             });
     }
@@ -75,9 +78,15 @@ class Show extends Component
 
         $this->emit('notify', ['message' => 'Deleted response', 'type' => 'success']);
 
-        if($this->showModal) {
+        if ($this->showModal) {
             $this->foundResponses = $this->survey->responses()->where('answers', 'like', '%' . $this->foundAnswer . '%')->get();
         }
+    }
+
+    public function download()
+    {
+        $name = Str::slug($this->survey->name);
+        return Excel::download(new ResponsesExport($this->survey->id), "{$name}.xlsx");
     }
 
     public function showFullResponse($answer)

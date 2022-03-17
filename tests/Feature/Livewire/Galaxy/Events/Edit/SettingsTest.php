@@ -2,12 +2,11 @@
 
 namespace Tests\Feature\Livewire\Galaxy\Events\Edit;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Event;
-use Livewire\Livewire;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
+use Tests\TestCase;
 
 class SettingsTest extends TestCase
 {
@@ -47,7 +46,7 @@ class SettingsTest extends TestCase
                 'has_vendors' => false,
                 'has_ads' => false,
                 'allow_donations' => false,
-            ]
+            ],
         ]);
 
         Livewire::actingAs($user)

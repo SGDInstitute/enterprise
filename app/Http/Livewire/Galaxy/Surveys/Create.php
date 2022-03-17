@@ -11,7 +11,8 @@ use Livewire\Component;
 
 class Create extends Component
 {
-    use WithTimezones, WithFormBuilder;
+    use WithTimezones;
+    use WithFormBuilder;
 
     public Event $event;
     public Form $survey;
@@ -36,7 +37,7 @@ class Create extends Component
 
     public function mount()
     {
-        if(isset($this->survey)) {
+        if (isset($this->survey)) {
             $this->form = $this->survey->form ?? collect([]);
             $this->formattedStart = $this->survey->formattedStart;
             $this->formattedEnd = $this->survey->formattedEnd;
@@ -79,26 +80,26 @@ class Create extends Component
         $this->survey->start = Carbon::parse($this->formattedStart, $this->event->timezone ?? $this->survey->timezone)->timezone('UTC');
         $this->survey->end = Carbon::parse($this->formattedEnd, $this->event->timezone ?? $this->survey->timezone)->timezone('UTC');
 
-        if($this->form !== []) {
-            if(!is_array($this->form)) {
+        if ($this->form !== []) {
+            if (! is_array($this->form)) {
                 $form = $this->form->toArray();
             } else {
                 $form = $this->form;
             }
 
-            foreach($form as $index => $item) {
-                if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
-                    $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+            foreach ($form as $index => $item) {
+                if ($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
+                    $form[$index]['options'] = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
                 }
             }
             $this->survey->form = $form;
         }
 
-        if($this->searchable !== []) {
+        if ($this->searchable !== []) {
             $this->survey->settings->set('searchable', $this->searchable);
         }
 
-        if($this->survey->event_id == "") {
+        if ($this->survey->event_id == '') {
             $this->survey->event_id = null;
         }
         $this->survey->type = 'survey';

@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        if(!session()->has('url.intended')) {
+        if (! session()->has('url.intended')) {
             session(['url.intended' => url()->previous()]);
         }
 
@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if(session()->has('url.intended')) {
+        if (session()->has('url.intended')) {
             return redirect(session('url.intended'));
         }
 

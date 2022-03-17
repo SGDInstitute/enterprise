@@ -16,7 +16,7 @@
                 <option value="scaled-range">Scaled (Range)</option>
             </x-bit.input.select>
         </x-bit.input.group>
-        @if($ticketType->structure === 'scaled-defined' || $ticketType->structure === 'scaled-range')
+        @if ($ticketType->structure === 'scaled-defined' || $ticketType->structure === 'scaled-range')
         <div></div>
         <x-bit.input.group for="ticket-start" label="Availability Start">
             <x-bit.input.date-time id="ticket-start" class="block w-full mt-1" name="start" wire:model="formattedStart" />
@@ -26,7 +26,7 @@
         </x-bit.input.group>
         @endif
 
-        @if($ticketType->structure === 'scaled-range' && $ticketType->prices->count() === 0)
+        @if ($ticketType->structure === 'scaled-range' && $ticketType->prices->count() === 0)
         <div class="col-span-2">
             <h2 class="mb-2 text-lg dark:text-gray-200">Generate Prices</h2>
             <p class="mb-4 text-sm dark:text-gray-300">We need to create a price for each step in the range. Instead of making you add each price individually, Enterprise will do it for you when saving the ticket type.</p>
@@ -48,30 +48,30 @@
         @endif
     </div>
 
-    @if($ticketType->structure !== '' || ($ticketType->structure === 'scaled-range' && count($prices) > 0))
+    @if ($ticketType->structure !== '' || ($ticketType->structure === 'scaled-range' && count($prices) > 0))
     <div class="pt-4 space-y-6 border-t border-gray-200 dark:border-gray-900">
         <h2 class="text-xl dark:text-gray-200">Pricing</h2>
 
         <div class="space-y-4">
-            @foreach($prices as $index => $price)
+            @foreach ($prices as $index => $price)
             <div wire:key="$index" class="flex items-end space-x-4">
                 <x-bit.input.group :for="$index.'-prices-name'" label="Name">
-                    <x-bit.input.text :id="$index.'-prices-name'" class="w-full mt-1" type="text" name="cost" wire:model="prices.{{$index}}.name" />
+                    <x-bit.input.text :id="$index.'-prices-name'" class="w-full mt-1" type="text" name="cost" wire:model="prices.{{ $index }}.name" />
                 </x-bit.input.group>
-                @if($ticketType->structure === 'scaled-defined')
+                @if ($ticketType->structure === 'scaled-defined')
                 <x-bit.input.group :for="$index.'-prices-description'" label="Description">
-                    <x-bit.input.text :id="$index.'-prices-description'" class="w-full mt-1" type="text" name="cost" wire:model="prices.{{$index}}.description" />
+                    <x-bit.input.text :id="$index.'-prices-description'" class="w-full mt-1" type="text" name="cost" wire:model="prices.{{ $index }}.description" />
                 </x-bit.input.group>
                 @endif
                 <x-bit.input.group :for="$index.'-prices-cost'" label="Cost">
-                    <x-bit.input.currency :id="$index.'-prices-cost'" class="w-full mt-1" type="text" name="cost" wire:model="prices.{{$index}}.costInDollars" />
+                    <x-bit.input.currency :id="$index.'-prices-cost'" class="w-full mt-1" type="text" name="cost" wire:model="prices.{{ $index }}.costInDollars" />
                 </x-bit.input.group>
-                @if($ticketType->structure === 'flat')
+                @if ($ticketType->structure === 'flat')
                 <x-bit.input.group :for="$index.'-prices-start'" label="Availability Start">
-                    <x-bit.input.date-time :id="$index.'-prices-start'" class="block w-full mt-1" name="start" wire:model="prices.{{$index}}.formattedStart" />
+                    <x-bit.input.date-time :id="$index.'-prices-start'" class="block w-full mt-1" name="start" wire:model="prices.{{ $index }}.formattedStart" />
                 </x-bit.input.group>
                 <x-bit.input.group :for="$index.'-prices-end'" label="Availability End">
-                    <x-bit.input.date-time :id="$index.'-prices-end'" class="block w-full mt-1" name="end" wire:model="prices.{{$index}}.formattedEnd" />
+                    <x-bit.input.date-time :id="$index.'-prices-end'" class="block w-full mt-1" name="end" wire:model="prices.{{ $index }}.formattedEnd" />
                 </x-bit.input.group>
                 @endif
 
@@ -84,18 +84,18 @@
     </div>
     @endif
 
-    @if($ticketType->structure !== '')
+    @if ($ticketType->structure !== '')
     <div class="pt-4 mt-8 space-y-6 border-t border-gray-200 dark:border-gray-900">
         <h2 class="text-xl dark:text-gray-200">Form</h2>
 
-        @forelse($form as $index => $question)
-        @if($question['style'] === 'question')
-        @include('livewire.galaxy.forms.question')
-        @elseif ($question['style'] === 'content')
-        @include('livewire.galaxy.forms.content')
-        @elseif ($question['style'] === 'collaborators')
-        @include('livewire.galaxy.forms.collaborators')
-        @endif
+        @forelse ($form as $index => $question)
+            @if ($question['style'] === 'question')
+                @include('livewire.galaxy.forms.question')
+            @elseif ($question['style'] === 'content')
+                @include('livewire.galaxy.forms.content')
+            @elseif ($question['style'] === 'collaborators')
+                @include('livewire.galaxy.forms.collaborators')
+            @endif
         @empty
         <div class="p-4 rounded-md dark:bg-gray-700">
             <p class="dark:text-gray-200">This form is empty! Get started by adding a content section or a question below.</p>

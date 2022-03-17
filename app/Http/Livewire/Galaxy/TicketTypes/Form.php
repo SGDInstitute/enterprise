@@ -30,7 +30,7 @@ class Form extends Component
 
     public function mount()
     {
-        if($this->ticketType !== null) {
+        if ($this->ticketType !== null) {
             $this->setUpEditForm();
         } else {
             $this->setUpCreateForm();
@@ -39,7 +39,7 @@ class Form extends Component
 
     public function render()
     {
-        if($this->ticketType->id === null) {
+        if ($this->ticketType->id === null) {
             $title = 'Create Ticket Type for ' . $this->event->name;
         } else {
             $title = 'Edit Ticket Type for ' . $this->event->name;
@@ -70,7 +70,7 @@ class Form extends Component
     {
         $this->ticketType->event_id = $this->event->id;
         $this->ticketType->timezone = $this->event->timezone;
-        if($this->ticketType->structure === 'flat') {
+        if ($this->ticketType->structure === 'flat') {
             $this->ticketType->start = Carbon::parse(min(array_column($this->prices, 'formattedStart')), $this->ticketType->timezone)->timezone('UTC');
             $this->ticketType->end = Carbon::parse(max(array_column($this->prices, 'formattedEnd')), $this->ticketType->timezone)->timezone('UTC');
         } else {
@@ -78,16 +78,16 @@ class Form extends Component
             $this->ticketType->end = Carbon::parse($this->formattedEnd, $this->ticketType->timezone)->timezone('UTC');
         }
 
-        if($this->form !== []) {
-            if(!is_array($this->form)) {
+        if ($this->form !== []) {
+            if (! is_array($this->form)) {
                 $form = $this->form->toArray();
             } else {
                 $form = $this->form;
             }
 
-            foreach($form as $index => $item) {
-                if($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
-                    $form[$index]['options'] = explode(",", preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
+            foreach ($form as $index => $item) {
+                if ($item['style'] === 'question' && $item['type'] === 'list' && is_string($item['options'])) {
+                    $form[$index]['options'] = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['options']));
                 }
             }
             $this->ticketType->form = $form;
@@ -95,7 +95,7 @@ class Form extends Component
 
         $this->ticketType->save();
 
-        if($this->ticketType->structure === 'scaled-range' && $this->ticketType->prices->count() === 0) {
+        if ($this->ticketType->structure === 'scaled-range' && $this->ticketType->prices->count() === 0) {
             $creating = [];
 
             $generating = $this->prices[0];
@@ -117,7 +117,7 @@ class Form extends Component
                 return isset($i['id']);
             });
 
-            foreach($existing as $item) {
+            foreach ($existing as $item) {
                 Price::where('id', $item['id'])->update($item);
             }
             $this->ticketType->prices()->createMany($creating);
@@ -144,7 +144,7 @@ class Form extends Component
         $this->formattedStart = $this->ticketType->formattedStart;
         $this->formattedEnd = $this->ticketType->formattedEnd;
 
-        foreach($this->ticketType->prices as $price) {
+        foreach ($this->ticketType->prices as $price) {
             $this->prices[] = [
                 'id' => $price->id,
                 'name' => $price->name,
@@ -158,7 +158,7 @@ class Form extends Component
 
     private function preparePrices($prices)
     {
-        foreach($prices as $index => $price) {
+        foreach ($prices as $index => $price) {
             $prices[$index]['cost'] = $price['costInDollars'] * 100;
             $prices[$index]['start'] = Carbon::parse($price['formattedStart'], $this->ticketType->timezone ?? $this->event->timezone)->timezone('UTC');
             $prices[$index]['end'] = Carbon::parse($price['formattedEnd'], $this->ticketType->timezone ?? $this->event->timezone)->timezone('UTC');

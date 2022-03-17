@@ -4,12 +4,9 @@ namespace App\Http\Livewire\Galaxy\Events\Edit;
 
 use App\Models\Event;
 use Livewire\Component;
-use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 
 class Media extends Component
 {
-    use WithMedia;
-
     public Event $event;
 
     public $background;
@@ -28,7 +25,7 @@ class Media extends Component
 
     public function getBackgroundSrcProperty()
     {
-        if($this->background !== null) {
+        if ($this->background !== null) {
             return array_values($this->background)[0]['previewUrl'];
         }
 
@@ -37,7 +34,7 @@ class Media extends Component
 
     public function getLogoSrcProperty()
     {
-        if($this->logo !== null) {
+        if ($this->logo !== null) {
             return array_values($this->logo)[0]['previewUrl'];
         }
 

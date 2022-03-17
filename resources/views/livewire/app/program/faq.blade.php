@@ -5,7 +5,7 @@
     </div>
     <div class="mt-12 lg:mt-0 lg:col-span-2">
         <dl class="space-y-12">
-            @foreach($event->settings->faq as $faq)
+            @foreach ($event->settings->faq as $faq)
             <div>
                 <dt class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">
                     {{ $faq['name'] }}

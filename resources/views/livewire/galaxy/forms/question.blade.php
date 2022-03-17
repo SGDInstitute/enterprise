@@ -5,7 +5,7 @@
         </span>
         @include('livewire.galaxy.forms.toolbar')
     </div>
-    @if($openIndex === $index)
+    @if ($openIndex === $index)
     <div class="p-4 space-y-4 rounded-b-md">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
             <x-bit.input.group :for="'question-id-'.$index" label="ID">
@@ -16,7 +16,7 @@
             <x-bit.input.group :for="'question-type-'.$index" label="Type of Question">
                 <x-bit.input.select class="w-full mt-1" :id="'question-type-'.$index" wire:model="form.{{ $index }}.type">
                     <option value="" disabled>Select Type</option>
-                    @foreach($typeOptions as $value => $label)
+                    @foreach ($typeOptions as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </x-bit.input.select>

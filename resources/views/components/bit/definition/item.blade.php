@@ -13,11 +13,11 @@ if($width === '33/66') {
 @endphp
 
 <div class="sm:grid sm:{{ $grid ?? 'grid-cols-2' }} sm:gap-4 {{ $attributes->get('class') ?? 'px-4 py-2 sm:px-6 sm:py-5' }}">
-    <dt class="text-sm font-bold leading-5 text-gray-500 dark:text-gray-400 glacial {{ $dt }}">
+    <dt class="text-sm font-bold leading-5 text-gray-500 dark:text-gray-400 {{ $dt }}">
         {{ $key }}
     </dt>
-    <dd class="mt-1 text-sm leading-5 text-gray-900 dark:text-gray-100 glacial sm:mt-0 {{ $dd }}">
-        @if($value === '')
+    <dd class="mt-1 text-sm leading-5 text-gray-900 dark:text-gray-100 sm:mt-0 {{ $dd }}">
+        @if ($value === '')
         {{ $slot }}
         @else
         {{ $value }}

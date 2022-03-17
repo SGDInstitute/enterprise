@@ -1,4 +1,4 @@
-<footer class="mt-24 bg-gray-800 border-t border-gray-900">
+<footer class="mt-24 bg-gray-900 border-t border-gray-700">
     <div class="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:py-16 lg:px-8">
         <div class="xl:grid xl:grid-cols-3 xl:gap-8">
             <div class="space-y-8 xl:col-span-1">
@@ -88,7 +88,7 @@
                 </div>
             </div>
         </div>
-        <div class="pt-8 mt-12 border-t border-gray-200">
+        <div class="pt-8 mt-12 border-t border-gray-200 dark:border-gray-700">
             <p class="text-sm leading-6 text-gray-400 xl:text-center">
                 © {{ date('Y') }} Midwest Institute for Sexuality and Gender Diversity
             </p>

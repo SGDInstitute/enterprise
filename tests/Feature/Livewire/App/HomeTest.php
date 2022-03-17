@@ -4,7 +4,6 @@ namespace Tests\Feature\Livewire\App;
 
 use App\Http\Livewire\App\Home;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

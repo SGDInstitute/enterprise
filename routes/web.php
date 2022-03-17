@@ -3,42 +3,43 @@
 use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
 
-Route::post('/stripe/webhook',[WebhookController::class, 'handleWebhook']);
-
-Route::get('/impersonation/leave', App\Http\Controllers\ImpersonationController::class)->name('impersonation.leave');
+Route::get('impersonation/leave', App\Http\Controllers\ImpersonationController::class)->name('impersonation.leave');
 
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
 
-Route::get('/changelog', function() {
-    return view('app.changelog')->with(['content' => markdown(app('files')->get(base_path('/CHANGELOG.md')))]);
+Route::get('changelog', function () {
+    return view('app.changelog', ['content' => markdown(app('files')->get(base_path('/CHANGELOG.md')))]);
 });
 
-Route::get('/checkin/{ticket?}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
+Route::get('checkin/{ticket?}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
 
-Route::get('/donations/create/{type?}', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
+Route::get('donations/create', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
+Route::get('donations/process', App\Http\Controllers\DonationsProcessController::class)->name('app.donations.process');
 
-Route::get('/events', App\Http\Livewire\App\Events::class)->name('app.events');
-Route::get('/events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
+Route::get('events', App\Http\Livewire\App\Events::class)->name('app.events');
+Route::get('events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
 
-Route::get('/forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
-Route::get('/forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
+Route::get('forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
+Route::get('forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
 
-Route::get('/onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
+Route::get('onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
+    Route::get('dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
+    Route::get('donations/{donation}', App\Http\Livewire\App\Donations\Show::class)->name('app.donations.show');
 
-    Route::get('/billing-portal', function () {
+    Route::get('billing-portal', function () {
         return request()->user()->redirectToBillingPortal();
     })->name('app.billing-portal');
 
-    Route::get('/reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
+    Route::get('reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
 
-    Route::get('/orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
-    Route::get('/orders/{order}/receipt', function(App\Models\Order $order) {
+    Route::get('orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
+    Route::get('orders/{order}/receipt', function (App\Models\Order $order) {
         return view('pdf.receipt', ['order' => $order]);
     })->name('app.orders.show.receipt');
 

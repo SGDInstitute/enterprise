@@ -2,7 +2,7 @@
     <x-bit.form.header :form="$form" />
 
     <div class="container px-12 pb-12 mx-auto {{ auth()->guest() ? 'prose dark:prose-light' : '' }}">
-        @if(!$fillable)
+        @if (!$fillable)
         <div class="sticky z-50 mb-8 -mx-12 top-20">
             <div class="px-4 bg-green-100 rounded-md dark:bg-green-800">
                 <div class="flex items-center">
@@ -21,11 +21,11 @@
 
         <div class="{{ !$response->activities->isEmpty() ? 'flex justify-between' : '' }}">
             <form wire:submit.prevent="submit" class="mx-auto space-y-8 prose dark:prose-light">
-                @foreach($form->form as $item)
+                @foreach ($form->form as $item)
                 @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
                 @endforeach
 
-                @if($form->type === 'workshop')
+                @if ($form->type === 'workshop')
                 <x-bit.button.flat.secondary wire:click="save" :disabled="!$fillable">Save for Later</x-bit.button.flat.secondary>
                 <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
                 @else
@@ -33,7 +33,7 @@
                 @endif
             </form>
 
-            @if(!$response->activities->isEmpty())
+            @if (!$response->activities->isEmpty())
             <livewire:bit.response-log :response="$response" />
             @endif
         </div>
@@ -44,7 +44,7 @@
 
         <x-slot name="content">
             <div class="space-y-2">
-                @foreach($previousResponses as $response)
+                @foreach ($previousResponses as $response)
                 <div class="flex items-center justify-between">
                     <p class="dark:text-gray-200">{{ $response->name }}</p>
                     <x-bit.button.flat.primary size="xs" wire:click="load({{ $response->id }})">Load</x-bit.button.flat.primary>

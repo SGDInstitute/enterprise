@@ -3,7 +3,7 @@
         <div class="md:flex md:justify-between">
             <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
                 <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search Proposals..." />
-                @if($form->settings->searchable)
+                @if ($form->settings->searchable)
                 <x-bit.button.link @click="showAdvanced = !showAdvanced"><span x-show="showAdvanced" x-cloak>Hide</span> Advanced Search...</x-bit.button.link>
                 @endif
             </div>
@@ -16,22 +16,22 @@
         <div x-show="showAdvanced" x-cloak x-transition:enter="transition ease-out duration-100 transform" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
             <div class="relative p-4 bg-gray-200 rounded shadow-inner dark:bg-gray-700">
                 <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    @foreach($advancedSearchForm as $item)
-                    @if($item['type'] === 'text')
+                    @foreach ($advancedSearchForm as $item)
+                    @if ($item['type'] === 'text')
                     <x-bit.input.group :for="$item['id']" :label="$item['question']" :error="$errors->first('advanced.' . $item['id'])">
                         <x-bit.input.text type="text" class="w-full mt-1" :id="$item['id']" wire:model="advanced.{{ $item['id'] }}" />
                     </x-bit.input.group>
-                    @elseif($item['type'] === 'list')
+                    @elseif ($item['type'] === 'list')
                     <x-bit.input.group :for="$item['id']" :label="$item['question']" :error="$errors->first('advanced.' . $item['id'])">
                         <div class="mt-1 space-y-1">
-                            @foreach($item['options'] as $key => $label)
-                            @if(strpos($label, ':'))
+                            @foreach ($item['options'] as $key => $label)
+                            @if (strpos($label, ':'))
                             <x-bit.input.checkbox :value="explode(':', $label)[0]" :id="$item['id'].'-'.$key" :label="explode(':', $label)[0]" wire:model="advanced.{{ $item['id'] }}" />
                             @else
                             <x-bit.input.checkbox :value="$label" :id="$item['id'].'-'.$key" :label="$label" wire:model="advanced.{{ $item['id'] }}" />
                             @endif
                             @endforeach
-                            @if(isset($item['list-other']) && $item['list-other'] === true)
+                            @if (isset($item['list-other']) && $item['list-other'] === true)
                             <x-bit.input.checkbox value="other" label="Other" wire:model="advanced.{{ $item['id'] }}" />
                             @endif
                         </div>
@@ -45,7 +45,7 @@
         <x-bit.table>
             <x-slot name="head">
                 <x-bit.table.heading>Status</x-bit.table.heading>
-                @forelse($form->settings->searchable as $label)
+                @forelse ($form->settings->searchable as $label)
                 <x-bit.table.heading>{{ str_replace(['question', '_', '-'], '', $label) }}</x-bit.table.heading>
                 @empty
                 <x-bit.table.heading>Workshop</x-bit.table.heading>
@@ -55,21 +55,21 @@
             </x-slot>
 
             <x-slot name="body">
-                @forelse($workshops as $workshop)
+                @forelse ($workshops as $workshop)
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}">
                     <x-bit.table.cell class="flex items-center space-x-1">
                         <span>{{ $workshop->status }}</span>
-                        @if(isset($assignedWorkshops[$workshop->id]))
+                        @if (isset($assignedWorkshops[$workshop->id]))
                         <x-bit.button.link size="py-1 px-2" wire:click="editItem({{ $assignedWorkshops[$workshop->id] }})">
                             <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
-                        @elseif($workshop->status === 'approved' && $event->items->count() > 0)
+                        @elseif ($workshop->status === 'approved' && $event->items->count() > 0)
                         <x-bit.button.link size="py-1 px-2" wire:click="assignTime({{ $workshop->id }})">
                             <x-heroicon-o-calendar class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                         @endif
                     </x-bit.table.cell>
-                    @forelse($form->settings->searchable as $item)
+                    @forelse ($form->settings->searchable as $item)
                     <x-bit.table.cell>
                         {{ $workshop->answers[$item] ?? '?' }}
                     </x-bit.table.cell>
@@ -90,7 +90,7 @@
                     <x-bit.table.cell colspan="9">
                         <div class="flex items-center justify-center space-x-2">
                             <x-heroicon-o-users class="w-8 h-8 text-gray-400" />
-                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 glacial">No workshops found...</span>
+                            <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No workshops found...</span>
                         </div>
                     </x-bit.table.cell>
                 </x-bit.table.row>
@@ -105,7 +105,7 @@
 
     <form wire:submit.prevent="saveItem">
         <x-bit.modal.dialog wire:model.defer="showItemModal">
-            <x-slot name="title">{{ $editingItem->id !== null ? 'Create' : 'Edit'}} Item</x-slot>
+            <x-slot name="title">{{ $editingItem->id !== null ? 'Create' : 'Edit' }} Item</x-slot>
 
             <x-slot name="content">
                 <div class="space-y-2">
@@ -113,7 +113,7 @@
                         <x-bit.input.group for="editing-item-schedule-slot" label="Schedule Slot" class="md:col-span-3">
                             <x-bit.input.select class="w-full mt-1" wire:model="editingItem.parent_id" id="editing-item-schedule-slot">
                                 <option value="default" selected disabled>Select Slot</option>
-                                @foreach($slots as $slot)
+                                @foreach ($slots as $slot)
                                 <option value="{{ $slot->id }}">{{ $slot->name }}</option>
                                 @endforeach
                             </x-bit.input.select>

@@ -12,14 +12,20 @@ use Spatie\Tags\HasTags;
 
 class EventItem extends Model
 {
-    use HasFactory, HasSettings, HasSlug, HasTags;
+    use HasFactory;
+    use HasSettings;
+    use HasSlug;
+    use HasTags;
 
     public $guarded = [];
 
-    public $casts = ['settings' => 'array'];
-    public $dates = ['start', 'end'];
+    protected $casts = [
+        'end' => 'datetime',
+        'settings' => 'array',
+        'start' => 'datetime',
+    ];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')

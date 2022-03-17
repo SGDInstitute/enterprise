@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Event;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class EventFactory extends Factory
 {
@@ -19,7 +19,7 @@ class EventFactory extends Factory
 
     public function preset($type)
     {
-        if($type === 'mblgtacc') {
+        if ($type === 'mblgtacc') {
             return $this->state(function (array $attributes) {
                 $start = new Carbon('first Friday of October');
                 return [
@@ -50,7 +50,7 @@ class EventFactory extends Factory
                     ],
                 ];
             });
-        } elseif($type === 'tjt') {
+        } elseif ($type === 'tjt') {
             return $this->state(function (array $attributes) {
                 $start = new Carbon('first Thursday of November');
                 return [

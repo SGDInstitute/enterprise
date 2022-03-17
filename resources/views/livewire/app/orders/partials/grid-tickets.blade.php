@@ -1,13 +1,13 @@
-@foreach($tickets as $ticket)
+@foreach ($tickets as $ticket)
     <div class="p-4 space-y-2 bg-gray-100 shadow dark:bg-gray-700">
         <div class="flex items-center justify-between">
             <p class="text-sm dark:text-gray-400">{{ $ticket->ticketType->name }} - {{ $ticket->price->name }}</p>
 
-            @if(!$order->isPaid())
+            @if (!$order->isPaid())
             <button class="p-1 text-gray-700 rounded dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800" title="Remove ticket from order" wire:click="delete({{ $ticket->id }})"><x-heroicon-o-trash class="w-5 h-5"/></button>
             @endif
         </div>
-        @if($ticket->isFilled())
+        @if ($ticket->isFilled())
         <div class="flex items-center justify-between">
             <p class="text-lg text-gray-900 dark:text-gray-200">{{ $ticket->user->name }} <span class="text-sm">({{ $ticket->user->email }})</span> <span class="text-sm italic">{{ $ticket->user->pronouns }}</span></p>
             <div>

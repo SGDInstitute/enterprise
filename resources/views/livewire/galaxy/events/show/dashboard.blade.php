@@ -3,7 +3,7 @@
     <x-bit.stat icon="heroicon-o-cursor-click" title="Reservations" :value="$reservations" color="green" />
     <x-bit.stat icon="heroicon-o-currency-dollar" title="Orders" :value="$orders" color="green" />
 
-    @foreach($tickets as $ticket)
+    @foreach ($tickets as $ticket)
     <x-bit.stat icon="heroicon-o-ticket" :title="$ticket['ticketType']['name']" color="green">
         <x-slot name="value">
             Reservations: {{ $ticket['reservations_count'] }}

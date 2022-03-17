@@ -29,16 +29,16 @@
             <thead>
                 <tr>
                     <th></th>
-                    @foreach($scales as $scale)
+                    @foreach ($scales as $scale)
                     <th>{{ $scale }}</th>
                     @endforeach
                 </tr>
             </thead>
             <tbody>
-                @foreach($options as $option)
+                @foreach ($options as $option)
                 <tr>
                     <td>{{ $option }}</td>
-                    @foreach($scales as $scale)
+                    @foreach ($scales as $scale)
                     <td class="text-center align-middle-impt">
                         <x-bit.input.radio
                             class="flex items-center justify-center"

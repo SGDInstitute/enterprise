@@ -11,9 +11,9 @@ use Livewire\WithPagination;
 
 class Queue extends Component
 {
-    use WithSorting, WithFiltering, WithPagination;
-
-    protected $listeners = ['refresh' => '$refresh'];
+    use WithSorting;
+    use WithFiltering;
+    use WithPagination;
 
     public Event $event;
 
@@ -21,11 +21,13 @@ class Queue extends Component
 
     public $selected = [];
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function updated($field, $value)
     {
         $badges = $this->queue->whereIn('id', $value);
 
-        if($badges) {
+        if ($badges) {
             $badges->each(fn($badge) => $badge->markAsPrinted());
 
             $this->emit('refresh');

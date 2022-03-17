@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Bit;
 
-use Illuminate\Support\Str;
 use App\Models\Response;
 use App\Notifications\WorkshopStatusChanged;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class ResponseLog extends Component
@@ -23,7 +23,7 @@ class ResponseLog extends Component
     public function mount()
     {
         $this->status = $this->response->status;
-        if(Str::contains(url()->current(), 'galaxy')) {
+        if (Str::contains(url()->current(), 'galaxy')) {
             $this->internal = true;
             $this->isGalaxy = true;
         }
@@ -31,7 +31,7 @@ class ResponseLog extends Component
 
     public function updated($field)
     {
-        if($field === 'status') {
+        if ($field === 'status') {
             $this->statusChanged = true;
         }
     }
@@ -48,10 +48,10 @@ class ResponseLog extends Component
     {
         return $this->response->activities
             ->load('causer')
-            ->when(!$this->isGalaxy, function($collection) {
-                return $collection->filter(function($activity) {
-                    if(isset($activity['properties']['internal'])) {
-                        return !$activity['properties']['internal'];
+            ->when(! $this->isGalaxy, function ($collection) {
+                return $collection->filter(function ($activity) {
+                    if (isset($activity['properties']['internal'])) {
+                        return ! $activity['properties']['internal'];
                     }
 
                     return true;
@@ -61,20 +61,20 @@ class ResponseLog extends Component
 
     public function save()
     {
-        if($this->comment !== '') {
-            if($this->isGalaxy) {
+        if ($this->comment !== '') {
+            if ($this->isGalaxy) {
                 activity()->performedOn($this->response)->withProperties(['comment' => $this->comment, 'internal' => $this->internal])->log('commented');
             } else {
                 activity()->performedOn($this->response)->withProperties(['comment' => $this->comment])->log('commented');
             }
         }
 
-        if($this->statusChanged) {
+        if ($this->statusChanged) {
             $this->response->status = $this->status;
             $this->response->save();
         }
 
-        if(($this->comment !== '' && !$this->internal) || $this->statusChanged) {
+        if (($this->comment !== '' && ! $this->internal) || $this->statusChanged) {
             $comment = $this->internal ? '' : $this->comment;
             Notification::send($this->response->collaborators->where('id', '<>', auth()->id()), new WorkshopStatusChanged($this->response, $comment, $this->statusChanged, auth()->user()->name));
         }
