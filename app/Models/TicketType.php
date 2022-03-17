@@ -14,7 +14,7 @@ class TicketType extends Model
     protected $casts = [
         'end' => 'datetime',
         'form' => 'collection',
-        'end' => 'datetime',
+        'start' => 'datetime',
     ];
 
     // Relationships
