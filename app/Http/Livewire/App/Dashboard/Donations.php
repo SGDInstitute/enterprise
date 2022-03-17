@@ -72,6 +72,4 @@ class Donations extends Component
 
         return redirect($session->url);
     }
-
-
 }
