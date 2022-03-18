@@ -4,7 +4,7 @@
     <div class="space-y-8">
         @if ($subscription)
         <div class="overflow-hidden bg-white rounded-md shadow dark:bg-gray-800">
-            <div class="flex items-center justify-between px-8 py-6 space-x-4">
+            <div class="px-8 py-6 space-y-4 md:space-y-0 md:space-x-4 md:items-center md:justify-between md:flex">
                 <div>
                     <span class="text-3xl text-gray-900 dark:text-gray-200">{{ $subscription->formattedAmount }}</span>
                     <span class="text-base text-gray-600 dark:text-gray-400">/monthly</span>
@@ -32,7 +32,7 @@
             </div>
 
 
-            <div class="flex justify-end w-full px-8 py-2 space-x-1 bg-gray-50 dark:bg-gray-850">
+            <div class="w-full px-8 py-2 space-x-1 md:flex md:justify-end bg-gray-50 dark:bg-gray-850">
                 <x-bit.button.link size="px-2 py-1" wire:click="openPortal">Change Amount</x-bit.button.link>
                 <x-bit.button.link size="px-2 py-1" wire:click="openPortal">Update Card</x-bit.button.link>
                 @if ($subscription->status !== 'canceled')
