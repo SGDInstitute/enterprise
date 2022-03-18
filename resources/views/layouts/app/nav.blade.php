@@ -89,7 +89,7 @@
                                 <a href="/events" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     Events
                                 </a>
-                                <a href="/donate" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <a href="/donations/create" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     Donate
                                 </a>
                                 @guest
