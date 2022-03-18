@@ -110,7 +110,7 @@ class Create extends Component
             $this->emit('notify', ['message' => 'Looks like the email entered does not match the email that is logged in.', 'type' => 'error']);
         } elseif (! $user && $email !== '') {
             $this->newUser = true;
-        } elseif ($user && ! auth()->check()) {
+        } elseif ($user && ! auth()->check() && $this->email !== '') {
             $this->hasLogin = true;
             $this->showLogin($email);
         }
