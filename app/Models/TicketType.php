@@ -40,7 +40,7 @@ class TicketType extends Model
 
     public function getFormattedEndAttribute()
     {
-        return optional($this->end)->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
+        return $this->end?->timezone($this->timezone)->format('m/d/Y g:i A') ?? null;
     }
 
     public function getFormattedStartAttribute()
