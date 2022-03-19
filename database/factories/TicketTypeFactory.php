@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketTypeFactory extends Factory
 {
-    protected $model = TicketType::class;
-
     public function definition()
     {
         return [

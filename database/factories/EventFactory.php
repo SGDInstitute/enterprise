@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 
 class EventFactory extends Factory
 {
-    protected $model = Event::class;
-
     public function definition()
     {
         return [
