@@ -34,7 +34,7 @@ class Events extends Component
         return Event::query()
             ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
-                    $query->where('name', 'like', '%'.trim($this->filters['search']).'%');
+                    $query->where('name', 'like', '%' . trim($this->filters['search']) . '%');
                 });
             })
             ->orderBy($this->sortField, $this->sortDirection)

@@ -91,7 +91,7 @@ class Show extends Component
         $this->saveInvoice();
 
         $pdf = PDF::loadView('pdf.invoice', ['order' => $this->order])->output();
-        $filename = 'Invoice-'.$this->order->formattedId.'.pdf';
+        $filename = 'Invoice-' . $this->order->formattedId . '.pdf';
 
         return response()->streamDownload(fn () => print($pdf), $filename);
     }

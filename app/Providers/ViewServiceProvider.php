@@ -21,7 +21,7 @@ class ViewServiceProvider extends ServiceProvider
 
                 if ($events->count() > 0) {
                     $links = $events->filter(fn ($event) => auth()->user()->ticketForEvent($event) !== null)
-                        ->map(fn ($event) => ['text' => $event->name.' Program', 'url' => route('app.program', $event)]);
+                        ->map(fn ($event) => ['text' => $event->name . ' Program', 'url' => route('app.program', $event)]);
 
                     $view->with('links', $links);
                 }

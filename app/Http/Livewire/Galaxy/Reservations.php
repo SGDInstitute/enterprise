@@ -71,9 +71,9 @@ class Reservations extends Component
             ->when($this->filters['search'], function ($query, $search) {
                 return $query->where(function ($query) use ($search) {
                     $search = trim($search);
-                    $query->where('events.name', 'like', '%'.$search.'%')
-                        ->orWhere('users.email', 'like', '%'.$search.'%')
-                        ->orWhere('users.name', 'like', '%'.$search.'%')
+                    $query->where('events.name', 'like', '%' . $search . '%')
+                        ->orWhere('users.email', 'like', '%' . $search . '%')
+                        ->orWhere('users.name', 'like', '%' . $search . '%')
                         ->orWhere('orders.id', $search)
                         ->orWhere('orders.id', substr($search, 3));
                 });
@@ -90,7 +90,7 @@ class Reservations extends Component
             ->each(fn ($order) => $order->markAsPaid('comped', 0));
 
         $this->emit('refresh');
-        $this->emit('notify', ['message' => 'Successfully marked '.count($this->selected).' reservations as comped.', 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Successfully marked ' . count($this->selected) . ' reservations as comped.', 'type' => 'success']);
 
         $this->reset('selected');
     }
@@ -101,7 +101,7 @@ class Reservations extends Component
             ->each(fn ($order) => $order->markAsPaid($this->invoices[$order->id]['check'], $this->invoices[$order->id]['amount'] * 100));
 
         $this->emit('refresh');
-        $this->emit('notify', ['message' => 'Successfully marked '.count($this->selected).' reservations as paid.', 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Successfully marked ' . count($this->selected) . ' reservations as paid.', 'type' => 'success']);
 
         $this->reset('selected', 'invoices', 'showInvoiceModal');
     }

@@ -20,7 +20,7 @@ class TicketsTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/'.$event->id.'/edit/tickets')
+            ->get('/galaxy/events/' . $event->id . '/edit/tickets')
             ->assertSuccessful()
             ->assertSeeLivewire('galaxy.events.edit.tickets');
     }

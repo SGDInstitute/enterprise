@@ -37,8 +37,8 @@ class Users extends Component
             ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
                     $search = trim($this->filters['search']);
-                    $query->where('name', 'like', '%'.$search.'%')
-                        ->orWhere('email', 'like', '%'.$search.'%')
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
                         ->orWhere('id', $search);
                 });
             })

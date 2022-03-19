@@ -18,7 +18,7 @@ class AddOnsTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/'.$event->id.'/edit/addons')
+            ->get('/galaxy/events/' . $event->id . '/edit/addons')
             ->assertSuccessful()
             ->assertSeeLivewire('galaxy.events.edit.addons');
     }

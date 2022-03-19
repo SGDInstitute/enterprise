@@ -44,9 +44,9 @@ class EventItem extends Model
     public function getFormattedDurationAttribute()
     {
         if ($this->start->diffInHours($this->end) > 24) {
-            return $this->start->timezone($this->timezone)->format('D, M j').' - '.$this->end->timezone($this->timezone)->format('D, M j, Y');
+            return $this->start->timezone($this->timezone)->format('D, M j') . ' - ' . $this->end->timezone($this->timezone)->format('D, M j, Y');
         } else {
-            return $this->start->timezone($this->timezone)->format('D, M j Y g:i').' - '.$this->end->timezone($this->timezone)->format('g:i a');
+            return $this->start->timezone($this->timezone)->format('D, M j Y g:i') . ' - ' . $this->end->timezone($this->timezone)->format('g:i a');
         }
     }
 

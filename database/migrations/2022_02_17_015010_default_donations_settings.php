@@ -18,7 +18,7 @@ return new class extends Migration {
             'price_1KUfAjI7BmcylBPUjAGaWUE6' => '25',
             'price_1KUfAmI7BmcylBPUHNKw7EpJ' => '50',
             'price_1KUfApI7BmcylBPUTgdop1HT' => '100',
-        ]]);
+        ],]);
 
         Setting::create(['group' => 'donations.thank-you-modal', 'name' => 'title', 'type' => 'string', 'payload' => 'Thank You!']);
         Setting::create(['group' => 'donations.thank-you-modal', 'name' => 'content', 'type' => 'string', 'payload' => 'Your donation is greatly appreciated.']);

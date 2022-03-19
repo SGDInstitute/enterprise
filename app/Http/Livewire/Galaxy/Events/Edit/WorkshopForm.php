@@ -45,7 +45,7 @@ class WorkshopForm extends Component
             $this->workshopForm = Form::create([
                 'event_id' => $this->event->id,
                 'type' => 'workshop',
-                'name' => $this->event->name.' Workshop Proposal',
+                'name' => $this->event->name . ' Workshop Proposal',
                 'timezone' => $this->event->timezone,
             ]);
             $this->form = [];

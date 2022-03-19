@@ -47,9 +47,9 @@ class Form extends Component
     public function render()
     {
         if ($this->ticketType->id === null) {
-            $title = 'Create Ticket Type for '.$this->event->name;
+            $title = 'Create Ticket Type for ' . $this->event->name;
         } else {
-            $title = 'Edit Ticket Type for '.$this->event->name;
+            $title = 'Edit Ticket Type for ' . $this->event->name;
         }
 
         return view('livewire.galaxy.ticket-types.form')
