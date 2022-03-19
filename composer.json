@@ -32,8 +32,9 @@
         "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-tags": "^3.1",
         "stripe/stripe-php": "^7.112",
-        "wildbit/swiftmailer-postmark": "^3.3",
-        "league/flysystem-aws-s3-v3": "^3.0"
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "symfony/postmark-mailer": "^6.0",
+        "symfony/http-client": "^6.0"
     },
     "require-dev": {
         "beyondcode/helo-laravel": "^1.2",
