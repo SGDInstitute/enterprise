@@ -3,8 +3,7 @@
 use App\Models\Setting;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Setting::create(['group' => 'donations.page', 'name' => 'title', 'type' => 'string', 'payload' => 'Support Our Work']);
