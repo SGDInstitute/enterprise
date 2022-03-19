@@ -3,7 +3,7 @@
 use App\Models\Setting;
 use Illuminate\Database\Migrations\Migration;
 
-class DefaultDonationsSettings extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -31,4 +31,4 @@ class DefaultDonationsSettings extends Migration
         Setting::create(['group' => 'emails.donation-receipt.content', 'name' => 'one-time.new-account', 'type' => 'string', 'payload' => "Thank you for your contribution of {amount} to the Midwest Institute for Sexuality and Gender Diversity on {date}. Your generosity helps provide resources, community, and connection to the next generation of leaders in the movement for queer and trans liberation.\n\nThe Midwest Institute for Sexuality and Gender Diversity is a public charity recognized as tax-exempt by the IRS under Section 501(c)(3) and your gift may qualify as a charitable deduction for federal income tax purposes. No goods or services were provided to you in exchange for this gift. Our tax ID is 81-1788851.\n\nWe encourage you to retain this email as acknowledgement of your contribution for tax reporting purposes.\n\nAdditionally, we used the email address you provided with your contribution to create an account where you can view your contribution history. [Set your password](https://apps.sgdinstitute.org/forgot-password) to easily access these records."]);
         Setting::create(['group' => 'emails.donation-receipt.content', 'name' => 'one-time.receipt', 'type' => 'string', 'payload' => "Thank you for your contribution of {amount} to the Midwest Institute for Sexuality and Gender Diversity on {date}. Your generosity helps provide resources, community, and connection to the next generation of leaders in the movement for queer and trans liberation.\n\nThe Midwest Institute for Sexuality and Gender Diversity is a public charity recognized as tax-exempt by the IRS under Section 501(c)(3) and your gift may qualify as a charitable deduction for federal income tax purposes. No goods or services were provided to you in exchange for this gift. Our tax ID is 81-1788851.\n\nWe encourage you to retain this email as acknowledgement of your contribution for tax reporting purposes. You may also [log in](https://apps.sgdinstitute.org/login) to view your contribution history."]);
     }
-}
+};

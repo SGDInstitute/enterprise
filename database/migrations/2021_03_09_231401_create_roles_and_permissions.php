@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class CreateRolesAndPermissions extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -16,4 +16,4 @@ class CreateRolesAndPermissions extends Migration
         $institute->givePermissionTo($galaxyView);
         $mblgtacc->givePermissionTo($galaxyView);
     }
-}
+};
