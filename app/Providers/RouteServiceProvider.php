@@ -19,16 +19,13 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
-                ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
             Route::prefix('galaxy')
                 ->middleware(['web', 'auth', 'can:galaxy.view'])
-                ->namespace($this->namespace)
                 ->group(base_path('routes/galaxy.php'));
 
             Route::middleware('web')
-                ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
     }
