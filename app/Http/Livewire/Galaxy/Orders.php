@@ -17,6 +17,7 @@ class Orders extends Component
     use WithFiltering;
 
     public $event;
+
     public $user;
 
     public $filters = [
@@ -24,12 +25,17 @@ class Orders extends Component
     ];
 
     public $selectAll = false;
+
     public $selectPage = false;
+
     public $selected = [];
+
     public $showPartialModal = false;
+
     public $perPage = 25;
 
     public $editingOrder;
+
     public $editingTickets = [];
 
     public function updatedSelectPage($value)
@@ -61,12 +67,12 @@ class Orders extends Component
             ->when($this->filters['search'], function ($query, $search) {
                 return $query->where(function ($query) use ($search) {
                     $search = trim($search);
-                    $query->where('events.name', 'like', '%' . $search . '%')
-                        ->orWhere('users.email', 'like', '%' . $search . '%')
-                        ->orWhere('orders.confirmation_number', 'like', '%' . $search . '%')
-                        ->orWhere('orders.transaction_id', 'like', '%' . $search . '%')
-                        ->orWhere('orders.amount', 'like', '%' . $search . '%')
-                        ->orWhere('users.name', 'like', '%' . $search . '%')
+                    $query->where('events.name', 'like', '%'.$search.'%')
+                        ->orWhere('users.email', 'like', '%'.$search.'%')
+                        ->orWhere('orders.confirmation_number', 'like', '%'.$search.'%')
+                        ->orWhere('orders.transaction_id', 'like', '%'.$search.'%')
+                        ->orWhere('orders.amount', 'like', '%'.$search.'%')
+                        ->orWhere('users.name', 'like', '%'.$search.'%')
                         ->orWhere('orders.id', $search)
                         ->orWhere('orders.id', substr($search, 3));
                 });
@@ -80,7 +86,7 @@ class Orders extends Component
     public function getEditingTicketsAmountProperty()
     {
         if (count($this->editingTickets) > 0) {
-            return $this->editingOrder->tickets->whereIn('id', $this->editingTickets)->sum(fn($ticket) => $ticket->price->cost);
+            return $this->editingOrder->tickets->whereIn('id', $this->editingTickets)->sum(fn ($ticket) => $ticket->price->cost);
         }
     }
 
@@ -92,7 +98,6 @@ class Orders extends Component
 
     public function partialRefund()
     {
-
         if ($this->editingOrder->isStripe()) {
             $refund = $this->editingOrder->user->refund($this->editingOrder->transaction_id, ['amount' => $this->editingTicketsAmount]);
             activity()->performedOn($this->editingOrder)->withProperties(['amount' => $this->editingTicketsAmount, 'refund_id' => $refund->id])->log('partial_refund');

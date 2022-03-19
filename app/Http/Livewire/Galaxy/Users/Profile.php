@@ -12,11 +12,15 @@ class Profile extends Component
     public User $user;
 
     public $addressChanged;
+
     public $profileChanged;
+
     public $passwordChanged;
 
     public $newRole = '';
+
     public $password;
+
     public $password_confirmation;
 
     public function updating($field, $value)
@@ -46,6 +50,7 @@ class Profile extends Component
         $this->reset('newRole');
 
         activity()->performedOn($this->user)->withProperties(['role' => $this->newRole])->log('added.role');
+
         return $this->emit('notify', ['message' => 'Added role.', 'type' => 'success']);
     }
 
@@ -69,6 +74,7 @@ class Profile extends Component
     {
         $this->user->removeRole($role);
         activity()->performedOn($this->user)->withProperties(['role' => $this->newRole])->log('removed.role');
+
         return $this->emit('notify', ['message' => 'Removed role.', 'type' => 'success']);
     }
 
@@ -78,6 +84,7 @@ class Profile extends Component
 
         $this->user->save();
         $this->profileChanged = false;
+
         return $this->emit('notify', ['message' => 'Saved user.', 'type' => 'success']);
     }
 

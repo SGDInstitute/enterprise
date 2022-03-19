@@ -9,14 +9,21 @@ use Stripe\StripeClient;
 class Page extends Component
 {
     public $editPanel = false;
+
     public $type = 'monthly';
+
     public $otherAmount = false;
+
     public $newPrice;
 
     public $title;
+
     public $image;
+
     public $content;
+
     public $oneTimeOptions;
+
     public $monthlyOptions;
 
     public $rules = [
@@ -76,7 +83,7 @@ class Page extends Component
                     'currency' => 'usd',
                     'recurring' => ['interval' => 'month'],
                     'product_data' => [
-                        'name' => 'Recurring Donation - $' . $this->newPrice,
+                        'name' => 'Recurring Donation - $'.$this->newPrice,
                     ],
                 ]);
                 $options[$price->id] = $this->newPrice;
@@ -85,7 +92,7 @@ class Page extends Component
 
         $this->$type->payload = $options;
         $this->$type->save();
-        $this->emit('notify', ['message' => 'Added ' . $this->newPrice, 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Added '.$this->newPrice, 'type' => 'success']);
         $this->reset('newPrice');
     }
 
@@ -105,7 +112,7 @@ class Page extends Component
 
         $this->$type->payload = $options;
         $this->$type->save();
-        $this->emit('notify', ['message' => 'Removed ' . $amount, 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Removed '.$amount, 'type' => 'success']);
     }
 
     public function saveImage()

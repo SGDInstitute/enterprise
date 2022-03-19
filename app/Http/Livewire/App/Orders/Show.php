@@ -9,7 +9,9 @@ use Livewire\Component;
 class Show extends Component
 {
     public Order $order;
+
     public $showCheckModal = false;
+
     public $showInvoiceModal = false;
 
     protected $rules = [
@@ -32,7 +34,7 @@ class Show extends Component
 
     public function getFilledCountProperty()
     {
-        return $this->order->tickets->filter(fn($ticket) => $ticket->isFilled())->count();
+        return $this->order->tickets->filter(fn ($ticket) => $ticket->isFilled())->count();
     }
 
     public function getProgressStepsProperty()
@@ -80,6 +82,7 @@ class Show extends Component
     {
         $this->order->tickets->each->delete();
         $this->order->delete();
+
         return redirect('/');
     }
 
@@ -88,8 +91,9 @@ class Show extends Component
         $this->saveInvoice();
 
         $pdf = PDF::loadView('pdf.invoice', ['order' => $this->order])->output();
-        $filename = 'Invoice-' . $this->order->formattedId . '.pdf';
-        return response()->streamDownload(fn() => print($pdf), $filename);
+        $filename = 'Invoice-'.$this->order->formattedId.'.pdf';
+
+        return response()->streamDownload(fn () => print($pdf), $filename);
     }
 
     public function downloadW9()

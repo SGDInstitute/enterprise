@@ -9,6 +9,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public User $user;
+
     public $page;
 
     public $showDeleteModal = false;
@@ -26,7 +27,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.galaxy.users.show')
-            ->layout('layouts.galaxy', ['title' => 'User ' . $this->user->name])
+            ->layout('layouts.galaxy', ['title' => 'User '.$this->user->name])
             ->with([
                 'pages' => $this->pages,
             ]);
@@ -50,7 +51,7 @@ class Show extends Component
         // DB::table('orders')->where('user_id', $this->user->id)->delete();
         $this->user->delete();
 
-        $this->emit('notify', ['message' => 'You\'ve deleted ' . $this->user->name . '.', 'type' => 'success']);
+        $this->emit('notify', ['message' => 'You\'ve deleted '.$this->user->name.'.', 'type' => 'success']);
 
         return redirect()->to('/galaxy/users');
     }

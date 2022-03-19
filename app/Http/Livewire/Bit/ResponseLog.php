@@ -15,9 +15,13 @@ class ResponseLog extends Component
     protected $listeners = ['refresh' => '$refresh'];
 
     public $comment = '';
+
     public $internal = false;
+
     public $status;
+
     public $isGalaxy = false;
+
     public $statusChanged = false;
 
     public function mount()

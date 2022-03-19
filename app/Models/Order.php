@@ -74,7 +74,7 @@ class Order extends Model
     public function getFormattedAmountAttribute()
     {
         if ($this->isPaid()) {
-            return '$' . number_format($this->amount / 100, 2);
+            return '$'.number_format($this->amount / 100, 2);
         }
 
         return $this->subtotal;
@@ -91,7 +91,7 @@ class Order extends Model
 
     public function getFormattedIdAttribute()
     {
-        return $this->event->order_prefix . $this->id;
+        return $this->event->order_prefix.$this->id;
     }
 
     public function getSubtotalAttribute()
@@ -100,7 +100,7 @@ class Order extends Model
             return $ticket->price->cost;
         });
 
-        return '$' . number_format($sum / 100, 2);
+        return '$'.number_format($sum / 100, 2);
     }
 
     // Methods
@@ -110,7 +110,7 @@ class Order extends Model
         $this->invoice = [
             'due_date' => $this->reservation_ends->format('m/d/Y'),
             'created_at' => now()->format('m/d/Y'),
-            'billable' => auth()->user()->name . "\n" . auth()->user()->email,
+            'billable' => auth()->user()->name."\n".auth()->user()->email,
         ];
 
         $this->save();
@@ -169,11 +169,12 @@ class Order extends Model
     {
         return $this->tickets->groupBy('ticket_type_id')->map(function ($group) {
             $price = $group->first()->scaled_price ?? $group->first()->price->cost;
+
             return [
-                'item' => $this->event->name . ' ' . $group->first()->ticketType->name . ' - ' . $group->first()->price->name,
+                'item' => $this->event->name.' '.$group->first()->ticketType->name.' - '.$group->first()->price->name,
                 'quantity' => $group->count(),
-                'price' => '$' . number_format($price / 100, 2),
-                'total' => '$' . number_format($group->count() * $price / 100, 2),
+                'price' => '$'.number_format($price / 100, 2),
+                'total' => '$'.number_format($group->count() * $price / 100, 2),
             ];
         });
     }

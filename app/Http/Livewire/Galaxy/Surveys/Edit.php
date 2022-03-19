@@ -15,13 +15,19 @@ class Edit extends Component
     use WithFormBuilder;
 
     public Event $event;
+
     public Form $survey;
 
     public $form;
+
     public $formattedEnd;
+
     public $formattedStart;
+
     public $openIndex = -1;
+
     public $showSettings = false;
+
     public $searchable = [];
 
     public $rules = [
@@ -63,8 +69,8 @@ class Edit extends Component
     public function getSearchableFieldsProperty()
     {
         return collect($this->form)
-            ->filter(fn($question) => $question['style'] === 'question')
-            ->filter(fn($question) => $question['type'] !== 'textarea')
+            ->filter(fn ($question) => $question['style'] === 'question')
+            ->filter(fn ($question) => $question['type'] !== 'textarea')
             ->pluck('question', 'id');
     }
 

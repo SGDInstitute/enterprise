@@ -15,8 +15,11 @@ use Livewire\Component;
 class Show extends Component
 {
     public Form $form;
+
     public Response $response;
+
     public $answers;
+
     public $showPreviousResponses = false;
 
     public function mount()
@@ -32,7 +35,7 @@ class Show extends Component
             $this->response = (new Response(['user_id' => auth()->id(), 'form_id' => $this->form->id]));
 
             $this->answers = $this->form->form
-                ->filter(fn($item) => $item['style'] !== 'content')
+                ->filter(fn ($item) => $item['style'] !== 'content')
                 ->mapWithKeys(function ($item) {
                     if ($item['style'] === 'question') {
                         if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
@@ -68,6 +71,7 @@ class Show extends Component
         if (auth()->check()) {
             return auth()->user()->responses()->where('form_id', $this->form->id)->get();
         }
+
         return collect([]);
     }
 
@@ -173,6 +177,7 @@ class Show extends Component
             $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
         } else {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
+
             return redirect()->route('app.forms.thanks', $this->form);
         }
     }

@@ -9,6 +9,7 @@ use Livewire\Component;
 class Badge extends Component
 {
     public Event $event;
+
     public User $user;
 
     public function mount()

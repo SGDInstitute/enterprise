@@ -71,9 +71,9 @@ class Form extends Model
     public function getRulesAttribute()
     {
         return $this->form
-            ->filter(fn($item) => $item['style'] === 'question')
+            ->filter(fn ($item) => $item['style'] === 'question')
             ->mapWithKeys(function ($question) {
-                return ['answers.' . $question['id'] => $question['rules']];
+                return ['answers.'.$question['id'] => $question['rules']];
             })->toArray();
     }
 }

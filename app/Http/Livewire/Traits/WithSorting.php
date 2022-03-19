@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Traits;
 trait WithSorting
 {
     public $sortField = 'created_at';
+
     public $sortDirection = 'desc';
 
     public function sortBy($field)

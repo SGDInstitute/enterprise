@@ -21,7 +21,7 @@ class DonationPrice extends Model
 
     public function getFormattedCostAttribute()
     {
-        return '$' . number_format($this->cost / 100, 2) . ' / ' . $this->period;
+        return '$'.number_format($this->cost / 100, 2).' / '.$this->period;
     }
 
     // Methods

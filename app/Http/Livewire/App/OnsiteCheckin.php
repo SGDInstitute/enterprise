@@ -8,9 +8,13 @@ use Livewire\Component;
 class OnsiteCheckin extends Component
 {
     public $order;
+
     public $confirmationNumber;
+
     public $editing;
+
     public $notFound = false;
+
     public $user;
 
     public $rules = [
@@ -30,7 +34,7 @@ class OnsiteCheckin extends Component
     public function getHideAddButtonProperty()
     {
         if ($this->order !== null) {
-            $queued = $this->order->tickets->filter(fn($ticket) => $ticket->isQueued());
+            $queued = $this->order->tickets->filter(fn ($ticket) => $ticket->isQueued());
 
             return $queued->count() === $this->order->tickets->count();
         }

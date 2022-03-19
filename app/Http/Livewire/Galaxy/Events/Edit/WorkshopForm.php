@@ -15,13 +15,19 @@ class WorkshopForm extends Component
     use WithFormBuilder;
 
     public Event $event;
+
     public Form $workshopForm;
 
     public $form;
+
     public $formattedEnd;
+
     public $formattedStart;
+
     public $openIndex = -1;
+
     public $showSettings = false;
+
     public $searchable = [];
 
     public $rules = [
@@ -39,7 +45,7 @@ class WorkshopForm extends Component
             $this->workshopForm = Form::create([
                 'event_id' => $this->event->id,
                 'type' => 'workshop',
-                'name' => $this->event->name . ' Workshop Proposal',
+                'name' => $this->event->name.' Workshop Proposal',
                 'timezone' => $this->event->timezone,
             ]);
             $this->form = [];
@@ -65,8 +71,8 @@ class WorkshopForm extends Component
     public function getSearchableFieldsProperty()
     {
         return collect($this->form)
-            ->filter(fn($question) => $question['style'] === 'question')
-            ->filter(fn($question) => $question['type'] !== 'textarea')
+            ->filter(fn ($question) => $question['style'] === 'question')
+            ->filter(fn ($question) => $question['type'] !== 'textarea')
             ->pluck('question', 'id');
     }
 

@@ -9,10 +9,13 @@ use Livewire\Component;
 class Slots extends Component
 {
     public Event $event;
+
     public EventItem $item;
 
     public $editingItem;
+
     public $editingTracks;
+
     public $showItemModal = false;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -31,7 +34,7 @@ class Slots extends Component
     public function render()
     {
         return view('livewire.galaxy.events.edit.slots')
-            ->layout('layouts.galaxy', ['title' => $this->event->name . ' ' . $this->item->name])
+            ->layout('layouts.galaxy', ['title' => $this->event->name.' '.$this->item->name])
             ->with([
                 'collisions' => $this->collisions,
                 'items' => $this->items,
@@ -42,9 +45,9 @@ class Slots extends Component
     {
         return $this->items
             ->groupBy('location')
-            ->filter(fn($location) => $location->count() > 1)
+            ->filter(fn ($location) => $location->count() > 1)
             ->map(function ($location) {
-                return $location->map(fn($item) => $item->id);
+                return $location->map(fn ($item) => $item->id);
             });
     }
 

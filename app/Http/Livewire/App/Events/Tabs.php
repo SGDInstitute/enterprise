@@ -10,6 +10,7 @@ class Tabs extends Component
     public Event $event;
 
     public $active = 'Description';
+
     public $tabs;
 
     public function mount()
@@ -32,7 +33,7 @@ class Tabs extends Component
         if ($this->active === 'Description') {
             $content = $this->event->description;
         } else {
-            $filtered = array_values(array_filter($this->tabs, fn($tab) => $tab['name'] === $this->active));
+            $filtered = array_values(array_filter($this->tabs, fn ($tab) => $tab['name'] === $this->active));
             $content = $filtered[0]['content'];
         }
 

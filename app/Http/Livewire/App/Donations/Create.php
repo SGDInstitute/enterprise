@@ -15,9 +15,13 @@ use Stripe\Subscription;
 class Create extends Component
 {
     public $type = 'monthly';
+
     public $amount = '';
+
     public $name = '';
+
     public $email = '';
+
     public $address = [
         'line1' => '',
         'line2' => '',
@@ -28,16 +32,25 @@ class Create extends Component
     ];
 
     public $clientSecret;
+
     public $donation;
+
     public $hasLogin = false;
+
     public $newUser = null;
+
     public $otherAmount = false;
+
     public $step = 1;
 
     public $title;
+
     public $image;
+
     public $content;
+
     public $oneTimeOptions;
+
     public $monthlyOptions;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -96,7 +109,7 @@ class Create extends Component
     public function getAmountLabelProperty()
     {
         if ($this->amount != '') {
-            return '$' . $this->amount . ' ';
+            return '$'.$this->amount.' ';
         }
     }
 

@@ -10,9 +10,11 @@ use Livewire\Component;
 class Bulletin extends Component
 {
     public Event $event;
+
     public EventBulletin $bulletin;
 
     public $formChanged = false;
+
     public $formattedPublish;
 
     protected $listeners = ['refresh' => '$refresh'];

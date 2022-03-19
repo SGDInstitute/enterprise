@@ -18,7 +18,7 @@ class Tickets extends Component
 
     public Event $event;
 
-    public $filters =  [
+    public $filters = [
         'search' => '',
     ];
 
@@ -35,11 +35,17 @@ class Tickets extends Component
     ];
 
     public $editing;
+
     public $costInDollars;
+
     public $formattedStart;
+
     public $formattedEnd;
+
     public $formChanged = false;
+
     public $perPage = 10;
+
     public $showModal = false;
 
     public function mount()
@@ -60,7 +66,7 @@ class Tickets extends Component
         return TicketType::query()
             ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . trim($this->filters['search']) . '%');
+                    $query->where('name', 'like', '%'.trim($this->filters['search']).'%');
                 });
             })
             ->where('event_id', $this->event->id)

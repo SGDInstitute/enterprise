@@ -8,7 +8,6 @@ class Multi implements CastsAttributes
 {
     public function get($model, $key, $value, $attributes)
     {
-
         if ($attributes['type'] === 'array') {
             return json_decode($value, true);
         } else {

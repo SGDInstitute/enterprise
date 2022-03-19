@@ -19,8 +19,11 @@ class Schedule extends Component
     public Event $event;
 
     public $editingItem;
+
     public $editingTracks;
+
     public $showItemModal = false;
+
     public $perPage = 25;
 
     public $filters = [
@@ -74,9 +77,9 @@ class Schedule extends Component
             ->when($this->filters['search'], function ($query, $search) {
                 return $query->where(function ($query) use ($search) {
                     $search = trim($search);
-                    $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('description', 'like', '%' . $search . '%')
-                        ->orWhere('location', 'like', '%' . $search . '%');
+                    $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('description', 'like', '%'.$search.'%')
+                        ->orWhere('location', 'like', '%'.$search.'%');
                 });
             })
             ->orderBy($this->sortField, $this->sortDirection)
@@ -87,7 +90,6 @@ class Schedule extends Component
     {
         return $this->event->start->timezone($this->event->timezone);
     }
-
 
     // Methods
 
@@ -138,8 +140,8 @@ class Schedule extends Component
     public function saveItem()
     {
         $this->editingItem->event_id = $this->event->id;
-        $this->editingItem->start = Carbon::parse($this->form['date'] . ' ' . $this->form['start'], $this->event->timezone)->timezone('UTC');
-        $this->editingItem->end = Carbon::parse($this->form['date'] . ' ' . $this->form['end'], $this->event->timezone)->timezone('UTC');
+        $this->editingItem->start = Carbon::parse($this->form['date'].' '.$this->form['start'], $this->event->timezone)->timezone('UTC');
+        $this->editingItem->end = Carbon::parse($this->form['date'].' '.$this->form['end'], $this->event->timezone)->timezone('UTC');
         $this->editingItem->timezone = $this->event->timezone;
         $this->editingItem->save();
 

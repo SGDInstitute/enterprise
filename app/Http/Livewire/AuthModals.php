@@ -10,7 +10,9 @@ use Livewire\Component;
 class AuthModals extends Component
 {
     public $loginModal = false;
+
     public $forgotModal = false;
+
     public $sent = false;
 
     public $form = [

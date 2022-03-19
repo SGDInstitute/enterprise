@@ -8,6 +8,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public $page;
+
     public Event $event;
 
     public function mount($page = 'dashboard')

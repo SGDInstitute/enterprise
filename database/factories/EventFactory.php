@@ -22,6 +22,7 @@ class EventFactory extends Factory
         if ($type === 'mblgtacc') {
             return $this->state(function (array $attributes) {
                 $start = new Carbon('first Friday of October');
+
                 return [
                     'name' => 'MBLGTACC 20XX',
                     'start' => $start->addHours(17)->format('m/d/Y h:i A'),
@@ -53,6 +54,7 @@ class EventFactory extends Factory
         } elseif ($type === 'tjt') {
             return $this->state(function (array $attributes) {
                 $start = new Carbon('first Thursday of November');
+
                 return [
                     'name' => 'Transgender Justice Teach-in',
                     'start' => $start->addHours(17)->format('m/d/Y h:i A'),

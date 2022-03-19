@@ -14,9 +14,10 @@ class Events extends Component
     use WithFiltering;
     use WithPagination;
 
-    public $filters =  [
+    public $filters = [
         'search' => '',
     ];
+
     public $perPage = 25;
 
     public function render()
@@ -33,7 +34,7 @@ class Events extends Component
         return Event::query()
             ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . trim($this->filters['search']) . '%');
+                    $query->where('name', 'like', '%'.trim($this->filters['search']).'%');
                 });
             })
             ->orderBy($this->sortField, $this->sortDirection)

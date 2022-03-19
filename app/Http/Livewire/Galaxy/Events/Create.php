@@ -12,7 +12,9 @@ class Create extends Component
     use WithTimezones;
 
     public Event $event;
+
     public $formChanged = false;
+
     public $preset;
 
     public $rules = [

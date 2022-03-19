@@ -18,17 +18,25 @@ class Workshops extends Component
     use WithFiltering;
 
     public Event $event;
+
     public Form $form;
 
     public $advanced = [];
+
     public $advancedChanged = false;
+
     public $editingItem;
+
     public $editingTracks;
+
     public $editingWorkshopId;
-    public $filters =  [
+
+    public $filters = [
         'search' => '',
     ];
+
     public $perPage = 25;
+
     public $showItemModal = false;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -87,7 +95,7 @@ class Workshops extends Component
 
     public function getAssignedWorkshopsProperty()
     {
-        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(fn($item) => [$item->settings->get('workshop_id') => $item->id]);
+        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(fn ($item) => [$item->settings->get('workshop_id') => $item->id]);
     }
 
     public function getWorkshopsProperty()
@@ -102,20 +110,20 @@ class Workshops extends Component
                     foreach ($this->form->settings->get('searchable') as $index => $item) {
                         $function = $index === 0 ? 'where' : 'orWhere';
 
-                        $query->$function('answers->' . $item, 'LIKE', '%' . $search . '%');
+                        $query->$function('answers->'.$item, 'LIKE', '%'.$search.'%');
                     }
                 } else {
-                    $query->where('answers->name', 'LIKE', '%' . $search . '%');
+                    $query->where('answers->name', 'LIKE', '%'.$search.'%');
                 }
 
-                $query->orWhere('status', 'LIKE', '%' . $search . '%');
+                $query->orWhere('status', 'LIKE', '%'.$search.'%');
             })
             ->when($this->advancedChanged, function ($query) {
                 foreach ($this->advanced as $id => $value) {
                     if (is_array($value) && $value !== []) {
-                        $query->whereIn('answers->' . $id, $value);
+                        $query->whereIn('answers->'.$id, $value);
                     } elseif (is_string($value)) {
-                        $query->where('answers->' . $id, 'LIKE', '%' . trim($value) . '%');
+                        $query->where('answers->'.$id, 'LIKE', '%'.trim($value).'%');
                     }
                 }
             })
@@ -167,7 +175,7 @@ class Workshops extends Component
 
         if ($this->editingWorkshop->status !== 'scheduled') {
             $this->editingWorkshop->status = 'scheduled';
-            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => 'Scheduled for ' . $this->editingItem->formattedDuration])->log('scheduled');
+            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => 'Scheduled for '.$this->editingItem->formattedDuration])->log('scheduled');
             // send notification
         }
 
@@ -187,6 +195,7 @@ class Workshops extends Component
                     if ($item['type'] === 'list') {
                         return [$item['id'] => []];
                     }
+
                     return [$item['id'] => ''];
                 }
             })->toArray();

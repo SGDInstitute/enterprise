@@ -14,9 +14,10 @@ class Users extends Component
     use WithFiltering;
     use WithPagination;
 
-    public $filters =  [
+    public $filters = [
         'search' => '',
     ];
+
     public $perPage = 25;
 
     public function render()
@@ -36,8 +37,8 @@ class Users extends Component
             ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
                     $search = trim($this->filters['search']);
-                    $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%')
+                    $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('email', 'like', '%'.$search.'%')
                         ->orWhere('id', $search);
                 });
             })

@@ -12,9 +12,13 @@ class Details extends Component
     use WithTimezones;
 
     public Event $event;
+
     public $formattedEnd;
+
     public $formattedStart;
+
     public $tabs = [];
+
     public $formChanged = false;
 
     public $rules = [
@@ -27,7 +31,6 @@ class Details extends Component
         'event.description' => 'required',
         'tabs' => '',
     ];
-
 
     public function mount()
     {

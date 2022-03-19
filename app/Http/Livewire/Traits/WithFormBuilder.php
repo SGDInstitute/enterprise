@@ -15,7 +15,7 @@ trait WithFormBuilder
             return [];
         }
 
-        return $this->form->filter(fn($item) => $item['style'] === 'question')->map(fn($question) => $question['id']);
+        return $this->form->filter(fn ($item) => $item['style'] === 'question')->map(fn ($question) => $question['id']);
     }
 
     public function getTypeOptionsProperty()

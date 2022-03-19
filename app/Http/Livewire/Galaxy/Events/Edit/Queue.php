@@ -28,7 +28,7 @@ class Queue extends Component
         $badges = $this->queue->whereIn('id', $value);
 
         if ($badges) {
-            $badges->each(fn($badge) => $badge->markAsPrinted());
+            $badges->each(fn ($badge) => $badge->markAsPrinted());
 
             $this->emit('refresh');
         }
@@ -37,7 +37,7 @@ class Queue extends Component
     public function render()
     {
         return view('livewire.galaxy.events.edit.queue')
-            ->layout('layouts.galaxy', ['title' => 'Queue for ' . $this->event->name])
+            ->layout('layouts.galaxy', ['title' => 'Queue for '.$this->event->name])
             ->with([
                 'queue' => $this->queue,
             ]);

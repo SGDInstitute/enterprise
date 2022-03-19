@@ -14,12 +14,16 @@ class OrdersReservations extends Component
     use WithSorting;
     use WithFiltering;
 
-    public $filters =  [
+    public $filters = [
         'search' => '',
     ];
+
     public $ordersPerPage = 25;
+
     public $ordersView = 'grid';
+
     public $reservationsPerPage = 25;
+
     public $reservationsView = 'grid';
 
     public function render()

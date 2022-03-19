@@ -20,7 +20,7 @@ class Show extends Component
 
     public function getQuestionsAndAnswersProperty()
     {
-        return $this->response->form->form->filter(fn($item) => $item['style'] === 'question')
+        return $this->response->form->form->filter(fn ($item) => $item['style'] === 'question')
             ->mapWithKeys(function ($item) {
                 return [$item['question'] => $this->response->answers[$item['id']] ? $this->response->answers[$item['id']] : 'was not answered'];
             });

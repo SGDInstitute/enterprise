@@ -10,6 +10,7 @@ class ThankYouModal extends Component
     public $editPanel = false;
 
     public $title;
+
     public $content;
 
     public $rules = [

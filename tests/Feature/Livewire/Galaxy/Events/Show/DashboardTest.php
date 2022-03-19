@@ -18,7 +18,7 @@ class DashboardTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/' . $event->id . '/dashboard')
+            ->get('/galaxy/events/'.$event->id.'/dashboard')
             ->assertSuccessful()
             ->assertSeeLivewire('galaxy.events.show.dashboard');
     }
