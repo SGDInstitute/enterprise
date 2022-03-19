@@ -41,7 +41,7 @@ trait HasProfilePhoto
 
     protected function defaultProfilePhotoUrl()
     {
-        return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email))).'?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/'.urlencode($this->name).'/128';
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/' . urlencode($this->name) . '/128';
     }
 
     protected function profilePhotoDisk()
