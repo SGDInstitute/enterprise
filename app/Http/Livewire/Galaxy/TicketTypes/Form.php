@@ -14,12 +14,19 @@ class Form extends Component
     use WithFormBuilder;
 
     public $prices;
+
     public Event $event;
+
     public $ticketType;
+
     public $form;
+
     public $formattedStart;
+
     public $formattedEnd;
+
     public $openIndex = -1;
+
     public $showSettings = false;
 
     public $rules = [

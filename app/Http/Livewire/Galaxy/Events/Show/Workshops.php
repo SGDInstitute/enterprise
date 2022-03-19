@@ -18,17 +18,25 @@ class Workshops extends Component
     use WithFiltering;
 
     public Event $event;
+
     public Form $form;
 
     public $advanced = [];
+
     public $advancedChanged = false;
+
     public $editingItem;
+
     public $editingTracks;
+
     public $editingWorkshopId;
-    public $filters =  [
+
+    public $filters = [
         'search' => '',
     ];
+
     public $perPage = 25;
+
     public $showItemModal = false;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -87,7 +95,7 @@ class Workshops extends Component
 
     public function getAssignedWorkshopsProperty()
     {
-        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(fn($item) => [$item->settings->get('workshop_id') => $item->id]);
+        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(fn ($item) => [$item->settings->get('workshop_id') => $item->id]);
     }
 
     public function getWorkshopsProperty()
@@ -187,6 +195,7 @@ class Workshops extends Component
                     if ($item['type'] === 'list') {
                         return [$item['id'] => []];
                     }
+
                     return [$item['id'] => ''];
                 }
             })->toArray();

@@ -8,7 +8,9 @@ use Livewire\Component;
 class Program extends Component
 {
     public Event $event;
+
     public $page;
+
     public $ticket;
 
     public function mount($page = 'bulletin-board')

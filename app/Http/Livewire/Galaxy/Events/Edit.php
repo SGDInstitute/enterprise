@@ -9,6 +9,7 @@ use Livewire\Component;
 class Edit extends Component
 {
     public $page;
+
     public Event $event;
 
     public function mount($page = 'details')
@@ -36,10 +37,10 @@ class Edit extends Component
         ];
 
         if ($this->event->settings->add_ons) {
-                $pages[] = ['value' => 'addons', 'label' => 'Add-ons', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'addons']), 'icon' => 'heroicon-o-shopping-bag', 'active' => $this->page === 'addons'];
+            $pages[] = ['value' => 'addons', 'label' => 'Add-ons', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'addons']), 'icon' => 'heroicon-o-shopping-bag', 'active' => $this->page === 'addons'];
         }
         if ($this->event->settings->has_workshops) {
-                $pages[] = ['value' => 'workshops', 'label' => 'Workshop Form', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'workshops']), 'icon' => 'heroicon-o-puzzle', 'active' => $this->page === 'workshops'];
+            $pages[] = ['value' => 'workshops', 'label' => 'Workshop Form', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'workshops']), 'icon' => 'heroicon-o-puzzle', 'active' => $this->page === 'workshops'];
         }
 
         if ($this->event->end->diffInDays($this->event->start) > 0) {

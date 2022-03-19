@@ -12,6 +12,7 @@ class Response extends Model
     use LogsActivity;
 
     protected static $logAttributes = ['answers', 'status'];
+
     protected static $logOnlyDirty = true;
 
     public $guarded = [];
@@ -34,7 +35,6 @@ class Response extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 
     // Attributes
 

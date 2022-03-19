@@ -17,8 +17,11 @@ class Donations extends Component
     use WithFiltering;
 
     public $perPage = 10;
+
     public $thankYouModal = false;
+
     public $thankYouTitle;
+
     public $thankYouContent;
 
     public function render()

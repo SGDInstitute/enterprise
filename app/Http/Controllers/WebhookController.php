@@ -41,9 +41,9 @@ class WebhookController extends Controller
 
             if (isset($data['status']) && $data['status'] === StripeSubscription::STATUS_INCOMPLETE_EXPIRED) {
                 $donation->delete();
+
                 return;
             }
-
 
             $firstItem = $data['items']['data'][0];
 

@@ -13,7 +13,9 @@ class Checkin extends Component
     use AuthorizesRequests;
 
     public Ticket $ticket;
+
     public User $user;
+
     public $event;
 
     public $editing = false;

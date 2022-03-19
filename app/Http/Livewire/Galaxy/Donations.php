@@ -21,9 +21,13 @@ class Donations extends Component
     ];
 
     public $selectAll = false;
+
     public $selectPage = false;
+
     public $selected = [];
+
     public $showPartialModal = false;
+
     public $perPage = 25;
 
     public function render()

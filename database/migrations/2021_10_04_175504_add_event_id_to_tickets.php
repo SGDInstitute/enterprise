@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddEventIdToTickets extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
@@ -14,8 +13,8 @@ class AddEventIdToTickets extends Migration
         });
 
         Ticket::with('order:id,event_id')->get()
-            ->each(function($ticket) {
-                if($ticket->order) {
+            ->each(function ($ticket) {
+                if ($ticket->order) {
                     $ticket->event_id = $ticket->order->event_id;
                     $ticket->save();
                 } else {
@@ -24,4 +23,4 @@ class AddEventIdToTickets extends Migration
                 }
             });
     }
-}
+};

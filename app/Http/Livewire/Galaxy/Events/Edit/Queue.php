@@ -28,7 +28,7 @@ class Queue extends Component
         $badges = $this->queue->whereIn('id', $value);
 
         if ($badges) {
-            $badges->each(fn($badge) => $badge->markAsPrinted());
+            $badges->each(fn ($badge) => $badge->markAsPrinted());
 
             $this->emit('refresh');
         }

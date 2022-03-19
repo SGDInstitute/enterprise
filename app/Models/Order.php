@@ -169,6 +169,7 @@ class Order extends Model
     {
         return $this->tickets->groupBy('ticket_type_id')->map(function ($group) {
             $price = $group->first()->scaled_price ?? $group->first()->price->cost;
+
             return [
                 'item' => $this->event->name . ' ' . $group->first()->ticketType->name . ' - ' . $group->first()->price->name,
                 'quantity' => $group->count(),

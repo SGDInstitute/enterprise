@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketTypesTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('ticket_types', function (Blueprint $table) {
@@ -22,4 +21,4 @@ class CreateTicketTypesTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

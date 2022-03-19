@@ -10,6 +10,7 @@ class Media extends Component
     public Event $event;
 
     public $background;
+
     public $logo;
 
     public $mediaComponentNames = ['background', 'logo'];

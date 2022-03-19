@@ -8,7 +8,9 @@ use Livewire\Component;
 class Support extends Component
 {
     public Event $event;
+
     public $contact;
+
     public $faq;
 
     public function mount()

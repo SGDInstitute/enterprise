@@ -3,22 +3,21 @@
 use App\Models\Setting;
 use Illuminate\Database\Migrations\Migration;
 
-class DefaultDonationsSettings extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Setting::create(['group' => 'donations.page', 'name' => 'title', 'type' => 'string', 'payload' => 'Support Our Work']);
         Setting::create(['group' => 'donations.page', 'name' => 'image', 'type' => 'string', 'payload' => 'https://sgdinstitute.org/assets/headers/header-test2.jpg']);
         Setting::create(['group' => 'donations.page', 'name' => 'content', 'type' => 'string', 'payload' => "The Midwest Institute for Sexuality and Gender Diversity re-envisions an educational climate that centers the needs and experiences of systemically disadvantaged students and affirms and encourages sexuality and gender diversity.\n\nOur life-saving work is made possible through the generous financial support of grassroots donors. We invite you to join us with a monthly or one-time gift. Your donation will support our efforts to build community and build strong movements."]);
 
-        Setting::create(['group' => 'donations.page', 'name' => 'onetime', 'type' => 'array', 'payload' => [10,20,50,100,'other']]);
+        Setting::create(['group' => 'donations.page', 'name' => 'onetime', 'type' => 'array', 'payload' => [10, 20, 50, 100, 'other']]);
         Setting::create(['group' => 'donations.page', 'name' => 'monthly', 'type' => 'array', 'payload' => [
-            "price_1KUfATI7BmcylBPUUj62a4SP" => "5",
-            "price_1KUfAaI7BmcylBPUEx5dn0Ky" => "10",
-            "price_1KUfAeI7BmcylBPU51hT3mIC" => "20",
-            "price_1KUfAjI7BmcylBPUjAGaWUE6" => "25",
-            "price_1KUfAmI7BmcylBPUHNKw7EpJ" => "50",
-            "price_1KUfApI7BmcylBPUTgdop1HT" => "100",
+            'price_1KUfATI7BmcylBPUUj62a4SP' => '5',
+            'price_1KUfAaI7BmcylBPUEx5dn0Ky' => '10',
+            'price_1KUfAeI7BmcylBPU51hT3mIC' => '20',
+            'price_1KUfAjI7BmcylBPUjAGaWUE6' => '25',
+            'price_1KUfAmI7BmcylBPUHNKw7EpJ' => '50',
+            'price_1KUfApI7BmcylBPUTgdop1HT' => '100',
         ],]);
 
         Setting::create(['group' => 'donations.thank-you-modal', 'name' => 'title', 'type' => 'string', 'payload' => 'Thank You!']);
@@ -31,4 +30,4 @@ class DefaultDonationsSettings extends Migration
         Setting::create(['group' => 'emails.donation-receipt.content', 'name' => 'one-time.new-account', 'type' => 'string', 'payload' => "Thank you for your contribution of {amount} to the Midwest Institute for Sexuality and Gender Diversity on {date}. Your generosity helps provide resources, community, and connection to the next generation of leaders in the movement for queer and trans liberation.\n\nThe Midwest Institute for Sexuality and Gender Diversity is a public charity recognized as tax-exempt by the IRS under Section 501(c)(3) and your gift may qualify as a charitable deduction for federal income tax purposes. No goods or services were provided to you in exchange for this gift. Our tax ID is 81-1788851.\n\nWe encourage you to retain this email as acknowledgement of your contribution for tax reporting purposes.\n\nAdditionally, we used the email address you provided with your contribution to create an account where you can view your contribution history. [Set your password](https://apps.sgdinstitute.org/forgot-password) to easily access these records."]);
         Setting::create(['group' => 'emails.donation-receipt.content', 'name' => 'one-time.receipt', 'type' => 'string', 'payload' => "Thank you for your contribution of {amount} to the Midwest Institute for Sexuality and Gender Diversity on {date}. Your generosity helps provide resources, community, and connection to the next generation of leaders in the movement for queer and trans liberation.\n\nThe Midwest Institute for Sexuality and Gender Diversity is a public charity recognized as tax-exempt by the IRS under Section 501(c)(3) and your gift may qualify as a charitable deduction for federal income tax purposes. No goods or services were provided to you in exchange for this gift. Our tax ID is 81-1788851.\n\nWe encourage you to retain this email as acknowledgement of your contribution for tax reporting purposes. You may also [log in](https://apps.sgdinstitute.org/login) to view your contribution history."]);
     }
-}
+};

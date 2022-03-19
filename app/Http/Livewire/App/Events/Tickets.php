@@ -11,9 +11,11 @@ use Livewire\Component;
 class Tickets extends Component
 {
     public Event $event;
+
     public $order;
 
     public $form;
+
     public $ticketTypes;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -24,6 +26,7 @@ class Tickets extends Component
         $this->form = $this->ticketTypes->map(function ($item) {
             if ($item->structure === 'flat') {
                 $price = $item->prices->where('start', '<', now())->where('end', '>', now())->first();
+
                 return [
                     'type_id' => $item->id,
                     'price_id' => $price->id,
@@ -39,7 +42,7 @@ class Tickets extends Component
                     'price_id' => $price->id,
                     'name' => $price->name,
                     'cost' => $price->cost / 100,
-                    'options' => $item->prices->mapWithKeys(fn($price) => [$price->id => $price->cost / 100]),
+                    'options' => $item->prices->mapWithKeys(fn ($price) => [$price->id => $price->cost / 100]),
                     'amount' => 0,
                 ];
             } else {
@@ -120,12 +123,12 @@ class Tickets extends Component
 
     private function convertFormToTickets()
     {
-        return $this->form->filter(fn($item) => $item['amount'] > 0)
+        return $this->form->filter(fn ($item) => $item['amount'] > 0)
             ->map(function ($item) {
                 $ticketType = $this->ticketTypes->find($item['type_id']);
                 $data = [
                     'event_id' => $this->event->id,
-                    'ticket_type_id' => $item['type_id'], 'price_id' => $item['price_id']
+                    'ticket_type_id' => $item['type_id'], 'price_id' => $item['price_id'],
                 ];
 
                 if ($item['amount'] == 1) {

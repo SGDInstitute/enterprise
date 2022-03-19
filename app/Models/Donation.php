@@ -79,7 +79,7 @@ class Donation extends Model
     public function cancel()
     {
         if ($this->type === 'monthly') {
-            Subscription::update($this->subscription_id, ['cancel_at_period_end' => true,]);
+            Subscription::update($this->subscription_id, ['cancel_at_period_end' => true]);
             $this->status = 'canceled';
             $this->save();
         }

@@ -19,8 +19,11 @@ class Schedule extends Component
     public Event $event;
 
     public $editingItem;
+
     public $editingTracks;
+
     public $showItemModal = false;
+
     public $perPage = 25;
 
     public $filters = [
@@ -87,7 +90,6 @@ class Schedule extends Component
     {
         return $this->event->start->timezone($this->event->timezone);
     }
-
 
     // Methods
 

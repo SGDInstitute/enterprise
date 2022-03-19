@@ -36,7 +36,7 @@ class EventItem extends Model
 
     public function children()
     {
-        return $this->hasMany(EventItem::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     // Attributes

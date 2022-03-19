@@ -14,9 +14,10 @@ class Workshops extends Component
     use WithSorting;
     use WithFiltering;
 
-    public $filters =  [
+    public $filters = [
         'search' => '',
     ];
+
     public $perPage = 25;
 
     public function render()
