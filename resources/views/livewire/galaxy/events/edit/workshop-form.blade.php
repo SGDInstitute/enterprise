@@ -1,5 +1,8 @@
 <div class="space-y-4">
-    <x-bit.button.round.primary wire:click="save">Save</x-bit.button.round.primary>
+    <div>
+        <x-bit.button.round.primary wire:click="save">Save</x-bit.button.round.primary>
+        <x-bit.button.round.secondary target="_blank" :href="$workshopForm->previewUrl">Preview</x-bit.button.round.secondary>
+    </div>
     <h2 class="text-gray-600 dark:text-gray-400">Options</h2>
 
     <div class="grid grid-cols-1 gap-6 p-4 bg-gray-800 rounded-md md:grid-cols-3">
