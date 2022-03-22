@@ -60,6 +60,13 @@ class ResponseLog extends Component
 
                     return true;
                 });
+            })
+            ->filter(function ($item) {
+                if ($item->event === 'updated' && ! isset($item['properties']['old']['status'])) {
+                    return false;
+                }
+
+                return true;
             });
     }
 
