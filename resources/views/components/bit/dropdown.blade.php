@@ -1,29 +1,57 @@
-<div
-    x-data="{
-        open: false,
-        toggle() {
-            this.open = this.open ? this.close() : true
-        },
-        close() {
-            this.open = false
-        }
-    }"
-    x-on:keydown.escape.prevent.stop="close"
-    class="relative"
->
-    <button
-        @click="toggle"
-        type="button"
-        :aria-expanded="open"
-        :aria-controls=""
-        @click.outside="close"
-        class="px-4 py-2 border border-black focus:outline-none focus:ring-4 focus:ring-green-500"
-    >
-        <span>{{ $title }}</span>
-        <span aria-hidden="true"></span>
-    </button>
+@props(['placement' => 'left', 'title' => 'Button'])
 
-    <div x-show="open" style="display:none" class="absolute left-0 mt-2 bg-white border border-black">
-        {{ $slot }}
+@php
+    $placement = ($placement === 'left') ? 'left-0' : 'right-0';
+@endphp
+
+<div class="flex justify-center">
+    <div
+        x-data="{
+            open: false,
+            toggle() {
+                if (this.open) {
+                    return this.close()
+                }
+
+                this.open = true
+            },
+            close(focusAfter) {
+                if (! this.open) return
+
+                this.open = false
+
+                focusAfter && focusAfter.focus()
+            }
+        }"
+        x-on:keydown.escape.prevent.stop="close($refs.button)"
+        x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+        x-id="['dropdown-button']"
+        class="relative"
+    >
+        <!-- Button -->
+        <button
+            x-ref="button"
+            x-on:click="toggle()"
+            :aria-expanded="open"
+            :aria-controls="$id('dropdown-button')"
+            type="button"
+            class="btn btn-gray btn-base"
+        >
+            <span>{{ $title }}</span>
+            <span aria-hidden="true" class="ml-1">&darr;</span>
+        </button>
+
+        <!-- Panel -->
+        <div
+            x-ref="panel"
+            x-show="open"
+            x-transition.origin.top.left
+            x-on:click.outside="close($refs.button)"
+            :id="$id('dropdown-button')"
+            style="display: none;"
+            class="absolute {{ $placement }} w-48 mt-2 overflow-hidden bg-white border border-black rounded shadow-md"
+        >
+           {{ $slot }}
+        </div>
     </div>
 </div>
