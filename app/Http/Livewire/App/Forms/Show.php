@@ -50,6 +50,13 @@ class Show extends Component
         }
     }
 
+    public function updatedAnswers()
+    {
+        if ($this->form->type === 'workshop') {
+            $this->save();
+        }
+    }
+
     public function render()
     {
         return view('livewire.app.forms.show')
