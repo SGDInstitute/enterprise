@@ -2,7 +2,7 @@
     <x-bit.button.round.primary wire:click="save">Save</x-bit.button.round.primary>
     <h2 class="text-gray-600 dark:text-gray-400">Options</h2>
 
-    <div class="grid grid-cols-1 gap-6 p-4 bg-gray-700 rounded-md md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-6 p-4 bg-gray-800 rounded-md md:grid-cols-3">
         <x-bit.input.group for="start" label="Availability Start">
             <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model="formattedStart" />
         </x-bit.input.group>
@@ -33,7 +33,7 @@
         @includeWhen($question['style'] === 'content', 'livewire.galaxy.forms.content')
         @includeWhen($question['style'] === 'collaborators', 'livewire.galaxy.forms.collaborators')
     @empty
-    <div class="p-4 rounded-md dark:bg-gray-700">
+    <div class="p-4 rounded-md dark:bg-gray-800">
         <p class="dark:text-gray-200">This form is empty! Get started by adding a content section or a question below.</p>
     </div>
     @endforelse
