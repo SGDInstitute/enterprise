@@ -8,7 +8,6 @@ use App\Models\Response;
 use App\Models\User;
 use App\Notifications\WorkshopStatusChanged;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
