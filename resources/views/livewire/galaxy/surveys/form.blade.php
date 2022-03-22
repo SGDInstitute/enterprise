@@ -43,13 +43,9 @@
     <h2 class="text-gray-600 dark:text-gray-400">Form</h2>
 
     @forelse ($form as $index => $question)
-        @if ($question['style'] === 'question')
-            @include('livewire.galaxy.forms.question')
-        @elseif ($question['style'] === 'content')
-            @include('livewire.galaxy.forms.content')
-        @elseif ($question['style'] === 'collaborators')
-            @include('livewire.galaxy.forms.collaborators')
-        @endif
+        @includeWhen($question['style'] === 'question', 'livewire.galaxy.forms.question')
+        @includeWhen($question['style'] === 'content', 'livewire.galaxy.forms.content')
+        @includeWhen($question['style'] === 'collaborators', 'livewire.galaxy.forms.collaborators')
     @empty
     <div class="p-4 rounded-md dark:bg-gray-700">
         <p class="dark:text-gray-200">This form is empty! Get started by adding a content section or a question below.</p>
