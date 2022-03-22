@@ -4,13 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Response extends Model
 {
     use HasFactory;
     use LogsActivity;
+
+    public $guarded = [];
+
+    protected $casts = [
+        'answers' => 'collection',
+    ];
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -18,12 +24,6 @@ class Response extends Model
             ->logOnly(['answers', 'status'])
             ->logOnlyDirty();
     }
-
-    public $guarded = [];
-
-    protected $casts = [
-        'answers' => 'collection',
-    ];
 
     public function collaborators()
     {
