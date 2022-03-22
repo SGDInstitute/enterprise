@@ -7,7 +7,6 @@ use App\Models\Donation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Mockery\MockInterface;
 use Tests\TestCase;
 
 class ShowTest extends TestCase

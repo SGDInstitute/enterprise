@@ -65,7 +65,7 @@ class Donation extends Model
         if (Str::startsWith($this->subscription_id, 'test_')) {
             return (object) [
                 'id' => $this->subscription_id,
-                'current_period_end' => now()->addDays(15)->timestamp
+                'current_period_end' => now()->addDays(15)->timestamp,
             ];
         }
 
