@@ -8,7 +8,7 @@
 
         <span class="absolute -bottom-0.5 -right-1 bg-gray-100 dark:bg-gray-700 rounded-tl px-0.5 py-px">
             <x-heroicon-s-chat-alt class="w-5 h-5 text-gray-400" />
-        </span>s
+        </span>
     </div>
     <div class="flex-1 min-w-0">
         <div>

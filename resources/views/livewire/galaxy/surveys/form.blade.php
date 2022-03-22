@@ -47,7 +47,7 @@
         @includeWhen($question['style'] === 'content', 'livewire.galaxy.forms.content')
         @includeWhen($question['style'] === 'collaborators', 'livewire.galaxy.forms.collaborators')
     @empty
-    <div class="p-4 rounded-md dark:bg-gray-700">
+    <div class="p-4 rounded-md dark:bg-gray-800">
         <p class="dark:text-gray-200">This form is empty! Get started by adding a content section or a question below.</p>
     </div>
     @endforelse
