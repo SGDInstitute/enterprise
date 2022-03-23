@@ -20,6 +20,8 @@ class Show extends Component
 
     public $answers;
 
+    public $collaborators;
+
     public $showPreviousResponses = false;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -37,18 +39,18 @@ class Show extends Component
             $this->response = (new Response(['user_id' => auth()->id(), 'form_id' => $this->form->id]));
 
             $this->answers = $this->form->form
-                ->filter(fn ($item) => $item['style'] !== 'content')
+                ->filter(fn ($item) => $item['style'] === 'question')
                 ->mapWithKeys(function ($item) {
-                    if ($item['style'] === 'question') {
-                        if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
-                            return [$item['id'] => []];
-                        }
-
-                        return [$item['id'] => ''];
-                    } elseif ($item['style'] === 'collaborators') {
-                        return [$item['id'] => auth()->user()->email ?? ''];
+                    if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                        return [$item['id'] => []];
                     }
+
+                    return [$item['id'] => ''];
                 })->toArray();
+
+            if ($this->form->hasCollaborators) {
+                $this->collaborators = collect([auth()->user()->only(['id', 'name', 'email', 'pronouns'])]);
+            }
         }
     }
 
@@ -57,6 +59,17 @@ class Show extends Component
         if ($this->form->type === 'workshop') {
             $this->save();
         }
+    }
+
+    public function updatedCollaborators($value, $field)
+    {
+        if (str($field)->endsWith('email')) {
+            $user = User::whereEmail($value)->first()->only('id', 'name', 'email', 'pronouns');
+
+            $index = explode('.', $field)[0];
+            $this->collaborators[$index] = $user;
+        }
+
     }
 
     public function render()
@@ -91,6 +104,11 @@ class Show extends Component
     }
 
     // Methods
+
+    public function addCollaborator()
+    {
+        $this->collaborators[] = ['id' => '', 'name' => '', 'email' => '', 'pronouns' => ''];
+    }
 
     public function delete($id)
     {
