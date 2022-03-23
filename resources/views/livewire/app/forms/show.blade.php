@@ -50,8 +50,17 @@
             <div class="space-y-2">
                 @foreach ($previousResponses as $response)
                 <div class="flex items-center justify-between">
-                    <p class="dark:text-gray-200">{{ $response->name }}</p>
-                    <x-bit.button.flat.primary size="xs" wire:click="load({{ $response->id }})">Load</x-bit.button.flat.primary>
+                    <div class="flex items-center space-x-1">
+                        <p class="dark:text-gray-200">{{ $response->name }}</p>
+                        <x-bit.badge>{{ $response->status }}</x-bit.badge>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <x-bit.button.flat.primary size="xs" wire:click="load({{ $response->id }})">Load</x-bit.button.flat.primary>
+                        <x-bit.button.flat.secondary size="xs" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="delete({{ $response->id }})">
+                            <span class="sr-only">Delete</span>
+                            <x-heroicon-o-trash class="w-4 h-4" />
+                        </x-bit.button.flat.secondary>
+                    </div>
                 </div>
                 @endforeach
             </div>

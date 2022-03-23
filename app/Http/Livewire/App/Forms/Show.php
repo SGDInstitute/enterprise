@@ -22,6 +22,8 @@ class Show extends Component
 
     public $showPreviousResponses = false;
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function mount()
     {
         if (request()->query('edit')) {
@@ -89,6 +91,14 @@ class Show extends Component
     }
 
     // Methods
+
+    public function delete($id)
+    {
+        $this->previousResponses->firstWhere('id', $id)->safeDelete();
+
+        $this->emit('refresh');
+        $this->emit('notify', ['message' => 'Successfully deleted previous submission.', 'type' => 'success']);
+    }
 
     public function isVisible($item)
     {

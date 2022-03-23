@@ -49,8 +49,19 @@ class Response extends Model
 
     public function getNameAttribute()
     {
+        if (isset($this->answers['question-name']) && $this->answers['question-name'] === '') {
+            return 'Not answered';
+        }
         return $this->answers['question-name'] ?? $this->answers['name'] ?? 'Indertiminable';
     }
 
     // Methods
+
+    public function safeDelete()
+    {
+        $this->reminders()->delete();
+        $this->collaborators()->detach();
+
+        $this->delete();
+    }
 }
