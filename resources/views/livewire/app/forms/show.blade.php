@@ -20,7 +20,7 @@
             </div>
             @endif
 
-            <div class="{{ !$response->activities->isEmpty() ? 'flex justify-between' : '' }}">
+            <div class="{{ $showResponseLog ? 'flex justify-between' : '' }}">
                 <form wire:submit.prevent="submit" class="mx-auto space-y-8 prose dark:prose-light">
                     @if ($form->type === 'workshop')
                         <p class="text-xl">All answers will be automatically saved.</p>
@@ -36,7 +36,7 @@
                     @endif
                 </form>
 
-                @if (!$response->activities->isEmpty())
+                @if ($showResponseLog)
                 <livewire:bit.response-log :response="$response" />
                 @endif
             </div>

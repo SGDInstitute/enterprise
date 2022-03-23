@@ -63,6 +63,7 @@ class Show extends Component
             ->with([
                 'fillable' => $this->fillable,
                 'previousResponses' => $this->previousResponses,
+                'showResponseLog' => $this->showResponseLog,
             ]);
     }
 
@@ -80,6 +81,11 @@ class Show extends Component
         }
 
         return collect([]);
+    }
+
+    public function getShowResponseLogProperty()
+    {
+        return in_array($this->response->status, ['submitted', 'in-review', 'approved', 'rejected', 'scheduled', 'waiting-list']);
     }
 
     // Methods
