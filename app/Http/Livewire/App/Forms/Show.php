@@ -170,6 +170,10 @@ class Show extends Component
                 'answers' => $this->answers,
                 'status' => 'work-in-progress',
             ]);
+
+            if ($this->form->has_reminders) {
+                $this->response->setUpReminders($this->form->settings->reminders);
+            }
         }
 
         // if form has collaborators

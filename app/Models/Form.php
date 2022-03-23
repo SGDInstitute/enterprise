@@ -68,6 +68,11 @@ class Form extends Model
         return $this->form->contains('style', 'collaborators');
     }
 
+    public function getHasRemindersAttribute()
+    {
+        return $this->settings->has('reminders');
+    }
+
     public function getPreviewUrlAttribute()
     {
         return route('app.forms.show', $this);

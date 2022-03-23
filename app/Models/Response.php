@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -40,6 +41,11 @@ class Response extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function reminders()
+    {
+        return $this->morphMany(Reminder::class, 'model');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -63,5 +69,20 @@ class Response extends Model
         $this->collaborators()->detach();
 
         $this->delete();
+    }
+
+    public function setUpReminders($reminders)
+    {
+        $dates = str($reminders)->explode(',')
+            ->map(function ($d) {
+                if (str($d)->startsWith('-')) {
+                    return $this->form->end->addDays($d);
+                }
+
+                return now()->addDays($d);
+            })
+            ->map(fn($d) => ['send_at' => $d, 'notification' => '']);
+
+        $this->reminders()->createMany($dates);
     }
 }

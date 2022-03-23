@@ -27,6 +27,11 @@
                 @endforeach
             </x-bit.input.select>
         </x-bit.input.group>
+
+        <x-bit.input.group for="reminders" label="Reminders">
+            <x-bit.input.text class="block w-full mt-1" id="reminders" name="reminders" wire:model="reminders" />
+            <x-bit.input.help>Comma separate list of days when reminders should be sent</x-bit.input.help>
+        </x-bit.input.group>
     </div>
 
     <h2 class="text-gray-600 dark:text-gray-400">Form</h2>
