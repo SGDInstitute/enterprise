@@ -30,7 +30,7 @@
                     @endforeach
 
                     @if ($form->type === 'workshop')
-                    <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
+                    <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review by Conference Team</x-bit.button.flat.primary>
                     @else
                     <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
                     @endif
