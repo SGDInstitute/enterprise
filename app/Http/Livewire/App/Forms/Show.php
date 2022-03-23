@@ -69,7 +69,6 @@ class Show extends Component
             $index = explode('.', $field)[0];
             $this->collaborators[$index] = $user;
         }
-
     }
 
     public function render()
