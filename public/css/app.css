@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.0.18 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -433,6 +433,11 @@ input::placeholder,textarea::placeholder {
   min-height: 1.5em;
 }
 
+::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 select {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.5rem center;
@@ -634,12 +639,12 @@ select {
   margin-top: 1.2em;
   margin-bottom: 1.2em;
 }
-.prose a {
+.prose :where(a):not(:where([class~="not-prose"] *)) {
   color: #06736F;
   text-decoration: none;
   font-weight: 500;
 }
-:where(.prose a:hover):not(:where([class~="not-prose"] *)) {
+.prose :where(a):not(:where([class~="not-prose"] *)):hover {
   text-decoration: underline;
 }
 .prose :where(strong):not(:where([class~="not-prose"] *)) {
@@ -694,7 +699,7 @@ select {
   margin-top: 3em;
   margin-bottom: 3em;
 }
-.prose blockquote {
+.prose :where(blockquote):not(:where([class~="not-prose"] *)) {
   font-weight: 500;
   font-style: italic;
   color: #07807B;
@@ -708,7 +713,7 @@ select {
   font-size: [object Object];
   border-left: 0;
 }
-.prose h1 {
+.prose :where(h1):not(:where([class~="not-prose"] *)) {
   color: #334155;
   font-weight: 800;
   font-size: 3rem;
@@ -718,14 +723,14 @@ select {
   line-height: 1.1111111;
   font-family: "News Cycle", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-.prose h1 strong {
+.prose :where(h1 strong):not(:where([class~="not-prose"] *)) {
   font-weight: 900;
   color: #334155;
   font-family: "News Cycle", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 3rem;
   font-size: [object Object];
 }
-.prose h2 {
+.prose :where(h2):not(:where([class~="not-prose"] *)) {
   color: #07807B;
   font-weight: 700;
   font-size: 2.25rem;
@@ -735,14 +740,14 @@ select {
   line-height: 1.3333333;
   font-family: "News Cycle", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-.prose h2 strong {
+.prose :where(h2 strong):not(:where([class~="not-prose"] *)) {
   font-weight: 800;
   color: #07807B;
   font-family: "News Cycle", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 2.25rem;
   font-size: [object Object];
 }
-.prose h3 {
+.prose :where(h3):not(:where([class~="not-prose"] *)) {
   color: #334155;
   font-weight: 600;
   font-size: 1.25rem;
@@ -752,14 +757,14 @@ select {
   line-height: 1.6;
   font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-.prose h3 strong {
+.prose :where(h3 strong):not(:where([class~="not-prose"] *)) {
   font-weight: 700;
   color: #334155;
   font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1.25rem;
   font-size: [object Object];
 }
-.prose h4 {
+.prose :where(h4):not(:where([class~="not-prose"] *)) {
   color: #334155;
   font-weight: 600;
   margin-top: 1.5em;
@@ -770,7 +775,7 @@ select {
   font-size: 1.125rem;
   font-size: [object Object];
 }
-.prose h4 strong {
+.prose :where(h4 strong):not(:where([class~="not-prose"] *)) {
   font-weight: 600;
   color: #334155;
   font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -987,7 +992,7 @@ select {
 .prose > :where(:last-child):not(:where([class~="not-prose"] *)) {
   margin-bottom: 0;
 }
-.prose figure figcaption {
+.prose :where(figure figcaption):not(:where([class~="not-prose"] *)) {
   font-size: 0.875rem;
   font-size: [object Object];
   color: #475569;
@@ -2112,6 +2117,9 @@ select {
 .-right-4 {
   right: -1rem;
 }
+.top-32 {
+  top: 8rem;
+}
 .z-50 {
   z-index: 50;
 }
@@ -2163,10 +2171,6 @@ select {
 .-my-2 {
   margin-top: -0.5rem;
   margin-bottom: -0.5rem;
-}
-.-mx-12 {
-  margin-left: -3rem;
-  margin-right: -3rem;
 }
 .mx-12 {
   margin-left: 3rem;
@@ -4164,9 +4168,6 @@ select {
 .prose-p\:m-0 :is(:where(p):not(:where([class~="not-prose"] *))) {
   margin: 0px;
 }
-.prose-p\:rounded-xl :is(:where(p):not(:where([class~="not-prose"] *))) {
-  border-radius: 0.75rem;
-}
 @media (prefers-color-scheme: dark) {
 
   .dark\:prose-light {
@@ -4422,11 +4423,6 @@ select {
   .dark\:bg-gray-600 {
     --tw-bg-opacity: 1;
     background-color: rgb(71 85 105 / var(--tw-bg-opacity));
-  }
-
-  .dark\:bg-green-800 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(3 58 55 / var(--tw-bg-opacity));
   }
 
   .dark\:bg-green-400 {
