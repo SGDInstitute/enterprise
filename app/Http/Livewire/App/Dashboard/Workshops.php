@@ -14,6 +14,8 @@ class Workshops extends Component
     use WithSorting;
     use WithFiltering;
 
+    public $form;
+
     public $filters = [
         'search' => '',
     ];
@@ -34,6 +36,7 @@ class Workshops extends Component
             ->with(['form', 'collaborators'])
             ->where('type', 'workshop')
             ->where('user_id', auth()->id())
+            ->when($this->form, fn($query) => $query->where('form_id', $this->form->id))
             ->paginate($this->perPage);
     }
 }

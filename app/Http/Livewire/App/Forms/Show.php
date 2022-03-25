@@ -49,14 +49,15 @@ class Show extends Component
                 })->toArray();
 
             if ($this->form->hasCollaborators) {
-                $this->collaborators = collect([auth()->user()->only(['id', 'name', 'email', 'pronouns'])]);
+                $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => '', 'id' => '', 'email' => '', 'pronouns' => ''];
+                $this->collaborators = collect([$user]);
             }
         }
     }
 
     public function updatedAnswers()
     {
-        if ($this->form->type === 'workshop') {
+        if ($this->isWorkshopForm) {
             $this->save();
         }
     }
@@ -78,6 +79,7 @@ class Show extends Component
                 'fillable' => $this->fillable,
                 'previousResponses' => $this->previousResponses,
                 'showResponseLog' => $this->showResponseLog,
+                'isWorkshopForm' => $this->isWorkshopForm,
             ]);
     }
 
@@ -86,6 +88,11 @@ class Show extends Component
     public function getFillableProperty()
     {
         return $this->form->auth_required ? auth()->check() : true;
+    }
+
+    public function getIsWorkshopFormProperty()
+    {
+        return $this->form->type === 'workshop';
     }
 
     public function getPreviousResponsesProperty()

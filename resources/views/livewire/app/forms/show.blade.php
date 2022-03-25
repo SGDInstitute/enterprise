@@ -1,26 +1,27 @@
 <div class="relative">
     <x-bit.form.header :form="$form" />
 
-    <div class="bg-gray-800">
-        <div class="container px-12 pb-12 mx-auto {{ auth()->guest() ? 'prose dark:prose-light' : '' }}">
+    <div class="dark:bg-gray-800">
+        <div class="container px-12 pb-12 mx-auto">
+
             @if (!$fillable)
-            <div class="sticky z-50 mb-8 -mx-12 top-20">
-                <div class="px-4 bg-green-100 rounded-md dark:bg-green-800">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <x-heroicon-s-information-circle class="w-8 h-8 text-green-500" />
-                        </div>
-                        <div class="flex-1 ml-3 md:flex md:justify-between">
-                            <p class="text-lg">
-                                You must <a href="/login" class="text-gray-400">Login</a> or <a href="/register" class="text-gray-400">Create an Account</a> before filling out this form.
-                            </p>
+                <div class="sticky z-50 mx-auto mb-8 max-w-prose top-20">
+                    <div class="p-4 bg-green-600 rounded-md">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <x-heroicon-s-information-circle class="w-8 h-8 text-gray-200" />
+                            </div>
+                            <div class="flex-1 ml-3 md:flex md:justify-between">
+                                <p class="text-lg text-gray-200">
+                                    You must <a href="/login" class="font-bold text-white underline">Login</a> or <a href="/register" class="font-bold text-white underline">Create an Account</a> before filling out this form.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endif
 
-            <div class="{{ $showResponseLog ? 'flex justify-between' : '' }}">
+            <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
                 <form wire:submit.prevent="submit" class="mx-auto space-y-8 prose dark:prose-light">
                     @if ($form->type === 'workshop')
                         <p class="text-xl">All answers will be automatically saved.</p>
@@ -29,41 +30,31 @@
                         @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
                     @endforeach
 
-                    @if ($form->type === 'workshop')
-                    <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review by Conference Team</x-bit.button.flat.primary>
-                    @else
+                    @if ($form->type !== 'workshop')
                     <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
                     @endif
                 </form>
 
-                @if ($showResponseLog)
-                <livewire:bit.response-log :response="$response" />
+                @if ($isWorkshopForm)
+                    <div>
+                        <div class="p-4 bg-gray-100 rounded-md dark:bg-gray-700">
+                            {{ $response->status }}
+                            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review by Conference Team</x-bit.button.flat.primary>
+                        </div>
+                        @if ($showResponseLog)
+                        <livewire:bit.response-log :response="$response" />
+                        @endif
+                    </div>
                 @endif
             </div>
         </div>
     </div>
 
-    <x-bit.modal.dialog wire:model="showPreviousResponses" max-width="sm">
-        <x-slot name="title">Previous Submissions</x-slot>
+    <x-bit.modal.dialog wire:model="showPreviousResponses" max-width="6xl">
+        <x-slot name="title"></x-slot>
 
         <x-slot name="content">
-            <div class="space-y-2">
-                @foreach ($previousResponses as $response)
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-1">
-                        <p class="dark:text-gray-200">{{ $response->name }}</p>
-                        <x-bit.badge>{{ $response->status }}</x-bit.badge>
-                    </div>
-                    <div class="flex items-center space-x-1">
-                        <x-bit.button.flat.primary size="xs" wire:click="load({{ $response->id }})">Load</x-bit.button.flat.primary>
-                        <x-bit.button.flat.secondary size="xs" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="delete({{ $response->id }})">
-                            <span class="sr-only">Delete</span>
-                            <x-heroicon-o-trash class="w-4 h-4" />
-                        </x-bit.button.flat.secondary>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+            <livewire:app.dashboard.workshops :form="$form" />
         </x-slot>
 
         <x-slot name="footer">
