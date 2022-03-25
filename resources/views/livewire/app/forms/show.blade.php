@@ -36,10 +36,13 @@
                 </form>
 
                 @if ($isWorkshopForm)
-                    <div>
-                        <div class="p-4 bg-gray-100 rounded-md dark:bg-gray-700">
-                            {{ $response->status }}
-                            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review by Conference Team</x-bit.button.flat.primary>
+                    <div class="relative">
+                        <div class="sticky z-40 w-full p-4 space-y-4 bg-gray-100 rounded-md top-32 dark:bg-gray-700">
+                            <div class="space-x-2">
+                                <span class="text-gray-700 dark:text-gray-200">Status:</span>
+                                <x-bit.badge>{{ $response->status ?? 'work-in-progress' }}</x-bit.badge>
+                            </div>
+                            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
                         </div>
                         @if ($showResponseLog)
                         <livewire:bit.response-log :response="$response" />
