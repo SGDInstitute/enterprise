@@ -14,7 +14,7 @@
         <x-bit.table>
             <x-slot name="head">
                 @if (!$this->form)
-                <x-bit.table.heading>Name</x-bit.table.heading>
+                <x-bit.table.heading>Event</x-bit.table.heading>
                 @endif
                 <x-bit.table.heading>Workshop Name</x-bit.table.heading>
                 <x-bit.table.heading>Status</x-bit.table.heading>
