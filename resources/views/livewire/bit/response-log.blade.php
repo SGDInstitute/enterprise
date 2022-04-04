@@ -19,28 +19,30 @@
 
             </ul>
         </div>
-        <form wire:submit.prevent="save" class="p-6 space-y-4 border-t border-gray-300 dark:border-gray-800">
-            <x-bit.input.group for="comment" label="Add Comment" :error="$errors->first('comment')">
-                <x-bit.input.textarea wire:ignore class="w-full mt-1" id="comment" wire:model="comment" />
-            </x-bit.input.group>
-            @if ($isGalaxy)
-            <x-bit.input.group for="status" label="Status">
-                <x-bit.input.select id="status" wire:model="status">
-                    <option value="work-in-progress">Work in Progress</option>
-                    <option value="submitted">Submitted</option>
-                    <option value="in-review">In Review</option>
-                    <option value="approved">Approved</option>
-                    <option value="waiting-list">Waiting List</option>
-                    <option value="rejected">Rejected</option>
-                    <option value="scheduled">Scheduled</option>
-                </x-bit.input.select>
-            </x-bit.input.group>
-            <x-bit.input.group for="internal">
-                <x-bit.input.checkbox id="internal" label="Internal Only" wire:model="internal" />
-                <x-bit.input.help>Check if only members of the team should see this comment</x-bit.input.help>
-            </x-bit.input.group>
-            @endif
-            <x-bit.button.round.primary size="sm" type="submit">Save</x-bit.button.round.primary>
-        </form>
+        <div class="p-4 space-y-4 border-t border-gray-300 dark:border-gray-800">
+            <form wire:submit.prevent="save">
+                <x-bit.input.group for="comment" label="Add Comment" :error="$errors->first('comment')">
+                    <x-bit.input.textarea wire:ignore class="w-full mt-1" id="comment" wire:model="comment" />
+                </x-bit.input.group>
+                @if ($isGalaxy)
+                <x-bit.input.group for="status" label="Status">
+                    <x-bit.input.select id="status" wire:model="status">
+                        <option value="work-in-progress">Work in Progress</option>
+                        <option value="submitted">Submitted</option>
+                        <option value="in-review">In Review</option>
+                        <option value="approved">Approved</option>
+                        <option value="waiting-list">Waiting List</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="scheduled">Scheduled</option>
+                    </x-bit.input.select>
+                </x-bit.input.group>
+                <x-bit.input.group for="internal">
+                    <x-bit.input.checkbox id="internal" label="Internal Only" wire:model="internal" />
+                    <x-bit.input.help>Check if only members of the team should see this comment</x-bit.input.help>
+                </x-bit.input.group>
+                @endif
+                <x-bit.button.round.primary size="sm" type="submit">Save</x-bit.button.round.primary>
+            </form>
+        </div>
     </div>
 </div>
