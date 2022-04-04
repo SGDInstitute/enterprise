@@ -34,7 +34,7 @@ class ShowTest extends TestCase
 
         $this->assertNotNull($response = $user->responses()->where('form_id', $form->id)->first());
 
-        $this->assertCount(4, $response->reminders);
+        $this->assertCount(0, $response->reminders);
     }
 
     /** @test */
@@ -57,6 +57,6 @@ class ShowTest extends TestCase
 
         $this->assertNotNull($response = $user->responses()->where('form_id', $form->id)->first());
 
-        $this->assertCount(3, $response->reminders);
+        $this->assertCount(0, $response->reminders);
     }
 }
