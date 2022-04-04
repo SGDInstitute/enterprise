@@ -23,7 +23,7 @@ class ShowTest extends TestCase
             'end' => now()->addMonth(),
             'settings' => [
                 'reminders' => '1,3,7,-2',
-            ]
+            ],
         ]);
         $user = User::factory()->create();
 
@@ -46,7 +46,7 @@ class ShowTest extends TestCase
             'end' => now()->addDays(4),
             'settings' => [
                 'reminders' => '1,3,7,-2',
-            ]
+            ],
         ]);
         $user = User::factory()->create();
 
