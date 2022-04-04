@@ -13,17 +13,21 @@
 
         <x-bit.table>
             <x-slot name="head">
-                <x-bit.table.heading>Name</x-bit.table.heading>
-                <x-bit.table.heading>Workshop</x-bit.table.heading>
+                @if (!$this->form)
+                <x-bit.table.heading>Event</x-bit.table.heading>
+                @endif
+                <x-bit.table.heading>Workshop Name</x-bit.table.heading>
                 <x-bit.table.heading>Status</x-bit.table.heading>
-                <x-bit.table.heading>Created At</x-bit.table.heading>
+                <x-bit.table.heading>Date Created</x-bit.table.heading>
                 <x-bit.table.heading />
             </x-slot>
 
             <x-slot name="body">
                 @forelse ($workshops as $workshop)
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}">
+                    @if (!$this->form)
                     <x-bit.table.cell>{{ $workshop->form->name }}</x-bit.table.cell>
+                    @endif
                     <x-bit.table.cell>{{ $workshop->name }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $workshop->status }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $workshop->created_at->format('M, d Y') }}</x-bit.table.cell>
@@ -31,6 +35,9 @@
                     <x-bit.table.cell>
                         <x-bit.button.link size="py-1 px-2" href="{{ route('app.forms.show', ['form' => $workshop->form, 'edit' => $workshop]) }}">
                             <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
+                        </x-bit.button.link>
+                        <x-bit.button.link size="py-1 px-2" wire:click="delete({{ $workshop->id }})">
+                            <x-heroicon-o-trash class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                     </x-bit.table.cell>
 

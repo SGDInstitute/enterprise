@@ -1,8 +1,11 @@
 <div class="space-y-4">
-    <x-bit.button.round.primary wire:click="save">Save</x-bit.button.round.primary>
+    <div>
+        <x-bit.button.round.primary wire:click="save">Save</x-bit.button.round.primary>
+        <x-bit.button.round.secondary target="_blank" :href="$workshopForm->previewUrl">Preview</x-bit.button.round.secondary>
+    </div>
     <h2 class="text-gray-600 dark:text-gray-400">Options</h2>
 
-    <div class="grid grid-cols-1 gap-6 p-4 bg-gray-700 rounded-md md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-6 p-4 bg-gray-800 rounded-md md:grid-cols-3">
         <x-bit.input.group for="start" label="Availability Start">
             <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model="formattedStart" />
         </x-bit.input.group>
@@ -24,20 +27,21 @@
                 @endforeach
             </x-bit.input.select>
         </x-bit.input.group>
+
+        <x-bit.input.group for="reminders" label="Reminders">
+            <x-bit.input.text class="block w-full mt-1" id="reminders" name="reminders" wire:model="reminders" />
+            <x-bit.input.help>Comma separate list of days when reminders should be sent</x-bit.input.help>
+        </x-bit.input.group>
     </div>
 
     <h2 class="text-gray-600 dark:text-gray-400">Form</h2>
 
     @forelse ($form as $index => $question)
-        @if ($question['style'] === 'question')
-            @include('livewire.galaxy.forms.question')
-        @elseif ($question['style'] === 'content')
-            @include('livewire.galaxy.forms.content')
-        @elseif ($question['style'] === 'collaborators')
-            @include('livewire.galaxy.forms.collaborators')
-        @endif
+        @includeWhen($question['style'] === 'question', 'livewire.galaxy.forms.question')
+        @includeWhen($question['style'] === 'content', 'livewire.galaxy.forms.content')
+        @includeWhen($question['style'] === 'collaborators', 'livewire.galaxy.forms.collaborators')
     @empty
-    <div class="p-4 rounded-md dark:bg-gray-700">
+    <div class="p-4 rounded-md dark:bg-gray-800">
         <p class="dark:text-gray-200">This form is empty! Get started by adding a content section or a question below.</p>
     </div>
     @endforelse

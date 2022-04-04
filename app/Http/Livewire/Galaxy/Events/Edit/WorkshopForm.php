@@ -26,6 +26,8 @@ class WorkshopForm extends Component
 
     public $openIndex = -1;
 
+    public $reminders;
+
     public $showSettings = false;
 
     public $searchable = [];
@@ -54,6 +56,8 @@ class WorkshopForm extends Component
             $this->form = $this->workshopForm->form ?? collect([]);
             $this->formattedStart = $this->workshopForm->formattedStart;
             $this->formattedEnd = $this->workshopForm->formattedEnd;
+            $this->reminders = $this->workshopForm->settings->reminders;
+            $this->searchable = $this->workshopForm->settings->searchable;
         }
     }
 
@@ -100,6 +104,9 @@ class WorkshopForm extends Component
 
         if ($this->searchable !== []) {
             $this->workshopForm->settings->set('searchable', $this->searchable);
+        }
+        if ($this->reminders !== '') {
+            $this->workshopForm->settings->set('reminders', $this->reminders);
         }
         $this->workshopForm->save();
 

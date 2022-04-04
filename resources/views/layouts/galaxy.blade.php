@@ -21,6 +21,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://unpkg.com/trix@1.2.3/dist/trix.js" defer></script>
     <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     @stack('scripts')
 </head>
 
@@ -37,8 +38,11 @@
 
             <main class="relative flex-1 overflow-y-auto focus:outline-none" tabindex="0" x-data="" x-init="$el.focus()">
                 <div class="py-6">
-                    <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+                    <div class="flex items-center justify-between px-4 mx-auto space-x-1 max-w-7xl sm:px-6 md:px-8">
                         <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-200">{{ $title }}</h1>
+                        @isset ($action)
+                        <x-bit.button.round.primary wire:click="{{ $action['method'] }}">{{ $action['label'] }}</x-bit.button.round.primary>
+                        @endif
                     </div>
                     <div class="px-4 mx-auto mt-8 max-w-7xl sm:px-6 md:px-8">
                         {{ $slot }}

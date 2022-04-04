@@ -8,7 +8,7 @@
     </div>
     <div class="min-w-0 flex-1 py-1.5">
         <div class="text-sm text-gray-500 dark:text-gray-300">
-            {{ $activity->causer->name }} created {{ $response->name }}
+            {{ $activity->causer->name ?? 'Someone' }} created {{ $response->name }}
             <span class="text-gray-400 whitespace-nowrap">{{ $activity->created_at->diffForHumans() }}</span>
         </div>
     </div>
