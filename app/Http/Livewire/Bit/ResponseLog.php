@@ -15,9 +15,13 @@ class ResponseLog extends Component
     protected $listeners = ['refresh' => '$refresh'];
 
     public $comment = '';
+
     public $internal = false;
+
     public $status;
+
     public $isGalaxy = false;
+
     public $statusChanged = false;
 
     public function mount()
@@ -56,6 +60,13 @@ class ResponseLog extends Component
 
                     return true;
                 });
+            })
+            ->filter(function ($item) {
+                if ($item->event === 'updated' && ! isset($item['properties']['old']['status'])) {
+                    return false;
+                }
+
+                return true;
             });
     }
 
@@ -76,7 +87,11 @@ class ResponseLog extends Component
 
         if (($this->comment !== '' && ! $this->internal) || $this->statusChanged) {
             $comment = $this->internal ? '' : $this->comment;
-            Notification::send($this->response->collaborators->where('id', '<>', auth()->id()), new WorkshopStatusChanged($this->response, $comment, $this->statusChanged, auth()->user()->name));
+
+            Notification::send(
+                $this->response->collaborators->where('id', '<>', auth()->id()),
+                new WorkshopStatusChanged($this->response, $comment, $this->statusChanged, auth()->user()->name)
+            );
         }
 
         $this->emit('refresh');

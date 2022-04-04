@@ -15,16 +15,23 @@ class Reservations extends Component
     use WithFiltering;
 
     public $event;
+
     public $user;
 
     public $filters = [
         'search' => '',
     ];
+
     public $invoices = [];
+
     public $selectAll = false;
+
     public $selectPage = false;
+
     public $selected = [];
+
     public $showInvoiceModal = false;
+
     public $perPage = 25;
 
     protected $listeners = ['refresh' => '$refresh'];

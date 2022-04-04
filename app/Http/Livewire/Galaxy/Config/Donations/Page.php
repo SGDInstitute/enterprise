@@ -9,14 +9,21 @@ use Stripe\StripeClient;
 class Page extends Component
 {
     public $editPanel = false;
+
     public $type = 'monthly';
+
     public $otherAmount = false;
+
     public $newPrice;
 
     public $title;
+
     public $image;
+
     public $content;
+
     public $oneTimeOptions;
+
     public $monthlyOptions;
 
     public $rules = [

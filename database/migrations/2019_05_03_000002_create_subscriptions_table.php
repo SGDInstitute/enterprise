@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubscriptionsTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('subscriptions', function (Blueprint $table) {
@@ -28,4 +27,4 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::dropIfExists('subscriptions');
     }
-}
+};

@@ -14,10 +14,15 @@ class Workshops extends Component
     use WithSorting;
     use WithFiltering;
 
-    public $filters =  [
+    public $form;
+
+    public $filters = [
         'search' => '',
     ];
+
     public $perPage = 25;
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function render()
     {
@@ -33,6 +38,18 @@ class Workshops extends Component
             ->with(['form', 'collaborators'])
             ->where('type', 'workshop')
             ->where('user_id', auth()->id())
+            ->when($this->filters['search'], fn($query) => $query
+                ->where('answers', 'LIKE', "%{$this->filters['search']}%")
+                ->orWhere('status', 'LIKE', "%{$this->filters['search']}%"))
+            ->when($this->form, fn($query) => $query->where('form_id', $this->form->id))
             ->paginate($this->perPage);
+    }
+
+    public function delete($id)
+    {
+        $this->workshops->find($id)->safeDelete();
+
+        $this->emit('notify', ['message' => 'Successfully deleted workshop submission', 'type' => 'success']);
+        $this->emit('refresh');
     }
 }

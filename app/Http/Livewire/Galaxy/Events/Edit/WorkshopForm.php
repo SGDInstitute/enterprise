@@ -15,13 +15,21 @@ class WorkshopForm extends Component
     use WithFormBuilder;
 
     public Event $event;
+
     public Form $workshopForm;
 
     public $form;
+
     public $formattedEnd;
+
     public $formattedStart;
+
     public $openIndex = -1;
+
+    public $reminders;
+
     public $showSettings = false;
+
     public $searchable = [];
 
     public $rules = [
@@ -48,6 +56,8 @@ class WorkshopForm extends Component
             $this->form = $this->workshopForm->form ?? collect([]);
             $this->formattedStart = $this->workshopForm->formattedStart;
             $this->formattedEnd = $this->workshopForm->formattedEnd;
+            $this->reminders = $this->workshopForm->settings->reminders;
+            $this->searchable = $this->workshopForm->settings->searchable;
         }
     }
 
@@ -65,8 +75,8 @@ class WorkshopForm extends Component
     public function getSearchableFieldsProperty()
     {
         return collect($this->form)
-            ->filter(fn($question) => $question['style'] === 'question')
-            ->filter(fn($question) => $question['type'] !== 'textarea')
+            ->filter(fn ($question) => $question['style'] === 'question')
+            ->filter(fn ($question) => $question['type'] !== 'textarea')
             ->pluck('question', 'id');
     }
 
@@ -94,6 +104,9 @@ class WorkshopForm extends Component
 
         if ($this->searchable !== []) {
             $this->workshopForm->settings->set('searchable', $this->searchable);
+        }
+        if ($this->reminders !== '') {
+            $this->workshopForm->settings->set('reminders', $this->reminders);
         }
         $this->workshopForm->save();
 

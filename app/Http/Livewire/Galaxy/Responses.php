@@ -8,7 +8,9 @@ use Livewire\Component;
 class Responses extends Component
 {
     public $formId = null;
+
     public $type = null;
+
     public $userId = null;
 
     public function render()

@@ -10,6 +10,7 @@ use Livewire\Component;
 class Settings extends Component
 {
     public Event $event;
+
     public $formChanged = false;
 
     public $rules = [

@@ -14,9 +14,10 @@ class Users extends Component
     use WithFiltering;
     use WithPagination;
 
-    public $filters =  [
+    public $filters = [
         'search' => '',
     ];
+
     public $perPage = 25;
 
     public function render()

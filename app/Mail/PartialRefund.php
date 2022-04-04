@@ -13,7 +13,9 @@ class PartialRefund extends Mailable
     use SerializesModels;
 
     public $order;
+
     public $amount;
+
     public $count;
 
     public function __construct(Order $order, $amount, $count)

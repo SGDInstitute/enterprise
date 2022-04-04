@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Stripe\PaymentMethod;
 use Stripe\Subscription;
 
@@ -61,6 +62,13 @@ class Donation extends Model
 
     public function getStripeSubscriptionAttribute()
     {
+        if (Str::startsWith($this->subscription_id, 'test_')) {
+            return (object) [
+                'id' => $this->subscription_id,
+                'current_period_end' => now()->addDays(15)->timestamp,
+            ];
+        }
+
         return Subscription::retrieve($this->subscription_id);
     }
 
@@ -79,7 +87,7 @@ class Donation extends Model
     public function cancel()
     {
         if ($this->type === 'monthly') {
-            Subscription::update($this->subscription_id, ['cancel_at_period_end' => true,]);
+            Subscription::update($this->subscription_id, ['cancel_at_period_end' => true]);
             $this->status = 'canceled';
             $this->save();
         }

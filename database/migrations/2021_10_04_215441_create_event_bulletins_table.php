@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventBulletinsTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('event_bulletins', function (Blueprint $table) {
@@ -18,4 +17,4 @@ class CreateEventBulletinsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

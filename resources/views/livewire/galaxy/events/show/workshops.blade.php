@@ -71,7 +71,13 @@
                     </x-bit.table.cell>
                     @forelse ($form->settings->searchable as $item)
                     <x-bit.table.cell>
-                        {{ $workshop->answers[$item] ?? '?' }}
+                        @if (is_array($workshop->answers[$item]))
+                            {{ implode(', ', $workshop->answers[$item]) }}
+                        @elseif (!empty($workshop->answers[$item]))
+                            {{ $workshop->answers[$item] ?? '?' }}
+                        @else
+                            ?
+                        @endif
                     </x-bit.table.cell>
                     @empty
                     <x-bit.table.cell>{{ $workshop->name }}</x-bit.table.cell>

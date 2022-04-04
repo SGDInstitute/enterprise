@@ -12,7 +12,9 @@ class AddedToTicket extends Notification implements ShouldQueue
     use Queueable;
 
     public $ticket;
+
     public $newUser;
+
     public $causer;
 
     public function __construct($ticket, $newUser = 'false', $causer = 'someone')

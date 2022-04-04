@@ -64,6 +64,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(EventItem::class, 'user_schedule', 'user_id', 'item_id');
     }
 
+    public function getFormattedAddressAttribute()
+    {
+        if (is_array($this->address)) {
+            return isset($this->address['line2'])
+                ? "{$this->address['line1']} {$this->address['line2']}, {$this->address['city']}, {$this->address['state']}, {$this->address['zip']}"
+                : "{$this->address['line1']}, {$this->address['city']}, {$this->address['state']}, {$this->address['zip']}";
+        }
+    }
+
     // Methods
 
     public function findOrCreateCustomerId()

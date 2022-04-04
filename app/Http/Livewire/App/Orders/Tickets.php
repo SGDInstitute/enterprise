@@ -30,15 +30,25 @@ class Tickets extends Component
         'email' => '',
         'pronouns' => '',
     ];
+
     public $answers;
+
     public $continue = false;
+
     public $editMode = false;
+
     public $editingTicket;
+
     public $form = [];
+
     public $emailChanged = false;
+
     public $perPage = 10;
+
     public $ticketsView = 'grid';
+
     public $showTicketholderModal = false;
+
     public $updateEmail = null;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -246,7 +256,7 @@ class Tickets extends Component
     {
         if (isset($ticket->ticketType->form)) {
             return $ticket->ticketType->form
-                        ->filter(fn($item) => $item['style'] !== 'content')
+                        ->filter(fn ($item) => $item['style'] !== 'content')
                         ->mapWithKeys(function ($item) {
                             if ($item['style'] === 'question') {
                                 if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {

@@ -12,8 +12,11 @@ class WorkshopStatusChanged extends Notification implements ShouldQueue
     use Queueable;
 
     public $response;
+
     public $comment;
+
     public $statusChanged;
+
     public $causer;
 
     public function __construct($response, $comment, $statusChanged, $causer)

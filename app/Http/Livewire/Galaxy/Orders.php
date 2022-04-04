@@ -17,6 +17,7 @@ class Orders extends Component
     use WithFiltering;
 
     public $event;
+
     public $user;
 
     public $filters = [
@@ -24,12 +25,17 @@ class Orders extends Component
     ];
 
     public $selectAll = false;
+
     public $selectPage = false;
+
     public $selected = [];
+
     public $showPartialModal = false;
+
     public $perPage = 25;
 
     public $editingOrder;
+
     public $editingTickets = [];
 
     public function updatedSelectPage($value)
@@ -80,7 +86,7 @@ class Orders extends Component
     public function getEditingTicketsAmountProperty()
     {
         if (count($this->editingTickets) > 0) {
-            return $this->editingOrder->tickets->whereIn('id', $this->editingTickets)->sum(fn($ticket) => $ticket->price->cost);
+            return $this->editingOrder->tickets->whereIn('id', $this->editingTickets)->sum(fn ($ticket) => $ticket->price->cost);
         }
     }
 
@@ -92,7 +98,6 @@ class Orders extends Component
 
     public function partialRefund()
     {
-
         if ($this->editingOrder->isStripe()) {
             $refund = $this->editingOrder->user->refund($this->editingOrder->transaction_id, ['amount' => $this->editingTicketsAmount]);
             activity()->performedOn($this->editingOrder)->withProperties(['amount' => $this->editingTicketsAmount, 'refund_id' => $refund->id])->log('partial_refund');

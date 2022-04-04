@@ -22,6 +22,7 @@ class MySchedule extends Component
     public function redirectTo($id)
     {
         $item = $this->event->items->firstWhere('id', $id);
+
         return redirect()->route('app.program.schedule-item', [$this->event, $item]);
     }
 }

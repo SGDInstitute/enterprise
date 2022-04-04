@@ -1,11 +1,4 @@
-@if ($item['type'] === 'textarea')
-    @include('livewire.app.forms.partials.question-textarea')
-@elseif ($item['type'] === 'text')
-    @include('livewire.app.forms.partials.question-text')
-@elseif ($item['type'] === 'list')
-    @include('livewire.app.forms.partials.question-list')
-@elseif ($item['type'] === 'matrix')
-    @include('livewire.app.forms.partials.question-matrix')
-@else
-    {!! json_encode($item) !!}
-@endif
+@includeWhen($item['type'] === 'textarea', 'livewire.app.forms.partials.question-textarea')
+@includeWhen($item['type'] === 'text', 'livewire.app.forms.partials.question-text')
+@includeWhen($item['type'] === 'list', 'livewire.app.forms.partials.question-list')
+@includeWhen($item['type'] === 'matrix', 'livewire.app.forms.partials.question-matrix')

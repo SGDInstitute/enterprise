@@ -9,10 +9,13 @@ use Livewire\Component;
 class Slots extends Component
 {
     public Event $event;
+
     public EventItem $item;
 
     public $editingItem;
+
     public $editingTracks;
+
     public $showItemModal = false;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -42,9 +45,9 @@ class Slots extends Component
     {
         return $this->items
             ->groupBy('location')
-            ->filter(fn($location) => $location->count() > 1)
+            ->filter(fn ($location) => $location->count() > 1)
             ->map(function ($location) {
-                return $location->map(fn($item) => $item->id);
+                return $location->map(fn ($item) => $item->id);
             });
     }
 

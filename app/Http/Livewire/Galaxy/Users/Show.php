@@ -9,6 +9,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public User $user;
+
     public $page;
 
     public $showDeleteModal = false;

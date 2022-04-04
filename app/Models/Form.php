@@ -68,10 +68,20 @@ class Form extends Model
         return $this->form->contains('style', 'collaborators');
     }
 
+    public function getHasRemindersAttribute()
+    {
+        return $this->settings->has('reminders');
+    }
+
+    public function getPreviewUrlAttribute()
+    {
+        return route('app.forms.show', $this);
+    }
+
     public function getRulesAttribute()
     {
         return $this->form
-            ->filter(fn($item) => $item['style'] === 'question')
+            ->filter(fn ($item) => $item['style'] === 'question')
             ->mapWithKeys(function ($question) {
                 return ['answers.' . $question['id'] => $question['rules']];
             })->toArray();
