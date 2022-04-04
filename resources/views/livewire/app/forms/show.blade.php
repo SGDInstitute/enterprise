@@ -61,7 +61,37 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-bit.button.flat.secondary size="xs" wire:click="$set('showPreviousResponses', false)">Close</x-bit.button.flat.secondary>
+            <x-bit.button.flat.secondary wire:click="$set('showPreviousResponses', false)">Start a new proposal</x-bit.button.flat.secondary>
         </x-slot>
     </x-bit.modal.dialog>
+
+    <form wire:submit.prevent="saveCollaborator">
+        <x-bit.modal.dialog wire:model.defer="showCollaboratorModal" max-width="lg">
+            <x-slot name="title">
+                Add Presenter
+            </x-slot>
+
+            <x-slot name="content">
+                <x-bit.input.group for="presenter-email" label="Email">
+                    <x-bit.input.text class="w-full" id="presenter-email" placeholder="Email" type="email" wire:model.lazy="newCollaborator.email" />
+                </x-bit.input.group>
+
+                <x-bit.input.group class="mt-4" for="presenter-name" label="Name">
+                    <x-bit.input.text id="presenter-name" class="w-full" placeholder="Name" type="text" wire:model="newCollaborator.name" />
+                </x-bit.input.group>
+
+                <x-bit.input.group class="mt-4" for="presenter-pronouns" label="Pronouns">
+                    <x-bit.input.text id="presenter-pronouns" class="w-full" placeholder="Pronouns" type="text" wire:model="newCollaborator.pronouns" />
+                </x-bit.input.group>
+            </x-slot>
+
+            <x-slot name="footer">
+                <div class="space-x-2">
+                    <x-bit.button.flat.secondary type="button" wire:click="$set('showCollaboratorModal', false)">Cancel</x-bit.button.flat.secondary>
+
+                    <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
+                </div>
+            </x-slot>
+        </x-bit.modal.dialog>
+    </form>
 </div>

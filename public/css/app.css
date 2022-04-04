@@ -2096,6 +2096,9 @@ select {
 .top-20 {
   top: 5rem;
 }
+.top-32 {
+  top: 8rem;
+}
 .-bottom-0\.5 {
   bottom: -0.125rem;
 }
@@ -2116,9 +2119,6 @@ select {
 }
 .-right-4 {
   right: -1rem;
-}
-.top-32 {
-  top: 8rem;
 }
 .z-50 {
   z-index: 50;
@@ -2155,6 +2155,9 @@ select {
 }
 .-m-3 {
   margin: -0.75rem;
+}
+.m-0 {
+  margin: 0px;
 }
 .mx-auto {
   margin-left: auto;
@@ -2678,6 +2681,9 @@ select {
 }
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.grid-cols-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;

@@ -80,7 +80,8 @@ class Response extends Model
 
                 return now()->addDays($d);
             })
-            ->map(fn($d) => ['send_at' => $d, 'notification' => '']);
+            ->filter(fn($d) => $d <= $this->form->end)
+            ->map(fn($d) => ['send_at' => $d]);
 
         $this->reminders()->createMany($dates);
     }

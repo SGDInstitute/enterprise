@@ -21,13 +21,23 @@ class Show extends Component
     public $answers;
 
     public $collaborators;
+    public $newCollaborator;
 
     public $showPreviousResponses = false;
+    public $showCollaboratorModal = false;
 
     protected $listeners = ['refresh' => '$refresh'];
 
+    protected $rules = [
+        'newCollaborator.email' => ['required', 'email'],
+        'newCollaborator.name' => ['required'],
+        'newCollaborator.pronouns' => ['required'],
+    ];
+
     public function mount()
     {
+        $this->newCollaborator = ['name' => '', 'email' => '', 'id' => '', 'pronouns'];
+
         if (request()->query('edit')) {
             // check if user is authorized to view
             $this->load(request()->query('edit'));
@@ -49,7 +59,7 @@ class Show extends Component
                 })->toArray();
 
             if ($this->form->hasCollaborators) {
-                $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => '', 'id' => '', 'email' => '', 'pronouns' => ''];
+                $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
                 $this->collaborators = collect([$user]);
             }
         }
@@ -62,13 +72,10 @@ class Show extends Component
         }
     }
 
-    public function updatedCollaborators($value, $field)
+    public function updatedNewCollaborator($value, $field)
     {
-        if (str($field)->endsWith('email')) {
-            $user = User::whereEmail($value)->first()->only('id', 'name', 'email', 'pronouns');
-
-            $index = explode('.', $field)[0];
-            $this->collaborators[$index] = $user;
+        if ($field === 'email' && $user = User::whereEmail($value)->first()) {
+            $this->newCollaborator = $user->only('id', 'name', 'email', 'pronouns');
         }
     }
 
@@ -111,9 +118,24 @@ class Show extends Component
 
     // Methods
 
-    public function addCollaborator()
+    public function saveCollaborator()
     {
-        $this->collaborators[] = ['id' => '', 'name' => '', 'email' => '', 'pronouns' => ''];
+        $this->validate();
+
+        if (! isset($this->newCollaborator['id'])) {
+            $user = User::create(array_merge($this->newCollaborator, ['password' => Hash::make(Str::random(15))]));
+            $this->newCollaborator['id'] = $user->id;
+        } else {
+            $user = User::find($this->newCollaborator['id']);
+        }
+
+        $this->collaborators[] = $this->newCollaborator;
+
+        $this->save();
+
+        Notification::send($user, new AddedAsCollaborator($this->response));
+
+        $this->reset('newCollaborator', 'showCollaboratorModal');
     }
 
     public function delete($id)
@@ -122,6 +144,17 @@ class Show extends Component
 
         $this->emit('refresh');
         $this->emit('notify', ['message' => 'Successfully deleted previous submission.', 'type' => 'success']);
+    }
+
+    public function deleteCollaborator($id)
+    {
+        $this->response->collaborators()->detach($id);
+
+        Notification::send(User::find($id), new RemovedAsCollaborator($this->response));
+
+        $this->collaborators = $this->collaborators->filter(fn($collaborator) => $collaborator['id'] !== $id);
+
+        $this->emit('notify', ['message' => 'Successfully removed presenter.', 'type' => 'success']);
     }
 
     public function isVisible($item)
@@ -159,6 +192,7 @@ class Show extends Component
         $this->response->load('activities.causer');
 
         $this->answers = $this->response->answers;
+        $this->collaborators = $this->response->collaborators->map(fn($user) => $user->only('id', 'name', 'email', 'pronouns'));
         $this->emit('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
         $this->showPreviousResponses = false;
     }
@@ -178,38 +212,13 @@ class Show extends Component
             ]);
 
             if ($this->form->has_reminders) {
-                $this->response->setUpReminders($this->form->settings->reminders);
+                // $this->response->setUpReminders($this->form->settings->reminders);
             }
         }
 
         // if form has collaborators
         if ($this->form->hasCollaborators) {
-            $emails = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $this->answers['collaborators'] ?? auth()->user()->email));
-
-            $users = collect($emails)->map(function ($email) {
-                if ($user = User::firstWhere('email', $email)) {
-                    return $user;
-                } else {
-                    return User::create(['email' => $email, 'password' => Hash::make(Str::random(15))]);
-                }
-            });
-
-            $oldCollaborators = $this->response->fresh()->collaborators->pluck('id');
-
-            $ids = $users->pluck('id');
-            $this->response->collaborators()->sync($ids);
-
-            $oldCollaborators->forget($oldCollaborators->search(auth()->id()));
-            $ids->forget($ids->search(auth()->id()));
-
-            if ($oldCollaborators->diff($ids)->count() > 0) {
-                $users = User::find($oldCollaborators->diff($ids));
-                Notification::send($users, new RemovedAsCollaborator($this->response));
-            }
-            if ($ids->diff($oldCollaborators)->count() > 0) {
-                $users = User::find($ids->diff($oldCollaborators));
-                Notification::send($users, new AddedAsCollaborator($this->response));
-            }
+            $this->response->collaborators()->sync($this->collaborators->pluck('id'));
         }
 
         if ($withNotification) {

@@ -1422,7 +1422,7 @@ var Alpine = {
   get raw() {
     return raw;
   },
-  version: "3.9.3",
+  version: "3.9.4",
   flushAndStopDeferringMutations,
   disableEffectScheduling,
   setReactivityEngine,

@@ -18,16 +18,4 @@ class HomeTest extends TestCase
 
         $component->assertStatus(200);
     }
-
-    /** @test */
-    // public function can_see_upcoming_events()
-    // {
-
-    // }
-
-    /** @test */
-    // public function can_see_past_events()
-    // {
-
-    // }
 }
