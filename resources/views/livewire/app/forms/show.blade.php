@@ -3,7 +3,6 @@
 
     <div class="dark:bg-gray-800">
         <div class="container px-12 pb-12 mx-auto">
-
             @if (!$fillable)
                 <div class="sticky z-50 mx-auto mb-8 max-w-prose top-20">
                     <div class="p-4 bg-green-600 rounded-md">
@@ -21,35 +20,38 @@
                 </div>
             @endif
 
-            <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
-                <form wire:submit.prevent="submit" class="mx-auto space-y-8 prose dark:prose-light">
-                    @if ($form->type === 'workshop')
-                        <p class="text-xl">All answers will be automatically saved.</p>
-                    @endif
-                    @foreach ($form->form as $item)
-                        @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
-                    @endforeach
+            <form wire:submit.prevent="submit">
+                <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
+                        <div class="mx-auto space-y-8 prose dark:prose-light">
+                            @if ($form->type === 'workshop')
+                                <p class="text-xl">All answers will be automatically saved.</p>
+                            @endif
+                            @foreach ($form->form as $item)
+                                @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
+                            @endforeach
 
-                    @if ($form->type !== 'workshop')
-                    <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
-                    @endif
-                </form>
-
-                @if ($isWorkshopForm)
-                    <div class="relative">
-                        <div class="sticky z-40 w-full p-4 space-y-4 bg-gray-100 rounded-md top-32 dark:bg-gray-700">
-                            <div class="space-x-2">
-                                <span class="text-gray-700 dark:text-gray-200">Status:</span>
-                                <x-bit.badge>{{ $response->status ?? 'work-in-progress' }}</x-bit.badge>
-                            </div>
-                            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
+                            @if ($form->type !== 'workshop')
+                            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
+                            @endif
                         </div>
-                        @if ($showResponseLog)
-                        <livewire:bit.response-log :response="$response" />
-                        @endif
-                    </div>
-                @endif
-            </div>
+
+
+                    @if ($isWorkshopForm)
+                        <div class="relative">
+                            <div class="sticky z-40 w-full p-4 space-y-4 bg-gray-100 rounded-md top-32 dark:bg-gray-700">
+                                <div class="space-x-2">
+                                    <span class="text-gray-700 dark:text-gray-200">Status:</span>
+                                    <x-bit.badge>{{ $response->status ?? 'work-in-progress' }}</x-bit.badge>
+                                </div>
+                                <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
+                            </div>
+                            @if ($showResponseLog)
+                            <livewire:bit.response-log :response="$response" />
+                            @endif
+                        </div>
+                    @endif
+                </div>
+            </form>
         </div>
     </div>
 
