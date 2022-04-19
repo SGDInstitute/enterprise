@@ -38,10 +38,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
 
-    Route::get('orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
     Route::get('orders/{order}/receipt', function (App\Models\Order $order) {
         return view('pdf.receipt', ['order' => $order]);
     })->name('app.orders.show.receipt');
+    Route::get('orders/{order}/{page?}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
 
     Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
     Route::get('{event:slug}/program/schedule/{item:slug}', App\Http\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
