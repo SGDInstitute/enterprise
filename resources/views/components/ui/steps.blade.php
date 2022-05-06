@@ -1,4 +1,4 @@
-<div class="lg:border-t lg:border-b lg:border-gray-200 dark:lg:border-gray-700">
+<div class="lg:border-t lg:border-b lg:border-gray-200 dark:lg:border-gray-700 bg-gray-50 dark:bg-gray-850">
     <nav class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8" aria-label="Progress">
         <ol role="list" class="overflow-hidden rounded-md lg:flex lg:border-l lg:border-r lg:border-gray-200 dark:lg:border-gray-700 lg:rounded-none">
             @foreach ($steps as $step)
@@ -18,7 +18,7 @@
                             </span>
                             @elseif ($step['current'])
                             <span class="flex items-center justify-center w-10 h-10 border-2 border-green-600 rounded-full dark:border-green-400">
-                                <span class="text-green-600 dark:text-green-400">02</span>
+                                <span class="text-green-600 dark:text-green-400">0{{ $loop->iteration }}</span>
                             </span>
                             @else
                             <span class="flex items-center justify-center w-10 h-10 border-2 border-gray-300 rounded-full dark:border-gray-700">
@@ -61,7 +61,7 @@
                             </span>
                             @elseif ($step['current'])
                             <span class="flex items-center justify-center w-10 h-10 border-2 border-green-600 rounded-full dark:border-green-400">
-                                <span class="text-green-600 dark:text-green-400">02</span>
+                                <span class="text-green-600 dark:text-green-400">0{{ $loop->iteration }}</span>
                             </span>
                             @else
                             <span class="flex items-center justify-center w-10 h-10 border-2 border-gray-300 rounded-full dark:border-gray-700">

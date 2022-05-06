@@ -12,6 +12,9 @@ class Show extends Component
 
     public function mount($page = 'payment')
     {
+        if ($this->order->isPaid()) {
+            $this->page === 'tickets';
+        }
         $this->page = $page;
     }
 

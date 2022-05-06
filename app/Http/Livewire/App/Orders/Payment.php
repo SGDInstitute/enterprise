@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\App\Orders;
 
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Stripe\PaymentIntent;
 
@@ -10,28 +11,57 @@ class Payment extends Component
 {
     public Order $order;
 
-    public $address = [
-        'line1' => '',
-        'line2' => '',
-        'city' => '',
-        'state' => '',
-        'zip' => '',
-        'country' => '',
-    ];
+    public $address;
+    public $name;
+    public $email;
 
     public function mount()
     {
-        $this->startPayment();
+        $this->name = $this->order->invoice->name ?? auth()->user()->name;
+        $this->email = $this->order->invoice->email ?? auth()->user()->email;
+        $this->address = $this->order->invoice->address ?? [
+            'line1' => '',
+            'line2' => '',
+            'city' => '',
+            'state' => '',
+            'zip' => '',
+            'country' => '',
+        ];
+
+        if ($this->order->isPaid()) {
+            $this->transaction = $this->order->transactionDetails();
+        } else {
+            $this->startPayment();
+        }
     }
 
-    public function render()
+    public function downloadInvoice()
     {
-        return view('livewire.app.orders.payment');
+        if (! $this->order->invoice->created_at) {
+            $this->order->invoice->created_at = now()->format('m/d/Y');
+        }
+        $this->saveBillingInfo();
+
+        $pdf = Pdf::loadView('pdf.invoice', [
+            'order' => $this->order->fresh(),
+            'transaction' => $this->order->transactionDetails(),
+        ])->output();
+
+        $filename = ($this->order->isPaid() ? 'Receipt-' : 'Invoice-') . $this->order->formattedId . '.pdf';
+
+        return response()->streamDownload(fn () => print($pdf), $filename);
     }
 
-    public function saveAddress()
+    public function downloadW9()
+    {
+        return response()->download(public_path('documents/SGD-Institute-W9.pdf'));
+    }
+
+    public function saveBillingInfo()
     {
         $data = $this->validate([
+            'name' => ['required'],
+            'email' => ['required'],
             'address.line1' => ['required'],
             'address.line2' => ['nullable'],
             'address.city' => ['required'],
@@ -46,9 +76,16 @@ class Payment extends Component
             'address.country.required' => 'Country is required',
         ]);
 
-        auth()->user()->address = $data['address'];
-        auth()->user()->save();
+        $this->order->invoice->set([
+            'address' => $data['address'],
+            'due_date' => $this->order->reservation_ends->format('m/d/Y'),
+            'email' => $data['email'],
+            'name' => $data['name'],
+        ]);
+        $this->order->save();
     }
+
+
 
     private function startPayment()
     {
@@ -56,7 +93,7 @@ class Payment extends Component
             $paymentIntent = PaymentIntent::retrieve($this->order->transaction_id);
         } else {
             $paymentIntent = PaymentIntent::create([
-                'amount' => 20000, // to-do calculate current cost for order
+                'amount' => $this->order->subtotalInCents,
                 'currency' => 'usd',
                 'metadata' => [
                     'order' => $this->order->id,

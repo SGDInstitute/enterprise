@@ -32,6 +32,7 @@ class Show extends Component
     {
         return view('livewire.app.events.show', [
             'steps' => $this->steps,
+            'previousOrders' => $this->previousOrders,
         ]);
     }
 

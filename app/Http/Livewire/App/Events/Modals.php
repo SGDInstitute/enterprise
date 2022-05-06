@@ -34,14 +34,10 @@ class Modals extends Component
 
     public function getModalContentProperty()
     {
-        if ($this->policyModal) {
-            $tabs = collect($this->event->settings->tabs);
-            return match ($this->policyModal) {
-                'description' => $this->event->description,
-                'refund' => $tabs->firstWhere('name', 'Refund')['content'],
-                'code-inclusion' => $tabs->firstWhere('name', 'Code for Inclusion')['content'],
-                'photo-policy' => $tabs->firstWhere('name', 'Photo Policy')['content'],
-            };
+        if ($this->policyModal === 'description') {
+            return $this->event->description;
+        } elseif($this->policyModal) {
+            return collect($this->event->settings->tabs)->firstWhere('slug', $this->policyModal)['content'];
         }
     }
 

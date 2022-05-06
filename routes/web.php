@@ -20,6 +20,7 @@ Route::get('donations/process', App\Http\Controllers\DonationsProcessController:
 
 Route::get('events', App\Http\Livewire\App\Events::class)->name('app.events');
 Route::get('events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
+Route::get('orders/process', App\Http\Controllers\OrdersProcessController::class)->name('app.orders.process');
 
 Route::get('forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
 Route::get('forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
