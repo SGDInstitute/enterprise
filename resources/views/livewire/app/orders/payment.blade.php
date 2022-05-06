@@ -58,8 +58,6 @@
 
             // Fetches a payment intent and captures the client secret
             async function initialize() {
-
-                console.log(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     var rules = {
                         '.Label': {
@@ -129,32 +127,34 @@
                 e.preventDefault();
                 setLoading(true);
 
-                @this.saveBillingInfo();
+                @this.saveBillingInfo()
 
-                const {
-                    error
-                } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        // Make sure to change this to your payment completion page
-                        return_url: '{{ url("/orders/process") }}',
-                        payment_method_data: {
-                            billing_details: {
-                                name: '{{ $name }}',
-                                email: '{{ $email }}',
-                                address: {
-                                    country: 'us',
-                                    postal_code: '{{ $address["zip"] }}'
+                if (@this.address.zip !== '') {
+                    const {
+                        error
+                    } = await stripe.confirmPayment({
+                        elements,
+                        confirmParams: {
+                            // Make sure to change this to your payment completion page
+                            return_url: '{{ url("/orders/process") }}',
+                            payment_method_data: {
+                                billing_details: {
+                                    name: '{{ $name }}',
+                                    email: '{{ $email }}',
+                                    address: {
+                                        country: 'us',
+                                        postal_code: '{{ $address["zip"] }}'
+                                    }
                                 }
-                            }
+                            },
                         },
-                    },
-                });
+                    });
 
-                if (error.type === "card_error" || error.type === "validation_error") {
-                    showMessage(error.message);
-                } else {
-                    showMessage("An unexpected error occured.");
+                    if (error.type === "card_error" || error.type === "validation_error") {
+                        showMessage(error.message);
+                    } else {
+                        showMessage("An unexpected error occured.");
+                    }
                 }
 
                 setLoading(false);
