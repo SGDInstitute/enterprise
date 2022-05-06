@@ -40,7 +40,9 @@ class Payment extends Component
         if (! $this->order->invoice->created_at) {
             $this->order->invoice->created_at = now()->format('m/d/Y');
         }
-        $this->saveBillingInfo();
+        if (! $this->order->isPaid()) {
+            $this->saveBillingInfo();
+        }
 
         $pdf = Pdf::loadView('pdf.invoice', [
             'order' => $this->order->fresh(),
@@ -84,8 +86,6 @@ class Payment extends Component
         ]);
         $this->order->save();
     }
-
-
 
     private function startPayment()
     {
