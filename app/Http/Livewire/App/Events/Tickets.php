@@ -25,7 +25,7 @@ class Tickets extends Component
         $this->ticketTypes = $this->event->ticketTypes->load('prices');
         $this->form = $this->ticketTypes->map(function ($item) {
             if ($item->structure === 'flat') {
-                $price = $item->prices->where('start', '<', now())->where('end', '>', now())->first();
+                $price = $item->prices->first();
 
                 return [
                     'type_id' => $item->id,

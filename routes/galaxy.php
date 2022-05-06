@@ -30,7 +30,8 @@ Route::get('surveys/create', App\Http\Livewire\Galaxy\Surveys\Create::class)->na
 Route::get('surveys/{survey}', App\Http\Livewire\Galaxy\Surveys\Show::class)->name('galaxy.surveys.show');
 Route::get('surveys/{survey}/edit', App\Http\Livewire\Galaxy\Surveys\Edit::class)->name('galaxy.surveys.edit');
 
-Route::get('ticket-types/create', App\Http\Livewire\Galaxy\TicketTypes\Form::class)->name('galaxy.ticket-types.create');
+Route::get('ticket-types/create/flat', App\Http\Livewire\Galaxy\TicketTypes\Flat::class)->name('galaxy.ticket-types.create.flat');
+Route::get('ticket-types/create/scaled', App\Http\Livewire\Galaxy\TicketTypes\Scaled::class)->name('galaxy.ticket-types.create.scaled');
 Route::get('ticket-types/{ticketType}/edit', App\Http\Livewire\Galaxy\TicketTypes\Form::class)->name('galaxy.ticket-types.edit');
 
 Route::get('users', App\Http\Livewire\Galaxy\Users::class)->name('galaxy.users');

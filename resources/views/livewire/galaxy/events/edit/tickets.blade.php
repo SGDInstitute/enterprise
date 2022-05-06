@@ -8,9 +8,10 @@
             </div>
             <div class="flex items-end mt-4 space-x-4 md:mt-0">
                 <x-bit.data-table.per-page />
-                <x-bit.button.round.secondary :href="route('galaxy.ticket-types.create', ['event' => $event->id])" class="flex items-center space-x-2">
-                    <x-heroicon-o-plus class="w-4 h-4 text-gray-400 dark:text-gray-300" /> <span>Create</span>
-                </x-bit.button.round.secondary>
+                <x-bit.dropdown title="Create" placement="right">
+                    <x-bit.dropdown.item :href="route('galaxy.ticket-types.create.flat', ['event' => $event->id])">Flat Price</x-bit.dropdown.item>
+                    <x-bit.dropdown.item :href="route('galaxy.ticket-types.create.scaled', ['event' => $event->id])">Sliding Scale</x-bit.dropdown.item>
+                </x-bit.dropdown>
             </div>
         </div>
 
