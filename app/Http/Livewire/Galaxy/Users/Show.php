@@ -63,7 +63,7 @@ class Show extends Component
         session(['after_impersonation' => route('galaxy.users.show', $this->user)]);
         auth()->user()->impersonate($this->user);
 
-        return redirect()->to('/my/settings');
+        return redirect()->to('/dashboard');
     }
 
     public function markAsVerified()
