@@ -3,9 +3,6 @@
 namespace App\Http\Livewire\App\Events;
 
 use App\Models\Event;
-use App\Models\Order;
-use App\Models\Ticket;
-use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class Show extends Component

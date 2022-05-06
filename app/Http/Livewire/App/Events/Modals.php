@@ -36,7 +36,7 @@ class Modals extends Component
     {
         if ($this->policyModal === 'description') {
             return $this->event->description;
-        } elseif($this->policyModal) {
+        } elseif ($this->policyModal) {
             return collect($this->event->settings->tabs)->firstWhere('slug', $this->policyModal)['content'];
         }
     }

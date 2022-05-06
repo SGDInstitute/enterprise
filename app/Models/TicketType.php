@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Stripe\Product as StripeProduct;
 use Stripe\Price as StripePrice;
+use Stripe\Product as StripeProduct;
 
 class TicketType extends Model
 {
@@ -19,6 +19,28 @@ class TicketType extends Model
         'start' => 'datetime',
     ];
 
+    public static function createFlatWithStripe($data, $cost)
+    {
+        $data = array_merge(['structure' => 'flat'], $data);
+        $stripeProduct = StripeProduct::create(['name' => $data['name']]);
+
+        $ticket = self::create(array_merge(['stripe_product_id' => $stripeProduct->id], $data));
+
+        $stripePrice = StripePrice::create([
+            'unit_amount' => $cost,
+            'currency' => 'usd',
+            'product' => $stripeProduct->id,
+        ]);
+
+        $ticket->prices()->create([
+            'name' => $data['name'],
+            'cost' => $cost,
+            'stripe_price_id' => $stripePrice->id,
+            'timezone' => $data['timezone'],
+            'start' => $data['start'],
+            'end' => $data['end'],
+        ]);
+    }
     // Relationships
 
     public function event()
@@ -61,28 +83,5 @@ class TicketType extends Model
     {
         $this->prices->each(fn ($price) => $price->delete());
         $this->delete();
-    }
-
-    public static function createFlatWithStripe($data, $cost)
-    {
-        $data = array_merge(['structure' => 'flat'], $data);
-        $stripeProduct = StripeProduct::create(['name' => $data['name']]);
-
-        $ticket = self::create(array_merge(['stripe_product_id' => $stripeProduct->id], $data));
-
-        $stripePrice = StripePrice::create([
-            'unit_amount' => $cost,
-            'currency' => 'usd',
-            'product' => $stripeProduct->id
-        ]);
-
-        $ticket->prices()->create([
-            'name' => $data['name'],
-            'cost' => $cost,
-            'stripe_price_id' => $stripePrice->id,
-            'timezone' => $data['timezone'],
-            'start' => $data['start'],
-            'end' => $data['end'],
-        ]);
     }
 }

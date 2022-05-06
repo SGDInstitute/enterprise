@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
 use Stripe\PaymentIntent;
 use Stripe\PaymentMethod;
-use Stripe\StripeClient;
 
 class Order extends Model
 {

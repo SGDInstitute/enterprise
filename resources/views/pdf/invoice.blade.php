@@ -69,7 +69,7 @@
         <table>
             <tr>
                 <td class="sixty">
-                    @if($order->invoice->name && $order->invoice->email)
+                    @if ($order->invoice->name && $order->invoice->email)
                     {{ $order->invoice->name }}<br/>
                     {{ $order->invoice->email }}<br/>
                     {{ $order->formattedAddress }}
