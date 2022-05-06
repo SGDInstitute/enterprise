@@ -115,17 +115,10 @@
                     @if ($transaction['type'] === 'check')
                         <p>Paid with check {{ $transaction['check_number'] }} for {{ $order->formattedAmount }}</p>
                     @elseif ($transaction['type'] === 'card')
-                        <p>Paid with a {{ $transaction['brand'] }} that expires on {{ $transaction['exp'] }} ending with {{ $transaction['last4'] }}</p>
+                        <p>Paid with a {{ ucfirst($transaction['brand']) }} that expires on {{ $transaction['exp'] }} ending with {{ $transaction['last4'] }}</p>
                     @endif
                 </td>
             </tr>
-            @if ($order->event->refund_policy)
-            <tr>
-                <td>
-                    {!! $order->event->refund_policy !!}
-                </td>
-            </tr>
-            @endif
         </table>
         @else
         <table>

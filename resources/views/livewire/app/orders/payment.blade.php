@@ -58,8 +58,6 @@
 
             // Fetches a payment intent and captures the client secret
             async function initialize() {
-
-                console.log(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     var rules = {
                         '.Label': {
@@ -129,32 +127,34 @@
                 e.preventDefault();
                 setLoading(true);
 
-                @this.saveBillingInfo();
+                @this.saveBillingInfo()
 
-                const {
-                    error
-                } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        // Make sure to change this to your payment completion page
-                        return_url: '{{ url("/orders/process") }}',
-                        payment_method_data: {
-                            billing_details: {
-                                name: '{{ $name }}',
-                                email: '{{ $email }}',
-                                address: {
-                                    country: 'us',
-                                    postal_code: '{{ $address["zip"] }}'
+                if (@this.address.zip !== '') {
+                    const {
+                        error
+                    } = await stripe.confirmPayment({
+                        elements,
+                        confirmParams: {
+                            // Make sure to change this to your payment completion page
+                            return_url: '{{ url("/orders/process") }}',
+                            payment_method_data: {
+                                billing_details: {
+                                    name: '{{ $name }}',
+                                    email: '{{ $email }}',
+                                    address: {
+                                        country: 'us',
+                                        postal_code: '{{ $address["zip"] }}'
+                                    }
                                 }
-                            }
+                            },
                         },
-                    },
-                });
+                    });
 
-                if (error.type === "card_error" || error.type === "validation_error") {
-                    showMessage(error.message);
-                } else {
-                    showMessage("An unexpected error occured.");
+                    if (error.type === "card_error" || error.type === "validation_error") {
+                        showMessage(error.message);
+                    } else {
+                        showMessage("An unexpected error occured.");
+                    }
                 }
 
                 setLoading(false);
@@ -221,9 +221,9 @@
         <div class="p-4 space-y-4 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700 dark:border">
             <h2 class="text-gray-900 dark:text-gray-200">Payment Details</h2>
 
-            <dl class="grid grid-cols-2 mt-16 text-sm text-gray-600 gap-x-4">
+            <dl class="grid grid-cols-2 mt-16 text-sm text-gray-600 dark:text-gray-400 gap-x-4">
                 <div>
-                    <dt class="font-medium text-gray-900">Billing Address</dt>
+                    <dt class="font-medium text-gray-900 dark:text-gray-200">Billing Address</dt>
                     <dd class="mt-2">
                         <address class="not-italic">
                             <span class="block">{{ $order->invoice['name'] }}</span>
@@ -233,7 +233,7 @@
                     </dd>
                 </div>
                 <div>
-                    <dt class="font-medium text-gray-900">Payment Information</dt>
+                    <dt class="font-medium text-gray-900 dark:text-gray-200">Payment Information</dt>
                     <dd class="mt-2 space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
                         <div class="flex-none">
                             @if ($transaction['type'] === 'card')
@@ -246,7 +246,7 @@
                         </div>
                         <div class="flex-auto">
                             @if ($transaction['type'] === 'card')
-                            <p class="text-gray-900">Ending with {{ $transaction['last4'] }}</p>
+                            <p class="text-gray-900 dark:text-gray-200">Ending with {{ $transaction['last4'] }}</p>
                             <p>Expires {{ $transaction['exp'] }}</p>
                             @elseif ($transaction['type'] === 'check')
                             <p class="text-gray-900">Number {{ $transaction['check_number'] }}</p>
