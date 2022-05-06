@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Stripe\StripeClient;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
+use Stripe\PaymentIntent;
+use Stripe\PaymentMethod;
 
 class Order extends Model
 {
@@ -33,14 +36,19 @@ class Order extends Model
         return $query->where('user_id', $user->id);
     }
 
+    public function scopeWithInvoice(): Builder
+    {
+        return SchemalessAttributes::scopeWithSchemalessAttributes('invoice');
+    }
+
     public function scopeReservations($query)
     {
-        return $query->whereNull('transaction_id');
+        return $query->where('status', 'reservation');
     }
 
     public function scopePaid($query)
     {
-        return $query->whereNotNull('transaction_id');
+        return $query->where('status', '<>', 'reservation');
     }
 
     // Relations
@@ -71,6 +79,16 @@ class Order extends Model
         return null;
     }
 
+    public function getFormattedAddressAttribute()
+    {
+        if (is_array($this->invoice->address)) {
+            $address = $this->invoice->address;
+            return isset($address['line2'])
+                ? "{$address['line1']} {$address['line2']}, {$address['city']}, {$address['state']}, {$address['zip']}"
+                : "{$address['line1']}, {$address['city']}, {$address['state']}, {$address['zip']}";
+        }
+    }
+
     public function getFormattedAmountAttribute()
     {
         if ($this->isPaid()) {
@@ -94,27 +112,24 @@ class Order extends Model
         return $this->event->order_prefix . $this->id;
     }
 
+    public function getInvoiceAttribute(): SchemalessAttributes
+    {
+        return SchemalessAttributes::createForModel($this, 'invoice');
+    }
+
     public function getSubtotalAttribute()
     {
-        $sum = $this->tickets->sum(function ($ticket) {
+        return '$' . number_format($this->subtotalInCents / 100, 2);
+    }
+
+    public function getSubtotalInCentsAttribute()
+    {
+        return $this->tickets->sum(function ($ticket) {
             return $ticket->price->cost;
         });
-
-        return '$' . number_format($sum / 100, 2);
     }
 
     // Methods
-
-    public function generateInvoice()
-    {
-        $this->invoice = [
-            'due_date' => $this->reservation_ends->format('m/d/Y'),
-            'created_at' => now()->format('m/d/Y'),
-            'billable' => auth()->user()->name . "\n" . auth()->user()->email,
-        ];
-
-        $this->save();
-    }
 
     public function isFilled()
     {
@@ -128,12 +143,12 @@ class Order extends Model
 
     public function isPaid()
     {
-        return $this->transaction_id !== null;
+        return $this->status !== 'reservation' || $this->confirmation_number !== null;
     }
 
     public function isReservation()
     {
-        return $this->transaction_id === null;
+        return $this->status !== 'reservation' || $this->transaction_id === null;
     }
 
     public function markAsPaid($transactionId, $amount)
@@ -152,8 +167,22 @@ class Order extends Model
             if (Str::startsWith($this->transaction_id, 'ch_')) {
                 //
             } elseif (Str::startsWith($this->transaction_id, 'pi_')) {
-                $stripe = new StripeClient('sk_test_fQdEhCWayI8KGossWGKsLhWo');
-                // dd($stripe->paymentIntents->retrieve($this->transaction_id, []));
+                $paymentIntent = PaymentIntent::retrieve($this->transaction_id);
+                $method = PaymentMethod::retrieve($paymentIntent->payment_method);
+
+                if ($method->type === 'card') {
+                    return [
+                        'type' => 'card',
+                        'brand' => $method->card->brand,
+                        'last4' => $method->card->last4,
+                        'exp' => $method->card->exp_month . '/' . $method->card->exp_year,
+                    ];
+                }
+            } elseif (Str::startsWith($this->transaction_id, '#')) {
+                return [
+                    'type' => 'check',
+                    'check_number' => $this->transaction_id,
+                ];
             }
         }
     }

@@ -193,9 +193,6 @@ class Create extends Component
             $paymentIntent = PaymentIntent::create([
                 'amount' => $this->amount * 100,
                 'currency' => 'usd',
-                'automatic_payment_methods' => [
-                    'enabled' => true,
-                ],
             ]);
 
             $donation = Donation::create([

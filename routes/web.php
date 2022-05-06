@@ -20,6 +20,7 @@ Route::get('donations/process', App\Http\Controllers\DonationsProcessController:
 
 Route::get('events', App\Http\Livewire\App\Events::class)->name('app.events');
 Route::get('events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
+Route::get('orders/process', App\Http\Controllers\OrdersProcessController::class)->name('app.orders.process');
 
 Route::get('forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
 Route::get('forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
@@ -38,10 +39,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
 
-    Route::get('orders/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
     Route::get('orders/{order}/receipt', function (App\Models\Order $order) {
         return view('pdf.receipt', ['order' => $order]);
     })->name('app.orders.show.receipt');
+    Route::get('orders/{order}/{page?}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
 
     Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
     Route::get('{event:slug}/program/schedule/{item:slug}', App\Http\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');

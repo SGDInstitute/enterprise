@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e5825d5663654b2033c065848729b01",
+    "content-hash": "8425e8f67e43ea4f004a51c755c455df",
     "packages": [
         {
             "name": "akaunting/laravel-version",

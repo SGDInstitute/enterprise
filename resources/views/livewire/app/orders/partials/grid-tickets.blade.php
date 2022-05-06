@@ -1,5 +1,5 @@
 @foreach ($tickets as $ticket)
-    <div class="p-4 space-y-2 bg-gray-100 shadow dark:bg-gray-700">
+    <div class="p-4 space-y-2 bg-white shadow dark:bg-gray-800">
         <div class="flex items-center justify-between">
             <p class="text-sm dark:text-gray-400">{{ $ticket->ticketType->name }} - {{ $ticket->price->name }}</p>
 

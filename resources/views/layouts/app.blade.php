@@ -12,8 +12,12 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <livewire:styles />
+
+        <livewire:scripts />
+        <script src="{{ mix('js/app.js') }}" defer></script>
+        @stack('scripts')
     </head>
-    <body class="font-sans antialiased dark:bg-gray-900">
+    <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
         @include('layouts.app.nav')
         <livewire:notifications />
 
@@ -22,9 +26,5 @@
         </main>
 
         @include('layouts.app.footer')
-
-        <livewire:scripts />
-        <script src="{{ mix('js/app.js') }}"></script>
-        @stack('scripts')
     </body>
 </html>
