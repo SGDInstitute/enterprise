@@ -30,3 +30,7 @@ jobs:
 
     - name: Run PHP tests
       run: vendor/bin/phpunit
+      env:
+        APP_ENV: testing
+        STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
+        STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
