@@ -1,5 +1,5 @@
-<div class="rounded-md dark:bg-gray-800">
-    <div class="flex items-center justify-between p-4 bg-gray-100 rounded-md dark:bg-gray-850">
+<div class="bg-white rounded-md shadow dark:bg-gray-800">
+    <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-gray-850">
         <span class="w-2/3 truncate dark:text-gray-400">
             Question {{ $index + 1 }}{{ $form[$index]['question'] !== '' ? ': ' . $form[$index]['question'] : '' }}
         </span>
