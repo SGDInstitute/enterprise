@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('forms', function (Blueprint $table) {
-            $table->foreignId('parent_id')->nullable()->constrained('forms');
+            $table->foreignId('parent_id')->nullable()->constrained('forms')->after('type');
             $table->boolean('is_internal')->default(false)->after('auth_required');
         });
     }

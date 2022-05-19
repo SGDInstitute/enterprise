@@ -1,3 +1,3 @@
-<div class="flex justify-between px-4 py-5 space-x-4 bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:px-6">
+<div class="px-4 py-3 text-right bg-gray-50 dark:bg-gray-850 sm:px-6">
     {{ $slot }}
 </div>

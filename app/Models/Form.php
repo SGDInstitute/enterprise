@@ -44,6 +44,16 @@ class Form extends Model
         return $this->hasMany(Response::class);
     }
 
+    public function confirmation()
+    {
+        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'confirmation');
+    }
+
+    public function rubric()
+    {
+        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'rubric');
+    }
+
     // Attributes
 
     public function getFormattedEndAttribute()

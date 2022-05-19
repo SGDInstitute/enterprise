@@ -17,6 +17,11 @@ Route::get('events/{event}/edit/{page?}', App\Http\Livewire\Galaxy\Events\Edit::
 Route::get('events/{event}/slots/{item}', App\Http\Livewire\Galaxy\Events\Edit\Slots::class)->name('galaxy.events.edit.slots');
 Route::get('events/{event}/{page?}', App\Http\Livewire\Galaxy\Events\Show::class)->name('galaxy.events.show');
 
+Route::get('forms', App\Http\Livewire\Galaxy\Forms::class)->name('galaxy.forms');
+Route::get('forms/create', App\Http\Livewire\Galaxy\Forms\Form::class)->name('galaxy.forms.create');
+Route::get('forms/{form}', App\Http\Livewire\Galaxy\Forms\Show::class)->name('galaxy.forms.show');
+Route::get('forms/{form}/edit', App\Http\Livewire\Galaxy\Forms\Form::class)->name('galaxy.forms.edit');
+
 Route::get('orders', App\Http\Livewire\Galaxy\Orders::class)->name('galaxy.orders');
 Route::get('orders/{order}', App\Http\Livewire\Galaxy\Orders\Show::class)->name('galaxy.orders.show');
 
