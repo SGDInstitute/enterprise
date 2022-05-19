@@ -33,9 +33,15 @@
                     <x-bit.table.cell>{{ $form->formattedStart }} {{ $form->formattedTimezone }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $form->formattedEnd }} {{ $form->formattedTimezone }}</x-bit.table.cell>
                     <x-bit.table.cell class="flex space-x-1">
-                        <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.forms.show', $form) }}">
+                        @if ($form->type === 'survey')
+                        <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.surveys.show', $form) }}">
                             <x-heroicon-o-eye class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
+                        @else
+                        <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.responses', ['form' => $form->id]) }}">
+                            <x-heroicon-o-eye class="w-4 h-4 text-green-500 dark:text-green-400" />
+                        </x-bit.button.link>
+                        @endif
                         <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.forms.edit', $form) }}">
                             <x-heroicon-o-cog class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>

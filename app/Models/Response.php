@@ -45,6 +45,11 @@ class Response extends Model
         return $this->morphMany(Reminder::class, 'model');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Response::class, 'parent_id', 'id')->where('type', 'rubric');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -58,6 +63,11 @@ class Response extends Model
             return 'Not answered';
         }
         return $this->answers['question-name'] ?? $this->answers['name'] ?? 'Indertiminable';
+    }
+
+    public function getScoreAttribute()
+    {
+
     }
 
     // Methods

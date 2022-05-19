@@ -13,6 +13,12 @@
     </div>
 
     <div class="md:col-span-2">
-        <livewire:bit.response-log :response="$response" />
+        <livewire:bit.response-log :response="$formResponse" />
     </div>
+
+    @if ($form->rubric)
+    <div class="md:col-span-5">
+        <livewire:galaxy.responses.review :rubric="$form->rubric" :parent="$formResponse" />
+    </div>
+    @endif
 </div>

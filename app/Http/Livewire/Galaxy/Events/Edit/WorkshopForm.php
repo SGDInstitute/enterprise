@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Galaxy\Events\Edit;
 
 use App\Http\Livewire\Traits\WithFormBuilder;
-use App\Http\Livewire\Traits\WithTableBuilder;
 use App\Http\Livewire\Traits\WithTimezones;
 use App\Models\Event;
 use App\Models\Form;
@@ -14,7 +13,6 @@ class WorkshopForm extends Component
 {
     use WithTimezones;
     use WithFormBuilder;
-    use WithTableBuilder;
 
     public Event $event;
     public Form $workshopForm;

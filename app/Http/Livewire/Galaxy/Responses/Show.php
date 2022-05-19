@@ -2,17 +2,25 @@
 
 namespace App\Http\Livewire\Galaxy\Responses;
 
+use App\Models\Form;
 use App\Models\Response;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public Response $response;
+    public Response $formResponse;
+    public Form $form;
+
+    public function mount($response)
+    {
+        $this->formResponse = Response::with('form')->find($response);
+        $this->form = $this->formResponse->form;
+    }
 
     public function render()
     {
         return view('livewire.galaxy.responses.show')
-            ->layout('layouts.galaxy', ['title' => $this->response->name])
+            ->layout('layouts.galaxy', ['title' => $this->formResponse->name])
             ->with([
                 'qa' => $this->questionsAndAnswers,
             ]);
@@ -20,9 +28,11 @@ class Show extends Component
 
     public function getQuestionsAndAnswersProperty()
     {
-        return $this->response->form->form->filter(fn ($item) => $item['style'] === 'question')
+        return $this->form->form->filter(fn ($item) => $item['style'] === 'question')
             ->mapWithKeys(function ($item) {
-                return [$item['question'] => $this->response->answers[$item['id']] ? $this->response->answers[$item['id']] : 'was not answered'];
+                return [$item['question'] => $this->formResponse->answers[$item['id']]
+                    ? $this->formResponse->answers[$item['id']]
+                    : 'was not answered'];
             });
     }
 }
