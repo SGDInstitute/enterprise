@@ -11,8 +11,8 @@
     {{ $slot }}
 
     @if ($options)
-        @foreach ($options as $option)
-        <option value="{{ $option->id }}">{{ $option->name }}</option>
+        @foreach ($options as $key => $option)
+        <option value="{{ $option->id ?? $key }}">{{ $option->name ?? $option }}</option>
         @endforeach
     @endif
 </select>
