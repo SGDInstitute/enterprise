@@ -67,7 +67,19 @@ class Response extends Model
 
     public function getScoreAttribute()
     {
+        if ($this->type === 'rubric') {
+            return $this->answers->mapWithKeys(function ($item, $key) {
+                return [$key => array_sum(array_column($item, 'points'))];
+            });
+        } elseif ($this->type === 'workshop') {
+            $keys = $this->reviews->first()->answers->keys();
+            $scores = [];
 
+            foreach($keys as $key) {
+              $scores[$key] = $this->reviews->map->score->avg($key);
+            }
+            return join('<br />', $scores);
+        }
     }
 
     // Methods

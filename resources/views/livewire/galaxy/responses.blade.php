@@ -52,6 +52,7 @@
                 @endforelse
                 @if ($form->rubric)
                 <x-bit.table.heading>Reviews</x-bit.table.heading>
+                <x-bit.table.heading>Score</x-bit.table.heading>
                 @endif
                 <x-bit.table.heading>Created At</x-bit.table.heading>
                 <x-bit.table.heading />
@@ -60,7 +61,7 @@
             <x-slot name="body">
                 @forelse ($responses as $response)
                 <x-bit.table.row wire:key="row-{{ $response->id }}">
-                    <x-bit.table.cell class="flex items-center space-x-1">
+                    <x-bit.table.cell>
                         <span>{{ $response->status }}</span>
                         @if (isset($assignedWorkshops[$response->id]))
                         <x-bit.button.link size="py-1 px-2" wire:click="editItem({{ $assignedWorkshops[$response->id] }})">
@@ -87,6 +88,7 @@
                     @endforelse
                     @if ($form->rubric)
                     <x-bit.table.cell>{{ $response->reviews->count() }}</x-bit.table.cell>
+                    <x-bit.table.cell>{!! $response->reviews->count() > 0 ? $response->score : '-' !!}</x-bit.table.cell>
                     @endif
                     <x-bit.table.cell>{{ $response->created_at->format('M, d Y') }}</x-bit.table.cell>
 
