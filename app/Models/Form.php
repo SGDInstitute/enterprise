@@ -20,6 +20,7 @@ class Form extends Model
         'auth_required' => 'boolean',
         'end' => 'datetime',
         'form' => 'collection',
+        'is_internal' => 'boolean',
         'settings' => 'array',
         'start' => 'datetime',
     ];
