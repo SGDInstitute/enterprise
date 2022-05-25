@@ -11,9 +11,14 @@
     </div>
     @endforelse
 
-    <x-bit.button.round.secondary wire:click="addQuestion">Add Question</x-bit.button.round.secondary>
-    <x-bit.button.round.secondary wire:click="addContent">Add Content Section</x-bit.button.round.secondary>
-    <x-bit.button.round.secondary wire:click="addCollaborators">Add Collaborators</x-bit.button.round.secondary>
+    <div class="flex justify-between">
+        <div>
+            <x-bit.button.round.secondary wire:click="addQuestion">Add Question</x-bit.button.round.secondary>
+            <x-bit.button.round.secondary wire:click="addContent">Add Content Section</x-bit.button.round.secondary>
+            <x-bit.button.round.secondary wire:click="addCollaborators">Add Collaborators</x-bit.button.round.secondary>
+        </div>
+        <button wire:click="save" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save</button>
+    </div>
 
     <div>
         <section class="fixed inset-0 z-50 overflow-hidden" x-show="open" x-data="{ open: @entangle('showSettings') }" @keydown.window.escape="open = false" x-ref="dialog" aria-labelledby="settings-panel" role="dialog" aria-modal="true">
