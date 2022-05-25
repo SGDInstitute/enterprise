@@ -9,7 +9,7 @@
                 @foreach ($table as $row => $columns)
                 <x-bit.table.row wire:key="row-{{ $row }}">
                     @foreach ($columns as $column => $cell)
-                    @if($row === 0 && $column === 0)
+                    @if ($row === 0 && $column === 0)
                     <x-bit.table.heading class="text-center" wire:key="row-{{ $row }}-column-{{ $column }}">
                         {{ $cell }}
                     </x-bit.table.heading>

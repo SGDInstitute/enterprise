@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Galaxy\Builder;
 
-use App\Http\Livewire\Traits\WithTableBuilder;
 use Livewire\Component;
 
 class Table extends Component

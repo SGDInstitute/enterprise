@@ -32,7 +32,7 @@ class Show extends Component
             ->mapWithKeys(function ($item) {
                 return [$item['question'] => $this->formResponse->answers[$item['id']]
                     ? $this->formResponse->answers[$item['id']]
-                    : 'was not answered'];
+                    : 'was not answered',];
             });
     }
 }

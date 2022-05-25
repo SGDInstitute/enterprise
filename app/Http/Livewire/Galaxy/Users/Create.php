@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Galaxy\Users;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 

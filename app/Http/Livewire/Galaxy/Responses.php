@@ -8,7 +8,6 @@ use App\Models\Event;
 use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -191,7 +190,7 @@ class Responses extends Component
 
     public function setAdvancedForm()
     {
-        if (!$this->form->settings->searchable) {
+        if (! $this->form->settings->searchable) {
             return $this->advanded = [];
         }
 

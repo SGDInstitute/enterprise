@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Galaxy\Forms;
 
-use App\Http\Livewire\Traits\WithFormBuilder;
 use App\Http\Livewire\Traits\WithTimezones;
 use App\Models\Event;
 use App\Models\Form as Model;
@@ -90,7 +89,7 @@ class Form extends Component
             'form' => 'Form',
             'review' => 'Review (internal)',
             'survey' => 'Survey',
-            'workshop' => 'Workshop'
+            'workshop' => 'Workshop',
         ];
     }
 
