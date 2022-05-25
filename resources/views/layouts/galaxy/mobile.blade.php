@@ -17,10 +17,8 @@
             <div class="flex-1 h-0 mt-5 overflow-y-auto">
                 <nav class="px-2 space-y-1">
                     @foreach (config('nav.galaxy') as $link)
-                    @isset ($link['route'])
-                    <x-galaxy.nav-link responsive :href="route($link['route'])" :icon="$link['icon']" :active="request()->routeIs($link['route'])">{{ $link['name'] }}</x-galaxy.nav-link>
-                    @else
-                    <span class="block pt-4 pb-2 pl-2 mt-4 text-sm tracking-wide text-gray-700 uppercase dark:text-gray-400">{{ $link['name'] }}</span>
+                    @if (isset($link['roles']) && auth()->user()->hasRole($link['roles']))
+                    @include('layouts.galaxy.item')
                     @endif
                     @endforeach
                 </nav>
