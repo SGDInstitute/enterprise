@@ -57,12 +57,12 @@ class Form extends Component
                     $form[$index]['scale'] = explode(',', preg_replace("/((\r?\n)|(\r\n?))/", ',', $item['scale']));
                 }
             }
-            $this->survey->form = $form;
+            $this->model->form = $form;
         }
 
         if ($this->searchable !== []) {
-            $this->survey->settings->set('searchable', $this->searchable);
+            $this->model->settings->set('searchable', $this->searchable);
         }
-        $this->survey->save();
+        $this->model->save();
     }
 }
