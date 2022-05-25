@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
@@ -10,12 +11,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Response extends Model
 {
     use HasFactory;
+    use HasSettings;
     use LogsActivity;
 
     public $guarded = [];
 
     protected $casts = [
         'answers' => 'collection',
+        'settings' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
