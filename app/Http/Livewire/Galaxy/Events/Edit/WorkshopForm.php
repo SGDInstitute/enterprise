@@ -15,22 +15,16 @@ class WorkshopForm extends Component
     use WithFormBuilder;
 
     public Event $event;
-
     public Form $workshopForm;
 
     public $form;
-
     public $formattedEnd;
-
     public $formattedStart;
-
     public $openIndex = -1;
-
     public $reminders;
-
     public $showSettings = false;
-
     public $searchable = [];
+    public $table = [['Criteria']];
 
     public $rules = [
         'formattedStart' => 'required',
@@ -54,6 +48,7 @@ class WorkshopForm extends Component
         } else {
             $this->workshopForm = $this->event->workshopForm;
             $this->form = $this->workshopForm->form ?? collect([]);
+            $this->table = $this->workshopForm->settings->rubric ?? [['Criteria']];
             $this->formattedStart = $this->workshopForm->formattedStart;
             $this->formattedEnd = $this->workshopForm->formattedEnd;
             $this->reminders = $this->workshopForm->settings->reminders;
@@ -83,7 +78,6 @@ class WorkshopForm extends Component
     public function save()
     {
         // validate
-
         $this->workshopForm->start = Carbon::parse($this->formattedStart, $this->event->timezone)->timezone('UTC');
         $this->workshopForm->end = Carbon::parse($this->formattedEnd, $this->event->timezone)->timezone('UTC');
 
@@ -100,6 +94,9 @@ class WorkshopForm extends Component
                 }
             }
             $this->workshopForm->form = $form;
+        }
+        if ($this->table !== []) {
+            $this->workshopForm->settings->rubric = $this->table;
         }
 
         if ($this->searchable !== []) {

@@ -12,7 +12,7 @@
         <livewire:galaxy.orders :event="$event" />
         @break
         @case('workshops')
-        <livewire:galaxy.events.show.workshops :event="$event" />
+        <livewire:galaxy.responses :event="$event" />
         @break
         @case('schedule')
         <livewire:galaxy.events.show.schedule :event="$event" />

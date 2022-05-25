@@ -20,6 +20,7 @@ class Form extends Model
         'auth_required' => 'boolean',
         'end' => 'datetime',
         'form' => 'collection',
+        'is_internal' => 'boolean',
         'settings' => 'array',
         'start' => 'datetime',
     ];
@@ -41,6 +42,16 @@ class Form extends Model
     public function responses()
     {
         return $this->hasMany(Response::class);
+    }
+
+    public function confirmation()
+    {
+        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'confirmation');
+    }
+
+    public function review()
+    {
+        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'review');
     }
 
     // Attributes

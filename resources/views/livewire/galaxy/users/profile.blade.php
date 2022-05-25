@@ -57,7 +57,7 @@
         </x-bit.panel>
 
         <x-bit.panel>
-            <form wire:submit.prevent="save">
+            <form wire:submit.prevent="addRole">
                 <x-bit.panel.heading class="flex items-center justify-between">
                     <h2 class="dark:text-gray-300">Roles</h2>
                     <x-galaxy.help.roles />

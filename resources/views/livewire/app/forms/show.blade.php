@@ -22,18 +22,18 @@
 
             <form wire:submit.prevent="submit">
                 <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
-                        <div class="mx-auto space-y-8 prose dark:prose-light">
-                            @if ($form->type === 'workshop')
-                                <p class="text-xl">All answers will be automatically saved.</p>
-                            @endif
-                            @foreach ($form->form as $item)
-                                @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
-                            @endforeach
+                    <div class="mx-auto space-y-8 prose dark:prose-light">
+                        @if ($form->type === 'workshop')
+                            <p class="text-xl">All answers will be automatically saved.</p>
+                        @endif
+                        @foreach ($form->form as $item)
+                            @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
+                        @endforeach
 
-                            @if ($form->type !== 'workshop')
-                            <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
-                            @endif
-                        </div>
+                        @if ($form->type !== 'workshop')
+                        <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
+                        @endif
+                    </div>
 
 
                     @if ($isWorkshopForm)

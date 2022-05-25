@@ -1,5 +1,5 @@
 <div>
-    <div class="max-w-lg mx-auto bg-gray-100 rounded-md shadow dark:bg-gray-700">
+    <div class="max-w-lg mx-auto bg-white rounded-md shadow dark:bg-gray-800">
         <div class="flow-root p-6">
             <ul class="-mb-8">
                 @foreach ($activities as $activity)
@@ -20,7 +20,7 @@
             </ul>
         </div>
         <div class="p-4 space-y-4 border-t border-gray-300 dark:border-gray-800">
-            <form wire:submit.prevent="save">
+            <form wire:submit.prevent="save" class="space-y-4">
                 <x-bit.input.group for="comment" label="Add Comment" :error="$errors->first('comment')">
                     <x-bit.input.textarea wire:ignore class="w-full mt-1" id="comment" wire:model="comment" />
                 </x-bit.input.group>
