@@ -51,8 +51,8 @@
                 <x-bit.table.heading>Workshop</x-bit.table.heading>
                 @endforelse
                 @if ($form->rubric)
-                <x-bit.table.heading>Reviews</x-bit.table.heading>
-                <x-bit.table.heading>Score</x-bit.table.heading>
+                <x-bit.table.heading># Reviews</x-bit.table.heading>
+                <x-bit.table.heading>Avg. Score</x-bit.table.heading>
                 @endif
                 <x-bit.table.heading>Created At</x-bit.table.heading>
                 <x-bit.table.heading />
