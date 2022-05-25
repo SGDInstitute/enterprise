@@ -23,7 +23,7 @@
                         <x-form.group x-show="type" model="form.auth_required" label="Auth Required" type="boolean" />
                         <x-form.group x-show="type" model="form.is_internal" label="Internal" type="boolean" />
 
-                        @if ($form->form->isNotEmpty())
+                        @if ($form->form && $form->form->isNotEmpty())
                         <x-form.group x-show="type" model="searchable" label="Visable columns" type="select" :options="$searchableFields" multiple />
                         @endif
                     </div>
