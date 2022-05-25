@@ -1,0 +1,12 @@
+.choices__inner {
+    @apply rounded-md;
+}
+
+@media (prefers-color-scheme: dark) {
+    .choices__inner {
+        @apply bg-gray-800 border-gray-600;
+    }
+    .choices__input {
+        @apply text-gray-200 bg-gray-800;
+    }
+}

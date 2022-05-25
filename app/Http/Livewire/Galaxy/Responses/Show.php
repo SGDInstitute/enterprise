@@ -11,10 +11,20 @@ class Show extends Component
     public Response $formResponse;
     public Form $form;
 
+    public $tags;
+
     public function mount($response)
     {
         $this->formResponse = Response::with('form')->find($response);
+        $this->tags = $this->formResponse->settings->get('tags', []);
         $this->form = $this->formResponse->form;
+    }
+
+    public function updatedTags()
+    {
+        $this->formResponse->settings['tags'] = $this->tags;
+        $this->formResponse->save();
+        $this->emit('notify', ['message' => 'Saved tags', 'type' => 'success']);
     }
 
     public function render()

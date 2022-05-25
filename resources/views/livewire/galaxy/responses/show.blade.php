@@ -15,6 +15,10 @@
     <div class="space-y-4 md:col-span-2">
         <livewire:bit.response-log :response="$formResponse" />
 
+        <x-ui.card class="p-6">
+            <x-form.group model="tags" type="tags" label="Tags"/>
+        </x-ui.card>
+
         @if ($form->review)
         <livewire:galaxy.responses.review :reviewForm="$form->review" :parent="$formResponse" />
         @endif
