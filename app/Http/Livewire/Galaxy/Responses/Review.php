@@ -73,7 +73,7 @@ class Review extends Component
 
     public function save()
     {
-        if($this->existing) {
+        if ($this->existing) {
             $this->existing->update([
                 'answers' => $this->answers,
             ]);

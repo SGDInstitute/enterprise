@@ -26,7 +26,7 @@ class Table extends Component
 
     public function addColumn()
     {
-        foreach($this->table as $row => $column) {
+        foreach ($this->table as $row => $column) {
             $this->table[$row][] = '';
         }
     }

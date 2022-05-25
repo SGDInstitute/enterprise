@@ -30,7 +30,7 @@ class Forms extends Component
     {
         return Form::withCount('responses')
             ->orderBy($this->sortField, $this->sortDirection)
-            ->where(function($query) {
+            ->where(function ($query) {
                 $search = trim($this->filters['search']);
                 $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('type', 'LIKE', "%{$search}%");
