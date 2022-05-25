@@ -10,7 +10,6 @@
                 <div class="px-4 py-6 space-y-6 sm:p-6">
                     <div>
                         <h2 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Information</h2>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">This information will be displayed publicly so be careful what you share.</p>
                     </div>
                     <div x-data="{type: @entangle('form.type')}" class="grid grid-cols-2 gap-6">
                         <x-form.group model="form.type" label="Type" type="select" placeholder="Select Form Type" :options="$types" />
@@ -23,6 +22,10 @@
                         <x-form.group x-show="type" model="form.timezone" label="Timezone" type="select" placeholder="Select Timezone" :options="$timezones" />
                         <x-form.group x-show="type" model="form.auth_required" label="Auth Required" type="boolean" />
                         <x-form.group x-show="type" model="form.is_internal" label="Internal" type="boolean" />
+
+                        @if ($form->form->isNotEmpty())
+                        <x-form.group x-show="type" model="searchable" label="Visable columns" type="select" :options="$searchableFields" multiple />
+                        @endif
                     </div>
                 </div>
                 <x-ui.card.footer>

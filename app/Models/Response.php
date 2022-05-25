@@ -45,9 +45,14 @@ class Response extends Model
         return $this->morphMany(Reminder::class, 'model');
     }
 
+    public function parent()
+    {
+        return $this->hasOne(Response::class, 'id', 'parent_id');
+    }
+
     public function reviews()
     {
-        return $this->hasMany(Response::class, 'parent_id', 'id')->where('type', 'rubric');
+        return $this->hasMany(Response::class, 'parent_id', 'id')->where('type', 'review');
     }
 
     public function user()
@@ -67,18 +72,10 @@ class Response extends Model
 
     public function getScoreAttribute()
     {
-        if ($this->type === 'rubric') {
-            return $this->answers->mapWithKeys(function ($item, $key) {
-                return [$key => array_sum(array_column($item, 'points'))];
-            });
+        if ($this->type === 'review') {
+            return array_sum($this->answers['question-rubric']);
         } elseif ($this->type === 'workshop') {
-            $keys = $this->reviews->first()->answers->keys();
-            $scores = [];
-
-            foreach($keys as $key) {
-              $scores[$key] = $this->reviews->map->score->avg($key);
-            }
-            return join('<br />', $scores);
+            return $this->reviews->map->score->avg();
         }
     }
 

@@ -19,6 +19,7 @@ class Form extends Component
     public $formattedStart;
     public $formattedEnd;
     public $tab = 'info';
+    public $searchable = [];
 
     protected $rules = [
         'form.type' => 'required',
@@ -30,6 +31,7 @@ class Form extends Component
         'form.timezone' => '',
         'form.auth_required' => ['required', 'boolean'],
         'form.is_internal' => ['required', 'boolean'],
+        'searchable' => '',
     ];
 
     public function mount($form = null)
@@ -45,13 +47,6 @@ class Form extends Component
         }
     }
 
-    public function updatedFormType($value)
-    {
-        if ($value === 'rubric') {
-            $this->builder = [['Criteria']];
-        }
-    }
-
     public function updatedFormEventId($id)
     {
         $this->form['timezone'] = $this->events->find($id)->timezone;
@@ -64,6 +59,7 @@ class Form extends Component
             ->with([
                 'events' => $this->events,
                 'forms' => $this->forms,
+                'searchableFields' => $this->searchableFields,
                 'timezones' => $this->timezones,
                 'types' => $this->types,
             ]);
@@ -79,12 +75,20 @@ class Form extends Component
         return Model::select('id', 'name')->orderBy('created_at', 'desc')->get();
     }
 
+    public function getSearchableFieldsProperty()
+    {
+        return collect($this->form->form)
+            ->filter(fn ($question) => $question['style'] === 'question')
+            ->filter(fn ($question) => $question['type'] !== 'textarea')
+            ->pluck('question', 'id');
+    }
+
     public function getTypesProperty()
     {
         return [
             'confirmation' => 'Confirmation',
             'form' => 'Form',
-            'rubric' => 'Rubric',
+            'review' => 'Review (internal)',
             'survey' => 'Survey',
             'workshop' => 'Workshop'
         ];
@@ -97,6 +101,10 @@ class Form extends Component
         $this->form->end = Carbon::parse($this->formattedEnd, $this->form->timezone)->endOfDay()->timezone('UTC');
         $this->form->start = Carbon::parse($this->formattedStart, $this->form->timezone)->startOfDay()->timezone('UTC');
         $this->form->form = $this->builder;
+
+        if ($this->searchable !== []) {
+            $this->form->settings->set('searchable', $this->searchable);
+        }
 
         $this->form->save();
         $this->emit('notify', ['type' => 'success', 'message' => 'Successfully saved form']);

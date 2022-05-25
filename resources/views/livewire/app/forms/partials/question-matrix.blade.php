@@ -28,13 +28,13 @@
         @isset ($item['help'])
             <x-bit.input.help>{{ $item['help'] }}</x-bit.input.help>
         @endif
-        
-        <table>
+
+        <table class="mt-0">
             <thead>
                 <tr>
                     <th></th>
                     @foreach ($scales as $scale)
-                    <th>{{ $scale }}</th>
+                    <th class="text-gray-900 dark:text-gray-200">{{ $scale }}</th>
                     @endforeach
                 </tr>
             </thead>

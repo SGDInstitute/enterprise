@@ -46,9 +46,6 @@ class Show extends Component
 
     public function deleteUser()
     {
-        // DB::table('purchase_codes')->where('user_id', $this->user->id)->delete();
-        // DB::table('libraries')->where('user_id', $this->user->id)->delete();
-        // DB::table('orders')->where('user_id', $this->user->id)->delete();
         $this->user->delete();
 
         $this->emit('notify', ['message' => 'You\'ve deleted ' . $this->user->name . '.', 'type' => 'success']);

@@ -49,9 +49,9 @@ class Form extends Model
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'confirmation');
     }
 
-    public function rubric()
+    public function review()
     {
-        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'rubric');
+        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'review');
     }
 
     // Attributes

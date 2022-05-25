@@ -60,9 +60,7 @@ class Form extends Component
             $this->model->form = $form;
         }
 
-        if ($this->searchable !== []) {
-            $this->model->settings->set('searchable', $this->searchable);
-        }
         $this->model->save();
+        $this->emit('notify', ['message' => 'Saved form', 'type' => 'success']);
     }
 }

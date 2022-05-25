@@ -12,13 +12,11 @@
         @endforeach
     </div>
 
-    <div class="md:col-span-2">
+    <div class="space-y-4 md:col-span-2">
         <livewire:bit.response-log :response="$formResponse" />
-    </div>
 
-    @if ($form->rubric)
-    <div class="md:col-span-5">
-        <livewire:galaxy.responses.review :rubric="$form->rubric" :parent="$formResponse" />
+        @if ($form->review)
+        <livewire:galaxy.responses.review :reviewForm="$form->review" :parent="$formResponse" />
+        @endif
     </div>
-    @endif
 </div>

@@ -54,9 +54,7 @@ class Responses extends Component
 
         $this->editingItem = new EventItem();
 
-        if ($this->form->settings->get('searchable')) {
-            $this->setAdvancedForm();
-        }
+        $this->setAdvancedForm();
     }
 
     public function updating($field, $value)
@@ -88,6 +86,8 @@ class Responses extends Component
         if ($this->form->settings->get('searchable')) {
             return $this->form->form->whereIn('id', $this->form->settings->searchable);
         }
+
+        return [];
     }
 
     public function getSlotsProperty()
@@ -191,6 +191,10 @@ class Responses extends Component
 
     public function setAdvancedForm()
     {
+        if (!$this->form->settings->searchable) {
+            return $this->advanded = [];
+        }
+
         $this->advanced = $this->form->form
             ->whereIn('id', $this->form->settings->searchable)
             ->mapWithKeys(function ($item) {

@@ -40,4 +40,5 @@ Route::get('ticket-types/create/scaled', App\Http\Livewire\Galaxy\TicketTypes\Sc
 Route::get('ticket-types/{ticketType}/edit', App\Http\Livewire\Galaxy\TicketTypes\Form::class)->name('galaxy.ticket-types.edit');
 
 Route::get('users', App\Http\Livewire\Galaxy\Users::class)->name('galaxy.users');
+Route::get('users/create', App\Http\Livewire\Galaxy\Users\Create::class)->name('galaxy.users.create');
 Route::get('users/{user}/{page?}', App\Http\Livewire\Galaxy\Users\Show::class)->name('galaxy.users.show');
