@@ -121,7 +121,7 @@ class Responses extends Component
                 $query->orWhere('status', 'LIKE', '%' . $search . '%');
             })
             ->when($this->advancedChanged, function ($query) {
-                $advanced = array_filter($this->advanced, fn($item) => $item !== "" && $item !== []);
+                $advanced = array_filter($this->advanced, fn($item) => $item !== '' && $item !== []);
                 foreach ($advanced as $id => $value) {
                     if (Str::startsWith($id, 'question')) {
                         if (is_array($value)) {
