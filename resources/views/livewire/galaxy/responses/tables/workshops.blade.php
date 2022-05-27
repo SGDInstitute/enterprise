@@ -61,7 +61,7 @@
         </x-bit.table.row>
         @empty
         <x-bit.table.row>
-            <x-bit.table.cell colspan="9">
+            <x-bit.table.cell colspan="15">
                 <div class="flex items-center justify-center space-x-2">
                     <x-heroicon-o-document class="w-8 h-8 text-gray-400" />
                     <span class="py-8 text-xl font-medium text-gray-500 dark:text-gray-400 ">No responses for form found...</span>
