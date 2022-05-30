@@ -9,8 +9,8 @@ class FormFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
-            'slug' => $this->faker->slug,
+            'name' => 'Test form',
+            'slug' => 'test-form',
             'type' => 'workshop',
         ];
     }
