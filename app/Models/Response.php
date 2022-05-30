@@ -76,6 +76,9 @@ class Response extends Model
     public function getScoreAttribute()
     {
         if ($this->type === 'review') {
+            if (is_string($this->answers['question-rubric'])) {
+                return 0;
+            }
             return array_sum($this->answers['question-rubric']);
         } elseif ($this->type === 'workshop') {
             return $this->reviews->map->score->avg();
