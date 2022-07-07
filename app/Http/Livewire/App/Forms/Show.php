@@ -34,6 +34,13 @@ class Show extends Component
         'newCollaborator.pronouns' => ['required'],
     ];
 
+    protected $messages = [
+        'newCollaborator.email.required' => 'The email field cannot be empty.',
+        'newCollaborator.email.email' => 'The email format is not valid.',
+        'newCollaborator.name.required' => 'The name field cannot be empty.',
+        'newCollaborator.pronouns.required' => 'The pronouns field cannot be empty.',
+    ];
+
     public function mount()
     {
         $this->newCollaborator = ['name' => '', 'email' => '', 'id' => '', 'pronouns'];

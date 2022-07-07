@@ -76,15 +76,15 @@
             </x-slot>
 
             <x-slot name="content">
-                <x-bit.input.group for="presenter-email" label="Email">
+                <x-bit.input.group for="presenter-email" label="Email" :error="$errors->first('newCollaborator.email')">
                     <x-bit.input.text class="w-full" id="presenter-email" placeholder="Email" type="email" wire:model.lazy="newCollaborator.email" />
                 </x-bit.input.group>
 
-                <x-bit.input.group class="mt-4" for="presenter-name" label="Name">
+                <x-bit.input.group class="mt-4" for="presenter-name" label="Name" :error="$errors->first('newCollaborator.name')">
                     <x-bit.input.text id="presenter-name" class="w-full" placeholder="Name" type="text" wire:model="newCollaborator.name" />
                 </x-bit.input.group>
 
-                <x-bit.input.group class="mt-4" for="presenter-pronouns" label="Pronouns">
+                <x-bit.input.group class="mt-4" for="presenter-pronouns" label="Pronouns" :error="$errors->first('newCollaborator.pronouns')">
                     <x-bit.input.text id="presenter-pronouns" class="w-full" placeholder="Pronouns" type="text" wire:model="newCollaborator.pronouns" />
                 </x-bit.input.group>
             </x-slot>
