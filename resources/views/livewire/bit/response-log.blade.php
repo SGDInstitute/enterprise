@@ -1,5 +1,5 @@
 <div>
-    <div class="max-w-lg mx-auto bg-white rounded-md shadow dark:bg-gray-800">
+    <div class="max-w-lg mx-auto bg-white rounded-md shadow dark:bg-gray-700">
         <div class="flow-root p-6">
             <ul class="-mb-8">
                 @foreach ($activities as $activity)
