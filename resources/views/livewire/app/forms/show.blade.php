@@ -20,41 +20,40 @@
                 </div>
             @endif
 
-            <form wire:submit.prevent="submit">
-                <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
-                    <div class="mx-auto space-y-8 prose dark:prose-light">
-                        @if ($form->type === 'workshop')
-                            <p class="text-xl">All answers will be automatically saved.</p>
-                        @endif
-                        @foreach ($form->form as $item)
-                            @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
-                        @endforeach
+            <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
+                <form id="form" class="mx-auto space-y-8 prose dark:prose-light">
+                    @if ($form->type === 'workshop')
+                        <p class="text-xl">All answers will be automatically saved.</p>
+                    @endif
+                    @foreach ($form->form as $item)
+                        @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
+                    @endforeach
 
-                        @if ($form->type !== 'workshop')
-                        <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
-                        @endif
-                    </div>
+                    @if ($form->type !== 'workshop')
+                    <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Save Responses</x-bit.button.flat.primary>
+                    @endif
+                </form>
 
-
-                    @if ($isWorkshopForm)
-                        <div class="relative">
-                            <div class="sticky z-40 w-full space-y-4 top-32">
-                                <div class="p-4 space-y-4 bg-gray-100 rounded-md dark:bg-gray-700">
-                                    <div class="space-x-2">
-                                        <span class="text-gray-700 dark:text-gray-200">Status:</span>
-                                        <x-bit.badge>{{ $response->status ?? 'work-in-progress' }}</x-bit.badge>
-                                    </div>
-                                    <x-bit.button.flat.primary type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
+                @if ($isWorkshopForm)
+                    <div class="relative">
+                        <div class="sticky z-40 w-full space-y-4 top-32">
+                            <div class="p-4 space-y-4 bg-gray-100 rounded-md dark:bg-gray-700">
+                                <div class="space-x-2">
+                                    <span class="text-gray-700 dark:text-gray-200">Status:</span>
+                                    <x-bit.badge>{{ $response->status ?? 'work-in-progress' }}</x-bit.badge>
                                 </div>
-
-                                @if ($showResponseLog)
-                                <livewire:bit.response-log :response="$response" />
+                                @if (in_array($response->status, ['work-in-progress', 'submitted']))
+                                <x-bit.button.flat.primary form="form" type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
                                 @endif
                             </div>
+
+                            @if ($showResponseLog)
+                            <livewire:bit.response-log :response="$response" />
+                            @endif
                         </div>
-                    @endif
-                </div>
-            </form>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 
@@ -77,15 +76,15 @@
             </x-slot>
 
             <x-slot name="content">
-                <x-bit.input.group for="presenter-email" label="Email">
+                <x-bit.input.group for="presenter-email" label="Email" :error="$errors->first('newCollaborator.email')">
                     <x-bit.input.text class="w-full" id="presenter-email" placeholder="Email" type="email" wire:model.lazy="newCollaborator.email" />
                 </x-bit.input.group>
 
-                <x-bit.input.group class="mt-4" for="presenter-name" label="Name">
+                <x-bit.input.group class="mt-4" for="presenter-name" label="Name" :error="$errors->first('newCollaborator.name')">
                     <x-bit.input.text id="presenter-name" class="w-full" placeholder="Name" type="text" wire:model="newCollaborator.name" />
                 </x-bit.input.group>
 
-                <x-bit.input.group class="mt-4" for="presenter-pronouns" label="Pronouns">
+                <x-bit.input.group class="mt-4" for="presenter-pronouns" label="Pronouns" :error="$errors->first('newCollaborator.pronouns')">
                     <x-bit.input.text id="presenter-pronouns" class="w-full" placeholder="Pronouns" type="text" wire:model="newCollaborator.pronouns" />
                 </x-bit.input.group>
             </x-slot>
