@@ -17,7 +17,7 @@ class ResponseTest extends TestCase
             'form_id' => 1,
             'user_id' => 1,
             'type' => 'review',
-            'answers' => ["question-notes" => "Just no", "question-rubric" => "", "question-tracks" => ""],
+            'answers' => ['question-notes' => 'Just no', 'question-rubric' => '', 'question-tracks' => ''],
         ]);
 
         $this->assertEquals(0, $response->score);
