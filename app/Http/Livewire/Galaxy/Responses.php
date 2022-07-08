@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -76,6 +77,7 @@ class Responses extends Component
                 'assignedWorkshops' => $this->assignedWorkshops,
                 'advancedSearchForm' => $this->advancedSearchForm,
                 'slots' => $this->slots,
+                'statusOptions' => $this->statusOptions,
                 'tracks' => $this->event->tracks,
             ]);
     }
@@ -119,18 +121,31 @@ class Responses extends Component
                 $query->orWhere('status', 'LIKE', '%' . $search . '%');
             })
             ->when($this->advancedChanged, function ($query) {
-                foreach ($this->advanced as $id => $value) {
-                    if (is_array($value)) {
-                        foreach ($value as $item) {
-                            $query->where('answers->' . $id, 'LIKE', '%' . trim($item) . '%');
+                $advanced = array_filter($this->advanced, fn($item) => $item !== '' && $item !== []);
+                foreach ($advanced as $id => $value) {
+                    if (Str::startsWith($id, 'question')) {
+                        if (is_array($value)) {
+                            foreach ($value as $item) {
+                                $query->where('answers->' . $id, 'LIKE', '%' . trim($item) . '%');
+                            }
+                        } elseif (is_string($value) && $value != '') {
+                            $query->where('answers->' . $id, 'LIKE', '%' . trim($value) . '%');
                         }
-                    } elseif (is_string($value) && $value != '') {
-                        $query->where('answers->' . $id, 'LIKE', '%' . trim($value) . '%');
+                    } else {
+                        $query->where($id, 'LIKE', '%' . trim($value) . '%');
                     }
                 }
             })
             ->where('form_id', $this->form->id)
             ->paginate($this->perPage);
+    }
+
+    public function getStatusOptionsProperty()
+    {
+        return [
+            'work-in-progress' => 'work-in-progress',
+            'submitted' => 'submitted',
+        ];
     }
 
     public function assignTime($id)
@@ -191,7 +206,7 @@ class Responses extends Component
     public function setAdvancedForm()
     {
         if (! $this->form->settings->searchable) {
-            return $this->advanded = [];
+            return $this->advanded = ['status' => ''];
         }
 
         $this->advanced = $this->form->form
@@ -204,6 +219,8 @@ class Responses extends Component
 
                     return [$item['id'] => ''];
                 }
-            })->toArray();
+            })
+            ->union(['status' => ''])
+            ->toArray();
     }
 }

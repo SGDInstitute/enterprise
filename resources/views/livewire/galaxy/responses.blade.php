@@ -16,11 +16,10 @@
         <div x-show="showAdvanced" x-cloak x-transition:enter="transition ease-out duration-100 transform" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
             <div class="relative p-4 rounded shadow-inner bg-gray-50 dark:bg-gray-850">
                 <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+                    <x-form.group model="advanced.status" type="select" label="Status" placeholder="Choose status" :options="$statusOptions" />
                     @foreach ($advancedSearchForm as $item)
                     @if ($item['type'] === 'text')
-                    <x-bit.input.group :for="$item['id']" :label="$item['question']" :error="$errors->first('advanced.' . $item['id'])">
-                        <x-bit.input.text type="text" class="w-full mt-1" :id="$item['id']" wire:model="advanced.{{ $item['id'] }}" />
-                    </x-bit.input.group>
+                    <x-form.group model="advanced.{{ $item['id'] }}" :label="$item['question']" type="text" />
                     @elseif ($item['type'] === 'list')
                     <x-bit.input.group :for="$item['id']" :label="$item['question']" :error="$errors->first('advanced.' . $item['id'])">
                         <div class="mt-1 space-y-1">

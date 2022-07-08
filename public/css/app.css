@@ -2495,11 +2495,11 @@ select {
 .w-14 {
   width: 3.5rem;
 }
-.w-64 {
-  width: 16rem;
-}
 .w-0\.5 {
   width: 0.125rem;
+}
+.w-64 {
+  width: 16rem;
 }
 .w-11 {
   width: 2.75rem;
@@ -2527,6 +2527,9 @@ select {
 }
 .w-24 {
   width: 6rem;
+}
+.w-52 {
+  width: 13rem;
 }
 .min-w-full {
   min-width: 100%;
@@ -3389,6 +3392,9 @@ select {
 }
 .pl-1 {
   padding-left: 0.25rem;
+}
+.pl-6 {
+  padding-left: 1.5rem;
 }
 .text-left {
   text-align: left;
