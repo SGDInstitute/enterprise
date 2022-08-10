@@ -115,6 +115,13 @@
                                             <x-bit.button.round.secondary wire:click="addCondition">Add Condition</x-bit.button.round.secondary>
                                             @endif
                                         </div>
+
+                                        @if ($model->parent_id !== null)
+                                        <div class="space-y-4">
+                                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-200">Data</h3>
+                                            <x-bit.input.checkbox :id="'question-data-'.$openIndex" :label="__('Pull Value From Parent Form')" wire:model="form.{{ $openIndex }}.data" />
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 @endif
