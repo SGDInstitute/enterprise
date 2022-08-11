@@ -9,7 +9,6 @@ use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
 use App\Notifications\ConfirmWorkshop;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;

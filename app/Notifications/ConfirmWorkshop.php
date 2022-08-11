@@ -32,7 +32,7 @@ class ConfirmWorkshop extends Notification implements ShouldQueue
                 'title' => $this->workshop->name,
                 'event' => $this->confirmation->event->name,
                 'ends' => $this->confirmation->end->timezone($this->confirmation->event->timezone)->format('F j, Y'),
-                'url' => url("/dashboard/workshops?response_id={$this->workshop->id}")
+                'url' => url("/dashboard/workshops?response_id={$this->workshop->id}"),
             ]);
     }
 
