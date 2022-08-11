@@ -8,7 +8,7 @@ use App\Models\Event;
 use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
-use App\Notifications\ConfirmWorkshop;
+use App\Notifications\FinalizeWorkshop;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -219,7 +219,7 @@ class Responses extends Component
             ->where('status', $this->notification['status'])
             ->get()
             ->each(function ($response) {
-                $response->user->notify(new ConfirmWorkshop($this->form->confirmation, $response));
+                $response->user->notify(new FinalizeWorkshop($this->form->finalizeForm, $response));
             })
             ->count();
 

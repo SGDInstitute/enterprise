@@ -49,6 +49,11 @@ class Form extends Model
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'confirmation');
     }
 
+    public function finalizeForm()
+    {
+        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'finalize');
+    }
+
     public function review()
     {
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'review');

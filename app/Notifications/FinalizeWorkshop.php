@@ -9,12 +9,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ConfirmWorkshop extends Notification implements ShouldQueue
+class FinalizeWorkshop extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public function __construct(
-        public Form $confirmation,
+        public Form $finalize,
         public Response $workshop,
     ) {
     }
@@ -30,8 +30,8 @@ class ConfirmWorkshop extends Notification implements ShouldQueue
             ->subject("You have a new task to complete for {$this->workshop->name}")
             ->markdown('mail.confirm-workshop', [
                 'title' => $this->workshop->name,
-                'event' => $this->confirmation->event->name,
-                'ends' => $this->confirmation->end->timezone($this->confirmation->event->timezone)->format('F j, Y'),
+                'event' => $this->finalize->event->name,
+                'ends' => $this->finalize->end->timezone($this->finalize->event->timezone)->format('F j, Y'),
                 'url' => url("/dashboard/workshops?response_id={$this->workshop->id}"),
             ]);
     }
