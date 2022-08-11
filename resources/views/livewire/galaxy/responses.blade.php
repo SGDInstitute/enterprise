@@ -1,4 +1,15 @@
 <div>
+    <div x-data="{ show: false }">
+        <x-bit.button.round.primary @click="show = !show">Send Notification</x-bit.button.round.primary>
+        <div x-show="show" x-cloak x-transition:enter="transition ease-out duration-100 transform" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
+            <form wire:submit.prevent="sendNotifications" class="flex items-end py-4 space-x-4">
+                <x-form.group model="notification.type" type="select" label="Notification" placeholder="Choose notification" :options="['confirmation' => 'Confirmation']" />
+                <x-form.group model="notification.status" type="select" label="Status" placeholder="Choose status" :options="$statusOptions" />
+                <x-bit.button.round.primary size="lg" type="submit">Send</x-bit.button.round.primary>
+            </form>
+        </div>
+    </div>
+
     <div class="flex-col mt-5 space-y-4" x-data="{ showAdvanced: false }">
         <div class="md:flex md:justify-between">
             <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">

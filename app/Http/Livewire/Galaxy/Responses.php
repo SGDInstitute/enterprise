@@ -8,6 +8,8 @@ use App\Models\Event;
 use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
+use App\Notifications\ConfirmWorkshop;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -30,6 +32,7 @@ class Responses extends Component
     public $showItemModal = false;
 
     public $filters = ['search' => ''];
+    public $notification = ['type' => '', 'status' => ''];
 
     public $perPage = 25;
 
@@ -207,6 +210,21 @@ class Responses extends Component
         $this->resetItemModal();
 
         $this->emit('refresh');
+    }
+
+    public function sendNotifications()
+    {
+        $count = Response::query()
+            ->with('user')
+            ->where('form_id', $this->form->id)
+            ->where('status', $this->notification['status'])
+            ->get()
+            ->each(function ($response) {
+                $response->user->notify(new ConfirmWorkshop($this->form->confirmation, $response));
+            })
+            ->count();
+
+        $this->emit('notify', ['message' => "Sent notification to {$count} users. Check progress on Horizon.", 'type' => 'success']);
     }
 
     public function setAdvancedForm()
