@@ -143,8 +143,14 @@ class Responses extends Component
     public function getStatusOptionsProperty()
     {
         return [
-            'work-in-progress' => 'work-in-progress',
-            'submitted' => 'submitted',
+            'work-in-progress' => 'Work in Progress',
+            'submitted' => 'Submitted',
+            'in-review' => 'In Review',
+            'approved' => 'Approved',
+            'waiting-list' => 'Waiting List',
+            'rejected' => 'Rejected',
+            'confirmed' => 'Confirmed',
+            'scheduled' => 'Scheduled',
         ];
     }
 
