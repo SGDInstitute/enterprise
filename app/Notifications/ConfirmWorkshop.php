@@ -16,7 +16,8 @@ class ConfirmWorkshop extends Notification implements ShouldQueue
     public function __construct(
         public Form $confirmation,
         public Response $workshop,
-    ) {}
+    ) {
+    }
 
     public function via($notifiable)
     {
@@ -25,7 +26,7 @@ class ConfirmWorkshop extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject("You have a new task to complete for {$this->workshop->name}")
             ->markdown('mail.confirm-workshop', [
                 'title' => $this->workshop->name,
