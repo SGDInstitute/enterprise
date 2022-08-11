@@ -28,7 +28,7 @@ class FinalizeWorkshop extends Notification implements ShouldQueue
     {
         return (new MailMessage())
             ->subject("You have a new task to complete for {$this->workshop->name}")
-            ->markdown('mail.confirm-workshop', [
+            ->markdown('mail.finalize-workshop', [
                 'title' => $this->workshop->name,
                 'event' => $this->finalize->event->name,
                 'ends' => $this->finalize->end->timezone($this->finalize->event->timezone)->format('F j, Y'),
