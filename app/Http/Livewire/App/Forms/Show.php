@@ -15,7 +15,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public Form $form;
-
+    public Response $parent;
     public Response $response;
 
     public $answers;
@@ -46,7 +46,7 @@ class Show extends Component
         $this->newCollaborator = ['name' => '', 'email' => '', 'id' => '', 'pronouns'];
 
         if (request()->query('edit')) {
-            // check if user is authorized to view
+            // @todo check if user is authorized to view
             $this->load(request()->query('edit'));
         } else {
             if ($this->previousResponses->count() > 0) {
@@ -58,11 +58,15 @@ class Show extends Component
             $this->answers = $this->form->form
                 ->filter(fn ($item) => $item['style'] === 'question')
                 ->mapWithKeys(function ($item) {
-                    if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
-                        return [$item['id'] => []];
+                    if (isset($item['data']) && isset($this->parent)) {
+                        $parentAnswer = $this->parent->answers[$item['id']];
                     }
 
-                    return [$item['id'] => ''];
+                    if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                        return [$item['id'] => $parentAnswer ?? []];
+                    }
+
+                    return [$item['id'] => $parentAnswer ?? ''];
                 })->toArray();
 
             if ($this->form->hasCollaborators) {
@@ -111,7 +115,7 @@ class Show extends Component
 
     public function getPreviousResponsesProperty()
     {
-        if (auth()->check()) {
+        if (auth()->check() && $this->isWorkshopForm) {
             return auth()->user()->responses()->where('form_id', $this->form->id)->get();
         }
 

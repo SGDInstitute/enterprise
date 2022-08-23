@@ -54,7 +54,7 @@
                                 </span>
                                 <span>Due by {{ $workshop->form->finalizeForm->getFormattedEndAttribute('n/d') }} ({{ $workshop->form->finalizeForm->daysLeft }} days)</span>
                             </div>
-                            <x-bit.button.flat.secondary size="sm">Start Form</x-bit.button.flat.secondary>
+                            <x-bit.button.flat.secondary :href="route('app.forms.finalize', ['form' => $workshop->form->finalizeForm, 'parent' => $workshop->id])" size="sm">Start Form</x-bit.button.flat.secondary>
                         </div>
                     </x-bit.table.cell>
                 </x-bit.table.row>
