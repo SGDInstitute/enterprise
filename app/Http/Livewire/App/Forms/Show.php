@@ -147,7 +147,11 @@ class Show extends Component
 
         $this->collaborators[] = $this->newCollaborator;
 
-        $this->save();
+        if ($this->isWorkshopForm) {
+            $this->save();
+        } else {
+            $this->save(false);
+        }
 
         Notification::send($user, new AddedAsCollaborator($this->response));
 
