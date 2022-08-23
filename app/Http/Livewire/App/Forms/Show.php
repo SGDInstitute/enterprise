@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\App\Forms;
 
 use App\Models\Form;
+use App\Models\Order;
 use App\Models\Response;
 use App\Models\User;
 use App\Notifications\AddedAsCollaborator;
@@ -70,8 +71,12 @@ class Show extends Component
                 })->toArray();
 
             if ($this->form->hasCollaborators) {
-                $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
-                $this->collaborators = collect([$user]);
+                if ($this->parent) {
+                    $this->collaborators = $this->parent->collaborators->map(fn($user) => $user->only('id', 'name', 'email', 'pronouns'));
+                } else {
+                    $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
+                    $this->collaborators = collect([$user]);
+                }
             }
         }
     }
@@ -208,10 +213,11 @@ class Show extends Component
         $this->showPreviousResponses = false;
     }
 
-    public function save($withNotification = true)
+    public function save($withNotification = true, $status = 'work-in-progress')
     {
         if ($this->response->id !== null) {
             $this->response->answers = $this->answers;
+            $this->response->status = $status;
             $this->response->save();
         } else {
             $this->response = Response::create([
@@ -219,7 +225,7 @@ class Show extends Component
                 'type' => $this->form->type,
                 'form_id' => $this->form->id,
                 'answers' => $this->answers,
-                'status' => 'work-in-progress',
+                'status' => $status,
             ]);
 
             if ($this->form->has_reminders) {
@@ -241,11 +247,27 @@ class Show extends Component
     {
         $this->validate($this->form->rules);
 
-        $this->response->status = 'submitted';
-        $this->save(false);
+        // $this->response->status = 'submitted';
+        $this->save(false, 'submitted');
 
         if ($this->form->type === 'workshop') {
             $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
+        } elseif ($this->form->type === 'finalize') {
+            $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
+
+            // @todo move to job or action since also using similar in `App\Events\Tickets`
+            $order = Order::create(['event_id' => $this->form->event->id, 'user_id' => auth()->id()]);
+            $ticketData = $this->response->collaborators->map(function ($user) {
+                return [
+                    'event_id' => $this->form->event_id,
+                    'ticket_type_id' => 29, // @todo HARDCODED VALUE
+                    'price_id' => 40, // @todo HARDCODED VALUE
+                    'user_id' => $user->id,
+                ];
+            });
+            $order->tickets()->createMany($ticketData);
+            $order->markAsPaid('comped-workshop-presenter', 0);
+            // set up comped order with tickets for presenters
         } else {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
 
