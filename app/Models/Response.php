@@ -81,7 +81,7 @@ class Response extends Model
             }
             return array_sum($this->answers['question-rubric']);
         } elseif ($this->type === 'workshop') {
-            return $this->reviews->map->score->avg();
+            return round($this->reviews->map->score->avg(), 2);
         }
     }
 
