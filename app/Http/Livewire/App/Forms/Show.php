@@ -71,7 +71,7 @@ class Show extends Component
                 })->toArray();
 
             if ($this->form->hasCollaborators) {
-                if ($this->parent) {
+                if (isset($this->parent)) {
                     $this->collaborators = $this->parent->collaborators->map(fn($user) => $user->only('id', 'name', 'email', 'pronouns'));
                 } else {
                     $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
