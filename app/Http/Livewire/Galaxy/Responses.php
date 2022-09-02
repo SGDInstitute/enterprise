@@ -152,6 +152,7 @@ class Responses extends Component
             'waiting-list' => 'Waiting List',
             'rejected' => 'Rejected',
             'confirmed' => 'Confirmed',
+            'canceled' => 'Canceled',
             'scheduled' => 'Scheduled',
         ];
     }

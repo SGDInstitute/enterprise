@@ -134,7 +134,7 @@ class Show extends Component
 
     public function getShowResponseLogProperty()
     {
-        return in_array($this->response->status, ['submitted', 'in-review', 'approved', 'rejected', 'scheduled', 'waiting-list']);
+        return in_array($this->response->status, ['submitted', 'in-review', 'approved', 'rejected', 'scheduled', 'canceled', 'waiting-list']);
     }
 
     // Methods

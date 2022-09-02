@@ -34,6 +34,7 @@
                         <option value="waiting-list">Waiting List</option>
                         <option value="rejected">Rejected</option>
                         <option value="confirmed">Confirmed</option>
+                        <option value="canceled">Canceled</option>
                         <option value="scheduled">Scheduled</option>
                     </x-bit.input.select>
                 </x-bit.input.group>
