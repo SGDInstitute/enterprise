@@ -46,13 +46,15 @@
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}-confirm" class="bg-yellow-400 dark:bg-yellow-800">
                     <x-bit.table.cell colspan="10">
                         <div class="flex items-center justify-between w-full pl-6">
-                            <div class="flex space-x-2">
+                            <div class="flex items-center space-x-2">
                                 <x-heroicon-s-exclamation class="w-6 h-6" />
-                                <span>
-                                    <span class="font-bold">Finalize Program Book Details</span>
-                                    <span> for {{ $workshop->name }}</span>
-                                </span>
-                                <span>Due by {{ $workshop->form->finalizeForm->getFormattedEndAttribute('n/d') }} ({{ $workshop->form->finalizeForm->daysLeft }} days)</span>
+                                <div>
+                                    <p>
+                                        <span class="font-bold">Finalize Program Book Details</span>
+                                        <span> for <span class="truncate">{{ $workshop->name }}</span></span>
+                                    </p>
+                                    <p>Due by {{ $workshop->form->finalizeForm->getFormattedEndAttribute('n/d') }} ({{ $workshop->form->finalizeForm->daysLeft }} days)</p>
+                                </div>
                             </div>
                             <x-bit.button.flat.secondary :href="route('app.forms.finalize', ['form' => $workshop->form->finalizeForm, 'parent' => $workshop->id])" size="sm">Start Form</x-bit.button.flat.secondary>
                         </div>
