@@ -134,7 +134,7 @@ class Show extends Component
 
     public function getShowResponseLogProperty()
     {
-        return in_array($this->response->status, ['submitted', 'in-review', 'approved', 'rejected', 'scheduled', 'canceled', 'waiting-list']);
+        return in_array($this->response->status, ['submitted', 'in-review', 'approved', 'rejected', 'scheduled', 'canceled', 'confirmed', 'waiting-list']);
     }
 
     // Methods
@@ -264,6 +264,11 @@ class Show extends Component
         } elseif ($this->form->type === 'finalize') {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
             $this->response->update(['parent_id' => $this->parent->id]);
+
+            activity()->performedOn($this->parent)->withProperties([
+                'comment' => 'Submitted Program Book details finalization form. Any changes you made will be updated on the original submission when it is scheduled.',
+                'finalResponse' => $this->response->id,
+            ]);
 
             $ticketData = $this->response->collaborators
                 ->filter(fn ($user) => ! $user->isRegisteredFor($this->form->event))
