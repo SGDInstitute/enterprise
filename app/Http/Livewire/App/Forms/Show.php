@@ -281,7 +281,7 @@ class Show extends Component
                 $order->tickets()->createMany($ticketData);
                 $order->markAsPaid('comped-workshop-presenter', 0);
 
-                return redirect()->route('app.order.show', $order);
+                return redirect()->route('app.orders.show', $order);
             } else {
                 return redirect()->route('app.forms.thanks', $this->form);
             }
