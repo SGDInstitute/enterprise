@@ -13,6 +13,7 @@
                         @includeWhen($activity['description'] === 'updated', 'livewire.bit.partials.updated')
                         @includeWhen($activity['description'] === 'submitted', 'livewire.bit.partials.submitted')
                         @includeWhen($activity['description'] === 'commented', 'livewire.bit.partials.commented')
+                        @includeWhen($activity['description'] === 'finalized', 'livewire.bit.partials.finalized')
                     </div>
                 </li>
                 @endforeach
