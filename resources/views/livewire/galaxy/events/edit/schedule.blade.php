@@ -122,7 +122,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             timeZone: '{{ $this->event->timezone }}',
             initialView: 'timeGridThreeDay',
-            initialDate: '2021-10-08',
+            initialDate: '{{ $this->event->start->format("Y-m-d") }}',
             editable: true,
             headerToolbar: {
                 left: 'prev,next',
