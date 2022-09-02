@@ -265,10 +265,12 @@ class Show extends Component
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
             $this->response->update(['parent_id' => $this->parent->id]);
 
-            activity()->performedOn($this->parent)->withProperties([
-                'comment' => 'Submitted Program Book details finalization form. Any changes you made will be updated on the original submission when it is scheduled.',
-                'finalResponse' => $this->response->id,
-            ]);
+            activity()->performedOn($this->parent)
+                ->withProperties([
+                    'comment' => 'Submitted Program Book details finalization form. Any changes you made will be updated on the original submission when it is scheduled.',
+                    'finalResponse' => $this->response->id,
+                ])
+                ->log('finalized');
 
             $ticketData = $this->response->collaborators
                 ->filter(fn ($user) => ! $user->isRegisteredFor($this->form->event))
