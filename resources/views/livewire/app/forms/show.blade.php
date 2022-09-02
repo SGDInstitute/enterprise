@@ -1,7 +1,7 @@
 <div class="relative">
     <x-bit.form.header :form="$form" />
 
-    <div class="dark:bg-gray-800">
+    <div class="bg-white dark:bg-gray-800">
         <div class="container px-12 pb-12 mx-auto">
             @if (!$fillable)
                 <div class="sticky z-50 mx-auto mb-8 max-w-prose top-20">
