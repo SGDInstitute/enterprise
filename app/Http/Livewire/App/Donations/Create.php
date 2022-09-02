@@ -109,7 +109,7 @@ class Create extends Component
     public function getAmountLabelProperty()
     {
         if ($this->amount != '') {
-            return '$' . $this->amount . ' ';
+            return '$'.$this->amount.' ';
         }
     }
 

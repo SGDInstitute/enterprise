@@ -67,12 +67,12 @@ class Orders extends Component
             ->when($this->filters['search'], function ($query, $search) {
                 return $query->where(function ($query) use ($search) {
                     $search = trim($search);
-                    $query->where('events.name', 'like', '%' . $search . '%')
-                        ->orWhere('users.email', 'like', '%' . $search . '%')
-                        ->orWhere('orders.confirmation_number', 'like', '%' . $search . '%')
-                        ->orWhere('orders.transaction_id', 'like', '%' . $search . '%')
-                        ->orWhere('orders.amount', 'like', '%' . $search . '%')
-                        ->orWhere('users.name', 'like', '%' . $search . '%')
+                    $query->where('events.name', 'like', '%'.$search.'%')
+                        ->orWhere('users.email', 'like', '%'.$search.'%')
+                        ->orWhere('orders.confirmation_number', 'like', '%'.$search.'%')
+                        ->orWhere('orders.transaction_id', 'like', '%'.$search.'%')
+                        ->orWhere('orders.amount', 'like', '%'.$search.'%')
+                        ->orWhere('users.name', 'like', '%'.$search.'%')
                         ->orWhere('orders.id', $search)
                         ->orWhere('orders.id', substr($search, 3));
                 });

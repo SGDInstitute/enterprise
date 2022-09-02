@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 class Create extends Component
 {
     public User $user;
+
     public $role;
 
     protected $rules = [

@@ -31,9 +31,9 @@ class Header extends Component
     public function dates()
     {
         if ($this->form->start->diffInHours($this->form->end) > 24) {
-            return $this->form->start->timezone($this->form->timezone)->format('D, M j') . ' - ' . $this->form->end->timezone($this->form->timezone)->format('D, M j, Y');
+            return $this->form->start->timezone($this->form->timezone)->format('D, M j').' - '.$this->form->end->timezone($this->form->timezone)->format('D, M j, Y');
         } else {
-            return $this->form->start->timezone($this->form->timezone)->format('D, M j Y g:i a') . ' - ' . $this->form->end->timezone($this->form->timezone)->format('g:i a');
+            return $this->form->start->timezone($this->form->timezone)->format('D, M j Y g:i a').' - '.$this->form->end->timezone($this->form->timezone)->format('g:i a');
         }
     }
 }

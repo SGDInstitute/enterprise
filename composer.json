@@ -40,19 +40,16 @@
         "beyondcode/helo-laravel": "^1.4",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.8",
+        "laravel/pint": "^1.1",
         "laravel/sail": "^1.13",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10",
-        "tightenco/duster": "^0.3.2"
+        "phpunit/phpunit": "^9.5.10"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
+        "sort-packages": true
     },
     "extra": {
         "laravel": {

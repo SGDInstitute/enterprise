@@ -16,15 +16,19 @@ use Livewire\Component;
 class Show extends Component
 {
     public Form $form;
+
     public Response $parent;
+
     public Response $response;
 
     public $answers;
 
     public $collaborators;
+
     public $newCollaborator;
 
     public $showPreviousResponses = false;
+
     public $showCollaboratorModal = false;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -56,6 +60,7 @@ class Show extends Component
 
             if (auth()->check() && $this->form->type === 'finalize' && $this->previousResponses->count() > 0) {
                 $this->emit('notify', ['message' => 'You have already submitted a response for this form.', 'type' => 'error']);
+
                 return redirect()->route('app.dashboard', ['page' => 'workshops']);
             }
 
@@ -80,7 +85,7 @@ class Show extends Component
 
             if ($this->form->hasCollaborators) {
                 if (isset($this->parent)) {
-                    $this->collaborators = $this->parent->collaborators->map(fn($user) => $user->only('id', 'name', 'email', 'pronouns'));
+                    $this->collaborators = $this->parent->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
                 } else {
                     $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
                     $this->collaborators = collect([$user]);
@@ -177,7 +182,7 @@ class Show extends Component
 
         Notification::send(User::find($id), new RemovedAsCollaborator($this->response));
 
-        $this->collaborators = $this->collaborators->filter(fn($collaborator) => $collaborator['id'] !== $id);
+        $this->collaborators = $this->collaborators->filter(fn ($collaborator) => $collaborator['id'] !== $id);
 
         $this->emit('notify', ['message' => 'Successfully removed presenter.', 'type' => 'success']);
     }
@@ -217,7 +222,7 @@ class Show extends Component
         $this->response->load('activities.causer');
 
         $this->answers = $this->response->answers;
-        $this->collaborators = $this->response->collaborators->map(fn($user) => $user->only('id', 'name', 'email', 'pronouns'));
+        $this->collaborators = $this->response->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
         $this->emit('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
         $this->showPreviousResponses = false;
     }

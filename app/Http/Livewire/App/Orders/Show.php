@@ -8,6 +8,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public Order $order;
+
     public $page;
 
     public function mount($page = 'payment')
@@ -21,8 +22,8 @@ class Show extends Component
     public function render()
     {
         return view('livewire.app.orders.show', [
-                'steps' => $this->steps,
-            ]);
+            'steps' => $this->steps,
+        ]);
     }
 
     public function getStepsProperty()

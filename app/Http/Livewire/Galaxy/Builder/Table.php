@@ -7,6 +7,7 @@ use Livewire\Component;
 class Table extends Component
 {
     public $table;
+
     public $model;
 
     public $rules = [

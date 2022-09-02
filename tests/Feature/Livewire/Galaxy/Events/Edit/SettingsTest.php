@@ -19,7 +19,7 @@ class SettingsTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/' . $event->id . '/edit/settings')
+            ->get('/galaxy/events/'.$event->id.'/edit/settings')
             ->assertSuccessful()
             ->assertSeeLivewire('galaxy.events.edit.settings');
     }

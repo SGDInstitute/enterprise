@@ -10,10 +10,13 @@ class Form extends Component
     use WithFormBuilder;
 
     public $form;
+
     public $model;
 
     public $openIndex = -1;
+
     public $showSettings = false;
+
     public $searchable = [];
 
     public $rules = [

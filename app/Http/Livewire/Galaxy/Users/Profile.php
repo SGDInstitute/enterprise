@@ -12,10 +12,15 @@ class Profile extends Component
     public User $user;
 
     public $addressChanged;
+
     public $profileChanged;
+
     public $passwordChanged;
+
     public $newRole = '';
+
     public $password;
+
     public $password_confirmation;
 
     public function updating($field, $value)

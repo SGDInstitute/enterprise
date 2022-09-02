@@ -110,20 +110,20 @@ class Workshops extends Component
                     foreach ($this->form->settings->get('searchable') as $index => $item) {
                         $function = $index === 0 ? 'where' : 'orWhere';
 
-                        $query->$function('answers->' . $item, 'LIKE', '%' . $search . '%');
+                        $query->$function('answers->'.$item, 'LIKE', '%'.$search.'%');
                     }
                 } else {
-                    $query->where('answers->name', 'LIKE', '%' . $search . '%');
+                    $query->where('answers->name', 'LIKE', '%'.$search.'%');
                 }
 
-                $query->orWhere('status', 'LIKE', '%' . $search . '%');
+                $query->orWhere('status', 'LIKE', '%'.$search.'%');
             })
             ->when($this->advancedChanged, function ($query) {
                 foreach ($this->advanced as $id => $value) {
                     if (is_array($value) && $value !== []) {
-                        $query->whereIn('answers->' . $id, $value);
+                        $query->whereIn('answers->'.$id, $value);
                     } elseif (is_string($value)) {
-                        $query->where('answers->' . $id, 'LIKE', '%' . trim($value) . '%');
+                        $query->where('answers->'.$id, 'LIKE', '%'.trim($value).'%');
                     }
                 }
             })
@@ -175,7 +175,7 @@ class Workshops extends Component
 
         if ($this->editingWorkshop->status !== 'scheduled') {
             $this->editingWorkshop->status = 'scheduled';
-            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => 'Scheduled for ' . $this->editingItem->formattedDuration])->log('scheduled');
+            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => 'Scheduled for '.$this->editingItem->formattedDuration])->log('scheduled');
             // send notification
         }
 

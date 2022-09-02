@@ -18,7 +18,7 @@ class Show extends Component
 
     public function render()
     {
-        $title = ($this->order->isPaid() ? 'Order ' : 'Reservation ') . $this->order->formattedId;
+        $title = ($this->order->isPaid() ? 'Order ' : 'Reservation ').$this->order->formattedId;
 
         return view('livewire.galaxy.orders.show')
             ->layout('layouts.galaxy', ['title' => $title]);

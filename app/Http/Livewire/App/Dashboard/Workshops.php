@@ -38,10 +38,10 @@ class Workshops extends Component
             ->with(['form.finalizeForm', 'collaborators'])
             ->where('type', 'workshop')
             ->where('user_id', auth()->id())
-            ->when($this->filters['search'], fn($query) => $query
+            ->when($this->filters['search'], fn ($query) => $query
                 ->where('answers', 'LIKE', "%{$this->filters['search']}%")
                 ->orWhere('status', 'LIKE', "%{$this->filters['search']}%"))
-            ->when($this->form, fn($query) => $query->where('form_id', $this->form->id))
+            ->when($this->form, fn ($query) => $query->where('form_id', $this->form->id))
             ->paginate($this->perPage);
     }
 

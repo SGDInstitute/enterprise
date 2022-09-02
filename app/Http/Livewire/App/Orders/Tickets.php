@@ -242,6 +242,7 @@ class Tickets extends Component
 
                 // send notification that they were created and added to a ticket
                 $user->notify(new AddedToTicket($ticket, true, auth()->user()->name));
+
                 continue;
             }
         }

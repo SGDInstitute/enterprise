@@ -9,6 +9,7 @@ use Livewire\Component;
 class Review extends Component
 {
     public Form $reviewForm;
+
     public Response $parent;
 
     public $answers;

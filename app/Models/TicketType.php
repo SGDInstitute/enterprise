@@ -58,7 +58,7 @@ class TicketType extends Model
     public function getAvailablityAttribute()
     {
         if ($this->start && $this->end) {
-            return 'Available: ' . $this->start->timezone($this->timezone)->format('M j') . ' - ' . $this->end->timezone($this->timezone)->format('M j, Y');
+            return 'Available: '.$this->start->timezone($this->timezone)->format('M j').' - '.$this->end->timezone($this->timezone)->format('M j, Y');
         }
     }
 
@@ -74,7 +74,7 @@ class TicketType extends Model
 
     public function getPriceRangeAttribute()
     {
-        return '$' . $this->prices->min('cost') / 100 . ' - $' . $this->prices->max('cost') / 100;
+        return '$'.$this->prices->min('cost') / 100 .' - $'.$this->prices->max('cost') / 100;
     }
 
     // Methods

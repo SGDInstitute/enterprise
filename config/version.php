@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'major'     => '3',
-    'minor'     => '1',
-    'patch'     => '0',
+    'major' => '3',
+    'minor' => '1',
+    'patch' => '0',
 ];

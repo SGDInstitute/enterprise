@@ -34,7 +34,7 @@ class Slots extends Component
     public function render()
     {
         return view('livewire.galaxy.events.edit.slots')
-            ->layout('layouts.galaxy', ['title' => $this->event->name . ' ' . $this->item->name])
+            ->layout('layouts.galaxy', ['title' => $this->event->name.' '.$this->item->name])
             ->with([
                 'collisions' => $this->collisions,
                 'items' => $this->items,

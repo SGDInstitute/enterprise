@@ -66,7 +66,7 @@ class Tickets extends Component
         return TicketType::query()
             ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . trim($this->filters['search']) . '%');
+                    $query->where('name', 'like', '%'.trim($this->filters['search']).'%');
                 });
             })
             ->where('event_id', $this->event->id)

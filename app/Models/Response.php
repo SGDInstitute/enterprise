@@ -70,6 +70,7 @@ class Response extends Model
         if (isset($this->answers['question-name']) && $this->answers['question-name'] === '') {
             return 'Not answered';
         }
+
         return $this->answers['question-name'] ?? $this->answers['name'] ?? 'Indertiminable';
     }
 
@@ -79,6 +80,7 @@ class Response extends Model
             if (is_string($this->answers['question-rubric'])) {
                 return 0;
             }
+
             return array_sum($this->answers['question-rubric']);
         } elseif ($this->type === 'workshop') {
             return round($this->reviews->map->score->avg(), 2);
@@ -105,8 +107,8 @@ class Response extends Model
 
                 return now()->addDays($d);
             })
-            ->filter(fn($d) => $d <= $this->form->end)
-            ->map(fn($d) => ['send_at' => $d]);
+            ->filter(fn ($d) => $d <= $this->form->end)
+            ->map(fn ($d) => ['send_at' => $d]);
 
         $this->reminders()->createMany($dates);
     }
