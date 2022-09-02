@@ -48,11 +48,11 @@ class Donations extends Component
             ->when($this->filters['search'], function ($query, $search) {
                 return $query->where(function ($query) use ($search) {
                     $search = trim($search);
-                    $query->where('users.email', 'like', '%' . $search . '%')
-                        ->orWhere('donations.subscription_id', 'like', '%' . $search . '%')
-                        ->orWhere('donations.transaction_id', 'like', '%' . $search . '%')
-                        ->orWhere('donations.amount', 'like', '%' . $search . '%')
-                        ->orWhere('users.name', 'like', '%' . $search . '%')
+                    $query->where('users.email', 'like', '%'.$search.'%')
+                        ->orWhere('donations.subscription_id', 'like', '%'.$search.'%')
+                        ->orWhere('donations.transaction_id', 'like', '%'.$search.'%')
+                        ->orWhere('donations.amount', 'like', '%'.$search.'%')
+                        ->orWhere('users.name', 'like', '%'.$search.'%')
                         ->orWhere('donations.id', $search);
                 });
             })

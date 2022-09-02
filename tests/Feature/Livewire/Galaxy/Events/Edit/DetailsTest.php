@@ -20,7 +20,7 @@ class DetailsTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/' . $event->id . '/edit/details')
+            ->get('/galaxy/events/'.$event->id.'/edit/details')
             ->assertSuccessful()
             ->assertSeeLivewire('galaxy.events.edit.details');
     }

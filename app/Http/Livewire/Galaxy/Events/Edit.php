@@ -20,7 +20,7 @@ class Edit extends Component
     public function render()
     {
         return view('livewire.galaxy.events.edit')
-            ->layout('layouts.galaxy', ['title' => 'Configure ' . $this->event->name])
+            ->layout('layouts.galaxy', ['title' => 'Configure '.$this->event->name])
             ->with([
                 'pages' => $this->pages,
                 'action' => ['label' => 'View', 'href' => route('galaxy.events.show', $this->event)],

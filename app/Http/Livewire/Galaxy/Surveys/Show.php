@@ -22,7 +22,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.galaxy.surveys.show')
-            ->layout('layouts.galaxy', ['title' => $this->survey->name . ' Responses'])
+            ->layout('layouts.galaxy', ['title' => $this->survey->name.' Responses'])
             ->with([
                 'numberOfResponses' => $this->survey->responses->count(),
                 'numberOfUniqueResponses' => $this->survey->responses->unique('answers')->count(),
@@ -41,7 +41,7 @@ class Show extends Component
 
                 if ($question['type'] === 'list' && (! isset($question['list-style']) || $question['list-style'] !== 'checkbox')) {
                     if (isset($question['list-other']) && $question['list-other']) {
-                        $others = $answers->pluck($question['id'] . '-other')->filter(fn ($answer) => $answer !== null && $answer != '');
+                        $others = $answers->pluck($question['id'].'-other')->filter(fn ($answer) => $answer !== null && $answer != '');
 
                         return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->countBy(), 'others' => $others->join(', ')]];
                     }
@@ -49,7 +49,7 @@ class Show extends Component
                     return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->countBy()]];
                 } elseif ($question['type'] === 'list' && $question['list-style'] === 'checkbox') {
                     if (isset($question['list-other']) && $question['list-other']) {
-                        $others = $answers->pluck($question['id'] . '-other')->filter(fn ($answer) => $answer !== null && $answer != '');
+                        $others = $answers->pluck($question['id'].'-other')->filter(fn ($answer) => $answer !== null && $answer != '');
 
                         return [$question['id'] => ['question' => $question, 'answers' => $questionsAnswers->flatten()->countBy(), 'others' => $others->join(', ')]];
                     }
@@ -59,7 +59,7 @@ class Show extends Component
                     $answers = [];
 
                     foreach ($question['options'] as $option) {
-                        $answers[$option] = $questionsAnswers->map(fn ($answer) => Arr::get($answer, $option) ?? Arr::get($answer, ' ' . $option) ?? Arr::get($answer, $option . ' '))->countBy();
+                        $answers[$option] = $questionsAnswers->map(fn ($answer) => Arr::get($answer, $option) ?? Arr::get($answer, ' '.$option) ?? Arr::get($answer, $option.' '))->countBy();
                     }
 
                     return [$question['id'] => ['question' => $question, 'answers' => $answers]];
@@ -81,7 +81,7 @@ class Show extends Component
         $this->emit('notify', ['message' => 'Deleted response', 'type' => 'success']);
 
         if ($this->showModal) {
-            $this->foundResponses = $this->survey->responses()->where('answers', 'like', '%' . $this->foundAnswer . '%')->get();
+            $this->foundResponses = $this->survey->responses()->where('answers', 'like', '%'.$this->foundAnswer.'%')->get();
         }
     }
 
@@ -95,7 +95,7 @@ class Show extends Component
     public function showFullResponse($answer)
     {
         $this->foundAnswer = $answer;
-        $this->foundResponses = $this->survey->responses()->where('answers', 'like', '%' . $answer . '%')->get();
+        $this->foundResponses = $this->survey->responses()->where('answers', 'like', '%'.$answer.'%')->get();
 
         $this->showModal = true;
     }

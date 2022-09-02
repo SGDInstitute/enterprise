@@ -12,7 +12,9 @@ class Payment extends Component
     public Order $order;
 
     public $address;
+
     public $name;
+
     public $email;
 
     public function mount()
@@ -49,7 +51,7 @@ class Payment extends Component
             'transaction' => $this->order->transactionDetails(),
         ])->output();
 
-        $filename = ($this->order->isPaid() ? 'Receipt-' : 'Invoice-') . $this->order->formattedId . '.pdf';
+        $filename = ($this->order->isPaid() ? 'Receipt-' : 'Invoice-').$this->order->formattedId.'.pdf';
 
         return response()->streamDownload(fn () => print($pdf), $filename);
     }

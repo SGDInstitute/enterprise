@@ -10,6 +10,7 @@ class Modals extends Component
     public Event $event;
 
     public $policyModal;
+
     public $showModal = false;
 
     public function render()

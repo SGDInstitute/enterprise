@@ -32,7 +32,7 @@ class ScheduleItem extends Component
     {
         auth()->user()->schedule()->attach($this->item);
 
-        $this->emit('notify', ['message' => 'Successfully added ' . $this->item->name . ' to your schedule.', 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Successfully added '.$this->item->name.' to your schedule.', 'type' => 'success']);
         $this->emit('refresh');
     }
 
@@ -40,7 +40,7 @@ class ScheduleItem extends Component
     {
         auth()->user()->schedule()->detach($this->item);
 
-        $this->emit('notify', ['message' => 'Successfully removed ' . $this->item->name . ' from your schedule.', 'type' => 'success']);
+        $this->emit('notify', ['message' => 'Successfully removed '.$this->item->name.' from your schedule.', 'type' => 'success']);
         $this->emit('refresh');
     }
 }

@@ -13,11 +13,15 @@ class Form extends Component
     use WithTimezones;
 
     public Event $event;
+
     public Model $form;
 
     public $formattedStart;
+
     public $formattedEnd;
+
     public $tab = 'info';
+
     public $searchable = [];
 
     protected $rules = [

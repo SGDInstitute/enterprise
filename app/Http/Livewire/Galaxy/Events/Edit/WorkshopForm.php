@@ -15,15 +15,23 @@ class WorkshopForm extends Component
     use WithFormBuilder;
 
     public Event $event;
+
     public Form $workshopForm;
 
     public $form;
+
     public $formattedEnd;
+
     public $formattedStart;
+
     public $openIndex = -1;
+
     public $reminders;
+
     public $showSettings = false;
+
     public $searchable = [];
+
     public $table = [['Criteria']];
 
     public $rules = [
@@ -41,7 +49,7 @@ class WorkshopForm extends Component
             $this->workshopForm = Form::create([
                 'event_id' => $this->event->id,
                 'type' => 'workshop',
-                'name' => $this->event->name . ' Workshop Proposal',
+                'name' => $this->event->name.' Workshop Proposal',
                 'timezone' => $this->event->timezone,
             ]);
             $this->form = [];

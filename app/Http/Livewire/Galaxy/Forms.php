@@ -15,6 +15,7 @@ class Forms extends Component
     use WithSorting;
 
     public $filters = ['search' => ''];
+
     public $perPage = 10;
 
     public function render()

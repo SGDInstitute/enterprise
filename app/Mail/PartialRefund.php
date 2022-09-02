@@ -29,7 +29,7 @@ class PartialRefund extends Mailable
     {
         return $this->markdown('mail.partial-refund')
             ->from('finance@sgdinstitute.org')
-            ->subject('Partial Refund for ' . $this->order->confirmation_number . ' Processed')
+            ->subject('Partial Refund for '.$this->order->confirmation_number.' Processed')
             ->with([
                 'amount' => $this->amount,
                 'count' => $this->count,
