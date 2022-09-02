@@ -50,11 +50,19 @@ class Show extends Component
             // @todo check if user is authorized to view
             $this->load(request()->query('edit'));
         } else {
-            if ($this->previousResponses->count() > 0) {
+            if (auth()->check() && $this->isWorkshopForm && $this->previousResponses->count() > 0) {
                 $this->showPreviousResponses = true;
             }
 
+            if (auth()->check() && $this->form->type === 'finalize' && $this->previousResponses->count() > 0) {
+                $this->emit('notify', ['message' => 'You have already submitted a response for this form.', 'type' => 'error']);
+                return redirect()->route('app.dashboard', ['page' => 'workshops']);
+            }
+
             $this->response = (new Response(['user_id' => auth()->id(), 'form_id' => $this->form->id]));
+            if (isset($this->parent)) {
+                $this->response->parent_id = $this->parent->id;
+            }
 
             $this->answers = $this->form->form
                 ->filter(fn ($item) => $item['style'] === 'question')
@@ -83,7 +91,8 @@ class Show extends Component
 
     public function updatedAnswers()
     {
-        if ($this->isWorkshopForm) {
+        // @todo remember why this if is here
+        if ($this->form->type !== 'finalize') {
             $this->save();
         }
     }
@@ -120,11 +129,7 @@ class Show extends Component
 
     public function getPreviousResponsesProperty()
     {
-        if (auth()->check() && $this->isWorkshopForm) {
-            return auth()->user()->responses()->where('form_id', $this->form->id)->get();
-        }
-
-        return collect([]);
+        return auth()->user()->responses()->where('form_id', $this->form->id)->get();
     }
 
     public function getShowResponseLogProperty()
@@ -258,20 +263,28 @@ class Show extends Component
             $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
         } elseif ($this->form->type === 'finalize') {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
+            $this->response->update(['parent_id' => $this->parent->id]);
 
-            // @todo move to job or action since also using similar in `App\Events\Tickets`
-            $order = Order::create(['event_id' => $this->form->event->id, 'user_id' => auth()->id()]);
-            $ticketData = $this->response->collaborators->map(function ($user) {
-                return [
-                    'event_id' => $this->form->event_id,
-                    'ticket_type_id' => 29, // @todo HARDCODED VALUE
-                    'price_id' => 40, // @todo HARDCODED VALUE
-                    'user_id' => $user->id,
-                ];
-            });
-            $order->tickets()->createMany($ticketData);
-            $order->markAsPaid('comped-workshop-presenter', 0);
-            // set up comped order with tickets for presenters
+            $ticketData = $this->response->collaborators
+                ->filter(fn ($user) => !$user->isRegisteredFor($this->form->event))
+                ->map(function ($user) {
+                    return [
+                        'event_id' => $this->form->event_id,
+                        'ticket_type_id' => 29, // @todo HARDCODED VALUE
+                        'price_id' => 40, // @todo HARDCODED VALUE
+                        'user_id' => $user->id,
+                    ];
+                });
+
+            if ($ticketData->isNotEmpty()) {
+                $order = Order::create(['event_id' => $this->form->event->id, 'user_id' => auth()->id()]);
+                $order->tickets()->createMany($ticketData);
+                $order->markAsPaid('comped-workshop-presenter', 0);
+
+                return redirect()->route('app.order.show', $order);
+            } else {
+                return redirect()->route('app.forms.thanks', $this->form);
+            }
         } else {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
 

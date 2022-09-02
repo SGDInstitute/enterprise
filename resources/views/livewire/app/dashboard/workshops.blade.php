@@ -42,7 +42,7 @@
                     </x-bit.table.cell>
                 </x-bit.table.row>
                 <!-- If they need to fill out the finalization form -->
-                @if ($workshop->form->finalizeForm)
+                @if ($workshop->form->finalizeForm && $this->finalizeFormNeeded($workshop))
                 <x-bit.table.row wire:key="row-{{ $workshop->id }}-confirm" class="bg-yellow-400 dark:bg-yellow-800">
                     <x-bit.table.cell colspan="10">
                         <div class="flex items-center justify-between w-full pl-6">

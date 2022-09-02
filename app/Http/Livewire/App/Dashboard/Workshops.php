@@ -35,7 +35,7 @@ class Workshops extends Component
     public function getWorkshopsProperty()
     {
         return Response::query()
-            ->with(['form', 'collaborators'])
+            ->with(['form.finalizeForm', 'collaborators'])
             ->where('type', 'workshop')
             ->where('user_id', auth()->id())
             ->when($this->filters['search'], fn($query) => $query
@@ -51,5 +51,11 @@ class Workshops extends Component
 
         $this->emit('notify', ['message' => 'Successfully deleted workshop submission', 'type' => 'success']);
         $this->emit('refresh');
+    }
+
+    public function finalizeFormNeeded($workshop)
+    {
+        return in_array($workshop->status, ['confirmed', 'scheduled', 'approved'])
+            && !$workshop->form->finalizeForm->responses()->where('parent_id', $workshop->id)->exists();
     }
 }
