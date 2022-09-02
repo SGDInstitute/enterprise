@@ -58,4 +58,10 @@ class Workshops extends Component
         return in_array($workshop->status, ['confirmed', 'scheduled', 'approved'])
             && ! $workshop->form->finalizeForm->responses()->where('parent_id', $workshop->id)->exists();
     }
+
+    public function finalizeFormSubmitted($workshop)
+    {
+        return in_array($workshop->status, ['confirmed', 'scheduled', 'approved'])
+            && $workshop->form->finalizeForm->responses()->where('parent_id', $workshop->id)->exists();
+    }
 }

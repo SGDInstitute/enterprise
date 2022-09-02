@@ -59,6 +59,15 @@
                     </x-bit.table.cell>
                 </x-bit.table.row>
                 @endif
+                @if ($workshop->form->finalizeForm && $this->finalizeFormSubmitted($workshop))
+                <x-bit.table.row wire:key="row-{{ $workshop->id }}-confirm" class="bg-green-300 dark:bg-green-800">
+                    <x-bit.table.cell colspan="10">
+                        <p class="text-base">Thank you for finalizing your program book details for {{ $workshop->name }}.</p>
+                        <p class="text-base">Any information that was changed will be updated when the workshop is scheduled.</p>
+                        <p class="text-base">An order with comped ticket(s) has been created, and can be viewed on the <a href="/dashboard/orders-reservations">Event Tickets</a> tab.</p>
+                    </x-bit.table.cell>
+                </x-bit.table.row>
+                @endif
                 @empty
                 <x-bit.table.row>
                     <x-bit.table.cell colspan="9">
