@@ -23,6 +23,7 @@ Route::get('events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->nam
 Route::get('orders/process', App\Http\Controllers\OrdersProcessController::class)->name('app.orders.process');
 
 Route::get('forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
+Route::get('forms/{form:slug}/finalize/{parent}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.finalize');
 Route::get('forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
 
 Route::get('onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');

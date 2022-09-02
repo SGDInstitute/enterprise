@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
+use App\Notifications\FinalizeWorkshop;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -30,6 +31,7 @@ class Responses extends Component
     public $showItemModal = false;
 
     public $filters = ['search' => ''];
+    public $notification = ['type' => '', 'status' => ''];
 
     public $perPage = 25;
 
@@ -143,8 +145,14 @@ class Responses extends Component
     public function getStatusOptionsProperty()
     {
         return [
-            'work-in-progress' => 'work-in-progress',
-            'submitted' => 'submitted',
+            'work-in-progress' => 'Work in Progress',
+            'submitted' => 'Submitted',
+            'in-review' => 'In Review',
+            'approved' => 'Approved',
+            'waiting-list' => 'Waiting List',
+            'rejected' => 'Rejected',
+            'confirmed' => 'Confirmed',
+            'scheduled' => 'Scheduled',
         ];
     }
 
@@ -201,6 +209,21 @@ class Responses extends Component
         $this->resetItemModal();
 
         $this->emit('refresh');
+    }
+
+    public function sendNotifications()
+    {
+        $count = Response::query()
+            ->with('user')
+            ->where('form_id', $this->form->id)
+            ->where('status', $this->notification['status'])
+            ->get()
+            ->each(function ($response) {
+                $response->user->notify(new FinalizeWorkshop($this->form->finalizeForm, $response));
+            })
+            ->count();
+
+        $this->emit('notify', ['message' => "Sent notification to {$count} users. Check progress on Horizon.", 'type' => 'success']);
     }
 
     public function setAdvancedForm()

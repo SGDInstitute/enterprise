@@ -85,11 +85,12 @@ class Form extends Component
     public function getTypesProperty()
     {
         return [
-            'confirmation' => 'Confirmation',
             'form' => 'Form',
-            'review' => 'Review (internal)',
             'survey' => 'Survey',
             'workshop' => 'Workshop',
+            'review' => 'Sub Form: Review (internal)',
+            'confirmation' => 'Sub Form: Confirmation',
+            'finalize' => 'Sub Form: Finalize',
         ];
     }
 

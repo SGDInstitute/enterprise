@@ -183,6 +183,11 @@ class Order extends Model
                     'type' => 'check',
                     'check_number' => $this->transaction_id,
                 ];
+            } elseif (Str::startsWith($this->transaction_id, 'comped')) {
+                return [
+                    'type' => 'comped',
+                    'description' => $this->transaction_id,
+                ];
             }
         }
     }

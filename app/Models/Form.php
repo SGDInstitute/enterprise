@@ -49,6 +49,11 @@ class Form extends Model
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'confirmation');
     }
 
+    public function finalizeForm()
+    {
+        return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'finalize');
+    }
+
     public function review()
     {
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'review');
@@ -56,8 +61,17 @@ class Form extends Model
 
     // Attributes
 
-    public function getFormattedEndAttribute()
+    public function getDaysLeftAttribute()
     {
+        return $this->end->timezone($this->timezone)->diffInDays();
+    }
+
+    public function getFormattedEndAttribute($override = null)
+    {
+        if ($override) {
+            return $this->end->timezone($this->timezone)->format($override);
+        }
+
         if ($this->timezone === null || $this->end === null) {
             return now()->format('m/d/Y g:i A');
         }

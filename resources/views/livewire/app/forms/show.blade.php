@@ -21,7 +21,7 @@
             @endif
 
             <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
-                <form id="form" class="mx-auto space-y-8 prose dark:prose-light">
+                <form id="form" wire:submit.prevent="submit" class="mx-auto space-y-8 prose dark:prose-light">
                     @if ($form->type === 'workshop')
                         <p class="text-xl">All answers will be automatically saved.</p>
                     @endif

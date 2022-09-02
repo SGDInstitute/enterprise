@@ -40,8 +40,25 @@
                             <x-heroicon-o-trash class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
                     </x-bit.table.cell>
-
                 </x-bit.table.row>
+                <!-- If they need to fill out the finalization form -->
+                @if ($workshop->form->finalizeForm && $this->finalizeFormNeeded($workshop))
+                <x-bit.table.row wire:key="row-{{ $workshop->id }}-confirm" class="bg-yellow-400 dark:bg-yellow-800">
+                    <x-bit.table.cell colspan="10">
+                        <div class="flex items-center justify-between w-full pl-6">
+                            <div class="flex space-x-2">
+                                <x-heroicon-s-exclamation class="w-6 h-6" />
+                                <span>
+                                    <span class="font-bold">Finalize Program Book Details</span>
+                                    <span> for {{ $workshop->name }}</span>
+                                </span>
+                                <span>Due by {{ $workshop->form->finalizeForm->getFormattedEndAttribute('n/d') }} ({{ $workshop->form->finalizeForm->daysLeft }} days)</span>
+                            </div>
+                            <x-bit.button.flat.secondary :href="route('app.forms.finalize', ['form' => $workshop->form->finalizeForm, 'parent' => $workshop->id])" size="sm">Start Form</x-bit.button.flat.secondary>
+                        </div>
+                    </x-bit.table.cell>
+                </x-bit.table.row>
+                @endif
                 @empty
                 <x-bit.table.row>
                     <x-bit.table.cell colspan="9">

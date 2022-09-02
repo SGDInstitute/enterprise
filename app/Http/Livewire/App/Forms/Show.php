@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\App\Forms;
 
 use App\Models\Form;
+use App\Models\Order;
 use App\Models\Response;
 use App\Models\User;
 use App\Notifications\AddedAsCollaborator;
@@ -15,7 +16,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public Form $form;
-
+    public Response $parent;
     public Response $response;
 
     public $answers;
@@ -46,35 +47,52 @@ class Show extends Component
         $this->newCollaborator = ['name' => '', 'email' => '', 'id' => '', 'pronouns'];
 
         if (request()->query('edit')) {
-            // check if user is authorized to view
+            // @todo check if user is authorized to view
             $this->load(request()->query('edit'));
         } else {
-            if ($this->previousResponses->count() > 0) {
+            if (auth()->check() && $this->isWorkshopForm && $this->previousResponses->count() > 0) {
                 $this->showPreviousResponses = true;
             }
 
+            if (auth()->check() && $this->form->type === 'finalize' && $this->previousResponses->count() > 0) {
+                $this->emit('notify', ['message' => 'You have already submitted a response for this form.', 'type' => 'error']);
+                return redirect()->route('app.dashboard', ['page' => 'workshops']);
+            }
+
             $this->response = (new Response(['user_id' => auth()->id(), 'form_id' => $this->form->id]));
+            if (isset($this->parent)) {
+                $this->response->parent_id = $this->parent->id;
+            }
 
             $this->answers = $this->form->form
                 ->filter(fn ($item) => $item['style'] === 'question')
                 ->mapWithKeys(function ($item) {
-                    if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
-                        return [$item['id'] => []];
+                    if (isset($item['data']) && isset($this->parent)) {
+                        $parentAnswer = $this->parent->answers[$item['id']];
                     }
 
-                    return [$item['id'] => ''];
+                    if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                        return [$item['id'] => $parentAnswer ?? []];
+                    }
+
+                    return [$item['id'] => $parentAnswer ?? ''];
                 })->toArray();
 
             if ($this->form->hasCollaborators) {
-                $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
-                $this->collaborators = collect([$user]);
+                if (isset($this->parent)) {
+                    $this->collaborators = $this->parent->collaborators->map(fn($user) => $user->only('id', 'name', 'email', 'pronouns'));
+                } else {
+                    $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
+                    $this->collaborators = collect([$user]);
+                }
             }
         }
     }
 
     public function updatedAnswers()
     {
-        if ($this->isWorkshopForm) {
+        // @todo remember why this if is here
+        if ($this->form->type !== 'finalize') {
             $this->save();
         }
     }
@@ -111,11 +129,7 @@ class Show extends Component
 
     public function getPreviousResponsesProperty()
     {
-        if (auth()->check()) {
-            return auth()->user()->responses()->where('form_id', $this->form->id)->get();
-        }
-
-        return collect([]);
+        return auth()->user()->responses()->where('form_id', $this->form->id)->get();
     }
 
     public function getShowResponseLogProperty()
@@ -138,7 +152,11 @@ class Show extends Component
 
         $this->collaborators[] = $this->newCollaborator;
 
-        $this->save();
+        if ($this->isWorkshopForm) {
+            $this->save();
+        } else {
+            $this->save(false);
+        }
 
         Notification::send($user, new AddedAsCollaborator($this->response));
 
@@ -204,10 +222,11 @@ class Show extends Component
         $this->showPreviousResponses = false;
     }
 
-    public function save($withNotification = true)
+    public function save($withNotification = true, $status = 'work-in-progress')
     {
         if ($this->response->id !== null) {
             $this->response->answers = $this->answers;
+            $this->response->status = $status;
             $this->response->save();
         } else {
             $this->response = Response::create([
@@ -215,7 +234,7 @@ class Show extends Component
                 'type' => $this->form->type,
                 'form_id' => $this->form->id,
                 'answers' => $this->answers,
-                'status' => 'work-in-progress',
+                'status' => $status,
             ]);
 
             if ($this->form->has_reminders) {
@@ -237,11 +256,35 @@ class Show extends Component
     {
         $this->validate($this->form->rules);
 
-        $this->response->status = 'submitted';
-        $this->save(false);
+        // $this->response->status = 'submitted';
+        $this->save(false, 'submitted');
 
         if ($this->form->type === 'workshop') {
             $this->emit('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
+        } elseif ($this->form->type === 'finalize') {
+            $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
+            $this->response->update(['parent_id' => $this->parent->id]);
+
+            $ticketData = $this->response->collaborators
+                ->filter(fn ($user) => ! $user->isRegisteredFor($this->form->event))
+                ->map(function ($user) {
+                    return [
+                        'event_id' => $this->form->event_id,
+                        'ticket_type_id' => 29, // @todo HARDCODED VALUE
+                        'price_id' => 40, // @todo HARDCODED VALUE
+                        'user_id' => $user->id,
+                    ];
+                });
+
+            if ($ticketData->isNotEmpty()) {
+                $order = Order::create(['event_id' => $this->form->event->id, 'user_id' => auth()->id()]);
+                $order->tickets()->createMany($ticketData);
+                $order->markAsPaid('comped-workshop-presenter', 0);
+
+                return redirect()->route('app.order.show', $order);
+            } else {
+                return redirect()->route('app.forms.thanks', $this->form);
+            }
         } else {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
 

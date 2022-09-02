@@ -14,7 +14,7 @@
                     <div x-data="{type: @entangle('form.type')}" class="grid grid-cols-2 gap-6">
                         <x-form.group model="form.type" label="Type" type="select" placeholder="Select Form Type" :options="$types" />
 
-                        <x-form.group x-show="type && type === 'review' || type === 'availability'" model="form.parent_id" label="Parent Form" type="select" placeholder="Select Parent Form" :options="$forms" />
+                        <x-form.group x-show="type && type === 'review' || type === 'availability' || type === 'confirmation' || type === 'finalize'" model="form.parent_id" label="Parent Form" type="select" placeholder="Select Parent Form" :options="$forms" />
                         <x-form.group x-show="type" model="form.name" label="Name of Form" type="text" />
                         <x-form.group x-show="type" model="form.event_id" label="Event" type="select" placeholder="Select Event" :options="$events" />
                         <x-form.group x-show="type" model="formattedStart" label="Availability Start" type="date" />

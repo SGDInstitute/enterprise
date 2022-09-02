@@ -74,6 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(EventItem::class, 'user_schedule', 'user_id', 'item_id');
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     public function getFormattedAddressAttribute()
     {
         if (is_array($this->address)) {
@@ -105,6 +110,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasRecurringDonation()
     {
         return $this->donations()->whereNull('parent_id')->whereNotNull('subscription_id')->where('status', 'succeeded')->exists();
+    }
+
+    public function isRegisteredFor($event)
+    {
+        return $this->tickets()->with('order:id,transaction_id')->where('event_id', $event->id)->get()->whereNotNull('order.transaction_id')->count() > 1;
     }
 
     public function isInSchedule($item)
