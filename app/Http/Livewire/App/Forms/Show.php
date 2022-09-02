@@ -266,7 +266,7 @@ class Show extends Component
             $this->response->update(['parent_id' => $this->parent->id]);
 
             $ticketData = $this->response->collaborators
-                ->filter(fn ($user) => !$user->isRegisteredFor($this->form->event))
+                ->filter(fn ($user) => ! $user->isRegisteredFor($this->form->event))
                 ->map(function ($user) {
                     return [
                         'event_id' => $this->form->event_id,

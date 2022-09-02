@@ -56,6 +56,6 @@ class Workshops extends Component
     public function finalizeFormNeeded($workshop)
     {
         return in_array($workshop->status, ['confirmed', 'scheduled', 'approved'])
-            && !$workshop->form->finalizeForm->responses()->where('parent_id', $workshop->id)->exists();
+            && ! $workshop->form->finalizeForm->responses()->where('parent_id', $workshop->id)->exists();
     }
 }
