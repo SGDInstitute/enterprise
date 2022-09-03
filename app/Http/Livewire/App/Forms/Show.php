@@ -137,6 +137,7 @@ class Show extends Component
         if ($this->parent) {
             return auth()->user()->responses()->where('form_id', $this->form->id)->where('parent_id', $this->parent)->get();
         }
+
         return auth()->user()->responses()->where('form_id', $this->form->id)->get();
     }
 
