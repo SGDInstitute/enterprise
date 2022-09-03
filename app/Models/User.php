@@ -114,7 +114,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isRegisteredFor($event)
     {
-        return $this->tickets()->with('order:id,transaction_id')->where('event_id', $event->id)->get()->whereNotNull('order.transaction_id')->count() > 1;
+        return $this->tickets()->with('order:id,transaction_id')
+            ->where('event_id', $event->id)->get()
+            ->whereNotNull('order.transaction_id')->isNotEmpty();
     }
 
     public function isInSchedule($item)
