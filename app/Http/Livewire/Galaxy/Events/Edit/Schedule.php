@@ -149,7 +149,6 @@ class Schedule extends Component
         $this->editingItem->timezone = $this->event->timezone;
         $this->editingItem->save();
 
-
         if ($this->editingTracks) {
             $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
         }
