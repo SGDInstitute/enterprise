@@ -163,9 +163,16 @@ class Responses extends Component
         $workshop = $this->responses->firstWhere('id', $id);
         $this->editingWorkshop = $workshop;
 
-        $this->editingItem->name = $workshop->name;
-        $this->editingItem->speaker = $workshop->collaborators->implode('name', ', ');
-        $this->editingItem->description = $workshop->answers->get('question-description');
+        if ($child = $this->editingWorkshop->child) {
+            $this->pulledFromChild = true;
+            $this->editingItem->name = $child->name;
+            $this->editingItem->speaker = $child->collaborators->implode('name', ', ');
+            $this->editingItem->description = $child->answers->get('question-description');
+        } else {
+            $this->editingItem->name = $workshop->name;
+            $this->editingItem->speaker = $workshop->collaborators->implode('name', ', ');
+            $this->editingItem->description = $workshop->answers->get('question-description');
+        }
 
         $this->showItemModal = true;
     }
