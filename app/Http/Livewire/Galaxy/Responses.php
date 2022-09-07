@@ -9,6 +9,8 @@ use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
 use App\Notifications\FinalizeWorkshop;
+use App\Notifications\WorkshopStatusChanged;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -199,9 +201,13 @@ class Responses extends Component
         $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
 
         if ($this->editingWorkshop->status !== 'scheduled') {
-            $this->editingWorkshop->status = 'scheduled';
-            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => 'Scheduled for '.$this->editingItem->formattedDuration])->log('scheduled');
-            // send notification
+            $this->editingWorkshop->update(['status' => 'scheduled']);
+            $comment = 'Scheduled for '.$this->editingItem->formattedDuration.' in '.$this->editingItem->location;
+            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => $comment])->log('scheduled');
+            Notification::send(
+                $this->editingWorkshop->collaborators->where('id', '<>', auth()->id()),
+                new WorkshopStatusChanged($this->editingWorkshop, $comment, 'scheduled', auth()->user()->name)
+            );
         }
 
         $this->emit('notify', ['message' => 'Successfully assigned time to workshop', 'type' => 'success']);
