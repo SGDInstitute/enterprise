@@ -41,7 +41,7 @@ class Show extends Component
     {
         return $this->form->form->filter(fn ($item) => $item['style'] === 'question')
             ->mapWithKeys(function ($item) {
-                return [$item['question'] => $this->formResponse->answers[$item['id']]
+                return [$item['id'] => $this->formResponse->answers[$item['id']]
                     ? $this->formResponse->answers[$item['id']]
                     : 'was not answered', ];
             });
