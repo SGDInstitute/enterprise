@@ -159,6 +159,7 @@ class Order extends Model
         $this->paid_at = now();
         $this->confirmation_number = substr(str_shuffle(str_repeat('ABCDEFGHJKLMNPQRSTUVWXYZ23456789', 20)), 0, 20);
         $this->amount = $amount;
+        $this->status = 'succeeded';
         $this->save();
     }
 
