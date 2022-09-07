@@ -22,20 +22,29 @@ class Responses extends Component
     use WithFiltering;
 
     public Event $event;
+
     public Form $form;
 
     public $advanced = [];
+
     public $advancedChanged = false;
+
     public $editingItem;
+
     public $editingTracks;
+
     public $editingWorkshopId;
+
     public $showItemModal = false;
 
     public $filters = ['search' => ''];
+
     public $notification = ['type' => '', 'status' => ''];
+
     public $perPage = 25;
 
     protected $listeners = ['refresh' => '$refresh'];
+
     protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.parent_id' => 'required',
