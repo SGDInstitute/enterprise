@@ -149,8 +149,13 @@ class Schedule extends Component
         $this->editingItem->timezone = $this->event->timezone;
         $this->editingItem->save();
 
-        $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
-        $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
+
+        if ($this->editingTracks) {
+            $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+        }
+        if ($this->editingWarnings) {
+            $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
+        }
 
         $this->emit('notify', ['message' => 'Successfully saved item', 'type' => 'success']);
 

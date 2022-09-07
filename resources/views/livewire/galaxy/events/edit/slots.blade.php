@@ -131,20 +131,23 @@
                         <x-bit.input.group for="editing-item-name" class="md:col-span-3" label="Name">
                             <x-bit.input.text class="w-full mt-1" wire:model="editingItem.name" id="editing-item-name" />
                         </x-bit.input.group>
-                        <x-bit.input.group for="editing-tracks" class="md:col-span-2" label="Tracks">
-                            <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-tracks" />
-                            <x-bit.input.help>Can be separated by comma</x-bit.input.help>
-                        </x-bit.input.group>
-                        <x-bit.input.group for="editing-item-warnings" label="Content Warnings">
-                            <x-bit.input.text class="w-full mt-1" wire:model="editingWarnings" id="editing-item-warnings" />
-                            <x-bit.input.help>Can be separated by comma</x-bit.input.help>
+                        <x-bit.input.group for="editing-item-location" class="md:col-span-2" label="Location">
+                            <x-bit.input.text class="w-full mt-1" wire:model="editingItem.location" id="editing-item-location" />
                         </x-bit.input.group>
                     </div>
+                    <x-bit.input.group for="editing-tracks" label="Tracks">
+                        <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-tracks" />
+                        <x-bit.input.help>Can be separated by comma</x-bit.input.help>
+                    </x-bit.input.group>
+                    <x-bit.input.group for="editing-item-warnings" label="Content Warnings">
+                        <x-bit.input.text class="w-full mt-1" wire:model="editingWarnings" id="editing-item-warnings" />
+                        <x-bit.input.help>Can be separated by comma</x-bit.input.help>
+                    </x-bit.input.group>
+                    <x-bit.input.group for="editing-item-speaker" label="Speaker">
+                        <x-bit.input.text class="w-full mt-1" wire:model="editingItem.speaker" id="editing-item-speaker" />
+                    </x-bit.input.group>
                     <x-bit.input.group for="editing-item-description" label="Description">
                         <x-bit.input.textarea rows="8" class="w-full mt-1" wire:model="editingItem.description" id="editing-item-description" />
-                    </x-bit.input.group>
-                    <x-bit.input.group for="editing-item-location" label="Location">
-                        <x-bit.input.text class="w-full mt-1" wire:model="editingItem.location" id="editing-item-location" />
                     </x-bit.input.group>
                 </div>
             </x-slot>

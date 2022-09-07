@@ -221,8 +221,12 @@ class Responses extends Component
 
         $this->editingItem->save();
 
-        $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
-        $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
+        if ($this->editingTracks) {
+            $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+        }
+        if ($this->editingWarnings) {
+            $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
+        }
 
         if ($this->editingWorkshop->status !== 'scheduled') {
             $this->editingWorkshop->update(['status' => 'scheduled']);

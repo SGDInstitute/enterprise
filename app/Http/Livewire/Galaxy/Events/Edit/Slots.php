@@ -25,6 +25,7 @@ class Slots extends Component
     protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.location' => 'required',
+        'editingItem.speaker' => '',
         'editingItem.description' => 'required',
     ];
 
@@ -94,8 +95,12 @@ class Slots extends Component
         $this->editingItem->parent_id = $this->item->id;
         $this->editingItem->save();
 
-        $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
-        $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
+        if ($this->editingTracks) {
+            $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+        }
+        if ($this->editingWarnings) {
+            $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
+        }
 
         $this->emit('notify', ['message' => 'Successfully saved item', 'type' => 'success']);
 
