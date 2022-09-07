@@ -63,7 +63,7 @@
                         <x-bit.button.link size="py-1 px-2" wire:click="editItem({{ $assignedWorkshops[$workshop->id] }})">
                             <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
-                        @elseif ($workshop->status === 'approved' && $event->items->count() > 0)
+                        @elseif (in_array($workshop->status, ['approved', 'confirmed']) && $event->items->count() > 0)
                         <x-bit.button.link size="py-1 px-2" wire:click="assignTime({{ $workshop->id }})">
                             <x-heroicon-o-calendar class="w-4 h-4 text-green-500 dark:text-green-400" />
                         </x-bit.button.link>
@@ -133,6 +133,10 @@
                     </x-bit.input.group>
                     <x-bit.input.group for="editing-item-track" label="Tracks">
                         <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-item-track" />
+                        <x-bit.input.help>Can be separated by comma</x-bit.input.help>
+                    </x-bit.input.group>
+                    <x-bit.input.group for="editing-item-speaker" label="Speaker">
+                        <x-bit.input.text class="w-full mt-1" wire:model="editingItem.speaker" id="editing-item-speaker" />
                     </x-bit.input.group>
                     <x-bit.input.group for="editing-item-description" label="Description">
                         <x-bit.input.textarea rows="8" class="w-full mt-1" wire:model="editingItem.description" id="editing-item-description" />

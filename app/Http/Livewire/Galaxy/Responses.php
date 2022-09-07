@@ -20,32 +20,24 @@ class Responses extends Component
     use WithFiltering;
 
     public Event $event;
-
     public Form $form;
 
     public $advanced = [];
-
     public $advancedChanged = false;
-
     public $editingItem;
-
     public $editingTracks;
-
     public $editingWorkshopId;
-
     public $showItemModal = false;
 
     public $filters = ['search' => ''];
-
     public $notification = ['type' => '', 'status' => ''];
-
     public $perPage = 25;
 
     protected $listeners = ['refresh' => '$refresh'];
-
     protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.parent_id' => 'required',
+        'editingItem.speaker' => '',
         'editingItem.description' => 'required',
         'editingItem.location' => 'required',
     ];
@@ -165,10 +157,11 @@ class Responses extends Component
 
     public function assignTime($id)
     {
-        $workshop = $this->workshops->firstWhere('id', $id);
+        $workshop = $this->responses->firstWhere('id', $id);
         $this->editingWorkshop = $workshop;
 
-        $this->editingItem->name = $workshop->answers->get('name');
+        $this->editingItem->name = $workshop->name;
+        $this->editingItem->speaker = $workshop->collaborators->implode('name', ', ');
         $this->editingItem->description = $workshop->answers->get('question-description');
 
         $this->showItemModal = true;

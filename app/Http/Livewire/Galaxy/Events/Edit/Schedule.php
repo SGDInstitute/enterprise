@@ -38,6 +38,7 @@ class Schedule extends Component
 
     public $rules = [
         'editingItem.name' => 'required',
+        'editingItem.speaker' => '',
         'editingItem.description' => '',
         'editingItem.location' => '',
         'editingTrack.name' => 'required',
