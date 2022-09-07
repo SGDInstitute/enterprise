@@ -72,6 +72,10 @@
                             <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-tracks" />
                             <x-bit.input.help>Can be separated by comma</x-bit.input.help>
                         </x-bit.input.group>
+                        <x-bit.input.group for="editing-item-warnings" label="Content Warnings">
+                            <x-bit.input.text class="w-full mt-1" wire:model="editingWarnings" id="editing-item-warnings" />
+                            <x-bit.input.help>Can be separated by comma</x-bit.input.help>
+                        </x-bit.input.group>
                     </div>
                     @if ($showItemModal)
                     <x-bit.input.group for="editing-item-speaker" label="Speaker">

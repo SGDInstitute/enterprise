@@ -21,6 +21,7 @@ class Schedule extends Component
     public $editingItem;
 
     public $editingTracks;
+    public $editingWarnings;
 
     public $showItemModal = false;
 
@@ -111,6 +112,7 @@ class Schedule extends Component
             $item = $this->items->firstWhere('id', $id) ?? EventItem::find($id);
             $this->editingItem = $item;
             $this->editingTracks = $item->tagsWithType('tracks')->pluck('name')->join(',');
+            $this->editingWarnings = $item->tagsWithType('warnings')->pluck('name')->join(',');
 
             $this->form['date'] = $item->start->timezone($item->timezone)->format('m/d/Y');
             $this->form['start'] = $item->start->timezone($item->timezone)->format('H:i');
@@ -135,7 +137,7 @@ class Schedule extends Component
     {
         $this->showItemModal = false;
         $this->editingItem = new EventItem();
-        $this->reset('form', 'editingTracks');
+        $this->reset('form', 'editingTracks', 'editingWarnings');
     }
 
     public function saveItem()
@@ -147,6 +149,7 @@ class Schedule extends Component
         $this->editingItem->save();
 
         $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+        $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
 
         $this->emit('notify', ['message' => 'Successfully saved item', 'type' => 'success']);
 

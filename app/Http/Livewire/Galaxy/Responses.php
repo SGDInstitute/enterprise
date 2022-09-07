@@ -22,25 +22,17 @@ class Responses extends Component
     use WithFiltering;
 
     public Event $event;
-
     public Form $form;
 
     public $advanced = [];
-
     public $advancedChanged = false;
-
     public $editingItem;
-
     public $editingTracks;
-
+    public $editingWarnings;
     public $editingWorkshopId;
-
     public $showItemModal = false;
-
     public $filters = ['search' => ''];
-
     public $notification = ['type' => '', 'status' => ''];
-
     public $perPage = 25;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -109,7 +101,9 @@ class Responses extends Component
 
     public function getAssignedWorkshopsProperty()
     {
-        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(fn ($item) => [$item->settings->get('workshop_id') => $item->id]);
+        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(
+            fn ($item) => [$item->settings->get('workshop_id') => $item->id]
+        );
     }
 
     public function getResponsesProperty()
@@ -177,6 +171,7 @@ class Responses extends Component
             $this->editingItem->name = $child->name;
             $this->editingItem->speaker = $child->collaborators->implode('name', ', ');
             $this->editingItem->description = $child->answers->get('question-description');
+            $this->editingWarnings = implode(',',$child->answers->get('question-content-warnings'));
         } else {
             $this->editingItem->name = $workshop->name;
             $this->editingItem->speaker = $workshop->collaborators->implode('name', ', ');
@@ -192,6 +187,7 @@ class Responses extends Component
 
         $this->editingItem = $item;
         $this->editingTracks = $item->tagsWithType('tracks')->pluck('name')->join(',');
+        $this->editingWarnings = $item->tagsWithType('warnings')->pluck('name')->join(',');
 
         $this->showItemModal = true;
     }
@@ -200,7 +196,7 @@ class Responses extends Component
     {
         $this->showItemModal = false;
         $this->editingItem = new EventItem();
-        $this->reset('editingTracks', 'editingWorkshopId');
+        $this->reset('editingTracks', 'editingWarnings', 'editingWorkshopId');
     }
 
     public function saveItem()
@@ -216,6 +212,7 @@ class Responses extends Component
         $this->editingItem->save();
 
         $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+        $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
 
         if ($this->editingWorkshop->status !== 'scheduled') {
             $this->editingWorkshop->update(['status' => 'scheduled']);
@@ -246,7 +243,10 @@ class Responses extends Component
             })
             ->count();
 
-        $this->emit('notify', ['message' => "Sent notification to {$count} users. Check progress on Horizon.", 'type' => 'success']);
+        $this->emit('notify', [
+            'message' => "Sent notification to {$count} users. Check progress on Horizon.",
+            'type' => 'success'
+        ]);
     }
 
     public function setAdvancedForm()

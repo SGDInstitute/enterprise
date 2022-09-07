@@ -15,6 +15,7 @@ class Slots extends Component
     public $editingItem;
 
     public $editingTracks;
+    public $editingWarnings;
 
     public $showItemModal = false;
 
@@ -62,6 +63,7 @@ class Slots extends Component
             $item = $this->items->firstWhere('id', $id);
             $this->editingItem = $item;
             $this->editingTracks = $item->tracks;
+            $this->editingWarnings = $item->warnings;
         }
 
         $this->showItemModal = true;
@@ -70,7 +72,7 @@ class Slots extends Component
     public function resetItemModal()
     {
         $this->editingItem = new EventItem();
-        $this->reset('editingTracks', 'showItemModal');
+        $this->reset('editingTracks', 'editingWarnings', 'showItemModal');
     }
 
     public function saveLocation()
@@ -92,6 +94,7 @@ class Slots extends Component
         $this->editingItem->save();
 
         $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+        $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
 
         $this->emit('notify', ['message' => 'Successfully saved item', 'type' => 'success']);
 

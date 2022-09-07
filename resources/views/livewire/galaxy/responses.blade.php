@@ -97,6 +97,10 @@
                     <x-bit.input.group for="editing-item-description" label="Description">
                         <x-bit.input.textarea rows="8" class="w-full mt-1" wire:model="editingItem.description" id="editing-item-description" />
                     </x-bit.input.group>
+                    <x-bit.input.group for="editing-item-warnings" label="Content Warnings">
+                        <x-bit.input.text class="w-full mt-1" wire:model="editingWarnings" id="editing-item-warnings" />
+                        <x-bit.input.help>Can be separated by comma</x-bit.input.help>
+                    </x-bit.input.group>
                 </div>
             </x-slot>
 
