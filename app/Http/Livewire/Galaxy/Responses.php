@@ -153,6 +153,7 @@ class Responses extends Component
             'rejected' => 'Rejected',
             'confirmed' => 'Confirmed',
             'canceled' => 'Canceled',
+            'finalized' => 'Finalized',
             'scheduled' => 'Scheduled',
         ];
     }
