@@ -21,6 +21,7 @@ class Schedule extends Component
     public $editingItem;
 
     public $editingTracks;
+
     public $editingWarnings;
 
     public $showItemModal = false;

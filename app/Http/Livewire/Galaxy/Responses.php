@@ -22,17 +22,27 @@ class Responses extends Component
     use WithFiltering;
 
     public Event $event;
+
     public Form $form;
 
     public $advanced = [];
+
     public $advancedChanged = false;
+
     public $editingItem;
+
     public $editingTracks;
+
     public $editingWarnings;
+
     public $editingWorkshopId;
+
     public $showItemModal = false;
+
     public $filters = ['search' => ''];
+
     public $notification = ['type' => '', 'status' => ''];
+
     public $perPage = 25;
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -171,7 +181,7 @@ class Responses extends Component
             $this->editingItem->name = $child->name;
             $this->editingItem->speaker = $child->collaborators->implode('name', ', ');
             $this->editingItem->description = $child->answers->get('question-description');
-            $this->editingWarnings = implode(',',$child->answers->get('question-content-warnings'));
+            $this->editingWarnings = implode(',', $child->answers->get('question-content-warnings'));
         } else {
             $this->editingItem->name = $workshop->name;
             $this->editingItem->speaker = $workshop->collaborators->implode('name', ', ');
@@ -245,7 +255,7 @@ class Responses extends Component
 
         $this->emit('notify', [
             'message' => "Sent notification to {$count} users. Check progress on Horizon.",
-            'type' => 'success'
+            'type' => 'success',
         ]);
     }
 
