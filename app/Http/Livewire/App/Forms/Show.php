@@ -273,6 +273,7 @@ class Show extends Component
         } elseif ($this->form->type === 'finalize') {
             $this->emit('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
             $this->response->update(['parent_id' => $this->parent->id]);
+            $this->parent->update(['status' => 'finalized']);
 
             activity()->performedOn($this->parent)
                 ->withProperties([

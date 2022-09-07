@@ -9,6 +9,8 @@ use App\Models\EventItem;
 use App\Models\Form;
 use App\Models\Response;
 use App\Notifications\FinalizeWorkshop;
+use App\Notifications\WorkshopStatusChanged;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -31,6 +33,8 @@ class Responses extends Component
 
     public $editingTracks;
 
+    public $editingWarnings;
+
     public $editingWorkshopId;
 
     public $showItemModal = false;
@@ -46,6 +50,7 @@ class Responses extends Component
     protected $rules = [
         'editingItem.name' => 'required',
         'editingItem.parent_id' => 'required',
+        'editingItem.speaker' => '',
         'editingItem.description' => 'required',
         'editingItem.location' => 'required',
     ];
@@ -106,7 +111,9 @@ class Responses extends Component
 
     public function getAssignedWorkshopsProperty()
     {
-        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(fn ($item) => [$item->settings->get('workshop_id') => $item->id]);
+        return $this->event->items->whereNotNull('parent_id')->mapWithKeys(
+            fn ($item) => [$item->settings->get('workshop_id') => $item->id]
+        );
     }
 
     public function getResponsesProperty()
@@ -159,17 +166,27 @@ class Responses extends Component
             'rejected' => 'Rejected',
             'confirmed' => 'Confirmed',
             'canceled' => 'Canceled',
+            'finalized' => 'Finalized',
             'scheduled' => 'Scheduled',
         ];
     }
 
     public function assignTime($id)
     {
-        $workshop = $this->workshops->firstWhere('id', $id);
+        $workshop = $this->responses->firstWhere('id', $id);
         $this->editingWorkshop = $workshop;
 
-        $this->editingItem->name = $workshop->answers->get('name');
-        $this->editingItem->description = $workshop->answers->get('question-description');
+        if ($child = $this->editingWorkshop->child) {
+            $this->pulledFromChild = true;
+            $this->editingItem->name = $child->name;
+            $this->editingItem->speaker = $child->collaborators->implode('name', ', ');
+            $this->editingItem->description = $child->answers->get('question-description');
+            $this->editingWarnings = implode(',', $child->answers->get('question-content-warnings'));
+        } else {
+            $this->editingItem->name = $workshop->name;
+            $this->editingItem->speaker = $workshop->collaborators->implode('name', ', ');
+            $this->editingItem->description = $workshop->answers->get('question-description');
+        }
 
         $this->showItemModal = true;
     }
@@ -180,6 +197,7 @@ class Responses extends Component
 
         $this->editingItem = $item;
         $this->editingTracks = $item->tagsWithType('tracks')->pluck('name')->join(',');
+        $this->editingWarnings = $item->tagsWithType('warnings')->pluck('name')->join(',');
 
         $this->showItemModal = true;
     }
@@ -188,7 +206,7 @@ class Responses extends Component
     {
         $this->showItemModal = false;
         $this->editingItem = new EventItem();
-        $this->reset('editingTracks', 'editingWorkshopId');
+        $this->reset('editingTracks', 'editingWarnings', 'editingWorkshopId');
     }
 
     public function saveItem()
@@ -204,11 +222,16 @@ class Responses extends Component
         $this->editingItem->save();
 
         $this->editingItem->syncTagsWithType(explode(',', $this->editingTracks), 'tracks');
+        $this->editingItem->syncTagsWithType(explode(',', $this->editingWarnings), 'warnings');
 
         if ($this->editingWorkshop->status !== 'scheduled') {
-            $this->editingWorkshop->status = 'scheduled';
-            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => 'Scheduled for '.$this->editingItem->formattedDuration])->log('scheduled');
-            // send notification
+            $this->editingWorkshop->update(['status' => 'scheduled']);
+            $comment = 'Scheduled for '.$this->editingItem->formattedDuration.' in '.$this->editingItem->location;
+            activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => $comment])->log('scheduled');
+            Notification::send(
+                $this->editingWorkshop->collaborators->where('id', '<>', auth()->id()),
+                new WorkshopStatusChanged($this->editingWorkshop, $comment, 'scheduled', auth()->user()->name)
+            );
         }
 
         $this->emit('notify', ['message' => 'Successfully assigned time to workshop', 'type' => 'success']);
@@ -230,7 +253,10 @@ class Responses extends Component
             })
             ->count();
 
-        $this->emit('notify', ['message' => "Sent notification to {$count} users. Check progress on Horizon.", 'type' => 'success']);
+        $this->emit('notify', [
+            'message' => "Sent notification to {$count} users. Check progress on Horizon.",
+            'type' => 'success',
+        ]);
     }
 
     public function setAdvancedForm()

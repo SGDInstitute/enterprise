@@ -24,7 +24,7 @@
                 <x-bit.button.link size="py-1 px-2" wire:click="editItem({{ $assignedWorkshops[$response->id] }})">
                     <x-heroicon-o-pencil class="w-4 h-4 text-green-500 dark:text-green-400" />
                 </x-bit.button.link>
-                @elseif ($response->status === 'approved' && $event->items->count() > 0)
+                @elseif (in_array($response->status, ['approved', 'confirmed', 'finalized']) && $event->items->count() > 0)
                 <x-bit.button.link size="py-1 px-2" wire:click="assignTime({{ $response->id }})">
                     <x-heroicon-o-calendar class="w-4 h-4 text-green-500 dark:text-green-400" />
                 </x-bit.button.link>

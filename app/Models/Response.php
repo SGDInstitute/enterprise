@@ -28,6 +28,11 @@ class Response extends Model
             ->logOnlyDirty();
     }
 
+    public function child()
+    {
+        return $this->hasOne(Response::class, 'parent_id', 'id')->where('form_id', 28);
+    }
+
     public function collaborators()
     {
         return $this->belongsToMany(User::class, 'collaborators');

@@ -70,9 +70,17 @@
                         </x-bit.input.group>
                         <x-bit.input.group for="editing-tracks" class="md:col-span-2" label="Tracks">
                             <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-tracks" />
+                            <x-bit.input.help>Can be separated by comma</x-bit.input.help>
+                        </x-bit.input.group>
+                        <x-bit.input.group for="editing-item-warnings" label="Content Warnings">
+                            <x-bit.input.text class="w-full mt-1" wire:model="editingWarnings" id="editing-item-warnings" />
+                            <x-bit.input.help>Can be separated by comma</x-bit.input.help>
                         </x-bit.input.group>
                     </div>
                     @if ($showItemModal)
+                    <x-bit.input.group for="editing-item-speaker" label="Speaker">
+                        <x-bit.input.text id="editing-item-speaker" class="block w-full mt-1" type="text" name="speaker" wire:model="editingItem.speaker" />
+                    </x-bit.input.group>
                     <x-bit.input.group for="editing-item-description" label="Description">
                         <x-bit.input.markdown id="editing-item-description" class="block w-full mt-1" type="text" name="description" wire:model="editingItem.description" />
                     </x-bit.input.group>
