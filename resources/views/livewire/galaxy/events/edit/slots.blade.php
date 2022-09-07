@@ -13,7 +13,7 @@
             <li>
                 <div class="flex items-center">
                     <x-heroicon-s-chevron-right class="flex-shrink-0 w-5 h-5 text-gray-400" />
-                    <a href="/galaxy/events/{{ $event->id }}/schedule" class="ml-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Schedule</a>
+                    <a href="/galaxy/events/{{ $event->id }}/program-schedule" class="ml-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Schedule</a>
                 </div>
             </li>
 
