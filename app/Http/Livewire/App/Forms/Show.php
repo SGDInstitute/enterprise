@@ -48,7 +48,7 @@ class Show extends Component
 
     public function mount()
     {
-        $this->newCollaborator = ['name' => '', 'email' => '', 'id' => '', 'pronouns'];
+        $this->newCollaborator = ['name' => '', 'email' => '', 'pronouns' => ''];
 
         if (request()->query('edit')) {
             // @todo check if user is authorized to view
@@ -152,7 +152,7 @@ class Show extends Component
     {
         $this->validate();
 
-        if (! isset($this->newCollaborator['id'])) {
+        if (! isset($this->newCollaborator['id']) || $this->newCollaborator['id'] === '') {
             $user = User::create(array_merge($this->newCollaborator, ['password' => Hash::make(Str::random(15))]));
             $this->newCollaborator['id'] = $user->id;
         } else {
