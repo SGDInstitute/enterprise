@@ -149,7 +149,7 @@ class Order extends Model
 
     public function isReservation()
     {
-        return $this->status !== 'reservation' || $this->transaction_id === null;
+        return $this->status === 'reservation' || $this->transaction_id === null;
     }
 
     public function markAsPaid($transactionId, $amount)
