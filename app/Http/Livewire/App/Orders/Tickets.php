@@ -116,6 +116,19 @@ class Tickets extends Component
 
     // Methods
 
+    public function delete($ticketId)
+    {
+        $ticket = $this->tickets->firstWhere('id', $ticketId);
+
+        if ($ticket->isFilled()) {
+            return $this->emit('notify', ['message' => 'Cannot delete a filled ticket, please remove the user first', 'type' => 'error']);
+        }
+
+        $ticket->delete();
+
+        $this->emit('notify', ['message' => 'Successfully deleted ticket', 'type' => 'success']);
+    }
+
     public function enableEditMode()
     {
         $this->editMode = true;
