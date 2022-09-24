@@ -128,6 +128,7 @@ class Tickets extends Component
 
         if ($this->order->fresh()->tickets->count() === 0) {
             $this->order->delete();
+
             return redirect('/dashboard');
         }
 
