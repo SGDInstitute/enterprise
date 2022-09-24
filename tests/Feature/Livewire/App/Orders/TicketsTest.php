@@ -57,4 +57,24 @@ class TicketsTest extends TestCase
 
         $this->assertCount(1, $order->fresh()->tickets);
     }
+
+    /** @test */
+    public function when_deleting_only_ticket_delete_order()
+    {
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->hasPrices(2)->create();
+        $order = Order::factory()->for($event)->create();
+        $ticket = Ticket::factory()->for($order)->create([
+            'ticket_type_id' => $ticketType->id,
+            'price_id' => $ticketType->prices->first(),
+        ]);
+
+        Livewire::actingAs($order->user)
+            ->test(Tickets::class, ['order' => $order])
+            ->assertOk()
+            ->call('delete', $order->tickets->first()->id)
+            ->assertRedirect();
+
+        $this->assertSoftDeleted($order);
+    }
 }

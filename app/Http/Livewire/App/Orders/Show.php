@@ -26,6 +26,17 @@ class Show extends Component
         ]);
     }
 
+    public function delete()
+    {
+        if ($this->order->isPaid()) {
+            return $this->emit('notify', ['message' => 'Cannot delete a paid order', 'type' => 'error']);
+        }
+
+        $this->order->safeDelete();
+
+        return redirect()->route('app.dashboard');
+    }
+
     public function getStepsProperty()
     {
         return [

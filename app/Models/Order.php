@@ -163,6 +163,12 @@ class Order extends Model
         $this->save();
     }
 
+    public function safeDelete()
+    {
+        $this->tickets->each->delete();
+        $this->delete();
+    }
+
     public function transactionDetails()
     {
         if ($this->isPaid()) {
