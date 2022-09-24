@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Livewire\App\Forms;
+namespace Tests\Feature\Livewire\App\Orders;
 
 use App\Http\Livewire\App\Orders\Tickets;
 use App\Models\Event;
