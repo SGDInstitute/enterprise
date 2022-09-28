@@ -41,6 +41,9 @@
     </div>
     @else
     @include('livewire.app.orders.partials.grid-tickets')
+    <div>
+        {{ $tickets->links() }}
+    </div>
     @endif
 
     @if ($editingTicket)
