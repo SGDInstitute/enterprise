@@ -194,6 +194,7 @@ class Responses extends Component
     public function editItem($id)
     {
         $item = $this->event->items->firstWhere('id', $id);
+        $this->editingWorkshop = $this->responses->firstWhere('id', $item->settings->workshop_id);
 
         $this->editingItem = $item;
         $this->editingTracks = $item->tagsWithType('tracks')->pluck('name')->join(',');
