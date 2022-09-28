@@ -40,7 +40,7 @@ class Show extends Component
     public function getStepsProperty()
     {
         return [
-            ['title' => 'Add/Delete Tickets', 'complete' => true, 'current' => false],
+            ['title' => 'Add/Delete Tickets', 'complete' => true, 'current' => false, 'route' => route('app.orders.show', [$this->order, 'start'])],
             ['title' => 'Pay Now or Get Invoice', 'complete' => $this->order->isPaid(), 'current' => $this->page === 'payment', 'route' => route('app.orders.show', [$this->order, 'payment'])],
             ['title' => 'Assign Tickets', 'complete' => $this->order->isFilled(), 'current' => $this->page === 'tickets', 'route' => route('app.orders.show', [$this->order, 'tickets'])],
         ];

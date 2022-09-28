@@ -11,9 +11,11 @@
         </div>
 
         <div class="col-span-2">
-            @if ($page === 'payment')
+            @if ($page === 'start')
+            <livewire:app.orders.start :order="$order" />
+            @elseif ($page === 'payment')
             <livewire:app.orders.payment :order="$order" />
-            @else
+            @elseif ($page === 'tickets')
             <livewire:app.orders.tickets :order="$order" />
             @endif
         </div>
