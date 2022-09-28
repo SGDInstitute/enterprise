@@ -50,17 +50,17 @@ class Start extends Component
 
     public function update()
     {
-        foreach($this->form as $item) {
+        foreach ($this->form as $item) {
             if ($item['amount'] === $item['original']) {
                 continue;
-            } else if ($item['amount'] > $item['original']) {
+            } elseif ($item['amount'] > $item['original']) {
                 Ticket::factory()->times($item['amount'] - $item['original'])->create([
                     'order_id' => $this->order->id,
                     'event_id' => $this->order->event_id,
                     'ticket_type_id' => $item['type_id'],
                     'price_id' => $item['price_id'],
                 ]);
-            } else if ($item['amount'] < $item['original']) {
+            } elseif ($item['amount'] < $item['original']) {
                 $canDelete = $this->order->tickets->whereNull('user_id')->take($item['original'] - $item['amount']);
 
                 if ($canDelete === null) {
