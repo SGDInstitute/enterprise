@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Livewire\App;
+namespace Tests\Feature\Livewire\Bit;
 
 use App\Http\Livewire\Bit\ResponseLog;
 use App\Models\Form;
