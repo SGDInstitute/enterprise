@@ -126,6 +126,12 @@ class Tickets extends Component
 
         $ticket->delete();
 
+        if ($this->order->fresh()->tickets->count() === 0) {
+            $this->order->delete();
+
+            return redirect('/dashboard');
+        }
+
         $this->emit('notify', ['message' => 'Successfully deleted ticket', 'type' => 'success']);
     }
 
