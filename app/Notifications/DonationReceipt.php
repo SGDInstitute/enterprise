@@ -28,13 +28,15 @@ class DonationReceipt extends Notification
     public function toMail($notifiable)
     {
         $type = $this->donation->type;
+        $date = $this->donation->created_at ?? now();
+
         $receipt = session('was_created', false) ? 'new-account' : 'receipt';
 
         $subject = Setting::where('group', 'emails.donation-receipt')->where('name', 'subject')->first()->payload;
         $content = Setting::where('group', 'emails.donation-receipt.content')->where('name', "{$type}.{$receipt}")->first()->payload;
         $parsed = Str::of($content)
             ->replace('{amount}', $this->donation->formattedAmount)
-            ->replace('{date}', $this->donation->created_at->format('F j, Y'));
+            ->replace('{date}', $date->format('F j, Y'));
 
         return (new MailMessage())
             ->subject($subject)
