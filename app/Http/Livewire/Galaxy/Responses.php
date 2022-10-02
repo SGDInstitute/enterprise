@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Galaxy;
 
+use App\Exports\ScheduleExport;
 use App\Http\Livewire\Traits\WithFiltering;
 use App\Http\Livewire\Traits\WithSorting;
 use App\Models\Event;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Responses extends Component
 {
@@ -189,6 +191,12 @@ class Responses extends Component
         }
 
         $this->showItemModal = true;
+    }
+
+    public function downloadSchedule()
+    {
+        $year = $this->event->start->format('Y');
+        return Excel::download(new ScheduleExport($this->event->id), "{$year}-schedule.xlsx");
     }
 
     public function editItem($id)
