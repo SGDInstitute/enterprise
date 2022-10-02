@@ -196,6 +196,7 @@ class Responses extends Component
     public function downloadSchedule()
     {
         $year = $this->event->start->format('Y');
+
         return Excel::download(new ScheduleExport($this->event->id), "{$year}-schedule.xlsx");
     }
 
