@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\RemoveStalePaymentIntents;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,6 +13,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         $schedule->command('media-library:delete-old-temporary-uploads')->daily();
+
+        $schedule->job(new RemoveStalePaymentIntents)->hourly();
     }
 
     protected function commands()
