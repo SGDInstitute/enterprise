@@ -203,9 +203,10 @@ class Tickets extends Component
         }
         $user->save();
 
-        $this->editingTicket->user_id = $user->id;
-        $this->editingTicket->answers = $this->answers;
-        $this->editingTicket->save();
+        $this->editingTicket->update([
+            'user_id' => $user->id,
+            'answers' => $this->answers,
+        ]);
 
         if ($user->id !== auth()->id() && $sendNotification) {
             $user->notify(new AddedToTicket($this->editingTicket, $newUser, auth()->user()->name));
