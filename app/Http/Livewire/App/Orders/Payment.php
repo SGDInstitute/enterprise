@@ -12,9 +12,7 @@ class Payment extends Component
     public Order $order;
 
     public $address;
-
     public $name;
-
     public $email;
 
     public function mount()
@@ -103,6 +101,8 @@ class Payment extends Component
                 'metadata' => [
                     'order' => $this->order->id,
                 ],
+            ], [
+                'idempotency_key' => $this->order->id,
             ]);
 
             $this->order->transaction_id = $paymentIntent->id;
