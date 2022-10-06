@@ -12,7 +12,9 @@ class Payment extends Component
     public Order $order;
 
     public $address;
+
     public $name;
+
     public $email;
 
     public function mount()
