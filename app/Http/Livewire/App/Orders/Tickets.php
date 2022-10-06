@@ -133,6 +133,7 @@ class Tickets extends Component
         }
 
         $this->emit('notify', ['message' => 'Successfully deleted ticket', 'type' => 'success']);
+        $this->emit('refresh');
     }
 
     public function enableEditMode()
