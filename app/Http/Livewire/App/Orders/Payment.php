@@ -92,7 +92,10 @@ class Payment extends Component
     private function startPayment()
     {
         if ($this->order->transaction_id) {
-            $paymentIntent = PaymentIntent::retrieve($this->order->transaction_id);
+            $paymentIntent = PaymentIntent::update(
+                $this->order->transaction_id,
+                ['amount' => $this->order->subtotalInCents]
+            );
         } else {
             $paymentIntent = PaymentIntent::create([
                 'amount' => $this->order->subtotalInCents,
