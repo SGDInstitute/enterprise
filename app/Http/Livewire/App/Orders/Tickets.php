@@ -51,7 +51,10 @@ class Tickets extends Component
 
     public $updateEmail = null;
 
-    protected $listeners = ['refresh' => '$refresh'];
+    protected $listeners = [
+        'refresh' => '$refresh',
+        'loadNext' => 'loadNext',
+    ];
 
     protected $rules = [
         'ticketholder.name' => 'required',
@@ -155,6 +158,15 @@ class Tickets extends Component
         $this->ticketholder = auth()->user()->only(['name', 'email', 'pronouns']);
     }
 
+    public function loadNext()
+    {
+        $ticket = $this->tickets->firstWhere('user_id', null);
+
+        if ($ticket !== null) {
+            $this->loadTicket($ticket->id);
+        }
+    }
+
     public function loadTicket($id)
     {
         $this->editingTicket = $this->tickets->find($id);
@@ -215,8 +227,10 @@ class Tickets extends Component
         $this->emit('refresh');
         $this->reset('ticketholder', 'updateEmail', 'emailChanged');
 
-        if (! $this->continue) {
-            $this->showTicketholderModal = false;
+        $this->showTicketholderModal = false;
+
+        if ($this->continue) {
+            $this->emit('loadNext');
         }
     }
 
