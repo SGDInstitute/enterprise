@@ -103,6 +103,8 @@ class Payment extends Component
                 'metadata' => [
                     'order' => $this->order->id,
                 ],
+            ], [
+                'idempotency_key' => $this->order->id,
             ]);
 
             $this->order->transaction_id = $paymentIntent->id;
