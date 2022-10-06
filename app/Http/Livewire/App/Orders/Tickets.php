@@ -35,19 +35,19 @@ class Tickets extends Component
 
     public $continue = false;
 
-    public $editMode = false;
-
     public $editingTicket;
 
-    public $form = [];
+    public $editMode = false;
 
     public $emailChanged = false;
 
+    public $form = [];
+
     public $perPage = 10;
 
-    public $ticketsView = 'grid';
-
     public $showTicketholderModal = false;
+
+    public $ticketsView = 'grid';
 
     public $updateEmail = null;
 
