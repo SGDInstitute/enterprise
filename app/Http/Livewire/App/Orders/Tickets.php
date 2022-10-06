@@ -35,23 +35,26 @@ class Tickets extends Component
 
     public $continue = false;
 
-    public $editMode = false;
-
     public $editingTicket;
 
-    public $form = [];
+    public $editMode = false;
 
     public $emailChanged = false;
 
-    public $perPage = 10;
+    public $form = [];
 
-    public $ticketsView = 'grid';
+    public $perPage = 10;
 
     public $showTicketholderModal = false;
 
+    public $ticketsView = 'grid';
+
     public $updateEmail = null;
 
-    protected $listeners = ['refresh' => '$refresh'];
+    protected $listeners = [
+        'refresh' => '$refresh',
+        'loadNext' => 'loadNext',
+    ];
 
     protected $rules = [
         'ticketholder.name' => 'required',
@@ -155,6 +158,15 @@ class Tickets extends Component
         $this->ticketholder = auth()->user()->only(['name', 'email', 'pronouns']);
     }
 
+    public function loadNext()
+    {
+        $ticket = $this->tickets->firstWhere('user_id', null);
+
+        if ($ticket !== null) {
+            $this->loadTicket($ticket->id);
+        }
+    }
+
     public function loadTicket($id)
     {
         $this->editingTicket = $this->tickets->find($id);
@@ -169,10 +181,13 @@ class Tickets extends Component
 
     public function removeUserFromTicket($id)
     {
-        $ticket = $this->tickets->find($id);
+        $this->tickets
+            ->find($id)
+            ->update([
+                'user_id' => null,
+                'answers' => null,
+            ]);
 
-        $ticket->user_id = null;
-        $ticket->save();
         $this->emit('refresh');
     }
 
@@ -203,9 +218,10 @@ class Tickets extends Component
         }
         $user->save();
 
-        $this->editingTicket->user_id = $user->id;
-        $this->editingTicket->answers = $this->answers;
-        $this->editingTicket->save();
+        $this->editingTicket->update([
+            'user_id' => $user->id,
+            'answers' => $this->answers,
+        ]);
 
         if ($user->id !== auth()->id() && $sendNotification) {
             $user->notify(new AddedToTicket($this->editingTicket, $newUser, auth()->user()->name));
@@ -214,8 +230,10 @@ class Tickets extends Component
         $this->emit('refresh');
         $this->reset('ticketholder', 'updateEmail', 'emailChanged');
 
-        if (! $this->continue) {
-            $this->showTicketholderModal = false;
+        $this->showTicketholderModal = false;
+
+        if ($this->continue) {
+            $this->emit('loadNext');
         }
     }
 
