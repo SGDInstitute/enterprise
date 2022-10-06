@@ -181,10 +181,13 @@ class Tickets extends Component
 
     public function removeUserFromTicket($id)
     {
-        $ticket = $this->tickets->find($id);
+        $this->tickets
+            ->find($id)
+            ->update([
+                'user_id' => null,
+                'answers' => null,
+            ]);
 
-        $ticket->user_id = null;
-        $ticket->save();
         $this->emit('refresh');
     }
 
