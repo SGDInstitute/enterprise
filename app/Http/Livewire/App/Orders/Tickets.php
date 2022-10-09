@@ -123,6 +123,10 @@ class Tickets extends Component
     {
         $ticket = $this->tickets->firstWhere('id', $ticketId);
 
+        if (! auth()->user()->can('delete', $ticket)) {
+            return $this->emit('notify', ['message' => "You cannot delete tickets.", 'type' => 'error']);
+        }
+
         if ($ticket->isFilled()) {
             return $this->emit('notify', ['message' => 'Cannot delete a filled ticket, please remove the user first', 'type' => 'error']);
         }
@@ -169,7 +173,12 @@ class Tickets extends Component
 
     public function loadTicket($id)
     {
-        $this->editingTicket = $this->tickets->find($id);
+        $ticket = $this->tickets->find($id);
+        if (! auth()->user()->can('update', $ticket)) {
+            return $this->emit('notify', ['message' => "You cannot edit other tickets.", 'type' => 'error']);
+        }
+
+        $this->editingTicket = $ticket;
         $this->answers = $this->editingTicket->answers ?? $this->getAnswerForm($this->editingTicket);
 
         if ($this->editingTicket->user_id !== null) {
@@ -181,12 +190,13 @@ class Tickets extends Component
 
     public function removeUserFromTicket($id)
     {
-        $this->tickets
-            ->find($id)
-            ->update([
-                'user_id' => null,
-                'answers' => null,
-            ]);
+        $ticket = $this->tickets->find($id);
+
+        if (! auth()->user()->can('update', $ticket)) {
+            return $this->emit('notify', ['message' => "You cannot edit other tickets.", 'type' => 'error']);
+        }
+
+        $ticket->update(['user_id' => null, 'answers' => null]);
 
         $this->emit('refresh');
     }

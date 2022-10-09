@@ -69,12 +69,6 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function ticketholders_cannot_edit_other_tickets()
-    {
-        // todo
-    }
-
-    /** @test */
     public function ticketholders_are_shown_tickets_tab()
     {
         $event = Event::factory()->preset('mblgtacc')->create();
