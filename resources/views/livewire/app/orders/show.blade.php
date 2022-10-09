@@ -1,7 +1,9 @@
 <div class="space-y-12">
-    <x-ui.steps :steps="$steps" />
+    @if ($order->user_id === auth()->id())
+        <x-ui.steps :steps="$steps" />
+    @endif
 
-    <div class="grid grid-cols-1 gap-8 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-8 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 md:grid-cols-3 {{ $order->user_id === auth()->id() ? '' : 'pt-12' }}">
         <div class="space-y-4">
             <livewire:app.events.modals :event="$order->event" />
 
