@@ -26,6 +26,7 @@ class Tickets extends Component
             ->filter(function ($item) {
                 return ! $item->end->isPast();
             })
+            ->values()
             ->load('prices');
 
         $this->form = $this->ticketTypes
@@ -59,8 +60,7 @@ class Tickets extends Component
                         'amount' => 0,
                     ];
                 }
-            })
-            ->values();
+            });
     }
 
     public function render()
