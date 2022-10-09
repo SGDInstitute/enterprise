@@ -3,11 +3,7 @@
 namespace Tests\Feature\Livewire\App\Orders;
 
 use App\Http\Livewire\App\Events\Tickets;
-use App\Http\Livewire\App\Orders\Start;
 use App\Models\Event;
-use App\Models\Order;
-use App\Models\Price;
-use App\Models\Ticket;
 use App\Models\TicketType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;

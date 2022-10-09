@@ -4,7 +4,6 @@ namespace Tests\Feature\Livewire\App\Events;
 
 use App\Http\Livewire\App\Events\Tickets;
 use App\Models\Event;
-use App\Models\Price;
 use App\Models\TicketType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
