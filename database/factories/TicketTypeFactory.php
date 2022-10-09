@@ -13,6 +13,7 @@ class TicketTypeFactory extends Factory
             'name' => 'Regular Registration',
             'start' => now(),
             'end' => now()->addMonths(2),
+            'structure' => 'flat',
             'timezone' => 'America/Chicago',
             'event_id' => Event::factory(),
         ];

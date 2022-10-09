@@ -10,6 +10,7 @@ class PriceFactory extends Factory
     {
         return [
             'name' => 'In-person',
+            'cost' => 1000,
         ];
     }
 }
