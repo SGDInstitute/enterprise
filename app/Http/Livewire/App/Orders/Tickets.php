@@ -124,7 +124,7 @@ class Tickets extends Component
         $ticket = $this->tickets->firstWhere('id', $ticketId);
 
         if (! auth()->user()->can('delete', $ticket)) {
-            return $this->emit('notify', ['message' => "You cannot delete tickets.", 'type' => 'error']);
+            return $this->emit('notify', ['message' => 'You cannot delete tickets.', 'type' => 'error']);
         }
 
         if ($ticket->isFilled()) {
@@ -175,7 +175,7 @@ class Tickets extends Component
     {
         $ticket = $this->tickets->find($id);
         if (! auth()->user()->can('update', $ticket)) {
-            return $this->emit('notify', ['message' => "You cannot edit other tickets.", 'type' => 'error']);
+            return $this->emit('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
         }
 
         $this->editingTicket = $ticket;
@@ -193,7 +193,7 @@ class Tickets extends Component
         $ticket = $this->tickets->find($id);
 
         if (! auth()->user()->can('update', $ticket)) {
-            return $this->emit('notify', ['message' => "You cannot edit other tickets.", 'type' => 'error']);
+            return $this->emit('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
         }
 
         $ticket->update(['user_id' => null, 'answers' => null]);

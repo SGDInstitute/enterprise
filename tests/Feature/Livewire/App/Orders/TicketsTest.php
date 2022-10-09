@@ -105,7 +105,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('loadTicket', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => "You cannot edit other tickets.", 'type' => 'error']);
+            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
     /** @test */
@@ -131,7 +131,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('loadTicket', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => "You cannot edit other tickets.", 'type' => 'error']);
+            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
     /** @test */
@@ -158,7 +158,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('delete', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => "You cannot delete tickets.", 'type' => 'error']);
+            ->assertEmitted('notify', ['message' => 'You cannot delete tickets.', 'type' => 'error']);
     }
 
     /** @test */
@@ -185,6 +185,6 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('removeUserFromTicket', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => "You cannot edit other tickets.", 'type' => 'error']);
+            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 }
