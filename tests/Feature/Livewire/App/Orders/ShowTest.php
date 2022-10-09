@@ -23,7 +23,7 @@ class ShowTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
         $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
-        $order = Order::factory()->for($event)->create(['amount' => 8500]);
+        $order = Order::factory()->for($event)->create(['id' => 123,'amount' => 8500]);
         $ticket = Ticket::factory()->for($order)->create([
             'ticket_type_id' => $ticketType->id,
             'price_id' => $price->id,
@@ -106,7 +106,7 @@ class ShowTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
         $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
-        $order = Order::factory()->for($event)->create(['amount' => 8500]);
+        $order = Order::factory()->for($event)->paid()->create(['amount' => 8500]);
         $ticket = Ticket::factory()->for($order)->create([
             'ticket_type_id' => $ticketType->id,
             'price_id' => $price->id,

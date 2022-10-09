@@ -17,11 +17,14 @@ class Show extends Component
     public function mount($page = 'payment')
     {
         $this->authorize('view', $this->order);
-        
-        if ($this->order->isPaid()) {
-            $this->page === 'tickets';
+
+        if ($this->order->user_id !== auth()->id()) {
+            $this->page = 'tickets';
+        } else if ($this->order->isPaid()) {
+            $this->page = 'tickets';
+        } else {
+            $this->page = $page;
         }
-        $this->page = $page;
     }
 
     public function render()
