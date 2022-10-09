@@ -26,7 +26,7 @@ class TicketsTest extends TestCase
                 ['name' => 'Expired', 'end' => now()->subDays(7)],
                 ['name' => 'Available', 'end' => now()->addDays(7)],
             ))
-            ->hasPrices(2)
+            ->hasPrices(1)
             ->create();
 
         Livewire::actingAs($user)
