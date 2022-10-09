@@ -39,27 +39,53 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function ticketholders_are_redirected_to_tickets_tab()
-    {
-        // todo
-    }
-
-    /** @test */
     public function ticketholders_can_view_orders()
     {
-        // todo
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->paid()->create(['id' => 124, 'amount' => 8500]); // need ID for stripe
+        $ticket = Ticket::factory()->for($order)->for($ticketType)->for($price)->for(User::factory())->create();
+        Ticket::factory()->for($order)->for($ticketType)->for($price)->create();
+
+        Livewire::actingAs($ticket->user)
+            ->test(Show::class, ['order' => $order])
+            ->assertOk();
     }
 
     /** @test */
     public function ticketholders_can_view_reservations()
     {
-        // todo
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $reservation = Order::factory()->for($event)->create(['id' => 125, 'amount' => 8500]);
+        $ticket = Ticket::factory()->for($reservation)->for($ticketType)->for($price)->for(User::factory())->create();
+        Ticket::factory()->for($reservation)->for($ticketType)->for($price)->create();
+
+        Livewire::actingAs($ticket->user)
+            ->test(Show::class, ['order' => $reservation])
+            ->assertOk();
     }
 
     /** @test */
     public function ticketholders_cannot_edit_other_tickets()
     {
         // todo
+    }
+
+    /** @test */
+    public function ticketholders_are_shown_tickets_tab()
+    {
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->paid()->create(['amount' => 8500]);
+        $ticket = Ticket::factory()->for($order)->for($ticketType)->for($price)->for(User::factory())->create();
+
+        Livewire::actingAs($ticket->user)
+            ->test(Show::class, ['order' => $order])
+            ->assertSet('page', 'tickets');
     }
 
     /** @test */

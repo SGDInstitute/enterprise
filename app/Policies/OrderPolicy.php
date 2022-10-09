@@ -17,7 +17,9 @@ class OrderPolicy
 
     public function view(User $user, Order $order)
     {
-        return $order->user_id === $user->id;
+        $ticketHolders = $order->tickets()->select('user_id')->whereNotNull('user_id')->pluck('user_id');
+
+        return $order->user_id === $user->id || $ticketHolders->contains($user->id);
     }
 
     public function create(User $user)
