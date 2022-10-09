@@ -5,8 +5,11 @@ namespace Tests\Feature\Livewire\App\Orders;
 use App\Http\Livewire\App\Orders\Tickets;
 use App\Models\Event;
 use App\Models\Order;
+use App\Models\Price;
 use App\Models\Ticket;
 use App\Models\TicketType;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -76,5 +79,112 @@ class TicketsTest extends TestCase
             ->assertRedirect();
 
         $this->assertSoftDeleted($order);
+    }
+
+    /** @test */
+    public function ticketholders_cannot_edit_other_tickets()
+    {
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->create();
+        $luz = User::factory()->create(['name' => 'Luz Noceda']);
+        $amity = User::factory()->create(['name' => 'Amity Blight']);
+        $tickets = Ticket::factory()
+            ->for($order)
+            ->for($ticketType)
+            ->for($price)
+            ->state(new Sequence(
+                ['user_id' => $luz->id],
+                ['user_id' => $amity->id],
+            ))
+            ->count(2)
+            ->create();
+
+        Livewire::actingAs($amity)
+            ->test(Tickets::class, ['order' => $order])
+            ->assertOk()
+            ->call('loadTicket', $tickets->first()->id)
+            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+    }
+
+    /** @test */
+    public function ticketholders_cannot_assign_other_tickets()
+    {
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->create();
+        $luz = User::factory()->create(['name' => 'Luz Noceda']);
+        $tickets = Ticket::factory()
+            ->for($order)
+            ->for($ticketType)
+            ->for($price)
+            ->state(new Sequence(
+                ['user_id' => null],
+                ['user_id' => $luz->id],
+            ))
+            ->count(2)
+            ->create();
+
+        Livewire::actingAs($luz)
+            ->test(Tickets::class, ['order' => $order])
+            ->assertOk()
+            ->call('loadTicket', $tickets->first()->id)
+            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+    }
+
+    /** @test */
+    public function ticketholders_cannot_delete_tickets()
+    {
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->create();
+        $luz = User::factory()->create(['name' => 'Luz Noceda']);
+        $amity = User::factory()->create(['name' => 'Amity Blight']);
+        $tickets = Ticket::factory()
+            ->for($order)
+            ->for($ticketType)
+            ->for($price)
+            ->state(new Sequence(
+                ['user_id' => $luz->id],
+                ['user_id' => $amity->id],
+            ))
+            ->count(2)
+            ->create();
+
+        Livewire::actingAs($amity)
+            ->test(Tickets::class, ['order' => $order])
+            ->assertOk()
+            ->call('delete', $tickets->first()->id)
+            ->assertEmitted('notify', ['message' => 'You cannot delete tickets.', 'type' => 'error']);
+    }
+
+    /** @test */
+    public function ticketholders_cannot_remove_users_from_other_tickets()
+    {
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->create();
+        $luz = User::factory()->create(['name' => 'Luz Noceda']);
+        $amity = User::factory()->create(['name' => 'Amity Blight']);
+        $tickets = Ticket::factory()
+            ->for($order)
+            ->for($ticketType)
+            ->for($price)
+            ->state(new Sequence(
+                ['user_id' => $luz->id],
+                ['user_id' => $amity->id],
+            ))
+            ->count(2)
+            ->create();
+
+        Livewire::actingAs($amity)
+            ->test(Tickets::class, ['order' => $order])
+            ->assertOk()
+            ->call('removeUserFromTicket', $tickets->first()->id)
+            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 }

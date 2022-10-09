@@ -20,11 +20,13 @@
             <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search tickets..." />
             <div class="flex space-x-4">
                 <x-bit.data-table.per-page />
-                @if (!$editMode)
-                <x-bit.button.round.secondary wire:click="enableEditMode">Enable In-line Editing</x-bit.button.round.secondary>
-                @else
-                <x-bit.button.round.secondary wire:click="$set('editMode', false)">Disable Editing</x-bit.button.round.secondary>
-                <x-bit.button.round.primary wire:click="saveTickets">Save Changes</x-bit.button.round.primary>
+                @if (auth()->id() === $order->user_id)
+                    @if (!$editMode)
+                    <x-bit.button.round.secondary wire:click="enableEditMode">Enable In-line Editing</x-bit.button.round.secondary>
+                    @else
+                    <x-bit.button.round.secondary wire:click="$set('editMode', false)">Disable Editing</x-bit.button.round.secondary>
+                    <x-bit.button.round.primary wire:click="saveTickets">Save Changes</x-bit.button.round.primary>
+                    @endif
                 @endif
             </div>
         </div>

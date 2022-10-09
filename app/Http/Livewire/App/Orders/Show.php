@@ -3,20 +3,28 @@
 namespace App\Http\Livewire\App\Orders;
 
 use App\Models\Order;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class Show extends Component
 {
+    use AuthorizesRequests;
+
     public Order $order;
 
     public $page;
 
     public function mount($page = 'payment')
     {
-        if ($this->order->isPaid()) {
-            $this->page === 'tickets';
+        $this->authorize('view', $this->order);
+
+        if ($this->order->user_id !== auth()->id()) {
+            $this->page = 'tickets';
+        } elseif ($this->order->isPaid()) {
+            $this->page = 'tickets';
+        } else {
+            $this->page = $page;
         }
-        $this->page = $page;
     }
 
     public function render()
