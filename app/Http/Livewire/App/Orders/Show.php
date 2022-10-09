@@ -20,7 +20,7 @@ class Show extends Component
 
         if ($this->order->user_id !== auth()->id()) {
             $this->page = 'tickets';
-        } else if ($this->order->isPaid()) {
+        } elseif ($this->order->isPaid()) {
             $this->page = 'tickets';
         } else {
             $this->page = $page;
