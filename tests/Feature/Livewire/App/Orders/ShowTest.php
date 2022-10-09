@@ -91,13 +91,29 @@ class ShowTest extends TestCase
     /** @test */
     public function ticketholders_cannot_view_start_tab()
     {
-        // todo
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->paid()->create(['amount' => 8500]);
+        $ticket = Ticket::factory()->for($order)->for($ticketType)->for($price)->for(User::factory())->create();
+
+        Livewire::actingAs($ticket->user)
+            ->test(Show::class, ['order' => $order, 'page' => 'start'])
+            ->assertSet('page', 'tickets');
     }
 
     /** @test */
     public function ticketholders_cannot_view_payment_tab()
     {
-        // todo
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketType = TicketType::factory()->for($event)->create();
+        $price = Price::factory()->for($ticketType)->create(['cost' => 8500]);
+        $order = Order::factory()->for($event)->paid()->create(['amount' => 8500]);
+        $ticket = Ticket::factory()->for($order)->for($ticketType)->for($price)->for(User::factory())->create();
+
+        Livewire::actingAs($ticket->user)
+            ->test(Show::class, ['order' => $order, 'page' => 'payment'])
+            ->assertSet('page', 'tickets');
     }
 
     /** @test */
