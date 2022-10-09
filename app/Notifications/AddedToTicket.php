@@ -37,7 +37,7 @@ class AddedToTicket extends Notification implements ShouldQueue
             'causer' => $this->causer,
             'event' => $this->ticket->order->event->name,
             'resetUrl' => route('password.request'),
-            'homeUrl' => url('/home'),
+            'homeUrl' => url('/dashboard'),
         ]);
     }
 
