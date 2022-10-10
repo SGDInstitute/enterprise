@@ -249,7 +249,7 @@
                             <p class="text-gray-900 dark:text-gray-200">Ending with {{ $transaction['last4'] }}</p>
                             <p>Expires {{ $transaction['exp'] }}</p>
                             @elseif ($transaction['type'] === 'check')
-                            <p class="text-gray-900">Number {{ $transaction['check_number'] }}</p>
+                            <p class="text-gray-900 dark:text-gray-200">Number {{ $transaction['check_number'] }}</p>
                             @endif
                             <p>Amount {{ $order->formattedAmount }}</p>
                         </div>

@@ -186,10 +186,10 @@ class Order extends Model
                         'exp' => $method->card->exp_month.'/'.$method->card->exp_year,
                     ];
                 }
-            } elseif (Str::startsWith($this->transaction_id, '#')) {
+            } elseif (Str::startsWith($this->transaction_id, '#') || is_numeric($this->transaction_id)) {
                 return [
                     'type' => 'check',
-                    'check_number' => $this->transaction_id,
+                    'check_number' => Str::start($this->transaction_id, '#'),
                 ];
             } elseif (Str::startsWith($this->transaction_id, 'comped')) {
                 return [
