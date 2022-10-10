@@ -40,7 +40,7 @@ class Orders extends Component
 
     public function updatedSelectPage($value)
     {
-        $this->selected = ($value) ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)->toArray() : [];
+        $this->selected = ($value) ? $this->orders->pluck('id')->map(fn ($id) => (string) $id)->toArray() : [];
     }
 
     public function render()
