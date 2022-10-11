@@ -49,8 +49,6 @@ class Tickets extends Component
 
     public $ticketsView = 'grid';
 
-    public $updateEmail = null;
-
     protected $listeners = [
         'refresh' => '$refresh',
         'loadNext' => 'loadNext',
@@ -203,6 +201,8 @@ class Tickets extends Component
 
     public function saveTicket()
     {
+        // $this->validate();
+
         $newUser = false;
         $sendNotification = true;
 
@@ -211,9 +211,9 @@ class Tickets extends Component
             $sendNotification = false;
         }
 
-        if ($this->editingTicket->user_id === null || $this->updateEmail === false) {
+        if ($this->editingTicket->user_id === null || $this->emailChanged === false) {
             $user = User::whereEmail($this->ticketholder['email'])->first();
-            if ($user === null && ! $this->updateEmail) {
+            if ($user === null && ! $this->emailChanged) {
                 $user = new User();
                 $user->email = $this->ticketholder['email'];
                 $user->password = Hash::make(Str::random(15));
@@ -221,9 +221,10 @@ class Tickets extends Component
             }
             $sendNotification = true;
         }
+
         $user->name = $this->ticketholder['name'];
         $user->pronouns = $this->ticketholder['pronouns'];
-        if ($this->updateEmail) {
+        if ($this->emailChanged) {
             $user->email = $this->ticketholder['email'];
         }
         $user->save();
@@ -238,7 +239,7 @@ class Tickets extends Component
         }
 
         $this->emit('refresh');
-        $this->reset('ticketholder', 'updateEmail', 'emailChanged');
+        $this->reset('ticketholder', 'emailChanged', 'emailChanged');
 
         $this->showTicketholderModal = false;
 
