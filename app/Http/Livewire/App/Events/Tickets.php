@@ -123,6 +123,14 @@ class Tickets extends Component
         throw_if($this->form->pluck('amount')->unique()->count() === 1 && $this->form->pluck('amount')->unique()[0] === 0, ValidationException::withMessages([
             'amounts' => ['Please enter the number of tickets.'],
         ]));
+
+        // get ticket types from form that are expired and have amounts greater than zero
+        $expiredTypes = $this->ticketTypes->filter(fn ($type) => $type->end->isPast())->pluck('id');
+        $invalid = $this->form->filter(fn ($item) => $expiredTypes->contains($item['type_id']))->filter(fn ($item) => $item['amount'] > 0);
+
+        throw_if($invalid->count() > 0, ValidationException::withMessages([
+            'amounts' => ['Cannot purchase expired ticket type.'],
+        ]));
     }
 
     private function convertFormToTickets()
