@@ -35,7 +35,7 @@ class TicketAnswersExport implements FromCollection, WithHeadings
                     'email' => $ticket->user->email ?? '',
                     'pronouns' => $ticket->user->pronouns ?? '',
                     'ticket_id' => $ticket->id,
-                    'answers' => implode(', ', $answers) ?? ''
+                    'answers' => implode(', ', $answers) ?? '',
                 ];
             });
     }

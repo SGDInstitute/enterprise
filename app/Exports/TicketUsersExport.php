@@ -2,8 +2,6 @@
 
 namespace App\Exports;
 
-use App\Models\EventItem;
-use App\Models\Order;
 use App\Models\Ticket;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -49,7 +47,7 @@ class TicketUsersExport implements FromCollection, WithHeadings
                     return $tickets;
                 }
 
-                return [$owner, ... $tickets];
+                return [$owner, ...$tickets];
             });
     }
 
