@@ -34,7 +34,9 @@
                 @endforeach
             </nav>
             <div class="flex space-x-4">
+                @isset($rightSide)
                 {{ $rightSide }}
+                @endisset
 
                 @if ($action)
                 <x-bit.button.round.secondary size="sm" :href="$action['href']">{{ $action['label'] }}</x-bit.button.round.secondary>
