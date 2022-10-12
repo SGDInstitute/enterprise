@@ -6,6 +6,7 @@ use App\Exports\TicketAnswersExport;
 use App\Exports\TicketUsersExport;
 use App\Models\Event;
 use App\Models\Ticket;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -53,9 +54,11 @@ class Exports extends Component
 
     public function generateTicketAnswers()
     {
+        $ticketType = Str::slug($this->event->ticketTypes->find($this->ticketAnswers['ticket_type'])->name);
+
         return Excel::download(
             new TicketAnswersExport($this->event->id, $this->ticketAnswers['ticket_type'], $this->ticketAnswers['question'], $this->ticketAnswers['status']),
-            'answers.csv',
+            "{$ticketType}-{$this->ticketAnswers['question']}-answers-{$this->ticketAnswers['status']}.csv",
             \Maatwebsite\Excel\Excel::CSV
         );
     }
