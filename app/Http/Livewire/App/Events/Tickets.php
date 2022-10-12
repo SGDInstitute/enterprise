@@ -22,12 +22,7 @@ class Tickets extends Component
 
     public function mount()
     {
-        $this->ticketTypes = $this->event->ticketTypes
-            ->filter(function ($item) {
-                return ! $item->end->isPast();
-            })
-            ->values()
-            ->load('prices');
+        $this->ticketTypes = $this->event->ticketTypes->load('prices');
 
         $this->form = $this->ticketTypes
             ->map(function ($item) {
