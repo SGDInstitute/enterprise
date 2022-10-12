@@ -16,37 +16,41 @@ class TicketUsersExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        // return Ticket::
-        // return Order::where('event_id', $this->eventId)
-        //     ->when($this->status === 'unpaid', fn ($query) => $query->whereNull('transaction_id'))
-        //     ->when($this->status === 'paid', fn ($query) => $query->whereNotNull('transaction_id'))
-        //     ->get()
-        //     ->flatMap(function ($order) {
-        //         $owner = [
-        //             'order_id' => $order->id,
-        //             'name' => $order->user->name ?? '',
-        //             'email' => $order->user->email ?? '',
-        //             'pronouns' => $order->user->pronouns ?? '',
-        //             'transaction_id' => $order->transaction_id,
-        //             'ticket_type_id' => 'Order Owner',
-        //             'ticket_id' => '',
-        //         ];
-        //         $tickets = $order->tickets->map(fn ($ticket) => [
-        //             'order_id' => $ticket->order_id,
-        //             'name' => $ticket->user->name ?? '',
-        //             'email' => $ticket->user->email ?? '',
-        //             'pronouns' => $ticket->user->pronouns ?? '',
-        //             'transaction_id' => $order->transaction_id,
-        //             'ticket_type_id' => $ticket->ticketType->name,
-        //             'ticket_id' => $ticket->id,
-        //         ]);
+        return Ticket::join('orders', 'tickets.order_id', 'orders.id')
+            ->where('orders.event_id', $this->eventId)
+            ->when($this->ticketType !== '', fn ($query) => $query->where('ticket_type_id', $this->ticketType))
+            ->when($this->status === 'paid', fn ($query) => $query->whereNotNull('paid_at'))
+            ->when($this->status === 'unpaid', fn ($query) => $query->whereNull('paid_at'))
+            ->select('tickets.*', 'orders.paid_at')
+            ->get()
+            ->groupBy('order_id')
+            ->flatMap(function ($tickets, $orderId) {
+                $order = $tickets->first()->order;
+                $owner = [
+                    'order_id' => $order->id,
+                    'name' => $order->user->name ?? '',
+                    'email' => $order->user->email ?? '',
+                    'pronouns' => $order->user->pronouns ?? '',
+                    'transaction_id' => $order->transaction_id,
+                    'ticket_type_id' => 'Order Owner',
+                    'ticket_id' => '',
+                ];
+                $tickets = $tickets->map(fn ($ticket) => [
+                    'order_id' => $ticket->order_id,
+                    'name' => $ticket->user->name ?? '',
+                    'email' => $ticket->user->email ?? '',
+                    'pronouns' => $ticket->user->pronouns ?? '',
+                    'transaction_id' => $order->transaction_id,
+                    'ticket_type_id' => $ticket->ticketType->name,
+                    'ticket_id' => $ticket->id,
+                ]);
 
-        //         if ($order->tickets->contains('user_id', $order->user_id)) {
-        //             return $tickets;
-        //         }
+                if ($order->tickets->contains('user_id', $order->user_id)) {
+                    return $tickets;
+                }
 
-        //         return [$owner, ... $tickets];
-        //     });
+                return [$owner, ... $tickets];
+            });
     }
 
     public function headings(): array

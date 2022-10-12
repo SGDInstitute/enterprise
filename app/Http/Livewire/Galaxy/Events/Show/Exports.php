@@ -45,11 +45,15 @@ class Exports extends Component
 
     public function generateAllUsers()
     {
-        $ticketType = Str::slug($this->event->ticketTypes->find($this->ticketAnswers['ticket_type'])->name);
+        $ticketType = 'all-types';
+
+        if ($this->allUsers['ticket_type'] != '') {
+            $ticketType = Str::slug($this->event->ticketTypes->find($this->allUsers['ticket_type'])->name);
+        }
 
         return Excel::download(
             new TicketUsersExport($this->event->id, $this->allUsers['ticket_type'], $this->allUsers['status']),
-            "{$ticketType}-users-{$this->ticketAnswers['status']}.csv",
+            "{$ticketType}-users-{$this->allUsers['status']}.csv",
             \Maatwebsite\Excel\Excel::CSV
         );
     }
