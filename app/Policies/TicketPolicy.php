@@ -10,6 +10,11 @@ class TicketPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user)
+    {
+        return $user->hasRole('institute');
+    }
+
     public function viewAny(User $user)
     {
         //
