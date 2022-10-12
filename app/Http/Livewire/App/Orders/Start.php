@@ -76,12 +76,7 @@ class Start extends Component
 
     private function buildForm()
     {
-        $ticketTypes = $this->order->event->ticketTypes
-            ->filter(function ($item) {
-                return ! $item->end->isPast();
-            })
-            ->values()
-            ->load('prices');
+        $ticketTypes = $this->order->event->ticketTypes->load('prices');
 
         $this->form = $ticketTypes->map(function ($item) {
             $amount = isset($this->orderTickets[$item->id]) ? $this->orderTickets[$item->id]->count() : 0;
