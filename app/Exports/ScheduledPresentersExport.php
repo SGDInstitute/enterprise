@@ -7,7 +7,7 @@ use App\Models\Response;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ScheduledPresentersExport implements FromCollection
+class ScheduledPresentersExport implements FromCollection, WithHeadings
 {
     public function __construct(public $event)
     {
@@ -15,21 +15,32 @@ class ScheduledPresentersExport implements FromCollection
 
     public function collection()
     {
-        return Response::where('form_id', $this->event->workshopForm->id)
-            ->where('status', 'scheduled')
-            ->get();
+        return EventItem::where('event_id', 8)
+            ->where('settings->workshop_id', '<>', null)
+            ->get()
+            ->flatMap(function ($item) {
+                $response = Response::find($item->settings->workshop_id);
+
+                return $response->collaborators->map(fn ($user) => [
+                    'name' => trim($item->name),
+                    'speaker' => $user->name,
+                    'email' => $user->email,
+                    'pronouns' => $user->pronouns,
+                    'location' => $item->location,
+                    'duration' => $item->formattedDuration,
+                ]);
+            });
     }
 
-    // public function headings(): array
-    // {
-    //     return [
-    //         'Order ID',
-    //         'Name',
-    //         'Email',
-    //         'Pronouns',
-    //         'Transaction ID',
-    //         'Ticket Type',
-    //         'Ticket ID',
-    //     ];
-    // }
+    public function headings(): array
+    {
+        return [
+            'Workshop',
+            'Name',
+            'Email',
+            'Pronouns',
+            'Location',
+            'Duration',
+        ];
+    }
 }
