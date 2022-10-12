@@ -49,6 +49,8 @@ class Tickets extends Component
 
     public $ticketsView = 'grid';
 
+    public $updateEmail = false;
+
     protected $listeners = [
         'refresh' => '$refresh',
         'loadNext' => 'loadNext',
