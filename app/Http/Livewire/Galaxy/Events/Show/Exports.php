@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Galaxy\Events\Show;
 
+use App\Exports\ScheduledPresentersExport;
 use App\Exports\TicketAnswersExport;
 use App\Exports\TicketUsersExport;
 use App\Models\Event;
@@ -53,6 +54,15 @@ class Exports extends Component
         return Excel::download(
             new TicketUsersExport($this->event->id, $this->allUsers['ticket_type'], $this->allUsers['status']),
             "{$ticketType}-users-{$this->allUsers['status']}.csv",
+            \Maatwebsite\Excel\Excel::CSV
+        );
+    }
+
+    public function generateScheduledPresenters()
+    {
+        return Excel::download(
+            new ScheduledPresentersExport($this->event),
+            "scheduled-workshop-presenters.csv",
             \Maatwebsite\Excel\Excel::CSV
         );
     }

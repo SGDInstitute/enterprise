@@ -14,4 +14,9 @@
             <x-bit.button.round.primary wire:click="generateAllUsers">Generate</x-bit.button.round.primary>
         </x-bit.panel.body>
     </x-bit.panel>
+    <x-bit.panel title="Scheduled Presenters">
+        <x-bit.panel.body class="space-y-2">
+            <x-bit.button.round.primary wire:click="generateScheduledPresenters">Generate</x-bit.button.round.primary>
+        </x-bit.panel.body>
+    </x-bit.panel>
 </div>

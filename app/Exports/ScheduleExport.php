@@ -7,15 +7,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ScheduleExport implements FromCollection
 {
-    protected $invoices;
-
     public function __construct(public $eventId)
     {
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     public function collection()
     {
         return EventItem::where('event_id', $this->eventId)->get()->map(function ($item) {
