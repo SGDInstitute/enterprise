@@ -33,9 +33,15 @@
                     @endisset
                 @endforeach
             </nav>
-            @if ($action)
-            <x-bit.button.round.secondary size="sm" :href="$action['href']">{{ $action['label'] }}</x-bit.button.round.secondary>
-            @endif
+            <div class="flex space-x-4">
+                @isset($rightSide)
+                {{ $rightSide }}
+                @endisset
+
+                @if ($action)
+                <x-bit.button.round.secondary size="sm" :href="$action['href']">{{ $action['label'] }}</x-bit.button.round.secondary>
+                @endif
+            </div>
         </div>
     </div>
 </div>

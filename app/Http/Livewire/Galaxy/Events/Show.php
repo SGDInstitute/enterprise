@@ -40,6 +40,8 @@ class Show extends Component
             $pages[] = ['value' => 'workshops', 'label' => 'Workshops', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'workshops']), 'icon' => 'heroicon-o-ticket', 'active' => $this->page === 'workshops'];
         }
 
+        $pages[] = ['value' => 'exports', 'label' => 'Exports', 'href' => route('galaxy.events.show', ['event' => $this->event, 'page' => 'exports']), 'icon' => 'heroicon-o-flag', 'active' => $this->page === 'exports'];
+
         return $pages;
     }
 }
