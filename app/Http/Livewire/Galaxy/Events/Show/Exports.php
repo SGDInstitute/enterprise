@@ -62,7 +62,7 @@ class Exports extends Component
     {
         return Excel::download(
             new ScheduledPresentersExport($this->event),
-            "scheduled-workshop-presenters.csv",
+            'scheduled-workshop-presenters.csv',
             \Maatwebsite\Excel\Excel::CSV
         );
     }
