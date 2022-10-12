@@ -16,7 +16,7 @@ class TicketsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function expired_ticket_types_are_not_shown()
+    public function expired_ticket_types_are_disabled()
     {
         $user = User::factory()->create();
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -31,7 +31,8 @@ class TicketsTest extends TestCase
         Livewire::actingAs($user)
             ->test(Tickets::class, ['event' => $event])
             ->assertOk()
-            ->assertSee('Available')
-            ->assertDontSee('Expired');
+            ->set('form.0.amount', 2)
+            ->call('reserve')
+            ->assertHasErrors();
     }
 }

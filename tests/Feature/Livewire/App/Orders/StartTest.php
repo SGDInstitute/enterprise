@@ -22,8 +22,8 @@ class StartTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketTypes = TicketType::factory()->for($event)->count(2)
             ->state(new Sequence(
-                ['name' => 'Available', 'end' => now()->addDays(7)],
                 ['name' => 'Expired', 'end' => now()->subDays(7)],
+                ['name' => 'Available', 'end' => now()->addDays(7)],
             ))
             ->hasPrices(1)
             ->create();
@@ -31,7 +31,8 @@ class StartTest extends TestCase
         Livewire::actingAs($user)
             ->test(Tickets::class, ['event' => $event])
             ->assertOk()
-            ->assertSee('Available')
-            ->assertDontSee('Expired');
+            ->set('form.0.amount', 2)
+            ->call('reserve')
+            ->assertHasErrors();
     }
 }

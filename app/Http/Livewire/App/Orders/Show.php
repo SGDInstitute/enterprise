@@ -22,7 +22,7 @@ class Show extends Component
             $this->page = 'tickets';
         } elseif ($this->order->isPaid() && $page === null) {
             $this->page = 'tickets';
-        } else {
+        } elseif ($page === null) {
             $this->page = 'payment';
         }
     }

@@ -4,14 +4,14 @@
             @foreach ($ticketTypes as $index => $ticket)
             <li class="flex justify-between py-6 sm:py-10">
                 @if ($ticket->structure === 'flat')
-                <div>
+                <div class="{{ $ticket->end->isPast() ? 'opacity-50' : '' }}">
                     <p class="text-2xl dark:text-gray-200">$<span class="pl-1">{{ $form[$index]['cost'] }}</span></p>
                     <h2 class="dark:text-gray-200">{{ $ticket->name }}</h2>
                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ $ticket->description }}</p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ $ticket->availablity }}</p>
                 </div>
                 @elseif ($ticket->structure === 'scaled-range')
-                <div>
+                <div class="{{ $ticket->end->isPast() ? 'opacity-50' : '' }}">
                     <div>
                         <x-form.label :for="'ticket-cost'.$index" label="Price of Tickets" sr-only />
                         <span class="text-2xl dark:text-gray-200">$</span>
@@ -31,7 +31,10 @@
                 @endif
                 <div>
                     <x-form.label value="Quantity" />
-                    <x-form.input min="0" type="number" wire:model.lazy="form.{{ $index }}.amount" />
+                    <x-form.input min="0" type="number" :disabled="$ticket->end->isPast()" wire:model.lazy="form.{{ $index }}.amount" />
+                    @if ($ticket->end->isPast())
+                    <x-form.error error="No longer available" />
+                    @endif
                 </div>
             </li>
             @endforeach
