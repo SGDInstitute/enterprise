@@ -13,10 +13,52 @@
             </a>
         @endforeach
     @else
-        <div class="prose dark:prose-light">
+        <div class="mt-8 prose dark:prose-light">
             <h1>{{ $item->name }}</h1>
-            <p>{{ $item->formattedDuration }}</p>
-            <p>{{ $item->location }}</p>
+
+            <div class="space-y-2">
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <span title="When" class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-md bg-opacity-10">
+                            <x-heroicon-o-calendar class="w-6 h-6 text-white" x-description="When" />
+                        </span>
+                    </div>
+                    <div class="text-lg">{{ $item->formattedDuration }}</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <span title="Location" class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-md bg-opacity-10">
+                            <x-heroicon-o-location-marker class="w-6 h-6 text-white" x-description="Location" />
+                        </span>
+                    </div>
+                    <div class="text-lg">{{ $item->location }}</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <span title="Speakers" class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-md bg-opacity-10">
+                            <x-heroicon-o-users class="w-6 h-6 text-white" x-description="Speakers" />
+                        </span>
+                    </div>
+                    <div class="text-lg">{{ $item->speakers }}</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <span title="Tracks" class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-md bg-opacity-10">
+                            <x-heroicon-o-collection class="w-6 h-6 text-white" x-description="Tracks" />
+                        </span>
+                    </div>
+                    <div class="text-lg">{{ $item->tracks }}</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <span title="Content Warnings" class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-md bg-opacity-10">
+                            <x-heroicon-o-exclamation class="w-6 h-6 text-white" x-description="Content Warnings" />
+                        </span>
+                    </div>
+                    <div class="text-lg">{{ $item->warnings }}</div>
+                </div>
+            </div>
+
             <p>{!! markdown($item->description) !!}</p>
 
             @if ($isInSchedule)
