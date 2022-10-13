@@ -14,7 +14,7 @@
         <script src="https://station-to-station-famous.sgdinstitute.org/script.js" data-site="LVDVCGSU" defer></script>
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        @vite('resources/css/app.css')
         <livewire:styles />
         @stack('styles')
     </head>
@@ -28,7 +28,7 @@
 
         <!-- Scripts -->
         <livewire:scripts />
-        <script src="{{ mix('js/app.js') }}"></script>
+        @vite('resources/js/app.js')
         @stack('scripts')
     </body>
 </html>
