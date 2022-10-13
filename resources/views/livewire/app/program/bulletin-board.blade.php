@@ -4,7 +4,7 @@
     </div>
 
     <div class="space-y-4">
-        @foreach ($event->publishedBulletins->sortByDesc('published_at') as $bulletin)
+        @foreach ($bulletins as $bulletin)
         <x-bit.bulletin :bulletin="$bulletin" />
         @endforeach
     </div>
