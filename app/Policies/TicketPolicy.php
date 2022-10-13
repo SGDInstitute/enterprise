@@ -12,7 +12,9 @@ class TicketPolicy
 
     public function before(User $user)
     {
-        return $user->hasRole('institute');
+        if ($user->hasRole('institute')) {
+            return true;
+        }
     }
 
     public function viewAny(User $user)
