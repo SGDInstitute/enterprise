@@ -9,7 +9,7 @@
             <a href="{{ route('app.program.schedule-item', [$event, $child]) }}" class="block p-4 border border-gray-500 rounded hover:bg-gray-100 dark:hover:bg-gray-900 dark:border-gray-600">
                 <h2 class="text-lg font-semibold dark:text-gray-200">{{ $child->name }}</h2>
                 <p class="text-gray-700 dark:text-gray-400">{{ $child->location }}</p>
-                <p>{{ $child->shortDescription }}</p>
+                <p class="text-gray-700 dark:text-gray-400">{{ $child->shortDescription }}</p>
             </a>
         @endforeach
     @else
