@@ -26,7 +26,7 @@
 
     <!-- Scripts -->
     <livewire:scripts />
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    @vite('resources/js/app.js')
     <script src="https://unpkg.com/trix@1.2.3/dist/trix.js" defer></script>
     <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
