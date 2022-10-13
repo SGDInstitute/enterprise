@@ -7,9 +7,11 @@
         <div class="space-y-4">
             <livewire:app.events.modals :event="$order->event" />
 
+            @can('delete', $order)
             <x-bit.button.flat.primary block wire:click="delete" class="space-x-2">
                 <x-heroicon-o-trash class="w-4 h-4" /> <span>Delete Order</span>
             </x-bit.button.flat.primary>
+            @endcan
         </div>
 
         <div class="col-span-2">

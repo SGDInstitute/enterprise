@@ -34,7 +34,7 @@ class OrderPolicy
 
     public function delete(User $user, Order $order)
     {
-        //
+        return $order->user_id === $user->id;
     }
 
     public function restore(User $user, Order $order)
