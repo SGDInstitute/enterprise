@@ -14,11 +14,11 @@
         <script src="https://station-to-station-famous.sgdinstitute.org/script.js" data-site="LVDVCGSU" defer></script>
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        @vite('resources/css/app.css')
         <livewire:styles />
 
         <livewire:scripts />
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        @vite('resources/js/app.js')
         @stack('scripts')
     </head>
     <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
