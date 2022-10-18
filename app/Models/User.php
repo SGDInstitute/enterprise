@@ -117,6 +117,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->schedule()->where('item_id', $item->id)->exists();
     }
 
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->phone;
+    }
+
     public function ticketForEvent($event)
     {
         return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->first();
