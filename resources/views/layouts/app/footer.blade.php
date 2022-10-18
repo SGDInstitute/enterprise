@@ -1,5 +1,5 @@
-<footer class="mt-24 bg-gray-900 border-t border-gray-700">
-    <div class="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:py-16 lg:px-8">
+<footer class="mt-8 bg-gray-900 border-t border-gray-700 md:mt-24">
+    <div class="max-w-screen-xl px-4 py-4 mx-auto sm:px-6 lg:py-16 lg:px-8">
         <div class="xl:grid xl:grid-cols-3 xl:gap-8">
             <div class="space-y-8 xl:col-span-1">
                 <img class="h-10 dark:hidden" src="https://sgdinstitute.org/assets/brand/wordmark-allwhite-rgb.png" alt="Midwest Institute for Sexuality and Gender Diversity wordmark">
@@ -47,7 +47,7 @@
 
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-8 mt-12 md:grid-cols-3 xl:mt-0 xl:col-span-2">
+            <div class="hidden grid-cols-1 gap-8 mt-12 md:grid md:grid-cols-3 xl:mt-0 xl:col-span-2">
                 <div class="">
                     <a href="https://sgdinstitute.org/programs" class="text-sm font-semibold leading-5 tracking-wider text-gray-300 uppercase hover:text-gray-100">
                         Programs
