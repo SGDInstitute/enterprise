@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Checkin extends Component
@@ -27,7 +28,7 @@ class Checkin extends Component
             'user.pronouns' => '',
             'user.notifications_via' => 'required',
             'user.email' => 'required',
-            'user.phone' => Rule::requiredIf($this->user->notifications_via === 'phone'),
+            'user.phone' => Rule::requiredIf(auth()->check() && $this->user->notifications_via === 'phone'),
         ];
     }
 
@@ -51,7 +52,17 @@ class Checkin extends Component
 
     public function render()
     {
-        return view('livewire.app.checkin');
+        return view('livewire.app.checkin')
+            ->with([
+                'position' => $this->position,
+            ]);
+    }
+
+    public function getPositionProperty()
+    {
+        if ($this->ticket->isQueued() && ! $this->ticket->isPrinted()) {
+            return DB::table('event_badge_queue')->select('id')->where('printed', false)->where('id', '>', $this->ticket->queue)->count();
+        }
     }
 
     public function add()
@@ -59,9 +70,9 @@ class Checkin extends Component
         $this->validate();
 
         $this->user->save();
-        // $this->ticket->addToQueue();
+        $this->ticket->addToQueue();
 
-        // $this->ticket->refresh();
+        $this->ticket->refresh();
 
         $this->emit('notify', ['message' => 'Successfully checked in.', 'type' => 'success']);
     }

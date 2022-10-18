@@ -1,4 +1,3 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
 <div class="p-4 rounded-md bg-blue-50 dark:bg-blue-900">
   <div class="flex">
     <div class="flex-shrink-0">
