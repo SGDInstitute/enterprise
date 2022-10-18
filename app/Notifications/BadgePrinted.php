@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\VonageMessage;
 use Illuminate\Notifications\Notification;
 
 class BadgePrinted extends Notification
@@ -19,15 +20,24 @@ class BadgePrinted extends Notification
 
     public function via($notifiable)
     {
-        return $notifiable->notifications_via ?? 'email';
+        if ($notifiable->notifications_via) {
+            return ['vonage', 'mail'];
+        }
+        return $notifiable->notifications_via ?? ['mail'];
     }
 
     public function toMail($notifiable)
     {
         return (new MailMessage())
                     ->subject('Your MBLGTACC Name Badge is Ready!')
-                    ->line('Your name badge is hot off the presses. Please come to the registration table 4 to pick it up.')
+                    ->line('Your name badge is hot off the presses. Please come to the registration table to pick it up.')
                     ->line('See you soon!');
+    }
+
+    public function toVonage($notifiable)
+    {
+        return (new VonageMessage)
+                    ->content('Your MBLGTACC name badge is hot off the presses. Please come to the registration table to pick it up.');
     }
 
     public function toArray($notifiable)
