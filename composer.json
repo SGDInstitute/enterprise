@@ -21,6 +21,7 @@
         "laravel/horizon": "^5.10",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "laravel/vonage-notification-channel": "^3.0",
         "league/flysystem-aws-s3-v3": "^3.5",
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
