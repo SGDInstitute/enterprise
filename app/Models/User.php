@@ -35,13 +35,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'address' => 'array',
     ];
 
-    // protected static function booted()
-    // {
-    //     static::updated(queueable(function ($customer) {
-    //         $customer->syncStripeCustomerDetails();
-    //     }));
-    // }
-
     // Relationships
 
     public function donations()
