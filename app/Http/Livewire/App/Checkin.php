@@ -5,9 +5,9 @@ namespace App\Http\Livewire\App;
 use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\User;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Checkin extends Component
@@ -22,7 +22,8 @@ class Checkin extends Component
 
     public $editing = false;
 
-    public function rules() {
+    public function rules()
+    {
         return [
             'user.name' => 'required',
             'user.pronouns' => '',
