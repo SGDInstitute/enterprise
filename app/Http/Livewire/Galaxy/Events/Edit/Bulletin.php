@@ -24,6 +24,7 @@ class Bulletin extends Component
         'bulletin.content' => 'required',
         'formattedPublish' => 'required',
         'bulletin.timezone' => 'required',
+        'bulletin.notify' => 'boolean',
     ];
 
     public function mount()
