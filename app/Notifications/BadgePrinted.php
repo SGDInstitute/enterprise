@@ -20,9 +20,6 @@ class BadgePrinted extends Notification
 
     public function via($notifiable)
     {
-        if ($notifiable->notifications_via) {
-            return ['vonage', 'mail'];
-        }
         return $notifiable->notifications_via ?? ['mail'];
     }
 
@@ -37,7 +34,7 @@ class BadgePrinted extends Notification
     public function toVonage($notifiable)
     {
         return (new VonageMessage)
-                    ->content('Your MBLGTACC name badge is hot off the presses. Please come to the registration table to pick it up.');
+                    ->content("Your MBLGTACC name badge is hot off the presses. Please come to the registration table to pick it up.\n\n(No Reply. Text 810-666-1053 for support)");
     }
 
     public function toArray($notifiable)
