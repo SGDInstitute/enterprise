@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable();
-            $table->string('notifications_via')->nullable()->default('mail');
+            $table->json('notifications_via')->nullable();
         });
     }
 };

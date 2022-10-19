@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use App\Traits\HasProfilePhoto;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Stripe\Customer;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -72,6 +73,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Ticket::class);
     }
 
+    // Attributes
+
     public function getFormattedAddressAttribute()
     {
         if (is_array($this->address)) {
@@ -79,6 +82,33 @@ class User extends Authenticatable implements MustVerifyEmail
                 ? "{$this->address['line1']} {$this->address['line2']}, {$this->address['city']}, {$this->address['state']}, {$this->address['zip']}"
                 : "{$this->address['line1']}, {$this->address['city']}, {$this->address['state']}, {$this->address['zip']}";
         }
+    }
+
+    protected function notificationsVia(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => json_decode($value) ?? [],
+            set: fn ($value) => json_encode($value),
+        );
+    }
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (empty($value) || strlen($value) === 0) {
+                    return null;
+                }
+
+                $country = substr($value, 0, 1);
+                $area = substr($value, 1, 3);
+                $mid = substr($value, 4, 3);
+                $last = substr($value, 7, 4);
+
+                return "{$country} ({$area}) {$mid}-{$last}";
+            },
+            set: fn ($value) => Str::of($value)->replace(' ', '')->replace('(', '')->replace(')', '')->replace('-', ''),
+        );
     }
 
     // Methods

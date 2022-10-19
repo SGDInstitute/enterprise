@@ -29,7 +29,7 @@ class Checkin extends Component
             'user.pronouns' => '',
             'user.notifications_via' => 'required',
             'user.email' => 'required',
-            'user.phone' => Rule::requiredIf(auth()->check() && $this->user->notifications_via === 'phone'),
+            'user.phone' => Rule::requiredIf(in_array('vonage', $this->user->notifications_via ?? [])),
         ];
     }
 
