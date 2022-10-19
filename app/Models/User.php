@@ -149,7 +149,7 @@ class User extends Authenticatable
 
     public function routeNotificationForVonage($notification)
     {
-        return $this->phone;
+        return $this->attributes['phone'];
     }
 
     public function ticketForEvent($event)
