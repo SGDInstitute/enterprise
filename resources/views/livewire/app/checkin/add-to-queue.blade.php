@@ -1,7 +1,7 @@
 <div>
     <ul role="list">
         <li>
-            <div class="relative pb-8">
+            <div class="relative pb-4 md:pb-8">
                 <div class="relative flex items-center space-x-3">
                     <span class="flex items-center justify-center w-8 h-8 text-xl text-gray-100 bg-green-500 rounded-full">
                         1
@@ -18,7 +18,7 @@
             </div>
         </li>
         <li>
-            <div class="relative pb-8">
+            <div class="relative pb-4 md:pb-8">
                 <div class="relative flex items-center space-x-3">
                     <span class="flex items-center justify-center w-8 h-8 text-xl text-gray-100 bg-green-500 rounded-full">
                         2
@@ -55,7 +55,5 @@
         </li>
     </ul>
 
-    <div class="space-y-2">
-        <x-bit.button.flat.primary block wire:click="add">All Set!</x-bit.button.flat.primary>
-    </div>
+    <x-bit.button.flat.primary block wire:click="add">All Set!</x-bit.button.flat.primary>
 </div>
