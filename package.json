@@ -5,6 +5,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@alpinejs/mask": "^3.10.4",
         "@ryangjchandler/alpine-tooltip": "^0.4.0",
         "@tailwindcss/aspect-ratio": "^0.4.0",
         "@tailwindcss/forms": "^0.4.0",
@@ -18,8 +19,5 @@
         "postcss-import": "^14.0.1",
         "tailwindcss": "^3.0.0",
         "vite": "^3.0.2"
-    },
-    "dependencies": {
-        "@alpinejs/mask": "^3.10.4"
     }
 }
