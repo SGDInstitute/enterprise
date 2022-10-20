@@ -34,6 +34,7 @@ class Settings extends Component
             'user.name' => ['required', 'string', 'max:255'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user->id)],
             'user.pronouns' => [],
+            'user.phone' => [],
         ];
     }
 }

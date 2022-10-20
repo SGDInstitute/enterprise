@@ -48,7 +48,7 @@
 
                 <div x-data class="p-2 mt-2 ml-8 space-y-2">
                     <x-form.group type="email" model="user.email" label="Email" />
-                    <x-form.group type="text" x-mask="9 (999) 999-9999" placeholder="1 (123)-555-1234" model="user.phone" label="Phone Number" />
+                    <x-form.group type="text" x-mask="(999) 999-9999" placeholder="(123)-555-1234" model="user.phone" label="Phone Number" />
                     <x-form.help>We will never sell your data, for more information see our <a href="https://sgdinstitute.org/legal-privacy" target="_blank" class="underline">privacy policy</a>.</x-form.help>
                 </div>
             </div>

@@ -96,18 +96,23 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: function ($value) {
-                if (empty($value) || strlen($value) === 0) {
+                if (empty($value) || strlen($value) === 0 || $value === '' || $value === "" || $value === null || $value === '() -') {
                     return null;
                 }
 
-                $country = substr($value, 0, 1);
                 $area = substr($value, 1, 3);
                 $mid = substr($value, 4, 3);
                 $last = substr($value, 7, 4);
 
-                return "{$country} ({$area}) {$mid}-{$last}";
+                $formatted = "({$area}) {$mid}-{$last}";
+
+                if ($formatted === "() -") {
+                    return null;
+                }
+
+                return $formatted;
             },
-            set: fn ($value) => Str::of($value)->replace(' ', '')->replace('(', '')->replace(')', '')->replace('-', ''),
+            set: fn ($value) => Str::of($value)->replace(' ', '')->replace('(', '')->replace(')', '')->replace('-', '')->prepend(1),
         );
     }
 
