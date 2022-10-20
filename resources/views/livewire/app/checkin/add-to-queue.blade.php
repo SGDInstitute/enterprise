@@ -17,6 +17,7 @@
                 </div>
             </div>
         </li>
+        @if ($ticket->ticket_type_id !== 31)
         <li>
             <div class="relative pb-4 md:pb-8">
                 <div class="relative flex items-center space-x-3">
@@ -53,6 +54,7 @@
                 </div>
             </div>
         </li>
+        @endif
     </ul>
 
     <x-bit.button.flat.primary block wire:click="add">All Set!</x-bit.button.flat.primary>

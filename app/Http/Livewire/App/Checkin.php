@@ -68,8 +68,14 @@ class Checkin extends Component
 
     public function add()
     {
-        $this->validate();
+        if ($this->ticket->ticket_type_id === 31) {
+            $this->user->save();
+            $this->ticket->addToQueue(printed: true);
 
+            return redirect()->route('app.program', ['event' => $this->event, 'page' => 'virtual-schedule']);
+        }
+
+        $this->validate();
         $this->user->save();
         $this->ticket->addToQueue();
 
