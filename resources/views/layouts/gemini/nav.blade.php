@@ -26,8 +26,6 @@
             <a href="{{ route('app.program', [$event, 'badge']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Virtual Badge</a>
 
             <a href="{{ route('app.program', [$event, 'contact']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Contact</a>
-
-            <a href="{{ route('app.program', [$event, 'faq']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">FAQ</a>
         </div>
         </div>
       </div>
@@ -51,8 +49,6 @@
       <a href="{{ route('app.program', [$event, 'badge']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Virtual Badge</a>
 
       <a href="{{ route('app.program', [$event, 'contact']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Contact</a>
-
-      <a href="{{ route('app.program', [$event, 'faq']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">FAQ</a>
     </div>
   </div>
 </nav>
