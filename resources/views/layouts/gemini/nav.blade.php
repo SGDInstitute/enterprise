@@ -15,19 +15,19 @@
         </div>
         <div class="hidden sm:block sm:ml-6">
           <div class="flex space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <!-- <a href="{{ route('app.program', [$event, 'bulletin-board']) }}" class="px-3 py-2 text-sm font-medium text-white bg-gray-800 rounded-md" aria-current="page">Bulletin Board</a> -->
-            <a href="{{ route('app.program', [$event, 'bulletin-board']) }}"  class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Bulletin Board</a>
+            <a href="{{ route('app.program', [$event, 'bulletin-board']) }}"  class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Bulletin Board</a>
 
-            <a href="{{ route('app.program', [$event, 'schedule']) }}"  class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Schedule</a>
+            <a href="{{ route('app.program', [$event, 'schedule']) }}"  class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">In-person Schedule</a>
 
-            <a href="{{ route('app.program', [$event, 'my-schedule']) }}" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">My Schedule</a>
+            <a href="{{ route('app.program', [$event, 'virtual-schedule']) }}"  class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Virtual Schedule</a>
 
-            <a href="{{ route('app.program', [$event, 'badge']) }}" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Virtual Badge</a>
+            <a href="{{ route('app.program', [$event, 'my-schedule']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">My Schedule</a>
 
-            <a href="{{ route('app.program', [$event, 'contact']) }}" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Contact</a>
+            <a href="{{ route('app.program', [$event, 'badge']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Virtual Badge</a>
 
-            <a href="{{ route('app.program', [$event, 'faq']) }}" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">FAQ</a>
+            <a href="{{ route('app.program', [$event, 'contact']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Contact</a>
+
+            <a href="{{ route('app.program', [$event, 'faq']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">FAQ</a>
         </div>
         </div>
       </div>
