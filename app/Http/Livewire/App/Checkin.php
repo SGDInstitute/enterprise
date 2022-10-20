@@ -73,6 +73,10 @@ class Checkin extends Component
         $this->user->save();
         $this->ticket->addToQueue();
 
+        if ($ticket = Ticket::where('ticket_type_id', 30)->where('user_id', $this->user->id)->first()) {
+            $ticket->addToQueue();
+        }
+
         $this->ticket->refresh();
 
         $this->emit('notify', ['message' => 'Successfully checked in.', 'type' => 'success']);
