@@ -21,7 +21,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             timeZone: '{{ $this->event->timezone }}',
             initialView: 'timeGridDay',
-            initialDate: '2021-10-08',
+            initialDate: '{{ $this->event->start->format("Y-m-d") }}',
             editable: false,
             nowIndicator: true,
             contentHeight: window.innerHeight - 100,

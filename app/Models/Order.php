@@ -48,7 +48,7 @@ class Order extends Model
 
     public function scopePaid($query)
     {
-        return $query->where('status', '<>', 'reservation');
+        return $query->whereNotNull('paid_at');
     }
 
     // Relations
@@ -144,7 +144,7 @@ class Order extends Model
 
     public function isPaid()
     {
-        return $this->status !== 'reservation' || $this->confirmation_number !== null;
+        return $this->paid_at !== null;
     }
 
     public function isReservation()

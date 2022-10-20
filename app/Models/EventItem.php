@@ -62,12 +62,12 @@ class EventItem extends Model
 
     public function getTracksAttribute()
     {
-        return $this->tagsWithType('tracks')->pluck('name')->join(',');
+        return $this->tagsWithType('tracks')->pluck('name')->join(', ');
     }
 
     public function getWarningsAttribute()
     {
-        return $this->tagsWithType('warnings')->pluck('name')->join(',');
+        return $this->tagsWithType('warnings')->pluck('name')->join(', ');
     }
 
     // Methods

@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\VonageMessage;
 use Illuminate\Notifications\Notification;
 
 class BadgePrinted extends Notification
@@ -17,37 +18,25 @@ class BadgePrinted extends Notification
         $this->badge = $badge;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
-        return ['mail'];
+        return $notifiable->notifications_via ?? ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
         return (new MailMessage())
                     ->subject('Your MBLGTACC Name Badge is Ready!')
-                    ->line('Your name badge is hot off the presses. Please come to the registration table 4 to pick it up.')
+                    ->line('Your name badge is hot off the presses. Please come to the registration table to pick it up.')
                     ->line('See you soon!');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+    public function toVonage($notifiable)
+    {
+        return (new VonageMessage)
+                    ->content("Your MBLGTACC name badge is hot off the presses. Please come to the registration table to pick it up.\n\n(No Reply. Text 810-666-1053 for support)");
+    }
+
     public function toArray($notifiable)
     {
         return [
