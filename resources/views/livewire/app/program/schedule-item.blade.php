@@ -17,16 +17,16 @@
             <h1>{{ $item->name }}</h1>
 
             <div class="space-y-2">
-                <x-ui.feed.item icon="heroicon-o-calendar" title="When" iconClass="bg-green-500 rounded-md bg-opacity-10">{{ $item->formattedDuration }}</x-ui.feed.item>
-                <x-ui.feed.item icon="heroicon-o-location-marker" title="Location" iconClass="bg-green-500 rounded-md bg-opacity-10">{{ $item->location }}</x-ui.feed.item>
+                <x-ui.feed.item icon="heroicon-o-calendar" title="When" iconClass="bg-green-500 rounded-md">{{ $item->formattedDuration }}</x-ui.feed.item>
+                <x-ui.feed.item icon="heroicon-o-location-marker" title="Location" iconClass="bg-green-500 rounded-md">{{ $item->location }}</x-ui.feed.item>
                 @if ($item->speaker)
-                <x-ui.feed.item icon="heroicon-o-users" title="Speakers" iconClass="bg-green-500 rounded-md bg-opacity-10">{{ $item->speaker }}</x-ui.feed.item>
+                <x-ui.feed.item icon="heroicon-o-users" title="Speakers" iconClass="bg-green-500 rounded-md">{{ $item->speaker }}</x-ui.feed.item>
                 @endif
                 @if ($item->tracks)
-                <x-ui.feed.item icon="heroicon-o-collection" title="Tracks" iconClass="bg-green-500 rounded-md bg-opacity-10">{{ $item->tracks }}</x-ui.feed.item>
+                <x-ui.feed.item icon="heroicon-o-collection" title="Tracks" iconClass="bg-green-500 rounded-md">{{ $item->tracks }}</x-ui.feed.item>
                 @endif
                 @if ($item->warnings)
-                <x-ui.feed.item icon="heroicon-o-exclamation" title="Content Warnings" iconClass="bg-green-500 rounded-md bg-opacity-10">{{ $item->warnings }}</x-ui.feed.item>
+                <x-ui.feed.item icon="heroicon-o-exclamation" title="Content Warnings" iconClass="bg-green-500 rounded-md">{{ $item->warnings }}</x-ui.feed.item>
                 @endif
             </div>
 
