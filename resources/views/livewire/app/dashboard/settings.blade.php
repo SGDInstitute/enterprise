@@ -25,6 +25,11 @@
                                 <x-bit.input.text class="w-full mt-1" id="pronouns" name="pronouns" type="text" wire:model="user.pronouns" />
                             </x-bit.input.group>
                         </div>
+                        <div x-data class="grid grid-cols-3 gap-6">
+                            <x-bit.input.group for="phone" class="col-span-3 sm:col-span-2" label="Phone Number" :error="$errors->first('user.phone')">
+                                <x-bit.input.text class="w-full mt-1" id="phone" x-mask="(999) 999-9999" placeholder="(123)-555-1234" name="phone" type="text" wire:model="user.phone" />
+                            </x-bit.input.group>
+                        </div>
 
                         <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
                     </form>
