@@ -62,7 +62,7 @@ class Checkin extends Component
     public function getPositionProperty()
     {
         if (auth()->check() && $this->ticket->isQueued() && ! $this->ticket->isPrinted()) {
-            return DB::table('event_badge_queue')->select('id')->where('printed', false)->where('id', '<', $this->ticket->queue)->count();
+            return DB::table('event_badge_queue')->select('id')->where('printed', false)->where('id', '<', $this->ticket->queue->id)->count();
         }
     }
 
