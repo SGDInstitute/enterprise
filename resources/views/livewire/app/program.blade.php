@@ -24,6 +24,9 @@
     @case('schedule')
     <livewire:app.program.schedule :event="$event" />
     @break
+    @case('virtual-schedule')
+    <livewire:app.program.virtual-schedule :event="$event" />
+    @break
     @case('my-schedule')
     <livewire:app.program.my-schedule :event="$event" />
     @break
