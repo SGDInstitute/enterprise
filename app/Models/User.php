@@ -96,7 +96,7 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: function ($value) {
-                if (empty($value) || strlen($value) === 0 || $value === '' || $value === "" || $value === null || $value === '() -') {
+                if (empty($value) || strlen($value) === 0 || $value === '' || $value === '' || $value === null || $value === '() -') {
                     return null;
                 }
 
@@ -106,7 +106,7 @@ class User extends Authenticatable
 
                 $formatted = "({$area}) {$mid}-{$last}";
 
-                if ($formatted === "() -") {
+                if ($formatted === '() -') {
                     return null;
                 }
 
