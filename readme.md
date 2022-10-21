@@ -8,3 +8,4 @@ Export the printer location `export BROTHER_QL_PRINTER=usb://{vendor}:{product}/
     The vendor, product and serial can be found in `System Information`
     [GitHub issue with more information](https://github.com/pklaus/brother_ql/issues/110)
 Run the script `pa print`
+Make sure to have Raleway and Lato fonts installed locally
