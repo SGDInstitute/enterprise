@@ -16,10 +16,12 @@
                 <span>Event Description</span>
             </button>
             @foreach ($event->settings->tabs ?? [] as $modal)
+            @isset($modal['slug'])
             <button wire:click="showPolicyModal('{{ $modal['slug'] }}')" class="flex items-center w-full px-6 py-4 space-x-4 text-gray-900 bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200">
                 <x-dynamic-component :component="$modal['icon']" class="w-6 h-6 text-gray-600 dark:text-gray-400" />
                 <span>{{ $modal['name'] }}</span>
             </button>
+            @endif
             @endforeach
         </div>
     </section>

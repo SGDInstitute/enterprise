@@ -48,7 +48,7 @@ class Order extends Model
 
     public function scopePaid($query)
     {
-        return $query->where('status', '<>', 'reservation');
+        return $query->whereNotNull('paid_at');
     }
 
     // Relations
@@ -144,7 +144,7 @@ class Order extends Model
 
     public function isPaid()
     {
-        return $this->status !== 'reservation' || $this->confirmation_number !== null;
+        return $this->paid_at !== null;
     }
 
     public function isReservation()
@@ -161,6 +161,12 @@ class Order extends Model
         $this->amount = $amount;
         $this->status = 'succeeded';
         $this->save();
+    }
+
+    public function safeDelete()
+    {
+        $this->tickets->each->delete();
+        $this->delete();
     }
 
     public function transactionDetails()
@@ -180,10 +186,10 @@ class Order extends Model
                         'exp' => $method->card->exp_month.'/'.$method->card->exp_year,
                     ];
                 }
-            } elseif (Str::startsWith($this->transaction_id, '#')) {
+            } elseif (Str::startsWith($this->transaction_id, '#') || is_numeric($this->transaction_id)) {
                 return [
                     'type' => 'check',
-                    'check_number' => $this->transaction_id,
+                    'check_number' => Str::start($this->transaction_id, '#'),
                 ];
             } elseif (Str::startsWith($this->transaction_id, 'comped')) {
                 return [

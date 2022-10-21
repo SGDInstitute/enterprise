@@ -1,6 +1,6 @@
 <div class="space-y-4">
     <div class="flex items-center justify-between">
-        <h2 class="text-xl font-bold leading-7 text-gray-900 dark:text-gray-100 sm:text-2xl sm:truncate">Tickets</h2>
+        <h2 class="text-xl font-bold leading-7 text-gray-900 dark:text-gray-100 sm:text-2xl sm:truncate">{{ $tickets->total() }} Tickets</h2>
 
         <span class="relative z-0 inline-flex rounded-md shadow-sm">
             <button wire:click="$set('ticketsView', 'table')" type="button" class="{{ $ticketsView === 'table' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200' : 'text-gray-500 bg-white dark:text-gray-400 dark:bg-gray-900' }} relative inline-flex items-center px-2 py-2 text-sm font-medium border border-gray-300 dark:border-gray-700 rounded-l-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500">
@@ -20,11 +20,13 @@
             <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search tickets..." />
             <div class="flex space-x-4">
                 <x-bit.data-table.per-page />
-                @if (!$editMode)
-                <x-bit.button.round.secondary wire:click="enableEditMode">Enable In-line Editing</x-bit.button.round.secondary>
-                @else
-                <x-bit.button.round.secondary wire:click="$set('editMode', false)">Disable Editing</x-bit.button.round.secondary>
-                <x-bit.button.round.primary wire:click="saveTickets">Save Changes</x-bit.button.round.primary>
+                @if (auth()->id() === $order->user_id)
+                    @if (!$editMode)
+                    <x-bit.button.round.secondary wire:click="enableEditMode">Enable In-line Editing</x-bit.button.round.secondary>
+                    @else
+                    <x-bit.button.round.secondary wire:click="$set('editMode', false)">Disable Editing</x-bit.button.round.secondary>
+                    <x-bit.button.round.primary wire:click="saveTickets">Save Changes</x-bit.button.round.primary>
+                    @endif
                 @endif
             </div>
         </div>
@@ -41,6 +43,9 @@
     </div>
     @else
     @include('livewire.app.orders.partials.grid-tickets')
+    <div>
+        {{ $tickets->links() }}
+    </div>
     @endif
 
     @if ($editingTicket)

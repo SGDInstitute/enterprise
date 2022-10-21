@@ -35,23 +35,26 @@ class Tickets extends Component
 
     public $continue = false;
 
-    public $editMode = false;
-
     public $editingTicket;
 
-    public $form = [];
+    public $editMode = false;
 
     public $emailChanged = false;
 
-    public $perPage = 10;
+    public $form = [];
 
-    public $ticketsView = 'grid';
+    public $perPage = 10;
 
     public $showTicketholderModal = false;
 
-    public $updateEmail = null;
+    public $ticketsView = 'grid';
 
-    protected $listeners = ['refresh' => '$refresh'];
+    public $updateEmail = false;
+
+    protected $listeners = [
+        'refresh' => '$refresh',
+        'loadNext' => 'loadNext',
+    ];
 
     protected $rules = [
         'ticketholder.name' => 'required',
@@ -120,13 +123,24 @@ class Tickets extends Component
     {
         $ticket = $this->tickets->firstWhere('id', $ticketId);
 
+        if (! auth()->user()->can('delete', $ticket)) {
+            return $this->emit('notify', ['message' => 'You cannot delete tickets.', 'type' => 'error']);
+        }
+
         if ($ticket->isFilled()) {
             return $this->emit('notify', ['message' => 'Cannot delete a filled ticket, please remove the user first', 'type' => 'error']);
         }
 
         $ticket->delete();
 
+        if ($this->order->fresh()->tickets->count() === 0) {
+            $this->order->delete();
+
+            return redirect('/dashboard');
+        }
+
         $this->emit('notify', ['message' => 'Successfully deleted ticket', 'type' => 'success']);
+        $this->emit('refresh');
     }
 
     public function enableEditMode()
@@ -148,9 +162,23 @@ class Tickets extends Component
         $this->ticketholder = auth()->user()->only(['name', 'email', 'pronouns']);
     }
 
+    public function loadNext()
+    {
+        $ticket = $this->tickets->firstWhere('user_id', null);
+
+        if ($ticket !== null) {
+            $this->loadTicket($ticket->id);
+        }
+    }
+
     public function loadTicket($id)
     {
-        $this->editingTicket = $this->tickets->find($id);
+        $ticket = $this->tickets->find($id);
+        if (! auth()->user()->can('update', $ticket)) {
+            return $this->emit('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+        }
+
+        $this->editingTicket = $ticket;
         $this->answers = $this->editingTicket->answers ?? $this->getAnswerForm($this->editingTicket);
 
         if ($this->editingTicket->user_id !== null) {
@@ -164,13 +192,19 @@ class Tickets extends Component
     {
         $ticket = $this->tickets->find($id);
 
-        $ticket->user_id = null;
-        $ticket->save();
+        if (! auth()->user()->can('update', $ticket)) {
+            return $this->emit('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+        }
+
+        $ticket->update(['user_id' => null, 'answers' => null]);
+
         $this->emit('refresh');
     }
 
     public function saveTicket()
     {
+        // $this->validate();
+
         $newUser = false;
         $sendNotification = true;
 
@@ -179,9 +213,9 @@ class Tickets extends Component
             $sendNotification = false;
         }
 
-        if ($this->editingTicket->user_id === null || $this->updateEmail === false) {
+        if ($this->editingTicket->user_id === null || $this->emailChanged === false) {
             $user = User::whereEmail($this->ticketholder['email'])->first();
-            if ($user === null && ! $this->updateEmail) {
+            if ($user === null && ! $this->emailChanged) {
                 $user = new User();
                 $user->email = $this->ticketholder['email'];
                 $user->password = Hash::make(Str::random(15));
@@ -189,26 +223,30 @@ class Tickets extends Component
             }
             $sendNotification = true;
         }
+
         $user->name = $this->ticketholder['name'];
         $user->pronouns = $this->ticketholder['pronouns'];
-        if ($this->updateEmail) {
+        if ($this->emailChanged) {
             $user->email = $this->ticketholder['email'];
         }
         $user->save();
 
-        $this->editingTicket->user_id = $user->id;
-        $this->editingTicket->answers = $this->answers;
-        $this->editingTicket->save();
+        $this->editingTicket->update([
+            'user_id' => $user->id,
+            'answers' => $this->answers,
+        ]);
 
         if ($user->id !== auth()->id() && $sendNotification) {
             $user->notify(new AddedToTicket($this->editingTicket, $newUser, auth()->user()->name));
         }
 
         $this->emit('refresh');
-        $this->reset('ticketholder', 'updateEmail', 'emailChanged');
+        $this->reset('ticketholder', 'emailChanged', 'emailChanged');
 
-        if (! $this->continue) {
-            $this->showTicketholderModal = false;
+        $this->showTicketholderModal = false;
+
+        if ($this->continue) {
+            $this->emit('loadNext');
         }
     }
 

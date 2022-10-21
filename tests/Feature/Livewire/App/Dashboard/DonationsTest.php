@@ -17,7 +17,7 @@ class DonationsTest extends TestCase
     public function can_view_all_donations()
     {
         $user = User::factory()->create();
-        Donation::factory(5)->for($user)->create();
+        Donation::factory()->count(5)->for($user)->create();
 
         Livewire::actingAs($user)
             ->test(Donations::class)

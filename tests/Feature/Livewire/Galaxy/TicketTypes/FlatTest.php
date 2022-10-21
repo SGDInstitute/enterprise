@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Livewire\Galaxy\Events;
+namespace Tests\Feature\Livewire\Galaxy\TicketTypes;
 
 use App\Models\Event;
 use App\Models\User;

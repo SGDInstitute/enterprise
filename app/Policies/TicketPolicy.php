@@ -10,6 +10,13 @@ class TicketPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user)
+    {
+        if ($user->hasRole('institute')) {
+            return true;
+        }
+    }
+
     public function viewAny(User $user)
     {
         //
@@ -27,12 +34,12 @@ class TicketPolicy
 
     public function update(User $user, Ticket $ticket)
     {
-        return $user->id === $ticket->user_id;
+        return $user->id === $ticket->user_id || $user->id === $ticket->order->user_id;
     }
 
     public function delete(User $user, Ticket $ticket)
     {
-        //
+        return $user->id === $ticket->order->user_id;
     }
 
     public function restore(User $user, Ticket $ticket)

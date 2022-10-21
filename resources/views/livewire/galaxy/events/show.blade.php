@@ -17,5 +17,8 @@
         @case('schedule')
         <livewire:galaxy.events.show.schedule :event="$event" />
         @break
+        @case('exports')
+        <livewire:galaxy.events.show.exports :event="$event" />
+        @break
     @endswitch
 </div>

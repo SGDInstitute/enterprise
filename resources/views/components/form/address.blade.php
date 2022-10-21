@@ -32,7 +32,7 @@
         </div>
         <div class="relative">
             <x-form.label>ZIP code</x-form.label>
-            <x-form.input  x-model="address.zip" id="form-zip" placeholder="ZIP code" />
+            <x-form.input x-model="address.zip" id="form-zip" placeholder="ZIP code" />
             <x-form.error :error="$errors->first('address.zip')" />
         </div>
     </div>

@@ -23,6 +23,10 @@
                     <x-bit.input.group for="published_at" label="Publish At">
                         <x-bit.input.date-time class="block w-full mt-1" id="start" name="published_at" wire:model="formattedPublish" />
                     </x-bit.input.group>
+
+                    <div class="pt-4">
+                        <x-form.checkbox label="Notify Users" id="notify-users" wire:model="bulletin.notify" />
+                    </div>
                 </div>
             </x-bit.panel.body>
 

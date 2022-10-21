@@ -7,10 +7,14 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=News+Cycle:wght@400;700&amp;family=Raleway:wght@700&amp;display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=lato:400,400i,700,700i,900,900i|news-cycle:400,700|raleway:700" rel="stylesheet" />
+
+        <!-- Privacy First Analytics -->
+        <script src="https://station-to-station-famous.sgdinstitute.org/script.js" data-site="LVDVCGSU" defer></script>
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        @vite('resources/css/app.css')
         <livewire:styles />
         @stack('styles')
     </head>
@@ -24,7 +28,7 @@
 
         <!-- Scripts -->
         <livewire:scripts />
-        <script src="{{ mix('js/app.js') }}"></script>
+        @vite('resources/js/app.js')
         @stack('scripts')
     </body>
 </html>

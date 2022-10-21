@@ -23,37 +23,39 @@ class Tickets extends Component
     public function mount()
     {
         $this->ticketTypes = $this->event->ticketTypes->load('prices');
-        $this->form = $this->ticketTypes->map(function ($item) {
-            if ($item->structure === 'flat') {
-                $price = $item->prices->first();
 
-                return [
-                    'type_id' => $item->id,
-                    'price_id' => $price->id,
-                    'name' => $price->name,
-                    'cost' => $price->cost / 100,
-                    'amount' => 0,
-                ];
-            } elseif ($item->structure === 'scaled-range') {
-                $price = $item->prices->first();
+        $this->form = $this->ticketTypes
+            ->map(function ($item) {
+                if ($item->structure === 'flat') {
+                    $price = $item->prices->first();
 
-                return [
-                    'type_id' => $item->id,
-                    'price_id' => $price->id,
-                    'name' => $price->name,
-                    'cost' => $price->cost / 100,
-                    'options' => $item->prices->mapWithKeys(fn ($price) => [$price->id => $price->cost / 100]),
-                    'amount' => 0,
-                ];
-            } else {
-                return [
-                    'type_id' => $item->id,
-                    'price_id' => null,
-                    'cost' => null,
-                    'amount' => 0,
-                ];
-            }
-        });
+                    return [
+                        'type_id' => $item->id,
+                        'price_id' => $price->id,
+                        'name' => $price->name,
+                        'cost' => $price->cost / 100,
+                        'amount' => 0,
+                    ];
+                } elseif ($item->structure === 'scaled-range') {
+                    $price = $item->prices->first();
+
+                    return [
+                        'type_id' => $item->id,
+                        'price_id' => $price->id,
+                        'name' => $price->name,
+                        'cost' => $price->cost / 100,
+                        'options' => $item->prices->mapWithKeys(fn ($price) => [$price->id => $price->cost / 100]),
+                        'amount' => 0,
+                    ];
+                } else {
+                    return [
+                        'type_id' => $item->id,
+                        'price_id' => null,
+                        'cost' => null,
+                        'amount' => 0,
+                    ];
+                }
+            });
     }
 
     public function render()
@@ -86,7 +88,9 @@ class Tickets extends Component
 
         foreach ($this->form as $ticket) {
             $price = $this->ticketTypes->firstWhere('id', $ticket['type_id'])->prices->firstWhere('id', $ticket['price_id']);
-            $checkoutAmount += $price->cost * $ticket['amount'];
+            if ($price) {
+                $checkoutAmount += $price->cost * $ticket['amount'];
+            }
         }
 
         return '$'.number_format($checkoutAmount / 100, 2);
@@ -118,6 +122,14 @@ class Tickets extends Component
     {
         throw_if($this->form->pluck('amount')->unique()->count() === 1 && $this->form->pluck('amount')->unique()[0] === 0, ValidationException::withMessages([
             'amounts' => ['Please enter the number of tickets.'],
+        ]));
+
+        // get ticket types from form that are expired and have amounts greater than zero
+        $expiredTypes = $this->ticketTypes->filter(fn ($type) => $type->end->isPast())->pluck('id');
+        $invalid = $this->form->filter(fn ($item) => $expiredTypes->contains($item['type_id']))->filter(fn ($item) => $item['amount'] > 0);
+
+        throw_if($invalid->count() > 0, ValidationException::withMessages([
+            'amounts' => ['Cannot purchase expired ticket type.'],
         ]));
     }
 

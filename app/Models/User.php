@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use App\Traits\HasProfilePhoto;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Stripe\Customer;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -34,13 +35,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'address' => 'array',
     ];
-
-    // protected static function booted()
-    // {
-    //     static::updated(queueable(function ($customer) {
-    //         $customer->syncStripeCustomerDetails();
-    //     }));
-    // }
 
     // Relationships
 
@@ -79,6 +73,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Ticket::class);
     }
 
+    // Attributes
+
     public function getFormattedAddressAttribute()
     {
         if (is_array($this->address)) {
@@ -86,6 +82,38 @@ class User extends Authenticatable implements MustVerifyEmail
                 ? "{$this->address['line1']} {$this->address['line2']}, {$this->address['city']}, {$this->address['state']}, {$this->address['zip']}"
                 : "{$this->address['line1']}, {$this->address['city']}, {$this->address['state']}, {$this->address['zip']}";
         }
+    }
+
+    protected function notificationsVia(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value === null ? [] : json_decode($value),
+            set: fn ($value) => json_encode($value),
+        );
+    }
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (empty($value) || strlen($value) === 0 || $value === '' || $value === '' || $value === null || $value === '() -') {
+                    return null;
+                }
+
+                $area = substr($value, 1, 3);
+                $mid = substr($value, 4, 3);
+                $last = substr($value, 7, 4);
+
+                $formatted = "({$area}) {$mid}-{$last}";
+
+                if ($formatted === '() -') {
+                    return null;
+                }
+
+                return $formatted;
+            },
+            set: fn ($value) => Str::of($value)->replace(' ', '')->replace('(', '')->replace(')', '')->replace('-', '')->prepend(1),
+        );
     }
 
     // Methods
@@ -122,6 +150,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isInSchedule($item)
     {
         return $this->schedule()->where('item_id', $item->id)->exists();
+    }
+
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->attributes['phone'];
     }
 
     public function ticketForEvent($event)

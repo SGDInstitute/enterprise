@@ -39,7 +39,7 @@ class OrdersReservations extends Component
     {
         return Order::query()
             ->paid()
-            ->join('tickets', 'tickets.order_id', '=', 'orders.id')
+            ->leftJoin('tickets', 'tickets.order_id', '=', 'orders.id')
             ->with('tickets')
             ->where(function ($query) {
                 $query->where('orders.user_id', auth()->id())
@@ -55,8 +55,14 @@ class OrdersReservations extends Component
     {
         return Order::query()
             ->reservations()
+            ->leftJoin('tickets', 'tickets.order_id', '=', 'orders.id')
             ->with('tickets')
-            ->where('user_id', auth()->id())
+            ->where(function ($query) {
+                $query->where('orders.user_id', auth()->id())
+                    ->orWhere('tickets.user_id', auth()->id());
+            })
+            ->select('orders.*')
+            ->groupBy('orders.id')
             ->orderBy('created_at', 'desc')
             ->paginate($this->reservationsPerPage);
     }

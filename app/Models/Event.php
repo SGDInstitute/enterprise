@@ -116,7 +116,7 @@ class Event extends Model implements HasMedia
 
     public function paidAttendees()
     {
-        return $this->orders()->whereNotNull('transaction_id')->with('tickets.user')->get()
+        return $this->orders()->paid()->with('tickets.user')->get()
             ->flatMap->tickets
             ->filter(fn ($ticket) => $ticket->user_id !== null)
             ->map->user;
@@ -124,7 +124,7 @@ class Event extends Model implements HasMedia
 
     public function paidInPersonAttendees()
     {
-        return $this->orders()->whereNotNull('transaction_id')->with('tickets.user')->get()
+        return $this->orders()->paid()->with('tickets.user')->get()
             ->flatMap->tickets
             ->filter(fn ($ticket) => ! Str::contains($ticket->ticketType->name, ['Virtual', 'virtual']))
             ->filter(fn ($ticket) => $ticket->user_id !== null)

@@ -38,7 +38,7 @@ class Reservations extends Component
 
     public function updatedSelectPage($value)
     {
-        $this->selected = ($value) ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)->toArray() : [];
+        $this->selected = ($value) ? $this->reservations->pluck('id')->map(fn ($id) => (string) $id)->toArray() : [];
     }
 
     public function updatedSelected($value)

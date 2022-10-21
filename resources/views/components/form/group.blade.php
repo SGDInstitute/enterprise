@@ -8,7 +8,7 @@
     @elseif (in_array($type, ['email', 'password', 'date']))
     <x-dynamic-component :type="$type ?? 'text'" component="form.input" :id="$model" wire:model.lazy="{{ $model }}" :placeholder="$placeholder" :leading="$leading" :trailing="$trailing" {{ $attributes->except('x-show') }}/>
     @elseif (in_array($type, ['input', 'number', 'text']))
-    <x-dynamic-component :type="$type ?? 'text'" component="form.input" :id="$model" wire:model="{{ $model }}" :placeholder="$placeholder" :leading="$leading" :trailing="$trailing" {{ $attributes->except('x-show') }}/>
+    <x-dynamic-component :type="$type ?? 'text'" component="form.input" :id="$model" wire:model.lazy="{{ $model }}" :placeholder="$placeholder" :leading="$leading" :trailing="$trailing" {{ $attributes->except('x-show') }}/>
     @elseif ($type === 'boolean')
     <div class="flex mt-1 space-x-4">
         <x-form.radio :id="$model.'-true'" :name="$model" value="1" wire:model="{{ $model }}" label="Yes" {{ $attributes->except('x-show') }} />

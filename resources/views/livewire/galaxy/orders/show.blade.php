@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
     <div class="space-y-4">
-        <x-bit.panel title="Details">
+        <x-bit.panel title="Details" class="overflow-hidden">
             <x-bit.definition>
                 <x-bit.definition.item key="ID" :value="$order->formattedId" />
                 <x-bit.definition.item key="User">

@@ -134,6 +134,10 @@ class Show extends Component
 
     public function getPreviousResponsesProperty()
     {
+        if (auth()->guest()) {
+            return [];
+        }
+
         if (isset($this->parent)) {
             return auth()->user()->responses()->where('form_id', $this->form->id)->where('parent_id', $this->parent)->get();
         }

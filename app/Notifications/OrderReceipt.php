@@ -28,7 +28,10 @@ class OrderReceipt extends Notification
     public function toMail($notifiable)
     {
         $subject = Setting::where('group', 'emails.order-receipt')->where('name', 'subject')->first()->payload;
-        $content = Setting::where('group', 'emails.order-receipt.content')->where('name', $this->order->isStripe() ? 'card' : 'check')->first()->payload;
+        $content = Setting::where('group', 'emails.order-receipt.content')
+            ->where('name', $this->order->isStripe() ? 'card' : 'check')
+            ->first()
+            ->payload;
         $parsed = Str::of($content)
             ->replace('{amount}', $this->order->formattedAmount)
             ->replace('{event}', $this->order->event->name)
@@ -36,7 +39,7 @@ class OrderReceipt extends Notification
             ->replace('{date}', $this->order->created_at->format('F j, Y'));
 
         return (new MailMessage())
-            ->subject($subject)
+            ->subject(Str::of($subject)->replace('{event}', $this->order->event->name))
             ->markdown('mail.email-content', [
                 'subject' => $subject,
                 'content' => $parsed,

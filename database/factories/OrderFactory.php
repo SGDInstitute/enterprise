@@ -14,6 +14,7 @@ class OrderFactory extends Factory
             'event_id' => Event::factory()->preset('mblgtacc'),
             'user_id' => User::factory(),
             'reservation_ends' => now()->addDays(15),
+            'status' => 'reservation',
         ];
     }
 

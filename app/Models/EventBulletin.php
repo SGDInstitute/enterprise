@@ -15,6 +15,11 @@ class EventBulletin extends Model
 
     // Relations
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
     // Attributes
 
     public function getFormattedPublishedAtAttribute()
