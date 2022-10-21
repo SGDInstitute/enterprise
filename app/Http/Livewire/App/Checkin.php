@@ -65,6 +65,7 @@ class Checkin extends Component
 
     public function add()
     {
+        // Virtual Ticket
         if ($this->ticket->ticket_type_id === 31) {
             $this->user->save();
             $this->ticket->addToQueue(printed: true);
@@ -76,6 +77,7 @@ class Checkin extends Component
         $this->user->save();
         $this->ticket->addToQueue();
 
+        // Add meal ticket
         if ($ticket = Ticket::where('ticket_type_id', 30)->where('user_id', $this->user->id)->first()) {
             $ticket->addToQueue();
         }
