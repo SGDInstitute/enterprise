@@ -53,10 +53,7 @@ class Checkin extends Component
 
     public function render()
     {
-        return view('livewire.app.checkin')
-            ->with([
-                'position' => $this->position,
-            ]);
+        return view('livewire.app.checkin');
     }
 
     public function getPositionProperty()

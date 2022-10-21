@@ -4,7 +4,7 @@
             @if ($ticket->isPrinted())
                 <p>Your badge is ready!!</p>
             @else
-                <p wire:poll.750ms>There are {{ $position }} badges printing ahead of yours. Please wait for the notification that your badge is ready, and then come to the check-in desk to pick it up.</p>
+                <p wire:poll.750ms>Please wait for the notification that your badge is ready, and then come to the check-in desk to pick it up.</p>
             @endif
         </div>
     </x-name-badge>
