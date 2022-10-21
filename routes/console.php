@@ -9,8 +9,8 @@ Artisan::command('print:all', function () {
     $url = env('PROD_URL');
 
     while (true) {
-        $this->info("Getting attendees");
-        $attendees = Http::get($url . '/api/queue')->json();
+        $this->info('Getting attendees');
+        $attendees = Http::get($url.'/api/queue')->json();
 
         foreach ($attendees as $attendee) {
             $slug = Str::slug($attendee['name']);
@@ -21,13 +21,13 @@ Artisan::command('print:all', function () {
                 ->windowSize(991, 306)
                 ->save($path);
 
-                $this->info("Printing: {$attendee['name']} : {$attendee['pronouns']}");
+            $this->info("Printing: {$attendee['name']} : {$attendee['pronouns']}");
             exec("brother_ql -b pyusb print -l 29x90 {$path}");
 
-            Http::post($url . "/api/queue/{$attendee['ticket_id']}/printed");
+            Http::post($url."/api/queue/{$attendee['ticket_id']}/printed");
         }
 
-        $this->info("Sleeping for 30 seconds");
+        $this->info('Sleeping for 30 seconds');
         sleep(30);
     }
 });
