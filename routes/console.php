@@ -14,7 +14,7 @@ Artisan::command('print:all', function () {
 
         foreach ($attendees as $attendee) {
             $slug = Str::slug($attendee['name']);
-            $view = "<h1 style='text-align:center;font-size:72px'>{$attendee['name']}</h1><h2 style='text-align:center;font-size:48px'>{$attendee['pronouns']}</h2>";
+            $view = view('components.bit.namebadge-label', ['name' => $attendee['name'], 'pronouns' => $attendee['pronouns']])->render();
             $path = storage_path("app/labels/{$slug}.png");
 
             Browsershot::html($view)
@@ -39,11 +39,11 @@ Artisan::command('print:test', function () {
     ];
 
     $slug = Str::slug($attendee['name']);
-    $view = "<h1 style='text-align:center;font-size:72px'>{$attendee['name']}</h1><h2 style='text-align:center;font-size:48px'>{$attendee['pronouns']}</h2>";
+    $view = view('components.bit.namebadge-label', ['name' => $attendee['name'], 'pronouns' => $attendee['pronouns']])->render();
     $path = storage_path("app/labels/{$slug}.png");
 
     Browsershot::html($view)
-        ->windowSize(991, 306)
+        ->windowSize(991, 306) // 29mm x 90mm die cut
         ->save($path);
 
     $this->info("Printing: {$attendee['name']} : {$attendee['pronouns']}");
