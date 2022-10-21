@@ -22,14 +22,14 @@ class PrintBadges extends Command
 
         if ($queue) {
             while (true) {
-                $this->info("Getting attendees");
-                $attendees = Http::get(env('PROD_URL') . '/api/queue')->json();
+                $this->info('Getting attendees');
+                $attendees = Http::get(env('PROD_URL').'/api/queue')->json();
 
                 foreach ($attendees as $attendee) {
                     $this->process($label, $attendee['name'], $attendee['pronouns'], $attendee['ticket_id']);
                 }
 
-                $this->info("Sleeping for 30 seconds");
+                $this->info('Sleeping for 30 seconds');
                 sleep(30);
             }
         } else {
@@ -55,8 +55,8 @@ class PrintBadges extends Command
         exec("brother_ql -b pyusb print -l {$label['name']} {$path} 2>&1", $output, $result);
 
         if ($ticketId && in_array('INFO:brother_ql.backends.helpers:Printing was successful. Waiting for the next job.', $output)) {
-            $this->info("Marking as printed");
-            Http::post(env('PROD_URL') . "/api/queue/{$ticketId}/printed");
+            $this->info('Marking as printed');
+            Http::post(env('PROD_URL')."/api/queue/{$ticketId}/printed");
         }
     }
 
