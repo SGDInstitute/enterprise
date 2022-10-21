@@ -22,6 +22,6 @@ Artisan::command('print', function () {
             ->windowSize(991, 306)
             ->save($path);
 
-        exec("brother_ql print -l 29x90 {$path}");
+        exec("brother_ql -b pyusb print -l 29x90 {$path}");
     }
 })->purpose('Display an inspiring quote');
