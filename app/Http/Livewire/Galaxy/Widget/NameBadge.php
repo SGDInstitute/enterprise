@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire\Galaxy\Widget;
 
-use App\Models\Event;
 use App\Models\EventBadgeQueue;
 use Livewire\Component;
 
 class NameBadge extends Component
 {
     public $name;
+
     public $pronouns;
 
     protected $rules = [
