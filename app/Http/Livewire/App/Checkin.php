@@ -75,11 +75,11 @@ class Checkin extends Component
 
         $this->validate();
         $this->user->save();
-        $this->ticket->addToQueue();
+        $this->ticket->refresh()->addToQueue();
 
         // Add meal ticket
         if ($ticket = Ticket::where('ticket_type_id', 30)->where('user_id', $this->user->id)->first()) {
-            $ticket->addToQueue();
+            $ticket->refresh()->addToQueue();
         }
 
         $this->ticket->refresh();
