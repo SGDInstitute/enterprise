@@ -10,30 +10,30 @@ use Spatie\Browsershot\Browsershot;
 class PrintBadges extends Command
 {
     protected $signature = 'print:badges {name?} {pronouns?} {label=62x100} {--queue}';
-
     protected $description = 'Print MBLGTACC conference badges';
+    protected $labels = [
+        '62x100' => ['name' => '62x100', 'width' => 1109, 'height' => 696],
+        '29x90' => ['name' => '29x90', 'width' => 991, 'height' => 306],
+    ];
 
     public function handle()
     {
-        $name = $this->argument('name');
-        $pronouns = $this->argument('pronouns');
-        $label = $this->labels($this->argument('label'));
-        $queue = $this->option('queue');
+        $label = $this->labels[$this->argument('label')];
+        
+        if (! $this->option('queue')) {
+            return $this->process($label, $this->argument('name'), $this->argument('pronouns'));
+        }
+        
+        while (true) {
+            $this->info('Getting attendees');
+            $attendees = Http::get(env('PROD_URL').'/api/queue')->json();
 
-        if ($queue) {
-            while (true) {
-                $this->info('Getting attendees');
-                $attendees = Http::get(env('PROD_URL').'/api/queue')->json();
-
-                foreach ($attendees as $attendee) {
-                    $this->process($label, $attendee['name'], $attendee['pronouns'], $attendee['ticket_id']);
-                }
-
-                $this->info('Sleeping for 30 seconds');
-                sleep(30);
+            foreach ($attendees as $attendee) {
+                $this->process($label, $attendee['name'], $attendee['pronouns'], $attendee['ticket_id']);
             }
-        } else {
-            $this->process($label, $name, $pronouns, $queue);
+
+            $this->info('Sleeping for 30 seconds');
+            sleep(30);
         }
     }
 
@@ -54,22 +54,19 @@ class PrintBadges extends Command
         $result = null;
         exec("brother_ql -b pyusb print -l {$label['name']} {$path} 2>&1", $output, $result);
 
-        if ($ticketId && in_array('INFO:brother_ql.backends.helpers:Printing was successful. Waiting for the next job.', $output)) {
+        if ($ticketId && $this->printSucceeded($output)) {
             $this->info('Marking as printed');
             Http::post(env('PROD_URL')."/api/queue/{$ticketId}/printed");
         }
     }
 
-    private function labels($key)
-    {
-        return [
-            '62x100' => ['name' => '62x100', 'width' => 1109, 'height' => 696],
-            '29x90' => ['name' => '29x90', 'width' => 991, 'height' => 306],
-        ][$key];
-    }
-
     private function formatPronouns($pronouns)
     {
         return Str::of($pronouns)->replace('/', ', ');
+    }
+    
+    private function printSucceeded($printOutput)
+    {
+        return in_array('INFO:brother_ql.backends.helpers:Printing was successful. Waiting for the next job.', $printOutput);
     }
 }
