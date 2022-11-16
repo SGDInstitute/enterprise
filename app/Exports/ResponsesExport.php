@@ -20,7 +20,7 @@ class ResponsesExport implements FromView
     {
         return view('exports.responses', [
             'responses' => Response::where('form_id', $this->id)->get(),
-            'questions' => Form::where('id', $this->id)->first()->form,
+            'questions' => Form::where('id', $this->id)->first()->form->where('style', 'question'),
         ]);
     }
 }
