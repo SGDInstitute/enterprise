@@ -29,8 +29,10 @@
                     @foreach ($question['options'] as $option)
                         <td>{{ $response->answers[$question['id']][$option] ?? '-' }}</td>
                     @endforeach
+                @elseif (isset($response->answers[$question['id']]))
+                <td>{{ is_array($response->answers[$question['id']]) ? implode(', ', $response->answers[$question['id']]) : $response->answers[$question['id']] }}</td>
                 @else
-                <td>{{ is_array($response->answers[$question['id']]) ? implode(', ', $response->answers[$question['id']]): $response->answers[$question['id']] }}</td>
+                <td></td>
                 @endif
             @endforeach
         </tr>
