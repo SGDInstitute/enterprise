@@ -19,7 +19,7 @@
         "hammerstone/sidecar": "^0.3.12",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/cashier": "^13.8",
-        "laravel/framework": "^9.41",
+        "laravel/framework": "^9.43",
         "laravel/horizon": "^5.10",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
