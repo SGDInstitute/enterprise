@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Donation;
 use App\Notifications\DonationReceipt;
+use Illuminate\Http\RedirectResponse;
 use Stripe\PaymentIntent;
 
 class DonationsProcessController extends Controller

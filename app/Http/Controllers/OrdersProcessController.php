@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Order;
 use App\Notifications\OrderReceipt;
+use Illuminate\Http\RedirectResponse;
 use Stripe\PaymentIntent;
 
 class OrdersProcessController extends Controller
