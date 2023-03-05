@@ -74,7 +74,7 @@
                     </x-bit.table.cell>
                     <x-bit.table.cell>{{ $reservation->formattedAmount }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $reservation->created_at->format('M, d Y') }}</x-bit.table.cell>
-                    <x-bit.table.cell>{{ optional($reservation->reservation_ends)->format('M, d Y') }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $reservation->reservation_ends?->format('M, d Y') }}</x-bit.table.cell>
 
                     <x-bit.table.cell>
                         <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.reservations.show', $reservation) }}">

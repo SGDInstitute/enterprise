@@ -22,7 +22,7 @@
                 @if ($order->isReservation())
                 <x-bit.definition.item key="Due Date" :value="$order->reservation_ends->format('M, d Y')" />
                 @else
-                <x-bit.definition.item key="Paid At" :value="optional($order->paid_at)->format('M, d Y')" />
+                <x-bit.definition.item key="Paid At" :value="$order->paid_at?->format('M, d Y')" />
                 @endif
                 <x-bit.definition.item key="Created" :value="$order->created_at->format('M, d Y')" />
             </x-bit.definition>
