@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Notification;
 
 class Kernel extends ConsoleKernel
 {
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
         })->everyFiveMinutes();
     }
 
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
 

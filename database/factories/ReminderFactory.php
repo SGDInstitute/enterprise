@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReminderFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             //

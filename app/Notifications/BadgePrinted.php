@@ -18,12 +18,12 @@ class BadgePrinted extends Notification
         $this->badge = $badge;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return $notifiable->notifications_via ?? ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
                     ->subject('Your MBLGTACC Name Badge is Ready!')
@@ -37,7 +37,7 @@ class BadgePrinted extends Notification
                     ->content("Your MBLGTACC name badge is hot off the presses. Please come to the registration table to pick it up.\n\n(No Reply. Text 810-666-1053 for support)");
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

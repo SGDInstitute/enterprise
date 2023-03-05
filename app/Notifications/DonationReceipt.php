@@ -20,12 +20,12 @@ class DonationReceipt extends Notification
         $this->donation = $donation;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $type = $this->donation->type;
         $date = $this->donation->created_at ?? now();
@@ -47,7 +47,7 @@ class DonationReceipt extends Notification
             ]);
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

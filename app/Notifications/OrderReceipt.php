@@ -20,12 +20,12 @@ class OrderReceipt extends Notification
         $this->order = $order;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $subject = Setting::where('group', 'emails.order-receipt')->where('name', 'subject')->first()->payload;
         $content = Setting::where('group', 'emails.order-receipt.content')
@@ -46,7 +46,7 @@ class OrderReceipt extends Notification
             ]);
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

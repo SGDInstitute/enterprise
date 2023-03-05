@@ -6,29 +6,29 @@ use App\Models\EventBadgeQueue;
 
 class QueueObserver
 {
-    public function created(EventBadgeQueue $badge)
+    public function created(EventBadgeQueue $badge): void
     {
         //
     }
 
-    public function updated(EventBadgeQueue $badge)
+    public function updated(EventBadgeQueue $badge): void
     {
         if ($badge->printed) {
             $badge->markAsPrinted();
         }
     }
 
-    public function deleted(EventBadgeQueue $badge)
+    public function deleted(EventBadgeQueue $badge): void
     {
         //
     }
 
-    public function restored(EventBadgeQueue $badge)
+    public function restored(EventBadgeQueue $badge): void
     {
         //
     }
 
-    public function forceDeleted(EventBadgeQueue $badge)
+    public function forceDeleted(EventBadgeQueue $badge): void
     {
         //
     }

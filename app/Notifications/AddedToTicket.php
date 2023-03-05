@@ -24,12 +24,12 @@ class AddedToTicket extends Notification implements ShouldQueue
         $this->causer = $causer;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())->markdown('mail.added-to-ticket', [
             'ticket' => $this->ticket,
@@ -41,7 +41,7 @@ class AddedToTicket extends Notification implements ShouldQueue
         ]);
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

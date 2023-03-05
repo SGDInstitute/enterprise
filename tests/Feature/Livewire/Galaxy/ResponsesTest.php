@@ -18,7 +18,7 @@ class ResponsesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_send_notification_status()
+    public function can_send_notification_status(): void
     {
         Notification::fake();
         $user = User::factory()->create()->assignRole('institute');

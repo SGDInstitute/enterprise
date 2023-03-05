@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('responses', function (Blueprint $table) {
             $table->foreignId('parent_id')->nullable()->constrained('responses')->after('user_id');

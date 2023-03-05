@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketTypeFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => 'Regular Registration',

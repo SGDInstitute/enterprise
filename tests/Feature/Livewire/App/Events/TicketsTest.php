@@ -16,7 +16,7 @@ class TicketsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function expired_ticket_types_are_disabled()
+    public function expired_ticket_types_are_disabled(): void
     {
         $user = User::factory()->create();
         $event = Event::factory()->preset('mblgtacc')->create();

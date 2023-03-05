@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'event_id' => Event::factory()->preset('mblgtacc'),

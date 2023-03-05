@@ -11,7 +11,7 @@ class ResponseTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_score_if_nothing_is_in_array()
+    public function can_score_if_nothing_is_in_array(): void
     {
         $response = Response::factory()->make([
             'form_id' => 1,

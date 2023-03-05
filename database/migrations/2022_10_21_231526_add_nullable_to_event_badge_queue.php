@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('event_badge_queue', function (Blueprint $table) {
             $table->foreignId('ticket_id')->nullable()->change();

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ResponseFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'form_id' => Form::factory(),

@@ -20,12 +20,12 @@ class BroadcastBulletin extends Notification implements ShouldQueue
         $this->bulletin = $bulletin;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return $notifiable->notifications_via === [] ? ['mail'] : $notifiable->notifications_via;
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $subject = $this->bulletin->event->name.' Notification: '.$this->bulletin->title;
 
@@ -43,7 +43,7 @@ class BroadcastBulletin extends Notification implements ShouldQueue
                     ->content("{$this->bulletin->title}\n\nView Full Text: https://apps.sgdinstitute.org/mblgtacc-2022/program/bulletin-board");
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

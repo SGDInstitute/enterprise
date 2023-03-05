@@ -18,7 +18,7 @@ class ShowTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_delete_order_if_unpaid()
+    public function can_delete_order_if_unpaid(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -39,7 +39,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function ticketholders_can_view_orders()
+    public function ticketholders_can_view_orders(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -54,7 +54,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function ticketholders_can_view_reservations()
+    public function ticketholders_can_view_reservations(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -69,7 +69,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function ticketholders_are_shown_tickets_tab()
+    public function ticketholders_are_shown_tickets_tab(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -83,7 +83,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function ticketholders_cannot_view_start_tab()
+    public function ticketholders_cannot_view_start_tab(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -97,7 +97,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function ticketholders_cannot_view_payment_tab()
+    public function ticketholders_cannot_view_payment_tab(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -111,7 +111,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function users_cannot_view_orders_they_are_not_attached_to()
+    public function users_cannot_view_orders_they_are_not_attached_to(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();

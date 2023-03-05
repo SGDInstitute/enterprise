@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Order;
 use App\Notifications\OrderReceipt;
 use Stripe\PaymentIntent;
 
 class OrdersProcessController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): RedirectResponse
     {
         $paymentIntent = PaymentIntent::retrieve(request('payment_intent'));
 

@@ -13,7 +13,7 @@ class PrintBadges extends Command
 
     protected $description = 'Print MBLGTACC conference badges';
 
-    public function handle()
+    public function handle(): void
     {
         $name = $this->argument('name');
         $pronouns = $this->argument('pronouns');

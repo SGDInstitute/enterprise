@@ -19,12 +19,12 @@ class RemovedAsCollaborator extends Notification implements ShouldQueue
         $this->response = $response;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->error()
@@ -32,7 +32,7 @@ class RemovedAsCollaborator extends Notification implements ShouldQueue
             ->line('We are just notifing you that you have been removed as a collaborator from '.$this->response->name.'.');
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

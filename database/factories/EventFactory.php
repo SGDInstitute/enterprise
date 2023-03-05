@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 
 class EventFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => '',
