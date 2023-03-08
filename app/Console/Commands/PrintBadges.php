@@ -13,12 +13,18 @@ class PrintBadges extends Command
 
     protected $description = 'Print MBLGTACC conference badges';
 
+    protected $labels = [
+        '62x100' => ['name' => '62x100', 'width' => 1109, 'height' => 696],
+        '29x90' => ['name' => '29x90', 'width' => 991, 'height' => 306],
+    ];
+
     public function handle(): void
     {
         $label = $this->labels[$this->argument('label')];
 
         if (! $this->option('queue')) {
-            return $this->process($label, $this->argument('name'), $this->argument('pronouns'));
+            $this->process($label, $this->argument('name'), $this->argument('pronouns'));
+            return;
         }
 
         while (true) {
