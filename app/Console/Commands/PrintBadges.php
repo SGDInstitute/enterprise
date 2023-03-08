@@ -24,6 +24,7 @@ class PrintBadges extends Command
 
         if (! $this->option('queue')) {
             $this->process($label, $this->argument('name'), $this->argument('pronouns'));
+
             return;
         }
 
