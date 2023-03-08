@@ -10,7 +10,9 @@ use Spatie\Browsershot\Browsershot;
 class PrintBadges extends Command
 {
     protected $signature = 'print:badges {name?} {pronouns?} {label=62x100} {--queue}';
+
     protected $description = 'Print MBLGTACC conference badges';
+
     protected $labels = [
         '62x100' => ['name' => '62x100', 'width' => 1109, 'height' => 696],
         '29x90' => ['name' => '29x90', 'width' => 991, 'height' => 306],
@@ -19,11 +21,11 @@ class PrintBadges extends Command
     public function handle()
     {
         $label = $this->labels[$this->argument('label')];
-        
+
         if (! $this->option('queue')) {
             return $this->process($label, $this->argument('name'), $this->argument('pronouns'));
         }
-        
+
         while (true) {
             $this->info('Getting attendees');
             $attendees = Http::get(env('PROD_URL').'/api/queue')->json();
@@ -64,7 +66,7 @@ class PrintBadges extends Command
     {
         return Str::of($pronouns)->replace('/', ', ');
     }
-    
+
     private function printSucceeded($printOutput)
     {
         return in_array('INFO:brother_ql.backends.helpers:Printing was successful. Waiting for the next job.', $printOutput);
