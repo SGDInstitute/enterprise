@@ -9,11 +9,11 @@
             <span class="relative z-0 inline-flex rounded-md shadow-sm">
                 <button wire:click="$set('reservationsView', 'table')" type="button" class="{{ $reservationsView === 'table' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200' : 'text-gray-500 bg-white dark:text-gray-400 dark:bg-gray-900' }} relative inline-flex items-center px-2 py-2 text-sm font-medium border border-gray-300 dark:border-gray-700 rounded-l-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500">
                     <span class="sr-only">Table View</span>
-                    <x-heroicon-o-table class="w-5 h-5" />
+                    <x-heroicon-o-table-cells class="w-5 h-5" />
                 </button>
                 <button wire:click="$set('reservationsView', 'grid')" type="button" class="{{ $reservationsView === 'grid' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200' : 'text-gray-500 bg-white dark:text-gray-400 dark:bg-gray-900' }} relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium border border-gray-300 dark:border-gray-700 rounded-r-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500">
                     <span class="sr-only">Grid View</span>
-                    <x-heroicon-o-view-grid class="w-5 h-5" />
+                    <x-heroicon-o-squares-2x2 class="w-5 h-5" />
                 </button>
             </span>
 
@@ -99,11 +99,11 @@
             <span class="relative z-0 inline-flex rounded-md shadow-sm">
                 <button wire:click="$set('ordersView', 'table')" type="button" class="{{ $ordersView === 'table' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200' : 'text-gray-500 bg-white dark:text-gray-400 dark:bg-gray-900' }} relative inline-flex items-center px-2 py-2 text-sm font-medium border border-gray-300 dark:border-gray-700 rounded-l-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500">
                     <span class="sr-only">Table View</span>
-                    <x-heroicon-o-table class="w-5 h-5" />
+                    <x-heroicon-o-table-cells class="w-5 h-5" />
                 </button>
                 <button wire:click="$set('ordersView', 'grid')" type="button" class="{{ $ordersView === 'grid' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200' : 'text-gray-500 bg-white dark:text-gray-400 dark:bg-gray-900' }} relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium border border-gray-300 dark:border-gray-700 rounded-r-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500">
                     <span class="sr-only">Grid View</span>
-                    <x-heroicon-o-view-grid class="w-5 h-5" />
+                    <x-heroicon-o-squares-2x2 class="w-5 h-5" />
                 </button>
             </span>
 

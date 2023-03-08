@@ -1,7 +1,7 @@
 <div x-data="{tab: @entangle('tab')}" class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <x-ui.aside colspan="lg:col-span-2">
         <x-ui.aside.button tab="info" icon="heroicon-o-information-circle">Information</x-ui.aside.button>
-        <x-ui.aside.button tab="builder" icon="heroicon-o-cursor-click">Builder</x-ui.aside.button>
+        <x-ui.aside.button tab="builder" icon="heroicon-o-cursor-arrow-rays">Builder</x-ui.aside.button>
     </x-ui.aside>
 
     <div x-show="tab === 'info'" class="space-y-6 sm:px-6 lg:px-0 lg:col-span-10">

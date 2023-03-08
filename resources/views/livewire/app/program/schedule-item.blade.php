@@ -23,7 +23,7 @@
                 <x-ui.feed.item icon="heroicon-o-users" title="Speakers" iconClass="bg-green-500 rounded-md">{{ $item->speaker }}</x-ui.feed.item>
                 @endif
                 @if ($item->tracks)
-                <x-ui.feed.item icon="heroicon-o-collection" title="Tracks" iconClass="bg-green-500 rounded-md">{{ $item->tracks }}</x-ui.feed.item>
+                <x-ui.feed.item icon="heroicon-o-rectangle-stack" title="Tracks" iconClass="bg-green-500 rounded-md">{{ $item->tracks }}</x-ui.feed.item>
                 @endif
                 @if ($item->warnings)
                 <x-ui.feed.item icon="heroicon-o-exclamation" title="Content Warnings" iconClass="bg-green-500 rounded-md">{{ $item->warnings }}</x-ui.feed.item>

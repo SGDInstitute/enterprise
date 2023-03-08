@@ -6,7 +6,7 @@
         <button type="button" @click="open = !open" class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <x-heroicon-o-menu x-show="!open" class="w-6 h-6" />
-          <x-heroicon-o-x x-show="open" x-cloak class="w-6 h-6" />
+          <x-heroicon-o-x-mark x-show="open" x-cloak class="w-6 h-6" />
         </button>
       </div>
       <div class="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
