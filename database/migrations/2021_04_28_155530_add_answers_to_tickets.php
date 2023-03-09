@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->json('answers')->after('user_id')->nullable();

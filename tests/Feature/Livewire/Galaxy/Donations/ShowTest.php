@@ -14,7 +14,7 @@ class ShowTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_livewire_donations_component_on_page()
+    public function can_see_livewire_donations_component_on_page(): void
     {
         $donation = Donation::factory()->create([
             'transaction_id' => 'test_pi_123123',
@@ -32,7 +32,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function can_view_all_donations()
+    public function can_view_all_donations(): void
     {
         $donation = Donation::factory()->create([
             'transaction_id' => 'test_pi_123123',

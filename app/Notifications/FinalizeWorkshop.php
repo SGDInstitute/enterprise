@@ -19,12 +19,12 @@ class FinalizeWorkshop extends Notification implements ShouldQueue
     ) {
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->subject("You have a new task to complete for {$this->workshop->name}")
@@ -36,7 +36,7 @@ class FinalizeWorkshop extends Notification implements ShouldQueue
             ]);
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

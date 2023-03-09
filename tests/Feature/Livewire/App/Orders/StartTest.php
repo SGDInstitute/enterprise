@@ -16,7 +16,7 @@ class StartTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function expired_ticket_types_are_not_shown()
+    public function expired_ticket_types_are_not_shown(): void
     {
         $user = User::factory()->create();
         $event = Event::factory()->preset('mblgtacc')->create();

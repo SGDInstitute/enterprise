@@ -19,12 +19,12 @@ class AddedAsCollaborator extends Notification implements ShouldQueue
         $this->response = $response;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->subject('Added as collaborator to '.$this->response->name)
@@ -33,7 +33,7 @@ class AddedAsCollaborator extends Notification implements ShouldQueue
             ->action('View Submission', route('app.forms.show', ['form' => $this->response->form, 'edit' => $this->response]));
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

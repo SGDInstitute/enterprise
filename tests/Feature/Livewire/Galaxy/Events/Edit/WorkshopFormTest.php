@@ -14,7 +14,7 @@ class WorkshopFormTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_livewire_component_on_page()
+    public function can_see_livewire_component_on_page(): void
     {
         $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -26,7 +26,7 @@ class WorkshopFormTest extends TestCase
     }
 
     /** @test */
-    public function can_set_reminders()
+    public function can_set_reminders(): void
     {
         $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create();

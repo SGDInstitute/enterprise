@@ -14,7 +14,7 @@ class DonationsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_livewire_donations_component_on_page()
+    public function can_see_livewire_donations_component_on_page(): void
     {
         $user = User::factory()->create()->assignRole('institute');
 
@@ -25,7 +25,7 @@ class DonationsTest extends TestCase
     }
 
     /** @test */
-    public function can_view_all_donations()
+    public function can_view_all_donations(): void
     {
         Donation::factory(5)->create();
         $user = User::factory()->create()->assignRole('institute');
@@ -36,7 +36,7 @@ class DonationsTest extends TestCase
     }
 
     /** @test */
-    public function can_search_donations()
+    public function can_search_donations(): void
     {
         Donation::factory(5)->create();
         Donation::factory()->create(['transaction_id' => 'ch_123123']);

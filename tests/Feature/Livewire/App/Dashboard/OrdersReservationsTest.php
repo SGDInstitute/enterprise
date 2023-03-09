@@ -18,7 +18,7 @@ class OrdersReservationsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_view_all_orders()
+    public function can_view_all_orders(): void
     {
         $user = User::factory()->create();
         Order::factory()->for($user)->paid()->create();
@@ -30,7 +30,7 @@ class OrdersReservationsTest extends TestCase
     }
 
     /** @test */
-    public function can_view_all_reservations()
+    public function can_view_all_reservations(): void
     {
         $user = User::factory()->create();
         Order::factory()->for($user)->create();
@@ -42,7 +42,7 @@ class OrdersReservationsTest extends TestCase
     }
 
     /** @test */
-    public function ticketholder_can_view_order()
+    public function ticketholder_can_view_order(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -57,7 +57,7 @@ class OrdersReservationsTest extends TestCase
     }
 
     /** @test */
-    public function ticketholder_can_view_reservation()
+    public function ticketholder_can_view_reservation(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();

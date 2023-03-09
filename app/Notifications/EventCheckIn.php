@@ -17,12 +17,12 @@ class EventCheckIn extends Notification
         $this->event = $event;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
                     ->subject("Time to check-in for {$this->event->name}!")
@@ -32,7 +32,7 @@ class EventCheckIn extends Notification
                     ->line('We look forward to greeting you soon!');
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

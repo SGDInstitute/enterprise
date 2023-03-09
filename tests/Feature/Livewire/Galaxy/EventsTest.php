@@ -11,7 +11,7 @@ class EventsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_livewire_events_component_on_events_page()
+    public function can_see_livewire_events_component_on_events_page(): void
     {
         $user = User::factory()->create()->assignRole('institute');
 

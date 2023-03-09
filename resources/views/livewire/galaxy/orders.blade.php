@@ -73,7 +73,7 @@
                     </x-bit.table.cell>
                     <x-bit.table.cell>{{ $order->formattedAmount }}</x-bit.table.cell>
                     <x-bit.table.cell>{{ $order->created_at->format('M, d Y') }}</x-bit.table.cell>
-                    <x-bit.table.cell>{{ optional($order->paid_at)->format('M, d Y') }}</x-bit.table.cell>
+                    <x-bit.table.cell>{{ $order->paid_at?->format('M, d Y') }}</x-bit.table.cell>
 
                     <x-bit.table.cell>
                         <x-bit.button.link size="py-1 px-2" href="{{ route('galaxy.orders.show', $order) }}">

@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Setting::create(['group' => 'orders.thank-you-modal', 'name' => 'title', 'type' => 'string', 'payload' => 'Thank You!']);
         Setting::create(['group' => 'orders.thank-you-modal', 'name' => 'content', 'type' => 'string', 'payload' => 'Your order is greatly appreciated.']);

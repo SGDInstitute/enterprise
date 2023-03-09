@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
 
 class ImpersonationController extends Controller
@@ -20,7 +21,7 @@ class ImpersonationController extends Controller
         // $this->middleware('auth:' . $guard)->only('take');
     }
 
-    public function __invoke()
+    public function __invoke(): RedirectResponse
     {
         if (! $this->manager->isImpersonating()) {
             abort(403);

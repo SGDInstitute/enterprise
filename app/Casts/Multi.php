@@ -3,10 +3,11 @@
 namespace App\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
 
 class Multi implements CastsAttributes
 {
-    public function get($model, $key, $value, $attributes)
+    public function get(Model $model, string $key, mixed $value, array $attributes)
     {
         if ($attributes['type'] === 'array') {
             return json_decode($value, true);
@@ -15,7 +16,7 @@ class Multi implements CastsAttributes
         }
     }
 
-    public function set($model, $key, $value, $attributes)
+    public function set(Model $model, string $key, mixed $value, array $attributes)
     {
         if (is_null($value)) {
             return null;

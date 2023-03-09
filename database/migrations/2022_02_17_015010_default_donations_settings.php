@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Setting::create(['group' => 'donations.page', 'name' => 'title', 'type' => 'string', 'payload' => 'Support Our Work']);
         Setting::create(['group' => 'donations.page', 'name' => 'image', 'type' => 'string', 'payload' => 'https://sgdinstitute.org/assets/headers/header-test2.jpg']);

@@ -14,7 +14,7 @@ class DonationsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_view_all_donations()
+    public function can_view_all_donations(): void
     {
         $user = User::factory()->create();
         Donation::factory()->count(5)->for($user)->create();

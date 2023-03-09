@@ -3,10 +3,10 @@
         <h2 class="text-xl font-bold leading-7 text-gray-900 dark:text-gray-100 sm:text-2xl sm:truncate">Payment</h2>
         <div class="space-x-1">
             <x-bit.button.flat.primary wire:click="downloadInvoice" size="xs" class="space-x-2">
-                <x-heroicon-o-download class="w-4 h-4" /> <span>Download Invoice</span>
+                <x-heroicon-o-arrow-down-tray class="w-4 h-4" /> <span>Download Invoice</span>
             </x-bit.button.flat.primary>
             <x-bit.button.flat.primary wire:click="downloadW9" size="xs" class="space-x-2">
-                <x-heroicon-o-download class="w-4 h-4" /> <span>Download W9</span>
+                <x-heroicon-o-arrow-down-tray class="w-4 h-4" /> <span>Download W9</span>
             </x-bit.button.flat.primary>
         </div>
     </div>
@@ -259,7 +259,7 @@
         </div>
 
         <x-bit.button.flat.accent-filled wire:click="downloadInvoice" block id="submit" size="large" class="space-x-2">
-            <x-heroicon-o-download class="w-6 h-6" /> <span>Download Receipt</span>
+            <x-heroicon-o-arrow-down-tray class="w-6 h-6" /> <span>Download Receipt</span>
             </x-bit.button.flat.primary>
             @endif
     </form>

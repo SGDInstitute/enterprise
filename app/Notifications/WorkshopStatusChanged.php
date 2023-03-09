@@ -27,12 +27,12 @@ class WorkshopStatusChanged extends Notification implements ShouldQueue
         $this->causer = $causer;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
                     ->when($this->statusChanged && $this->comment === '', function ($mail) {
@@ -56,7 +56,7 @@ class WorkshopStatusChanged extends Notification implements ShouldQueue
                     ->line('If you want to comment please do not reply to this email, login and view the workshop instead.');
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

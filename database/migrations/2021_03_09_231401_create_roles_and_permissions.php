@@ -6,7 +6,7 @@ use Spatie\Permission\Models\Role;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         $institute = Role::create(['name' => 'institute']);
         $mblgtacc = Role::create(['name' => 'mblgtacc']);

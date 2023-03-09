@@ -9,14 +9,14 @@ use Stripe\Stripe;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         EventItem::observe(EventItemObserver::class);
 
         Stripe::setApiKey(config('services.stripe.secret'));
     }
 
-    public function register()
+    public function register(): void
     {
         //
     }

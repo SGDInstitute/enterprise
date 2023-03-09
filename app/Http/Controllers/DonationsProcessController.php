@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Donation;
 use App\Notifications\DonationReceipt;
+use Illuminate\Http\RedirectResponse;
 use Stripe\PaymentIntent;
 
 class DonationsProcessController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): RedirectResponse
     {
         $paymentIntent = PaymentIntent::retrieve(request('payment_intent'));
 

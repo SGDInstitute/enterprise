@@ -14,7 +14,7 @@ class CreateTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_livewire_events_create_component_on_events_create_page()
+    public function can_see_livewire_events_create_component_on_events_create_page(): void
     {
         $user = User::factory()->create()->assignRole('institute');
 
@@ -25,7 +25,7 @@ class CreateTest extends TestCase
     }
 
     /** @test */
-    public function can_create_event()
+    public function can_create_event(): void
     {
         $user = User::factory()->create()->assignRole('institute');
 
@@ -82,7 +82,7 @@ class CreateTest extends TestCase
     }
 
     /** @test */
-    public function can_create_event_with_preset()
+    public function can_create_event_with_preset(): void
     {
         $user = User::factory()->create()->assignRole('institute');
 

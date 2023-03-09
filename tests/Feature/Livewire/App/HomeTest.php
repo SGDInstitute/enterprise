@@ -12,7 +12,7 @@ class HomeTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function the_component_can_render()
+    public function the_component_can_render(): void
     {
         $component = Livewire::test(Home::class);
 

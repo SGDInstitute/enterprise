@@ -14,7 +14,7 @@ class TicketsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_livewire_component_on_page()
+    public function can_see_livewire_component_on_page(): void
     {
         $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -76,7 +76,7 @@ class TicketsTest extends TestCase
     // }
 
     /** @test */
-    public function can_delete_ticket_type_for_event()
+    public function can_delete_ticket_type_for_event(): void
     {
         $user = User::factory()->create()->assignRole('institute');
         $event = Event::factory()->preset('mblgtacc')->create();

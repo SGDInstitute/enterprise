@@ -15,7 +15,7 @@ class ShowTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function reminders_are_set_when_workshop_response_saved()
+    public function reminders_are_set_when_workshop_response_saved(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $form = Form::factory()->for($event)->preset('workshop')->create([
@@ -38,7 +38,7 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function only_reminders_available_before_form_end_are_set_when_workshop_response_saved()
+    public function only_reminders_available_before_form_end_are_set_when_workshop_response_saved(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $form = Form::factory()->for($event)->preset('workshop')->create([

@@ -10,39 +10,39 @@ class OrderPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         //
     }
 
-    public function view(User $user, Order $order)
+    public function view(User $user, Order $order): bool
     {
         $ticketHolders = $order->tickets()->select('user_id')->whereNotNull('user_id')->pluck('user_id');
 
         return $order->user_id === $user->id || $ticketHolders->contains($user->id);
     }
 
-    public function create(User $user)
+    public function create(User $user): bool
     {
         //
     }
 
-    public function update(User $user, Order $order)
+    public function update(User $user, Order $order): bool
     {
         //
     }
 
-    public function delete(User $user, Order $order)
+    public function delete(User $user, Order $order): bool
     {
         return $order->user_id === $user->id;
     }
 
-    public function restore(User $user, Order $order)
+    public function restore(User $user, Order $order): bool
     {
         //
     }
 
-    public function forceDelete(User $user, Order $order)
+    public function forceDelete(User $user, Order $order): bool
     {
         //
     }
