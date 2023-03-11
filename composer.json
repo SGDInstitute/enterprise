@@ -11,7 +11,7 @@
         "php": "^8.1",
         "akaunting/laravel-version": "^1.0",
         "barryvdh/laravel-dompdf": "^2.0",
-        "blade-ui-kit/blade-heroicons": "^2.1",
+        "blade-ui-kit/blade-heroicons": "^1.4",
         "blade-ui-kit/blade-icons": "^1.5",
         "doctrine/dbal": "^3.5",
         "erusev/parsedown-extra": "^0.8.1",

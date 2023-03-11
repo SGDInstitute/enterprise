@@ -7,7 +7,7 @@
             <div class="absolute top-0 right-0 pt-2 -mr-12">
                 <button x-show="sidebarOpen" @click="sidebarOpen = false" class="flex items-center justify-center w-10 h-10 ml-1 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" style="display: none;">
                     <span class="sr-only">Close sidebar</span>
-                    <x-heroicon-o-x-mark class="w-6 h-6 text-white" x-description="Heroicon name: x"/>
+                    <x-heroicon-o-x class="w-6 h-6 text-white" x-description="Heroicon name: x"/>
                 </button>
             </div>
             <div class="flex items-center flex-shrink-0 px-4">
