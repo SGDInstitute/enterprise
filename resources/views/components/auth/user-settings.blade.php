@@ -15,7 +15,8 @@
         <x-slot name="content">
             @can ('galaxy.view')
             <x-dropdown-link :href="route('app.dashboard')">Frontend</x-dropdown-link>
-            <x-dropdown-link :href="route('galaxy.dashboard')">Galaxy</x-dropdown-link>
+            <x-dropdown-link :href="route('galaxy.dashboard')">Galaxy (Old)</x-dropdown-link>
+            <x-dropdown-link href="/admin">Galaxy (New)</x-dropdown-link>
             @endcan
             @impersonating
             <x-dropdown-link :href="route('impersonation.leave')">Leave Impersonation</x-dropdown-link>

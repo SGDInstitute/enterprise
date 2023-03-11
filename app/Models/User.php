@@ -36,6 +36,11 @@ class User extends Authenticatable
         'address' => 'array',
     ];
 
+    public function canAccessFilament(): bool
+    {
+        return $this->can('view-galaxy');
+    }
+
     // Relationships
 
     public function donations()

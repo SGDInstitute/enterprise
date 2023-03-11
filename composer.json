@@ -15,6 +15,7 @@
         "blade-ui-kit/blade-icons": "^1.5",
         "doctrine/dbal": "^3.5",
         "erusev/parsedown-extra": "^0.8.1",
+        "filament/filament": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "hammerstone/sidecar": "^0.4",
         "lab404/laravel-impersonate": "^1.7",
@@ -88,7 +89,8 @@
         ],
         "post-update-cmd": [
             "@php artisan horizon:publish --ansi",
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan filament:upgrade"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
