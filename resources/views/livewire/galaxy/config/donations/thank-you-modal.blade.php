@@ -124,7 +124,7 @@
                     <x-bit.panel.heading class="flex items-center justify-between space-x-4">
                         <h2 class="text-gray-900 dark:text-gray-200">Content Editor</h2>
                         <button wire:click="$toggle('editPanel')">
-                            <x-heroicon-o-x-mark class="w-6 h-6 text-gray-700 hover:text-green-500 dark:text-gray-400 dark:hover:text-green-400" />
+                            <x-heroicon-o-x class="w-6 h-6 text-gray-700 hover:text-green-500 dark:text-gray-400 dark:hover:text-green-400" />
                         </button>
                     </x-bit.panel.heading>
                     <x-bit.panel.body>

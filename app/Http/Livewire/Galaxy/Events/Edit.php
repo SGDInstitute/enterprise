@@ -31,7 +31,7 @@ class Edit extends Component
     {
         $pages = [
             ['value' => 'details', 'label' => 'Details', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'details']), 'icon' => 'heroicon-o-paper-clip', 'active' => $this->page === 'details'],
-            ['value' => 'tabs', 'label' => 'Policy Tabs', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'tabs']), 'icon' => 'heroicon-o-rectangle-stack', 'active' => $this->page === 'tabs'],
+            ['value' => 'tabs', 'label' => 'Policy Tabs', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'tabs']), 'icon' => 'heroicon-o-collection', 'active' => $this->page === 'tabs'],
             ['value' => 'media', 'label' => 'Media', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'media']), 'icon' => 'heroicon-o-camera', 'active' => $this->page === 'media'],
             ['value' => 'tickets', 'label' => 'Ticket Types', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'tickets']), 'icon' => 'heroicon-o-ticket', 'active' => $this->page === 'tickets'],
         ];
@@ -40,7 +40,7 @@ class Edit extends Component
             $pages[] = ['value' => 'addons', 'label' => 'Add-ons', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'addons']), 'icon' => 'heroicon-o-shopping-bag', 'active' => $this->page === 'addons'];
         }
         if ($this->event->settings->has_workshops) {
-            $pages[] = ['value' => 'workshops', 'label' => 'Workshop Form', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'workshops']), 'icon' => 'heroicon-o-puzzle-piece', 'active' => $this->page === 'workshops'];
+            $pages[] = ['value' => 'workshops', 'label' => 'Workshop Form', 'href' => route('galaxy.events.edit', ['event' => $this->event, 'page' => 'workshops']), 'icon' => 'heroicon-o-puzzle', 'active' => $this->page === 'workshops'];
         }
 
         if ($this->event->end->diffInDays($this->event->start) > 0) {
