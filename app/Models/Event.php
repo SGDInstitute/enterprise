@@ -88,9 +88,9 @@ class Event extends Model implements HasMedia
 
     public function getFormattedLocationAttribute()
     {
-        if ($this->settings->onsite && $this->settings->livestream) {
+        if ($this->settings->onsite && $this->location !== '' && $this->settings->livestream) {
             return $this->location.' & Virtual';
-        } elseif ($this->settings->onsite) {
+        } elseif ($this->settings->onsite && $this->location !== '') {
             return $this->location;
         } else {
             return 'Virtual';

@@ -1,13 +1,16 @@
 <div>
     <section>
-        <div class="block h-64 transition duration-150 ease-in-out bg-green-500 shadow">
-            <div class="bg-center bg-cover h-2/3 bg-gray-50 dark:bg-gray-850" style="background-image: url({{ $event->backgroundUrl }});">
+        <div class="block transition duration-150 ease-in-out bg-green-500 shadow">
+            <div class="bg-center bg-cover h-48 bg-gray-50 dark:bg-gray-850" style="background-image: url({{ $event->backgroundUrl }});">
                 <img src="{{ $event->backgroundUrl }}" alt="{{ $event->name }}" class="sr-only">
             </div>
-            <div class="px-4 py-2 mx-4 -mt-8 transition duration-150 ease-in-out bg-green-500">
-                <p class="text-2xl text-gray-200">{{ $event->name }}</p>
-                <p class="text-sm text-gray-300 text-italic">{{ $event->formattedDuration }}</p>
-                <p class="text-sm text-gray-300 text-italic">{{ $event->formattedLocation }}</p>
+            <div class="px-4 py-2 mx-4 -mt-8 transition duration-150 ease-in-out bg-green-500 space-y-2">
+                <p class="text-2xl text-white">{{ $event->name }}</p>
+                @isset ($event->subtitle)
+                <p class="text-gray-200">{{ $event->subtitle }}</p>
+                @endif
+                <p class="text-sm text-gray-200 text-italic">{{ $event->formattedDuration }}</p>
+                <p class="text-sm text-gray-200 text-italic">{{ $event->formattedLocation }}</p>
             </div>
         </div>
         <div class="divide-y divide-gray-200 shadow dark:divide-gray-900">
