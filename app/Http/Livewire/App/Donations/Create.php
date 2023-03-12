@@ -5,7 +5,6 @@ namespace App\Http\Livewire\App\Donations;
 use App\Models\Donation;
 use App\Models\Setting;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -109,7 +108,7 @@ class Create extends Component
     public function getAmountLabelProperty()
     {
         if ($this->amount != '') {
-            return '$'.$this->amount.' ';
+            return '$' . $this->amount . ' ';
         }
     }
 
@@ -178,7 +177,7 @@ class Create extends Component
             $user = User::create(['name' => $this->name, 'email' => $this->email, 'password' => Hash::make($password)]);
             session(['was_created' => true]);
 
-            Auth::attempt(['email' => $this->email, 'password' => $password]);
+            auth()->attempt(['email' => $this->email, 'password' => $password]);
         } elseif (auth()->guest()) {
             return $this->emit('notify', ['message' => 'Please login before continuing.', 'type' => 'error']);
         } elseif ($this->type === 'monthly' && auth()->user()->hasRecurringDonation()) {

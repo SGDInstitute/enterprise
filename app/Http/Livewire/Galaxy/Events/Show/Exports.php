@@ -8,6 +8,7 @@ use App\Exports\TicketUsersExport;
 use App\Models\Event;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Maatwebsite\Excel\Excel as FileType;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Exports extends Component
@@ -54,7 +55,7 @@ class Exports extends Component
         return Excel::download(
             new TicketUsersExport($this->event->id, $this->allUsers['ticket_type'], $this->allUsers['status']),
             "{$ticketType}-users-{$this->allUsers['status']}.csv",
-            \Maatwebsite\Excel\Excel::CSV
+            FileType::CSV
         );
     }
 
@@ -63,7 +64,7 @@ class Exports extends Component
         return Excel::download(
             new ScheduledPresentersExport($this->event),
             'scheduled-workshop-presenters.csv',
-            \Maatwebsite\Excel\Excel::CSV
+            FileType::CSV
         );
     }
 
@@ -74,7 +75,7 @@ class Exports extends Component
         return Excel::download(
             new TicketAnswersExport($this->event->id, $this->ticketAnswers['ticket_type'], $this->ticketAnswers['question'], $this->ticketAnswers['status']),
             "{$ticketType}-{$this->ticketAnswers['question']}-answers-{$this->ticketAnswers['status']}.csv",
-            \Maatwebsite\Excel\Excel::CSV
+            FileType::CSV
         );
     }
 }

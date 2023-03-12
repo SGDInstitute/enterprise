@@ -93,7 +93,7 @@ class Tickets extends Component
             }
         }
 
-        return '$'.number_format($checkoutAmount / 100, 2);
+        return '$' . number_format($checkoutAmount / 100, 2);
     }
 
     public function reserve()

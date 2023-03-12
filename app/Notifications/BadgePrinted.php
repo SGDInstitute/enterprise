@@ -25,7 +25,7 @@ class BadgePrinted extends Notification
 
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
                     ->subject('Your MBLGTACC Name Badge is Ready!')
                     ->line('Your name badge is hot off the presses. Please come to the registration table to pick it up.')
                     ->line('See you soon!');

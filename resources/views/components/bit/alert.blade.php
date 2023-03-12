@@ -5,7 +5,7 @@
     </div>
     <div class="flex-1 ml-3 md:flex md:justify-between">
       <p class="text-sm text-blue-700 dark:text-blue-300">{{ $slot }}</p>
-      @isset ($button)
+      @isset($button)
       <p class="mt-3 text-sm md:mt-0 md:ml-6">
           {{ $button }}
           {{-- <a href="#" class="font-medium text-blue-700 whitespace-nowrap hover:text-blue-600">Details <span aria-hidden="true">&rarr;</span></a> --}}

@@ -12,8 +12,6 @@ class ResponseLog extends Component
 {
     public Response $response;
 
-    protected $listeners = ['refresh' => '$refresh'];
-
     public $comment = '';
 
     public $internal = false;
@@ -23,6 +21,8 @@ class ResponseLog extends Component
     public $isGalaxy = false;
 
     public $statusChanged = false;
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
     {

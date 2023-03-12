@@ -78,7 +78,7 @@
                         </button>
                         @endif
 
-                        @isset ($collisions[$subItem->location])
+                        @isset($collisions[$subItem->location])
                         <span>
                             <x-heroicon-o-exclamation class="w-4 h-4 text-red-500" />
                         </span>

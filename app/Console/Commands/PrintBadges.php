@@ -30,7 +30,7 @@ class PrintBadges extends Command
 
         while (true) {
             $this->info('Getting attendees');
-            $attendees = Http::get(env('PROD_URL').'/api/queue')->json();
+            $attendees = Http::get(config('app.url') . '/api/queue')->json();
 
             foreach ($attendees as $attendee) {
                 $this->process($label, $attendee['name'], $attendee['pronouns'], $attendee['ticket_id']);
@@ -60,7 +60,7 @@ class PrintBadges extends Command
 
         if ($ticketId && $this->printSucceeded($output)) {
             $this->info('Marking as printed');
-            Http::post(env('PROD_URL')."/api/queue/{$ticketId}/printed");
+            Http::post(config('app.url') . "/api/queue/{$ticketId}/printed");
         }
     }
 

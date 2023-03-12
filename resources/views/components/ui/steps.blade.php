@@ -3,7 +3,7 @@
         <ol role="list" class="overflow-hidden rounded-md lg:flex lg:border-l lg:border-r lg:border-gray-200 dark:lg:border-gray-700 lg:rounded-none">
             @foreach ($steps as $step)
             <li class="relative overflow-hidden lg:flex-1">
-                @isset ($step['route'])
+                @isset($step['route'])
                 <a href="{{ $step['route'] }}" class="w-full overflow-hidden border border-t-0 border-gray-200 group dark:border-gray-700 rounded-b-md lg:border-0">
                     @if ($step['current'])
                     <span class="absolute top-0 left-0 w-1 h-full bg-green-600 dark:bg-green-400 lg:w-full lg:h-1 lg:bottom-0 lg:top-auto" aria-hidden="true"></span>
@@ -32,7 +32,7 @@
                             @else
                             <span class="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">{{ $step['title'] }}</span>
                             @endif
-                            @isset ($step['subtitle'])
+                            @isset($step['subtitle'])
                             <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $step['subtitle'] }}</span>
                             @endif
                         </span>
@@ -75,7 +75,7 @@
                             @else
                             <span class="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">{{ $step['title'] }}</span>
                             @endif
-                            @isset ($step['subtitle'])
+                            @isset($step['subtitle'])
                             <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $step['subtitle'] }}</span>
                             @endif
                         </span>

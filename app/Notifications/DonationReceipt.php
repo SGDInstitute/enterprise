@@ -38,7 +38,7 @@ class DonationReceipt extends Notification
             ->replace('{amount}', $this->donation->formattedAmount)
             ->replace('{date}', $date->format('F j, Y'));
 
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject($subject)
             ->markdown('mail.donation-receipt', [
                 'subject' => $subject,

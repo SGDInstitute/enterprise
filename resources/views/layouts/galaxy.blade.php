@@ -50,7 +50,7 @@
                 <div class="py-6">
                     <div class="flex items-center justify-between px-4 mx-auto space-x-1 max-w-7xl sm:px-6 md:px-8">
                         <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-200">{{ $title }}</h1>
-                        @isset ($action)
+                        @isset($action)
                         <x-bit.button.round.primary wire:click="{{ $action['method'] }}">{{ $action['label'] }}</x-bit.button.round.primary>
                         @endif
                     </div>

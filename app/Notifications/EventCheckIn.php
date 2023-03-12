@@ -24,7 +24,7 @@ class EventCheckIn extends Notification
 
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
                     ->subject("Time to check-in for {$this->event->name}!")
                     ->line("It's time to check-in for {$this->event->name}!")
                     ->action('Check-in Now', route('app.checkin', $notifiable->ticketForEvent($this->event)))

@@ -40,7 +40,7 @@ class Form extends Component
     public function mount($form = null)
     {
         if ($form === null) {
-            $this->form = new Model();
+            $this->form = new Model;
             $this->builder = collect([]);
         } else {
             $this->form = $form;

@@ -31,13 +31,13 @@ class Slots extends Component
 
     public function mount()
     {
-        $this->editingItem = new EventItem();
+        $this->editingItem = new EventItem;
     }
 
     public function render()
     {
         return view('livewire.galaxy.events.edit.slots')
-            ->layout('layouts.galaxy', ['title' => $this->event->name.' '.$this->item->name])
+            ->layout('layouts.galaxy', ['title' => $this->event->name . ' ' . $this->item->name])
             ->with([
                 'collisions' => $this->collisions,
                 'items' => $this->items,
@@ -73,7 +73,7 @@ class Slots extends Component
 
     public function resetItemModal()
     {
-        $this->editingItem = new EventItem();
+        $this->editingItem = new EventItem;
         $this->reset('editingTracks', 'editingWarnings', 'showItemModal');
     }
 

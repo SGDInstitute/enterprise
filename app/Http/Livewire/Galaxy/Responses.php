@@ -67,7 +67,7 @@ class Responses extends Component
             $this->event = $this->form->event;
         }
 
-        $this->editingItem = new EventItem();
+        $this->editingItem = new EventItem;
 
         $this->setAdvancedForm();
     }
@@ -86,7 +86,7 @@ class Responses extends Component
     public function render()
     {
         return view('livewire.galaxy.responses')
-            ->layout('layouts.galaxy', ['title' => 'Responses for '.$this->form->name])
+            ->layout('layouts.galaxy', ['title' => 'Responses for ' . $this->form->name])
             ->with([
                 'responses' => $this->responses,
                 'assignedWorkshops' => $this->assignedWorkshops,
@@ -129,13 +129,13 @@ class Responses extends Component
                     foreach ($this->form->settings->get('searchable') as $index => $item) {
                         $function = $index === 0 ? 'where' : 'orWhere';
 
-                        $query->$function('answers->'.$item, 'LIKE', '%'.$search.'%');
+                        $query->$function('answers->' . $item, 'LIKE', '%' . $search . '%');
                     }
                 } else {
-                    $query->where('answers->name', 'LIKE', '%'.$search.'%');
+                    $query->where('answers->name', 'LIKE', '%' . $search . '%');
                 }
 
-                $query->orWhere('status', 'LIKE', '%'.$search.'%');
+                $query->orWhere('status', 'LIKE', '%' . $search . '%');
             })
             ->when($this->advancedChanged, function ($query) {
                 $advanced = array_filter($this->advanced, fn ($item) => $item !== '' && $item !== []);
@@ -143,13 +143,13 @@ class Responses extends Component
                     if (Str::startsWith($id, 'question')) {
                         if (is_array($value)) {
                             foreach ($value as $item) {
-                                $query->where('answers->'.$id, 'LIKE', '%'.trim($item).'%');
+                                $query->where('answers->' . $id, 'LIKE', '%' . trim($item) . '%');
                             }
                         } elseif (is_string($value) && $value != '') {
-                            $query->where('answers->'.$id, 'LIKE', '%'.trim($value).'%');
+                            $query->where('answers->' . $id, 'LIKE', '%' . trim($value) . '%');
                         }
                     } else {
-                        $query->where($id, 'LIKE', '%'.trim($value).'%');
+                        $query->where($id, 'LIKE', '%' . trim($value) . '%');
                     }
                 }
             })
@@ -215,7 +215,7 @@ class Responses extends Component
     public function resetItemModal()
     {
         $this->showItemModal = false;
-        $this->editingItem = new EventItem();
+        $this->editingItem = new EventItem;
         $this->reset('editingTracks', 'editingWarnings', 'editingWorkshopId');
     }
 
@@ -240,7 +240,7 @@ class Responses extends Component
 
         if ($this->editingWorkshop->status !== 'scheduled') {
             $this->editingWorkshop->update(['status' => 'scheduled']);
-            $comment = 'Scheduled for '.$this->editingItem->formattedDuration.' in '.$this->editingItem->location;
+            $comment = 'Scheduled for ' . $this->editingItem->formattedDuration . ' in ' . $this->editingItem->location;
             activity()->performedOn($this->editingWorkshop)->withProperties(['comment' => $comment])->log('scheduled');
             Notification::send(
                 $this->editingWorkshop->collaborators->where('id', '<>', auth()->id()),

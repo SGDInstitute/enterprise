@@ -20,7 +20,7 @@ class FormFactory extends Factory
         if ($type === 'workshop') {
             return $this->state(function (array $attributes) {
                 return [
-                    'name' => $name = 'MBLGTACC '.now()->format('Y').' Workshop Proposal',
+                    'name' => $name = 'MBLGTACC ' . now()->format('Y') . ' Workshop Proposal',
                     'slug' => str($name)->slug(),
                     'type' => 'workshop',
                     'auth_required' => 0,

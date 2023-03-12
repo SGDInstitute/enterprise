@@ -1,6 +1,6 @@
 <div class="relative flex items-start space-x-3">
     <div class="relative">
-        @isset ($activity->causer)
+        @isset($activity->causer)
         <img class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full ring-8 ring-gray-100 dark:ring-gray-700" src="{{ $activity->causer->profile_photo_url }}" alt="{{ $activity->causer->name }}">
         @else
         <div class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full ring-8 ring-gray-100 dark:ring-gray-700"></div>
@@ -16,7 +16,7 @@
             <x-bit.badge class="float-right">Internal</x-bit.badge>
             @endif
             <div class="text-sm">
-                @isset ($activity->causer)
+                @isset($activity->causer)
                 <a href="#" class="font-medium text-gray-900 dark:text-gray-200">{{ $activity->causer->name }}</a>
                 @endif
             </div>

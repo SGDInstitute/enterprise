@@ -44,11 +44,11 @@
         "beyondcode/helo-laravel": "^1.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.18",
-        "laravel/pint": "^1.2",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.3",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "tightenco/duster": "^1.0"
     },
     "config": {
         "optimize-autoloader": true,

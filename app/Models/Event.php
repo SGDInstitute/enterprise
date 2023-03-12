@@ -75,9 +75,9 @@ class Event extends Model implements HasMedia
     public function getFormattedDurationAttribute()
     {
         if ($this->start->diffInHours($this->end) > 24) {
-            return $this->start->timezone($this->timezone)->format('D, M j').' - '.$this->end->timezone($this->timezone)->format('D, M j, Y');
+            return $this->start->timezone($this->timezone)->format('D, M j') . ' - ' . $this->end->timezone($this->timezone)->format('D, M j, Y');
         } else {
-            return $this->start->timezone($this->timezone)->format('D, M j Y g:i a').' - '.$this->end->timezone($this->timezone)->format('g:i a');
+            return $this->start->timezone($this->timezone)->format('D, M j Y g:i a') . ' - ' . $this->end->timezone($this->timezone)->format('g:i a');
         }
     }
 
@@ -88,8 +88,8 @@ class Event extends Model implements HasMedia
 
     public function getFormattedLocationAttribute()
     {
-        if ($this->settings->onsite && $this->location !== '' && $this->settings->livestream) {
-            return $this->location.' & Virtual';
+        if ($this->settings->onsite && $this->location && $this->settings->livestream) {
+            return $this->location . ' & Virtual';
         } elseif ($this->settings->onsite && $this->location !== '') {
             return $this->location;
         } else {

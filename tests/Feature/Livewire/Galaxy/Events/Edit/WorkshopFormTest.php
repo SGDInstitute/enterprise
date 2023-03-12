@@ -20,7 +20,7 @@ class WorkshopFormTest extends TestCase
         $event = Event::factory()->preset('mblgtacc')->create();
 
         $this->actingAs($user)
-            ->get('/galaxy/events/'.$event->id.'/edit/workshops')
+            ->get('/galaxy/events/' . $event->id . '/edit/workshops')
             ->assertSuccessful()
             ->assertSeeLivewire('galaxy.events.edit.workshop-form');
     }
@@ -33,7 +33,7 @@ class WorkshopFormTest extends TestCase
         $this->workshopForm = Form::create([
             'event_id' => $event->id,
             'type' => 'workshop',
-            'name' => $event->name.' Workshop Proposal',
+            'name' => $event->name . ' Workshop Proposal',
             'timezone' => $event->timezone,
         ]);
 

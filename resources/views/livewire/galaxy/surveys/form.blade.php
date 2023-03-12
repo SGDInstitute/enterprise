@@ -112,7 +112,7 @@
                                             </x-bit.input.group>
 
                                             <div class="col-span-3 space-y-4">
-                                                @isset ($form[$openIndex]['conditions'])
+                                                @isset($form[$openIndex]['conditions'])
                                                 @foreach ($form[$openIndex]['conditions'] as $index => $condition)
                                                 <div class="flex space-x-4">
                                                     <x-bit.input.group :for="'condition-field-'.$index" label="Field" sr-only>

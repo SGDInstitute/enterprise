@@ -28,7 +28,7 @@ Route::get('forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::
 
 Route::get('onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');

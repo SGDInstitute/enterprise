@@ -21,7 +21,7 @@ if (! function_exists('hyphenate')) {
 if (! function_exists('markdown')) {
     function markdown($text)
     {
-        return (new ParsedownExtra())->text($text);
+        return (new ParsedownExtra)->text($text);
     }
 }
 
@@ -29,10 +29,10 @@ if (! function_exists('stripeUrl')) {
     function stripeUrl($text)
     {
         if (config('app.env') === 'production') {
-            return 'https://dashboard.stripe.com/search?query='.$text;
+            return 'https://dashboard.stripe.com/search?query=' . $text;
         }
 
-        return 'https://dashboard.stripe.com/test/search?query='.$text;
+        return 'https://dashboard.stripe.com/test/search?query=' . $text;
     }
 }
 

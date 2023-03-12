@@ -26,7 +26,7 @@ class ShowTest extends TestCase
 
         $this->actingAs($user)
             ->withoutExceptionHandling()
-            ->get('/galaxy/donations/'.$donation->id)
+            ->get('/galaxy/donations/' . $donation->id)
             ->assertSuccessful()
             ->assertSeeLivewire('galaxy.donations.show');
     }

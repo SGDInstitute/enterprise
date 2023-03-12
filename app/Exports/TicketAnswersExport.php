@@ -26,7 +26,7 @@ class TicketAnswersExport implements FromCollection, WithHeadings
                 $answers = $ticket->answers[$this->question];
                 if (in_array('other', $ticket->answers[$this->question])) {
                     $index = array_search('other', $ticket->answers[$this->question]);
-                    $answers[$index] = $ticket->answers[$this->question.'-other'];
+                    $answers[$index] = $ticket->answers[$this->question . '-other'];
                 }
 
                 return [
