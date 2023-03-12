@@ -38,7 +38,7 @@ class OrderReceipt extends Notification
             ->replace('{tickets}', $this->order->tickets()->count())
             ->replace('{date}', $this->order->created_at->format('F j, Y'));
 
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject(Str::of($subject)->replace('{event}', $this->order->event->name))
             ->markdown('mail.email-content', [
                 'subject' => $subject,

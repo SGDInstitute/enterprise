@@ -39,7 +39,7 @@
                         </x-slot>
                     </x-bit.table>
                 </div>
-                @isset ($qa['others'])
+                @isset($qa['others'])
                 <div>
                     <h4 class="mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">Other Answers</h4>
                     <div class="text-gray-900 dark:text-gray-200">{{ $qa['others'] }}</div>

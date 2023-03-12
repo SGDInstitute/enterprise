@@ -25,7 +25,7 @@
 
 <div>
     <x-bit.input.group :for="$item['id']" :label="$item['question']" :error="$errors->first('answers.' . $item['id'])">
-        @isset ($item['help'])
+        @isset($item['help'])
             <x-bit.input.help>{{ $item['help'] }}</x-bit.input.help>
         @endif
 

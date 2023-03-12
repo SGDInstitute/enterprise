@@ -23,7 +23,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->user = new User();
+        $this->user = new User;
     }
 
     public function render()

@@ -36,7 +36,7 @@ class Start extends Component
             $checkoutAmount += $price->cost * $ticket['amount'];
         }
 
-        return '$'.number_format($checkoutAmount / 100, 2);
+        return '$' . number_format($checkoutAmount / 100, 2);
     }
 
     public function getOrderTicketsProperty()

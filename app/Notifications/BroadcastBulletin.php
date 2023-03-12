@@ -27,9 +27,9 @@ class BroadcastBulletin extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
-        $subject = $this->bulletin->event->name.' Notification: '.$this->bulletin->title;
+        $subject = $this->bulletin->event->name . ' Notification: ' . $this->bulletin->title;
 
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject($subject)
             ->markdown('mail.email-content', [
                 'subject' => $subject,

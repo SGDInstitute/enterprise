@@ -32,7 +32,7 @@ class Price extends Model
 
     public function getFormattedCostAttribute()
     {
-        return '$'.number_format($this->cost / 100);
+        return '$' . number_format($this->cost / 100);
     }
 
     public function getFormattedEndAttribute()

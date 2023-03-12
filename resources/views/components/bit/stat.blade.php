@@ -3,7 +3,7 @@
 <div class="flex flex-col justify-between overflow-hidden bg-white rounded-lg shadow dark:bg-gray-700">
     <div class="px-4 py-5 sm:p-6">
         <div class="flex items-center">
-            @isset ($icon)
+            @isset($icon)
             <div class="flex-shrink-0 p-3 bg-{{ $color }}-500 rounded-md">
                 <x-dynamic-component :component="$icon" class="w-6 h-6 text-white" />
             </div>
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    @isset ($route)
+    @isset($route)
     <div class="px-4 py-4 bg-gray-100 dark:bg-gray-500 sm:px-6">
         <div class="text-sm leading-5">
             <a href="{{ route($route) }}" class="font-medium text-{{ $color }}-600 dark:text-{{ $color }}-300 transition duration-150 ease-in-out hover:text-{{ $color }}-500 dark:hover:text-{{ $color }}-200">

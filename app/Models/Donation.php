@@ -74,7 +74,7 @@ class Donation extends Model
 
     public function getFormattedAmountAttribute()
     {
-        return '$'.number_format($this->amount / 100, 2);
+        return '$' . number_format($this->amount / 100, 2);
     }
 
     public function getFormattedTypeAttribute()

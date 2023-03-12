@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -46,7 +45,7 @@ class AuthModals extends Component
             'form.password' => 'required|string',
         ]);
 
-        if (Auth::attempt($data['form'])) {
+        if (auth()->attempt($data['form'])) {
             request()->session()->regenerate();
 
             return redirect(url()->previous());

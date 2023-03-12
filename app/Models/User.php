@@ -84,38 +84,6 @@ class User extends Authenticatable
         }
     }
 
-    protected function notificationsVia(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value === null ? [] : json_decode($value),
-            set: fn ($value) => json_encode($value),
-        );
-    }
-
-    protected function phone(): Attribute
-    {
-        return Attribute::make(
-            get: function ($value) {
-                if (empty($value) || strlen($value) === 0 || $value === '' || $value === '' || $value === null || $value === '() -') {
-                    return null;
-                }
-
-                $area = substr($value, 1, 3);
-                $mid = substr($value, 4, 3);
-                $last = substr($value, 7, 4);
-
-                $formatted = "({$area}) {$mid}-{$last}";
-
-                if ($formatted === '() -') {
-                    return null;
-                }
-
-                return $formatted;
-            },
-            set: fn ($value) => Str::of($value)->replace(' ', '')->replace('(', '')->replace(')', '')->replace('-', '')->prepend(1),
-        );
-    }
-
     // Methods
 
     public function findOrCreateCustomerId()
@@ -160,5 +128,37 @@ class User extends Authenticatable
     public function ticketForEvent($event)
     {
         return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->first();
+    }
+
+    protected function notificationsVia(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value === null ? [] : json_decode($value),
+            set: fn ($value) => json_encode($value),
+        );
+    }
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (empty($value) || strlen($value) === 0 || $value === '' || $value === '' || $value === null || $value === '() -') {
+                    return null;
+                }
+
+                $area = substr($value, 1, 3);
+                $mid = substr($value, 4, 3);
+                $last = substr($value, 7, 4);
+
+                $formatted = "({$area}) {$mid}-{$last}";
+
+                if ($formatted === '() -') {
+                    return null;
+                }
+
+                return $formatted;
+            },
+            set: fn ($value) => Str::of($value)->replace(' ', '')->replace('(', '')->replace(')', '')->replace('-', '')->prepend(1),
+        );
     }
 }

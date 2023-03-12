@@ -216,7 +216,7 @@ class Tickets extends Component
         if ($this->editingTicket->user_id === null || $this->emailChanged === false) {
             $user = User::whereEmail($this->ticketholder['email'])->first();
             if ($user === null && ! $this->emailChanged) {
-                $user = new User();
+                $user = new User;
                 $user->email = $this->ticketholder['email'];
                 $user->password = Hash::make(Str::random(15));
                 $newUser = true;

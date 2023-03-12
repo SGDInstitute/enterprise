@@ -26,7 +26,7 @@ class FinalizeWorkshop extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject("You have a new task to complete for {$this->workshop->name}")
             ->markdown('mail.finalize-workshop', [
                 'title' => $this->workshop->name,

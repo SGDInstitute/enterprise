@@ -15,7 +15,7 @@
                 </button>
             </div>
             <nav class="hidden space-x-8 md:flex">
-                @isset ($links)
+                @isset($links)
                 @foreach ($links as $link)
                 <a href="{{ $link['url'] }}" class="text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
                     {{ $link['text'] }}
@@ -70,7 +70,7 @@
                         </div>
                         <div>
                             <nav class="grid grid-cols-1 gap-7">
-                                @isset ($links)
+                                @isset($links)
                                 @foreach ($links as $link)
                                 <a href="{{ $link['url'] }}" class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     {{ $link['text'] }}

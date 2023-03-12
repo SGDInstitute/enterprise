@@ -26,10 +26,10 @@ class RemovedAsCollaborator extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->error()
-            ->subject('Removed as collaborator from '.$this->response->name)
-            ->line('We are just notifing you that you have been removed as a collaborator from '.$this->response->name.'.');
+            ->subject('Removed as collaborator from ' . $this->response->name)
+            ->line('We are just notifing you that you have been removed as a collaborator from ' . $this->response->name . '.');
     }
 
     public function toArray($notifiable): array

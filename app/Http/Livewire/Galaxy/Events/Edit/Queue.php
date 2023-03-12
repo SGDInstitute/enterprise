@@ -37,7 +37,7 @@ class Queue extends Component
     public function render()
     {
         return view('livewire.galaxy.events.edit.queue')
-            ->layout('layouts.galaxy', ['title' => 'Queue for '.$this->event->name])
+            ->layout('layouts.galaxy', ['title' => 'Queue for ' . $this->event->name])
             ->with([
                 'queue' => $this->queue,
             ]);

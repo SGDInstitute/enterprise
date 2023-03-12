@@ -93,7 +93,7 @@ class Order extends Model
     public function getFormattedAmountAttribute()
     {
         if ($this->isPaid()) {
-            return '$'.number_format($this->amount / 100, 2);
+            return '$' . number_format($this->amount / 100, 2);
         }
 
         return $this->subtotal;
@@ -110,7 +110,7 @@ class Order extends Model
 
     public function getFormattedIdAttribute()
     {
-        return $this->event->order_prefix.$this->id;
+        return $this->event->order_prefix . $this->id;
     }
 
     public function getInvoiceAttribute(): SchemalessAttributes
@@ -120,7 +120,7 @@ class Order extends Model
 
     public function getSubtotalAttribute()
     {
-        return '$'.number_format($this->subtotalInCents / 100, 2);
+        return '$' . number_format($this->subtotalInCents / 100, 2);
     }
 
     public function getSubtotalInCentsAttribute()
@@ -183,7 +183,7 @@ class Order extends Model
                         'type' => 'card',
                         'brand' => $method->card->brand,
                         'last4' => $method->card->last4,
-                        'exp' => $method->card->exp_month.'/'.$method->card->exp_year,
+                        'exp' => $method->card->exp_month . '/' . $method->card->exp_year,
                     ];
                 }
             } elseif (Str::startsWith($this->transaction_id, '#') || is_numeric($this->transaction_id)) {
@@ -213,10 +213,10 @@ class Order extends Model
             $price = $group->first()->scaled_price ?? $group->first()->price->cost;
 
             return [
-                'item' => $this->event->name.' '.$group->first()->ticketType->name.' - '.$group->first()->price->name,
+                'item' => $this->event->name . ' ' . $group->first()->ticketType->name . ' - ' . $group->first()->price->name,
                 'quantity' => $group->count(),
-                'price' => '$'.number_format($price / 100, 2),
-                'total' => '$'.number_format($group->count() * $price / 100, 2),
+                'price' => '$' . number_format($price / 100, 2),
+                'total' => '$' . number_format($group->count() * $price / 100, 2),
             ];
         });
     }

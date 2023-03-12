@@ -17,7 +17,7 @@ trait WithProducts
             ->get()
             ->sortBy('name')
             ->each(function ($item) {
-                $item->nameWithType = $item->name.' ('.$item->type->name.')';
+                $item->nameWithType = $item->name . ' (' . $item->type->name . ')';
             })
             ->pluck('nameWithType', 'id');
     }

@@ -1,6 +1,6 @@
 <div {{ $attributes->merge(['class' => 'min-w-full overflow-hidden overflow-scroll align-middle rounded-lg shadow']) }}>
     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        @isset ($head)
+        @isset($head)
         <thead>
             <tr>
                 {{ $head }}

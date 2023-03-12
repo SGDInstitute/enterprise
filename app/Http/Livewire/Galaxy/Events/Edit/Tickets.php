@@ -22,18 +22,6 @@ class Tickets extends Component
         'search' => '',
     ];
 
-    protected $listeners = ['refresh' => '$refresh'];
-
-    protected $rules = [
-        'editing.type' => '',
-        'editing.name' => '',
-        'editing.description' => '',
-        'editing.num_tickets' => '',
-        'costInDollars' => '',
-        'formattedStart' => '',
-        'formattedEnd' => '',
-    ];
-
     public $editing;
 
     public $costInDollars;
@@ -47,6 +35,18 @@ class Tickets extends Component
     public $perPage = 10;
 
     public $showModal = false;
+
+    protected $listeners = ['refresh' => '$refresh'];
+
+    protected $rules = [
+        'editing.type' => '',
+        'editing.name' => '',
+        'editing.description' => '',
+        'editing.num_tickets' => '',
+        'costInDollars' => '',
+        'formattedStart' => '',
+        'formattedEnd' => '',
+    ];
 
     public function mount()
     {
@@ -66,7 +66,7 @@ class Tickets extends Component
         return TicketType::query()
             ->when($this->filters['search'], function ($query) {
                 $query->where(function ($query) {
-                    $query->where('name', 'like', '%'.trim($this->filters['search']).'%');
+                    $query->where('name', 'like', '%' . trim($this->filters['search']) . '%');
                 });
             })
             ->where('event_id', $this->event->id)

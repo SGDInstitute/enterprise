@@ -1,6 +1,6 @@
 @props(['label', 'id', 'name'])
 
-@isset ($label)
+@isset($label)
 <div class="relative flex items-start">
     <div class="flex items-center h-6">
         <input id="{{ $id }}" name="{{ $name ?? $id }}" {{ $attributes }} type="checkbox" class="w-5 h-5 text-green-600 border-gray-300 rounded dark:border-gray-700 dark:bg-gray-800 focus:ring-green-500">

@@ -25,7 +25,7 @@
                         <span class="ml-4 text-sm font-medium text-gray-900 dark:text-gray-200">{{ $step['name'] }}</span>
                         @endif
                     </div>
-                    @isset ($step['help'])
+                    @isset($step['help'])
                         <x-dynamic-component :component="$step['help']" />
                     @endif
                 </span>
