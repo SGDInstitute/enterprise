@@ -6,7 +6,9 @@
             </div>
             <div class="px-4 py-2 mx-4 -mt-8 transition duration-150 ease-in-out bg-green-500 space-y-2">
                 <p class="text-2xl text-white">{{ $event->name }}</p>
+                @isset ($event->subtitle)
                 <p class="text-gray-200">{{ $event->subtitle }}</p>
+                @endif
                 <p class="text-sm text-gray-200 text-italic">{{ $event->formattedDuration }}</p>
                 <p class="text-sm text-gray-200 text-italic">{{ $event->formattedLocation }}</p>
             </div>
