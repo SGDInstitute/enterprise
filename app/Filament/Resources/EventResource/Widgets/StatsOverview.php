@@ -11,21 +11,21 @@ class StatsOverview extends BaseWidget
 {
     public ?Model $record = null;
 
+    protected int | string | array $columnSpan = 2;
+
     protected function getColumns(): int
     {
-        return 3;
+        return 2;
     }
 
     protected function getCards(): array
     {
         return [
-            Card::make('Days until Event', $this->daysLeft)
-                ->icon('heroicon-o-calendar'),
-            Card::make('Reservations', $this->reservations->count())
-                ->icon('heroicon-o-cursor-click'),
-            Card::make('Orders', $this->orders->count())
-                ->icon('heroicon-o-currency-dollar'),
-            ...$this->ticketCards
+            Card::make('Days until Event', $this->daysLeft)->extraAttributes([
+                'class' => 'col-span-2',
+            ]),
+            ...$this->countsCards,
+            ...$this->moneyCards,
         ];
     }
 
@@ -51,23 +51,25 @@ class StatsOverview extends BaseWidget
         return Order::forEvent($this->record)->paid()->with('tickets')->get();
     }
 
-    public function getTicketCardsProperty()
+    public function getCountsCardsProperty()
     {
-        $reservationTicketTypes = $this->reservations->flatMap->tickets;
-        $orderTicketTypes = $this->orders->flatMap->tickets;
+        $reservationTickets = $this->reservations->flatMap->tickets->count();
+        $orderTickets = $this->orders->flatMap->tickets->count();
 
-        $cards = [];
-        foreach ($this->record->ticketTypes as $ticketType) {
-            $unpaidTicketsCount = $reservationTicketTypes->where('ticket_type_id', $ticketType->id)->count();
-            $paidTicketsCount = $orderTicketTypes->where('ticket_type_id', $ticketType->id)->count();
+        return [
+            Card::make('Reservations', "{$this->reservations->count()} ({$reservationTickets} tickets)"),
+            Card::make('Orders', "{$this->orders->count()} ({$orderTickets} tickets)"),
+        ];
+    }
 
-            $cards[] = Card::make(
-                "# {$ticketType->name} Tickets (Unpaid)",
-                "$unpaidTicketsCount unpaid / $paidTicketsCount paid"
-            )
-            ->icon('heroicon-o-ticket');
-        }
+    public function getMoneyCardsProperty()
+    {
+        $potential = '$'.number_format($this->reservations->sum('subtotalInCents')/100, 2);
+        $made = '$'.number_format($this->orders->sum('amount')/100, 2);
 
-        return $cards;
+        return [
+            Card::make('Potential Money from Reservations', $potential),
+            Card::make('Money Made from Orders', $made),
+        ];
     }
 }
