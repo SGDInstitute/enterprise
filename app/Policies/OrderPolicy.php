@@ -10,6 +10,13 @@ class OrderPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user): bool
+    {
+        if ($user->hasRole('institute')) {
+            return true;
+        }
+    }
+
     public function viewAny(User $user): bool
     {
         //

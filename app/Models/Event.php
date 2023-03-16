@@ -50,6 +50,16 @@ class Event extends Model implements HasMedia
         return $this->hasMany(Order::class);
     }
 
+    public function paidOrders()
+    {
+        return $this->hasMany(Order::class)->paid();
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Order::class)->reservations();
+    }
+
     public function publishedBulletins()
     {
         return $this->hasMany(EventBulletin::class)->where('published_at', '<', now());

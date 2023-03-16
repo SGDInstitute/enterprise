@@ -43,7 +43,7 @@ class Order extends Model
 
     public function scopeReservations($query)
     {
-        return $query->where('status', 'reservation');
+        return $query->whereNull('paid_at');
     }
 
     public function scopePaid($query)
@@ -113,10 +113,10 @@ class Order extends Model
         return $this->event->order_prefix . $this->id;
     }
 
-    public function getInvoiceAttribute(): SchemalessAttributes
-    {
-        return SchemalessAttributes::createForModel($this, 'invoice');
-    }
+    // public function getInvoiceAttribute(): SchemalessAttributes
+    // {
+    //     return SchemalessAttributes::createForModel($this, 'invoice');
+    // }
 
     public function getSubtotalAttribute()
     {

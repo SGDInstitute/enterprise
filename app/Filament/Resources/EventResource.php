@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EventResource\Pages;
+use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
+use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Models\Event;
 use Closure;
 use Filament\Forms\Components\Card;
@@ -141,7 +143,8 @@ class EventResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ReservationsRelationManager::class,
+            OrdersRelationManager::class,
         ];
     }
 
