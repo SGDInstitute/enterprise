@@ -57,22 +57,32 @@ class OrderResource extends Resource
                     ->searchable(),
                 TextColumn::make('user.name')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('event.name')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('tickets')
                     ->formatStateUsing(fn ($state) => count($state))
-                    ->label('# Tickets'),
+                    ->label('# Tickets')
+                    ->toggleable(),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
                     ->options([
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
-                    ]),
+                    ])
+                    ->toggleable(),
                 TextColumn::make('formatted_amount')
-                    ->label('Amount'),
+                    ->label('Amount')
+                    ->toggleable(),
                 TextColumn::make('created_at')
-                    ->date(),
+                    ->date()
+                    ->toggleable(),
                 TextColumn::make('paid_at')
-                    ->date(),
+                    ->date()
+                    ->toggleable(),
             ])
             ->defaultSort('paid_at', 'desc')
             ->filters([
