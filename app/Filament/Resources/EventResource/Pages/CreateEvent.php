@@ -14,6 +14,7 @@ class CreateEvent extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $data = Arr::except($data, ['preset']);
+
         return static::getModel()::create($data);
     }
 }

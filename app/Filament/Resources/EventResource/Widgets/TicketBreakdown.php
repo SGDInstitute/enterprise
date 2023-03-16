@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketBreakdown extends Widget
 {
-    public ?Model $record = null;
-
     protected static string $view = 'filament.resources.event-resource.widgets.ticket-breakdown';
+    public ?Model $record = null;
 
     public function getReservationsProperty()
     {

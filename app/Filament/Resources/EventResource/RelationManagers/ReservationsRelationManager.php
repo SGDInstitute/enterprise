@@ -2,18 +2,14 @@
 
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
-use Filament\Tables;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ReservationsRelationManager extends RelationManager
 {

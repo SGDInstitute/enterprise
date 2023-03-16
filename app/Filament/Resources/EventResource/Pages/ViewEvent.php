@@ -16,7 +16,7 @@ class ViewEvent extends ViewRecord
 
     protected static string $view = 'filament.resources.events.pages.view-event';
 
-    protected function getHeaderWidgetsColumns(): int | array
+    protected function getHeaderWidgetsColumns(): int|array
     {
         return 3;
     }
@@ -40,12 +40,13 @@ class ViewEvent extends ViewRecord
                         'tablePaid' => $breakdown->tablePaidData(),
                         'tableFilled' => $breakdown->tableFilledData(),
                     ]);
+
                     return response()->streamDownload(
                         fn () => print($pdf->output()),
-                        "filename.pdf"
-                   );
+                        'filename.pdf'
+                    );
                 })
-                ->icon('heroicon-s-download')
+                ->icon('heroicon-s-download'),
         ];
     }
 
