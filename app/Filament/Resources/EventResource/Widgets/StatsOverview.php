@@ -24,8 +24,10 @@ class StatsOverview extends BaseWidget
             Card::make('Days until Event', $this->daysLeft)->extraAttributes([
                 'class' => 'col-span-2',
             ]),
-            ...$this->countsCards,
-            ...$this->moneyCards,
+            Card::make('Reservations', $this->reservationTotals),
+            Card::make('Orders', $this->orderTotals),
+            Card::make('Potential Money from Reservations', $this->potentialMoney),
+            Card::make('Money Made from Orders', $this->moneyMade),
         ];
     }
 
@@ -51,25 +53,25 @@ class StatsOverview extends BaseWidget
         return Order::forEvent($this->record)->paid()->with('tickets')->get();
     }
 
-    public function getCountsCardsProperty()
+    public function getReservationTotalsProperty()
     {
         $reservationTickets = $this->reservations->flatMap->tickets->count();
-        $orderTickets = $this->orders->flatMap->tickets->count();
-
-        return [
-            Card::make('Reservations', "{$this->reservations->count()} ({$reservationTickets} tickets)"),
-            Card::make('Orders', "{$this->orders->count()} ({$orderTickets} tickets)"),
-        ];
+        return "{$this->reservations->count()} ({$reservationTickets} tickets)";
     }
 
-    public function getMoneyCardsProperty()
+    public function getOrderTotalsProperty()
     {
-        $potential = '$'.number_format($this->reservations->sum('subtotalInCents')/100, 2);
-        $made = '$'.number_format($this->orders->sum('amount')/100, 2);
+        $orderTickets = $this->orders->flatMap->tickets->count();
+        return "{$this->orders->count()} ({$orderTickets} tickets)";
+    }
 
-        return [
-            Card::make('Potential Money from Reservations', $potential),
-            Card::make('Money Made from Orders', $made),
-        ];
+    public function getPotentialMoneyProperty()
+    {
+        return '$'.number_format($this->reservations->sum('subtotalInCents')/100, 2);
+    }
+
+    public function getMoneyMadeProperty()
+    {
+        return '$'.number_format($this->orders->sum('amount')/100, 2);
     }
 }
