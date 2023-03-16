@@ -3,18 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
-use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrderResource extends Resource
 {
@@ -28,22 +25,22 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('event_id')
+                TextInput::make('event_id')
                     ->required(),
-                Forms\Components\TextInput::make('user_id')
+                TextInput::make('user_id')
                     ->required(),
-                Forms\Components\TextInput::make('confirmation_number')
+                TextInput::make('confirmation_number')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('transaction_id')
+                TextInput::make('transaction_id')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('status')
+                TextInput::make('status')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('amount')
+                TextInput::make('amount')
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('reservation_ends'),
-                Forms\Components\TextInput::make('invoice'),
-                Forms\Components\DateTimePicker::make('paid_at'),
+                DateTimePicker::make('reservation_ends'),
+                TextInput::make('invoice'),
+                DateTimePicker::make('paid_at'),
             ]);
     }
 
