@@ -33,7 +33,7 @@ class StatsOverview extends BaseWidget
 
     public function getDaysLeftProperty()
     {
-        if ($this->record->hasEnded) {
+        if ($this->record->end->isPast()) {
             return 0;
         }
         if ($this->record->hasStarted) {
