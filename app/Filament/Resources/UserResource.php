@@ -2,15 +2,18 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers\DonationsRelationManager;
+use App\Filament\Resources\UserResource\RelationManagers\ReservationsRelationManager;
 use App\Models\User;
-use Filament\Forms;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 
@@ -26,37 +29,37 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('pronouns')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('profile_photo_path')
-                    ->maxLength(65535),
-                Forms\Components\TextInput::make('programs_stripe_id')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('donations_stripe_id')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('stripe_id')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('card_brand')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('card_last_four')
-                    ->maxLength(4),
-                Forms\Components\DateTimePicker::make('trial_ends_at'),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('notifications_via'),
+                Grid::make(3)
+                    ->schema([
+                        Card::make()->schema([
+                            TextInput::make('name')
+                                ->maxLength(255),
+                            TextInput::make('email')
+                                ->email()
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('pronouns')
+                                ->maxLength(255),
+                        ])->columnSpan(2),
+                        Card::make()->schema([
+                            TextInput::make('password')
+                                ->password()
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('password_confirmation')
+                                ->password()
+                                ->required()
+                                ->maxLength(255),
+                        ])->columnSpan(1),
+                        Card::make()->schema([
+                            TextInput::make('address.line1'),
+                            TextInput::make('address.line2'),
+                            TextInput::make('address.city'),
+                            TextInput::make('address.state'),
+                            TextInput::make('address.zip'),
+                            TextInput::make('address.country'),
+                        ])->columns(2)->columnSpan(2),
+                    ]),
             ]);
     }
 
@@ -87,7 +90,6 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                ViewAction::make(),
                 EditAction::make(),
             ])
             ->bulkActions([
@@ -98,7 +100,9 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            OrdersRelationManager::class,
+            ReservationsRelationManager::class,
+            DonationsRelationManager::class,
         ];
     }
 
@@ -107,7 +111,6 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
