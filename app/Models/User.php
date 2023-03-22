@@ -58,9 +58,14 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function paidOrders()
+    {
+        return $this->hasMany(Order::class)->paid();
+    }
+
     public function reservations()
     {
-        return $this->orders()->whereNull('transaction_id');
+        return $this->hasMany(Order::class)->reservations();
     }
 
     public function responses()
