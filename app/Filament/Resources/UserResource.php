@@ -9,6 +9,10 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class UserResource extends Resource
 {
@@ -60,36 +64,34 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('pronouns'),
-                Tables\Columns\TextColumn::make('address'),
-                Tables\Columns\TextColumn::make('profile_photo_path'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('programs_stripe_id'),
-                Tables\Columns\TextColumn::make('donations_stripe_id'),
-                Tables\Columns\TextColumn::make('stripe_id'),
-                Tables\Columns\TextColumn::make('card_brand'),
-                Tables\Columns\TextColumn::make('card_last_four'),
-                Tables\Columns\TextColumn::make('trial_ends_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('notifications_via'),
+                TextColumn::make('id')
+                    ->copyable()
+                    ->searchable(),
+                TextColumn::make('name')
+                    ->copyable()
+                    ->searchable(),
+                TextColumn::make('email')
+                    ->copyable()
+                    ->searchable(),
+                TextColumn::make('pronouns'),
+                IconColumn::make('email_verified_at')
+                    ->options([
+                        'heroicon-o-x-circle',
+                        'heroicon-o-thumb-up' => fn ($state): bool => $state !== null,
+                    ]),
+                TextColumn::make('created_at')
+                    ->date(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                //
             ]);
     }
 

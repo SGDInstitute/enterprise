@@ -130,6 +130,7 @@ class EventResource extends Resource
                     ->searchable()
                     ->toggleable(),
             ])
+            ->defaultSort('start', 'desc')
             ->filters([
                 //
             ])
