@@ -9,6 +9,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
 
 class DonationResource extends Resource
 {
@@ -46,31 +48,33 @@ class DonationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id'),
-                Tables\Columns\TextColumn::make('parent_id'),
-                Tables\Columns\TextColumn::make('transaction_id'),
-                Tables\Columns\TextColumn::make('subscription_id'),
-                Tables\Columns\TextColumn::make('amount'),
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('next_bill_date')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('ends_at')
-                    ->dateTime(),
+                TextColumn::make('id')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('user.name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('type')
+                    ->sortable(),
+                TextColumn::make('amount')
+                    ->money('usd')
+                    ->sortable(),
+                TextColumn::make('status')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('created_at')
+                    ->date()
+                    ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ViewAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                //
             ]);
     }
 
@@ -86,7 +90,6 @@ class DonationResource extends Resource
         return [
             'index' => Pages\ListDonations::route('/'),
             'view' => Pages\ViewDonation::route('/{record}'),
-            'edit' => Pages\EditDonation::route('/{record}/edit'),
         ];
     }
 }

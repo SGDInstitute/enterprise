@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\DonationResource\Pages;
 
 use App\Filament\Resources\DonationResource;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewDonation extends ViewRecord
@@ -13,7 +12,7 @@ class ViewDonation extends ViewRecord
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            //
         ];
     }
 }
