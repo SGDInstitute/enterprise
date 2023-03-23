@@ -4,8 +4,8 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
 use Filament\Notifications\Notification;
-use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\Password;
 
@@ -17,6 +17,8 @@ class EditUser extends EditRecord
     {
         return [
             Action::make('send_password_reset')
+                ->icon('heroicon-o-paper-airplane')
+                ->color('secondary')
                 ->action(function () {
                     Password::broker()->sendResetLink(['email' => $this->record->email]);
 
@@ -25,6 +27,8 @@ class EditUser extends EditRecord
                     Notification::make()->title('Password reset email sent.')->success()->send();
                 }),
             Action::make('impersonate')
+                ->icon('heroicon-o-lightning-bolt')
+                ->color('secondary')
                 ->action(function () {
                     activity()->on($this->record)->log('impersonated');
 
@@ -33,7 +37,18 @@ class EditUser extends EditRecord
 
                     return redirect()->to('/dashboard');
                 }),
-            Actions\DeleteAction::make(),
+            Action::make('manually_verify_user')
+                ->color('secondary')
+                ->icon('heroicon-o-shield-check')
+                ->hidden($this->record->hasVerifiedEmail())
+                ->action(function () {
+                    $this->record->markEmailAsVerified();
+
+                    activity()->on($this->record)->log('verified');
+
+                    Notification::make()->title('Marked user as verified.')->success()->send();
+                }),
+            DeleteAction::make()->icon('heroicon-o-exclamation'),
         ];
     }
 }
