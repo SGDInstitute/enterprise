@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -68,6 +69,11 @@ class Event extends Model implements HasMedia
     public function ticketTypes()
     {
         return $this->hasMany(TicketType::class);
+    }
+
+    public function tickets(): HasManyThrough
+    {
+        return $this->hasManyThrough(Ticket::class, Order::class);
     }
 
     public function workshopForm()

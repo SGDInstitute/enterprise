@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
+use App\Filament\Resources\EventResource\RelationManagers\TicketsRelationManager;
 use App\Models\Event;
 use Closure;
 use Filament\Forms\Components\Card;
@@ -148,6 +149,7 @@ class EventResource extends Resource
         return [
             ReservationsRelationManager::class,
             OrdersRelationManager::class,
+            TicketsRelationManager::class,
         ];
     }
 
