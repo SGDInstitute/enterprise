@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
+use App\Filament\Actions\CompBulkAction;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -70,8 +71,7 @@ class ReservationsRelationManager extends RelationManager
                 ViewAction::make(),
             ])
             ->bulkActions([
-                // Mark as paid
-                // Mark as comped
+                CompBulkAction::make(),
             ]);
     }
 
