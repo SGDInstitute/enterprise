@@ -128,6 +128,16 @@ class Event extends Model implements HasMedia
         }
     }
 
+    public function getReservationEndsAtAttribute()
+    {
+        $reservationEndsAt = now()->addDays($this->settings->reservation_length);
+        if ($reservationEndsAt > $this->start) {
+            return $this->start;
+        }
+
+        return $reservationEndsAt;
+    }
+
     // Methods
 
     public function paidAttendees()

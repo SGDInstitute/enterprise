@@ -163,6 +163,18 @@ class Order extends Model
         $this->save();
     }
 
+    public function markAsUnpaid()
+    {
+        $this->update([
+            'transaction_id' => null,
+            'reservation_ends' => $this->event->reservationEndsAt,
+            'paid_at' => null,
+            'confirmation_number' => null,
+            'amount' => null,
+            'status' => 'reservation',
+        ]);
+    }
+
     public function safeDelete()
     {
         $this->tickets->each->delete();
