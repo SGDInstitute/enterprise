@@ -53,6 +53,11 @@ class OrdersRelationManager extends RelationManager
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
                     ]),
+                TextColumn::make('transaction_id')
+                    ->label('Transaction ID')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('confirmation_number')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('formatted_amount')
                     ->label('Amount'),
             ])
