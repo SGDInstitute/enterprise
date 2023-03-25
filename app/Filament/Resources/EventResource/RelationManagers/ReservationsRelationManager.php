@@ -3,14 +3,20 @@
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Actions\CompBulkAction;
+use App\Filament\Actions\MarkAsPaidAction;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextInput\Mask;
+use Filament\Notifications\Notification;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class ReservationsRelationManager extends RelationManager
 {
@@ -69,6 +75,7 @@ class ReservationsRelationManager extends RelationManager
             ])
             ->actions([
                 ViewAction::make(),
+                MarkAsPaidAction::make(),
             ])
             ->bulkActions([
                 CompBulkAction::make(),

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Filament\Actions\CompBulkAction;
+use App\Filament\Actions\MarkAsPaidAction;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -69,6 +70,7 @@ class ReservationsRelationManager extends RelationManager
             ])
             ->actions([
                 ViewAction::make(),
+                MarkAsPaidAction::make(),
             ])
             ->bulkActions([
                 CompBulkAction::make(),
