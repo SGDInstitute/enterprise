@@ -21,7 +21,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Carbon;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
@@ -164,7 +163,6 @@ class EventResource extends Resource
                 //
             ])
             ->actions([
-                ViewAction::make(),
                 EditAction::make(),
             ])
             ->bulkActions([
@@ -186,7 +184,6 @@ class EventResource extends Resource
         return [
             'index' => Pages\ListEvents::route('/'),
             'create' => Pages\CreateEvent::route('/create'),
-            'view' => Pages\ViewEvent::route('/{record}'),
             'edit' => Pages\EditEvent::route('/{record}/edit'),
         ];
     }
