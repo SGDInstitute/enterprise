@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Actions\MarkAsUnpaidAction;
+use App\Filament\Actions\RefundAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -67,6 +68,7 @@ class OrdersRelationManager extends RelationManager
             ->actions([
                 ViewAction::make(),
                 MarkAsUnpaidAction::make(),
+                RefundAction::make(),
             ])
             ->bulkActions([
                 // Tables\Actions\DeleteBulkAction::make(),
