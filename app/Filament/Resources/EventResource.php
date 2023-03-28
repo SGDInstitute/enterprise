@@ -6,6 +6,7 @@ use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\TicketsRelationManager;
+use App\Filament\Resources\EventResource\RelationManagers\TicketTypesRelationManager;
 use App\Models\Event;
 use Closure;
 use Filament\Forms\Components\Checkbox;
@@ -176,6 +177,7 @@ class EventResource extends Resource
             ReservationsRelationManager::class,
             OrdersRelationManager::class,
             TicketsRelationManager::class,
+            TicketTypesRelationManager::class,
         ];
     }
 
