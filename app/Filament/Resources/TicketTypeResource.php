@@ -8,6 +8,7 @@ use App\Filament\Resources\TicketTypeResource\Pages\EditTicketType;
 use App\Filament\Resources\TicketTypeResource\Pages\ListTicketTypes;
 use App\Models\TicketType;
 use Closure;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -39,28 +40,30 @@ class TicketTypeResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('eventId')
-                    ->relationship('event', 'name'),
-                Select::make('structure')
-                    ->options([
-                        'flat' => 'Flat',
-                        'scaled-range' => 'Sliding Scale',
-                    ])
-                    ->reactive()
-                    ->required(),
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('description')
-                    ->maxLength(255),
-                DateTimePicker::make('start')
-                    ->required(),
-                DateTimePicker::make('end')
-                    ->required(),
-                TextInput::make('cost') // only show when structure is flat
-                    ->hidden(fn (Closure $get) => $get('structure') !== 'flat')
-                    ->mask(fn (Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2))
-                // @todo scaled range
+                Card::make([
+                    Select::make('event_id')
+                        ->relationship('event', 'name'),
+                    Select::make('structure')
+                        ->options([
+                            'flat' => 'Flat',
+                            'scaled-range' => 'Sliding Scale',
+                        ])
+                        ->reactive()
+                        ->required(),
+                    TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                    TextInput::make('description')
+                        ->maxLength(255),
+                    DateTimePicker::make('start')
+                        ->required(),
+                    DateTimePicker::make('end')
+                        ->required(),
+                    TextInput::make('cost') // only show when structure is flat
+                        ->hidden(fn (Closure $get) => $get('structure') !== 'flat')
+                        ->mask(fn (Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2)),
+                    // @todo scaled range
+                ])->columns(2),
             ]);
     }
 
