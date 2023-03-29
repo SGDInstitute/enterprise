@@ -33,6 +33,7 @@
         "spatie/laravel-ignition": "^2.0",
         "spatie/laravel-medialibrary": "^10.7",
         "spatie/laravel-permission": "^5.8",
+        "spatie/laravel-ray": "^1.32",
         "spatie/laravel-schemaless-attributes": "^2.4",
         "spatie/laravel-sluggable": "^3.4",
         "spatie/laravel-tags": "^4.3",
