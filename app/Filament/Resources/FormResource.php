@@ -76,7 +76,7 @@ class FormResource extends Resource
                                                 TextInput::make('id')
                                                     ->label('ID')
                                                     ->helperText('Short, unique identifier for question. Use dashes instead of spaces.'),
-                                                Select::make('type')
+                                                Select::make('style')
                                                     ->options([
                                                         'text' => 'Text',
                                                         'number' => 'Number',
@@ -90,13 +90,13 @@ class FormResource extends Resource
                                                 TextInput::make('help_text'),
                                                 Textarea::make('options')
                                                     ->helperText('Put each option on a new line or separate by commas. Can also add key/value pairs with colons.')
-                                                    ->hidden(fn ($get) => ! ($get('type') === 'list' || $get('type') === 'matrix')),
+                                                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
                                                 Textarea::make('scale')
                                                     ->helperText('Put each option on a new line or separate by commas.')
-                                                    ->hidden(fn ($get) => ! ($get('type') === 'matrix')),
+                                                    ->hidden(fn ($get) => ! ($get('style') === 'matrix')),
                                                 Radio::make('status')
                                                     ->helperText('Choose checkbox if multiple can be selected.')
-                                                    ->hidden(fn ($get) => ! ($get('type') === 'list'))
+                                                    ->hidden(fn ($get) => ! ($get('style') === 'list'))
                                                     ->options([
                                                         'checkbox' => 'Checkbox',
                                                         'radio' => 'Radio',
@@ -105,7 +105,7 @@ class FormResource extends Resource
                                                 Checkbox::make('other')
                                                     ->label('Enable Other Option')
                                                     ->helperText('Turn on if users are allowed to fill in their own option.')
-                                                    ->hidden(fn ($get) => ! ($get('type') === 'list' || $get('type') === 'matrix')),
+                                                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
                                                 Fieldset::make('Settings')
                                                     ->schema([
                                                         TextInput::make('rules')
