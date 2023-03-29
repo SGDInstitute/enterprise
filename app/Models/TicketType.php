@@ -40,6 +40,8 @@ class TicketType extends Model
             'start' => $data['start'],
             'end' => $data['end'],
         ]);
+
+        return $ticket;
     }
     // Relationships
 
