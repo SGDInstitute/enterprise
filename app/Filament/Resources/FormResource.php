@@ -41,125 +41,8 @@ class FormResource extends Resource
             ->schema([
                 Tabs::make('Heading')
                     ->tabs([
-                        Tab::make('Information')
-                            ->schema([
-                                Select::make('type')
-                                    ->options([
-                                        'rfp' => 'Request for Proposal (Workshop)',
-                                        'survey' => 'Survey',
-                                        'form' => 'Form',
-                                    ])
-                                    ->columnSpan(2),
-                                TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
-                                Select::make('event_id')
-                                    ->relationship('event', 'name'),
-                                DateTimePicker::make('start'),
-                                DateTimePicker::make('end'),
-                                Toggle::make('auth_required')
-                                    ->required(),
-                                Toggle::make('is_internal')
-                                    ->required(),
-                            ])
-                            ->columns(2),
-                        Tab::make('Builder')
-                            ->schema([
-                                Builder::make('form')
-                                    ->label('Form')
-                                    ->reactive()
-                                    ->collapsible()
-                                    ->blocks([
-                                        Block::make('question')
-                                            ->columns(2)
-                                            ->schema([
-                                                TextInput::make('id')
-                                                    ->label('ID')
-                                                    ->helperText('Short, unique identifier for question. Use dashes instead of spaces.'),
-                                                Select::make('style')
-                                                    ->options([
-                                                        'text' => 'Text',
-                                                        'number' => 'Number',
-                                                        'textarea' => 'Textarea',
-                                                        'list' => 'List',
-                                                        'matrix' => 'Matrix',
-                                                        'opinion-scale' => 'Opinion Scale',
-                                                    ])
-                                                    ->reactive(),
-                                                TextInput::make('question'),
-                                                TextInput::make('help_text'),
-                                                KeyValue::make('options')
-                                                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
-                                                Textarea::make('scale')
-                                                    ->helperText('Put each option on a new line or separate by commas.')
-                                                    ->hidden(fn ($get) => ! ($get('style') === 'matrix')),
-                                                Radio::make('status')
-                                                    ->helperText('Choose checkbox if multiple can be selected.')
-                                                    ->hidden(fn ($get) => ! ($get('style') === 'list'))
-                                                    ->options([
-                                                        'checkbox' => 'Checkbox',
-                                                        'radio' => 'Radio',
-                                                        'dropdown' => 'Dropdown',
-                                                    ]),
-                                                Checkbox::make('other')
-                                                    ->label('Enable Other Option')
-                                                    ->helperText('Turn on if users are allowed to fill in their own option.')
-                                                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
-                                                Fieldset::make('Settings')
-                                                    ->schema([
-                                                        TextInput::make('rules')
-                                                            ->label('Validation Rules')
-                                                            ->helperText('Pipe delineated list of validation rules. Required is probably all that is needed, but if more specific validation is required see [all options available](https://laravel.com/docs/10.x/validation#available-validation-rules).'),
-                                                        Select::make('visibility')
-                                                            ->options([
-                                                                'always' => 'Always show',
-                                                                'conditional' => 'Show when',
-                                                            ])
-                                                            ->reactive(),
-                                                        Select::make('visibility-andor')
-                                                            ->label('Visible When')
-                                                            ->options([
-                                                                'and' => 'All of the following conditions pass',
-                                                                'or' => 'Any of the following conditions pass',
-                                                            ])
-                                                            ->hidden(fn ($get) => $get('visibility') !== 'conditional'),
-                                                        Repeater::make('conditions')
-                                                            ->columnSpan(2)
-                                                            ->hidden(fn ($get) => $get('visibility') !== 'conditional')
-                                                            ->schema([
-                                                                TextInput::make('field')
-                                                                    ->helperText('Copy and paste the ID from the question this is reliant on.')
-                                                                    ->required(),
-                                                                Select::make('method')
-                                                                    ->options([
-                                                                        'equals' => 'equals',
-                                                                        'not' => 'does not equal',
-                                                                        '>' => '&gt;',
-                                                                        '>=' => '&gt;=',
-                                                                        '<' => '&lt;',
-                                                                        '<=' => '&lt;=',
-                                                                    ])
-                                                                    ->required(),
-                                                                TextInput::make('value')->required(),
-                                                            ])->columns(3),
-                                                    ]),
-                                                
-                                            ]),
-                                        Block::make('collaborators')
-                                            ->schema([
-                                                TextInput::make('id')
-                                                    ->label('ID')
-                                                    ->helperText('Short, unique identifier for collaborator section. Use dashes instead of spaces.'),
-                                            ]),
-                                        Block::make('content_section')
-                                            ->schema([
-                                                TextInput::make('id')
-                                                    ->label('ID')
-                                                    ->helperText('Short, unique identifier for content section. Use dashes instead of spaces.'),
-                                                RichEditor::make('content'),
-                                            ])
-                                    ]),
-                            ])
+                        static::informationTabSchema(),
+                        static::builderTabSchema(),
                     ]),
             ])->columns(1);
     }
@@ -226,5 +109,146 @@ class FormResource extends Resource
             'view' => Pages\ViewForm::route('/{record}'),
             'edit' => Pages\EditForm::route('/{record}/edit'),
         ];
+    }
+
+    public function builderTabSchema()
+    {
+        return Tab::make('Builder')
+            ->schema([
+                Builder::make('form')
+                    ->label('Form')
+                    ->reactive()
+                    ->collapsible()
+                    ->blocks([
+                        static::questionBlockSchema(),
+                        static::collaboratorsBlockSchema(),
+                        static::contentBlockSchema(),
+                    ]),
+            ]);
+    }
+
+    public function informationTabSchema()
+    {
+        return Tab::make('Information')
+            ->schema([
+                Select::make('type')
+                    ->options([
+                        'rfp' => 'Request for Proposal (Workshop)',
+                        'survey' => 'Survey',
+                        'form' => 'Form',
+                    ])
+                    ->columnSpan(2),
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Select::make('event_id')
+                    ->relationship('event', 'name'),
+                DateTimePicker::make('start'),
+                DateTimePicker::make('end'),
+                Toggle::make('auth_required')
+                    ->required(),
+                Toggle::make('is_internal')
+                    ->required(),
+            ])
+            ->columns(2);
+    }
+
+    public static function collaboratorsBlockSchema()
+    {
+        return Block::make('collaborators')
+            ->schema([
+                TextInput::make('id')
+                    ->label('ID')
+                    ->helperText('Short, unique identifier for collaborator section. Use dashes instead of spaces.'),
+            ]);
+    }
+
+    public static function contentBlockSchema()
+    {
+        return Block::make('content_section')
+            ->schema([
+                TextInput::make('id')
+                    ->label('ID')
+                    ->helperText('Short, unique identifier for content section. Use dashes instead of spaces.'),
+                RichEditor::make('content'),
+            ]);
+    }
+    
+    public static function questionBlockSchema()
+    {
+        return Block::make('question')
+            ->columns(2)
+            ->schema([
+                TextInput::make('id')
+                    ->label('ID')
+                    ->helperText('Short, unique identifier for question. Use dashes instead of spaces.'),
+                Select::make('style')
+                    ->options([
+                        'text' => 'Text',
+                        'number' => 'Number',
+                        'textarea' => 'Textarea',
+                        'list' => 'List',
+                        'matrix' => 'Matrix',
+                        'opinion-scale' => 'Opinion Scale',
+                    ])
+                    ->reactive(),
+                TextInput::make('question'),
+                TextInput::make('help_text'),
+                KeyValue::make('options')
+                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
+                Textarea::make('scale')
+                    ->helperText('Put each option on a new line or separate by commas.')
+                    ->hidden(fn ($get) => ! ($get('style') === 'matrix')),
+                Radio::make('status')
+                    ->helperText('Choose checkbox if multiple can be selected.')
+                    ->hidden(fn ($get) => ! ($get('style') === 'list'))
+                    ->options([
+                        'checkbox' => 'Checkbox',
+                        'radio' => 'Radio',
+                        'dropdown' => 'Dropdown',
+                    ]),
+                Checkbox::make('other')
+                    ->label('Enable Other Option')
+                    ->helperText('Turn on if users are allowed to fill in their own option.')
+                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
+                Fieldset::make('Settings')
+                    ->schema([
+                        TextInput::make('rules')
+                            ->label('Validation Rules')
+                            ->helperText('Pipe delineated list of validation rules. Required is probably all that is needed, but if more specific validation is required see [all options available](https://laravel.com/docs/10.x/validation#available-validation-rules).'),
+                        Select::make('visibility')
+                            ->options([
+                                'always' => 'Always show',
+                                'conditional' => 'Show when',
+                            ])
+                            ->reactive(),
+                        Select::make('visibility-andor')
+                            ->label('Visible When')
+                            ->options([
+                                'and' => 'All of the following conditions pass',
+                                'or' => 'Any of the following conditions pass',
+                            ])
+                            ->hidden(fn ($get) => $get('visibility') !== 'conditional'),
+                        Repeater::make('conditions')
+                            ->columnSpan(2)
+                            ->hidden(fn ($get) => $get('visibility') !== 'conditional')
+                            ->schema([
+                                TextInput::make('field')
+                                    ->helperText('Copy and paste the ID from the question this is reliant on.')
+                                    ->required(),
+                                Select::make('method')
+                                    ->options([
+                                        'equals' => 'equals',
+                                        'not' => 'does not equal',
+                                        '>' => '&gt;',
+                                        '>=' => '&gt;=',
+                                        '<' => '&lt;',
+                                        '<=' => '&lt;=',
+                                    ])
+                                    ->required(),
+                                TextInput::make('value')->required(),
+                            ])->columns(3),
+                    ]),
+            ]);
     }
 }
