@@ -88,8 +88,7 @@ class FormResource extends Resource
                                                     ->reactive(),
                                                 TextInput::make('question'),
                                                 TextInput::make('help_text'),
-                                                Textarea::make('options')
-                                                    ->helperText('Put each option on a new line or separate by commas. Can also add key/value pairs with colons.')
+                                                KeyValue::make('options')
                                                     ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
                                                 Textarea::make('scale')
                                                     ->helperText('Put each option on a new line or separate by commas.')
