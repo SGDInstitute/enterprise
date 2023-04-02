@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\App\Forms;
 
+use App\Actions\InviteUser;
 use App\Models\Form;
 use App\Models\Order;
 use App\Models\Response;
@@ -35,15 +36,11 @@ class Show extends Component
 
     protected $rules = [
         'newCollaborator.email' => ['required', 'email'],
-        'newCollaborator.name' => ['required'],
-        'newCollaborator.pronouns' => ['required'],
     ];
 
     protected $messages = [
         'newCollaborator.email.required' => 'The email field cannot be empty.',
         'newCollaborator.email.email' => 'The email format is not valid.',
-        'newCollaborator.name.required' => 'The name field cannot be empty.',
-        'newCollaborator.pronouns.required' => 'The pronouns field cannot be empty.',
     ];
 
     public function mount()
@@ -259,23 +256,14 @@ class Show extends Component
     {
         $this->validate();
 
-        if (! isset($this->newCollaborator['id']) || $this->newCollaborator['id'] === '') {
-            $user = User::create(array_merge($this->newCollaborator, ['password' => Hash::make(Str::random(15))]));
-            $this->newCollaborator['id'] = $user->id;
-        } else {
-            $user = User::find($this->newCollaborator['id']);
-        }
-
-        $this->collaborators[] = $this->newCollaborator;
-
         if ($this->isWorkshopForm) {
             $this->save();
         } else {
             $this->save(false);
         }
 
-        Notification::send($user, new AddedAsCollaborator($this->response));
-
+        (new InviteUser)->invite(auth()->user(), $this->response, $this->newCollaborator['email']);
+        
         $this->reset('newCollaborator', 'showCollaboratorModal');
     }
 
