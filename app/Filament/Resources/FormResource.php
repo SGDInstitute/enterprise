@@ -111,7 +111,7 @@ class FormResource extends Resource
         ];
     }
 
-    public function builderTabSchema()
+    public static function builderTabSchema()
     {
         return Tab::make('Builder')
             ->schema([
@@ -127,7 +127,7 @@ class FormResource extends Resource
             ]);
     }
 
-    public function informationTabSchema()
+    public static function informationTabSchema()
     {
         return Tab::make('Information')
             ->schema([
