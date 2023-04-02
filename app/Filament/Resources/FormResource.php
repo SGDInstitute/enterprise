@@ -55,7 +55,7 @@ class FormResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('type')
+                TextColumn::make('style')
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('auth_required')
@@ -166,7 +166,7 @@ class FormResource extends Resource
 
     public static function contentBlockSchema()
     {
-        return Block::make('content_section')
+        return Block::make('content')
             ->schema([
                 TextInput::make('id')
                     ->label('ID')
@@ -183,7 +183,7 @@ class FormResource extends Resource
                 TextInput::make('id')
                     ->label('ID')
                     ->helperText('Short, unique identifier for question. Use dashes instead of spaces.'),
-                Select::make('style')
+                Select::make('type')
                     ->options([
                         'text' => 'Text',
                         'number' => 'Number',
@@ -194,15 +194,15 @@ class FormResource extends Resource
                     ])
                     ->reactive(),
                 TextInput::make('question'),
-                TextInput::make('help_text'),
+                TextInput::make('help'),
                 KeyValue::make('options')
-                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
+                    ->hidden(fn ($get) => ! ($get('type') === 'list' || $get('type') === 'matrix')),
                 Textarea::make('scale')
                     ->helperText('Put each option on a new line or separate by commas.')
-                    ->hidden(fn ($get) => ! ($get('style') === 'matrix')),
-                Radio::make('status')
+                    ->hidden(fn ($get) => ! ($get('type') === 'matrix')),
+                Radio::make('list-style')
                     ->helperText('Choose checkbox if multiple can be selected.')
-                    ->hidden(fn ($get) => ! ($get('style') === 'list'))
+                    ->hidden(fn ($get) => ! ($get('type') === 'list'))
                     ->options([
                         'checkbox' => 'Checkbox',
                         'radio' => 'Radio',
@@ -211,7 +211,7 @@ class FormResource extends Resource
                 Checkbox::make('other')
                     ->label('Enable Other Option')
                     ->helperText('Turn on if users are allowed to fill in their own option.')
-                    ->hidden(fn ($get) => ! ($get('style') === 'list' || $get('style') === 'matrix')),
+                    ->hidden(fn ($get) => ! ($get('type') === 'list' || $get('type') === 'matrix')),
                 Fieldset::make('Settings')
                     ->schema([
                         TextInput::make('rules')
