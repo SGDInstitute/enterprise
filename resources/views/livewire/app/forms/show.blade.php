@@ -25,7 +25,7 @@
                     @if ($form->type === 'workshop')
                         <p class="text-xl">All answers will be automatically saved.</p>
                     @endif
-                    @foreach ($form->form as $item)
+                    @foreach ($schema as $item)
                         @includeWhen($this->isVisible($item), 'livewire.app.forms.partials.' . $item['style'])
                     @endforeach
 

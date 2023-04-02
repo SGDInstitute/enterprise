@@ -134,7 +134,7 @@ class FormResource extends Resource
             ->schema([
                 Select::make('type')
                     ->options([
-                        'rfp' => 'Request for Proposal (Workshop)',
+                        'workshop' => 'Workshop',
                         'survey' => 'Survey',
                         'form' => 'Form',
                     ])

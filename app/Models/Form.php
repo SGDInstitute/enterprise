@@ -100,7 +100,7 @@ class Form extends Model
 
     public function getHasCollaboratorsAttribute()
     {
-        return $this->form->contains('style', 'collaborators');
+        return $this->form->contains('style', 'collaborators') || $this->form->contains('type', 'collaborators');
     }
 
     public function getHasRemindersAttribute()

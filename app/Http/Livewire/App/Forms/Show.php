@@ -70,6 +70,10 @@ class Show extends Component
             }
 
             $this->answers = $this->form->form
+                // allow for new form builder
+                ->when(isset($this->form->form->first()['data']), function ($collection) {
+                    return $collection->map(fn ($item) => [...$item['data'], 'style' => $item['type']]);
+                })
                 ->filter(fn ($item) => $item['style'] === 'question')
                 ->mapWithKeys(function ($item) {
                     if (isset($item['data']) && isset($this->parent)) {
@@ -117,6 +121,7 @@ class Show extends Component
                 'previousResponses' => $this->previousResponses,
                 'showResponseLog' => $this->showResponseLog,
                 'isWorkshopForm' => $this->isWorkshopForm,
+                'schema' => $this->schema,
             ]);
     }
 
@@ -143,6 +148,15 @@ class Show extends Component
         }
 
         return auth()->user()->responses()->where('form_id', $this->form->id)->get();
+    }
+
+    public function getSchemaProperty()
+    {
+        return $this->form->form
+            // allow for new form builder
+            ->when(isset($this->form->form->first()['data']), function ($collection) {
+                return $collection->map(fn ($item) => [...$item['data'], 'style' => $item['type']]);
+            });
     }
 
     public function getShowResponseLogProperty()
