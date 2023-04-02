@@ -38,13 +38,14 @@ class FormResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
                 Tabs::make('Heading')
                     ->tabs([
                         static::informationTabSchema(),
                         static::builderTabSchema(),
                     ]),
-            ])->columns(1);
+            ]);
     }
 
     public static function table(Table $table): Table
