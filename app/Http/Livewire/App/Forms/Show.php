@@ -166,30 +166,6 @@ class Show extends Component
 
     // Methods
 
-    public function saveCollaborator()
-    {
-        $this->validate();
-
-        if (! isset($this->newCollaborator['id']) || $this->newCollaborator['id'] === '') {
-            $user = User::create(array_merge($this->newCollaborator, ['password' => Hash::make(Str::random(15))]));
-            $this->newCollaborator['id'] = $user->id;
-        } else {
-            $user = User::find($this->newCollaborator['id']);
-        }
-
-        $this->collaborators[] = $this->newCollaborator;
-
-        if ($this->isWorkshopForm) {
-            $this->save();
-        } else {
-            $this->save(false);
-        }
-
-        Notification::send($user, new AddedAsCollaborator($this->response));
-
-        $this->reset('newCollaborator', 'showCollaboratorModal');
-    }
-
     public function delete($id)
     {
         $this->previousResponses->firstWhere('id', $id)->safeDelete();
@@ -277,6 +253,30 @@ class Show extends Component
         if ($withNotification) {
             $this->emit('notify', ['message' => 'Successfully saved submission. You can leave this page and come back to continue working on the submission.', 'type' => 'success']);
         }
+    }
+
+    public function saveCollaborator()
+    {
+        $this->validate();
+
+        if (! isset($this->newCollaborator['id']) || $this->newCollaborator['id'] === '') {
+            $user = User::create(array_merge($this->newCollaborator, ['password' => Hash::make(Str::random(15))]));
+            $this->newCollaborator['id'] = $user->id;
+        } else {
+            $user = User::find($this->newCollaborator['id']);
+        }
+
+        $this->collaborators[] = $this->newCollaborator;
+
+        if ($this->isWorkshopForm) {
+            $this->save();
+        } else {
+            $this->save(false);
+        }
+
+        Notification::send($user, new AddedAsCollaborator($this->response));
+
+        $this->reset('newCollaborator', 'showCollaboratorModal');
     }
 
     public function submit()
