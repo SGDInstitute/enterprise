@@ -119,6 +119,7 @@ class FormResource extends Resource
                 Builder::make('form')
                     ->label('Form')
                     ->reactive()
+                    ->cloneable()
                     ->collapsible()
                     ->blocks([
                         static::questionBlockSchema(),
