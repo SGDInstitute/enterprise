@@ -188,6 +188,7 @@ class Show extends Component
         $this->invitations = $this->response->fresh()->invitations;
 
         $this->emit('notify', ['message' => 'Successfully removed presenter invitation.', 'type' => 'success']);
+        $this->emit('refresh');
     }
 
     public function isVisible($item)
