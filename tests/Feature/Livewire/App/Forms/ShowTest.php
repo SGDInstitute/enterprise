@@ -4,7 +4,7 @@ namespace Tests\Feature\Livewire\App\Forms;
 
 use App\Actions\InviteUser as ActionsInviteUser;
 use App\Http\Livewire\App\Forms\Show;
-use App\Mail\InviteUser;
+use App\Mail\InviteUser as MailInviteUser;
 use App\Models\Event;
 use App\Models\Form;
 use App\Models\Response;
@@ -93,7 +93,9 @@ class ShowTest extends TestCase
             'email' => 'adora@eternia.gov',
         ]);
 
-        Mail::assertSent(InviteUser::class);
+        Mail::assertSent(MailInviteUser::class, function (MailInviteUser $mail) {
+            return $mail->hasTo('adora@eternia.gov');
+        });
     }
 
     /** @test */
