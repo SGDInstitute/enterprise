@@ -4,13 +4,15 @@ namespace Tests\Feature\Livewire\App\Forms;
 
 use App\Actions\InviteUser as ActionsInviteUser;
 use App\Http\Livewire\App\Forms\Show;
-use App\Mail\InviteUser as MailInviteUser;
+use App\Mail\InvitationForUser;
 use App\Models\Event;
 use App\Models\Form;
 use App\Models\Response;
 use App\Models\User;
+use App\Notifications\AddedAsCollaborator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -67,7 +69,7 @@ class ShowTest extends TestCase
     /** @test */
     public function adding_collaborator_creates_an_invite()
     {
-        Mail::fake();
+        Notification::fake();
 
         $event = Event::factory()->preset('mblgtacc')->create();
         $form = Form::factory()->for($event)->preset('workshop')->create([
@@ -93,9 +95,7 @@ class ShowTest extends TestCase
             'email' => 'adora@eternia.gov',
         ]);
 
-        Mail::assertSent(MailInviteUser::class, function (MailInviteUser $mail) {
-            return $mail->hasTo('adora@eternia.gov');
-        });
+        Notification::assertSentOnDemand(AddedAsCollaborator::class);
     }
 
     /** @test */
