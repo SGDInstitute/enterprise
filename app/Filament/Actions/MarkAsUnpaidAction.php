@@ -17,11 +17,11 @@ class MarkAsUnpaidAction extends Action
     {
         parent::setUp();
 
-       $this->action(function (Model $record): void {
-                $record->markAsUnpaid();
+        $this->action(function (Model $record): void {
+            $record->markAsUnpaid();
 
-                Notification::make()->title('Successfully marked order as unpaid.')->success()->send();
-            })
-            ->disabled(fn ($record) => $record->isStripe());
+            Notification::make()->title('Successfully marked order as unpaid.')->success()->send();
+        })
+             ->disabled(fn ($record) => $record->isStripe());
     }
 }

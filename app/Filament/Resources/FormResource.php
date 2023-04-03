@@ -175,7 +175,7 @@ class FormResource extends Resource
                 RichEditor::make('content'),
             ]);
     }
-    
+
     public static function questionBlockSchema()
     {
         return Block::make('question')

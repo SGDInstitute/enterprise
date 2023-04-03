@@ -1,7 +1,7 @@
 <div>
     <div class="space-y-2">
         <label for="question-collaborators" class="block font-medium leading-5 text-gray-700 dark:text-gray-200">Presenters</label>
-    
+
         <table>
             <thead>
                 <tr>
@@ -27,13 +27,13 @@
                 @endforeach
             </tbody>
         </table>
-    
+
         <x-bit.button.round.secondary wire:click="$set('showCollaboratorModal', true)" :disabled="!$fillable">Add presenter</x-bit.button.round.secondary>
     </div>
     <div class="space-y-2">
         @if ($invitations && $invitations->isNotEmpty())
         <label for="question-invitations" class="block font-medium leading-5 text-gray-700 dark:text-gray-200 mt-6">Invitations</label>
-    
+
         <table>
             <thead>
                 <tr>

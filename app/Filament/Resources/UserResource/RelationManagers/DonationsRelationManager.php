@@ -2,15 +2,10 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 
 class DonationsRelationManager extends RelationManager
@@ -51,5 +46,5 @@ class DonationsRelationManager extends RelationManager
             ->bulkActions([
                 //
             ]);
-    }    
+    }
 }

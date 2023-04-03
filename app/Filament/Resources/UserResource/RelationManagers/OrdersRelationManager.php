@@ -12,8 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrdersRelationManager extends RelationManager
 {
@@ -76,5 +74,5 @@ class OrdersRelationManager extends RelationManager
             ->bulkActions([
                 // Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }    
+    }
 }

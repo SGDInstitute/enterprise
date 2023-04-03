@@ -277,7 +277,7 @@ class Show extends Component
         (new InviteUser)->invite(auth()->user(), $this->response, $this->newCollaborator['email']);
 
         $this->invitations = $this->response->invitations;
-        
+
         $this->reset('newCollaborator', 'showCollaboratorModal');
     }
 
