@@ -7,11 +7,8 @@ use App\Models\Form;
 use App\Models\Order;
 use App\Models\Response;
 use App\Models\User;
-use App\Notifications\AddedAsCollaborator;
 use App\Notifications\RemovedAsCollaborator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Show extends Component
@@ -25,6 +22,8 @@ class Show extends Component
     public $answers;
 
     public $collaborators;
+
+    public $invitations;
 
     public $newCollaborator;
 
@@ -87,6 +86,7 @@ class Show extends Component
             if ($this->form->hasCollaborators) {
                 if (isset($this->parent)) {
                     $this->collaborators = $this->parent->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
+                    $this->invitations = $this->parent->invitations->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
                 } else {
                     $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
                     $this->collaborators = collect([$user]);
@@ -218,6 +218,7 @@ class Show extends Component
 
         $this->answers = $this->response->answers;
         $this->collaborators = $this->response->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
+        $this->invitations = $this->response->invitations;
         $this->emit('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
         $this->showPreviousResponses = false;
     }
