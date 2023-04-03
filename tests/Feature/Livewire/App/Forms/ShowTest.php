@@ -3,6 +3,7 @@
 namespace Tests\Feature\Livewire\App\Forms;
 
 use App\Http\Livewire\App\Forms\Show;
+use App\Mail\InviteUser;
 use App\Models\Event;
 use App\Models\Form;
 use App\Models\User;
@@ -89,6 +90,6 @@ class ShowTest extends TestCase
             'email' => 'adora@eternia.gov',
         ]);
 
-        Mail::assertSent(InviteUser::class)
+        Mail::assertSent(InviteUser::class);
     }
 }

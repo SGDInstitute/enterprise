@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Mail\InviteUser as MailInviteUser;
 use App\Models\Team;
 use App\Models\User;
 use Closure;
@@ -32,6 +33,6 @@ class InviteUser
             'email' => $email,
         ]);
 
-        // Mail::to($email)->send(new Invitation($invitation));
+        Mail::to($email)->send(new MailInviteUser($invitation));
     }
 }
