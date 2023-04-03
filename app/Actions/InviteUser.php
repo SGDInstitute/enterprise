@@ -26,7 +26,7 @@ class InviteUser
      * For Ticket inviting attendee
      * For Response inviting collaborator
      */
-    public function invite(User $user, Model $model, string $email): void
+    public function invite(User $user, Model $model, string $email)
     {
         $invitation = $model->invitations()->create([
             'invited_by' => $user->id,
@@ -34,5 +34,7 @@ class InviteUser
         ]);
 
         Mail::to($email)->send(new MailInviteUser($invitation));
+
+        return $invitation;
     }
 }

@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Livewire\App\Forms;
 
+use App\Actions\InviteUser as ActionsInviteUser;
 use App\Http\Livewire\App\Forms\Show;
 use App\Mail\InviteUser;
 use App\Models\Event;
 use App\Models\Form;
+use App\Models\Response;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -79,7 +81,8 @@ class ShowTest extends TestCase
             ->set('answers.question-name', 'How to Save a World from an Evil Horde')
             ->set('newCollaborator.email', 'adora@eternia.gov')
             ->call('saveCollaborator')
-            ->assertHasNoErrors();
+            ->assertHasNoErrors()
+            ->assertSee('adora@eternia.gov');
 
         $savedResponse = $user->responses()->where('form_id', $form->id)->first();
         $this->assertDatabaseMissing('users', ['email' => 'adora@eternia.gov']);
@@ -91,5 +94,37 @@ class ShowTest extends TestCase
         ]);
 
         Mail::assertSent(InviteUser::class);
+    }
+
+    /** @test */
+    public function can_remove_invite()
+    {
+        Mail::fake();
+
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $form = Form::factory()->for($event)->preset('new-workshop')->create([
+            'start' => now()->subDay(),
+            'end' => now()->addDays(4),
+        ]);
+        $user = User::factory()->create();
+        $response = Response::factory()->for($form)->for($user)->create(['answers' => [
+            'question-name' => 'How to Save a World',
+        ]]);
+        $invitation = (new ActionsInviteUser)->invite($user, $response, 'adora@eternia.gov');
+
+        Livewire::actingAs($user)
+            ->withQueryParams(['edit' => $response->id])
+            ->test(Show::class, ['form' => $form])
+            ->assertSee('adora@eternia.gov')
+            ->call('deleteInvitation', $invitation->id)
+            ->assertHasNoErrors()
+            ->assertDontSee('adora@eternia.gov');
+
+        $this->assertDatabaseMissing('invitations', [
+            'invited_by' => $user->id,
+            'inviteable_type' => 'App\Models\Response', 
+            'inviteable_id' => $response->id, 
+            'email' => 'adora@eternia.gov',
+        ]);
     }
 }

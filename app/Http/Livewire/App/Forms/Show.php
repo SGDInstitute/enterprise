@@ -182,22 +182,32 @@ class Show extends Component
         $this->emit('notify', ['message' => 'Successfully removed presenter.', 'type' => 'success']);
     }
 
+    public function deleteInvitation($id)
+    {
+        $this->invitations->firstWhere('id', $id)->delete();
+        $this->invitations = $this->response->fresh()->invitations;
+
+        $this->emit('notify', ['message' => 'Successfully removed presenter invitation.', 'type' => 'success']);
+    }
+
     public function isVisible($item)
     {
         if (isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0) {
             [$passes, $fails] = collect($item['conditions'])->partition(function ($condition) {
-                if ($condition['method'] === 'equals') {
-                    return $this->answers[$condition['field']] == $condition['value'];
-                } elseif ($condition['method'] === 'not') {
-                    return $this->answers[$condition['field']] != $condition['value'];
-                } elseif ($condition['method'] === '>') {
-                    return $this->answers[$condition['field']] > $condition['value'];
-                } elseif ($condition['method'] === '>=') {
-                    return $this->answers[$condition['field']] >= $condition['value'];
-                } elseif ($condition['method'] === '<') {
-                    return $this->answers[$condition['field']] < $condition['value'];
-                } elseif ($condition['method'] === '<=') {
-                    return $this->answers[$condition['field']] <= $condition['value'];
+                if (isset($this->answers[$condition['field']])) {
+                    if ($condition['method'] === 'equals') {
+                        return $this->answers[$condition['field']] == $condition['value'];
+                    } elseif ($condition['method'] === 'not') {
+                        return $this->answers[$condition['field']] != $condition['value'];
+                    } elseif ($condition['method'] === '>') {
+                        return $this->answers[$condition['field']] > $condition['value'];
+                    } elseif ($condition['method'] === '>=') {
+                        return $this->answers[$condition['field']] >= $condition['value'];
+                    } elseif ($condition['method'] === '<') {
+                        return $this->answers[$condition['field']] < $condition['value'];
+                    } elseif ($condition['method'] === '<=') {
+                        return $this->answers[$condition['field']] <= $condition['value'];
+                    }
                 }
             });
 
@@ -264,6 +274,8 @@ class Show extends Component
         }
 
         (new InviteUser)->invite(auth()->user(), $this->response, $this->newCollaborator['email']);
+
+        $this->invitations = $this->response->invitations;
         
         $this->reset('newCollaborator', 'showCollaboratorModal');
     }
