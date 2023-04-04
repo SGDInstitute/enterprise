@@ -111,7 +111,10 @@ class ShowTest extends TestCase
         $response = Response::factory()->for($form)->for($user)->create(['answers' => [
             'question-name' => 'How to Save a World',
         ]]);
-        $invitation = (new ActionsInviteUser)->invite($user, $response, 'adora@eternia.gov');
+        $invitation = $response->invitations()->create([
+            'invited_by' => $user->id,
+            'email' => 'adora@eternia.gov',
+        ]);
 
         Livewire::actingAs($user)
             ->withQueryParams(['edit' => $response->id])
