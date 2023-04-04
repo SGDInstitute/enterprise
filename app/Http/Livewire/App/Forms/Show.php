@@ -46,7 +46,7 @@ class Show extends Component
     {
         $this->newCollaborator = ['name' => '', 'email' => '', 'pronouns' => ''];
 
-        if (request()->query('edit')) {
+        if (request()->query('edit') && auth()->check()) {
             // @todo check if user is authorized to view
             $this->load(request()->query('edit'));
         } else {
