@@ -180,6 +180,7 @@ class FormResource extends Resource
     {
         return Block::make('question')
             ->columns(2)
+            ->label(fn (array $state): ?string => isset($state['id']) ? str($state['id'])->replace('-', ' ')->title() : null)
             ->schema([
                 TextInput::make('id')
                     ->label('ID')
