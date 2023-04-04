@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
 
 Route::get('impersonation/leave', App\Http\Controllers\ImpersonationController::class)->name('impersonation.leave');
+
+Route::get('invitations/{invitation}', [InvitationController::class, 'accept'])->middleware(['signed'])->name('invitations.accept');
 
 Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
 

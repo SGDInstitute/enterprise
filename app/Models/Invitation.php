@@ -27,4 +27,13 @@ class Invitation extends Model
             'invitation' => $this,
         ]);
     }
+
+    public function accept()
+    {
+        if ($this->inviteable_type === Response::class) {
+            $response = $this->inviteable;
+            $response->collaborators()->attach(auth()->user());
+            return redirect()->route('app.forms.show', ['form' => $response->form, 'edit' => $response]);
+        }
+    }
 }
