@@ -190,6 +190,7 @@ class FormResource extends Resource
                         'text' => 'Text',
                         'number' => 'Number',
                         'textarea' => 'Textarea',
+                        'rich-editor' => 'Rich Editor',
                         'list' => 'List',
                         'matrix' => 'Matrix',
                         'opinion-scale' => 'Opinion Scale',

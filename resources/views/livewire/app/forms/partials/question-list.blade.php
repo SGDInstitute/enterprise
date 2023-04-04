@@ -44,7 +44,7 @@
             <x-bit.input.help>{{ $item['help'] }}</x-bit.input.help>
         @endif
 
-        <div class="mt-1 space-y-1">
+        <div class="mt-2 space-y-1">
             @foreach ($options as $key => $label)
             <x-bit.input.checkbox :value="$key" :id="$item['id'].'-'.$key" :label="$label" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
             @endforeach
@@ -65,7 +65,7 @@
         @isset($item['help'])
             <x-bit.input.help>{{ $item['help'] }}</x-bit.input.help>
         @endif
-        <div class="mt-1 space-y-1">
+        <div class="mt-2 space-y-1">
             @foreach ($options as $key => $label)
             <x-bit.input.radio :value="$key" :id="$item['id'].'-'.$key" :label="$label" wire:model="answers.{{ $item['id'] }}" :disabled="!$fillable" />
             @endforeach
