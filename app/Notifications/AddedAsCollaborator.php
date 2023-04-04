@@ -8,14 +8,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\URL;
 
 class AddedAsCollaborator extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public function __construct(public Invitation $invitation, public Response $response)
-    {}
+    {
+    }
 
     public function via($notifiable): array
     {
