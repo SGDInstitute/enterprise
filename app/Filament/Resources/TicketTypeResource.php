@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TicketTypeResource\Pages;
 use App\Filament\Resources\TicketTypeResource\Pages\CreateTicketType;
 use App\Filament\Resources\TicketTypeResource\Pages\EditTicketType;
 use App\Filament\Resources\TicketTypeResource\Pages\ListTicketTypes;
@@ -75,7 +74,7 @@ class TicketTypeResource extends Resource
                 EditAction::make(),
             ]);
     }
-    
+
     public static function getPages(): array
     {
         return [

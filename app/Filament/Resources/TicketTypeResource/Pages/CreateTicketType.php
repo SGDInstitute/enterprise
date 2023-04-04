@@ -5,7 +5,6 @@ namespace App\Filament\Resources\TicketTypeResource\Pages;
 use App\Filament\Resources\TicketTypeResource;
 use App\Models\Event;
 use App\Models\TicketType;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;

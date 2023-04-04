@@ -4,8 +4,6 @@ namespace App\Filament\Actions;
 
 use App\Mail\PartialRefund;
 use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +20,7 @@ class RefundAction extends Action
     {
         parent::setUp();
 
-       $this->action(function (Model $record, array $data): void {
+        $this->action(function (Model $record, array $data): void {
             $ticketsToRefund = array_keys(array_filter($data, fn ($value) => $value));
             $refundAmount = $this->calculateRefundAmount($record, $ticketsToRefund);
 
@@ -33,27 +31,26 @@ class RefundAction extends Action
                 activity()->performedOn($record)->withProperties(['amount' => $refundAmount, 'refund_id' => 'check'])->log('partial_refund');
             }
 
-                $record->update([
-                    'amount' => $record->amount - $refundAmount,
-                ]);
-                
-                $record->tickets->whereIn('id', $ticketsToRefund)->each->delete();
-
-                Mail::to($record->user)->send(new PartialRefund($record, $refundAmount, count($ticketsToRefund)));
-
-                Notification::make()->title('Refund processed.')->success()->send();
-            })
-            ->form(fn (Model $record) => [
-                ...$this->ticketCheckboxes($record),
+            $record->update([
+                'amount' => $record->amount - $refundAmount,
             ]);
-            // @todo disable if comped
+
+            $record->tickets->whereIn('id', $ticketsToRefund)->each->delete();
+
+            Mail::to($record->user)->send(new PartialRefund($record, $refundAmount, count($ticketsToRefund)));
+
+            Notification::make()->title('Refund processed.')->success()->send();
+        })
+             ->form(fn (Model $record) => [
+                 ...$this->ticketCheckboxes($record),
+             ]);
+        // @todo disable if comped
     }
 
     private function calculateRefundAmount()
     {
-        
     }
-    
+
     private function ticketCheckboxes($record)
     {
         return $record->tickets->map(fn ($ticket) => Checkbox::make($ticket->id)

@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
-use Filament\Navigation\NavigationGroup;
-use Filament\Navigation\NavigationItem;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,7 +21,7 @@ class FilamentServiceProvider extends ServiceProvider
     {
         Filament::registerRenderHook(
             'styles.end',
-            fn(): string => Blade::render(<<<HTML
+            fn (): string => Blade::render(<<<'HTML'
                 <style>
                     #skip-to-content a {
                         padding: 10px 15px 15px 10px;
@@ -52,7 +50,7 @@ class FilamentServiceProvider extends ServiceProvider
 
         Filament::registerRenderHook(
             'body.start',
-            fn(): string => Blade::render(<<<HTML
+            fn (): string => Blade::render(<<<'HTML'
                 <div id="skip-to-content">
                     <a class="bg-primary-500" href="#main-content">Skip to main content</a>
                 </div>
@@ -61,7 +59,7 @@ class FilamentServiceProvider extends ServiceProvider
 
         Filament::registerRenderHook(
             'content.start',
-            fn(): string => Blade::render('<div id="main-content"></div>')
+            fn (): string => Blade::render('<div id="main-content"></div>')
         );
     }
 }

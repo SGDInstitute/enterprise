@@ -26,5 +26,5 @@ class TicketTypesRelationManager extends RelationManager
                 EditAction::make()
                     ->url(fn ($record) => route('filament.resources.ticket-types.edit', $record)),
             ]);
-    }    
+    }
 }

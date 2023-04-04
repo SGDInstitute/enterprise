@@ -54,7 +54,7 @@
         </div>
     </x-bit.input.group>
 
-    @if (in_array('other', $answers[$item['id']]))
+    @if (isset($answers[$item['id']]) && in_array('other', $answers[$item['id']]))
     <x-bit.input.group class="mt-2" :for="$item['id'].'-other'" label="Please fill in" :error="$errors->first('answers.' . $item['id'])">
         <x-bit.input.text type="text" class="w-full mt-1" :id="$item['id'].'-other'" wire:model="answers.{{ $item['id'] }}-other" />
     </x-bit.input.group>

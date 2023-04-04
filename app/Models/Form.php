@@ -116,6 +116,9 @@ class Form extends Model
     public function getRulesAttribute()
     {
         return $this->form
+            ->when(isset($this->form->first()['data']), function ($collection) {
+                return $collection->map(fn ($item) => [...$item['data'], 'style' => $item['type']]);
+            })
             ->filter(fn ($item) => $item['style'] === 'question')
             ->mapWithKeys(function ($question) {
                 return ['answers.' . $question['id'] => $question['rules']];

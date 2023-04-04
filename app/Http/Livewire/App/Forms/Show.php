@@ -8,9 +8,7 @@ use App\Models\Response;
 use App\Models\User;
 use App\Notifications\AddedAsCollaborator;
 use App\Notifications\RemovedAsCollaborator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Show extends Component
@@ -25,6 +23,8 @@ class Show extends Component
 
     public $collaborators;
 
+    public $invitations;
+
     public $newCollaborator;
 
     public $showPreviousResponses = false;
@@ -35,15 +35,11 @@ class Show extends Component
 
     protected $rules = [
         'newCollaborator.email' => ['required', 'email'],
-        'newCollaborator.name' => ['required'],
-        'newCollaborator.pronouns' => ['required'],
     ];
 
     protected $messages = [
         'newCollaborator.email.required' => 'The email field cannot be empty.',
         'newCollaborator.email.email' => 'The email format is not valid.',
-        'newCollaborator.name.required' => 'The name field cannot be empty.',
-        'newCollaborator.pronouns.required' => 'The pronouns field cannot be empty.',
     ];
 
     public function mount()
@@ -90,6 +86,7 @@ class Show extends Component
             if ($this->form->hasCollaborators) {
                 if (isset($this->parent)) {
                     $this->collaborators = $this->parent->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
+                    $this->invitations = $this->parent->invitations->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
                 } else {
                     $user = auth()->check() ? auth()->user()->only(['id', 'name', 'email', 'pronouns']) : ['name' => 'Luz Noceda', 'id' => '', 'email' => 'luz@hexide.edu', 'pronouns' => 'she/her'];
                     $this->collaborators = collect([$user]);
@@ -166,30 +163,6 @@ class Show extends Component
 
     // Methods
 
-    public function saveCollaborator()
-    {
-        $this->validate();
-
-        if (! isset($this->newCollaborator['id']) || $this->newCollaborator['id'] === '') {
-            $user = User::create(array_merge($this->newCollaborator, ['password' => Hash::make(Str::random(15))]));
-            $this->newCollaborator['id'] = $user->id;
-        } else {
-            $user = User::find($this->newCollaborator['id']);
-        }
-
-        $this->collaborators[] = $this->newCollaborator;
-
-        if ($this->isWorkshopForm) {
-            $this->save();
-        } else {
-            $this->save(false);
-        }
-
-        Notification::send($user, new AddedAsCollaborator($this->response));
-
-        $this->reset('newCollaborator', 'showCollaboratorModal');
-    }
-
     public function delete($id)
     {
         $this->previousResponses->firstWhere('id', $id)->safeDelete();
@@ -209,22 +182,33 @@ class Show extends Component
         $this->emit('notify', ['message' => 'Successfully removed presenter.', 'type' => 'success']);
     }
 
+    public function deleteInvitation($id)
+    {
+        $this->invitations->firstWhere('id', $id)->delete();
+        $this->invitations = $this->response->fresh()->invitations;
+
+        $this->emit('notify', ['message' => 'Successfully removed presenter invitation.', 'type' => 'success']);
+        $this->emit('refresh');
+    }
+
     public function isVisible($item)
     {
         if (isset($item['visibility']) && isset($item['conditions']) && $item['visibility'] === 'conditional' && count($item['conditions']) > 0) {
             [$passes, $fails] = collect($item['conditions'])->partition(function ($condition) {
-                if ($condition['method'] === 'equals') {
-                    return $this->answers[$condition['field']] == $condition['value'];
-                } elseif ($condition['method'] === 'not') {
-                    return $this->answers[$condition['field']] != $condition['value'];
-                } elseif ($condition['method'] === '>') {
-                    return $this->answers[$condition['field']] > $condition['value'];
-                } elseif ($condition['method'] === '>=') {
-                    return $this->answers[$condition['field']] >= $condition['value'];
-                } elseif ($condition['method'] === '<') {
-                    return $this->answers[$condition['field']] < $condition['value'];
-                } elseif ($condition['method'] === '<=') {
-                    return $this->answers[$condition['field']] <= $condition['value'];
+                if (isset($this->answers[$condition['field']])) {
+                    if ($condition['method'] === 'equals') {
+                        return $this->answers[$condition['field']] == $condition['value'];
+                    } elseif ($condition['method'] === 'not') {
+                        return $this->answers[$condition['field']] != $condition['value'];
+                    } elseif ($condition['method'] === '>') {
+                        return $this->answers[$condition['field']] > $condition['value'];
+                    } elseif ($condition['method'] === '>=') {
+                        return $this->answers[$condition['field']] >= $condition['value'];
+                    } elseif ($condition['method'] === '<') {
+                        return $this->answers[$condition['field']] < $condition['value'];
+                    } elseif ($condition['method'] === '<=') {
+                        return $this->answers[$condition['field']] <= $condition['value'];
+                    }
                 }
             });
 
@@ -245,6 +229,7 @@ class Show extends Component
 
         $this->answers = $this->response->answers;
         $this->collaborators = $this->response->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
+        $this->invitations = $this->response->invitations;
         $this->emit('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
         $this->showPreviousResponses = false;
     }
@@ -277,6 +262,28 @@ class Show extends Component
         if ($withNotification) {
             $this->emit('notify', ['message' => 'Successfully saved submission. You can leave this page and come back to continue working on the submission.', 'type' => 'success']);
         }
+    }
+
+    public function saveCollaborator()
+    {
+        $this->validate();
+
+        if ($this->isWorkshopForm) {
+            $this->save();
+        } else {
+            $this->save(false);
+        }
+
+        $invitation = $this->response->invitations()->create([
+            'invited_by' => auth()->id(),
+            'email' => $this->newCollaborator['email'],
+        ]);
+
+        Notification::route('mail', $this->newCollaborator['email'])->notify(new AddedAsCollaborator($invitation, $this->response));
+
+        $this->invitations[] = $invitation;
+
+        $this->reset('newCollaborator', 'showCollaboratorModal');
     }
 
     public function submit()

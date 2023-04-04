@@ -2,12 +2,10 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
-use App\Filament\Actions\DashboardReport;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
 use App\Filament\Resources\EventResource\Widgets\TicketBreakdown;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
@@ -15,6 +13,11 @@ use Filament\Resources\Pages\EditRecord;
 class EditEvent extends EditRecord
 {
     protected static string $resource = EventResource::class;
+
+    public function hasCombinedRelationManagerTabsWithForm(): bool
+    {
+        return true;
+    }
 
     protected function getActions(): array
     {
@@ -56,10 +59,5 @@ class EditEvent extends EditRecord
             StatsOverview::class,
             TicketBreakdown::class,
         ];
-    }
-
-    public function hasCombinedRelationManagerTabsWithForm(): bool
-    {
-        return true;
     }
 }

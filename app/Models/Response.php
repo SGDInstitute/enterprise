@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasInvitations;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Response extends Model
 {
     use HasFactory;
+    use HasInvitations;
     use HasSettings;
     use LogsActivity;
 

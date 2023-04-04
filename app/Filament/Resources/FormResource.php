@@ -119,6 +119,7 @@ class FormResource extends Resource
                 Builder::make('form')
                     ->label('Form')
                     ->reactive()
+                    ->cloneable()
                     ->collapsible()
                     ->blocks([
                         static::questionBlockSchema(),
@@ -174,7 +175,7 @@ class FormResource extends Resource
                 RichEditor::make('content'),
             ]);
     }
-    
+
     public static function questionBlockSchema()
     {
         return Block::make('question')
