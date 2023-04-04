@@ -55,7 +55,7 @@ class FormResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('style')
+                TextColumn::make('type')
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('auth_required')
