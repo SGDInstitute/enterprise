@@ -29,9 +29,7 @@ class AddedAsCollaborator extends Notification implements ShouldQueue
             ->line('We are letting you know that you have been added as a co-presenter to ' . $this->response->name . '.')
             ->line('You can work on the submission with the other presenters and submit it for review.')
             ->line('If your presentation is accepted, you will have a ticket automatically created for you.')
-            ->action('Accept Invitation', URL::signedRoute('invitations.accept', [
-                'invitation' => $this->invitation,
-            ]));
+            ->action('Accept Invitation', $this->invitation->acceptUrl);
     }
 
     public function toArray($notifiable): array
