@@ -7,6 +7,7 @@ use App\Models\Form;
 use App\Models\Order;
 use App\Models\Response;
 use App\Models\User;
+use App\Notifications\AddedAsCollaborator;
 use App\Notifications\RemovedAsCollaborator;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
@@ -274,7 +275,12 @@ class Show extends Component
             $this->save(false);
         }
 
-        $invitation = InviteUser::invite(auth()->user(), $this->response, $this->newCollaborator['email']);
+        $invitation = $this->response->invitations()->create([
+            'invited_by' => auth()->id(),
+            'email' => $this->newCollaborator['email'],
+        ]);
+
+        Notification::route('mail', $this->newCollaborator['email'])->notify(new AddedAsCollaborator($invitation, $this->response));
 
         $this->invitations[] = $invitation;
 
