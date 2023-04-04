@@ -252,6 +252,7 @@ class FormResource extends Resource
                                     ->required(),
                                 TextInput::make('value')->required(),
                             ])->columns(3),
+                        Toggle::make('editable_after_submission'),
                     ]),
             ]);
     }
