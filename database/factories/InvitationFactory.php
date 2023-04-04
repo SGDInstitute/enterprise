@@ -19,6 +19,7 @@ class InvitationFactory extends Factory
     public function definition(): array
     {
         $response = Response::factory()->create();
+
         return [
             'invited_by' => User::factory(),
             'inviteable_id' => $response->id,

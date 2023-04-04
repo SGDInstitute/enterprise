@@ -2,11 +2,9 @@
 
 namespace App\Actions;
 
-use App\Mail\InvitationForUser;
 use App\Models\User;
 use App\Notifications\AddedAsCollaborator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class InviteUser
