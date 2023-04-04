@@ -24,6 +24,12 @@ class InvitationControllerTest extends TestCase
             ->assertRedirectToRoute('app.forms.show', ['form' => $response->form, 'edit' => $response]);
 
         $this->assertTrue($response->collaborators->contains($user->id));
+
+        $this->assertDatabaseMissing('invitations', [
+            'inviteable_type' => 'App\Models\Response',
+            'inviteable_id' => $response->id,
+            'email' => 'luz@hexide.edu',
+        ]);
     }
 
     /** @test */

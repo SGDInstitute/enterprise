@@ -33,6 +33,7 @@ class Invitation extends Model
         if ($this->inviteable_type === Response::class) {
             $response = $this->inviteable;
             $response->collaborators()->attach(auth()->user());
+            $this->delete();
             return redirect()->route('app.forms.show', ['form' => $response->form, 'edit' => $response]);
         }
     }
