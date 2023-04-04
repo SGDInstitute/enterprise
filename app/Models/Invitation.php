@@ -35,6 +35,7 @@ class Invitation extends Model
             $response->collaborators()->attach(auth()->user());
 
             $this->delete();
+
             return redirect()->route('app.forms.show', ['form' => $response->form, 'edit' => $response]);
         }
     }
