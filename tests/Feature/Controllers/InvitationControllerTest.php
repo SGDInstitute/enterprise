@@ -12,7 +12,6 @@ class InvitationControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    // if user logged in with proper email can accept invitation
     /** @test */
     public function can_accept_invitation_for_workshop()
     {
@@ -27,9 +26,41 @@ class InvitationControllerTest extends TestCase
         $this->assertTrue($response->collaborators->contains($user->id));
     }
 
-    // if user exists redirect to login with flash message
+    /** @test */
+    public function if_user_exists_but_is_not_logged_in_redirect_to_login_with_flash()
+    {
+        $user = User::factory()->create(['email' => 'luz@hexide.edu']);
+        $response = Response::factory()->create();
+        $invtation = Invitation::factory()->for($response, 'inviteable')->create(['email' => $user->email]);
 
-    // if user doesn't exist redirect to register with flash message
+        $this->get($invtation->acceptUrl)
+            ->assertRedirectToRoute('login')
+            ->assertSessionHas('status', 'Login to accept invitation.')
+            ->assertSessionHas('url.intended', $invtation->acceptUrl);
+    }
 
-    // if user is logged in but not with email in question logout
+    /** @test */
+    public function if_user_does_not_exist_redirect_to_register_with_flash()
+    {
+        $response = Response::factory()->create();
+        $invtation = Invitation::factory()->for($response, 'inviteable')->create(['email' => 'luz@hexide.edu']);
+
+        $this->get($invtation->acceptUrl)
+            ->assertRedirectToRoute('register')
+            ->assertSessionHas('status', 'Create an account to accept invitation.')
+            ->assertSessionHas('url.intended', $invtation->acceptUrl);
+    }
+
+    /** @test */
+    public function if_logged_in_user_does_not_match_log_them_out()
+    {
+        $user = User::factory()->create();
+        $response = Response::factory()->create();
+        $invtation = Invitation::factory()->for($response, 'inviteable')->create(['email' => 'luz@hexide.edu']);
+
+        $this->actingAs($user)
+            ->get($invtation->acceptUrl);
+
+        $this->assertFalse(auth()->check());
+    }
 }

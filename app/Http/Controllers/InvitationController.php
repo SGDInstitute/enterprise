@@ -23,8 +23,12 @@ class InvitationController extends Controller
         }
 
         if (User::firstWhere('email', $invitation->email)) {
+            $request->session()->flash('status', 'Login to accept invitation.');
+            $request->session()->put('url.intended', $invitation->acceptUrl);
             return redirect()->route('login');
         } else {
+            $request->session()->flash('status', 'Create an account to accept invitation.');
+            $request->session()->put('url.intended', $invitation->acceptUrl);
             return redirect()->route('register');
         }
     }
