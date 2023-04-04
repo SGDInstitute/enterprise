@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Livewire\App\Forms;
 
-use App\Actions\InviteUser as ActionsInviteUser;
 use App\Http\Livewire\App\Forms\Show;
 use App\Models\Event;
 use App\Models\Form;
