@@ -77,23 +77,31 @@ class EventResource extends Resource
                     RichEditor::make('description')->columnSpanFull(),
                 ])->columns(2),
                 Section::make('Policy Tabs')->schema([
-                    Repeater::make('tabs')
+                    Repeater::make('settings.tabs')
                     ->schema([
                         TextInput::make('name')->required(),
                         TextInput::make('slug')->required(),
                         TextInput::make('icon')->required(),
                         RichEditor::make('content')->required()->columnSpanFull(),
                     ])
+                    ->collapsible()
+                    ->collapsed()
+                    ->cloneable()
                     ->columns(3),
                 ])->hidden(fn ($record) => $record === null),
                 Section::make('Media')->schema([
-                    FileUpload::make('logo')->preserveFilenames(),
-                    FileUpload::make('background')->preserveFilenames(),
+                    FileUpload::make('settings.logo')->preserveFilenames(),
+                    FileUpload::make('settings.background')->preserveFilenames(),
                 ])->hidden(fn ($record) => $record === null),
                 Section::make('Tickets')->schema([
                     Checkbox::make('settings.reservations')
                         ->label('Enable reservations')
-                        ->hint('This allows a user to not pay right away but reserve tickets to pay another time'),
+                        ->hint('This allows a user to not pay right away but reserve tickets to pay another time')
+                        ->reactive(),
+                    TextInput::make('settings.reservation_length')
+                        ->hidden(fn ($get) => ! $get('settings.reservations'))
+                        ->hint('How many days does a reservation have to be paid')
+                        ->label('Reservation Length'),
                     Checkbox::make('settings.volunteer_discounts')
                         ->label('Enable volunteer discounts'),
                     Checkbox::make('settings.presenter_discounts')
@@ -117,6 +125,21 @@ class EventResource extends Resource
                 ]),
                 Section::make('Workshop/Volunteers')->schema([
                     Checkbox::make('settings.has_workshops')->label('Has workshop proposals'),
+                    Checkbox::make('settings.has_tracks')->label('Has workshop tracks')->reactive(),
+                    Repeater::make('settings.tracks')->label('Tracks')
+                        ->collapsible()
+                        ->collapsed()
+                        ->cloneable()
+                        ->columns(3)
+                        ->hidden(fn ($get) => ! $get('settings.has_tracks'))
+                        ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                        ->schema([
+                            TextInput::make('id')->label('ID')->required(),
+                            TextInput::make('name')->required(),
+                            // @todo dynamically add rooms from schedule builder
+                            Select::make('room')->options([]),
+                            RichEditor::make('description')->columnSpanFull()->required(),
+                        ]),
                     Checkbox::make('settings.has_volunteers')->label('Has volunteers'),
                 ]),
                 Section::make('Fundraising')->schema([
