@@ -206,8 +206,8 @@ class EventResource extends Resource
             ReservationsRelationManager::class,
             OrdersRelationManager::class,
             TicketsRelationManager::class,
-            TicketTypesRelationManager::class,
             EventItemsRelationManager::class,
+            TicketTypesRelationManager::class,
         ];
     }
 

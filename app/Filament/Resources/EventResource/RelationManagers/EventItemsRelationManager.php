@@ -14,6 +14,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Carbon;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 
 class EventItemsRelationManager extends RelationManager
@@ -50,19 +51,43 @@ class EventItemsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('duration')
+                    ->searchable()
+                    ->sortable('start')
                     ->formatStateUsing(fn ($record) => $record->formattedDuration),
-                TextColumn::make('location'),
-                TextColumn::make('name'),
+                TextColumn::make('location')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('tracks'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                    ->mutateFormDataUsing(function (array $data): array {
+                        $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
+                        $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
+                
+                        return $data;
+                    }),
             ])
             ->actions([
-                EditAction::make(),
+                EditAction::make()
+                    ->mutateRecordDataUsing(function (array $data): array {
+                        $data['start'] = Carbon::parse($data['start'], 'UTC')->timezone($data['timezone'])->toDateTimeString();
+                        $data['end'] = Carbon::parse($data['end'], 'UTC')->timezone($data['timezone'])->toDateTimeString();
+                        
+                        return $data;
+                    })
+                    ->mutateFormDataUsing(function (array $data): array {
+                        $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
+                        $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
+                
+                        return $data;
+                    }),
                 DeleteAction::make(),
             ])
             ->bulkActions([
