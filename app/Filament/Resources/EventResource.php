@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EventResource\Pages;
+use App\Filament\Resources\EventResource\RelationManagers\EventItemsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\TicketsRelationManager;
@@ -15,8 +16,9 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -52,102 +54,106 @@ class EventResource extends Resource
                         self::setUpPreset($set, $state);
                     })
                     ->hidden(fn ($record) => $record !== null),
-                Section::make('Information')->schema([
-                    TextInput::make('name')
-                        ->required()
-                        ->maxLength(255),
-                    TextInput::make('subtitle')
-                        ->required()
-                        ->maxLength(255),
-                    TextInput::make('location')
-                        ->maxLength(255),
-                    TextInput::make('order_prefix')
-                        ->maxLength(255),
-                    Fieldset::make('Duration')
-                        ->schema([
-                            DateTimePicker::make('start')
-                                ->required(),
-                            DateTimePicker::make('end')
-                                ->required(),
-                            TimezoneSelect::make('timezone')
-                                ->searchable()
-                                ->required(),
-                        ])
-                        ->columns(3),
-                    RichEditor::make('description')->columnSpanFull(),
-                ])->columns(2),
-                Section::make('Policy Tabs')->schema([
-                    Repeater::make('settings.tabs')
-                    ->schema([
-                        TextInput::make('name')->required(),
-                        TextInput::make('slug')->required(),
-                        TextInput::make('icon')->required(),
-                        RichEditor::make('content')->required()->columnSpanFull(),
-                    ])
-                    ->collapsible()
-                    ->collapsed()
-                    ->cloneable()
-                    ->columns(3),
-                ])->hidden(fn ($record) => $record === null),
-                Section::make('Media')->schema([
-                    FileUpload::make('settings.logo')->preserveFilenames(),
-                    FileUpload::make('settings.background')->preserveFilenames(),
-                ])->hidden(fn ($record) => $record === null),
-                Section::make('Tickets')->schema([
-                    Checkbox::make('settings.reservations')
-                        ->label('Enable reservations')
-                        ->hint('This allows a user to not pay right away but reserve tickets to pay another time')
-                        ->reactive(),
-                    TextInput::make('settings.reservation_length')
-                        ->hidden(fn ($get) => ! $get('settings.reservations'))
-                        ->hint('How many days does a reservation have to be paid')
-                        ->label('Reservation Length'),
-                    Checkbox::make('settings.volunteer_discounts')
-                        ->label('Enable volunteer discounts'),
-                    Checkbox::make('settings.presenter_discounts')
-                        ->label('Enable presenter discounts'),
-                    Checkbox::make('settings.demographics')
-                        ->label('Collect demographics'),
-                    Checkbox::make('settings.add_ons')
-                        ->label('Enable Add on options')
-                        ->hint('These are extra cost items that can be added to a ticket e.g. meal tickets, t-shirts.'),
-                    Checkbox::make('settings.bulk')
-                        ->label('Allow bulk orders'),
-                    Checkbox::make('settings.invoices')
-                        ->label('Enable invoice generation'),
-                    Checkbox::make('settings.check_payment')
-                        ->label('Allow pay by check')
-                        ->hint('If unchecked the event can only be paid for by credit card.'),
-                    Checkbox::make('settings.onsite')
-                        ->label('On-site check-in'),
-                    Checkbox::make('settings.livestream')
-                        ->label('Enable livestream portal'),
-                ]),
-                Section::make('Workshop/Volunteers')->schema([
-                    Checkbox::make('settings.has_workshops')->label('Has workshop proposals'),
-                    Checkbox::make('settings.has_tracks')->label('Has workshop tracks')->reactive(),
-                    Repeater::make('settings.tracks')->label('Tracks')
-                        ->collapsible()
-                        ->collapsed()
-                        ->cloneable()
-                        ->columns(3)
-                        ->hidden(fn ($get) => ! $get('settings.has_tracks'))
-                        ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                        ->schema([
-                            TextInput::make('id')->label('ID')->required(),
-                            TextInput::make('name')->required(),
-                            // @todo dynamically add rooms from schedule builder
-                            Select::make('room')->options([]),
-                            RichEditor::make('description')->columnSpanFull()->required(),
+                Tabs::make('Heading')
+                    ->tabs([
+                        Tab::make('Information')->schema([
+                            TextInput::make('name')
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('subtitle')
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('location')
+                                ->maxLength(255),
+                            TextInput::make('order_prefix')
+                                ->maxLength(255),
+                            Fieldset::make('Duration')
+                                ->schema([
+                                    DateTimePicker::make('start')
+                                        ->required(),
+                                    DateTimePicker::make('end')
+                                        ->required(),
+                                    TimezoneSelect::make('timezone')
+                                        ->searchable()
+                                        ->required(),
+                                ])
+                                ->columns(3),
+                            RichEditor::make('description')->columnSpanFull(),
+                        ])->columns(2),
+                        Tab::make('Policy Tabs')->schema([
+                            Repeater::make('settings.tabs')
+                            ->schema([
+                                TextInput::make('name')->required(),
+                                TextInput::make('slug')->required(),
+                                TextInput::make('icon')->required(),
+                                RichEditor::make('content')->required()->columnSpanFull(),
+                            ])
+                            ->collapsible()
+                            ->collapsed()
+                            ->cloneable()
+                            ->columns(3),
+                        ])->hidden(fn ($record) => $record === null),
+                        Tab::make('Media')->schema([
+                            FileUpload::make('settings.logo')->preserveFilenames(),
+                            FileUpload::make('settings.background')->preserveFilenames(),
+                        ])->hidden(fn ($record) => $record === null),
+                        Tab::make('Tickets')->schema([
+                            Checkbox::make('settings.reservations')
+                                ->label('Enable reservations')
+                                ->hint('This allows a user to not pay right away but reserve tickets to pay another time')
+                                ->reactive(),
+                            TextInput::make('settings.reservation_length')
+                                ->hidden(fn ($get) => ! $get('settings.reservations'))
+                                ->hint('How many days does a reservation have to be paid')
+                                ->label('Reservation Length'),
+                            Checkbox::make('settings.volunteer_discounts')
+                                ->label('Enable volunteer discounts'),
+                            Checkbox::make('settings.presenter_discounts')
+                                ->label('Enable presenter discounts'),
+                            Checkbox::make('settings.demographics')
+                                ->label('Collect demographics'),
+                            Checkbox::make('settings.add_ons')
+                                ->label('Enable Add on options')
+                                ->hint('These are extra cost items that can be added to a ticket e.g. meal tickets, t-shirts.'),
+                            Checkbox::make('settings.bulk')
+                                ->label('Allow bulk orders'),
+                            Checkbox::make('settings.invoices')
+                                ->label('Enable invoice generation'),
+                            Checkbox::make('settings.check_payment')
+                                ->label('Allow pay by check')
+                                ->hint('If unchecked the event can only be paid for by credit card.'),
+                            Checkbox::make('settings.onsite')
+                                ->label('On-site check-in'),
+                            Checkbox::make('settings.livestream')
+                                ->label('Enable livestream portal'),
                         ]),
-                    Checkbox::make('settings.has_volunteers')->label('Has volunteers'),
-                ]),
-                Section::make('Fundraising')->schema([
-                    Checkbox::make('settings.has_sponsorship')->label('Has sponsorship packages'),
-                    Checkbox::make('settings.has_vendors')->label('Has vendor tables'),
-                    Checkbox::make('settings.has_ads')->label('Has program ads'),
-                    Checkbox::make('settings.allow_donations')->label('Allow one-time donations'),
-                ]),
+                        Tab::make('Workshop/Volunteers')->schema([
+                            Checkbox::make('settings.has_workshops')->label('Has workshop proposals'),
+                            Checkbox::make('settings.has_tracks')->label('Has workshop tracks')->reactive(),
+                            Repeater::make('settings.tracks')->label('Tracks')
+                                ->collapsible()
+                                ->collapsed()
+                                ->cloneable()
+                                ->columns(3)
+                                ->hidden(fn ($get) => ! $get('settings.has_tracks'))
+                                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                                ->schema([
+                                    TextInput::make('id')->label('ID')->required(),
+                                    TextInput::make('name')->required(),
+                                    // @todo dynamically add rooms from schedule builder
+                                    Select::make('room')->options([]),
+                                    RichEditor::make('description')->columnSpanFull()->required(),
+                                ]),
+                            Checkbox::make('settings.has_volunteers')->label('Has volunteers'),
+                        ]),
+                        Tab::make('Fundraising')->schema([
+                            Checkbox::make('settings.has_sponsorship')->label('Has sponsorship packages'),
+                            Checkbox::make('settings.has_vendors')->label('Has vendor tables'),
+                            Checkbox::make('settings.has_ads')->label('Has program ads'),
+                            Checkbox::make('settings.allow_donations')->label('Allow one-time donations'),
+                        ]),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -201,6 +207,7 @@ class EventResource extends Resource
             OrdersRelationManager::class,
             TicketsRelationManager::class,
             TicketTypesRelationManager::class,
+            EventItemsRelationManager::class,
         ];
     }
 
