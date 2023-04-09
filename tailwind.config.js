@@ -1,38 +1,46 @@
 const colors = require('tailwindcss/colors')
 const { fontFamily } = require('tailwindcss/defaultTheme')
+const brandGreen = {
+    50: '#F3F9F8',
+    100: '#E6F2F2',
+    200: '#C1DFDE',
+    300: '#9CCCCA',
+    400: '#51A6A3',
+    500: '#07807B',
+    600: '#06736F',
+    700: '#044D4A',
+    800: '#033A37',
+    900: '#022625',
+}
+
+const brandYellow = {
+    400: '#F4C33E',
+    500: '#F2B716',
+    600: '#D49F0C',
+    700: '#ae820a',
+    800: '#745707',
+    900: '#3a2b03',
+}
 
 module.exports = {
     content: [
         './resources/**/*.blade.php',
+        './vendor/filament/**/*.blade.php', 
     ],
 
     theme: {
         extend: {
             colors: {
+                danger: colors.rose,
+                primary: brandGreen,
+                success: colors.green,
+                warning: brandYellow,
                 gray: {
                     850: '#172033',
                     ...colors.slate
                 },
-                green: {
-                    50: '#F3F9F8',
-                    100: '#E6F2F2',
-                    200: '#C1DFDE',
-                    300: '#9CCCCA',
-                    400: '#51A6A3',
-                    500: '#07807B',
-                    600: '#06736F',
-                    700: '#044D4A',
-                    800: '#033A37',
-                    900: '#022625',
-                },
-                yellow: {
-                    400: '#F4C33E',
-                    500: '#F2B716',
-                    600: '#D49F0C',
-                    700: '#ae820a',
-                    800: '#745707',
-                    900: '#3a2b03',
-                },
+                green: brandGreen,
+                yellow: brandYellow,
             },
             height: {
                 '1/2-screen': '50vh',
@@ -206,8 +214,8 @@ module.exports = {
     },
 
     plugins: [
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/forms'),
         require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
     ],
 }

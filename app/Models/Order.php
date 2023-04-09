@@ -43,7 +43,7 @@ class Order extends Model
 
     public function scopeReservations($query)
     {
-        return $query->where('status', 'reservation');
+        return $query->whereNull('paid_at');
     }
 
     public function scopePaid($query)
@@ -60,7 +60,7 @@ class Order extends Model
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'order_id');
     }
 
     public function user()
@@ -113,10 +113,10 @@ class Order extends Model
         return $this->event->order_prefix . $this->id;
     }
 
-    public function getInvoiceAttribute(): SchemalessAttributes
-    {
-        return SchemalessAttributes::createForModel($this, 'invoice');
-    }
+    // public function getInvoiceAttribute(): SchemalessAttributes
+    // {
+    //     return SchemalessAttributes::createForModel($this, 'invoice');
+    // }
 
     public function getSubtotalAttribute()
     {
@@ -161,6 +161,18 @@ class Order extends Model
         $this->amount = $amount;
         $this->status = 'succeeded';
         $this->save();
+    }
+
+    public function markAsUnpaid()
+    {
+        $this->update([
+            'transaction_id' => null,
+            'reservation_ends' => $this->event->reservationEndsAt,
+            'paid_at' => null,
+            'confirmation_number' => null,
+            'amount' => null,
+            'status' => 'reservation',
+        ]);
     }
 
     public function safeDelete()

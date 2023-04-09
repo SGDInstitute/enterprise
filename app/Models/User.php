@@ -36,6 +36,11 @@ class User extends Authenticatable
         'address' => 'array',
     ];
 
+    public function canAccessFilament(): bool
+    {
+        return $this->can('view-galaxy');
+    }
+
     // Relationships
 
     public function donations()
@@ -53,9 +58,14 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function paidOrders()
+    {
+        return $this->hasMany(Order::class)->paid();
+    }
+
     public function reservations()
     {
-        return $this->orders()->whereNull('transaction_id');
+        return $this->hasMany(Order::class)->reservations();
     }
 
     public function responses()

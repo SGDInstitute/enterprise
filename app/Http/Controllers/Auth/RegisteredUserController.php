@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -43,6 +44,10 @@ class RegisteredUserController extends Controller
         ]));
 
         event(new Registered($user));
+
+        if (session()->has('url.intended') && Str::finish(session('url.intended'), '/') !== Str::finish(route('app.home'), '/')) {
+            return redirect(session('url.intended'));
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }
