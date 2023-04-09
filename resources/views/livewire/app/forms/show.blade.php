@@ -46,10 +46,6 @@
                                 <x-bit.button.flat.primary form="form" type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
                                 @endif
                             </div>
-
-                            @if ($showResponseLog)
-                            <livewire:bit.response-log :response="$response" />
-                            @endif
                         </div>
                     </div>
                 @endif
