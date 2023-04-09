@@ -20,7 +20,7 @@ use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 class EventItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
-    
+
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $title = 'Schedule';
@@ -70,7 +70,7 @@ class EventItemsRelationManager extends RelationManager
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
                         $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
-                
+
                         return $data;
                     }),
             ])
@@ -79,13 +79,13 @@ class EventItemsRelationManager extends RelationManager
                     ->mutateRecordDataUsing(function (array $data): array {
                         $data['start'] = Carbon::parse($data['start'], 'UTC')->timezone($data['timezone'])->toDateTimeString();
                         $data['end'] = Carbon::parse($data['end'], 'UTC')->timezone($data['timezone'])->toDateTimeString();
-                        
+
                         return $data;
                     })
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
                         $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
-                
+
                         return $data;
                     }),
                 DeleteAction::make(),
@@ -93,5 +93,5 @@ class EventItemsRelationManager extends RelationManager
             ->bulkActions([
                 DeleteBulkAction::make(),
             ]);
-    }    
+    }
 }
