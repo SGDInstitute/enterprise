@@ -39,7 +39,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessFilament(): bool
     {
-        return $this->can('view-galaxy');
+        return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'developer']);
     }
 
     // Relationships
