@@ -137,7 +137,7 @@ class EventResource extends Resource
                                         return new HtmlString('<a class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400" href="' . route('filament.resources.forms.edit', $record->workshopForm) . '">Edit Form</a>');
                                     }
 
-                                    return new HtmlString('<a class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400" href="' . route('filament.resources.forms.create'). '">create form</a>');
+                                    return new HtmlString('<a class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400" href="' . route('filament.resources.forms.create') . '">create form</a>');
                                 })
                                 ->hidden(fn ($record) => ! $record->settings->has_workshops),
                             Checkbox::make('settings.has_tracks')->label('Has workshop tracks')->reactive(),

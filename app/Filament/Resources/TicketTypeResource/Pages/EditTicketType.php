@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\TicketTypeResource\Pages;
 
 use App\Filament\Resources\TicketTypeResource;
-use Filament\Resources\Pages\EditRecord;
 use Filament\Pages\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -34,11 +34,11 @@ class EditTicketType extends EditRecord
         $data['start'] = Carbon::parse($data['start'], $record->timezone)->timezone('UTC');
         $data['end'] = Carbon::parse($data['end'], $record->timezone)->timezone('UTC');
         $record->update(Arr::except($data, 'cost'));
-        
+
         if ($record->structure === 'flat') {
             $record->prices->first()->update(['cost' => $data['cost'] * 100]);
         }
-    
+
         return $record;
     }
 }

@@ -28,7 +28,7 @@ class TicketTypeResourceTest extends TestCase
                 'description' => 'Comes with lunch',
                 'start' => now(),
                 'end' => now()->addMonths(6),
-                'cost' => '10.00'
+                'cost' => '10.00',
             ])
             ->call('create')
             ->assertHasNoFormErrors();
@@ -63,7 +63,7 @@ class TicketTypeResourceTest extends TestCase
                 'description' => 'For late comers',
                 'start' => $newStart->toDateTimeString(),
                 'end' => $newEnd->toDateTimeString(),
-                'cost' => '115.00'
+                'cost' => '115.00',
             ])
             ->call('save');
 
