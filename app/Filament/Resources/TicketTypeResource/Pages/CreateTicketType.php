@@ -17,6 +17,8 @@ class CreateTicketType extends CreateRecord
     {
         if ($eventId = request('event_id')) {
             $this->data['event_id'] = $eventId;
+            // @todo why not working?
+            $this->data['timezone'] = Event::select('timezone')->find($eventId)->timzeone;
         }
     }
 

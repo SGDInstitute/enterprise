@@ -76,7 +76,11 @@ class TicketType extends Model
 
     public function getPriceRangeAttribute()
     {
-        return '$' . $this->prices->min('cost') / 100 . ' - $' . $this->prices->max('cost') / 100;
+        if ($this->prices->count() > 1) {
+            return '$' . $this->prices->min('cost') / 100 . ' - $' . $this->prices->max('cost') / 100;
+        }
+
+        return '$' . $this->prices->min('cost') / 100;
     }
 
     // Methods
