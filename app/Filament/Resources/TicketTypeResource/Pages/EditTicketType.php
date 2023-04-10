@@ -24,7 +24,7 @@ class EditTicketType extends EditRecord
     {
         $data['start'] = Carbon::parse($data['start'])->timezone($this->record->timezone)->toDateTimeString();
         $data['end'] = Carbon::parse($data['end'])->timezone($this->record->timezone)->toDateTimeString();
-        
+
         if ($data['structure'] === 'flat') {
             $data['cost'] = $this->record->prices->first()->costInDollars;
         }
