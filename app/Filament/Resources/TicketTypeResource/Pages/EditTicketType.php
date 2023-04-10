@@ -22,6 +22,9 @@ class EditTicketType extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
+        $data['start'] = Carbon::parse($data['start'])->timezone($this->record->timezone)->toDateTimeString();
+        $data['end'] = Carbon::parse($data['end'])->timezone($this->record->timezone)->toDateTimeString();
+
         if ($data['structure'] === 'flat') {
             $data['cost'] = $this->record->prices->first()->costInDollars;
         }
