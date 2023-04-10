@@ -147,9 +147,10 @@ class Tickets extends Component
                     $data['user_id'] = auth()->id();
                 }
                 $tickets = [];
-                foreach(range(1, $item['amount']) as $index) {
+                foreach (range(1, $item['amount']) as $index) {
                     $tickets[] = Ticket::make($data);
-                } 
+                }
+
                 return collect($tickets);
             })->flatten()->toArray();
     }
