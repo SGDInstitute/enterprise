@@ -57,6 +57,8 @@ class TicketTypeResourceTest extends TestCase
 
         Livewire::test(EditTicketType::class, ['record' => $ticketType->id])
             ->assertFormSet([
+                'start' => $ticketType->start->timezone($ticketType->timezone),
+                'end' => $ticketType->end->timezone($ticketType->timezone),
                 'cost' => '100.00',
             ])
             ->fillForm([
