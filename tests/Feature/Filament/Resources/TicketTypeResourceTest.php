@@ -28,6 +28,7 @@ class TicketTypeResourceTest extends TestCase
                 'description' => 'Comes with lunch',
                 'start' => now(),
                 'end' => now()->addMonths(6),
+                'timezone' => 'America/Chicago',
                 'cost' => '10.00',
             ])
             ->call('create')
