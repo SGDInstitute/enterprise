@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Stripe\Price as StripePrice;
 
 class Price extends Model
 {
@@ -15,6 +16,15 @@ class Price extends Model
         'end' => 'datetime',
         'start' => 'datetime',
     ];
+
+    protected static function booted(): void
+    {
+        static::updated(function (Price $price) {
+            if ($price->stripe_price_id) {
+                StripePrice::update($price->stripe_price_id, ['unit_cost' => $price->cost]);
+            }
+        });
+    }
 
     // Relations
 
