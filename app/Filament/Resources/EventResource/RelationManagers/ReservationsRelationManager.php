@@ -4,6 +4,7 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Actions\CompBulkAction;
 use App\Filament\Actions\MarkAsPaidAction;
+use App\Filament\Actions\SafeDeleteBulkAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -74,6 +75,7 @@ class ReservationsRelationManager extends RelationManager
             ])
             ->bulkActions([
                 CompBulkAction::make(),
+                SafeDeleteBulkAction::make(),
             ]);
     }
 
