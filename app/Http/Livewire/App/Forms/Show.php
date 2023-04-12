@@ -288,7 +288,7 @@ class Show extends Component
 
     public function submit()
     {
-        $this->validate($this->form->rules);
+        $this->validate($this->form->rules, attributes: $this->form->validationAttributes);
 
         // $this->response->status = 'submitted';
         $this->save(false, 'submitted');
