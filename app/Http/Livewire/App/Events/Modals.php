@@ -24,12 +24,7 @@ class Modals extends Component
     public function getModalTitleProperty()
     {
         if ($this->policyModal) {
-            return match ($this->policyModal) {
-                'description' => 'Event Description',
-                'refund' => 'Refund Policy',
-                'code-inclusion' => 'Code for Inclusion',
-                'photo-policy' => 'Photo Policy',
-            };
+            return collect($this->event->settings->tabs)->firstWhere('slug', $this->policyModal)['name'] ?? 'Description';
         }
     }
 
