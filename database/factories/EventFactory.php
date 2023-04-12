@@ -10,7 +10,10 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => '',
+            'name' => 'Queer Music Fest',
+            'start' => now()->addMonth(),
+            'end' => now()->addMonth()->addDays(3),
+            'timezone' => 'America/Chicago',
         ];
     }
 
