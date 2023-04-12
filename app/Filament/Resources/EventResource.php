@@ -13,11 +13,11 @@ use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
@@ -96,8 +96,8 @@ class EventResource extends Resource
                             ->columns(3),
                         ])->hidden(fn ($record) => $record === null),
                         Tab::make('Media')->schema([
-                            FileUpload::make('settings.logo')->preserveFilenames(),
-                            FileUpload::make('settings.background')->preserveFilenames(),
+                            SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->preserveFilenames(),
+                            SpatieMediaLibraryFileUpload::make('background')->collection('background')->preserveFilenames(),
                         ])->hidden(fn ($record) => $record === null),
                         Tab::make('Tickets')->schema([
                             Checkbox::make('settings.reservations')
