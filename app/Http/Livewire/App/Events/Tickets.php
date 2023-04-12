@@ -130,7 +130,7 @@ class Tickets extends Component
             return true;
         }
 
-        return $this->order !== null || $ticket->end->isPast();
+        return $this->order !== null || $ticket->end->isPast() || $ticket->start->isFuture();
     }
 
     private function checkValidation()
@@ -141,10 +141,13 @@ class Tickets extends Component
 
         // get ticket types from form that are expired and have amounts greater than zero
         $expiredTypes = $this->ticketTypes->filter(fn ($type) => $type->end->isPast())->pluck('id');
-        $invalid = $this->form->filter(fn ($item) => $expiredTypes->contains($item['type_id']))->filter(fn ($item) => $item['amount'] > 0);
+        $futureTypes = $this->ticketTypes->filter(fn ($type) => $type->start->isFuture())->pluck('id');
+        $invalid = $this->form
+            ->filter(fn ($item) => $expiredTypes->contains($item['type_id']) || $futureTypes->contains($item['type_id']))
+            ->filter(fn ($item) => $item['amount'] > 0);
 
         throw_if($invalid->count() > 0, ValidationException::withMessages([
-            'amounts' => ['Cannot purchase expired ticket type.'],
+            'amounts' => ['Cannot purchase future or expired ticket type.'],
         ]));
     }
 

@@ -34,6 +34,8 @@
                     <x-form.input min="0" type="number" :disabled="$this->isDisabled($ticket)" wire:model.lazy="form.{{ $index }}.amount" />
                     @if ($ticket->end->isPast())
                     <x-form.error error="No longer available" />
+                    @elseif ($ticket->start->isFuture())
+                    <x-form.error error="Not available yet" />
                     @endif
                 </div>
             </li>

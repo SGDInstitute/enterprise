@@ -16,13 +16,13 @@ class TicketsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function expired_ticket_types_are_disabled(): void
+    public function future_ticket_types_are_disabled(): void
     {
         $user = User::factory()->create();
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketTypes = TicketType::factory()->for($event)->count(2)
             ->state(new Sequence(
-                ['name' => 'Expired', 'end' => now()->subDays(7)],
+                ['name' => 'Future', 'start' => now()->addDays(7)],
                 ['name' => 'Available', 'end' => now()->addDays(7)],
             ))
             ->hasPrices(1)
