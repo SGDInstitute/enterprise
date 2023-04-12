@@ -62,6 +62,7 @@ class Tickets extends Component
     {
         return view('livewire.app.events.tickets')
             ->with([
+                'fillable' => $this->fillable,
                 'checkoutButton' => $this->checkoutButton,
                 'checkoutAmount' => $this->checkoutAmount,
             ]);
@@ -94,6 +95,11 @@ class Tickets extends Component
         }
 
         return '$' . number_format($checkoutAmount / 100, 2);
+    }
+
+    public function getFillableProperty()
+    {
+        return auth()->check() && auth()->user()->hasVerifiedEmail();
     }
 
     public function reserve()
@@ -153,5 +159,14 @@ class Tickets extends Component
 
                 return collect($tickets);
             })->flatten()->toArray();
+    }
+
+    public function isDisabled($ticket)
+    {
+        if(! $this->fillable) {
+            return true;
+        }
+        
+        return $this->order !== null || $ticket->end->isPast();
     }
 }
