@@ -3,7 +3,6 @@
 namespace Tests\Feature\Livewire\App\Events;
 
 use App\Http\Livewire\App\Events\Show;
-use App\Http\Livewire\App\Events\Tickets;
 use App\Models\Event;
 use App\Models\TicketType;
 use App\Models\User;

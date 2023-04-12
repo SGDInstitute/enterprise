@@ -138,7 +138,7 @@ class ShowTest extends TestCase
         $form = Form::factory()->for($event)->preset('new-workshop')->create([
             'start' => now()->subDay(),
             'end' => now()->addDays(4),
-            'auth_required' => true
+            'auth_required' => true,
         ]);
         $user = User::factory()->unverified()->create();
 

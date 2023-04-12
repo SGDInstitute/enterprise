@@ -124,6 +124,15 @@ class Tickets extends Component
         $this->order->tickets()->createMany($this->convertFormToTickets());
     }
 
+    public function isDisabled($ticket)
+    {
+        if (! $this->fillable) {
+            return true;
+        }
+
+        return $this->order !== null || $ticket->end->isPast();
+    }
+
     private function checkValidation()
     {
         throw_if($this->form->pluck('amount')->unique()->count() === 1 && $this->form->pluck('amount')->unique()[0] === 0, ValidationException::withMessages([
@@ -159,14 +168,5 @@ class Tickets extends Component
 
                 return collect($tickets);
             })->flatten()->toArray();
-    }
-
-    public function isDisabled($ticket)
-    {
-        if(! $this->fillable) {
-            return true;
-        }
-        
-        return $this->order !== null || $ticket->end->isPast();
     }
 }
