@@ -126,7 +126,7 @@ class Show extends Component
 
     public function getFillableProperty()
     {
-        return $this->form->auth_required ? auth()->check() : true;
+        return $this->form->auth_required ? auth()->check() && auth()->user()->hasVerifiedEmail() : true;
     }
 
     public function getIsWorkshopFormProperty()

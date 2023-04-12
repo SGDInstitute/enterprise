@@ -35,4 +35,22 @@ class TicketsTest extends TestCase
             ->call('reserve')
             ->assertHasErrors();
     }
+
+    /** @test */
+    public function inputs_are_disabled_if_user_is_unverified()
+    {
+        $user = User::factory()->unverified()->create();
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $ticketTypes = TicketType::factory()->for($event)->count(2)
+            ->state(new Sequence(
+                ['name' => 'Expired', 'end' => now()->subDays(7)],
+                ['name' => 'Available', 'end' => now()->addDays(7)],
+            ))
+            ->hasPrices(1)
+            ->create();
+
+        Livewire::actingAs($user)
+            ->test(Tickets::class, ['event' => $event])
+            ->assertSet('fillable', false);
+    }
 }

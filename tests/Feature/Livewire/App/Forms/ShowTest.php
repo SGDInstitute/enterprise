@@ -130,4 +130,21 @@ class ShowTest extends TestCase
             'email' => 'adora@eternia.gov',
         ]);
     }
+
+    /** @test */
+    public function user_must_be_verified_before_filling()
+    {
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $form = Form::factory()->for($event)->preset('new-workshop')->create([
+            'start' => now()->subDay(),
+            'end' => now()->addDays(4),
+            'auth_required' => true,
+        ]);
+        $user = User::factory()->unverified()->create();
+
+        Livewire::actingAs($user)
+            ->test(Show::class, ['form' => $form])
+            ->assertSee('verify your email')
+            ->assertSet('fillable', false);
+    }
 }

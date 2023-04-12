@@ -31,7 +31,7 @@
                 @endif
                 <div>
                     <x-form.label value="Quantity" />
-                    <x-form.input min="0" type="number" :disabled="$order !== null || $ticket->end->isPast()" wire:model.lazy="form.{{ $index }}.amount" />
+                    <x-form.input min="0" type="number" :disabled="$this->isDisabled($ticket)" wire:model.lazy="form.{{ $index }}.amount" />
                     @if ($ticket->end->isPast())
                     <x-form.error error="No longer available" />
                     @endif

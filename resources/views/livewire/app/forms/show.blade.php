@@ -4,20 +4,13 @@
     <div class="bg-white dark:bg-gray-800">
         <div class="container px-12 pb-12 mx-auto">
             @if (!$fillable)
-                <div class="sticky z-50 mx-auto mb-8 max-w-prose top-20">
-                    <div class="p-4 bg-green-600 rounded-md">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <x-heroicon-s-information-circle class="w-8 h-8 text-gray-200" />
-                            </div>
-                            <div class="flex-1 ml-3 md:flex md:justify-between">
-                                <p class="text-lg text-gray-200">
-                                    You must <a href="/login" class="font-bold text-white underline">Login</a> or <a href="/register" class="font-bold text-white underline">Create an Account</a> before filling out this form.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <x-ui.alert>
+                    @guest
+                    You must <a href="/login" class="font-bold text-white underline">Login</a> or <a href="/register" class="font-bold text-white underline">Create an Account</a> before filling out this form.
+                    @elseif (! auth()->user()->hasVerifiedEmail())
+                    You must <a href="{{ route('verification.notice') }}" class="font-bold text-white underline">verify your email</a> before filling out this form.
+                    @endif
+                </x-ui.alert>
             @endif
 
             <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">

@@ -21,7 +21,7 @@
                 @csrf
 
                 <div>
-                    <x-bit.button.flat.primary>
+                    <x-bit.button.flat.primary type="submit">
                         {{ __('Resend Verification Email') }}
                     </x-bit.button.flat.primary>
                 </div>
