@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained('users');
+            $table->foreignId('event_id')->constrained('events');
             $table->foreignId('user_id')->constrained('users');
             $table->string('confirmation_number')->nullable();
             $table->string('transaction_id')->nullable();
