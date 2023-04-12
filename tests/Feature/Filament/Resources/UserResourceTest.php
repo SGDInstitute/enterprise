@@ -43,7 +43,7 @@ class UserResourceTest extends TestCase
             ->assertCanSeeTableRecords([...$deletableUsers, $verifiedUser, $ticketUser, $orderUser, $donationUser])
             ->callPageAction('mass-delete-junk');
 
-        foreach($deletableUsers as $user) {
+        foreach ($deletableUsers as $user) {
             $this->assertModelMissing($user);
         }
         $this->assertModelExists($verifiedUser);
