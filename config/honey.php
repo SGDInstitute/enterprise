@@ -21,7 +21,7 @@ return [
     'features' => [
         Features::spammerIpTracking(),
         Features::blockSpammersGlobally(),
-//        Features::neverGonnaGiveYouUp(),
+        //        Features::neverGonnaGiveYouUp(),
     ],
 
     /**
@@ -36,7 +36,7 @@ return [
      */
     'environments' => [
         'production',
-        'local'
+        'local',
     ],
 
     /**
@@ -86,7 +86,7 @@ return [
          * The number of times a request from an ip address can be classed
          * as spam before they are added to the block list.
          */
-        'maximum_attempts' => 5
+        'maximum_attempts' => 5,
     ],
 
     /**
@@ -112,11 +112,11 @@ return [
                     'present_but_empty' => 'firstname',
                     'time_of_page_load' => 'lastname',
                     'javascript_input' => 'favorite_color',
-                    'recaptcha_input' => 'school'
-                ]
+                    'recaptcha_input' => 'school',
+                ],
             ],
 
-        ]
+        ],
     ],
 
     /**
@@ -142,21 +142,21 @@ return [
      * file.
      */
     'recaptcha' => [
-        'site_key' => env("RECAPTCHA_SITE_KEY"),
-        'secret_key' => env("RECAPTCHA_SECRET_KEY"),
+        'site_key' => env('RECAPTCHA_SITE_KEY'),
+        'secret_key' => env('RECAPTCHA_SECRET_KEY'),
         /**
          * Recaptcha returns a score between 0 and 1 when checking a
          * token. 0 is most definitely a bot, 1 is definitely a
          * user. This informs the recaptcha middleware of
          * minimum score a user can get to pass.
          */
-        'minimum_score' => env("RECAPTCHA_MINIMUM_SCORE", 0.5),
+        'minimum_score' => env('RECAPTCHA_MINIMUM_SCORE', 0.5),
         /**
          * The Recaptcha input will request a token on page load. As
          * Recaptcha tokens only last for 2 minutes, the input
          * refreshes based on this timeout (in milliseconds).
          */
         'token_refresh_interval' => 60000,
-    ]
+    ],
 
 ];
