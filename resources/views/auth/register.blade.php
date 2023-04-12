@@ -40,6 +40,8 @@
                                 name="password_confirmation" required />
             </x-bit.input.group>
 
+            <x-honey/>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="text-sm text-gray-600 underline dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
