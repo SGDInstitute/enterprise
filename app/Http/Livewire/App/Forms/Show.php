@@ -99,7 +99,7 @@ class Show extends Component
     {
         // @todo remember why this if is here
         if ($this->form->type !== 'finalize') {
-            $this->save(status: $this->response->status);
+            $this->save(status: $this->response->status ?? 'work-in-progress');
         }
     }
 
