@@ -16,6 +16,7 @@
         "doctrine/dbal": "^3.5",
         "erusev/parsedown-extra": "^0.8.1",
         "filament/filament": "^2.0",
+        "filament/spatie-laravel-media-library-plugin": "^2.17",
         "guzzlehttp/guzzle": "^7.2",
         "hammerstone/sidecar": "^0.4",
         "lab404/laravel-impersonate": "^1.7",
