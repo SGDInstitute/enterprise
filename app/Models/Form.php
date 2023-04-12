@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -123,5 +124,12 @@ class Form extends Model
             ->mapWithKeys(function ($question) {
                 return ['answers.' . $question['id'] => $question['rules']];
             })->toArray();
+    }
+
+    public function getValidationAttributesAttribute()
+    {
+        return collect($this->rules)
+            ->map(fn ($rule, $key) => Str::of($key)->replace('answers.', '')->replace('-', ' ')->replace('_', ' ')->toString())
+            ->toArray();
     }
 }
