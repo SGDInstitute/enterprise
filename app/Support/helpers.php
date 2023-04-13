@@ -89,7 +89,8 @@ if (! function_exists('recordLink')) {
 }
 
 if (! function_exists('filamentLink')) {
-    function filamentLink($url, $label) {
+    function filamentLink($url, $label)
+    {
         return new HtmlString("<a class='filament-link inline-flex items-center justify-center font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400' href='{$url}'>{$label}</a>");
     }
 }
