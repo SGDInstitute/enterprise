@@ -37,6 +37,10 @@ class OrderResource extends Resource
                             ->content(fn ($record) => recordLink($record->user, 'users.edit', $record->user->name)),
                         Placeholder::make('number_of_tickets')
                             ->content(fn ($record) => $record->tickets()->count()),
+                        Placeholder::make('confirmation_number')
+                            ->content(fn ($record) => $record->formattedConfirmationNumber),
+                        Placeholder::make('transaction_id')
+                            ->content(fn ($record) => filamentLink(stripeUrl($record->transaction_id), $record->transaction_id)),
                         Placeholder::make('Total Cost')
                             ->content(fn ($record) => $record->formattedAmount),
                         Placeholder::make('created_at')

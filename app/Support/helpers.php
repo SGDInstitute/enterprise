@@ -84,6 +84,12 @@ if (! function_exists('recordLink')) {
     {
         $url = route('filament.resources.' . $route, $record);
 
-        return new HtmlString("<a class='filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400 filament-tables-link-action' href='{$url}'>{$label}</a>");
+        return filamentLink($url, $label);
+    }
+}
+
+if (! function_exists('filamentLink')) {
+    function filamentLink($url, $label) {
+        return new HtmlString("<a class='filament-link inline-flex items-center justify-center font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400' href='{$url}'>{$label}</a>");
     }
 }
