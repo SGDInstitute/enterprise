@@ -3,7 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ReservationResource\Pages;
+use App\Filament\Resources\ReservationResource\RelationManagers\TicketsRelationManager;
 use App\Models\Reservation;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -22,7 +27,35 @@ class ReservationResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Grid::make(2)->schema([
+                    Section::make('Details')->schema([
+                        Placeholder::make('id')
+                            ->label('ID')
+                            ->content(fn ($record) => $record->formattedId),
+                        Placeholder::make('event')
+                            ->content(fn ($record) => recordLink($record->event, 'events.edit', $record->event->name)),
+                        Placeholder::make('creator')
+                            ->content(fn ($record) => recordLink($record->user, 'users.edit', $record->user->name)),
+                        Placeholder::make('number_of_tickets')
+                            ->content(fn ($record) => $record->tickets()->count()),
+                        Placeholder::make('Total Cost')
+                            ->content(fn ($record) => $record->formattedAmount),
+                        Placeholder::make('created_at')
+                            ->content(fn ($record) => $record->created_at->format('M, d Y')),
+                        Placeholder::make('due_date')
+                            ->content(fn ($record) => $record->reservation_ends->format('M, d Y')),
+                        Placeholder::make('invoice')
+                            ->content(fn ($record) => $record->invoice !== null ? 'Yes' : 'No'),
+                    ])->inlineLabel()->columnSpan(1),
+                    Section::make('Invoice')->schema([
+                        Placeholder::make('name')
+                            ->content(fn ($record) => $record->invoice['name']),
+                        Placeholder::make('email')
+                            ->content(fn ($record) => $record->invoice['email']),
+                        Placeholder::make('address')
+                            ->content(fn ($record) => $record->formattedAddress),
+                    ])->inlineLabel()->hidden(fn ($record) => $record->invoice === null)->columnSpan(1)
+                ])
             ]);
     }
 
@@ -79,7 +112,7 @@ class ReservationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TicketsRelationManager::class,
         ];
     }
 
