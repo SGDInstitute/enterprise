@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers\EventItemsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
+use App\Filament\Resources\EventResource\RelationManagers\ProposalsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\TicketsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\TicketTypesRelationManager;
@@ -216,6 +217,7 @@ class EventResource extends Resource
             ReservationsRelationManager::class,
             OrdersRelationManager::class,
             TicketsRelationManager::class,
+            ProposalsRelationManager::class,
             EventItemsRelationManager::class,
             TicketTypesRelationManager::class,
         ];
