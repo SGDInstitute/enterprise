@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
-use App\Filament\DynamicColumns;
 use App\Models\Form as ModelsForm;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\ViewField;
@@ -10,8 +9,6 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\Layout\Split;
-use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 
@@ -29,7 +26,7 @@ class ProposalsRelationManager extends RelationManager
                     ->content(fn ($record) => recordLink($record->user, 'users.edit', $record->user->name)),
                 Placeholder::make('name')
                     ->content(fn ($record) => $record->name),
-                ViewField::make('answers')->view('filament.resources.response-resource.answers')->columnSpanFull()
+                ViewField::make('answers')->view('filament.resources.response-resource.answers')->columnSpanFull(),
             ]);
     }
 
@@ -75,7 +72,7 @@ class ProposalsRelationManager extends RelationManager
                         ->toggleable();
                 });
         }
-        
+
         // return app(ModelsForm::class)
         //     ->query(fn($query) => $query->whereViewableBy(auth()->user()))
         //     ->get()

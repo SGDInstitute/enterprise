@@ -58,7 +58,7 @@ class Event extends Model implements HasMedia
 
     public function proposals(): HasManyThrough
     {
-        return $this->hasManyThrough(Response::class, Form::class)->where('responses.type',  'workshop');
+        return $this->hasManyThrough(Response::class, Form::class)->where('responses.type', 'workshop');
     }
 
     public function reservations()
