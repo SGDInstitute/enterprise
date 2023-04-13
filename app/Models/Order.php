@@ -81,8 +81,8 @@ class Order extends Model
 
     public function getFormattedAddressAttribute()
     {
-        if (is_array($this->invoice->address)) {
-            $address = $this->invoice->address;
+        if (is_array($this->invoice['address'])) {
+            $address = $this->invoice['address'];
 
             return isset($address['line2'])
                 ? "{$address['line1']} {$address['line2']}, {$address['city']}, {$address['state']}, {$address['zip']}"

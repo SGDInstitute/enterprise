@@ -67,7 +67,7 @@ class OrdersRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()->url(fn ($record) => route('filament.resources.orders.view', $record)),
                 MarkAsUnpaidAction::make(),
                 RefundAction::make(),
             ])

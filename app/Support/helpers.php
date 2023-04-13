@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\HtmlString;
+
 if (! function_exists('isInternetExplorer')) {
     function isInternetExplorer()
     {
@@ -74,5 +76,21 @@ if (! function_exists('array_shove')) {
                 return $new_array + $array;
             }
         }
+    }
+}
+
+if (! function_exists('recordLink')) {
+    function recordLink($record, $route, $label)
+    {
+        $url = route('filament.resources.' . $route, $record);
+
+        return filamentLink($url, $label);
+    }
+}
+
+if (! function_exists('filamentLink')) {
+    function filamentLink($url, $label)
+    {
+        return new HtmlString("<a class='filament-link inline-flex items-center justify-center font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400' href='{$url}'>{$label}</a>");
     }
 }
