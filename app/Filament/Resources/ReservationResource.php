@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ReservationResource\Pages;
 use App\Filament\Resources\ReservationResource\RelationManagers\TicketsRelationManager;
 use App\Models\Reservation;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
@@ -54,8 +53,8 @@ class ReservationResource extends Resource
                             ->content(fn ($record) => $record->invoice['email']),
                         Placeholder::make('address')
                             ->content(fn ($record) => $record->formattedAddress),
-                    ])->inlineLabel()->hidden(fn ($record) => $record->invoice === null)->columnSpan(1)
-                ])
+                    ])->inlineLabel()->hidden(fn ($record) => $record->invoice === null)->columnSpan(1),
+                ]),
             ]);
     }
 

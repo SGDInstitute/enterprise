@@ -53,8 +53,8 @@ class OrderResource extends Resource
                             ->content(fn ($record) => $record->invoice['email']),
                         Placeholder::make('address')
                             ->content(fn ($record) => $record->formattedAddress),
-                    ])->inlineLabel()->hidden(fn ($record) => $record->invoice === null)->columnSpan(1)
-                ])
+                    ])->inlineLabel()->hidden(fn ($record) => $record->invoice === null)->columnSpan(1),
+                ]),
             ]);
     }
 

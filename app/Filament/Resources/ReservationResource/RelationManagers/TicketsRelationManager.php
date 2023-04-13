@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources\ReservationResource\RelationManagers;
 
-use App\Models\Ticket;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 
 class TicketsRelationManager extends RelationManager
