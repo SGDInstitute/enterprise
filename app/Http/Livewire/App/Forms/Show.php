@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\App\Forms;
 
 use App\Models\Form;
+use App\Models\Invitation;
 use App\Models\Order;
 use App\Models\Response;
 use App\Models\User;
@@ -184,7 +185,7 @@ class Show extends Component
 
     public function deleteInvitation($id)
     {
-        $this->invitations->firstWhere('id', $id)->delete();
+        Invitation::whereId($id)->delete();
         $this->invitations = $this->response->fresh()->invitations;
 
         $this->emit('notify', ['message' => 'Successfully removed presenter invitation.', 'type' => 'success']);
