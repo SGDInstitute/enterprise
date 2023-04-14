@@ -13,6 +13,7 @@ export default defineConfig({
                 ...refreshPaths,
                 'app/Http/Livewire/**',
             ], 
+            valetTls: 'enterprise.test',
         }),
     ],
 });
