@@ -3,8 +3,6 @@
 namespace Tests\Feature\Filament\Widgets;
 
 use App\Filament\Widgets\OpenForms as WidgetsOpenForms;
-use App\Filament\Widgets\UpcomingEvents;
-use App\Models\Event;
 use App\Models\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -20,7 +18,7 @@ class OpenFormsTest extends TestCase
         $future = Form::factory()->future()->create();
         $current = Form::factory()->current()->create();
         $past = Form::factory()->past()->create();
- 
+
         Livewire::test(WidgetsOpenForms::class)
             ->assertCanSeeTableRecords([$current])
             ->assertCanNotSeeTableRecords([$future, $past]);
