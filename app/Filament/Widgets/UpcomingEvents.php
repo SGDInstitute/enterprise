@@ -2,10 +2,13 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\EventResource;
 use App\Models\Event;
+use Closure;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class UpcomingEvents extends BaseWidget
 {
@@ -17,7 +20,8 @@ class UpcomingEvents extends BaseWidget
     protected function getTableColumns(): array
     {
         return [
-            TextColumn::make('name'),
+            TextColumn::make('name')
+                ->url(fn ($record) => EventResource::getUrl('edit', $record)),
             TextColumn::make('days_until'),
             TextColumn::make('start')
                 ->label('Duration')
