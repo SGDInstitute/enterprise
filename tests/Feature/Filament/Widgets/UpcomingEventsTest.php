@@ -18,7 +18,7 @@ class UpcomingEventsTest extends TestCase
         $future = Event::factory()->future()->create();
         $current = Event::factory()->current()->create();
         $past = Event::factory()->past()->create();
- 
+
         Livewire::test(UpcomingEvents::class)
             ->assertCanSeeTableRecords([$future, $current])
             ->assertCanNotSeeTableRecords([$past]);

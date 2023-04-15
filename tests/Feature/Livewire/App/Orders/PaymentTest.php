@@ -6,20 +6,19 @@ use App\Http\Livewire\App\Orders\Payment;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class PaymentTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /** @test */
     public function the_component_can_render()
     {
         $user = User::factory()->create();
         $order = Order::factory()->for($user)->hasTickets(2)->create();
-        
+
         Livewire::actingAs($user)
             ->test(Payment::class, ['order' => $order])
             ->assertStatus(200);
@@ -30,7 +29,7 @@ class PaymentTest extends TestCase
     {
         $user = User::factory()->create();
         $order = Order::factory()->for($user)->hasTickets(2)->create();
-        
+
         Livewire::actingAs($user)
             ->test(Payment::class, ['order' => $order])
             ->call('downloadInvoice')

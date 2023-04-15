@@ -397,7 +397,7 @@ class FormFactory extends Factory
             'end' => now()->addDay(),
         ]);
     }
-    
+
     public function future()
     {
         return $this->state([
