@@ -389,4 +389,28 @@ class FormFactory extends Factory
             });
         }
     }
+
+    public function current()
+    {
+        return $this->state([
+            'start' => now()->subDay(),
+            'end' => now()->addDay(),
+        ]);
+    }
+    
+    public function future()
+    {
+        return $this->state([
+            'start' => now()->addMonth(),
+            'end' => now()->addMonth()->addDays(2),
+        ]);
+    }
+
+    public function past()
+    {
+        return $this->state([
+            'start' => now()->subMonth(),
+            'end' => now()->subMonth()->addDays(2),
+        ]);
+    }
 }
