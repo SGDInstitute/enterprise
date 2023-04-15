@@ -4,8 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Resources\FormResource;
 use App\Models\Form;
-use Closure;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
