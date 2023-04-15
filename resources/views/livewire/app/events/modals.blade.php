@@ -34,7 +34,7 @@
 
         <x-slot name="content">
             <div class="prose dark:prose-light">
-                {!! markdown($modalContent ?? '') !!}
+                {!! $modalContent ?? '' !!}
             </div>
         </x-slot>
 
