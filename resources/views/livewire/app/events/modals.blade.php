@@ -29,12 +29,12 @@
         </div>
     </section>
 
-    <x-bit.modal.dialog wire:model="showModal" max-width="md">
+    <x-bit.modal.dialog wire:model="showModal" max-width="2xl">
         <x-slot name="title">{{ $modalTitle ?? '' }}</x-slot>
 
         <x-slot name="content">
             <div class="prose dark:prose-light">
-                {!! markdown($modalContent ?? '') !!}
+                {!! $modalContent ?? '' !!}
             </div>
         </x-slot>
 
