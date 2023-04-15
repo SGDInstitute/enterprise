@@ -15,14 +15,7 @@ class StatsOverview extends BaseWidget
 
     public function getDaysLeftProperty()
     {
-        if ($this->record->end->isPast()) {
-            return 0;
-        }
-        if ($this->record->hasStarted) {
-            return $this->record->end->diffInDays(now());
-        }
-
-        return $this->record->start->diffInDays(now());
+        return $this->record->daysUntil;
     }
 
     public function getReservationsProperty()

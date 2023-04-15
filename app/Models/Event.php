@@ -93,6 +93,18 @@ class Event extends Model implements HasMedia
         return $this->getFirstMediaUrl('background') ?? 'https://sgdinstitute.org/assets/headers/homepage-hero1.jpg';
     }
 
+    public function getDaysUntilAttribute()
+    {
+        if ($this->end->isPast()) {
+            return 0;
+        }
+        if ($this->hasStarted) {
+            return $this->end->diffInDays(now());
+        }
+
+        return $this->start->diffInDays(now());
+    }
+
     public function getFormattedDurationAttribute()
     {
         if ($this->start->diffInHours($this->end) > 24) {
