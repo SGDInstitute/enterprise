@@ -30,7 +30,7 @@ return [
     */
 
     'filter-set-resource' => [
-        'enabled' => true,
+        'enabled' => false,
     ],
 
     /*
