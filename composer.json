@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.1",
         "akaunting/laravel-version": "^1.0",
+        "archilex/filament-filter-sets": "^1.1",
         "barryvdh/laravel-dompdf": "^2.0",
         "blade-ui-kit/blade-heroicons": "^1.4",
         "blade-ui-kit/blade-icons": "^1.5",
@@ -55,6 +56,12 @@
         "phpunit/phpunit": "^9.5.10",
         "tightenco/duster": "^1.0"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://filament-filter-sets.composer.sh"
+        }
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

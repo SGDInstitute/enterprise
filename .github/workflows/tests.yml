@@ -25,6 +25,9 @@ jobs:
           extensions: posix, dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
 
+    - name: Add config for filtersets
+      run: composer config http-basic.filament-filter-sets.composer.sh ${{ secrets.FILTERSET_USER }} ${{ secrets.FILTERSET_KEY }}
+
     - name: Install dependencies
       run: composer install --prefer-source --no-interaction
 

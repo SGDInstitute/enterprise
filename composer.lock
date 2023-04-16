@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6852047575abf3c92e79669bb8aef13a",
+    "content-hash": "87205c6e4a7d6e34052a5c57a507ad4f",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -134,6 +134,91 @@
                 "source": "https://github.com/akaunting/laravel-version/tree/1.0.4"
             },
             "time": "2021-03-05T11:00:11+00:00"
+        },
+        {
+            "name": "archilex/filament-filter-sets",
+            "version": "1.1.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://dist.anystack.sh/v1/download/98d460ab-17ca-432b-b287-087e8f1a8ec7/98ec4e7b-5937-4dfa-9d15-429ae9de60a8/filament-filter-sets-1.1.2.zip?key=f362a667-5168-42a1-8fb5-60ccaf83d970",
+                "reference": "7080e364980c75c24b6b4591424a9b4f322c1e19",
+                "shasum": "10b34c2811a6c7f4658901b6ab8a6904f56c3ff7"
+            },
+            "require": {
+                "filament/filament": "^2.0",
+                "illuminate/contracts": "^9.0|^10.0",
+                "php": "^8.0",
+                "spatie/eloquent-sortable": "^4.0",
+                "spatie/laravel-package-tools": "^1.13.5",
+                "spatie/once": "^3.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0|^7.0",
+                "orchestra/testbench": "^7.0|^8.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "pestphp/pest-plugin-livewire": "^1.0",
+                "pestphp/pest-plugin-parallel": "^0.3",
+                "phpunit/phpunit": "^9.5|^10.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "FilamentFilterSets": "Archilex\\FilamentFilterSets\\Facades\\FilamentFilterSets"
+                    },
+                    "providers": [
+                        "Archilex\\FilamentFilterSets\\FilamentFilterSetsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Archilex\\FilamentFilterSets\\": "src",
+                    "Archilex\\FilamentFilterSets\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Archilex\\FilamentFilterSets\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "vendor/bin/pint"
+                ],
+                "test": [
+                    "@test:pest",
+                    "@test:phpstan"
+                ],
+                "test:pest": [
+                    "vendor/bin/pest --parallel"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kenneth Sese",
+                    "role": "Developer",
+                    "email": "kmsese@gmail.com"
+                }
+            ],
+            "description": "A plugin to create filter sets in Filament",
+            "homepage": "https://github.com/archilex/filament-filter-sets",
+            "keywords": [
+                "archilex",
+                "filament",
+                "filament-filter-sets",
+                "filter groups",
+                "filter sets",
+                "filters",
+                "laravel"
+            ],
+            "time": "2023-04-13T17:29:25+00:00"
         },
         {
             "name": "aws/aws-crt-php",
@@ -7939,6 +8024,68 @@
                 "source": "https://github.com/spatie/macroable/tree/2.0.0"
             },
             "time": "2021-03-26T22:39:02+00:00"
+        },
+        {
+            "name": "spatie/once",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/once.git",
+                "reference": "aab3fc8694e7caec98b2d330c4a8420391c7559d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/once/zipball/aab3fc8694e7caec98b2d330c4a8420391c7559d",
+                "reference": "aab3fc8694e7caec98b2d330c4a8420391c7559d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^1.21",
+                "symfony/var-dumper": "^5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Once\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A magic memoization function",
+            "homepage": "https://github.com/spatie/once",
+            "keywords": [
+                "cache",
+                "callable",
+                "memoization",
+                "once",
+                "spatie"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/once/tree/3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-04-21T12:23:20+00:00"
         },
         {
             "name": "spatie/ray",
