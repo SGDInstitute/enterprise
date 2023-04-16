@@ -60,7 +60,7 @@ class Donation extends Model
         if ($this->type === 'one-time') {
             return;
         }
-        
+
         return Carbon::parse($this->stripe_subscription->current_period_end)->format('F j, Y');
     }
 
@@ -69,7 +69,7 @@ class Donation extends Model
         if ($this->type === 'one-time') {
             return;
         }
-        
+
         if (Str::startsWith($this->subscription_id, 'test_')) {
             return (object) [
                 'id' => $this->subscription_id,
