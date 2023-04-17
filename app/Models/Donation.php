@@ -57,11 +57,19 @@ class Donation extends Model
 
     public function getNextBillDateAttribute()
     {
+        if ($this->type === 'one-time') {
+            return;
+        }
+
         return Carbon::parse($this->stripe_subscription->current_period_end)->format('F j, Y');
     }
 
     public function getStripeSubscriptionAttribute()
     {
+        if ($this->type === 'one-time') {
+            return;
+        }
+
         if (Str::startsWith($this->subscription_id, 'test_')) {
             return (object) [
                 'id' => $this->subscription_id,
