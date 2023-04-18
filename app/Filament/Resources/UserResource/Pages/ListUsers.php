@@ -7,6 +7,7 @@ use App\Models\User;
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class ListUsers extends ListRecords
 {
@@ -21,10 +22,15 @@ class ListUsers extends ListRecords
                     User::query()
                         ->whereNull('email_verified_at')
                         ->whereDoesntHave('donations')
-                        ->whereDoesntHave('orders')
+                        ->whereDoesntHave('orders', function (Builder $query) {
+                            $query->withTrashed();
+                        })
+                        ->whereDoesntHave('responseOwner')
                         ->whereDoesntHave('responses')
                         ->whereDoesntHave('schedule')
-                        ->whereDoesntHave('tickets')
+                        ->whereDoesntHave('tickets', function (Builder $query) {
+                            $query->withTrashed();
+                        })
                         ->delete();
                 }),
         ];
