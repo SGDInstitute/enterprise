@@ -8,7 +8,6 @@ use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ListUsers extends ListRecords
 {
