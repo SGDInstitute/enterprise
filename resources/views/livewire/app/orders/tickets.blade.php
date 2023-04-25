@@ -48,6 +48,8 @@
     </div>
     @endif
 
+    <x-bit.button.flat.primary wire:click="add">Add another ticket</x-bit.button.flat.primary>
+    
     @if ($editingTicket)
     @include('livewire.app.orders.partials.ticket-modal')
     @endif
