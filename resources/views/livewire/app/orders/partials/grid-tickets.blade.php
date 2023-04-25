@@ -1,7 +1,7 @@
 @foreach ($tickets as $ticket)
     <div class="p-4 space-y-2 bg-white shadow dark:bg-gray-800">
         <div class="flex items-center justify-between">
-            <p class="text-sm dark:text-gray-400">{{ $ticket->ticketType->name }} - {{ $ticket->price->name }}</p>
+            <p class="text-sm dark:text-gray-400">{{ $ticket->typeLabel }}</p>
 
             @if (! $order->isPaid())
                 @can('delete', $ticket)

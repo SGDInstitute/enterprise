@@ -58,6 +58,15 @@ class Ticket extends Model
 
     // Attributes
 
+    public function getTypeLabelAttribute()
+    {
+        if ($this->ticketType->name === $this->price->name) {
+            return $this->ticketType->name;
+        }
+
+        return $this->ticketType->name . ' - ' . $this->price->name;
+    }
+
     // Methods
 
     public function addToQueue($user = null, $printed = false)

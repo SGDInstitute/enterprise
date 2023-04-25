@@ -10,7 +10,7 @@
     <x-slot name="body">
         @forelse ($tickets as $index => $ticket)
         <x-bit.table.row wire:key="row-{{ $ticket->id }}">
-            <x-bit.table.cell>{{ $ticket->ticketType->name }} - {{ $ticket->price->name }}</x-bit.table.cell>
+            <x-bit.table.cell>{{ $ticket->typeLabel }}</x-bit.table.cell>
             <x-bit.table.cell>{{ $ticket->user->email ?? '-' }}</x-bit.table.cell>
             <x-bit.table.cell>{{ $ticket->user->name ?? '-' }}</x-bit.table.cell>
             <x-bit.table.cell>{{ $ticket->user->pronouns ?? '-' }}</x-bit.table.cell>
