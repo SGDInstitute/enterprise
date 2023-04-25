@@ -2,9 +2,14 @@
 
 <x-bit.modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
     <div class="px-6 py-4">
-        <div class="text-lg dark:text-gray-200">
+        <div class="text-lg text-gray-900 dark:text-gray-200">
             {{ $title }}
         </div>
+        @isset($subtitle)
+        <div class="text-lg text-gray-700 dark:text-gray-400">
+            {{ $subtitle }}
+        </div>
+        @endif
 
         <div class="mt-4">
             {{ $content }}
