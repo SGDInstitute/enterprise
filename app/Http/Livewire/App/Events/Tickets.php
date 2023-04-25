@@ -110,7 +110,7 @@ class Tickets extends Component
 
         $this->checkValidation();
 
-        $reservation = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->settings->reservation_length)]);
+        $reservation = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->reservationEndsAt)]);
         $reservation->tickets()->createMany($this->convertFormToTickets());
 
         return redirect()->route('app.orders.show', $reservation);
@@ -120,7 +120,7 @@ class Tickets extends Component
     {
         $this->checkValidation();
 
-        $this->order = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->settings->reservation_length)]);
+        $this->order = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->reservationEndsAt)]);
         $this->order->tickets()->createMany($this->convertFormToTickets());
     }
 
