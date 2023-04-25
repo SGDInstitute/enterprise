@@ -1,16 +1,18 @@
-<div class="flow-root px-8">
-    <ul>
-        <li>▢ Estimate your cost of attendance and secure funding</li>
-        <li>▢ Book your hotel</li>
-        <li>▢ Arrange your travel</li>
-        <li>▢ Coordinate a group sign-up with students from your school, college, or university</li>
-        <li>▢ Register your group</li>
-        <li>▢ Pay for your group's registration</li>
-        <li>▢ Fill tickets with attendees information
-            <span class="text-sm text-gray-700 dark:text-gray-400">Please use a valid email so they can receive our emails and update their information with name or pronoun changes</span>
-        </li>
-        <li>▢ Distribute trip info to your group or make sure they receive our emails</li>
-        <li>▢ Make your schedule for the weekend</li>
-        <li>▢ Arrive and check in</li>
-    </ul>
-</div>
+<fieldset class="px-8">
+  <legend class="sr-only">Checklist</legend>
+  <div class="space-y-4">
+    @foreach($checklist as $item)
+    <div class="relative flex items-start">
+      <div class="flex h-6 items-center">
+        <input id="{{ $item['id'] }}" aria-describedby="{{ $item['id'] }}-description" name="{{ $item['id'] }}" type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-green-600 focus:ring-green-600">
+      </div>
+      <div class="ml-3 text-sm leading-6">
+        <label for="{{ $item['id'] }}" class="font-medium text-gray-900">{{ $item['label'] }}</label>
+        @isset($item['description'])
+        <p id="{{ $item['id'] }}-description" class="text-gray-500">{{ $item['description'] }}</p>
+        @endif
+      </div>
+    </div>
+    @endforeach
+  </div>
+</fieldset>
