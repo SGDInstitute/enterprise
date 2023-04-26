@@ -4,6 +4,7 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Invitation;
 use App\Models\Response;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -17,10 +18,10 @@ class InvitationControllerTest extends TestCase
     {
         $user = User::factory()->create(['email' => 'luz@hexide.edu']);
         $response = Response::factory()->create();
-        $invtation = Invitation::factory()->for($response, 'inviteable')->create(['email' => $user->email]);
+        $invitation = Invitation::factory()->for($response, 'inviteable')->create(['email' => $user->email]);
 
         $this->actingAs($user)
-            ->get($invtation->acceptUrl)
+            ->get($invitation->acceptUrl)
             ->assertRedirectToRoute('app.forms.show', ['form' => $response->form, 'edit' => $response]);
 
         $this->assertTrue($response->collaborators->contains($user->id));
@@ -28,6 +29,26 @@ class InvitationControllerTest extends TestCase
         $this->assertDatabaseMissing('invitations', [
             'inviteable_type' => 'App\Models\Response',
             'inviteable_id' => $response->id,
+            'email' => 'luz@hexide.edu',
+        ]);
+    }
+
+    /** @test */
+    public function can_accept_invitation_for_ticket()
+    {
+        $user = User::factory()->create(['email' => 'luz@hexide.edu']);
+        $ticket = Ticket::factory()->create();
+        $invitation = Invitation::factory()->for($ticket, 'inviteable')->create(['email' => $user->email]);
+
+        $this->actingAs($user)
+            ->get($invitation->acceptUrl)
+            ->assertRedirectToRoute('app.orders.show', ['order' => $ticket->order]);
+
+        $this->assertTrue($ticket->fresh()->user_id === $user->id);
+
+        $this->assertDatabaseMissing('invitations', [
+            'inviteable_type' => 'App\Models\Ticket',
+            'inviteable_id' => $ticket->id,
             'email' => 'luz@hexide.edu',
         ]);
     }

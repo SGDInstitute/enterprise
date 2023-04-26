@@ -19,7 +19,7 @@ class Show extends Component
         $this->authorize('view', $this->order);
 
         if ($this->order->user_id !== auth()->id()) {
-            $this->page = 'tickets';
+            $this->page = 'attendee';
         } elseif ($this->order->isPaid() && $page === null) {
             $this->page = 'tickets';
         } elseif ($page === null) {
@@ -29,9 +29,7 @@ class Show extends Component
 
     public function render()
     {
-        return view('livewire.app.orders.show', [
-            'steps' => $this->steps,
-        ]);
+        return view('livewire.app.orders.show');
     }
 
     public function delete()
@@ -43,14 +41,5 @@ class Show extends Component
         $this->order->safeDelete();
 
         return redirect()->route('app.dashboard');
-    }
-
-    public function getStepsProperty()
-    {
-        return [
-            ['title' => 'Add/Delete Tickets', 'complete' => true, 'current' => false, 'route' => route('app.orders.show', [$this->order, 'start'])],
-            ['title' => 'Pay Now or Get Invoice', 'complete' => $this->order->isPaid(), 'current' => $this->page === 'payment', 'route' => route('app.orders.show', [$this->order, 'payment'])],
-            ['title' => 'Assign Tickets', 'complete' => $this->order->isFilled(), 'current' => $this->page === 'tickets', 'route' => route('app.orders.show', [$this->order, 'tickets'])],
-        ];
     }
 }

@@ -1,7 +1,7 @@
 @foreach ($tickets as $ticket)
     <div class="p-4 space-y-2 bg-white shadow dark:bg-gray-800">
         <div class="flex items-center justify-between">
-            <p class="text-sm dark:text-gray-400">{{ $ticket->ticketType->name }} - {{ $ticket->price->name }}</p>
+            <p class="text-sm dark:text-gray-400">{{ $ticket->typeLabel }}</p>
 
             @if (! $order->isPaid())
                 @can('delete', $ticket)
@@ -21,9 +21,19 @@
                 @endcan
             </div>
         </div>
+        @elseif ($ticket->invitations->isNotEmpty())
+        <div class="flex items-center justify-between">
+            <p class="text-lg text-gray-900 dark:text-gray-200">{{ $ticket->invitations()->first()->email }}</p>
+            <div>
+                @can('update', $ticket)
+                <x-bit.button.round.secondary size="xs" wire:click="loadTicket({{ $ticket->id }})">Remind User</x-bit.button.round.secondary>
+                <x-bit.button.round.secondary size="xs" wire:click="removeUserFromTicket({{ $ticket->id }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">Remove Invite</x-bit.button.round.secondary>
+                @endcan
+            </div>
+        </div>
         @else
         @can('update', $ticket)
-        <x-bit.button.round.secondary wire:click="loadTicket({{ $ticket->id }})">Assign/Add Ticketholder Information</x-bit.button.round.secondary>
+        <x-bit.button.round.secondary wire:click="loadInvite({{ $ticket->id }})">Invite Attendee</x-bit.button.round.secondary>
         @endcan
         @endif
     </div>

@@ -11,7 +11,7 @@
         @forelse ($tickets as $index => $ticket)
         <x-bit.table.row wire:key="row-{{ $ticket->id }}">
             <x-bit.table.cell class="pt-1 pb-1">
-                <span title="{{ $ticket->ticketType->name }} - {{ $ticket->price->name }}">...</span>
+                <span title="{{ $ticket->typeLabel }}">...</span>
             </x-bit.table.cell>
             <x-bit.table.cell class="pt-1 pb-1">
                 <x-bit.input.group :for="'ticket-email-'.$index" label="Email for Ticket {{ $index + 1 }}" sr-only>

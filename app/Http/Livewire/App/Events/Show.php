@@ -16,7 +16,7 @@ class Show extends Component
     public function mount()
     {
         if (request()->query('edit')) {
-            // check if user is authorized to view
+            // @todo check if user is authorized to view
             $this->load(request()->query('edit'));
         } else {
             if ($this->previousOrders->count() > 0) {
@@ -28,7 +28,6 @@ class Show extends Component
     public function render()
     {
         return view('livewire.app.events.show', [
-            'steps' => $this->steps,
             'previousOrders' => $this->previousOrders,
         ]);
     }
@@ -40,15 +39,6 @@ class Show extends Component
         }
 
         return collect([]);
-    }
-
-    public function getStepsProperty()
-    {
-        return [
-            ['title' => 'Add/Delete Tickets', 'complete' => false, 'current' => true],
-            ['title' => 'Pay Now or Get Invoice', 'complete' => false, 'current' => false],
-            ['title' => 'Assign Tickets', 'complete' => false, 'current' => false],
-        ];
     }
 
     private function load($id)

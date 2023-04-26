@@ -48,7 +48,41 @@
     </div>
     @endif
 
+    @can('update', $order)
+    <x-bit.button.flat.primary wire:click="add">Add another ticket</x-bit.button.flat.primary>
+    @endcan
+
+    @can('update', $order)
+    <div class="px-4 py-6 mt-16 lg:w-2/3 lg:ml-auto bg-gray-50 dark:bg-gray-800 shadow dark:border dark:border-gray-700 sm:p-6 lg:p-8 lg:mt-0">
+        <dl class="space-y-4">
+            <div class="flex items-center justify-between">
+                <dt class="text-lg font-medium text-gray-900 dark:text-gray-200">Order total</dt>
+                <dd class="text-lg font-medium text-gray-900 dark:text-gray-200">{{ $order->formattedAmount }}</dd>
+                <div wire:loading.delay class="ml-4">
+                    <x-heroicon-o-cog class="w-8 h-8 text-gray-400 animate-spin" />
+                </div>
+            </div>
+        </dl>
+
+        <div class="mt-6 space-y-3">
+            <x-bit.button.round.primary href="{{ route('app.orders.show', [$order, 'payment']) }}" block size="lg">Pay now</x-bit.button.round.primary>
+            <div>
+                <p class="text-gray-700 dark:text-gray-400">Your order is not complete until payment is received.</p>
+                <p class="text-gray-700 dark:text-gray-400">By clicking next you agree to the policies listed <span class="hidden lg:inline">to the left</span><span class="lg:hidden">above</span>.</p>
+            </div>
+            <div class="space-x-1">
+                <x-bit.button.flat.primary href="{{ route('app.orders.show', [$order, 'payment']) }}" size="xs" class="space-x-2">
+                    <x-heroicon-o-download class="w-4 h-4" /> <span>Download Invoice</span>
+                </x-bit.button.flat.primary>
+                <x-bit.button.flat.primary wire:click="downloadW9" size="xs" class="space-x-2">
+                    <x-heroicon-o-download class="w-4 h-4" /> <span>Download W9</span>
+                </x-bit.button.flat.primary>
+            </div>
+        </div>
+    </div>
+    @endcan
+
     @if ($editingTicket)
-    @include('livewire.app.orders.partials.ticket-modal')
+        @include('livewire.app.orders.partials.invite-modal')
     @endif
 </div>

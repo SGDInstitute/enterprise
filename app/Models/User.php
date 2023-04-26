@@ -125,6 +125,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->donations()->whereNull('parent_id')->whereNotNull('subscription_id')->where('status', 'succeeded')->exists();
     }
 
+    public function hasTicketFor($event)
+    {
+        return $this->tickets()->where('event_id', $event->id)->exists();
+    }
+
     public function isRegisteredFor($event)
     {
         return $this->tickets()->with('order:id,transaction_id')

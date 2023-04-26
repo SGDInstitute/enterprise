@@ -9,8 +9,10 @@ use App\Models\Price;
 use App\Models\Ticket;
 use App\Models\TicketType;
 use App\Models\User;
+use App\Notifications\AddedToTicket;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -186,5 +188,34 @@ class TicketsTest extends TestCase
             ->assertOk()
             ->call('removeUserFromTicket', $tickets->first()->id)
             ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+    }
+
+    /** @test */
+    public function can_invite_user_to_ticket()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $order = Order::factory()->hasTickets(3)->create();
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Tickets::class, ['order' => $order])
+            ->call('loadInvite', $order->tickets->first())
+            ->set('invite.email', 'adora@eternia.gov')
+            ->set('invite.email_confirmation', 'adora@eternia.gov')
+            ->call('inviteAttendee')
+            ->assertHasNoErrors()
+            ->assertSee('adora@eternia.gov');
+
+        $this->assertDatabaseMissing('users', ['email' => 'adora@eternia.gov']);
+        $this->assertDatabaseHas('invitations', [
+            'invited_by' => $user->id,
+            'inviteable_type' => 'App\Models\Ticket',
+            'inviteable_id' => $order->tickets->first()->id,
+            'email' => 'adora@eternia.gov',
+        ]);
+
+        Notification::assertSentOnDemand(AddedToTicket::class);
     }
 }

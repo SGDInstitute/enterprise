@@ -37,6 +37,13 @@ class Invitation extends Model
             $this->delete();
 
             return redirect()->route('app.forms.show', ['form' => $response->form, 'edit' => $response]);
+        } elseif ($this->inviteable_type === Ticket::class) {
+            $ticket = $this->inviteable;
+            $ticket->update(['user_id' => auth()->id()]);
+
+            $this->delete();
+
+            return redirect()->route('app.orders.show', ['order' => $ticket->order]);
         }
     }
 }

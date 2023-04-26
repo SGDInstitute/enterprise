@@ -18,6 +18,9 @@ class Tickets extends Component
 
     public $ticketTypes;
 
+    public $payment;
+    public $is_attending;
+
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
@@ -110,18 +113,12 @@ class Tickets extends Component
 
         $this->checkValidation();
 
-        $reservation = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->settings->reservation_length)]);
+        $reservation = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->reservationEndsAt)]);
         $reservation->tickets()->createMany($this->convertFormToTickets());
 
+        session()->flash('status', 'Fill out billing details to ' . ($this->payment == true ? 'make payment' : 'download invoice'));
+
         return redirect()->route('app.orders.show', $reservation);
-    }
-
-    public function pay()
-    {
-        $this->checkValidation();
-
-        $this->order = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->settings->reservation_length)]);
-        $this->order->tickets()->createMany($this->convertFormToTickets());
     }
 
     public function isDisabled($ticket)
@@ -135,6 +132,11 @@ class Tickets extends Component
 
     private function checkValidation()
     {
+        $this->validate([
+            'is_attending' => ['required', 'boolean'],
+            'payment' => ['required', 'boolean'],
+        ]);
+
         throw_if($this->form->pluck('amount')->unique()->count() === 1 && $this->form->pluck('amount')->unique()[0] === 0, ValidationException::withMessages([
             'amounts' => ['Please enter the number of tickets.'],
         ]));
@@ -161,12 +163,13 @@ class Tickets extends Component
                     'price_id' => $item['price_id'],
                 ];
 
-                if ($item['amount'] == 1) {
-                    $data['user_id'] = auth()->id();
-                }
                 $tickets = [];
                 foreach (range(1, $item['amount']) as $index) {
-                    $tickets[] = Ticket::make($data);
+                    if ($this->is_attending == true && $index == 1) {
+                        $tickets[] = Ticket::make(array_merge(['user_id' => auth()->id()], $data));
+                    } else {
+                        $tickets[] = Ticket::make($data);
+                    }
                 }
 
                 return collect($tickets);

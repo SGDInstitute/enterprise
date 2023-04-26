@@ -1,6 +1,4 @@
-<div class="space-y-12">
-    <x-ui.steps :steps="$steps" />
-
+<div class="space-y-12 mt-12">
     @guest
     <x-ui.alert>You must <a href="/login" class="font-bold text-white underline">Login</a> or <a href="/register" class="font-bold text-white underline">Create an Account</a> before starting a reservation.</x-ui.alert>
     @elseif (! auth()->user()->hasVerifiedEmail())

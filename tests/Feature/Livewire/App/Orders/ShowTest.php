@@ -79,7 +79,7 @@ class ShowTest extends TestCase
 
         Livewire::actingAs($ticket->user)
             ->test(Show::class, ['order' => $order])
-            ->assertSet('page', 'tickets');
+            ->assertSet('page', 'attendee');
     }
 
     /** @test */
@@ -93,7 +93,7 @@ class ShowTest extends TestCase
 
         Livewire::actingAs($ticket->user)
             ->test(Show::class, ['order' => $order, 'page' => 'start'])
-            ->assertSet('page', 'tickets');
+            ->assertSet('page', 'attendee');
     }
 
     /** @test */
@@ -107,7 +107,7 @@ class ShowTest extends TestCase
 
         Livewire::actingAs($ticket->user)
             ->test(Show::class, ['order' => $order, 'page' => 'payment'])
-            ->assertSet('page', 'tickets');
+            ->assertSet('page', 'attendee');
     }
 
     /** @test */
