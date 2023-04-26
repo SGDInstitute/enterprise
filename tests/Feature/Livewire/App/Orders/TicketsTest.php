@@ -9,6 +9,7 @@ use App\Models\Price;
 use App\Models\Ticket;
 use App\Models\TicketType;
 use App\Models\User;
+use App\Notifications\AddedToTicket;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
@@ -207,15 +208,14 @@ class TicketsTest extends TestCase
             ->assertHasNoErrors()
             ->assertSee('adora@eternia.gov');
 
-        $savedResponse = $user->responses()->where('form_id', $form->id)->first();
         $this->assertDatabaseMissing('users', ['email' => 'adora@eternia.gov']);
         $this->assertDatabaseHas('invitations', [
             'invited_by' => $user->id,
-            'inviteable_type' => 'App\Models\Response',
-            'inviteable_id' => $savedResponse->id,
+            'inviteable_type' => 'App\Models\Ticket',
+            'inviteable_id' => $order->tickets->first()->id,
             'email' => 'adora@eternia.gov',
         ]);
 
-        Notification::assertSentOnDemand(AddedAsCollaborator::class);
+        Notification::assertSentOnDemand(AddedToTicket::class);
     }
 }

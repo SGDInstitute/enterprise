@@ -1,6 +1,4 @@
-<div class="space-y-12">
-    <x-ui.steps :steps="$steps" />
-
+<div class="space-y-12 mt-12">
     @guest
     <x-ui.alert>You must <a href="/login" class="font-bold text-white underline">Login</a> or <a href="/register" class="font-bold text-white underline">Create an Account</a> before starting a reservation.</x-ui.alert>
     @elseif (! auth()->user()->hasVerifiedEmail())
@@ -8,15 +6,7 @@
     @endauth
 
     <div class="grid grid-cols-1 gap-8 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 md:grid-cols-3">
-        <div>
-            <livewire:app.events.modals :event="$event" />
-            @if (!$showGuide)
-            <x-bit.button.flat.primary wire:click="$set('showGuide', true)" class="mt-4" block>
-                <x-heroicon-o-support class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-2" />
-                <span>Show Guided Order Creation</span>
-            </x-bit.button.flat.primary>
-            @endif
-        </div>
+        <livewire:app.events.modals :event="$event" />
 
         <div class="col-span-2">
             <livewire:app.events.tickets :event="$event" />
@@ -64,40 +54,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-bit.button.flat.secondary wire:click="showGuideModal">Start a new guided order</x-bit.button.flat.secondary>
             <x-bit.button.flat.secondary wire:click="$set('showPreviousOrders', false)">Start a new order</x-bit.button.flat.secondary>
-        </x-slot>
-    </x-bit.modal.dialog>
-
-    <x-bit.modal.dialog wire:model="showGuide" max-width="xl">
-        <x-slot name="title">Guided Registration</x-slot>
-        <x-slot name="subtitle">Let us help you get a head start and set up your order</x-slot>
-
-        <x-slot name="content">
-            <div class="space-y-4">
-                <div>
-                    <x-form.label for="num_tickets" class="mb-1">How many tickets are you ordering?</x-form.label>
-                    <x-form.input type="number" wire:model="guide.num_tickets" id="num_tickets" override/>
-                    <x-form.error :error="$errors->first('guide.num_tickets')" />
-                </div>
-                <div>
-                    <x-form.label class="mb-1">Is one of these tickets for yourself, personally?</x-form.label>
-                    <x-form.radio wire:model="guide.is_attending" value="1" name="is_attending" id="is_attending" label="Yes" />
-                    <x-form.radio wire:model="guide.is_attending" value="0" name="is_attending" id="is_attending" label="No" />
-                    <x-form.error :error="$errors->first('guide.is_attending')" />
-                </div>
-                <div>
-                    <x-form.label class="mb-1">How will you pay?</x-form.label>
-                    <x-form.radio wire:model="guide.payment" value="1" name="payment" id="payment" label="Generate invoice and pay later" />
-                    <x-form.radio wire:model="guide.payment" value="0" name="payment" id="payment" label="Pay now with card" />
-                    <x-form.error :error="$errors->first('guide.payment')" />
-                </div>
-            </div>
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-bit.button.flat.secondary wire:click="$set('showGuide', false)">Close</x-bit.button.flat.secondary>
-            <x-bit.button.flat.primary wire:click="generate">Generate Order</x-bit.button.flat.primary>
         </x-slot>
     </x-bit.modal.dialog>
 </div>

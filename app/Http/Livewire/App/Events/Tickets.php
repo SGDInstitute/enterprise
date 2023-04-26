@@ -18,6 +18,9 @@ class Tickets extends Component
 
     public $ticketTypes;
 
+    public $payment;
+    public $is_attending;
+
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
@@ -116,14 +119,6 @@ class Tickets extends Component
         return redirect()->route('app.orders.show', $reservation);
     }
 
-    public function pay()
-    {
-        $this->checkValidation();
-
-        $this->order = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->reservationEndsAt)]);
-        $this->order->tickets()->createMany($this->convertFormToTickets());
-    }
-
     public function isDisabled($ticket)
     {
         if (! $this->fillable) {
@@ -135,6 +130,11 @@ class Tickets extends Component
 
     private function checkValidation()
     {
+        $this->validate([
+            'is_attending' => ['required', 'boolean'],
+            'payment' => ['required', 'boolean'],
+        ]);
+
         throw_if($this->form->pluck('amount')->unique()->count() === 1 && $this->form->pluck('amount')->unique()[0] === 0, ValidationException::withMessages([
             'amounts' => ['Please enter the number of tickets.'],
         ]));
@@ -161,11 +161,11 @@ class Tickets extends Component
                     'price_id' => $item['price_id'],
                 ];
 
-                if ($item['amount'] == 1) {
-                    $data['user_id'] = auth()->id();
-                }
                 $tickets = [];
                 foreach (range(1, $item['amount']) as $index) {
+                    if ($this->is_attending == true && $index == 1) {
+                        $data['user_id'] = auth()->id();
+                    }
                     $tickets[] = Ticket::make($data);
                 }
 
