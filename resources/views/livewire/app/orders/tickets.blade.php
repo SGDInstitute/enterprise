@@ -84,5 +84,6 @@
 
     @if ($editingTicket)
         @include('livewire.app.orders.partials.invite-modal')
+        @include('livewire.app.orders.partials.ticket-modal')
     @endif
 </div>
