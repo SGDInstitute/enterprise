@@ -61,8 +61,8 @@
             </div>
             <div>
                 <x-form.label class="mb-1">How will you pay?</x-form.label>
-                <x-form.radio wire:model="payment" value="1" name="payment" id="payment" label="Generate invoice and pay later" />
-                <x-form.radio wire:model="payment" value="0" name="payment" id="payment" label="Pay now with card" />
+                <x-form.radio wire:model="payment" value="0" name="payment" id="payment" label="Generate invoice and pay later" />
+                <x-form.radio wire:model="payment" value="1" name="payment" id="payment" label="Pay now with card" />
             </div>
 
             <dl class="space-y-4">

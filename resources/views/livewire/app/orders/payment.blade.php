@@ -11,6 +11,10 @@
         </div>
     </div>
 
+    @if($status = session('status'))
+    <x-ui.alert class="my-6">{{ $status }}</x-ui.alert>
+    @endif
+    
     <form id="payment-form" class="mt-6 space-y-6">
         @if (! $order->isPaid())
         <div class="p-4 space-y-4 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700 dark:border">

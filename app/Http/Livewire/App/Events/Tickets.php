@@ -116,6 +116,8 @@ class Tickets extends Component
         $reservation = Order::create(['event_id' => $this->event->id, 'user_id' => auth()->id(), 'reservation_ends' => now()->addDays($this->event->reservationEndsAt)]);
         $reservation->tickets()->createMany($this->convertFormToTickets());
 
+        session()->flash('status', 'Fill out billing details to ' . ($this->payment == true ? 'make payment' : 'download invoice'));
+
         return redirect()->route('app.orders.show', $reservation);
     }
 
