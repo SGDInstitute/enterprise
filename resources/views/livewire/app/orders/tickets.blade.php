@@ -51,7 +51,7 @@
     @can('update', $order)
     <x-bit.button.flat.primary wire:click="add">Add another ticket</x-bit.button.flat.primary>
     @endcan
-    
+
     @can('update', $order)
     <div class="px-4 py-6 mt-16 lg:w-2/3 lg:ml-auto bg-gray-50 dark:bg-gray-800 shadow dark:border dark:border-gray-700 sm:p-6 lg:p-8 lg:mt-0">
         <dl class="space-y-4">

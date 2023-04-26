@@ -15,15 +15,15 @@
             <nav class="overflow-hidden mb-6 flex divide-x divide-gray-200 dark:divide-gray-700 shadow">
                 <a href="{{ route('app.orders.show', [$this->order, 'payment']) }}" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 group relative min-w-0 flex-1 overflow-hidden bg-white dark:bg-gray-800 py-4 px-4 text-center font-medium hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10">
                     <span>Payment</span>
-                    <span aria-hidden="true" class="{{ $page === 'payment' ? 'bg-green-500' : 'bg-transparent'}} absolute inset-x-0 bottom-0 h-0.5"></span>
+                    <span aria-hidden="true" class="{{ $page === 'payment' ? 'bg-green-500' : 'bg-transparent' }} absolute inset-x-0 bottom-0 h-0.5"></span>
                 </a>
                 <a href="{{ route('app.orders.show', [$this->order, 'tickets']) }}" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 group relative min-w-0 flex-1 overflow-hidden bg-white dark:bg-gray-800 py-4 px-4 text-center font-medium hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10">
                     <span>Tickets</span>
-                    <span aria-hidden="true" class="{{ $page === 'tickets' ? 'bg-green-500' : 'bg-transparent'}} absolute inset-x-0 bottom-0 h-0.5"></span>
+                    <span aria-hidden="true" class="{{ $page === 'tickets' ? 'bg-green-500' : 'bg-transparent' }} absolute inset-x-0 bottom-0 h-0.5"></span>
                 </a>
                 <a href="{{ route('app.orders.show', [$this->order, 'checklist']) }}" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 group relative min-w-0 flex-1 overflow-hidden bg-white dark:bg-gray-800 py-4 px-4 text-center font-medium hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10">
                     <span>Checklist</span>
-                    <span aria-hidden="true" class="{{ $page === 'checklist' ? 'bg-green-500' : 'bg-transparent'}} absolute inset-x-0 bottom-0 h-0.5"></span>
+                    <span aria-hidden="true" class="{{ $page === 'checklist' ? 'bg-green-500' : 'bg-transparent' }} absolute inset-x-0 bottom-0 h-0.5"></span>
                 </a>
             </nav>
             @endif

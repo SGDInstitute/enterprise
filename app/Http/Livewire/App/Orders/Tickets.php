@@ -131,7 +131,7 @@ class Tickets extends Component
     {
         $data = $this->tickets->first()->only(['order_id', 'event_id', 'ticket_type_id', 'price_id']);
         Ticket::create($data);
-        
+
         $this->emit('notify', ['message' => 'Successfully added a ticket', 'type' => 'success']);
         $this->emit('refresh');
     }

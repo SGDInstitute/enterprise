@@ -16,7 +16,7 @@
             <x-bit.input.group for="ticketholder-pronouns" label="Pronouns">
                 <x-bit.input.text class="w-full mt-1" type="text" id="ticketholder-pronouns" wire:model="ticketholder.pronouns" />
             </x-bit.input.group>
-    
+
             @if ($ticket !== null && $ticket->ticketType->form)
                 @foreach ($ticket->ticketType->form as $item)
                     @include('livewire.app.forms.partials.' . $item['style'])

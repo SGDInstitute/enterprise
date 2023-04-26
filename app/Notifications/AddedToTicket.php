@@ -32,6 +32,7 @@ class AddedToTicket extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         $event = $this->ticket->order->event->name;
+
         return (new MailMessage)
             ->subject('Invited to attend ' . $event)
             ->line('Hi there,')

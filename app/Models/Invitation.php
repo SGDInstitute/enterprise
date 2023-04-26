@@ -40,7 +40,7 @@ class Invitation extends Model
         } elseif ($this->inviteable_type === Ticket::class) {
             $ticket = $this->inviteable;
             $ticket->update(['user_id' => auth()->id()]);
-            
+
             $this->delete();
 
             return redirect()->route('app.orders.show', ['order' => $ticket->order]);

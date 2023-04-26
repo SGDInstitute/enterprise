@@ -3,8 +3,6 @@
 namespace Tests\Feature\Livewire\App\Orders;
 
 use App\Http\Livewire\App\Orders\Checklist;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

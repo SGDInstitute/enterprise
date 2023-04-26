@@ -52,7 +52,7 @@
             </div>
         @endif
 
-        
+
         <div class="space-y-4 px-4 py-6 mt-16 rounded-lg lg:w-2/3 lg:ml-auto bg-white dark:bg-gray-800 shadow sm:p-6 lg:p-8 lg:mt-0">
             <div>
                 <x-form.label class="mb-1">Is one of these tickets for yourself, personally?</x-form.label>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </dl>
-            
+
             <x-bit.button.round.primary wire:click="reserve" block :disabled="auth()->guest()" type="submit">Next</x-bit.button.round.primary>
             <p class="text-gray-700 dark:text-gray-400">Clicking next creates a reservation. Your order is not complete until payment is received.</p>
             <p class="text-gray-700 dark:text-gray-400">By clicking next you agree to the policies listed <span class="hidden lg:inline">to the left</span><span class="lg:hidden">above</span>.</p>
