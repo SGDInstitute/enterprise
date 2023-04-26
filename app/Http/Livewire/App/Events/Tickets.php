@@ -164,9 +164,10 @@ class Tickets extends Component
                 $tickets = [];
                 foreach (range(1, $item['amount']) as $index) {
                     if ($this->is_attending == true && $index == 1) {
-                        $data['user_id'] = auth()->id();
+                        $tickets[] = Ticket::make(array_merge(['user_id' => auth()->id()], $data));
+                    } else {
+                        $tickets[] = Ticket::make($data);
                     }
-                    $tickets[] = Ticket::make($data);
                 }
 
                 return collect($tickets);
