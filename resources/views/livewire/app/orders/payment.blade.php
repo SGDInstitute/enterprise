@@ -1,6 +1,11 @@
 <div>
     <div class="flex items-center justify-between">
-        <h2 class="text-xl font-bold leading-7 text-gray-900 dark:text-gray-100 sm:text-2xl sm:truncate">Payment</h2>
+        <div>
+            <h2 class="text-xl font-bold leading-7 text-gray-900 dark:text-gray-100 sm:text-2xl sm:truncate">Payment</h2>
+            @if ($order->isReservation())
+            <p>Reservation valid until: {{ $order->reservation_ends->format('M d, Y') }}</p>
+            @endif
+        </div>
         <div class="space-x-1">
             <x-bit.button.flat.primary wire:click="downloadInvoice" size="xs" class="space-x-2">
                 <x-heroicon-o-download class="w-4 h-4" /> <span>Download Invoice</span>
@@ -16,7 +21,7 @@
     @endif
     
     <form id="payment-form" class="mt-6 space-y-6">
-        @if (! $order->isPaid())
+        @if ($order->isReservation())
         <div class="p-4 space-y-4 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700 dark:border">
             <h2 class="text-gray-900 dark:text-gray-200">Billing Address</h2>
             <div class="grid grid-cols-2 gap-4">
