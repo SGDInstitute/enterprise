@@ -6,7 +6,9 @@ use App\Models\Invitation;
 use App\Models\Response;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Notifications\InvitationAccepted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class InvitationControllerTest extends TestCase
@@ -16,9 +18,12 @@ class InvitationControllerTest extends TestCase
     /** @test */
     public function can_accept_invitation_for_workshop()
     {
-        $user = User::factory()->create(['email' => 'luz@hexide.edu']);
+        Notification::fake();
+
+        $creator = User::factory()->create(['email' => 'luz@hexide.edu']);
+        $user = User::factory()->create(['email' => 'king@hexide.edu']);
         $response = Response::factory()->create();
-        $invitation = Invitation::factory()->for($response, 'inviteable')->create(['email' => $user->email]);
+        $invitation = Invitation::factory()->for($response, 'inviteable')->create(['email' => $user->email, 'invited_by' => $creator->id]);
 
         $this->actingAs($user)
             ->get($invitation->acceptUrl)
@@ -29,16 +34,21 @@ class InvitationControllerTest extends TestCase
         $this->assertDatabaseMissing('invitations', [
             'inviteable_type' => 'App\Models\Response',
             'inviteable_id' => $response->id,
-            'email' => 'luz@hexide.edu',
+            'email' => 'king@hexide.edu',
         ]);
+
+        Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
 
     /** @test */
     public function can_accept_invitation_for_ticket()
     {
-        $user = User::factory()->create(['email' => 'luz@hexide.edu']);
+        Notification::fake();
+
+        $creator = User::factory()->create(['email' => 'luz@hexide.edu']);
+        $user = User::factory()->create(['email' => 'king@hexide.edu']);
         $ticket = Ticket::factory()->create();
-        $invitation = Invitation::factory()->for($ticket, 'inviteable')->create(['email' => $user->email]);
+        $invitation = Invitation::factory()->for($ticket, 'inviteable')->create(['email' => $user->email, 'invited_by' => $creator->id]);
 
         $this->actingAs($user)
             ->get($invitation->acceptUrl)
@@ -49,8 +59,10 @@ class InvitationControllerTest extends TestCase
         $this->assertDatabaseMissing('invitations', [
             'inviteable_type' => 'App\Models\Ticket',
             'inviteable_id' => $ticket->id,
-            'email' => 'luz@hexide.edu',
+            'email' => 'king@hexide.edu',
         ]);
+
+        Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
 
     /** @test */
