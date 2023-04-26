@@ -68,7 +68,7 @@
             <x-bit.button.round.primary href="{{ route('app.orders.show', [$order, 'payment']) }}" block size="lg">Pay now</x-bit.button.round.primary>
             <div>
                 <p class="text-gray-700 dark:text-gray-400">Your order is not complete until payment is received.</p>
-                <p class="text-gray-700 dark:text-gray-400">By clicking next you agree to the policies listed <span class="hidden lg:inline">to the left</span><span class="lg:hidden">above</span>.</p>
+                <p class="text-gray-700 dark:text-gray-400">By clicking "Pay now" you agree to the policies listed <span class="hidden lg:inline">to the left</span><span class="lg:hidden">above</span>.</p>
             </div>
             <div class="space-x-1">
                 <x-bit.button.flat.primary href="{{ route('app.orders.show', [$order, 'payment']) }}" size="xs" class="space-x-2">
