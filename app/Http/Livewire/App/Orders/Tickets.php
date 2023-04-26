@@ -183,7 +183,7 @@ class Tickets extends Component
             'email' => $this->invite['email'],
         ]);
 
-        Notification::route('mail', $this->invite['email'])->notify(new AddedToTicket($invitation, $this->editingTicket));
+        Notification::route('mail', $this->invite['email'])->notify(new AddedToTicket($this->editingTicket, $invitation, auth()->user()->name));
 
         $this->reset('editingTicket', 'invite');
     }

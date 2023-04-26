@@ -11,16 +11,16 @@ class AddedToTicket extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $ticket;
-
-    public $newUser;
-
     public $causer;
 
-    public function __construct($ticket, $newUser = 'false', $causer = 'someone')
+    public $invitation;
+
+    public $ticket;
+
+    public function __construct($ticket, $invitation, $causer = 'someone')
     {
         $this->ticket = $ticket;
-        $this->newUser = $newUser;
+        $this->invitation = $invitation;
         $this->causer = $causer;
     }
 
@@ -31,14 +31,12 @@ class AddedToTicket extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail.added-to-ticket', [
-            'ticket' => $this->ticket,
-            'newUser' => $this->newUser,
-            'causer' => $this->causer,
-            'event' => $this->ticket->order->event->name,
-            'resetUrl' => route('password.request'),
-            'homeUrl' => url('/dashboard'),
-        ]);
+        $event = $this->ticket->order->event->name;
+        return (new MailMessage)
+            ->subject('Invited to attend ' . $event)
+            ->line('Hi there,')
+            ->line("You have been invited to attend {$event} by {$this->causer}. Click the link below to accept and add your information (e.g. pronouns, accessibility requests) to the ticket.")
+            ->action('Accept Invitation', $this->invitation->acceptUrl);
     }
 
     public function toArray($notifiable): array
