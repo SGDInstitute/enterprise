@@ -83,6 +83,6 @@
     @endcan
 
     @if ($editingTicket)
-        @include('livewire.app.orders.partials.ticket-modal')
+        @include('livewire.app.orders.partials.invite-modal')
     @endif
 </div>

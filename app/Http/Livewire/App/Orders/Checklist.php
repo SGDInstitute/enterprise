@@ -13,15 +13,13 @@ class Checklist extends Component
 
     public function getChecklistProperty()
     {
+        // create, pay, fill
         return [
-            ['id' => 'estimate-cost', 'label' => 'Estimate your cost of attendance and secure funding'],
+            ['id' => 'create-order', 'label' => 'Create your order'],
+            ['id' => 'fill-tickets', 'label' => 'Assign tickets to attendees', 'description' => 'Please use a valid email so they can receive our emails and update their information with name or pronoun changes'],
+            ['id' => 'pay', 'label' => 'Pay for your order'],
+            ['id' => 'travel', 'label' => 'Arrange your travel'],
             ['id' => 'book-hotel', 'label' => 'Book your hotel'],
-            ['id' => 'arrange-travel', 'label' => 'Arrange your travel'],
-            ['id' => 'organize-group', 'label' => 'Coordinate a group sign-up with students from your school, college, or university'],
-            ['id' => 'register-group', 'label' => 'Register your group'],
-            ['id' => 'pay-for-order', 'label' => "Pay for your group's registration"],
-            ['id' => 'fill-tickets', 'label' => 'Fill tickets with attendees information', 'description' => 'Please use a valid email so they can receive our emails and update their information with name or pronoun changes'],
-            ['id' => 'distribute-info', 'label' => 'Distribute trip info to your group or make sure they receive our emails'],
             ['id' => 'schedule', 'label' => 'Make your schedule for the weekend'],
             ['id' => 'arrive', 'label' => 'Arrive and check in'],
         ];

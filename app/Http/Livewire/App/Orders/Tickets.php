@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\AddedToTicket;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -31,6 +32,11 @@ class Tickets extends Component
         'pronouns' => '',
     ];
 
+    public $invite = [
+        'email' => '',
+        'email_confirmation' => '',
+    ];
+
     public $answers;
 
     public $continue = false;
@@ -44,6 +50,8 @@ class Tickets extends Component
     public $form = [];
 
     public $perPage = 10;
+
+    public $showInviteModal = false;
 
     public $showTicketholderModal = false;
 
@@ -164,6 +172,32 @@ class Tickets extends Component
                 'pronouns' => $ticket->user->pronouns ?? '',
             ];
         }
+    }
+
+    public function inviteAttendee()
+    {
+        $this->validate(['invite.email' => ['required', 'email', 'confirmed']]);
+
+        $invitation = $this->editingTicket->invitations()->create([
+            'invited_by' => auth()->id(),
+            'email' => $this->invite['email'],
+        ]);
+
+        Notification::route('mail', $this->invite['email'])->notify(new AddedToTicket($invitation, $this->editingTicket));
+
+        $this->reset('editingTicket', 'invite');
+    }
+
+    public function loadInvite($id)
+    {
+        $ticket = $this->tickets->find($id);
+        if (! auth()->user()->can('update', $ticket)) {
+            return $this->emit('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+        }
+
+        $this->editingTicket = $ticket;
+
+        $this->showInviteModal = true;
     }
 
     public function loadAuthUser()
