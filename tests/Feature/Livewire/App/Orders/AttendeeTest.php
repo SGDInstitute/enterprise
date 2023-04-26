@@ -3,16 +3,25 @@
 namespace Tests\Feature\Livewire\App\Orders;
 
 use App\Http\Livewire\App\Orders\Attendee;
+use App\Models\Order;
+use App\Models\Ticket;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class AttendeeTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function the_component_can_render()
     {
-        $component = Livewire::test(Attendee::class);
+        $user = User::factory()->create();
+        $order = Order::factory()->create();
+        $ticket = Ticket::factory()->for($user)->for($order)->create();
 
-        $component->assertStatus(200);
+        Livewire::actingAs($user)->test(Attendee::class, ['order' => $order])
+            ->assertStatus(200);
     }
 }
