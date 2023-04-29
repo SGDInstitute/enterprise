@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Notifications\InvitationAccepted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\URL;
 
@@ -21,6 +23,11 @@ class Invitation extends Model
         return $this->morphTo();
     }
 
+    public function inviter(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'invited_by');
+    }
+
     public function getAcceptUrlAttribute()
     {
         return URL::signedRoute('invitations.accept', [
@@ -28,22 +35,28 @@ class Invitation extends Model
         ]);
     }
 
+    public function getRedirectUrlAttribute()
+    {
+        return match ($this->inviteable_type) {
+            Response::class => route('app.forms.show', ['form' => $this->inviteable->form, 'edit' => $this->inviteable]),
+            Ticket::class => route('app.orders.show', ['order' => $this->inviteable->order]),
+        };
+    }
+
     public function accept()
     {
+        $url = $this->redirectUrl;
         if ($this->inviteable_type === Response::class) {
             $response = $this->inviteable;
             $response->collaborators()->attach(auth()->user());
-
-            $this->delete();
-
-            return redirect()->route('app.forms.show', ['form' => $response->form, 'edit' => $response]);
         } elseif ($this->inviteable_type === Ticket::class) {
             $ticket = $this->inviteable;
             $ticket->update(['user_id' => auth()->id()]);
-
-            $this->delete();
-
-            return redirect()->route('app.orders.show', ['order' => $ticket->order]);
         }
+
+        $this->inviter->notify(new InvitationAccepted($this->inviteable, auth()->user()));
+        $this->delete();
+
+        return redirect($url);
     }
 }
