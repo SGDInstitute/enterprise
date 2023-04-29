@@ -26,7 +26,7 @@ class InvitationAccepted extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $class = get_class($this->model);
-        
+
         if ($class === Response::class) {
             return $this->getResponseMessage();
         } elseif ($class === Ticket::class) {

@@ -32,7 +32,7 @@ class InvitationAcceptedTest extends TestCase
         $order = Order::factory()->create();
         $user = User::factory()->create();
         $ticket = Ticket::factory()->for($order)->for($user)->create();
-        
+
         $notification = (new InvitationAccepted($ticket, $user))->toMail($user);
 
         $this->assertEquals(route('app.orders.show', $order), $notification->actionUrl);
@@ -44,7 +44,7 @@ class InvitationAcceptedTest extends TestCase
         $order = Order::factory()->hasTickets(2)->create();
         $user = User::factory()->create();
         $order->tickets->each(fn ($ticket) => Invitation::factory()->for($ticket, 'inviteable')->create());
-        
+
         $notification = (new InvitationAccepted($order->tickets->first(), $user))->toMail($user)->render();
 
         $this->assertStringContainsString('There are 2 pending invitations.', $notification);
@@ -56,7 +56,7 @@ class InvitationAcceptedTest extends TestCase
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();
         $order->tickets->each(fn ($ticket) => Invitation::factory()->for($ticket, 'inviteable')->create());
-        
+
         $notification = (new InvitationAccepted($order->tickets->first(), $user))->toMail($user)->render();
 
         $this->assertStringContainsString('There is 1 pending invitation.', $notification);
@@ -67,7 +67,7 @@ class InvitationAcceptedTest extends TestCase
     {
         $order = Order::factory()->hasTickets(2)->create();
         $user = User::factory()->create();
-        
+
         $notification = (new InvitationAccepted($order->tickets->first(), $user))->toMail($user)->render();
 
         $this->assertStringContainsString('There are 2 tickets that have not been assigned.', $notification);
@@ -78,7 +78,7 @@ class InvitationAcceptedTest extends TestCase
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();
-        
+
         $notification = (new InvitationAccepted($order->tickets->first(), $user))->toMail($user)->render();
 
         $this->assertStringContainsString('There is 1 ticket that has not been assigned.', $notification);
@@ -89,7 +89,7 @@ class InvitationAcceptedTest extends TestCase
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();
-        
+
         $notification = (new InvitationAccepted($order->tickets->first(), $user))->toMail($user)->render();
 
         $this->assertStringContainsString('Please remember, your payment is due by', $notification);
