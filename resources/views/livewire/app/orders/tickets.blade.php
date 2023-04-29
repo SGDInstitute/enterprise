@@ -48,7 +48,7 @@
     </div>
     @endif
 
-    @if(auth()->user()->can('update', $order) && $order->isReservation())
+    @if (auth()->user()->can('update', $order) && $order->isReservation())
     <x-bit.button.flat.primary wire:click="add">Add another ticket</x-bit.button.flat.primary>
     @endif
 

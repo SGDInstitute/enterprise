@@ -3,7 +3,7 @@
         <div class="space-y-4">
             <livewire:app.events.modals :event="$order->event" />
 
-            @if(auth()->user()->can('delete', $order) && $order->isReservation())
+            @if (auth()->user()->can('delete', $order) && $order->isReservation())
             <x-bit.button.flat.primary block wire:click="delete" class="space-x-2">
                 <x-heroicon-o-trash class="w-4 h-4" /> <span>Delete Order</span>
             </x-bit.button.flat.primary>
