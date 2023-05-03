@@ -30,9 +30,9 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
-                <button type="submit" class="text-sm text-gray-600 underline hover:text-gray-900">
+                <x-bit.button.flat.primary type="submit" class="ml-3">
                     {{ __('Logout') }}
-                </button>
+                </x-bit.button.flat.primary>
             </form>
         </div>
     </x-auth.card>
