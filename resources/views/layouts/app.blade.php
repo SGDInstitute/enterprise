@@ -14,23 +14,19 @@
         <script src="https://station-to-station-famous.sgdinstitute.org/script.js" data-site="LVDVCGSU" defer></script>
 
         <!-- Styles -->
-        @vite('resources/css/app.css')
-        <livewire:styles />
-
-        <livewire:scripts />
-        <script src="https://unpkg.com/trix@1.2.3/dist/trix.js" defer></script>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@1.2.3/dist/trix.css">
-        @vite('resources/js/app.js')
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
+        @livewireScripts
         @stack('scripts')
     </head>
     <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
         @include('layouts.app.nav')
-        <livewire:notifications />
-
+        
         <main>
             {{ $slot }}
         </main>
-
+        
         @include('layouts.app.footer')
+        @livewire('notifications')
     </body>
 </html>
