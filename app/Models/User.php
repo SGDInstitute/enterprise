@@ -85,6 +85,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->belongsToMany(EventItem::class, 'user_schedule', 'user_id', 'item_id');
     }
 
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class);

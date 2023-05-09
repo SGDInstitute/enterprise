@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\Thread;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\SpatieTagsInput;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -21,14 +20,19 @@ class Create extends Component implements HasForms
 
     public $title;
     public $content;
-    public $tags;
+    public $tags = [];
 
     protected function getFormSchema(): array 
     {
         return [
             TextInput::make('title')->required(),
-            RichEditor::make('content')->required(),
-            TagsInput::make('tags')->required(),
+            RichEditor::make('content')
+                ->disableToolbarButtons([
+                    'attachFiles',
+                    'codeBlock',
+                ])
+                ->required(),
+            SpatieTagsInput::make('tags')->required(),
         ];
     } 
 
@@ -39,12 +43,14 @@ class Create extends Component implements HasForms
 
     public function submit()
     {
+        // validate
+        $data = $this->form->getState();
         $thread = Thread::create([
             'event_id' => $this->event->id,
             'user_id' => auth()->id(),
-            'title' => $this->title,
-            'slug' => Str::slug($this->title),
-            'content' => $this->content,
+            'title' => $data['title'],
+            'slug' => Str::slug($data['title']),
+            'content' => $data['content'],
         ]);
 
         $thread->syncTags($this->tags);
