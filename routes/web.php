@@ -26,7 +26,9 @@ Route::get('events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->nam
 Route::get('orders/process', App\Http\Controllers\OrdersProcessController::class)->name('app.orders.process');
 
 Route::get('events/{event:slug}/message-board', App\Http\Livewire\App\MessageBoard::class)->name('app.events.message-board');
-Route::get('events/{event:slug}/message-board/threads/create', App\Http\Livewire\App\MessageBoard\Thread\Create::class)->name('message-board.threads.create');
+Route::get('events/{event:slug}/message-board/threads/create', App\Http\Livewire\App\MessageBoard\Thread\Create::class)->name('threads.create');
+Route::get('threads/{thread}/edit', App\Http\Livewire\App\MessageBoard\Thread\Edit::class)->name('threads.edit');
+Route::get('threads/{thread}', App\Http\Livewire\App\MessageBoard\Thread\Show::class)->name('threads.show');
 
 Route::get('forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
 Route::get('forms/{form:slug}/finalize/{parent}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.finalize');
