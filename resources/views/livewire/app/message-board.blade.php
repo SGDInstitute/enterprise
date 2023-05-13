@@ -1,3 +1,3 @@
-<div>
-    {{-- Nothing in the world is as soft and yielding as water. --}}
+<div class="max-w-7xl mx-auto py-12">
+    {{ $this->table }}
 </div>
