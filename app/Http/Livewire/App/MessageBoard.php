@@ -4,12 +4,9 @@ namespace App\Http\Livewire\App;
 
 use App\Models\Event;
 use App\Models\Thread;
-use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -62,8 +59,23 @@ class MessageBoard extends Component implements HasTable
     protected function getTableActions(): array
     {
         return [ 
-            ViewAction::make(),
-            EditAction::make(),
+            ViewAction::make()
+                ->url(fn (Thread $record) => route('threads.show', $record)),
+            EditAction::make()
+                ->url(fn (Thread $record) => route('threads.edit', $record)),
         ]; 
+    }
+
+    protected function getTableHeaderActions(): array
+    {
+        return [
+            CreateAction::make()
+                ->url(route('threads.create', $this->event)),
+        ];
+    }
+
+    protected function getTableHeading(): string
+    {
+        return 'Message Board';
     }
 }
