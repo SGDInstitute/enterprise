@@ -113,6 +113,13 @@ class Order extends Model
         return $this->event->order_prefix . $this->id;
     }
 
+    public function getFormattedReservationEndsAttribute()
+    {
+        if ($this->isReservation()) {
+            return $this->reservation_ends->format('M d, Y');
+        }
+    }
+
     public function getInvoiceAttribute(): SchemalessAttributes
     {
         return SchemalessAttributes::createForModel($this, 'invoice');
