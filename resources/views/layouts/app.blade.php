@@ -21,11 +21,11 @@
     </head>
     <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
         @include('layouts.app.nav')
-        
+
         <main>
             {{ $slot }}
         </main>
-        
+
         @include('layouts.app.footer')
         @livewire('notifications')
     </body>
