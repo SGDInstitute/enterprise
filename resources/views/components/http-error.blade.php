@@ -15,8 +15,8 @@
     </section>
     <section class="py-12 md:py-24 bg-white dark:bg-gray-800">
         <div class="px-8 mx-auto md:px-0">
-            <div class="prose prose-green dark:prose-invert mx-auto">
-                <div class="text-black text-5xl md:text-15xl font-black">
+            <div class="prose prose-green dark:prose-light mx-auto">
+                <div class="text-black dark:text-gray-100 text-5xl md:text-15xl font-black">
                     {{ __($code) }}: {{ __($title) }}
                 </div>
                 <div class="w-16 h-1 bg-green-500 my-3 md:my-6"></div>
