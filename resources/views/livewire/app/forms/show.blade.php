@@ -33,7 +33,7 @@
                             <div class="p-4 space-y-4 bg-gray-100 rounded-md dark:bg-gray-700">
                                 <div class="space-x-2">
                                     <span class="text-gray-700 dark:text-gray-200">Status:</span>
-                                    <x-bit.badge>{{ $response->status ?? 'work-in-progress' }}</x-bit.badge>
+                                    <x-ui.badge>{{ $response->status ?? 'work-in-progress' }}</x-ui.badge>
                                 </div>
                                 @if (in_array($response->status, ['work-in-progress', 'submitted']))
                                 <x-bit.button.flat.primary form="form" type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>

@@ -4,78 +4,45 @@ namespace App\Http\Livewire\App;
 
 use App\Models\Event;
 use App\Models\Thread;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\TagsColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Livewire\WithPagination;
 
-class MessageBoard extends Component implements HasTable
+class MessageBoard extends Component
 {
-    use InteractsWithTable;
+    use WithPagination;
 
     public Event $event;
 
+    public $categoriesFilter = [];
+    public $perPage = 12;
+    public $search = '';
+    public $typesFilter = [];
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'typesFilter' => ['except' => [], 'as' => 't'],
+        'categoriesFilter' => ['except' => [], 'as' => 'c'],
+    ];
+
+    public function updating($field)
+    {
+        if (in_array($field, ['filters', 'search'])) {
+            $this->resetPage();
+        }
+    }
+
     public function render()
     {
-        return view('livewire.app.message-board');
+        return view('livewire.app.message-board', [
+            'records' => $this->getTableQuery()->paginate($this->perPage),
+            'categories' => [],
+            'types' => [],
+        ]);
     }
 
     protected function getTableQuery(): Builder
     {
         return Thread::forEvent($this->event);
-    }
-
-    protected function getTableColumns(): array
-    {
-        return [
-            TextColumn::make('title')->searchable(),
-            TextColumn::make('user.name')->searchable(),
-            TextColumn::make('created_at')->dateTime(),
-            TagsColumn::make('tags'),
-        ];
-    }
-
-    protected function getTableFilters(): array
-    {
-        return [
-            Filter::make('published')
-                ->query(fn (Builder $query): Builder => $query->where('is_published', true)),
-            SelectFilter::make('status')
-                ->options([
-                    'draft' => 'Draft',
-                    'in_review' => 'In Review',
-                    'approved' => 'Approved',
-                ]),
-        ];
-    }
-
-    protected function getTableActions(): array
-    {
-        return [
-            ViewAction::make()
-                ->url(fn (Thread $record) => route('threads.show', [$this->event, $record])),
-            EditAction::make()
-                ->url(fn (Thread $record) => route('threads.edit', [$this->event, $record])),
-        ];
-    }
-
-    protected function getTableHeaderActions(): array
-    {
-        return [
-            CreateAction::make()
-                ->url(route('threads.create', $this->event)),
-        ];
-    }
-
-    protected function getTableHeading(): string
-    {
-        return 'Message Board';
     }
 }

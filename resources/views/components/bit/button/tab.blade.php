@@ -11,7 +11,7 @@
         <x-dynamic-component :component="$icon" class="-ml-0.5 h-5 w-5 text-blue-500 dark:text-blue-400 group-focus:text-blue-600 dark:group-focus:text-blue-400" />
         <span>{{ $title }}</span>
         @if ($badge && $badge > 0)
-        <x-bit.badge>{{ $badge }}</x-bit.badge>
+        <x-ui.badge>{{ $badge }}</x-ui.badge>
         @endif
     </a>
 @else
@@ -19,7 +19,7 @@
         <x-dynamic-component :component="$icon" class="-ml-0.5 h-5 w-5 text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300 group-focus:text-gray-600 dark:group-focus:text-gray-400" />
         <span>{{ $title }}</span>
         @if ($badge && $badge > 0)
-        <x-bit.badge>{{ $badge }}</x-bit.badge>
+        <x-ui.badge>{{ $badge }}</x-ui.badge>
         @endif
     </a>
 @endif

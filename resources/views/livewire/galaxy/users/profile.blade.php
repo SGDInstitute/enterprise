@@ -10,7 +10,7 @@
                     <div class="space-y-4">
                         @if ($profileChanged)
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
-                            <x-bit.badge>Unsaved Changes</x-bit.badge>
+                            <x-ui.badge>Unsaved Changes</x-ui.badge>
                         @else
                             <x-bit.button.round.primary type="submit" disabled>Save</x-bit.button.round.primary>
                         @endif
@@ -27,7 +27,7 @@
                     <div class="space-y-4">
                         @if ($addressChanged)
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
-                            <x-bit.badge>Unsaved Changes</x-bit.badge>
+                            <x-ui.badge>Unsaved Changes</x-ui.badge>
                         @else
                             <x-bit.button.round.primary type="submit" disabled>Save</x-bit.button.round.primary>
                         @endif
@@ -47,7 +47,7 @@
                     <div class="space-y-4">
                         @if ($passwordChanged)
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
-                            <x-bit.badge>Unsaved Changes</x-bit.badge>
+                            <x-ui.badge>Unsaved Changes</x-ui.badge>
                         @else
                             <x-bit.button.round.primary type="submit" disabled>Save</x-bit.button.round.primary>
                         @endif

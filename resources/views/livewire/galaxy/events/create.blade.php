@@ -96,9 +96,9 @@
         <x-bit.panel.footer>
             @if ($formChanged)
             <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
-            <x-bit.badge color="indigo" class="ml-4">
+            <x-ui.badge color="indigo" class="ml-4">
                 Unsaved Changes
-            </x-bit.badge>
+            </x-ui.badge>
             @else
             <x-bit.button.flat.primary type="submit" disabled>Save</x-bit.button.flat.primary>
             @endif
