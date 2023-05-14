@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\WebhookController;
+use App\Http\Middleware\HasTicketForEvent;
 use Illuminate\Support\Facades\Route;
 
 Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
@@ -24,11 +25,6 @@ Route::get('donations/process', App\Http\Controllers\DonationsProcessController:
 Route::get('events', App\Http\Livewire\App\Events::class)->name('app.events');
 Route::get('events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
 Route::get('orders/process', App\Http\Controllers\OrdersProcessController::class)->name('app.orders.process');
-
-Route::get('events/{event:slug}/message-board', App\Http\Livewire\App\MessageBoard::class)->name('app.events.message-board');
-Route::get('events/{event:slug}/message-board/threads/create', App\Http\Livewire\App\MessageBoard\Thread\Create::class)->name('threads.create');
-Route::get('threads/{thread}/edit', App\Http\Livewire\App\MessageBoard\Thread\Edit::class)->name('threads.edit');
-Route::get('threads/{thread}', App\Http\Livewire\App\MessageBoard\Thread\Show::class)->name('threads.show');
 
 Route::get('forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
 Route::get('forms/{form:slug}/finalize/{parent}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.finalize');
@@ -55,4 +51,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
     Route::get('{event:slug}/program/schedule/{item:slug}', App\Http\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
+
+    Route::middleware(HasTicketForEvent::class)->group(function () {
+        Route::get('events/{event:slug}/message-board', App\Http\Livewire\App\MessageBoard::class)->name('message-board');
+        Route::get('events/{event:slug}/message-board/threads/create', App\Http\Livewire\App\MessageBoard\Thread\Create::class)->name('threads.create');
+        Route::get('threads/{thread}/edit', App\Http\Livewire\App\MessageBoard\Thread\Edit::class)->name('threads.edit');
+        Route::get('threads/{thread}', App\Http\Livewire\App\MessageBoard\Thread\Show::class)->name('threads.show');
+    });
 });
