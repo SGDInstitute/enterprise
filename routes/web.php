@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(HasTicketForEvent::class)->group(function () {
         Route::get('events/{event:slug}/message-board', App\Http\Livewire\App\MessageBoard::class)->name('message-board');
         Route::get('events/{event:slug}/message-board/threads/create', App\Http\Livewire\App\MessageBoard\Thread\Create::class)->name('threads.create');
-        Route::get('threads/{thread}/edit', App\Http\Livewire\App\MessageBoard\Thread\Edit::class)->name('threads.edit');
-        Route::get('threads/{thread}', App\Http\Livewire\App\MessageBoard\Thread\Show::class)->name('threads.show');
+        Route::get('events/{event:slug}/threads/{thread}/edit', App\Http\Livewire\App\MessageBoard\Thread\Edit::class)->name('threads.edit');
+        Route::get('events/{event:slug}/threads/{thread}', App\Http\Livewire\App\MessageBoard\Thread\Show::class)->name('threads.show');
     });
 });

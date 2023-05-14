@@ -60,9 +60,9 @@ class MessageBoard extends Component implements HasTable
     {
         return [ 
             ViewAction::make()
-                ->url(fn (Thread $record) => route('threads.show', $record)),
+                ->url(fn (Thread $record) => route('threads.show', [$this->event, $record])),
             EditAction::make()
-                ->url(fn (Thread $record) => route('threads.edit', $record)),
+                ->url(fn (Thread $record) => route('threads.edit', [$this->event, $record])),
         ]; 
     }
 
