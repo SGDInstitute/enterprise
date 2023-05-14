@@ -8,7 +8,6 @@ use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -20,7 +19,7 @@ class MessageBoardTest extends TestCase
     public function the_component_can_render()
     {
         $event = Event::factory()->create();
-        
+
         Livewire::test(MessageBoard::class, ['event' => $event])
             ->assertStatus(200);
     }
@@ -39,7 +38,7 @@ class MessageBoardTest extends TestCase
     {
         $event = Event::factory()->create();
         $user = User::factory()->create();
-        
+
         $attendee = User::factory()->create();
         $order = Order::factory()->for($event)->create();
         Ticket::factory()->for($attendee)->for($order)->for($event)->create();
@@ -54,6 +53,5 @@ class MessageBoardTest extends TestCase
     /** @test */
     public function cannot_view_if_user_has_not_accepted_terms()
     {
-        
     }
 }

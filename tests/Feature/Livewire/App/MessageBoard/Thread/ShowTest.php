@@ -3,8 +3,6 @@
 namespace Tests\Feature\Livewire\App\MessageBoard\Thread;
 
 use App\Http\Livewire\App\MessageBoard\Thread\Show;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

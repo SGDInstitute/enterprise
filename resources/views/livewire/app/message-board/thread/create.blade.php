@@ -4,7 +4,7 @@
 
     <form wire:submit.prevent="submit" class="mt-4">
         {{ $this->form }}
-     
+
         <x-bit.button.flat.primary type="submit" class="mt-4">
             Submit
         </x-bit.button.flat.primary>

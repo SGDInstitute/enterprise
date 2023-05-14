@@ -12,29 +12,15 @@ use Filament\Forms\Contracts\HasForms;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-class Create extends Component implements HasForms 
+class Create extends Component implements HasForms
 {
-    use InteractsWithForms; 
+    use InteractsWithForms;
 
     public Event $event;
 
     public $title;
     public $content;
     public $tags = [];
-
-    protected function getFormSchema(): array 
-    {
-        return [
-            TextInput::make('title')->required(),
-            RichEditor::make('content')
-                ->disableToolbarButtons([
-                    'attachFiles',
-                    'codeBlock',
-                ])
-                ->required(),
-            SpatieTagsInput::make('tags')->required(),
-        ];
-    } 
 
     public function render()
     {
@@ -54,5 +40,19 @@ class Create extends Component implements HasForms
         ]);
 
         $thread->syncTags($this->tags);
+    }
+
+    protected function getFormSchema(): array
+    {
+        return [
+            TextInput::make('title')->required(),
+            RichEditor::make('content')
+                ->disableToolbarButtons([
+                    'attachFiles',
+                    'codeBlock',
+                ])
+                ->required(),
+            SpatieTagsInput::make('tags')->required(),
+        ];
     }
 }
