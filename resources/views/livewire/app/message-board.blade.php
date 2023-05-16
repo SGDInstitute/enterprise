@@ -41,23 +41,12 @@
             </div>
             <div x-show="show" class="space-y-6" x-collapse>
                 <fieldset class="mt-6">
-                    <legend class="block text-sm font-medium text-gray-900 dark:text-gray-400">Content Type</legend>
+                    <legend class="block text-sm font-medium text-gray-900 dark:text-gray-400">Tags</legend>
                     <div class="space-y-3 pt-6">
-                        @foreach ($types as $type)
-                        <div class="flex items-center" wire:key="filters-type-{{ $type->id }}">
-                            <input id="type-{{ $type->id }}" value="{{ $type->id }}" wire:model="typesFilter" type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-brand-600 focus:ring-brand-500">
-                            <label for="type-{{ $type->id }}" class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ $type->title }}</label>
-                        </div>
-                        @endforeach
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend class="block text-sm font-medium text-gray-900 dark:text-gray-400">Category</legend>
-                    <div class="space-y-3 pt-6">
-                        @foreach ($categories as $category)
-                        <div class="flex items-center" wire:key="filters-category-{{ $category->id }}">
-                            <input id="category-{{ $category->id }}" value="{{ $category->id }}" wire:model="categoriesFilter" type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-brand-600 focus:ring-brand-500">
-                            <label for="category-{{ $category->id }}" class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ $category->title }}</label>
+                        @foreach ($tags as $tag)
+                        <div class="flex items-center" wire:key="tags-{{ $tag->id }}">
+                            <input id="tag-{{ $tag->id }}" value="{{ $tag->slug }}" wire:model="tagsFilter" type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-brand-600 focus:ring-brand-500" /> 
+                            <label for="tag-{{ $tag->id }}" class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ $tag->name }}</label>
                         </div>
                         @endforeach
                     </div>
@@ -65,7 +54,7 @@
             </div>
         </aside>
         <section class="mt-6 lg:col-span-3 lg:mt-0 xl:col-span-4 space-y-6">
-            <ul>
+            <ul class="space-y-4">
                 @forelse ($records as $thread)
                 <x-thread :event="$event" :thread=$thread />
                 @empty
@@ -73,7 +62,7 @@
                     <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
                     </svg>
-                    <span class="mt-2 block font-medium text-gray-900 dark:text-gray-200">No threads {{ $this->categoriesFilter !== [] || $this->typesFilter !== [] ? 'found with those filters' : 'found' }}</span>
+                    <span class="mt-2 block font-medium text-gray-900 dark:text-gray-200">No threads {{ $tagsFilter !== [] ? 'found with those filters' : 'found' }}</span>
                 </li>
                 @endforelse
             </ul>

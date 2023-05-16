@@ -7,6 +7,7 @@ use App\Models\Thread;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Tags\Tag;
 
 class MessageBoard extends Component
 {
@@ -14,15 +15,13 @@ class MessageBoard extends Component
 
     public Event $event;
 
-    public $categoriesFilter = [];
     public $perPage = 12;
     public $search = '';
-    public $typesFilter = [];
+    public $tagsFilter = [];
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'typesFilter' => ['except' => [], 'as' => 't'],
-        'categoriesFilter' => ['except' => [], 'as' => 'c'],
+        'tagsFilter' => ['except' => [], 'as' => 't'],
     ];
 
     public function updating($field)
@@ -36,13 +35,19 @@ class MessageBoard extends Component
     {
         return view('livewire.app.message-board', [
             'records' => $this->getTableQuery()->paginate($this->perPage),
-            'categories' => [],
-            'types' => [],
+            'tags' => Tag::withType('threads')->get(),
         ]);
     }
 
     protected function getTableQuery(): Builder
     {
-        return Thread::forEvent($this->event);
+        return Thread::forEvent($this->event)
+            ->when($this->tagsFilter !== [], function ($query) {
+                $query->withAllTags($this->tagsFilter, 'threads');
+            })
+            ->when($this->search, function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('content', 'like', '%' . $this->search . '%');
+            });
     }
 }
