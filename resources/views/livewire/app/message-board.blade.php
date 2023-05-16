@@ -45,7 +45,7 @@
                     <div class="space-y-3 pt-6">
                         @foreach ($tags as $tag)
                         <div class="flex items-center" wire:key="tags-{{ $tag->id }}">
-                            <input id="tag-{{ $tag->id }}" value="{{ $tag->slug }}" wire:model="tagsFilter" type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-brand-600 focus:ring-brand-500" /> 
+                            <input id="tag-{{ $tag->id }}" value="{{ $tag->slug }}" wire:model="tagsFilter" type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-brand-600 focus:ring-brand-500" />
                             <label for="tag-{{ $tag->id }}" class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ $tag->name }}</label>
                         </div>
                         @endforeach
