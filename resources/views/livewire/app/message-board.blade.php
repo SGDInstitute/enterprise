@@ -77,7 +77,7 @@
                 </li>
                 @endforelse
             </ul>
-    
+
             <div>
                 {{ $records->links() }}
             </div>

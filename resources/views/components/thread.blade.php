@@ -1,7 +1,7 @@
 <li class="py-4 px-6 bg-white dark:bg-gray-800 shadow flex items-center">
     <div class="w-1/2 space-y-2">
         <div>
-            @foreach($thread->tags as $tag)
+            @foreach ($thread->tags as $tag)
             <x-ui.badge>{{ $tag->name }}</x-ui.badge>
             @endforeach
         </div>

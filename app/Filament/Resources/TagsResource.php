@@ -7,8 +7,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Spatie\Tags\Tag;
@@ -49,7 +49,7 @@ class TagsResource extends Resource
             ->filters([
                 SelectFilter::make('type')
                     ->multiple()
-                    ->options(Tag::groupBy('type')->pluck('type', 'type'))
+                    ->options(Tag::groupBy('type')->pluck('type', 'type')),
             ])
             ->actions([
                 EditAction::make(),
@@ -58,18 +58,18 @@ class TagsResource extends Resource
                 DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
             'index' => ListTags::route('/'),
         ];
-    }    
+    }
 }
