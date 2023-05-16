@@ -34,6 +34,16 @@ class MessageBoardTest extends TestCase
     }
 
     /** @test */
+    public function forbidden_if_not_verified()
+    {
+        $user = User::factory()->unverified()->create();
+        $event = Event::factory()->create();
+
+        $this->actingAs($user)->get(route('message-board', $event))
+            ->assertRedirectToRoute('verification.notice');
+    }
+
+    /** @test */
     public function forbidden_if_user_does_not_have_ticket_for_event()
     {
         $event = Event::factory()->create();
