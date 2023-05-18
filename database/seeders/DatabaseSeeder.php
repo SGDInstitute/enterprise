@@ -12,17 +12,17 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create(['name' => 'Andy Newhouse', 'email' => 'andy@sgdinstitute.org'])->assignRole('institute');
         User::factory()->create(['name' => 'Justin Drwencke', 'email' => 'justin@sgdinstitute.org'])->assignRole('institute');
+        User::factory()->create(['name' => 'Andy Newhouse', 'email' => 'andy@sgdinstitute.org'])->assignRole('institute');
 
-        $mblgtacc = Event::factory()->preset('mblgtacc')->create(['name' => 'MBLGTACC 2021', 'location' => 'Madison, WI', 'timezone' => 'America/Chicago']);
+        $mblgtacc = Event::factory()->preset('mblgtacc')->create(['name' => 'MBLGTACC 2023', 'location' => 'Lexington, KY', 'timezone' => 'America/New_York']);
         Form::factory()->create([
-            'name' => 'MBLGTACC 2021 Workshop Proposal',
+            'name' => 'MBLGTACC 2023 Workshop Proposal',
             'type' => 'workshop',
             'event_id' => $mblgtacc->id,
             'auth_required' => 1,
-            'start' => '2021-04-01 07:25:00',
-            'end' => '2021-07-15 07:25:00',
+            'start' => '2023-04-01 07:25:00',
+            'end' => '2023-05-26 07:25:00',
             'timezone' => 'America/Chicago',
             'form' => [
                 ['id' => 'content-overview', 'style' => 'content', 'content' => '<div><strong>Overview:</strong></div>'],
@@ -48,21 +48,13 @@ class DatabaseSeeder extends Seeder
                 ['id' => 'question-other-info', 'type' => 'textarea', 'rules' => '', 'style' => 'question', 'question' => 'Is there anything else we should know about you or your presentation?'],
             ],
         ]);
-        $inPerson = TicketType::create(['event_id' => $mblgtacc->id, 'stripe_product_id' => 'prod_JMv3xouI9pZ6Vp', 'name' => 'In-person Attendee', 'structure' => 'flat', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
-        $inPerson->prices()->create(['name' => 'Regular', 'stripe_price_id' => 'price_1IkBDgI7BmcylBPU2P1RSoKR', 'cost' => 8500, 'start' => '2021-04-26 00:00:00', 'end' => '2021-10-08 04:59:59', 'timezone' => 'America/Chicago']);
-        $inPerson->prices()->create(['name' => 'On-site', 'stripe_price_id' => 'price_1IkBDgI7BmcylBPUqQuVAmdm', 'cost' => 10000, 'start' => '2021-10-08 05:00:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
-        $virtual = TicketType::create(['event_id' => $mblgtacc->id, 'stripe_product_id' => 'prod_JNBpBhNjaW37YD', 'name' => 'Virtual Attendee', 'description' => 'We recommend individuals purchasing virtual tickets pay $25-50 to attend and institutions sponsoring students to attend pay $35-60 per person.', 'structure' => 'scaled-range', 'start' => '2021-04-01 22:34:00', 'end' => '2021-10-10 22:33:00', 'timezone' => 'America/Chicago']);
-        $virtual->prices()->createMany([
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPUhBM75qvO', 'cost' => 2500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPUyZ7MGcZX', 'cost' => 3000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPUhR1jjuO6', 'cost' => 3500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPU7vwVbKcV', 'cost' => 4000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPUkjpHFDKg', 'cost' => 4500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPUFzSZ1d1h', 'cost' => 5000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPUdZkm5sC6', 'cost' => 5500, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-            ['name' => 'Sliding Scale', 'stripe_price_id' => 'price_1IkRS0I7BmcylBPUTJQmXEzY', 'cost' => 6000, 'start' => '2021-04-01 22:34:00', 'end' => '2021-04-25 22:34:00', 'timezone' => 'America/Chicago'],
-        ]);
+        $inPerson = TicketType::create(['event_id' => $mblgtacc->id, 'stripe_product_id' => 'prod_JMv3xouI9pZ6Vp', 'name' => 'In-person Attendee', 'structure' => 'flat', 'start' => '2023-04-01 22:34:00', 'end' => '2023-10-10 22:33:00', 'timezone' => 'America/New_York']);
+        $inPerson->prices()->create(['name' => 'Regular', 'stripe_price_id' => 'price_1IkBDgI7BmcylBPU2P1RSoKR', 'cost' => 1000, 'start' => '2021-04-01 00:00:00', 'end' => '2021-10-10 04:59:59', 'timezone' => 'America/New_York']);
 
         $tjt = Event::factory()->preset('tjt')->create();
+
+        $this->call([
+            MessageBoardTagsSeeder::class,
+        ]);
     }
 }
