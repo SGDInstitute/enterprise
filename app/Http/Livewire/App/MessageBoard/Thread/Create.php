@@ -41,6 +41,8 @@ class Create extends Component implements HasForms
         ]);
 
         $thread->attachTags($this->tags, 'threads');
+
+        return redirect()->route('threads.show', [$this->event, $thread]);
     }
 
     protected function getFormSchema(): array

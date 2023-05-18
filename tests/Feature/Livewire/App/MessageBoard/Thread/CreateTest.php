@@ -50,4 +50,21 @@ class CreateTest extends TestCase
         $this->assertEquals('heading-to-ky-from-il', $thread->slug);
         $this->assertEquals($tag->id, $thread->tags->first()->id);
     }
+
+    /** @test */
+    public function saving_thread_redirects_to_show_page()
+    {
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Create::class, ['event' => $event])
+            ->fillForm([
+                'title' => 'Heading from KY to IL',
+                'content' => 'I am heading to Lexington from Chicago, let me know if you want to join.',
+                'tags' => ['Illinois'],
+            ])
+            ->call('submit')
+            ->assertRedirect(route('threads.show', [$event, Thread::where('title', 'Heading from KY to IL')->first()]));
+    }
 }
