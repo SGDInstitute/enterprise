@@ -5,12 +5,13 @@ namespace App\Http\Livewire\App\MessageBoard\Thread;
 use App\Models\Event;
 use App\Models\Thread;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Spatie\Tags\Tag;
 
 class Create extends Component implements HasForms
 {
@@ -39,11 +40,11 @@ class Create extends Component implements HasForms
             'content' => $data['content'],
         ]);
 
-        $thread->syncTags($this->tags);
+        $thread->attachTags($this->tags, 'threads');
     }
 
     protected function getFormSchema(): array
-    {
+    {   
         return [
             TextInput::make('title')->required(),
             RichEditor::make('content')
@@ -52,7 +53,10 @@ class Create extends Component implements HasForms
                     'codeBlock',
                 ])
                 ->required(),
-            SpatieTagsInput::make('tags')->required(),
+            Select::make('tags')
+                ->options(Tag::getWithType('threads')->pluck('name', 'name'))
+                ->multiple()
+                ->required(),
         ];
     }
 }
