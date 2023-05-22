@@ -38,7 +38,7 @@
                 </div>
 
                 <div>
-                    @foreach($thread->tags as $tag)
+                    @foreach ($thread->tags as $tag)
                     <x-ui.badge>{{ $tag->name }}</x-ui.badge>
                     @endforeach
                 </div>

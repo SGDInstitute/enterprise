@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\View\Components\UI;
 
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Avatar extends Component
 {
-
     public function __construct(public string $search, public string $src = '', public string $provider = '', public string $fallback = '')
     {
     }

@@ -25,7 +25,7 @@ class ShowTest extends TestCase
             'content' => 'Looking to coordinate travel for my students (~10) to MBLGTACC this year.',
             'tags' => ['Travel', 'Illinois'],
         ]);
-        
+
         Livewire::actingAs($user)
             ->test(Show::class, ['event' => $event, 'thread' => $thread])
             ->assertStatus(200)

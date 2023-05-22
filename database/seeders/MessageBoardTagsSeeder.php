@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Tags\Tag;
 
@@ -32,11 +31,11 @@ class MessageBoardTagsSeeder extends Seeder
 
     public function run(): void
     {
-        foreach($this->types as $type) {
+        foreach ($this->types as $type) {
             Tag::findOrCreate($type, 'threads');
         }
-        
-        foreach($this->states as $state) {
+
+        foreach ($this->states as $state) {
             Tag::findOrCreate($state, 'threads');
         }
     }
