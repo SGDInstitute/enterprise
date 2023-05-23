@@ -3,7 +3,6 @@
 namespace Tests\Feature\Livewire\App\Dashboard;
 
 use App\Http\Livewire\App\Dashboard\Workshops;
-use App\Models\Event;
 use App\Models\Response;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
