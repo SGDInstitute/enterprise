@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
+use Laravel\Pennant\Concerns\HasFeatures;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 
 class Event extends Model implements HasMedia
 {
     use HasFactory;
+    use HasFeatures;
     use HasSettings;
     use InteractsWithMedia;
     use HasSlug;
@@ -23,7 +26,7 @@ class Event extends Model implements HasMedia
 
     protected $casts = [
         'end' => 'datetime',
-        'settings' => 'array',
+        'settings' => SchemalessAttributes::class,
         'start' => 'datetime',
     ];
 

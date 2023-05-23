@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App;
 
+use App\Features\EventMessageBoard;
 use App\Http\Livewire\App\MessageBoard;
 use App\Models\Event;
 use App\Models\Order;
@@ -9,6 +10,7 @@ use App\Models\Thread;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Pennant\Feature;
 use Livewire\Livewire;
 use Spatie\Tags\Tag;
 use Tests\TestCase;
@@ -46,8 +48,33 @@ class MessageBoardTest extends TestCase
     }
 
     /** @test */
+    public function bad_request_if_feature_is_not_enabled_for_event()
+    {   
+        $event = Event::factory()->create();
+        $attendee = User::factory()->create();
+        $order = Order::factory()->for($event)->create();
+        Ticket::factory()->for($attendee)->for($order)->for($event)->create();
+
+        $this->actingAs($attendee)
+            ->get(route('message-board', $event))
+            ->assertBadRequest();
+            
+        $event->settings->set('enable_message_board', true);
+        $event->save();
+
+        Feature::forget(EventMessageBoard::class);
+
+        $this->actingAs($attendee)
+            ->withoutExceptionHandling()
+            ->get(route('message-board', $event))
+            ->assertSuccessful();
+    }
+
+    /** @test */
     public function forbidden_if_user_does_not_have_ticket_for_event()
     {
+        Feature::define(EventMessageBoard::class, true);
+        
         $event = Event::factory()->create();
         $user = User::factory()->create();
 

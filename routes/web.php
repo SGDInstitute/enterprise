@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
     Route::get('{event:slug}/program/schedule/{item:slug}', App\Http\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
 
-    Route::middleware(['verified', HasTicketForEvent::class])->group(function () {
+    Route::middleware(['verified', 'has-ticket', 'features:App\Features\EventMessageBoard'])->group(function () {
         Route::get('events/{event:slug}/message-board', App\Http\Livewire\App\MessageBoard::class)->name('message-board');
         Route::get('events/{event:slug}/message-board/threads/create', App\Http\Livewire\App\MessageBoard\Thread\Create::class)->name('threads.create');
         Route::get('events/{event:slug}/threads/{thread}/edit', App\Http\Livewire\App\MessageBoard\Thread\Edit::class)->name('threads.edit');
