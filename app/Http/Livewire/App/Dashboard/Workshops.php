@@ -35,13 +35,15 @@ class Workshops extends Component
     public function getWorkshopsProperty()
     {
         return Response::query()
-            ->with(['form.finalizeForm', 'collaborators'])
-            ->where('type', 'workshop')
-            ->where('user_id', auth()->id())
-            ->when($this->filters['search'], fn ($query) => $query
-                ->where('answers', 'LIKE', "%{$this->filters['search']}%")
-                ->orWhere('status', 'LIKE', "%{$this->filters['search']}%"))
-            ->when($this->form, fn ($query) => $query->where('form_id', $this->form->id))
+            ->leftJoin('collaborators', 'collaborators.response_id', '=', 'responses.id')
+            ->with('collaborators')
+            ->where(function ($query) {
+                $query->where('responses.user_id', auth()->id())
+                    ->orWhere('collaborators.user_id', auth()->id());
+            })
+            ->select('responses.*')
+            ->groupBy('responses.id')
+            ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
     }
 
