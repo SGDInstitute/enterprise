@@ -49,7 +49,7 @@ class MessageBoardTest extends TestCase
 
     /** @test */
     public function bad_request_if_feature_is_not_enabled_for_event()
-    {   
+    {
         $event = Event::factory()->create();
         $attendee = User::factory()->create();
         $order = Order::factory()->for($event)->create();
@@ -58,7 +58,7 @@ class MessageBoardTest extends TestCase
         $this->actingAs($attendee)
             ->get(route('message-board', $event))
             ->assertBadRequest();
-            
+
         $event->settings->set('enable_message_board', true);
         $event->save();
 
@@ -74,7 +74,7 @@ class MessageBoardTest extends TestCase
     public function forbidden_if_user_does_not_have_ticket_for_event()
     {
         Feature::define(EventMessageBoard::class, true);
-        
+
         $event = Event::factory()->create();
         $user = User::factory()->create();
 

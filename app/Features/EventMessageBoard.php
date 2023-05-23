@@ -11,6 +11,7 @@ class EventMessageBoard
     {
         if (get_class($scope) === User::class) {
             $event = Event::where('slug', request()->route('event'))->firstOrFail();
+
             return $event->settings->get('enable_message_board', false);
         } else {
             return $scope->settings->get('enable_message_board', false);

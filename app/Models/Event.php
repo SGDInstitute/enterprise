@@ -10,9 +10,9 @@ use Illuminate\Support\Str;
 use Laravel\Pennant\Concerns\HasFeatures;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 
 class Event extends Model implements HasMedia
 {

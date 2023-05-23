@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\WebhookController;
-use App\Http\Middleware\HasTicketForEvent;
 use Illuminate\Support\Facades\Route;
 
 Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
