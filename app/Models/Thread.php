@@ -29,4 +29,9 @@ class Thread extends Model
     {
         $query->where('event_id', $event->id);
     }
+    
+    public function getIsApprovedAttribute()
+    {
+        return $this->approved_at !== null;
+    }
 }

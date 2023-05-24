@@ -34,4 +34,21 @@ class ShowTest extends TestCase
             ->assertSee('Travel')
             ->assertSee('Illinois');
     }
+
+    /** @test */
+    public function if_thread_has_not_been_approved_notice_is_visable()
+    {
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
+
+        $thread = Thread::factory()->for($user)->for($event)->create([
+            'approved_at' => null,
+            'approved_by' => null,
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(Show::class, ['event' => $event, 'thread' => $thread])
+            ->assertStatus(200)
+            ->assertSee('post-not-approved-notice');
+    }
 }

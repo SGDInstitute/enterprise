@@ -48,5 +48,9 @@
                 {!! $thread->content !!}
             </div>
         </x-ui.card>
+
+        @if(! $thread->isApproved)
+        <x-ui.alert id="post-not-approved-notice">This post has not been approved yet.</x-ui.alert>
+        @endif
     </x-ui.container>
 </div>
