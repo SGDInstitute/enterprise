@@ -13,8 +13,7 @@ return new class extends Migration
             $table->foreignId('event_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('parent_id')->nullable()->constrained('posts');
-            $table->string('title');
-            $table->string('slug');
+            $table->string('title')->nullable();
             $table->text('content');
             $table->timestamp('approved_at')->nullable();
             $table->foreignId('approved_by')->nullable()->constrained('users');
