@@ -32,11 +32,11 @@ class MessageBoardTagsSeeder extends Seeder
     public function run(): void
     {
         foreach ($this->types as $type) {
-            Tag::findOrCreate($type, 'threads');
+            Tag::findOrCreate($type, 'posts');
         }
 
         foreach ($this->states as $state) {
-            Tag::findOrCreate($state, 'threads');
+            Tag::findOrCreate($state, 'posts');
         }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\Livewire\App\MessageBoard\Thread;
+namespace Tests\Feature\Livewire\App\MessageBoard\Post;
 
-use App\Http\Livewire\App\MessageBoard\Thread\Show;
+use App\Http\Livewire\App\MessageBoard\Post\Show;
 use App\Models\Event;
-use App\Models\Thread;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -20,14 +20,14 @@ class ShowTest extends TestCase
         $user = User::factory()->create();
         $event = Event::factory()->create();
 
-        $thread = Thread::factory()->for($user)->for($event)->create([
+        $post = Post::factory()->for($user)->for($event)->create([
             'title' => 'Coordinating travel from central IL',
             'content' => 'Looking to coordinate travel for my students (~10) to MBLGTACC this year.',
             'tags' => ['Travel', 'Illinois'],
         ]);
 
         Livewire::actingAs($user)
-            ->test(Show::class, ['event' => $event, 'thread' => $thread])
+            ->test(Show::class, ['event' => $event, 'post' => $post])
             ->assertStatus(200)
             ->assertSee('Coordinating travel from central IL')
             ->assertSee('Looking to coordinate travel for my students (~10) to MBLGTACC this year.')
@@ -36,18 +36,18 @@ class ShowTest extends TestCase
     }
 
     /** @test */
-    public function if_thread_has_not_been_approved_notice_is_visable()
+    public function if_post_has_not_been_approved_notice_is_visable()
     {
         $user = User::factory()->create();
         $event = Event::factory()->create();
 
-        $thread = Thread::factory()->for($user)->for($event)->create([
+        $post = Post::factory()->for($user)->for($event)->create([
             'approved_at' => null,
             'approved_by' => null,
         ]);
 
         Livewire::actingAs($user)
-            ->test(Show::class, ['event' => $event, 'thread' => $thread])
+            ->test(Show::class, ['event' => $event, 'post' => $post])
             ->assertStatus(200)
             ->assertSee('post-not-approved-notice');
     }

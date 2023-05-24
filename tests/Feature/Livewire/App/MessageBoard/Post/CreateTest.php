@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\Livewire\App\MessageBoard\Thread;
+namespace Tests\Feature\Livewire\App\MessageBoard\Post;
 
-use App\Http\Livewire\App\MessageBoard\Thread\Create;
+use App\Http\Livewire\App\MessageBoard\Post\Create;
 use App\Models\Event;
-use App\Models\Thread;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -29,11 +29,11 @@ class CreateTest extends TestCase
     }
 
     /** @test */
-    public function can_create_thread()
+    public function can_create_post()
     {
         $user = User::factory()->create();
         $event = Event::factory()->create();
-        $tag = Tag::findOrCreate('Illinois', 'threads');
+        $tag = Tag::findOrCreate('Illinois', 'posts');
 
         Livewire::actingAs($user)
             ->test(Create::class, ['event' => $event])
@@ -44,15 +44,15 @@ class CreateTest extends TestCase
             ])
             ->call('submit');
 
-        $this->assertCount(1, $user->threads);
-        $thread = $user->threads->first();
-        $this->assertEquals('Heading to KY from IL', $thread->title);
-        $this->assertEquals('heading-to-ky-from-il', $thread->slug);
-        $this->assertEquals($tag->id, $thread->tags->first()->id);
+        $this->assertCount(1, $user->posts);
+        $post = $user->posts->first();
+        $this->assertEquals('Heading to KY from IL', $post->title);
+        $this->assertEquals('heading-to-ky-from-il', $post->slug);
+        $this->assertEquals($tag->id, $post->tags->first()->id);
     }
 
     /** @test */
-    public function saving_thread_redirects_to_show_page()
+    public function saving_post_redirects_to_show_page()
     {
         $user = User::factory()->create();
         $event = Event::factory()->create();
@@ -65,6 +65,6 @@ class CreateTest extends TestCase
                 'tags' => ['Illinois'],
             ])
             ->call('submit')
-            ->assertRedirect(route('threads.show', [$event, Thread::where('title', 'Heading from KY to IL')->first()]));
+            ->assertRedirect(route('posts.show', [$event, Post::where('title', 'Heading from KY to IL')->first()]));
     }
 }

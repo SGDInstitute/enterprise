@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Tags\HasTags;
 
-class Thread extends Model
+class Post extends Model
 {
     use HasFactory;
     use HasTags;

@@ -53,8 +53,8 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['verified', 'has-ticket', 'features:App\Features\EventMessageBoard'])->group(function () {
         Route::get('events/{event:slug}/message-board', App\Http\Livewire\App\MessageBoard::class)->name('message-board');
-        Route::get('events/{event:slug}/message-board/threads/create', App\Http\Livewire\App\MessageBoard\Thread\Create::class)->name('threads.create');
-        Route::get('events/{event:slug}/threads/{thread}/edit', App\Http\Livewire\App\MessageBoard\Thread\Edit::class)->name('threads.edit');
-        Route::get('events/{event:slug}/threads/{thread}', App\Http\Livewire\App\MessageBoard\Thread\Show::class)->name('threads.show');
+        Route::get('events/{event:slug}/message-board/posts/create', App\Http\Livewire\App\MessageBoard\Post\Create::class)->name('posts.create');
+        Route::get('events/{event:slug}/posts/{post}/edit', App\Http\Livewire\App\MessageBoard\Post\Edit::class)->name('posts.edit');
+        Route::get('events/{event:slug}/posts/{post}', App\Http\Livewire\App\MessageBoard\Post\Show::class)->name('posts.show');
     });
 });

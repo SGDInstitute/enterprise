@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Livewire\App\MessageBoard\Thread;
+namespace Tests\Feature\Livewire\App\MessageBoard\Post;
 
-use App\Http\Livewire\App\MessageBoard\Thread\Edit;
+use App\Http\Livewire\App\MessageBoard\Post\Edit;
 use Livewire\Livewire;
 use Tests\TestCase;
 

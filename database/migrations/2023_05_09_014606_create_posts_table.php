@@ -8,10 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('threads', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('parent_id')->nullable()->constrained('posts');
             $table->string('title');
             $table->string('slug');
             $table->text('content');
@@ -23,6 +24,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('threads');
+        Schema::dropIfExists('posts');
     }
 };

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\App\MessageBoard\Thread;
+namespace App\Http\Livewire\App\MessageBoard\Post;
 
 use App\Models\Event;
-use App\Models\Thread;
+use App\Models\Post;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -25,14 +25,14 @@ class Create extends Component implements HasForms
 
     public function render()
     {
-        return view('livewire.app.message-board.thread.create');
+        return view('livewire.app.message-board.post.create');
     }
 
     public function submit()
     {
         // validate
         $data = $this->form->getState();
-        $thread = Thread::create([
+        $post = Post::create([
             'event_id' => $this->event->id,
             'user_id' => auth()->id(),
             'title' => $data['title'],
@@ -40,9 +40,9 @@ class Create extends Component implements HasForms
             'content' => $data['content'],
         ]);
 
-        $thread->attachTags($this->tags, 'threads');
+        $post->attachTags($this->tags, 'posts');
 
-        return redirect()->route('threads.show', [$this->event, $thread]);
+        return redirect()->route('posts.show', [$this->event, $post]);
     }
 
     protected function getFormSchema(): array
@@ -56,7 +56,7 @@ class Create extends Component implements HasForms
                 ])
                 ->required(),
             Select::make('tags')
-                ->options(Tag::getWithType('threads')->pluck('name', 'name'))
+                ->options(Tag::getWithType('posts')->pluck('name', 'name'))
                 ->multiple()
                 ->required(),
         ];

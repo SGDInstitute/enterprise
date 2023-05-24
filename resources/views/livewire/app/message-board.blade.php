@@ -23,7 +23,7 @@
         </div>
         <div class="container px-8 py-4 mx-auto md:px-0 flex justify-between">
             <h1 class="text-xl text-white lg:text-4xl">{{ $event->name }} Message Board</h1>
-            <x-bit.button.flat.white :href="route('threads.create', $event)">Create a Post</x-bit.button.flat.white>
+            <x-bit.button.flat.white :href="route('posts.create', $event)">Create a Post</x-bit.button.flat.white>
         </div>
     </section>
     <x-ui.container class="lg:grid lg:grid-cols-4 lg:gap-x-8 xl:grid-cols-5">
@@ -55,14 +55,14 @@
         </aside>
         <section class="mt-6 lg:col-span-3 lg:mt-0 xl:col-span-4 space-y-6">
             <ul class="space-y-4">
-                @forelse ($records as $thread)
-                <x-thread wire:key="thread-{{ $thread->id }}" :event=$event :thread=$thread />
+                @forelse ($records as $post)
+                <x-post wire:key="post-{{ $post->id }}" :event=$event :post=$post />
                 @empty
-                <li wire:key="threads-empty" class="col-span-4 relative block w-full rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
+                <li wire:key="posts-empty" class="col-span-4 relative block w-full rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
                     <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
                     </svg>
-                    <span class="mt-2 block font-medium text-gray-900 dark:text-gray-200">No threads {{ $tagsFilter !== [] ? 'found with those filters' : 'found' }}</span>
+                    <span class="mt-2 block font-medium text-gray-900 dark:text-gray-200">No posts {{ $tagsFilter !== [] ? 'found with those filters' : 'found' }}</span>
                 </li>
                 @endforelse
             </ul>

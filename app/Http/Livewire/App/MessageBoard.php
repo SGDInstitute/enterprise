@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\App;
 
 use App\Models\Event;
-use App\Models\Thread;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -35,16 +35,16 @@ class MessageBoard extends Component
     {
         return view('livewire.app.message-board', [
             'records' => $this->getTableQuery()->paginate($this->perPage),
-            'tags' => Tag::withType('threads')->get(),
+            'tags' => Tag::withType('posts')->get(),
         ]);
     }
 
     protected function getTableQuery(): Builder
     {
-        return Thread::forEvent($this->event)
+        return Post::forEvent($this->event)
             ->approved()
             ->when($this->tagsFilter !== [], function ($query) {
-                $query->withAllTags($this->tagsFilter, 'threads');
+                $query->withAllTags($this->tagsFilter, 'posts');
             })
             ->when($this->search, function ($query) {
                 $query->where(fn ($query) => $query
