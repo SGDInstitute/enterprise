@@ -1,25 +1,40 @@
 const colors = require('tailwindcss/colors')
 const { fontFamily } = require('tailwindcss/defaultTheme')
-const brandGreen = {
-    50: '#F3F9F8',
-    100: '#E6F2F2',
-    200: '#C1DFDE',
-    300: '#9CCCCA',
-    400: '#51A6A3',
-    500: '#07807B',
-    600: '#06736F',
-    700: '#044D4A',
-    800: '#033A37',
-    900: '#022625',
-}
 
-const brandYellow = {
-    400: '#F4C33E',
-    500: '#F2B716',
-    600: '#D49F0C',
-    700: '#ae820a',
-    800: '#745707',
-    900: '#3a2b03',
+const brand = {
+    green: {
+        50: '#F3F9F8',
+        100: '#E6F2F2',
+        200: '#C1DFDE',
+        300: '#9CCCCA',
+        400: '#51A6A3',
+        500: '#07807B',
+        600: '#06736F',
+        700: '#044D4A',
+        800: '#033A37',
+        900: '#022625',
+    },
+    yellow: {
+        400: '#F4C33E',
+        500: '#F2B716',
+        600: '#D49F0C',
+        700: '#ae820a',
+        800: '#745707',
+        900: '#3a2b03',
+    },
+    blue: {
+        '50': '#eefbfd',
+        '100': '#d4f4f9',
+        '200': '#afe7f2',
+        '300': '#78d5e8',
+        '400': '#39b9d7',
+        '500': '#1e9cbc',
+        '600': '#1a7796',
+        '700': '#1d6681',
+        '800': '#20546a',
+        '900': '#1f475a',
+        '950': '#0f2d3d',
+    },
 }
 
 module.exports = {
@@ -32,15 +47,16 @@ module.exports = {
         extend: {
             colors: {
                 danger: colors.rose,
-                primary: brandGreen,
+                primary: brand.green,
                 success: colors.green,
-                warning: brandYellow,
+                warning: brand.yellow,
                 gray: {
                     850: '#172033',
                     ...colors.slate
                 },
-                green: brandGreen,
-                yellow: brandYellow,
+                green: brand.green,
+                yellow: brand.yellow,
+                blue: brand.blue,
             },
             height: {
                 '1/2-screen': '50vh',

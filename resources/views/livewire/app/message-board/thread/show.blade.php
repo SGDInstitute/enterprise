@@ -24,33 +24,37 @@
         </div>
     </section>
     <x-ui.container  class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <x-ui.card class="md:col-span-3">
-            <div class="flex items-center justify-between px-4 py-5 space-x-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:px-6">
-                <div class="flex items-center space-x-4">
-                    <x-ui.avatar :search="$thread->user->email" class="w-12 h-12 rounded-full" />
-                    <div>
+        <div class="md:col-span-3">
+            <x-ui.card >
+                <div class="flex items-center justify-between px-4 py-5 space-x-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:px-6">
+                    <div class="flex items-center space-x-4">
+                        <x-ui.avatar :search="$thread->user->email" class="w-12 h-12 rounded-full" />
                         <div>
-                            <span class="text-xl mr-2">{{ $thread->user->name }}</span>
-                            {{ $thread->user->pronouns ? "($thread->user->pronouns)" : '' }}
+                            <div>
+                                <span class="text-xl mr-2">{{ $thread->user->name }}</span>
+                                {{ $thread->user->pronouns ? "($thread->user->pronouns)" : '' }}
+                            </div>
+                            <div>posted {{ $thread->created_at->diffForHumans() }}</div>
                         </div>
-                        <div>posted {{ $thread->created_at->diffForHumans() }}</div>
+                    </div>
+    
+                    <div>
+                        @foreach ($thread->tags as $tag)
+                        <x-ui.badge>{{ $tag->name }}</x-ui.badge>
+                        @endforeach
                     </div>
                 </div>
-
-                <div>
-                    @foreach ($thread->tags as $tag)
-                    <x-ui.badge>{{ $tag->name }}</x-ui.badge>
-                    @endforeach
+    
+                <div class="px-8 py-6 prose dark:prose-light max-w-none prose-lg">
+                    {!! $thread->content !!}
                 </div>
+            </x-ui.card>
+    
+            @if(! $thread->isApproved)
+            <div class="w-[90%] mx-auto -mt-2">
+                <x-ui.alert color="blue" id="post-not-approved-notice" :sticky="false">This post has not been approved yet.</x-ui.alert>
             </div>
-
-            <div class="px-8 py-6 prose dark:prose-light max-w-none prose-lg">
-                {!! $thread->content !!}
-            </div>
-        </x-ui.card>
-
-        @if(! $thread->isApproved)
-        <x-ui.alert id="post-not-approved-notice">This post has not been approved yet.</x-ui.alert>
-        @endif
+            @endif
+        </div>
     </x-ui.container>
 </div>
