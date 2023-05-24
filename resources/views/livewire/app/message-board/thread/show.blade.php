@@ -31,7 +31,7 @@
                     <div>
                         <div>
                             <span class="text-xl mr-2">{{ $thread->user->name }}</span>
-                            <span>({{ $thread->user->pronouns }})</span>
+                            {{ $thread->user->pronouns ? "($thread->user->pronouns)" : '' }}
                         </div>
                         <div>posted {{ $thread->created_at->diffForHumans() }}</div>
                     </div>

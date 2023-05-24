@@ -9,6 +9,6 @@
             <a href="{{ route('threads.show', [$event, $thread]) }}" class="font-bold text-xl hover:underline">{{ $thread->title }}</a>
         </div>
     </div>
-    <div class="w-1/4">{{ $thread->user->name }} <span>({{ $thread->user->pronouns }})</span></div>
+    <div class="w-1/4">{{ $thread->user->name }} {{ $thread->user->pronouns ? "($thread->user->pronouns)" : '' }}</div>
     <div class="w-1/4 text-right">{{ $thread->created_at->format('m/d/Y') }}</div>
 </li>
