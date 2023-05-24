@@ -42,12 +42,15 @@ class MessageBoard extends Component
     protected function getTableQuery(): Builder
     {
         return Thread::forEvent($this->event)
+            ->approved()
             ->when($this->tagsFilter !== [], function ($query) {
                 $query->withAllTags($this->tagsFilter, 'threads');
             })
             ->when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('content', 'like', '%' . $this->search . '%');
+                $query->where(fn ($query) => $query
+                    ->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('content', 'like', '%' . $this->search . '%')
+                );
             });
     }
 }

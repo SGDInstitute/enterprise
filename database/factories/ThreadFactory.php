@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,5 +25,13 @@ class ThreadFactory extends Factory
             'content' => 'Traveling to KY from IL',
             'tags' => ['Illinois', 'Traveling'],
         ];
+    }
+
+    public function approved()
+    {
+        return $this->state(fn () => [
+            'approved_at' => now(),
+            'approved_by' => User::factory(),
+        ]);
     }
 }

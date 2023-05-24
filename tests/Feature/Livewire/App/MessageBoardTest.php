@@ -95,11 +95,27 @@ class MessageBoardTest extends TestCase
     }
 
     /** @test */
+    public function cannot_view_threads_that_have_not_been_approved()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        Thread::factory()->for($user)->for($event)->create([
+            'title' => 'Hello world',
+            'approved_at' => null,
+            'approved_by' => null,
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(MessageBoard::class, ['event' => $event])
+            ->assertDontSee('Hello world');
+    }
+
+    /** @test */
     public function can_view_threads()
     {
         $event = Event::factory()->create();
         $user = User::factory()->create();
-        Thread::factory()->for($user)->for($event)->create(['title' => 'Hello world']);
+        Thread::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world']);
 
         Livewire::actingAs($user)
             ->test(MessageBoard::class, ['event' => $event])
@@ -112,10 +128,11 @@ class MessageBoardTest extends TestCase
         $event = Event::factory()->create();
         $user = User::factory()->create();
         $tag = Tag::create(['name' => 'illinois']);
-        Thread::factory()->for($user)->for($event)->create(['title' => 'Hello world']);
+        Thread::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world']);
 
         Livewire::actingAs($user)
             ->test(MessageBoard::class, ['event' => $event])
+            ->assertSee('Hello world')
             ->set('tagsFilter', [$tag->id])
             ->assertDontSee('Hello world');
     }
@@ -125,8 +142,8 @@ class MessageBoardTest extends TestCase
     {
         $event = Event::factory()->create();
         $user = User::factory()->create();
-        Thread::factory()->for($user)->for($event)->create(['title' => 'Hello world']);
-        Thread::factory()->for($user)->for($event)->create(['title' => 'New Post']);
+        Thread::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world']);
+        Thread::factory()->for($user)->for($event)->approved()->create(['title' => 'New Post']);
 
         Livewire::actingAs($user)
             ->test(MessageBoard::class, ['event' => $event])
@@ -143,8 +160,8 @@ class MessageBoardTest extends TestCase
     {
         $event = Event::factory()->create();
         $user = User::factory()->create();
-        Thread::factory()->for($user)->for($event)->create(['title' => 'Hello world', 'content' => 'Foo Bar']);
-        Thread::factory()->for($user)->for($event)->create(['title' => 'New Post', 'content' => 'Baz']);
+        Thread::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world', 'content' => 'Foo Bar']);
+        Thread::factory()->for($user)->for($event)->approved()->create(['title' => 'New Post', 'content' => 'Baz']);
 
         Livewire::actingAs($user)
             ->test(MessageBoard::class, ['event' => $event])
@@ -154,5 +171,56 @@ class MessageBoardTest extends TestCase
             ->set('search', 'Baz')
             ->assertDontSee('Hello world')
             ->assertSee('New Post');
+    }
+
+    /** @test */
+    public function filtering_threads_does_not_show_unapproved()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        $tag = Tag::create(['name' => 'illinois']);
+        $thread = Thread::factory()->for($user)->for($event)->create(['title' => 'Hello world']);
+        $thread->attachTag($tag);
+
+        Livewire::actingAs($user)
+            ->test(MessageBoard::class, ['event' => $event])
+            ->assertDontSee('Hello world')
+            ->set('tagsFilter', [$tag->id])
+            ->assertDontSee('Hello world');
+    }
+
+    /** @test */
+    public function searching_threads_by_title_does_not_show_unapproved()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        Thread::factory()->for($user)->for($event)->create(['title' => 'New Post']);
+
+        Livewire::actingAs($user)
+            ->test(MessageBoard::class, ['event' => $event])
+            ->set('search', 'New')
+            ->assertDontSee('New Post')
+            ->set('search', 'Hello')
+            ->assertDontSee('New Post');
+    }
+
+    /** @test */
+    public function searching_threads_by_content_does_not_show_unapproved()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        $thread = Thread::factory()->for($user)->for($event)->create([
+            'title' => 'Hello world', 
+            'content' => 'Foo Bar',
+            'approved_at' => null,
+            'approved_by' => null,
+        ]);
+
+
+        Livewire::actingAs($user)
+            ->test(MessageBoard::class, ['event' => $event])
+            ->assertDontSee('Hello world')
+            ->set('search', 'Foo')
+            ->assertDontSee('Hello world');
     }
 }

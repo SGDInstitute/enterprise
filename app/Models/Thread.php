@@ -25,11 +25,16 @@ class Thread extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeApproved(Builder $query): void
+    {
+        $query->whereNotNull('approved_at')->whereNotNull('approved_by');
+    }
+
     public function scopeForEvent(Builder $query, Event $event): void
     {
         $query->where('event_id', $event->id);
     }
-    
+
     public function getIsApprovedAttribute()
     {
         return $this->approved_at !== null;

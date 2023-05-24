@@ -56,7 +56,7 @@
         <section class="mt-6 lg:col-span-3 lg:mt-0 xl:col-span-4 space-y-6">
             <ul class="space-y-4">
                 @forelse ($records as $thread)
-                <x-thread :event="$event" :thread=$thread />
+                <x-thread wire:key="thread-{{ $thread->id }}" :event=$event :thread=$thread />
                 @empty
                 <li wire:key="threads-empty" class="col-span-4 relative block w-full rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
                     <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" aria-hidden="true">

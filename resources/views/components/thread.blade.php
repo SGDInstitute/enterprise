@@ -1,4 +1,4 @@
-<li class="py-4 px-6 bg-white dark:bg-gray-800 shadow flex items-center">
+<li {{ $attributes->merge(['class' => 'py-4 px-6 bg-white dark:bg-gray-800 shadow flex items-center']) }}>
     <div class="w-1/2 space-y-2">
         <div>
             @foreach ($thread->tags as $tag)
