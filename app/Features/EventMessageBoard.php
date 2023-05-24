@@ -9,6 +9,9 @@ class EventMessageBoard
 {
     public function resolve(mixed $scope): mixed
     {
+        if ($scope->hasRole('institute')) {
+            return true;
+        }
         if (get_class($scope) === User::class) {
             $event = Event::where('slug', request()->route('event'))->firstOrFail();
 
