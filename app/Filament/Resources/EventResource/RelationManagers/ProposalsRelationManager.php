@@ -10,6 +10,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
@@ -58,7 +59,19 @@ class ProposalsRelationManager extends RelationManager
                 ...static::getSiteColumns(),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'work-in-progress' => 'Work in Progress',
+                        'submitted' => 'Submitted',
+                        'in-review' => 'In Review',
+                        'approved' => 'Approved',
+                        'rejected' => 'Rejected',
+                        'scheduled' => 'Scheduled',
+                        'canceled' => 'Canceled',
+                        'confirmed' => 'Confirmed',
+                        'waiting-list' => 'Waiting List',
+                    ])
+                    ->multiple(),
             ])
             ->headerActions([
                 //
@@ -90,17 +103,5 @@ class ProposalsRelationManager extends RelationManager
                         ->toggleable();
                 });
         }
-
-        // return app(ModelsForm::class)
-        //     ->query(fn($query) => $query->whereViewableBy(auth()->user()))
-        //     ->get()
-        //     ->map(function ($site) {
-        //         return TextColumn::make($site->slug)
-        //             ->label(strtoupper($site->slug))
-        //             ->getStateUsing(function ($record) use ($site) {
-        //                 return (string) data_get($record, "user_counts.{$site->slug}", '0');
-        //             })->toggleable();
-        //     })
-        //     ->toArray();
     }
 }
