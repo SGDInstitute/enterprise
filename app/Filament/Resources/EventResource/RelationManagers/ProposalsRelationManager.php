@@ -10,6 +10,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class ProposalsRelationManager extends RelationManager
@@ -34,9 +35,26 @@ class ProposalsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('Proposal ID'),
-                TextColumn::make('status'),
-                TextColumn::make('name'),
+                TextColumn::make('id')
+                    ->label('Proposal ID')
+                    ->searchable(query: fn (Builder $query, string $search): Builder => 
+                        $query->where('responses.id', 'like', "%{$search}%")
+                    )
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('user.name')
+                    ->label('Owner')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('status')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 ...static::getSiteColumns(),
             ])
             ->filters([
