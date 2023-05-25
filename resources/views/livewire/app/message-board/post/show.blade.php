@@ -37,20 +37,20 @@
                             <div>posted {{ $post->created_at->diffForHumans() }}</div>
                         </div>
                     </div>
-    
+
                     <div>
                         @foreach ($post->tags as $tag)
                         <x-ui.badge>{{ $tag->name }}</x-ui.badge>
                         @endforeach
                     </div>
                 </div>
-    
+
                 <div class="px-8 py-6 prose dark:prose-light max-w-none prose-lg">
                     {!! $post->content !!}
                 </div>
             </x-ui.card>
-    
-            @if(! $post->isApproved)
+
+            @if (! $post->isApproved)
             <div class="w-[90%] mx-auto -mt-2">
                 <x-ui.alert color="blue" id="post-not-approved-notice" :sticky="false">This post has not been approved yet.</x-ui.alert>
             </div>

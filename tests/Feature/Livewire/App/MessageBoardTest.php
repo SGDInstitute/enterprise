@@ -210,12 +210,11 @@ class MessageBoardTest extends TestCase
         $event = Event::factory()->create();
         $user = User::factory()->create();
         $post = Post::factory()->for($user)->for($event)->create([
-            'title' => 'Hello world', 
+            'title' => 'Hello world',
             'content' => 'Foo Bar',
             'approved_at' => null,
             'approved_by' => null,
         ]);
-
 
         Livewire::actingAs($user)
             ->test(MessageBoard::class, ['event' => $event])
