@@ -151,6 +151,13 @@ class FormResource extends Resource
                     ->required(),
                 Toggle::make('is_internal')
                     ->required(),
+                Select::make('settings.searchable')
+                    ->options(fn ($record) => collect($record->form)
+                        ->filter(fn ($question) => $question['type'] === 'question')
+                        ->filter(fn ($question) => $question['data']['type'] !== 'textarea')
+                        ->filter(fn ($question) => $question['data']['type'] !== 'rich-editor')
+                        ->mapWithKeys(fn ($question) => [$question['data']['id'] => $question['data']['question']]))
+                    ->multiple(),
             ])
             ->columns(2);
     }
