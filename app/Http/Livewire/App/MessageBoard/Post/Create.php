@@ -36,7 +36,6 @@ class Create extends Component implements HasForms
             'event_id' => $this->event->id,
             'user_id' => auth()->id(),
             'title' => $data['title'],
-            'slug' => Str::slug($data['title']),
             'content' => $data['content'],
         ]);
 

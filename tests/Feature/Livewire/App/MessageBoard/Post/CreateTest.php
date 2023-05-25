@@ -47,7 +47,6 @@ class CreateTest extends TestCase
         $this->assertCount(1, $user->posts);
         $post = $user->posts->first();
         $this->assertEquals('Heading to KY from IL', $post->title);
-        $this->assertEquals('heading-to-ky-from-il', $post->slug);
         $this->assertEquals($tag->id, $post->tags->first()->id);
     }
 

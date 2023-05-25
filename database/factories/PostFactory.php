@@ -21,7 +21,6 @@ class PostFactory extends Factory
         return [
             'event_id' => Event::factory(),
             'title' => 'Traveling to Conference',
-            'slug' => 'traveling-to-conference',
             'content' => 'Traveling to KY from IL',
             'tags' => ['Illinois', 'Traveling'],
         ];
