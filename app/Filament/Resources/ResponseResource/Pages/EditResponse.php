@@ -4,7 +4,9 @@ namespace App\Filament\Resources\ResponseResource\Pages;
 
 use App\Filament\Resources\ResponseResource;
 use Filament\Pages\Actions;
+use Filament\Pages\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Tables\Actions\DeleteAction;
 
 class EditResponse extends EditRecord
 {
@@ -13,8 +15,8 @@ class EditResponse extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            ViewAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

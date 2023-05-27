@@ -114,6 +114,11 @@ class Form extends Model
         return route('app.forms.show', $this);
     }
 
+    public function getQuestionsAttribute()
+    {
+        return $this->form->filter(fn ($item) => $item['type'] === 'question');
+    }
+
     public function getRulesAttribute()
     {
         return $this->form

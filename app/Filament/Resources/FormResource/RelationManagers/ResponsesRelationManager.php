@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\FormResource\RelationManagers;
 
 use App\Filament\Resources\FormResource;
+use App\Filament\Resources\ResponseResource;
 use App\Models\Form as ModelsForm;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
@@ -82,7 +83,7 @@ class ResponsesRelationManager extends RelationManager
             ])
             ->actions([
                 Action::make('review')
-                    ->url(fn ($livewire, $record) => FormResource::getUrl('review', ['record' => $livewire->ownerRecord, 'response' => $record]))
+                    ->url(fn ($record) => ResponseResource::getUrl('review', $record))
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
