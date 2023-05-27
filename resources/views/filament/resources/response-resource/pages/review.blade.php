@@ -30,7 +30,7 @@
                 </x-forms::field-wrapper>
                 <x-forms::field-wrapper id="review-invitations" label="Invitations" statePath="invitations">
                     @php
-                    $emails = $record->invitations->implode('email');
+                    $emails = $record->invitations->implode('email', ', ');
                     @endphp
                     
                     {{ $emails === '' ? 'no pending invitations' : $emails }}
