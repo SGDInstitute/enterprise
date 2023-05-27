@@ -11,16 +11,20 @@
                 <x-forms::field-wrapper id="review-user-name" label="Creator" statePath="user.name">
                     {{ $record->user->name ?? $record->email ?? 'n/a' }}
                 </x-forms::field-wrapper> 
-                @if($record->collaborators->filter(fn ($user) => $user->id !== $record->user_id)->count() > 1)
                 <x-forms::field-wrapper id="review-collaborators" label="Collaborators" statePath="collaborators">
-                    {{ $record->collaborators->filter(fn ($user) => $user->id !== $record->user_id)->implode('name') }}
+                    @php
+                    $names = $record->collaborators->filter(fn ($user) => $user->id !== $record->user_id)->implode('name');
+                    @endphp
+                    
+                    {{ $names === '' ? 'no co-presenters' : $names }}
                 </x-forms::field-wrapper>
-                @endif
-                @if($record->invitations->count() > 0)
                 <x-forms::field-wrapper id="review-invitations" label="Invitations" statePath="invitations">
-                    {{ $record->invitations->implode('email') }}
+                    @php
+                    $emails = $record->invitations->implode('email');
+                    @endphp
+                    
+                    {{ $emails === '' ? 'no pending invitations' : $emails }}
                 </x-forms::field-wrapper>
-                @endif
                 <x-forms::field-wrapper id="review-status" label="Status" statePath="status">
                     {{ $record->status }}
                 </x-forms::field-wrapper> 
