@@ -53,6 +53,17 @@ class ResponsesRelationManager extends RelationManager
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
+                TextColumn::make('collaborators_count')
+                    ->counts('collaborators')
+                    ->formatStateUsing(fn ($state) => $state - 1)
+                    ->label('# Co-presenters')
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('invitations_count')
+                    ->counts('invitations')
+                    ->label('# Invitations')
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->searchable()
                     ->sortable()
