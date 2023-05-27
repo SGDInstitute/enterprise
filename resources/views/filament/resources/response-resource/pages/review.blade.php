@@ -9,14 +9,24 @@
                     {{ $record->type }}
                 </x-forms::field-wrapper> 
                 <x-forms::field-wrapper id="review-user-name" label="Creator" statePath="user.name">
+                    @isset($record->user)
+                    <x-filament-support::link :href="route('filament.resources.users.edit', $record->user)">
+                        {{ $record->user->name }} <span class="text-sm italic ml-2">{{ $record->user->pronouns }}</span>
+                    </x-filament-support::link>
+                    @else
                     {{ $record->user->name ?? $record->email ?? 'n/a' }}
+                    @endif
                 </x-forms::field-wrapper> 
-                <x-forms::field-wrapper id="review-collaborators" label="Collaborators" statePath="collaborators">
-                    @php
-                    $names = $record->collaborators->filter(fn ($user) => $user->id !== $record->user_id)->implode('name');
-                    @endphp
-                    
-                    {{ $names === '' ? 'no co-presenters' : $names }}
+                <x-forms::field-wrapper id="review-co-presenters" label="Co-Presenters" statePath="co-presenters">
+                    @forelse($record->collaborators->filter(fn ($user) => $user->id !== $record->user_id) as $collaborator)
+                    <div>
+                        <x-filament-support::link :href="route('filament.resources.users.edit', $collaborator)">
+                            {{ $collaborator->name }} <span class="text-sm italic ml-2">{{ $collaborator->pronouns }}</span>
+                        </x-filament-support::link>
+                    </div>
+                    @empty
+                    no co-presenters
+                    @endforelse
                 </x-forms::field-wrapper>
                 <x-forms::field-wrapper id="review-invitations" label="Invitations" statePath="invitations">
                     @php
