@@ -5,6 +5,7 @@ namespace App\Filament\Resources\FormResource\RelationManagers;
 use App\Filament\Resources\FormResource;
 use App\Models\Form as ModelsForm;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
@@ -29,7 +30,7 @@ class ResponsesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
             ]);
