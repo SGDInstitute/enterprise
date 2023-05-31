@@ -27,7 +27,7 @@ class FormatChart extends BarChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Responses per session',
+                    'label' => 'Responses by format',
                     'data' => $data,
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                     'borderColor' => 'rgb(54, 162, 235)',
