@@ -9,8 +9,6 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -86,14 +84,14 @@ class ResponsesRelationManager extends RelationManager
                     ->multiple(),
             ])
             ->headerActions([
-                CreateAction::make(),
+                //
             ])
             ->actions([
                 Action::make('review')
                     ->url(fn ($record) => ResponseResource::getUrl('review', $record))
             ])
             ->bulkActions([
-                DeleteBulkAction::make(),
+                //
             ]);
     }
 
