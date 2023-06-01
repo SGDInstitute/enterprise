@@ -17,6 +17,11 @@ class ReviewResponse extends Page implements HasForms
 
     public Response $record;
 
+    public $alignment;
+    public $experience;
+    public $priority;
+    public $notes;
+
     protected static string $resource = ResponseResource::class;
 
     protected static string $view = 'filament.resources.response-resource.pages.review';
