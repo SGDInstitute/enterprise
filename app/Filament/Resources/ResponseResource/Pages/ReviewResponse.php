@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ResponseResource\Pages;
 
 use App\Filament\Resources\ResponseResource;
 use App\Models\Response;
+use App\Models\RfpReview;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -52,6 +53,16 @@ class ReviewResponse extends Page implements HasForms
                     ? $this->record->answers[$id]
                     : 'was not answered', ];
             });
+    }
+
+    public function submit()
+    {
+        RfpReview::create([
+            'user_id' => auth()->id(),
+            'form_id' => $this->record->form_id,
+            'response_id' => $this->record->id,
+            ...$this->form->getState(),
+        ]);
     }
 
     protected function getFormSchema(): array
