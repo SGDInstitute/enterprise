@@ -19,8 +19,9 @@ class ReviewResponse extends Page implements HasForms
 
     public $alignment;
     public $experience;
-    public $priority;
     public $notes;
+    public $priority;
+    public $track;
 
     protected static string $resource = ResponseResource::class;
 
@@ -59,37 +60,61 @@ class ReviewResponse extends Page implements HasForms
             Radio::make('alignment')
                 ->label('Alignment with conference theme & target audience')
                 ->options([
-                    3 => '3: Submission strongly aligns with the intended outcomes of the conference',
-                    2 => '2: Submission generally aligns with the intended outcomes of the conference',
-                    1 => '1: Submission loosely aligns with the intended outcomes of the conference',
-                    0 => '0: Submission did not include information about how it aligns with the theme and target audience',
+                    3 => 'Strongly aligns',
+                    2 => 'Generally aligns',
+                    1 => 'Loosely aligns',
+                    0 => 'Does not say',
+                ])
+                ->descriptions([
+                    3 => '3 points',
+                    2 => '2 points',
+                    1 => '1 points',
+                    0 => '0 points',
                 ])
                 ->required(),
             Radio::make('priority')
                 ->label('Priority of Topic Covered')
                 ->options([
-                    3 => '3: Submission covers a high priority topic',
-                    2 => '2: Submissions covers medium priority topic',
-                    1 => '1: Submission covers a low priority topic',
-                    0 => '0: Submission did not include enough information to score in this category',
+                    3 => 'High priority',
+                    2 => 'Medium priority',
+                    1 => 'Low priority',
+                    0 => 'Does not say',
+                ])
+                ->descriptions([
+                    3 => '3 points',
+                    2 => '2 points',
+                    1 => '1 points',
+                    0 => '0 points',
                 ])
                 ->required(),
-            Radio::make('presenter_experience')
+            Radio::make('experience')
                 ->label('Appropriateness of presenter covering this content')
                 ->options([
-                    3 => '3: Submission covers a high priority topic',
-                    2 => '2: Submissions covers medium priority topic',
-                    1 => '1: Submission covers a low priority topic',
-                    0 => '0: Submission did not include enough information to score in this category',
+                    3 => 'Highly qualified',
+                    2 => 'Adequately qualified',
+                    1 => 'May not be qualified',
+                    0 => 'Is not qualified',
+                ])
+                ->descriptions([
+                    3 => '3 points',
+                    2 => '2 points',
+                    1 => '1 points',
+                    0 => '0 points',
                 ])
                 ->required(),
             Radio::make('track')
                 ->label('Including workshop in a track (only applicable to submissions where track options have been selected)')
                 ->options([
-                    3 => '3: Submission strongly aligns with a selected track description and should be considered for a track slot',
-                    2 => '2: Submission generally aligns with a selected track and could be considered for a track slot as space allows',
-                    1 => '1: Submission loosely aligns with a selected track and would be better suited for a general session',
-                    0 => '0: Submission did not include enough information to score in this category or not tracks were selected',
+                    3 => 'Strongly aligns',
+                    2 => 'Generally aligns',
+                    1 => 'Loosely aligns',
+                    0 => 'Does not say'
+                ])
+                ->descriptions([
+                    3 => '3 points',
+                    2 => '2 points',
+                    1 => '1 points',
+                    0 => '0 points',
                 ])
                 ->required(),
             Textarea::make('notes')->required(),
