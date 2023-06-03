@@ -62,7 +62,8 @@ class Response extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Response::class, 'parent_id', 'id')->where('type', 'review');
+        return $this->hasMany(RfpReview::class);
+        // return $this->hasMany(Response::class, 'parent_id', 'id')->where('type', 'review');
     }
 
     public function user()

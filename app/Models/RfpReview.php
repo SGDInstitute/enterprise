@@ -26,4 +26,9 @@ class RfpReview extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getScoreAttribute()
+    {
+        return $this->alignment + $this->experience + $this->priority + $this->track;
+    }
 }

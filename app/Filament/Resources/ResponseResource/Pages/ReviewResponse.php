@@ -39,6 +39,7 @@ class ReviewResponse extends Page implements HasForms
     {
         return [
             'qa' => $this->questionsAndAnswers,
+            'reviews' => $this->reviews,
         ];
     }
 
@@ -53,6 +54,11 @@ class ReviewResponse extends Page implements HasForms
                     ? $this->record->answers[$id]
                     : 'was not answered', ];
             });
+    }
+
+    public function getReviewsProperty()
+    {
+        return $this->record->reviews->load('user');
     }
 
     public function submit()
