@@ -92,22 +92,22 @@ class ResponsesRelationManager extends RelationManager
                         ->firstWhere('data.id', 'track-first-choice')['data']['options'])
                         ->mapWithKeys(function ($option) {
                             $key = explode(':', $option)[0];
+
                             return [$key => $key];
                         })
                     )
-                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => 
-                        $query->where('answers->track-first-choice', $data['value'])
+                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => $query->where('answers->track-first-choice', $data['value'])
                     )),
                 SelectFilter::make('track-second-choice')
                     ->options(fn ($livewire) => collect($livewire->ownerRecord->questions
                         ->firstWhere('data.id', 'track-second-choice')['data']['options'])
                         ->mapWithKeys(function ($option) {
                             $key = explode(':', $option)[0];
+
                             return [$key => $key];
                         })
                     )
-                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => 
-                        $query->where('answers->track-second-choice', $data['value'])
+                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => $query->where('answers->track-second-choice', $data['value'])
                     )),
             ])
             ->headerActions([
@@ -120,11 +120,6 @@ class ResponsesRelationManager extends RelationManager
             ->bulkActions([
                 //
             ]);
-    }
-
-    protected function getTableActionsPosition(): ?string
-    {
-        return Position::BeforeCells;
     }
 
     private static function getSiteColumns()
@@ -147,6 +142,11 @@ class ResponsesRelationManager extends RelationManager
                         ->toggleable();
                 });
         }
+    }
+
+    protected function getTableActionsPosition(): ?string
+    {
+        return Position::BeforeCells;
     }
 
     protected function shouldPersistTableFiltersInSession(): bool
