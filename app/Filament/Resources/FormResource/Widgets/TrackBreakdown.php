@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TrackBreakdown extends Widget
 {
     protected static string $view = 'filament.resources.form-resource.widgets.track-breakdown';
+
     public ?Model $record = null;
 
     protected function getViewData(): array

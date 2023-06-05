@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class StatusBreakdown extends Widget
 {
     protected static string $view = 'filament.resources.form-resource.widgets.status-breakdown';
+
     public ?Model $record = null;
 
     protected function getViewData(): array

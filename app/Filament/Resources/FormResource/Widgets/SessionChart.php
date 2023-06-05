@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 class SessionChart extends BarChartWidget
 {
     protected static ?string $heading = 'Sessions';
+
     public ?Model $record = null;
 
     protected function getData(): array

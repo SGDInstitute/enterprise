@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 class FormatChart extends BarChartWidget
 {
     protected static ?string $heading = 'Format';
+
     public ?Model $record = null;
 
     protected function getData(): array
