@@ -55,15 +55,14 @@ class ResponsesRelationManager extends RelationManager
                     ->counts('collaborators')
                     ->formatStateUsing(fn ($state) => $state - 1)
                     ->label('# Co-presenters')
-                    ->sortable()
                     ->toggleable(),
                 TextColumn::make('invitations_count')
                     ->counts('invitations')
                     ->label('# Invitations')
-                    ->sortable()
                     ->toggleable(),
                 TextColumn::make('status')
                     ->sortable()
+                    ->action(fn ($livewire, $record) => $livewire->tableFilters['status'] = ['values' => [$record->status]])
                     ->toggleable(),
                 TextColumn::make('name')
                     ->sortable()
@@ -88,6 +87,28 @@ class ResponsesRelationManager extends RelationManager
                 SelectFilter::make('user')
                     ->relationship('user', 'email')
                     ->searchable(),
+                SelectFilter::make('track-first-choice')
+                    ->options(fn ($livewire) => collect($livewire->ownerRecord->questions
+                        ->firstWhere('data.id', 'track-first-choice')['data']['options'])
+                        ->mapWithKeys(function ($option) {
+                            $key = explode(':', $option)[0];
+                            return [$key => $key];
+                        })
+                    )
+                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => 
+                        $query->where('answers->track-first-choice', $data['value'])
+                    )),
+                SelectFilter::make('track-second-choice')
+                    ->options(fn ($livewire) => collect($livewire->ownerRecord->questions
+                        ->firstWhere('data.id', 'track-second-choice')['data']['options'])
+                        ->mapWithKeys(function ($option) {
+                            $key = explode(':', $option)[0];
+                            return [$key => $key];
+                        })
+                    )
+                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => 
+                        $query->where('answers->track-second-choice', $data['value'])
+                    )),
             ])
             ->headerActions([
                 //
@@ -122,6 +143,7 @@ class ResponsesRelationManager extends RelationManager
                 ->map(function ($id) {
                     return TextColumn::make('answers.' . $id)
                         ->label(Str::of($id)->replace('-', ' ')->title())
+                        ->action(fn ($livewire, $record) => $livewire->tableFilters[$id] = ['value' => $record->answers[$id]])
                         ->toggleable();
                 });
         }

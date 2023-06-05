@@ -10,7 +10,7 @@
                 </x-forms::field-wrapper>
                 <x-forms::field-wrapper id="review-user-name" label="Creator" statePath="user.name">
                     @isset($record->user)
-                    <x-filament-support::link :href="route('filament.resources.users.edit', $record->user)">
+                    <x-filament-support::link darkMode="true" :href="route('filament.resources.users.edit', $record->user)">
                         {{ $record->user->name }} <span class="ml-2 text-sm italic">{{ $record->user->pronouns }}</span>
                     </x-filament-support::link>
                     @else
@@ -20,7 +20,7 @@
                 <x-forms::field-wrapper id="review-co-presenters" label="Co-Presenters" statePath="co-presenters">
                     @forelse ($record->collaborators->filter(fn ($user) => $user->id !== $record->user_id) as $collaborator)
                     <div>
-                        <x-filament-support::link :href="route('filament.resources.users.edit', $collaborator)">
+                        <x-filament-support::link darkMode="true" :href="route('filament.resources.users.edit', $collaborator)">
                             {{ $collaborator->name }} <span class="ml-2 text-sm italic">{{ $collaborator->pronouns }}</span>
                         </x-filament-support::link>
                     </div>
