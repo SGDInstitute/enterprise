@@ -12,7 +12,6 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -39,21 +38,16 @@ class ResponsesRelationManager extends RelationManager
                 IconColumn::make('reviewed')
                     ->label('You Reviewed')
                     ->boolean()
-                    ->getStateUsing(function (Model $record): float {
-                        return $record->reviews->pluck('user_id')->contains(auth()->id());
-                    })
+                    ->getStateUsing(fn (Model $record) => $record->reviews->pluck('user_id')->contains(auth()->id()))
                     ->falseIcon('')
                     ->toggleable(),
                 TextColumn::make('id')
                     ->label('Proposal ID')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
-                    )
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('user.name')
                     ->label('Owner')
                     ->action(fn ($livewire, $record) => $livewire->tableFilters['user'] = ['value' => $record->user_id])
-                    ->searchable()
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('collaborators_count')
@@ -68,11 +62,9 @@ class ResponsesRelationManager extends RelationManager
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('status')
-                    ->searchable()
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('name')
-                    ->searchable()
                     ->sortable()
                     ->toggleable()
                     ->wrap(),
