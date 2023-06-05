@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -112,6 +113,13 @@ class Form extends Model
     public function getPreviewUrlAttribute()
     {
         return route('app.forms.show', $this);
+    }
+
+    public function getQuestionsAttribute()
+    {
+        return $this->form
+            ->when(Arr::get($this->form->first(), 'type') !== null, fn ($collection) => $collection->filter(fn ($item) => $item['type'] === 'question'))
+            ->when(Arr::get($this->form->first(), 'style') !== null, fn ($collection) => $collection->filter(fn ($item) => $item['style'] === 'question'));
     }
 
     public function getRulesAttribute()

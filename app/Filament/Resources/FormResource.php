@@ -2,7 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FormResource\Pages;
+use App\Filament\Resources\FormResource\Pages\CreateForm;
+use App\Filament\Resources\FormResource\Pages\EditForm;
+use App\Filament\Resources\FormResource\Pages\ListForms;
+use App\Filament\Resources\FormResource\Pages\ViewForm;
+use App\Filament\Resources\FormResource\RelationManagers\ResponsesRelationManager;
 use App\Models\Form as FormModel;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Builder\Block;
@@ -98,17 +102,17 @@ class FormResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ResponsesRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListForms::route('/'),
-            'create' => Pages\CreateForm::route('/create'),
-            'view' => Pages\ViewForm::route('/{record}'),
-            'edit' => Pages\EditForm::route('/{record}/edit'),
+            'index' => ListForms::route('/'),
+            'create' => CreateForm::route('/create'),
+            'view' => ViewForm::route('/{record}'),
+            'edit' => EditForm::route('/{record}/edit'),
         ];
     }
 
@@ -151,6 +155,13 @@ class FormResource extends Resource
                     ->required(),
                 Toggle::make('is_internal')
                     ->required(),
+                Select::make('settings.searchable')
+                    ->options(fn ($record) => collect($record->form)
+                        ->filter(fn ($question) => $question['type'] === 'question')
+                        ->filter(fn ($question) => $question['data']['type'] !== 'textarea')
+                        ->filter(fn ($question) => $question['data']['type'] !== 'rich-editor')
+                        ->mapWithKeys(fn ($question) => [$question['data']['id'] => $question['data']['question']]))
+                    ->multiple(),
             ])
             ->columns(2);
     }

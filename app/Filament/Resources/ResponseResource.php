@@ -1,34 +1,36 @@
 <?php
 
-namespace App\Filament\Resources\EventResource\RelationManagers;
+namespace App\Filament\Resources;
 
-use App\Models\Form as ModelsForm;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\ViewField;
+use App\Filament\Resources\ResponseResource\Pages\CreateResponse;
+use App\Filament\Resources\ResponseResource\Pages\EditResponse;
+use App\Filament\Resources\ResponseResource\Pages\ListResponses;
+use App\Filament\Resources\ResponseResource\Pages\ReviewResponse;
+use App\Filament\Resources\ResponseResource\Pages\ViewResponse;
+use App\Models\Response;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\ViewAction;
+use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
-class ProposalsRelationManager extends RelationManager
+class ResponseResource extends Resource
 {
-    protected static string $relationship = 'proposals';
+    protected static ?string $model = Response::class;
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Placeholder::make('creator')
-                    ->content(fn ($record) => recordLink($record->user, 'users.edit', $record->user->name)),
-                Placeholder::make('name')
-                    ->content(fn ($record) => $record->name),
-                ViewField::make('answers')->view('filament.resources.response-resource.answers')->columnSpanFull(),
+                TextInput::make('email'),
+                TextInput::make('type'),
             ]);
     }
 
@@ -55,7 +57,6 @@ class ProposalsRelationManager extends RelationManager
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
-                ...static::getSiteColumns(),
             ])
             ->filters([
                 SelectFilter::make('status')
@@ -72,35 +73,30 @@ class ProposalsRelationManager extends RelationManager
                     ])
                     ->multiple(),
             ])
-            ->headerActions([
-                //
-            ])
             ->actions([
-                ViewAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                //
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
-    public static function getSiteColumns()
+    public static function getRelations(): array
     {
-        $uri = request()->getRequestUri();
-        if (Str::of($uri)->startsWith('/livewire')) {
-            $data = request()->json()->get('serverMemo')['dataMeta']['models'];
-            $id = isset($data['record']) ? $data['record']['id'] : $data['ownerRecord']['id'];
-        } else {
-            $id = explode('/', $uri)[3];
-        }
-        $form = ModelsForm::where('event_id', $id)->where('type', 'workshop')->first();
+        return [
+            //
+        ];
+    }
 
-        if ($form) {
-            return collect($form->settings->searchable)
-                ->map(function ($id) {
-                    return TextColumn::make('answers.' . $id)
-                        ->label(strtoupper($id))
-                        ->toggleable();
-                });
-        }
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListResponses::route('/'),
+            'create' => CreateResponse::route('/create'),
+            'view' => ViewResponse::route('/{record}'),
+            'edit' => EditResponse::route('/{record}/edit'),
+            'review' => ReviewResponse::route('/{record}/review'),
+        ];
     }
 }
