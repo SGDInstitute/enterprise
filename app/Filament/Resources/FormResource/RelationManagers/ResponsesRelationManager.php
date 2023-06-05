@@ -36,8 +36,7 @@ class ResponsesRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('id')
                     ->label('Proposal ID')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => 
-                        $query->where('responses.id', 'like', "%{$search}%")
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
                     )
                     ->sortable()
                     ->toggleable(),
@@ -88,14 +87,14 @@ class ResponsesRelationManager extends RelationManager
             ])
             ->actions([
                 Action::make('review')
-                    ->url(fn ($record) => ResponseResource::getUrl('review', $record))
+                    ->url(fn ($record) => ResponseResource::getUrl('review', $record)),
             ])
             ->bulkActions([
                 //
             ]);
     }
 
-    public static function getSiteColumns()
+    private static function getSiteColumns()
     {
         $uri = request()->getRequestUri();
         if (Str::of($uri)->startsWith('/livewire')) {
@@ -114,5 +113,10 @@ class ResponsesRelationManager extends RelationManager
                         ->toggleable();
                 });
         }
+    }
+
+    protected function shouldPersistTableFiltersInSession(): bool
+    {
+        return true;
     }
 }

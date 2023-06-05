@@ -18,7 +18,7 @@
                     @endif
                 </x-forms::field-wrapper>
                 <x-forms::field-wrapper id="review-co-presenters" label="Co-Presenters" statePath="co-presenters">
-                    @forelse($record->collaborators->filter(fn ($user) => $user->id !== $record->user_id) as $collaborator)
+                    @forelse ($record->collaborators->filter(fn ($user) => $user->id !== $record->user_id) as $collaborator)
                     <div>
                         <x-filament-support::link :href="route('filament.resources.users.edit', $collaborator)">
                             {{ $collaborator->name }} <span class="ml-2 text-sm italic">{{ $collaborator->pronouns }}</span>
@@ -45,7 +45,7 @@
                     <h2 class="mb-2 text-sm text-gray-700 dark:text-gray-400">{{ $question }}</h2>
                     @if (is_array($answer))
                     <p class="text-lg text-gray-900 dark:text-gray-200">{{ implode(', ', $answer) }}</p>
-                    @elseif($answer != strip_tags($answer))
+                    @elseif ($answer != strip_tags($answer))
                     <div class="prose dark:prose-light">
                         {!! $answer !!}
                     </div>
@@ -82,7 +82,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                        @foreach($reviews as $review)
+                        @foreach ($reviews as $review)
                         <tr class="divide-x divide-gray-200 dark:divide-gray-700">
                             <td class="p-1 pl-0 text-sm font-medium text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ $review->user->name }}</td>
                             <td class="p-1 text-sm text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $review->alignment }}</td>

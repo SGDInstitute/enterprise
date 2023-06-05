@@ -38,8 +38,7 @@ class ProposalsRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('id')
                     ->label('Proposal ID')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => 
-                        $query->where('responses.id', 'like', "%{$search}%")
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
                     )
                     ->sortable()
                     ->toggleable(),

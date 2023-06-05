@@ -3,10 +3,10 @@
 namespace App\Filament\Resources\FormResource\Pages;
 
 use App\Filament\Resources\FormResource;
+use App\Filament\Resources\FormResource\Widgets\FormatChart;
 use App\Filament\Resources\FormResource\Widgets\SessionChart;
 use App\Filament\Resources\FormResource\Widgets\StatusBreakdown;
 use App\Filament\Resources\FormResource\Widgets\TrackBreakdown;
-use App\Filament\Resources\FormResource\Widgets\FormatChart;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 

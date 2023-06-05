@@ -13,8 +13,12 @@ use Filament\Resources\Pages\Page;
 use Illuminate\Support\Arr;
 
 class ReviewResponse extends Page implements HasForms
-{   
+{
     use InteractsWithForms;
+
+    protected static string $resource = ResponseResource::class;
+
+    protected static string $view = 'filament.resources.response-resource.pages.review';
 
     public Response $record;
 
@@ -26,11 +30,7 @@ class ReviewResponse extends Page implements HasForms
     public $priority;
     public $track;
 
-    protected static string $resource = ResponseResource::class;
-
-    protected static string $view = 'filament.resources.response-resource.pages.review';
-
-    public function mount(): void 
+    public function mount(): void
     {
         if ($review = $this->reviews->firstWhere('user_id', auth()->id())) {
             $this->editingReview = $review;
@@ -42,21 +42,6 @@ class ReviewResponse extends Page implements HasForms
                 'notes' => $review->notes,
             ]);
         }
-    } 
-
-    protected function getActions(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    protected function getViewData(): array
-    {
-        return [
-            'qa' => $this->questionsAndAnswers,
-            'reviews' => $this->reviews,
-        ];
     }
 
     public function getQuestionsAndAnswersProperty()
@@ -82,13 +67,28 @@ class ReviewResponse extends Page implements HasForms
         if ($this->editingReview) {
             return $this->editingReview->update($this->form->getState());
         }
-        
+
         return RfpReview::create([
             'user_id' => auth()->id(),
             'form_id' => $this->record->form_id,
             'response_id' => $this->record->id,
             ...$this->form->getState(),
         ]);
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    protected function getViewData(): array
+    {
+        return [
+            'qa' => $this->questionsAndAnswers,
+            'reviews' => $this->reviews,
+        ];
     }
 
     protected function getFormSchema(): array
@@ -149,7 +149,7 @@ class ReviewResponse extends Page implements HasForms
                     3 => 'Strongly aligns',
                     2 => 'Generally aligns',
                     1 => 'Loosely aligns',
-                    0 => 'Does not say'
+                    0 => 'Does not say',
                 ])
                 ->descriptions([
                     3 => '3 points',
@@ -166,7 +166,7 @@ class ReviewResponse extends Page implements HasForms
 
     private function cannotReviewProposal($userId)
     {
-        return $this->record->status === 'work-in-progress' || 
+        return $this->record->status === 'work-in-progress' ||
             ($userId === $this->record->user_id || $this->record->collaborators->pluck('id')->contains($userId));
     }
 }

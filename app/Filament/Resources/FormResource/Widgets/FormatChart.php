@@ -9,9 +9,8 @@ use Illuminate\Support\Str;
 
 class FormatChart extends BarChartWidget
 {
-    public ?Model $record = null;
-
     protected static ?string $heading = 'Format';
+    public ?Model $record = null;
 
     protected function getData(): array
     {
@@ -31,7 +30,7 @@ class FormatChart extends BarChartWidget
                     'data' => $data,
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                     'borderColor' => 'rgb(54, 162, 235)',
-                    'borderWidth' => 1
+                    'borderWidth' => 1,
                 ],
             ],
             'labels' => $options,

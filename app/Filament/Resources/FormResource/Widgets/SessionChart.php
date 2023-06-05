@@ -9,9 +9,8 @@ use Illuminate\Support\Str;
 
 class SessionChart extends BarChartWidget
 {
-    public ?Model $record = null;
-
     protected static ?string $heading = 'Sessions';
+    public ?Model $record = null;
 
     protected function getData(): array
     {
@@ -24,7 +23,7 @@ class SessionChart extends BarChartWidget
             ->get();
 
         $data = [];
-        foreach($options as $key) {
+        foreach ($options as $key) {
             $data[] = $responses->filter(fn ($response) => in_array($key, $response->answers->get('session')))->count();
         }
 
@@ -35,7 +34,7 @@ class SessionChart extends BarChartWidget
                     'data' => $data,
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                     'borderColor' => 'rgb(54, 162, 235)',
-                    'borderWidth' => 1
+                    'borderWidth' => 1,
                 ],
             ],
             'labels' => $options,

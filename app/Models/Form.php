@@ -118,10 +118,8 @@ class Form extends Model
     public function getQuestionsAttribute()
     {
         return $this->form
-            ->when(Arr::get($this->form->first(), 'type') !== null, fn ($collection) => 
-                $collection->filter(fn ($item) => $item['type'] === 'question'))
-            ->when(Arr::get($this->form->first(), 'style') !== null, fn ($collection) => 
-                $collection->filter(fn ($item) => $item['style'] === 'question'));
+            ->when(Arr::get($this->form->first(), 'type') !== null, fn ($collection) => $collection->filter(fn ($item) => $item['type'] === 'question'))
+            ->when(Arr::get($this->form->first(), 'style') !== null, fn ($collection) => $collection->filter(fn ($item) => $item['style'] === 'question'));
     }
 
     public function getRulesAttribute()

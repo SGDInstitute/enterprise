@@ -2,21 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ResponseResource\Pages;
 use App\Filament\Resources\ResponseResource\Pages\CreateResponse;
 use App\Filament\Resources\ResponseResource\Pages\EditResponse;
 use App\Filament\Resources\ResponseResource\Pages\ListResponses;
 use App\Filament\Resources\ResponseResource\Pages\ReviewResponse;
 use App\Filament\Resources\ResponseResource\Pages\ViewResponse;
-use App\Filament\Resources\ResponseResource\RelationManagers;
 use App\Models\Response;
-use Filament\Forms;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -24,7 +16,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ResponseResource extends Resource
 {
@@ -49,8 +40,7 @@ class ResponseResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->label('Proposal ID')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => 
-                        $query->where('responses.id', 'like', "%{$search}%")
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
                     )
                     ->sortable()
                     ->toggleable(),
@@ -91,14 +81,14 @@ class ResponseResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -108,5 +98,5 @@ class ResponseResource extends Resource
             'edit' => EditResponse::route('/{record}/edit'),
             'review' => ReviewResponse::route('/{record}/review'),
         ];
-    }    
+    }
 }
