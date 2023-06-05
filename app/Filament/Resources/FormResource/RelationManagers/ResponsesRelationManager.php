@@ -9,6 +9,7 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\Position;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -98,6 +99,11 @@ class ResponsesRelationManager extends RelationManager
             ->bulkActions([
                 //
             ]);
+    }
+
+    protected function getTableActionsPosition(): ?string
+    {
+        return Position::BeforeCells;
     }
 
     private static function getSiteColumns()
