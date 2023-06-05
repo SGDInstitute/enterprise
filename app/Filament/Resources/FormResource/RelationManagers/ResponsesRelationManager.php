@@ -9,9 +9,11 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class ResponsesRelationManager extends RelationManager
@@ -34,6 +36,14 @@ class ResponsesRelationManager extends RelationManager
     {
         return $table
             ->columns([
+                IconColumn::make('reviewed')
+                    ->label('You Reviewed')
+                    ->boolean()
+                    ->getStateUsing(function (Model $record): float {
+                        return $record->reviews->pluck('user_id')->contains(auth()->id());
+                    })
+                    ->falseIcon('')
+                    ->toggleable(),
                 TextColumn::make('id')
                     ->label('Proposal ID')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
@@ -42,6 +52,7 @@ class ResponsesRelationManager extends RelationManager
                     ->toggleable(),
                 TextColumn::make('user.name')
                     ->label('Owner')
+                    ->action(fn ($livewire, $record) => $livewire->tableFilters['user'] = ['value' => $record->user_id])
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
@@ -81,6 +92,9 @@ class ResponsesRelationManager extends RelationManager
                         'waiting-list' => 'Waiting List',
                     ])
                     ->multiple(),
+                SelectFilter::make('user')
+                    ->relationship('user', 'email')
+                    ->searchable(),
             ])
             ->headerActions([
                 //
