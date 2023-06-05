@@ -18,6 +18,8 @@ class ReviewResponse extends Page implements HasForms
 
     public Response $record;
 
+    public $editingReview;
+
     public $alignment;
     public $experience;
     public $notes;
@@ -27,6 +29,20 @@ class ReviewResponse extends Page implements HasForms
     protected static string $resource = ResponseResource::class;
 
     protected static string $view = 'filament.resources.response-resource.pages.review';
+
+    public function mount(): void 
+    {
+        if ($review = $this->reviews->firstWhere('user_id', auth()->id())) {
+            $this->editingReview = $review;
+            $this->form->fill([
+                'alignment' => $review->alignment,
+                'experience' => $review->experience,
+                'priority' => $review->priority,
+                'track' => $review->track,
+                'notes' => $review->notes,
+            ]);
+        }
+    } 
 
     protected function getActions(): array
     {
@@ -63,7 +79,11 @@ class ReviewResponse extends Page implements HasForms
 
     public function submit()
     {
-        RfpReview::create([
+        if ($this->editingReview) {
+            return $this->editingReview->update($this->form->getState());
+        }
+        
+        return RfpReview::create([
             'user_id' => auth()->id(),
             'form_id' => $this->record->form_id,
             'response_id' => $this->record->id,
@@ -76,6 +96,7 @@ class ReviewResponse extends Page implements HasForms
         return [
             Radio::make('alignment')
                 ->label('Alignment with conference theme & target audience')
+                ->disabled($this->cannotReviewProposal(auth()->id()))
                 ->options([
                     3 => 'Strongly aligns',
                     2 => 'Generally aligns',
@@ -91,6 +112,7 @@ class ReviewResponse extends Page implements HasForms
                 ->required(),
             Radio::make('priority')
                 ->label('Priority of Topic Covered')
+                ->disabled($this->cannotReviewProposal(auth()->id()))
                 ->options([
                     3 => 'High priority',
                     2 => 'Medium priority',
@@ -106,6 +128,7 @@ class ReviewResponse extends Page implements HasForms
                 ->required(),
             Radio::make('experience')
                 ->label('Appropriateness of presenter covering this content')
+                ->disabled($this->cannotReviewProposal(auth()->id()))
                 ->options([
                     3 => 'Highly qualified',
                     2 => 'Adequately qualified',
@@ -121,6 +144,7 @@ class ReviewResponse extends Page implements HasForms
                 ->required(),
             Radio::make('track')
                 ->label('Including workshop in a track (only applicable to submissions where track options have been selected)')
+                ->disabled($this->cannotReviewProposal(auth()->id()))
                 ->options([
                     3 => 'Strongly aligns',
                     2 => 'Generally aligns',
@@ -134,7 +158,15 @@ class ReviewResponse extends Page implements HasForms
                     0 => '0 points',
                 ])
                 ->required(),
-            Textarea::make('notes')->required(),
+            Textarea::make('notes')
+                ->disabled($this->cannotReviewProposal(auth()->id()))
+                ->required(),
         ];
+    }
+
+    private function cannotReviewProposal($userId)
+    {
+        return $this->record->status === 'work-in-progress' || 
+            ($userId === $this->record->user_id || $this->record->collaborators->pluck('id')->contains($userId));
     }
 }

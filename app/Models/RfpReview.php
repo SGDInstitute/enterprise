@@ -19,7 +19,7 @@ class RfpReview extends Model
 
     public function response(): BelongsTo
     {
-        return $this->belingsTo(Response::class);
+        return $this->belongsTo(Response::class);
     }
 
     public function user(): BelongsTo
