@@ -1,4 +1,4 @@
-<div>
+<div class="grid gap-4">
     @foreach ($reviews as $review)
     <div class="flex-auto p-3 rounded-md ring-1 ring-inset ring-gray-200 dark:ring-gray-700">
         <div class="flex justify-between gap-x-4">
