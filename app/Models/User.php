@@ -40,7 +40,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function canAccessFilament(): bool
     {
-        return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'developer']);
+        return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'mblgtacc', 'developer']);
     }
 
     // Relationships
