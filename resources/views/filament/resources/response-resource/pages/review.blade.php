@@ -59,7 +59,7 @@
         <div class="col-span-2">
             <x-filament::modal width="6xl">
                 <x-slot name="trigger">
-                    <x-filament::button type="button" x-on:click="isOpen = true">View Rubric</x-filament::button>
+                    <x-filament::button color="secondary" type="button" x-on:click="isOpen = true">View Rubric</x-filament::button>
                 </x-slot>
 
                 <x-slot name="header">
@@ -69,9 +69,21 @@
                 @include('filament.resources.response-resource.actions.rubric')
             </x-filament::modal>
 
+            <x-filament::modal width="6xl">
+                <x-slot name="trigger">
+                    <x-filament::button color="secondary" type="button" x-on:click="isOpen = true">View Tracks</x-filament::button>
+                </x-slot>
+
+                <x-slot name="header">
+                    Workshop Tracks
+                </x-slot>
+
+                @include('filament.resources.response-resource.actions.tracks')
+            </x-filament::modal>
+
             <x-filament::modal width="4xl">
                 <x-slot name="trigger">
-                    <x-filament::button type="button" x-on:click="isOpen = true">View Scores & Notes</x-filament::button>
+                    <x-filament::button color="secondary" type="button" x-on:click="isOpen = true">View Scores & Notes</x-filament::button>
                 </x-slot>
 
                 <x-slot name="header">
