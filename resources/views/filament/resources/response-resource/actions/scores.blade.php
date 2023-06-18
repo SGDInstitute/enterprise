@@ -24,11 +24,11 @@
     <tfoot>
         <tr class="divide-x divide-gray-200 dark:divide-gray-700">
             <td class="p-1 pl-0 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">Total</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ $reviews->avg('alignment') }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ $reviews->avg('experience') }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ $reviews->avg('priority') }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ $reviews->avg('track') }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ $reviews->avg('score') }}</td>
+            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('alignment'), 2) }}</td>
+            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('experience'), 2) }}</td>
+            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('priority'), 2) }}</td>
+            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('track'), 2) }}</td>
+            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('score'), 2) }}</td>
         </tr>
     </tfoot>
 </table>
