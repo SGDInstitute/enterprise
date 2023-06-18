@@ -78,10 +78,10 @@ class ReviewResponse extends Page implements HasForms
             $title = 'Created successfully';
         }
 
-        Notification::make() 
+        Notification::make()
             ->title($title)
             ->success()
-            ->send(); 
+            ->send();
     }
 
     protected function getActions(): array
