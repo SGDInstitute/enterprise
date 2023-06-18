@@ -36,6 +36,14 @@ class ResponsesRelationManager extends RelationManager
     {
         return $table
             ->columns([
+                TextColumn::make('reviews_count')
+                    ->counts('reviews')
+                    ->label('# Reviews')
+                    ->toggleable(),
+                TextColumn::make('reviews_score_avg')
+                    ->getStateUsing(fn (Model $record) => round($record->reviews->avg('score'), 2))
+                    ->label('Avg. Score')
+                    ->toggleable(),
                 IconColumn::make('reviewed')
                     ->label('You Reviewed')
                     ->boolean()

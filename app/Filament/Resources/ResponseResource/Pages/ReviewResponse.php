@@ -9,6 +9,7 @@ use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Illuminate\Support\Arr;
 
@@ -65,15 +66,22 @@ class ReviewResponse extends Page implements HasForms
     public function submit()
     {
         if ($this->editingReview) {
-            return $this->editingReview->update($this->form->getState());
+            $this->editingReview->update($this->form->getState());
+            $title = 'Updated successfully';
+        } else {
+            $this->editingReview = RfpReview::create([
+                'user_id' => auth()->id(),
+                'form_id' => $this->record->form_id,
+                'response_id' => $this->record->id,
+                ...$this->form->getState(),
+            ]);
+            $title = 'Created successfully';
         }
 
-        return RfpReview::create([
-            'user_id' => auth()->id(),
-            'form_id' => $this->record->form_id,
-            'response_id' => $this->record->id,
-            ...$this->form->getState(),
-        ]);
+        Notification::make()
+            ->title($title)
+            ->success()
+            ->send();
     }
 
     protected function getActions(): array
