@@ -68,7 +68,7 @@ class ReviewResponse extends Page implements HasForms
             return $this->editingReview->update($this->form->getState());
         }
 
-        return RfpReview::create([
+        $this->editingReview = RfpReview::create([
             'user_id' => auth()->id(),
             'form_id' => $this->record->form_id,
             'response_id' => $this->record->id,
