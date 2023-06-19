@@ -13,7 +13,7 @@ return new class extends Migration
             $table->integer('score')->after('track');
         });
 
-        foreach(RfpReview::all() as $review) {
+        foreach (RfpReview::all() as $review) {
             $review->update(['score' => $review->alignment + $review->experience + $review->priority + $review->track]);
         }
     }
