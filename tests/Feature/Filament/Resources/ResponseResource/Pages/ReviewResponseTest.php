@@ -61,6 +61,7 @@ class ReviewResponseTest extends TestCase
             'experience' => 1,
             'priority' => 1,
             'track' => 1,
+            'score' => 4,
             'notes' => 'Seems pretty bad, like it was automatically filled.',
         ]);
     }
@@ -79,6 +80,7 @@ class ReviewResponseTest extends TestCase
             'experience' => 3,
             'priority' => 3,
             'track' => 3,
+            'score' => 12,
             'notes' => 'Seems good',
         ]);
 
@@ -105,6 +107,7 @@ class ReviewResponseTest extends TestCase
         $this->assertEquals(2, $review->experience);
         $this->assertEquals(2, $review->priority);
         $this->assertEquals(2, $review->track);
+        $this->assertEquals(8, $review->score);
         $this->assertEquals('Seems pretty bad, like it was automatically filled.', $review->notes);
     }
 
