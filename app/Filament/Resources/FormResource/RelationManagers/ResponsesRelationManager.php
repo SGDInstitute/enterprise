@@ -12,6 +12,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\Position;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -39,10 +40,12 @@ class ResponsesRelationManager extends RelationManager
                 TextColumn::make('reviews_count')
                     ->counts('reviews')
                     ->label('# Reviews')
+                    ->sortable()
                     ->toggleable(),
-                TextColumn::make('reviews_score_avg')
-                    ->getStateUsing(fn (Model $record) => round($record->reviews->avg('score'), 2))
+                TextColumn::make('reviews_avg_score')
+                    ->avg('reviews', 'score')
                     ->label('Avg. Score')
+                    ->sortable()
                     ->toggleable(),
                 IconColumn::make('reviewed')
                     ->label('You Reviewed')
@@ -157,7 +160,17 @@ class ResponsesRelationManager extends RelationManager
         return Position::BeforeCells;
     }
 
+    protected function getTableFiltersLayout(): ?string
+    {
+        return Layout::AboveContent;
+    }
+
     protected function shouldPersistTableFiltersInSession(): bool
+    {
+        return true;
+    }
+
+    protected function shouldPersistTableSortInSession(): bool
     {
         return true;
     }

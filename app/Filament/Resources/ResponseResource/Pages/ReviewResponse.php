@@ -65,15 +65,18 @@ class ReviewResponse extends Page implements HasForms
 
     public function submit()
     {
+        $data = $this->form->getState();
+        $data['score'] = $data['alignment'] + $data['priority'] + $data['experience'] + $data['track'];
+
         if ($this->editingReview) {
-            $this->editingReview->update($this->form->getState());
+            $this->editingReview->update($data);
             $title = 'Updated successfully';
         } else {
             $this->editingReview = RfpReview::create([
                 'user_id' => auth()->id(),
                 'form_id' => $this->record->form_id,
                 'response_id' => $this->record->id,
-                ...$this->form->getState(),
+                ...$data,
             ]);
             $title = 'Created successfully';
         }

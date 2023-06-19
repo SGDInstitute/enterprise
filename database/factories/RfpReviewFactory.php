@@ -19,6 +19,7 @@ class RfpReviewFactory extends Factory
             'experience' => 1,
             'priority' => 1,
             'track' => 1,
+            'score' => 4,
             'notes' => fake()->sentence(),
         ];
     }
