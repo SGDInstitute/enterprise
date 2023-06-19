@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('rfp_reviews', function (Blueprint $table) {
-            $table->float('score')->after('track');
+            $table->integer('score')->after('track');
         });
 
         foreach(RfpReview::all() as $review) {
