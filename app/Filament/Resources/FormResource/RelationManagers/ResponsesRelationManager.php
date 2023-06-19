@@ -130,21 +130,6 @@ class ResponsesRelationManager extends RelationManager
             ]);
     }
 
-    protected function getTableActionsPosition(): ?string
-    {
-        return Position::BeforeCells;
-    }
-
-    protected function shouldPersistTableFiltersInSession(): bool
-    {
-        return true;
-    }
-
-    protected function shouldPersistTableSortInSession(): bool
-    {
-        return true;
-    }
-
     private static function getSiteColumns()
     {
         $uri = request()->getRequestUri();
@@ -165,5 +150,25 @@ class ResponsesRelationManager extends RelationManager
                         ->toggleable();
                 });
         }
+    }
+
+    protected function getTableActionsPosition(): ?string
+    {
+        return Position::BeforeCells;
+    }
+
+    protected function getTableFiltersLayout(): ?string
+    {
+        return Layout::AboveContent;
+    }
+
+    protected function shouldPersistTableFiltersInSession(): bool
+    {
+        return true;
+    }
+
+    protected function shouldPersistTableSortInSession(): bool
+    {
+        return true;
     }
 }
