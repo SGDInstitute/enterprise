@@ -66,8 +66,8 @@ class ReviewResponse extends Page implements HasForms
     public function submit()
     {
         $data = $this->form->getState();
-        $data['score'] = $data["alignment"] + $data["priority"] + $data["experience"] + $data["track"];
-        
+        $data['score'] = $data['alignment'] + $data['priority'] + $data['experience'] + $data['track'];
+
         if ($this->editingReview) {
             $this->editingReview->update($data);
             $title = 'Updated successfully';
