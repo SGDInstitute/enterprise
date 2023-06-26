@@ -1,7 +1,7 @@
 <x-mail::message>
 # Hello and congratulations!
 
-We’re thrilled to share that your workshop has been accepted for MBLGTACC 2023!
+We’re thrilled to share that your workshop "{{ $name }}" has been accepted for MBLGTACC 2023!
 
 Watch [this video](https://mblgtacc.org/special-message-presenters) from our director of programs, R.B. Brooks for a personal message on being selected.
 
@@ -30,6 +30,12 @@ MBLGTACC is a stepping stone for queer and trans presenters who use their experi
 **In mid-September**, we’ll provide more details about a presenter orientation hosted via Zoom. That will be an opportunity for you to ask questions as you put the finishing touches on your workshop materials.
 
 We’ll be requesting digital copies of presentation materials (ex: presentation slides, handouts, worksheets, video clips, etc) **by October 20**. Presentation content collected will only be used for internal purposes such as reviewing content for compliance with the Code for Inclusion. More details about this process will be provided closer to the submission deadline.
+
+# Confirming Presentation
+
+Now that you're accepted, we need you to confirm that you're planning to join us at the conference this November. **To lock in your session, confirm your workshop by July 21st.**
+
+Workshops that are not confirmed by that date will not be allocated space or included in the conference program.
 
 <x-mail::button :url="$url">
 Confirm Presentation
