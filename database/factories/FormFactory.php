@@ -14,6 +14,8 @@ class FormFactory extends Factory
             'name' => 'Test form',
             'slug' => 'test-form',
             'type' => 'workshop',
+            'start' => now()->subDay(),
+            'end' => now()->addDay(),
         ];
     }
 
