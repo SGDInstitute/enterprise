@@ -24,7 +24,7 @@ class ViewForm extends ViewRecord
     {
         return [
             Action::make('notify_approved')
-                ->action(function ()  {
+                ->action(function () {
                     $proposals = $this->record->responses()->where('status', 'approved')->get();
                     foreach ($proposals as $response) {
                         $response->user->notify(new ProposalApproved($response));
@@ -39,7 +39,7 @@ class ViewForm extends ViewRecord
                 ->modalButton('Yes, notify them')
                 ->color('primary'),
             Action::make('notify_rejected')
-                ->action(function ()  {
+                ->action(function () {
                     $proposals = $this->record->responses()->where('status', 'rejected')->get();
                     foreach ($proposals as $response) {
                         $response->user->notify(new ProposalRejected($response));
