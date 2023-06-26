@@ -33,12 +33,14 @@ We’ll be requesting digital copies of presentation materials (ex: presentation
 
 # Confirming Presentation
 
-Now that you're accepted, we need you to confirm that you're planning to join us at the conference this November. **To lock in your session, confirm your workshop by July 21st.**
+Now that you're accepted, we need you to confirm that you're planning to join us at the conference this November. 
 
-Workshops that are not confirmed by that date will not be allocated space or included in the conference program.
+To lock in your session, click the link below that will take you to your proposal then click the "Confirm Proposal" button on that page. Refresh the page to verify that the status reads "confirmed".
+
+Workshops that are not confirmed by **July 21st** will not be allocated space or included in the conference program.
 
 <x-mail::button :url="$url">
-Confirm Presentation
+View Presentation
 </x-mail::button>
 
 Thanks,<br>
