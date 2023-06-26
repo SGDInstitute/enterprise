@@ -147,4 +147,23 @@ class ShowTest extends TestCase
             ->assertSee('verify your email')
             ->assertSet('fillable', false);
     }
+
+    /** @test */
+    public function can_confirm_if_accepted()
+    {
+        $user = User::factory()->create();
+        $form = Form::factory()->create(['form' => [
+            ['data' => ['id' => 'timeline-information', 'content' => '<h2>Application Timeline</h2>'], 'type' => 'content'],
+            ['data' => ['id' => 'name', 'type' => 'text', 'question' => 'Name of Workshop'], 'type' => 'question'],
+        ]]);
+        $proposal = Response::factory()->for($form)->for($user)->create(['answers' => ['name' => 'Hello world'], 'status' => 'approved']);
+
+        Livewire::actingAs($user)
+            ->withQueryParams(['edit' => $proposal->id])
+            ->test(Show::class, ['form' => $form])
+            ->assertSee('Confirm Presentation')
+            ->call('confirm');
+
+        $this->assertEquals('confirmed', $proposal->fresh()->status);
+    }
 }

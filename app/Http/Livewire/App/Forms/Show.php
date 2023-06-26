@@ -164,6 +164,15 @@ class Show extends Component
 
     // Methods
 
+    public function confirm()
+    {
+        if ($this->response->status !== 'approved') {
+            return;
+        }
+
+        $this->response->update(['status' => 'confirmed']);
+    }
+
     public function delete($id)
     {
         $this->previousResponses->firstWhere('id', $id)->safeDelete();

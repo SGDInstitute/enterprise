@@ -95,6 +95,11 @@ class Response extends Model
         }
     }
 
+    public function getUrlAttribute()
+    {
+        return route('app.forms.show', ['form' => $this->form, 'edit' => $this]);
+    }
+
     // Methods
 
     public function safeDelete()

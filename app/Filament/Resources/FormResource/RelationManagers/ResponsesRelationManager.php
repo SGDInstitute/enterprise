@@ -4,17 +4,21 @@ namespace App\Filament\Resources\FormResource\RelationManagers;
 
 use App\Filament\Resources\ResponseResource;
 use App\Models\Form as ModelsForm;
+use App\Models\Response;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\Position;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class ResponsesRelationManager extends RelationManager
@@ -129,7 +133,27 @@ class ResponsesRelationManager extends RelationManager
                     ->url(fn ($record) => ResponseResource::getUrl('review', $record)),
             ])
             ->bulkActions([
-                //
+                BulkAction::make('change_status')
+                    ->size('md')
+                    ->action(fn (Collection $records, $data) => Response::whereIn('id', $records->pluck('id'))
+                        ->update(['status' => $data['status']]))
+                    ->form([
+                        Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'work-in-progress' => 'Work in Progress',
+                                'submitted' => 'Submitted',
+                                'in-review' => 'In Review',
+                                'approved' => 'Approved',
+                                'rejected' => 'Rejected',
+                                'waiting-list' => 'Waiting List',
+                                'confirmed' => 'Confirmed',
+                                'scheduled' => 'Scheduled',
+                                'canceled' => 'Canceled',
+                            ])
+                            ->required(),
+                    ])
+                    ->deselectRecordsAfterCompletion(),
             ]);
     }
 

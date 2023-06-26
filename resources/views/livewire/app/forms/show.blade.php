@@ -38,6 +38,9 @@
                                 @if (in_array($response->status, ['work-in-progress', 'submitted']))
                                 <x-bit.button.flat.primary form="form" type="submit" :disabled="!$fillable">Submit for Review</x-bit.button.flat.primary>
                                 @endif
+                                @if ($response->status === 'approved')
+                                <x-bit.button.flat.primary wire:click="confirm" :disabled="!$fillable">Confirm Presentation</x-bit.button.flat.primary>
+                                @endif
                             </div>
                         </div>
                     </div>
