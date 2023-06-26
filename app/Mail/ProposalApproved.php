@@ -14,9 +14,9 @@ class ProposalApproved extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public function __construct(
-        public Response $response,
-    ) {}
+    public function __construct(public Response $response)
+    {
+    }
 
     public function envelope(): Envelope
     {

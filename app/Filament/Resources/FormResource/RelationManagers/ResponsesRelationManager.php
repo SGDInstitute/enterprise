@@ -153,7 +153,7 @@ class ResponsesRelationManager extends RelationManager
                             ])
                             ->required(),
                     ])
-                    ->deselectRecordsAfterCompletion()
+                    ->deselectRecordsAfterCompletion(),
             ]);
     }
 
