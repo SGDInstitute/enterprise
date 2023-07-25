@@ -1,7 +1,7 @@
 <x-mail::message>
 # Hello and congratulations!
 
-We’re thrilled to share that your workshop "{{ $name }}" has been accepted for MBLGTACC 2023!
+We’re thrilled to share that your workshop "{{ $name }}" has been accepted for MBLGTACC 2023! Please confirm your presentation as soon as possible by clicking the button at the bottom of the email.
 
 Watch [this video](https://mblgtacc.org/special-message-presenters) from our director of programs, R.B. Brooks for a personal message on being selected.
 
@@ -37,7 +37,8 @@ Now that you're accepted, we need you to confirm that you're planning to join us
 
 To lock in your session, click the link below that will take you to your proposal then click the "Confirm Proposal" button on that page. Refresh the page to verify that the status reads "confirmed".
 
-Workshops that are not confirmed by **July 21st** will not be allocated space or included in the conference program.
+~Workshops that are not confirmed by **July 21st** will not be allocated space or included in the conference program.~
+We have extended this deadline until August 1st. On August any presentations that have not been confirmed will have their status changed to rejected.
 
 <x-mail::button :url="$url">
 View Presentation
