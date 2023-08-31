@@ -87,7 +87,7 @@ class ReviewResponse extends Page implements HasForms
             ->send();
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             //

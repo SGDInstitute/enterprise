@@ -22,9 +22,9 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Carbon;
@@ -52,7 +52,7 @@ class EventResource extends Resource
                         'virtual' => 'Virtual',
                     ])
                     ->reactive()
-                    ->afterStateUpdated(function (Closure $set, $state) {
+                    ->afterStateUpdated(function (\Filament\Forms\Set $set, $state) {
                         self::setUpPreset($set, $state);
                     })
                     ->hidden(fn ($record) => $record !== null),

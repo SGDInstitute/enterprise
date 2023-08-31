@@ -13,9 +13,9 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TextInput\Mask;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
@@ -68,7 +68,7 @@ class TicketTypeResource extends Resource
                         ])
                         ->columns(3),
                     TextInput::make('cost') // only show when structure is flat
-                        ->hidden(fn (Closure $get) => $get('structure') !== 'flat')
+                        ->hidden(fn (\Filament\Forms\Get $get) => $get('structure') !== 'flat')
                         ->mask(fn (Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2)),
                     // @todo scaled range
                 ])->columns(2),

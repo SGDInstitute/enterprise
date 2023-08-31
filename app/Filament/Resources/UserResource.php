@@ -10,9 +10,9 @@ use App\Models\User;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -81,7 +81,7 @@ class UserResource extends Resource
                 IconColumn::make('email_verified_at')
                     ->options([
                         'heroicon-o-x-circle',
-                        'heroicon-o-thumb-up' => fn ($state): bool => $state !== null,
+                        'heroicon-o-hand-thumb-up' => fn ($state): bool => $state !== null,
                     ]),
                 TextColumn::make('created_at')
                     ->date(),

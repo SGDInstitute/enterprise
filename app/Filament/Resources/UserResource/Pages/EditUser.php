@@ -13,12 +13,12 @@ class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Action::make('send_password_reset')
                 ->icon('heroicon-o-paper-airplane')
-                ->color('secondary')
+                ->color('gray')
                 ->action(function () {
                     Password::broker()->sendResetLink(['email' => $this->record->email]);
 
@@ -27,8 +27,8 @@ class EditUser extends EditRecord
                     Notification::make()->title('Password reset email sent.')->success()->send();
                 }),
             Action::make('impersonate')
-                ->icon('heroicon-o-lightning-bolt')
-                ->color('secondary')
+                ->icon('heroicon-o-bolt')
+                ->color('gray')
                 ->action(function () {
                     activity()->on($this->record)->log('impersonated');
 
@@ -38,7 +38,7 @@ class EditUser extends EditRecord
                     return redirect()->to('/dashboard');
                 }),
             Action::make('manually_verify_user')
-                ->color('secondary')
+                ->color('gray')
                 ->icon('heroicon-o-shield-check')
                 ->hidden($this->record->hasVerifiedEmail())
                 ->action(function () {
@@ -48,7 +48,7 @@ class EditUser extends EditRecord
 
                     Notification::make()->title('Marked user as verified.')->success()->send();
                 }),
-            DeleteAction::make()->icon('heroicon-o-exclamation'),
+            DeleteAction::make()->icon('heroicon-o-exclamation-triangle'),
         ];
     }
 }

@@ -9,7 +9,7 @@ class ViewOrder extends ViewRecord
 {
     protected static string $resource = OrderResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             //

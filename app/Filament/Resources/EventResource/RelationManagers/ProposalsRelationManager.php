@@ -5,9 +5,9 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Form as ModelsForm;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\ViewField;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -20,7 +20,7 @@ class ProposalsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -32,7 +32,7 @@ class ProposalsRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
