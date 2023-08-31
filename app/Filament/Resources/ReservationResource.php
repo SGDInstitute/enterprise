@@ -32,9 +32,9 @@ class ReservationResource extends Resource
                             ->label('ID')
                             ->content(fn ($record) => $record->formattedId),
                         Placeholder::make('event')
-                            ->content(fn ($record) => recordLink($record->event, 'events.edit', $record->event->name)),
+                            ->content(fn ($record) => filamentLink(EventResource::getUrl('edit', ['record' => $record->event]), $record->event->name)),
                         Placeholder::make('creator')
-                            ->content(fn ($record) => recordLink($record->user, 'users.edit', $record->user->name)),
+                            ->content(fn ($record) => filamentLink(UserResource::getUrl('edit', ['record' => $record->user]), $record->user->name)),
                         Placeholder::make('number_of_tickets')
                             ->content(fn ($record) => $record->tickets()->count()),
                         Placeholder::make('Total Cost')

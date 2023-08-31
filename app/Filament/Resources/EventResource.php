@@ -10,7 +10,6 @@ use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationMa
 use App\Filament\Resources\EventResource\RelationManagers\TicketsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\TicketTypesRelationManager;
 use App\Models\Event;
-use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
@@ -84,16 +83,16 @@ class EventResource extends Resource
                         ])->columns(2),
                         Tab::make('Policy Tabs')->schema([
                             Repeater::make('settings.tabs')
-                            ->schema([
-                                TextInput::make('name')->required(),
-                                TextInput::make('slug')->required(),
-                                TextInput::make('icon')->required(),
-                                RichEditor::make('content')->required()->columnSpanFull(),
-                            ])
-                            ->collapsible()
-                            ->collapsed()
-                            ->cloneable()
-                            ->columns(3),
+                                ->schema([
+                                    TextInput::make('name')->required(),
+                                    TextInput::make('slug')->required(),
+                                    TextInput::make('icon')->required(),
+                                    RichEditor::make('content')->required()->columnSpanFull(),
+                                ])
+                                ->collapsible()
+                                ->collapsed()
+                                ->cloneable()
+                                ->columns(3),
                         ])->hidden(fn ($record) => $record === null),
                         Tab::make('Media')->schema([
                             SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->preserveFilenames(),
@@ -134,7 +133,8 @@ class EventResource extends Resource
                             Placeholder::make('workshop-form')
                                 ->content(function ($record) {
                                     if ($record->has('workshopForm')) {
-                                        return recordLink($record->workshopForm, 'forms.edit', 'Edit Form');
+                                        $url = FormResource::getUrl('edit', ['record' => $record->workshopForm]);
+                                        return filamentLink($url, 'Edit Form');
                                     }
 
                                     return filamentLink(route('filament.resources.forms.create'), 'Create Form');

@@ -19,7 +19,7 @@ class UpcomingEvents extends BaseWidget
     {
         return [
             TextColumn::make('name')
-                ->url(fn ($record) => EventResource::getUrl('edit', $record)),
+                ->url(fn ($record) => EventResource::getUrl('edit', ['record' => $record])),
             TextColumn::make('days_until'),
             TextColumn::make('start')
                 ->label('Duration')

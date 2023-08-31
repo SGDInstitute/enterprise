@@ -10,9 +10,9 @@ class FilamentServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        Filament::serving(function () {
-            Filament::registerViteTheme('resources/css/filament.css');
-        });
+        // Filament::serving(function () {
+        //     Filament::registerViteTheme('resources/css/filament.css');
+        // });
 
         $this->registerSkipToContentLink();
     }

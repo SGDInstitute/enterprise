@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
+use App\Filament\Resources\UserResource;
 use App\Models\Form as ModelsForm;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\ViewField;
@@ -25,7 +26,7 @@ class ProposalsRelationManager extends RelationManager
         return $form
             ->schema([
                 Placeholder::make('creator')
-                    ->content(fn ($record) => recordLink($record->user, 'users.edit', $record->user->name)),
+                    ->content(fn ($record) => filamentLink(UserResource::getUrl('edit', ['record' => $record->user]), $record->user->name)),
                 Placeholder::make('name')
                     ->content(fn ($record) => $record->name),
                 ViewField::make('answers')->view('filament.resources.response-resource.answers')->columnSpanFull(),
@@ -38,7 +39,8 @@ class ProposalsRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('id')
                     ->label('Proposal ID')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
+                    ->searchable(
+                        query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
                     )
                     ->sortable()
                     ->toggleable(),

@@ -5,20 +5,21 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 use App\Filament\Actions\CompBulkAction;
 use App\Filament\Actions\MarkAsPaidAction;
 use App\Filament\Actions\SafeDeleteBulkAction;
+use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Table;
+use Filament\Tables;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ReservationsRelationManager extends RelationManager
 {
     protected static string $relationship = 'reservations';
-
-    protected static ?string $recordTitleAttribute = 'id';
 
     public function form(Form $form): Form
     {
@@ -49,7 +50,7 @@ class ReservationsRelationManager extends RelationManager
                     ->label('Number of Tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
-                    ->options([
+                    ->icons([
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
                     ]),
@@ -63,24 +64,15 @@ class ReservationsRelationManager extends RelationManager
                     ->date()
                     ->sortable(),
             ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                //
-            ])
             ->actions([
                 ViewAction::make()->url(fn ($record) => route('filament.resources.reservations.view', $record)),
                 MarkAsPaidAction::make(),
             ])
             ->bulkActions([
-                CompBulkAction::make(),
-                SafeDeleteBulkAction::make(),
+                Tables\Actions\BulkActionGroup::make([
+                    CompBulkAction::make(),
+                    SafeDeleteBulkAction::make(),
+                ]),
             ]);
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->reservations();
     }
 }
