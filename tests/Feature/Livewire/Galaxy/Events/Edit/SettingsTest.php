@@ -56,7 +56,7 @@ class SettingsTest extends TestCase
             ->call('save')
             ->assertHasNoErrors()
             ->assertSet('formChanged', false)
-            ->assertEmitted('notify');
+            ->assertDispatched('notify');
 
         $event->refresh();
         $this->assertEquals(false, $event->settings->reservations);

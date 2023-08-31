@@ -12,7 +12,7 @@
             <x-form.group :for="'policy-slug-'.$index" model="tabs.{{ $index }}.icon" type="text" label="Policy Icon"/>
         </div>
         <x-bit.input.group :for="'policy-content-'.$index" label="Content">
-            <x-bit.input.markdown :id="'policy-content-'.$index" class="block w-full mt-1" type="text" name="content" wire:model="tabs.{{ $index }}.content" />
+            <x-bit.input.markdown :id="'policy-content-'.$index" class="block w-full mt-1" type="text" name="content" wire:model.live="tabs.{{ $index }}.content" />
         </x-bit.input.group>
     </div>
     @endforeach

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Forms;
 
-use App\Http\Livewire\App\Forms\Show;
+use App\Livewire\App\Forms\Show;
 use App\Models\Event;
 use App\Models\Form;
 use App\Models\Response;
@@ -34,7 +34,7 @@ class ShowTest extends TestCase
         Livewire::actingAs($user)
             ->test(Show::class, ['form' => $form])
             ->set('answers.question-name', 'Rubber Ducky')
-            ->assertEmitted('notify');
+            ->assertDispatched('notify');
 
         $this->assertNotNull($response = $user->responses()->where('form_id', $form->id)->first());
 
@@ -57,7 +57,7 @@ class ShowTest extends TestCase
         Livewire::actingAs($user)
             ->test(Show::class, ['form' => $form])
             ->set('answers.question-name', 'Rubber Ducky')
-            ->assertEmitted('notify');
+            ->assertDispatched('notify');
 
         $this->assertNotNull($response = $user->responses()->where('form_id', $form->id)->first());
 

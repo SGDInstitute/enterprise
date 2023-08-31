@@ -48,7 +48,7 @@ class DetailsTest extends TestCase
             ->assertSet('formChanged', true)
             ->call('save')
             ->assertSet('formChanged', false)
-            ->assertEmitted('notify');
+            ->assertDispatched('notify');
 
         $event->refresh();
         $this->assertEquals('MBLGTACC 2021', $event->name);

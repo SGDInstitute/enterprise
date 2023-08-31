@@ -1,10 +1,10 @@
 <div class="px-4 py-12 mx-auto space-y-8 max-w-prose">
     <h1 class="text-4xl font-bold text-center text-gray-700 dark:text-gray-100">Onsite Check In</h1>
 
-    <form wire:submit.prevent="lookup">
+    <form wire:submit="lookup">
         <x-bit.input.group for="confirmation_number" :value="__('Confirmation Number')">
             <div class="flex mt-1">
-                <x-bit.input.text id="confirmation_number" class="block w-full rounded-r-none md:text-lg" name="confirmation_number" wire:model="confirmationNumber" required autofocus />
+                <x-bit.input.text id="confirmation_number" class="block w-full rounded-r-none md:text-lg" name="confirmation_number" wire:model.live="confirmationNumber" required autofocus />
                 <x-bit.button.round.primary type="submit" class="-ml-px rounded-l-none">Lookup</x-bit.button.round.primary>
             </div>
         </x-bit.input.group>
@@ -30,10 +30,10 @@
                 @if ($editing !== null && $editing->id === $ticket->id)
                 <div>
                     <label for="editing-name-{{ $ticket->id }}" class="sr-only">Name</label>
-                    <input id="editing-name-{{ $ticket->id }}" wire:model="user.name" class="block mt-8 mb-2 text-3xl font-semibold leading-none tracking-wide text-center" placeholder="name" />
+                    <input id="editing-name-{{ $ticket->id }}" wire:model.live="user.name" class="block mt-8 mb-2 text-3xl font-semibold leading-none tracking-wide text-center" placeholder="name" />
 
                     <label for="editing-pronouns-{{ $ticket->id }}" class="sr-only">Pronouns</label>
-                    <input id="editing-pronouns-{{ $ticket->id }}" wire:model="user.pronouns" class="block w-full mb-1 text-xl leading-none text-center" placeholder="pronouns" />
+                    <input id="editing-pronouns-{{ $ticket->id }}" wire:model.live="user.pronouns" class="block w-full mb-1 text-xl leading-none text-center" placeholder="pronouns" />
                 </div>
                 @else
                 <div>
@@ -47,7 +47,7 @@
             <div title="We'll send you a notification using this email when your name badge is ready" class="absolute flex items-center w-full py-1 pl-4 space-x-2 text-blue-900 bg-blue-300 rounded-l-full shadow lg:w-2/3 -right-1 bottom-4">
                 <label for="editing-email-{{ $ticket->id }}">Notification Email:</span>
                 @if ($editing !== null && $editing->id === $ticket->id)
-                <input id="editing-email-{{ $ticket->id }}" wire:model="user.email" class="leading-none" placeholder="email" />
+                <input id="editing-email-{{ $ticket->id }}" wire:model.live="user.email" class="leading-none" placeholder="email" />
                 @else
                 <span>{{ $ticket->user->email }}</span>
                 @endif

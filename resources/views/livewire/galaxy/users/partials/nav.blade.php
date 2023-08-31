@@ -1,6 +1,6 @@
 <div>
     <div class="sm:hidden">
-        <select wire:model="page" aria-label="Selected tab" class="block w-full dark:bg-gray-500 dark:border-gray-400 dark:text-gray-200">
+        <select wire:model.live="page" aria-label="Selected tab" class="block w-full dark:bg-gray-500 dark:border-gray-400 dark:text-gray-200">
             <option value="profile">Profile</option>
             <option value="orders">Orders</option>
             <option value="reservations">Reservations</option>

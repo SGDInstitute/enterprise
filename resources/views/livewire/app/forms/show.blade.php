@@ -14,7 +14,7 @@
             @endif
 
             <div class="{{ $isWorkshopForm ? 'flex justify-between' : '' }}">
-                <form id="form" wire:submit.prevent="submit" class="mx-auto space-y-8 prose dark:prose-light">
+                <form id="form" wire:submit="submit" class="mx-auto space-y-8 prose dark:prose-light">
                     @if ($form->type === 'workshop')
                         <p class="text-xl">All answers will be automatically saved.</p>
                     @endif
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <x-bit.modal.dialog wire:model="showPreviousResponses" max-width="6xl">
+    <x-bit.modal.dialog wire:model.live="showPreviousResponses" max-width="6xl">
         <x-slot name="title"></x-slot>
 
         <x-slot name="content">
@@ -61,15 +61,15 @@
         </x-slot>
     </x-bit.modal.dialog>
 
-    <form wire:submit.prevent="saveCollaborator">
-        <x-bit.modal.dialog wire:model.defer="showCollaboratorModal" max-width="lg">
+    <form wire:submit="saveCollaborator">
+        <x-bit.modal.dialog wire:model="showCollaboratorModal" max-width="lg">
             <x-slot name="title">
                 Invite Co-Presenter
             </x-slot>
 
             <x-slot name="content">
                 <x-bit.input.group for="presenter-email" label="Email" :error="$errors->first('newCollaborator.email')">
-                    <x-bit.input.text class="w-full" id="presenter-email" placeholder="Email" type="email" wire:model.lazy="newCollaborator.email" />
+                    <x-bit.input.text class="w-full" id="presenter-email" placeholder="Email" type="email" wire:model.blur="newCollaborator.email" />
                 </x-bit.input.group>
             </x-slot>
 

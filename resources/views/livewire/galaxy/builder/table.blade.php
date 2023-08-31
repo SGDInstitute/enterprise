@@ -15,14 +15,14 @@
                     </x-bit.table.heading>
                     @elseif ($row === 0 || $column === 0)
                     <x-bit.table.heading class="relative px-1 py-1" wire:key="row-{{ $row }}-column-{{ $column }}">
-                        <x-form.textarea rows="2" class="text-sm" wire:model="table.{{ $row }}.{{ $column }}" />
+                        <x-form.textarea rows="2" class="text-sm" wire:model.live="table.{{ $row }}.{{ $column }}" />
                         <button type="button" wire:click="smartDelete({{ $row }}, {{ $column }})" class="absolute top-0 right-0 p-2 opacity-5 hover:opacity-100">
                             <x-heroicon-o-trash class="w-4 h-4 text-gray-900 dark:text-gray-200" />
                         </button>
                     </x-bit.table.heading>
                     @else
                     <x-bit.table.cell class="px-1 py-1" wire:key="row-{{ $row }}-column-{{ $column }}">
-                        <x-form.textarea rows="1" class="text-sm" wire:model="table.{{ $row }}.{{ $column }}" />
+                        <x-form.textarea rows="1" class="text-sm" wire:model.live="table.{{ $row }}.{{ $column }}" />
                     </x-bit.table.cell>
                     @endif
                     @endforeach

@@ -10,44 +10,44 @@ Route::get('impersonation/leave', App\Http\Controllers\ImpersonationController::
 
 Route::get('invitations/{invitation}', [InvitationController::class, 'accept'])->middleware(['signed'])->name('invitations.accept');
 
-Route::get('/', App\Http\Livewire\App\Home::class)->name('app.home');
+Route::get('/', App\Livewire\App\Home::class)->name('app.home');
 
 Route::get('changelog', function () {
     return view('app.changelog', ['content' => markdown(app('files')->get(base_path('/CHANGELOG.md')))]);
 });
 
-Route::get('checkin/{ticket?}', App\Http\Livewire\App\Checkin::class)->name('app.checkin');
+Route::get('checkin/{ticket?}', App\Livewire\App\Checkin::class)->name('app.checkin');
 
-Route::get('donations/create', App\Http\Livewire\App\Donations\Create::class)->name('app.donations.create');
+Route::get('donations/create', App\Livewire\App\Donations\Create::class)->name('app.donations.create');
 Route::get('donations/process', App\Http\Controllers\DonationsProcessController::class)->name('app.donations.process');
 
-Route::get('events', App\Http\Livewire\App\Events::class)->name('app.events');
-Route::get('events/{event:slug}', App\Http\Livewire\App\Events\Show::class)->name('app.events.show');
+Route::get('events', App\Livewire\App\Events::class)->name('app.events');
+Route::get('events/{event:slug}', App\Livewire\App\Events\Show::class)->name('app.events.show');
 Route::get('orders/process', App\Http\Controllers\OrdersProcessController::class)->name('app.orders.process');
 
-Route::get('forms/{form:slug}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.show');
-Route::get('forms/{form:slug}/finalize/{parent}', App\Http\Livewire\App\Forms\Show::class)->name('app.forms.finalize');
-Route::get('forms/{form:slug}/thank-you', App\Http\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
+Route::get('forms/{form:slug}', App\Livewire\App\Forms\Show::class)->name('app.forms.show');
+Route::get('forms/{form:slug}/finalize/{parent}', App\Livewire\App\Forms\Show::class)->name('app.forms.finalize');
+Route::get('forms/{form:slug}/thank-you', App\Livewire\App\Forms\ThankYou::class)->name('app.forms.thanks');
 
-Route::get('onsite-checkin', App\Http\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
+Route::get('onsite-checkin', App\Livewire\App\OnsiteCheckin::class)->name('app.onsite-checkin');
 
 require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard/{page?}', App\Http\Livewire\App\Dashboard::class)->name('app.dashboard');
-    Route::get('donations/{donation}', App\Http\Livewire\App\Donations\Show::class)->name('app.donations.show');
+    Route::get('dashboard/{page?}', App\Livewire\App\Dashboard::class)->name('app.dashboard');
+    Route::get('donations/{donation}', App\Livewire\App\Donations\Show::class)->name('app.donations.show');
 
     Route::get('billing-portal', function () {
         return request()->user()->redirectToBillingPortal();
     })->name('app.billing-portal');
 
-    Route::get('reservations/{order}', App\Http\Livewire\App\Orders\Show::class)->name('app.reservations.show');
+    Route::get('reservations/{order}', App\Livewire\App\Orders\Show::class)->name('app.reservations.show');
 
     Route::get('orders/{order}/receipt', function (App\Models\Order $order) {
         return view('pdf.receipt', ['order' => $order]);
     })->name('app.orders.show.receipt');
-    Route::get('orders/{order}/{page?}', App\Http\Livewire\App\Orders\Show::class)->name('app.orders.show');
+    Route::get('orders/{order}/{page?}', App\Livewire\App\Orders\Show::class)->name('app.orders.show');
 
-    Route::get('{event:slug}/program/{page?}', App\Http\Livewire\App\Program::class)->name('app.program');
-    Route::get('{event:slug}/program/schedule/{item:slug}', App\Http\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
+    Route::get('{event:slug}/program/{page?}', App\Livewire\App\Program::class)->name('app.program');
+    Route::get('{event:slug}/program/schedule/{item:slug}', App\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
 });

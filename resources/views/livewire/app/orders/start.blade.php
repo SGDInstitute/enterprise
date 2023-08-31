@@ -15,7 +15,7 @@
                     <div>
                         <x-form.label :for="'ticket-cost'.$index" label="Price of Tickets" sr-only />
                         <span class="text-2xl dark:text-gray-200">$</span>
-                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500 {{ $order !== null ? 'opacity-75 cursor-not-allowed' : '' }}" {{ $order !== null ? 'disabled' : '' }} wire:model.lazy="form.{{ $index }}.price_id">
+                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500 {{ $order !== null ? 'opacity-75 cursor-not-allowed' : '' }}" {{ $order !== null ? 'disabled' : '' }} wire:model.blur="form.{{ $index }}.price_id">
                             @foreach ($form[$index]['options'] as $priceId => $option)
                                 <option value="{{ $priceId }}">{{ $option }}</option>
                             @endforeach
@@ -31,7 +31,7 @@
                 @endif
                 <div>
                     <x-form.label value="Quantity" />
-                    <x-form.input min="0" type="number" :disabled="$ticket->end->isPast()" wire:model.lazy="form.{{ $index }}.amount" />
+                    <x-form.input min="0" type="number" :disabled="$ticket->end->isPast()" wire:model.blur="form.{{ $index }}.amount" />
                     @if ($ticket->end->isPast())
                     <x-form.error error="No longer available" />
                     @endif

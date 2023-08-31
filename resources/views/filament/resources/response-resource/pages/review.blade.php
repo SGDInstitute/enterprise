@@ -97,7 +97,7 @@
             </x-filament::modal>
 
             <x-filament::card class="mt-4" heading="Review this Proposal">
-                <form wire:submit.prevent="submit">
+                <form wire:submit="submit">
                     {{ $this->form }}
 
                     <x-filament::button type="submit" class="mt-4">Save Review</x-filament::button>

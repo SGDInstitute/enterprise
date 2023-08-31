@@ -4,23 +4,23 @@
 
     <div class="grid grid-cols-1 gap-6 p-4 bg-gray-700 rounded-md md:grid-cols-3">
         <x-bit.input.group for="name" label="Name">
-            <x-bit.input.text class="block w-full mt-1" id="name" name="name" wire:model="survey.name" />
+            <x-bit.input.text class="block w-full mt-1" id="name" name="name" wire:model.live="survey.name" />
         </x-bit.input.group>
         <x-bit.input.group for="event" label="Event">
-            <x-bit.input.select class="block w-full mt-1" id="event" name="event" placeholder="Select event (optional)" wire:model="survey.event_id">
+            <x-bit.input.select class="block w-full mt-1" id="event" name="event" placeholder="Select event (optional)" wire:model.live="survey.event_id">
                 @foreach ($events as $event)
                 <option value="{{ $event->id }}">{{ $event->name }}</option>
                 @endforeach
             </x-bit.input.select>
         </x-bit.input.group>
         <x-bit.input.group for="start" label="Availability Start">
-            <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model="formattedStart" />
+            <x-bit.input.date-time class="block w-full mt-1" id="start" name="start" wire:model.live="formattedStart" />
         </x-bit.input.group>
         <x-bit.input.group for="end" label="Availability End">
-            <x-bit.input.date-time class="block w-full mt-1" id="end" name="end" wire:model="formattedEnd" />
+            <x-bit.input.date-time class="block w-full mt-1" id="end" name="end" wire:model.live="formattedEnd" />
         </x-bit.input.group>
         <x-bit.input.group for="timezone" label="Timezone">
-            <x-bit.input.select class="block w-full mt-1" wire:model="survey.timezone" id="timezone">
+            <x-bit.input.select class="block w-full mt-1" wire:model.live="survey.timezone" id="timezone">
                 @foreach ($timezones as $value => $label)
                 <option value="{{ $value }}">{{ $label }}</option>
                 @endforeach
@@ -28,7 +28,7 @@
         </x-bit.input.group>
 
         <x-bit.input.group for="searchable" label="Searchable Questions">
-            <x-bit.input.select multiple class="block w-full mt-1" id="searchable" name="searchable" wire:model="searchable">
+            <x-bit.input.select multiple class="block w-full mt-1" id="searchable" name="searchable" wire:model.live="searchable">
                 @foreach ($searchableFields as $id => $question)
                 <option value="{{ $id }}">{{ $question }}</option>
                 @endforeach
@@ -36,7 +36,7 @@
         </x-bit.input.group>
 
         <x-bit.input.group for="auth_required" label="Auth Required">
-            <x-bit.input.checkbox label="Is authentication required?" id="auth_required" name="auth_required" wire:model="survey.auth_required" />
+            <x-bit.input.checkbox label="Is authentication required?" id="auth_required" name="auth_required" wire:model.live="survey.auth_required" />
         </x-bit.input.group>
     </div>
 
@@ -57,7 +57,7 @@
     <x-bit.button.round.secondary wire:click="addCollaborators">Add Collaborators</x-bit.button.round.secondary>
 
     <div>
-        <section class="fixed inset-0 z-50 overflow-hidden" x-show="open" x-data="{ open: @entangle('showSettings') }" @keydown.window.escape="open = false" x-ref="dialog" aria-labelledby="settings-panel" role="dialog" aria-modal="true">
+        <section class="fixed inset-0 z-50 overflow-hidden" x-show="open" x-data="{ open: @entangle('showSettings').live }" @keydown.window.escape="open = false" x-ref="dialog" aria-labelledby="settings-panel" role="dialog" aria-modal="true">
             <div class="absolute inset-0 overflow-hidden">
                 <div class="absolute inset-0" x-description="Background overlay, show/hide based on slide-over state." @click="open = false" aria-hidden="true"></div>
 
@@ -86,7 +86,7 @@
                                     <div class="space-y-4">
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-200">Validation</h3>
                                         <x-bit.input.group :for="'question-rules-'.$openIndex" label="Rules">
-                                            <x-bit.input.text type="text" class="w-full mt-1" :id="'question-rules-'.$openIndex" placeholder="required" wire:model="form.{{ $openIndex }}.rules" />
+                                            <x-bit.input.text type="text" class="w-full mt-1" :id="'question-rules-'.$openIndex" placeholder="required" wire:model.live="form.{{ $openIndex }}.rules" />
                                             <x-bit.input.help>Pipe delineated list of validation rules. <br>Required is probably all that is needed, but if more specific validation is required <a href="https://laravel.com/docs/7.x/validation#available-validation-rules" target="_blank" class="text-green-500 underline dark:text-green-400">see all options available</a>.</x-bit.input.help>
                                         </x-bit.input.group>
                                     </div>
@@ -96,7 +96,7 @@
 
                                         <div class="grid grid-cols-3 gap-4">
                                             <x-bit.input.group :for="'question-visibility-'.$openIndex" label="When to show or hide this question" sr-only>
-                                                <x-bit.input.select class="w-full mt-1" :id="'question-visibility-'.$openIndex" wire:model="form.{{ $openIndex }}.visibility">
+                                                <x-bit.input.select class="w-full mt-1" :id="'question-visibility-'.$openIndex" wire:model.live="form.{{ $openIndex }}.visibility">
                                                     <option value="always" selected>Always show</option>
                                                     <option value="conditional">Show when</option>
                                                 </x-bit.input.select>
@@ -104,7 +104,7 @@
 
                                             @if (isset($form[$openIndex]['visibility']) && $form[$openIndex]['visibility'] === 'conditional')
                                             <x-bit.input.group class="col-span-2" :for="'question-visibility-andor-'.$openIndex" label="And/Or for conditions" sr-only>
-                                                <x-bit.input.select class="w-full mt-1" :id="'question-visibility-andor-'.$openIndex" wire:model="form.{{ $openIndex }}.visibility-andor">
+                                                <x-bit.input.select class="w-full mt-1" :id="'question-visibility-andor-'.$openIndex" wire:model.live="form.{{ $openIndex }}.visibility-andor">
                                                     <option value="" disabled>-</option>
                                                     <option value="and">All of the following conditions pass</option>
                                                     <option value="or">Any of the following conditions pass</option>
@@ -116,7 +116,7 @@
                                                 @foreach ($form[$openIndex]['conditions'] as $index => $condition)
                                                 <div class="flex space-x-4">
                                                     <x-bit.input.group :for="'condition-field-'.$index" label="Field" sr-only>
-                                                        <x-bit.input.select class="w-full mt-1" :id="'condition-field-'.$index" wire:model="form.{{ $openIndex }}.conditions.{{ $index }}.field">
+                                                        <x-bit.input.select class="w-full mt-1" :id="'condition-field-'.$index" wire:model.live="form.{{ $openIndex }}.conditions.{{ $index }}.field">
                                                             <option value="" disabled>-</option>
                                                             @foreach ($fields as $field)
                                                             <option value="{{ $field }}">{{ $field }}</option>
@@ -124,7 +124,7 @@
                                                         </x-bit.input.select>
                                                     </x-bit.input.group>
                                                     <x-bit.input.group :for="'condition-method-'.$index" label="Method" sr-only>
-                                                        <x-bit.input.select class="w-full mt-1" :id="'condition-method-'.$index" wire:model="form.{{ $openIndex }}.conditions.{{ $index }}.method">
+                                                        <x-bit.input.select class="w-full mt-1" :id="'condition-method-'.$index" wire:model.live="form.{{ $openIndex }}.conditions.{{ $index }}.method">
                                                             <option value="" disabled>-</option>
                                                             <option value="equals">equals</option>
                                                             <option value="not">does not equal</option>
@@ -135,7 +135,7 @@
                                                         </x-bit.input.select>
                                                     </x-bit.input.group>
                                                     <x-bit.input.group :for="'condition-value-'.$index" label="Value" sr-only>
-                                                        <x-bit.input.text type="text" class="w-full mt-1" :id="'condition-value-'.$index" wire:model="form.{{ $openIndex }}.conditions.{{ $index }}.value" />
+                                                        <x-bit.input.text type="text" class="w-full mt-1" :id="'condition-value-'.$index" wire:model.live="form.{{ $openIndex }}.conditions.{{ $index }}.value" />
                                                     </x-bit.input.group>
                                                     <x-bit.button.round.secondary size="xs" wire:click="removeCondition({{ $index }})">
                                                         <x-heroicon-o-trash class="w-4 h-4" />
@@ -156,7 +156,7 @@
                                     @if ($model->parent_id !== null)
                                     <div class="space-y-4">
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-200">Data</h3>
-                                        <x-bit.input.checkbox :id="'question-data-'.$openIndex" :label="__('Pull Value From Parent Form')" wire:model="form.{{ $openIndex }}.data" />
+                                        <x-bit.input.checkbox :id="'question-data-'.$openIndex" :label="__('Pull Value From Parent Form')" wire:model.live="form.{{ $openIndex }}.data" />
                                     </div>
                                     @endif
                                 </div>

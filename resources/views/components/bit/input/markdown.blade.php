@@ -2,7 +2,7 @@
     x-init="
         easyMDE = new EasyMDE({element: $refs.textarea, forceSync: true, autoRefresh: true})
         easyMDE.codemirror.on('change', function(){
-            @this.set('{{ $attributes['wire:model'] }}', easyMDE.value());
+            @this.set('{{ $attributes['wire:model.live'] }}', easyMDE.value());
         });
     "
     wire:ignore

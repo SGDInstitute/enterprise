@@ -1,7 +1,7 @@
 <div class="space-y-4">
     <div class="md:flex md:justify-between">
         <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
-            <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search..." />
+            <x-bit.input.text type="text" wire:model.live="filters.search" placeholder="Search..." />
         </div>
         <div class="flex items-end mt-4 md:mt-0">
             <x-bit.data-table.per-page />
@@ -24,7 +24,7 @@
             @forelse ($queue as $item)
             <x-bit.table.row wire:key="row-{{ $item->id }}">
                 <x-bit.table.cell class="pr-0">
-                    <x-bit.input.checkbox wire:model="selected" value="{{ $item->id }}" />
+                    <x-bit.input.checkbox wire:model.live="selected" value="{{ $item->id }}" />
                 </x-bit.table.cell>
                 <x-bit.table.cell>{{ $item->ticket_id }}</x-bit.table.cell>
                 <x-bit.table.cell>{{ $item->user_id }}</x-bit.table.cell>

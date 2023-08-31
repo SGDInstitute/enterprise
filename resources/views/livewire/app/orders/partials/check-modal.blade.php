@@ -1,4 +1,4 @@
-<x-bit.modal.dialog wire:model.defer="showCheckModal" max-width="lg">
+<x-bit.modal.dialog wire:model="showCheckModal" max-width="lg">
     <x-slot name="title">
         Pay with Check
     </x-slot>

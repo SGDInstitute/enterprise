@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\Galaxy\Users;
 
-use App\Http\Livewire\Galaxy\Users\Create;
+use App\Livewire\Galaxy\Users\Create;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;

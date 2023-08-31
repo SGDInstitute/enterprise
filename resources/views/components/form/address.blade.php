@@ -1,4 +1,4 @@
-<div id="form-address" x-data="address(@entangle($attributes->wire('model')))" class="space-y-2">
+<div id="form-address" x-data="address(@entangle($attributes->wire('model')).live)" class="space-y-2">
     <div class="relative" @click.away="open = false">
         <x-form.label>Address</x-form.label>
         <div class="relative">

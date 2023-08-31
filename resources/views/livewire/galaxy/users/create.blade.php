@@ -1,5 +1,5 @@
 <div class="md:w-1/2">
-    <form wire:submit.prevent="save">
+    <form wire:submit="save">
         <x-ui.card>
             <x-ui.card.header title="Profile"/>
             <div class="p-4 space-y-4">

@@ -15,7 +15,7 @@
                     <div>
                         <x-form.label :for="'ticket-cost'.$index" label="Price of Tickets" sr-only />
                         <span class="text-2xl dark:text-gray-200">$</span>
-                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500 {{ $order !== null ? 'opacity-75 cursor-not-allowed' : '' }}" {{ $order !== null ? 'disabled' : '' }} wire:model.lazy="form.{{ $index }}.price_id">
+                        <select class="w-20 p-0 pl-1 text-2xl bg-transparent border-none rounded dark:text-gray-200 focus:ring-green-500 focus:border-green-500 {{ $order !== null ? 'opacity-75 cursor-not-allowed' : '' }}" {{ $order !== null ? 'disabled' : '' }} wire:model.blur="form.{{ $index }}.price_id">
                             @foreach ($form[$index]['options'] as $priceId => $option)
                                 <option value="{{ $priceId }}">{{ $option }}</option>
                             @endforeach
@@ -31,7 +31,7 @@
                 @endif
                 <div>
                     <x-form.label value="Quantity" />
-                    <x-form.input min="0" type="number" :disabled="$this->isDisabled($ticket)" wire:model.lazy="form.{{ $index }}.amount" />
+                    <x-form.input min="0" type="number" :disabled="$this->isDisabled($ticket)" wire:model.blur="form.{{ $index }}.amount" />
                     @if ($ticket->end->isPast())
                     <x-form.error error="No longer available" />
                     @elseif ($ticket->start->isFuture())
@@ -56,13 +56,13 @@
         <div class="space-y-4 px-4 py-6 mt-16 rounded-lg lg:w-2/3 lg:ml-auto bg-white dark:bg-gray-800 shadow sm:p-6 lg:p-8 lg:mt-0">
             <div>
                 <x-form.label class="mb-1">Is one of these tickets for yourself, personally?</x-form.label>
-                <x-form.radio wire:model="is_attending" value="1" name="is_attending" id="is_attending" label="Yes" />
-                <x-form.radio wire:model="is_attending" value="0" name="is_attending" id="is_attending" label="No" />
+                <x-form.radio wire:model.live="is_attending" value="1" name="is_attending" id="is_attending" label="Yes" />
+                <x-form.radio wire:model.live="is_attending" value="0" name="is_attending" id="is_attending" label="No" />
             </div>
             <div>
                 <x-form.label class="mb-1">How will you pay?</x-form.label>
-                <x-form.radio wire:model="payment" value="0" name="payment" id="payment" label="Generate invoice and pay later" />
-                <x-form.radio wire:model="payment" value="1" name="payment" id="payment" label="Pay now with card" />
+                <x-form.radio wire:model.live="payment" value="0" name="payment" id="payment" label="Generate invoice and pay later" />
+                <x-form.radio wire:model.live="payment" value="1" name="payment" id="payment" label="Pay now with card" />
             </div>
 
             <dl class="space-y-4">

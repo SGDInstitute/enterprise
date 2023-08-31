@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use App\Http\Livewire\App\Orders\Checklist;
+use App\Livewire\App\Orders\Checklist;
 use Livewire\Livewire;
 use Tests\TestCase;
 

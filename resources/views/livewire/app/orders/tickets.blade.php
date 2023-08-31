@@ -17,7 +17,7 @@
     @if ($ticketsView === 'table')
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">
-            <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search tickets..." />
+            <x-bit.input.text type="text" wire:model.live="filters.search" placeholder="Search tickets..." />
             <div class="flex space-x-4">
                 <x-bit.data-table.per-page />
                 @if (auth()->id() === $order->user_id)
