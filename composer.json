@@ -48,6 +48,7 @@
     "require-dev": {
         "beyondcode/helo-laravel": "^1.5",
         "fakerphp/faker": "^1.9.1",
+        "filament/upgrade": "^3.0-stable",
         "laravel/breeze": "^1.18",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
