@@ -3,6 +3,7 @@
 namespace Tests\Feature\Filament\Resources;
 
 use App\Filament\Actions\SafeDeleteBulkAction;
+use App\Filament\Resources\EventResource\Pages\EditEvent;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
 use App\Models\Event;
@@ -31,7 +32,7 @@ class EventResourceTest extends TestCase
             ->count(5)
             ->create();
 
-        Livewire::test(ReservationsRelationManager::class, ['ownerRecord' => $event])
+        Livewire::test(ReservationsRelationManager::class, ['ownerRecord' => $event, 'pageClass' => EditEvent::class])
             ->assertCanSeeTableRecords($reservations)
             ->callTableBulkAction(SafeDeleteBulkAction::class, $reservations);
 
@@ -56,7 +57,7 @@ class EventResourceTest extends TestCase
             ->count(5)
             ->create();
 
-        Livewire::test(OrdersRelationManager::class, ['ownerRecord' => $event])
+        Livewire::test(OrdersRelationManager::class, ['ownerRecord' => $event, 'pageClass' => EditEvent::class])
             ->assertCanSeeTableRecords($orders)
             ->callTableBulkAction(SafeDeleteBulkAction::class, $orders);
 

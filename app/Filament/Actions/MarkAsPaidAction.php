@@ -4,8 +4,8 @@ namespace App\Filament\Actions;
 
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TextInput\Mask;
 use Filament\Notifications\Notification;
+use Filament\Support\RawJs;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -29,14 +29,16 @@ class MarkAsPaidAction extends Action
 
             Notification::make()->title('Successfully marked order as paid.')->success()->send();
         })
-             ->form([
-                 Placeholder::make('order_id')
-                     ->label('Order ID')
-                     ->content(fn ($record) => $record->id),
-                 TextInput::make('check_number')->required(),
-                 TextInput::make('amount')
-                     ->mask(fn (Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2))
-                     ->required(),
-             ]);
+            ->form([
+                Placeholder::make('order_id')
+                    ->label('Order ID')
+                    ->content(fn ($record) => $record->id),
+                TextInput::make('check_number')->required(),
+                TextInput::make('amount')
+                    ->mask(RawJs::make(<<<'JS'
+                        $money($input)
+                    JS))
+                    ->required(),
+            ]);
     }
 }
