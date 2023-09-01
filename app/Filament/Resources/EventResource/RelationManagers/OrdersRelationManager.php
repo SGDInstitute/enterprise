@@ -47,7 +47,7 @@ class OrdersRelationManager extends RelationManager
                     ->label('Number of Tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
-                    ->options([
+                    ->icons([
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
                     ]),

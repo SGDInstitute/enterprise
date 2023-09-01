@@ -19,7 +19,7 @@ class OpenForms extends BaseWidget
     {
         return [
             TextColumn::make('name')
-                ->url(fn ($record) => FormResource::getUrl('edit', $record)),
+                ->url(fn ($record) => FormResource::getUrl('edit', ['record' => $record])),
             TextColumn::make('days_left'),
             TextColumn::make('responses_count')->counts('responses')->label('# Responses'),
         ];
