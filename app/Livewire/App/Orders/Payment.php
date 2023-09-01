@@ -13,6 +13,8 @@ class Payment extends Component
 
     public $address;
 
+    public $clientSecret;
+
     public $name;
 
     public $email;
