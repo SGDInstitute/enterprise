@@ -20,11 +20,11 @@ class TicketTypesRelationManager extends RelationManager
             ->columns(TicketTypeResource::columns())
             ->headerActions([
                 CreateAction::make()
-                    ->url(fn ($livewire) => route('filament.resources.ticket-types.create', ['event_id' => $livewire->ownerRecord->id])),
+                    ->url(fn ($livewire) => route('filament.admin.resources.ticket-types.create', ['event_id' => $livewire->ownerRecord->id])),
             ])
             ->actions([
                 EditAction::make()
-                    ->url(fn ($record) => route('filament.resources.ticket-types.edit', $record)),
+                    ->url(fn ($record) => route('filament.admin.resources.ticket-types.edit', $record)),
             ]);
     }
 }

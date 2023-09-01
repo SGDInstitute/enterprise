@@ -137,7 +137,7 @@ class EventResource extends Resource
                                         return filamentLink($url, 'Edit Form');
                                     }
 
-                                    return filamentLink(route('filament.resources.forms.create'), 'Create Form');
+                                    return filamentLink(route('filament.admin.resources.forms.create'), 'Create Form');
                                 })
                                 ->hidden(fn ($record) => ! $record->settings->has_workshops),
                             Checkbox::make('settings.has_tracks')->label('Has workshop tracks')->reactive(),
