@@ -17,8 +17,6 @@ class OrdersRelationManager extends RelationManager
 {
     protected static string $relationship = 'paidOrders';
 
-    protected static ?string $recordTitleAttribute = 'id';
-
     public function form(Form $form): Form
     {
         return $form
@@ -32,6 +30,7 @@ class OrdersRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('id')
             ->columns([
                 TextColumn::make('id')
                     ->copyable()
