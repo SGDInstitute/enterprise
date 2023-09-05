@@ -110,4 +110,6 @@ return [
 
     'manifest_path' => null,
 
+    // Only needed for App\Forms\Show, @todo remove asap
+    'legacy_model_binding' => true,
 ];
