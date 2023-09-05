@@ -9,14 +9,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Actions\Position;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -26,6 +24,28 @@ class ResponsesRelationManager extends RelationManager
     protected static string $relationship = 'responses';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    private static function getSiteColumns()
+    {
+        $uri = request()->getRequestUri();
+        if (Str::of($uri)->startsWith('/livewire')) {
+            $data = request()->json()->get('serverMemo')['dataMeta']['models'];
+            $id = isset($data['record']) ? $data['record']['id'] : $data['ownerRecord']['id'];
+        } else {
+            $id = explode('/', $uri)[3];
+        }
+        $form = ModelsForm::where('id', $id)->first();
+
+        if ($form) {
+            return collect($form->settings->searchable)
+                ->map(function ($id) {
+                    return TextColumn::make('answers.' . $id)
+                        ->label(Str::of($id)->replace('-', ' ')->title())
+                        ->action(fn ($livewire, $record) => $livewire->tableFilters[$id] = ['value' => $record->answers[$id]])
+                        ->toggleable();
+                });
+        }
+    }
 
     public function form(Form $form): Form
     {
@@ -155,28 +175,6 @@ class ResponsesRelationManager extends RelationManager
                     ])
                     ->deselectRecordsAfterCompletion(),
             ]);
-    }
-
-    private static function getSiteColumns()
-    {
-        $uri = request()->getRequestUri();
-        if (Str::of($uri)->startsWith('/livewire')) {
-            $data = request()->json()->get('serverMemo')['dataMeta']['models'];
-            $id = isset($data['record']) ? $data['record']['id'] : $data['ownerRecord']['id'];
-        } else {
-            $id = explode('/', $uri)[3];
-        }
-        $form = ModelsForm::where('id', $id)->first();
-
-        if ($form) {
-            return collect($form->settings->searchable)
-                ->map(function ($id) {
-                    return TextColumn::make('answers.' . $id)
-                        ->label(Str::of($id)->replace('-', ' ')->title())
-                        ->action(fn ($livewire, $record) => $livewire->tableFilters[$id] = ['value' => $record->answers[$id]])
-                        ->toggleable();
-                });
-        }
     }
 
     protected function getTableActionsPosition(): ?string

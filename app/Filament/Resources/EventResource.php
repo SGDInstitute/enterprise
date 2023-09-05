@@ -23,9 +23,9 @@ use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Support\Carbon;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 
@@ -134,6 +134,7 @@ class EventResource extends Resource
                                 ->content(function ($record) {
                                     if ($record->has('workshopForm')) {
                                         $url = FormResource::getUrl('edit', ['record' => $record->workshopForm]);
+
                                         return filamentLink($url, 'Edit Form');
                                     }
 

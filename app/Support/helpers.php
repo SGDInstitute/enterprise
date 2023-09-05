@@ -2,7 +2,7 @@
 
 use Illuminate\Support\HtmlString;
 
-if (!function_exists('isInternetExplorer')) {
+if (! function_exists('isInternetExplorer')) {
     function isInternetExplorer()
     {
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
@@ -13,21 +13,21 @@ if (!function_exists('isInternetExplorer')) {
     }
 }
 
-if (!function_exists('hyphenate')) {
+if (! function_exists('hyphenate')) {
     function hyphenate($str, $number = 4, $deliminator = '-')
     {
         return implode($deliminator, str_split($str, $number));
     }
 }
 
-if (!function_exists('markdown')) {
+if (! function_exists('markdown')) {
     function markdown($text)
     {
         return (new ParsedownExtra)->text($text);
     }
 }
 
-if (!function_exists('stripeUrl')) {
+if (! function_exists('stripeUrl')) {
     function stripeUrl($text)
     {
         if (config('app.env') === 'production') {
@@ -38,7 +38,7 @@ if (!function_exists('stripeUrl')) {
     }
 }
 
-if (!function_exists('array_shove')) {
+if (! function_exists('array_shove')) {
     function array_shove(array $array, $selected_key, $direction)
     {
         $new_array = [];
@@ -79,7 +79,7 @@ if (!function_exists('array_shove')) {
     }
 }
 
-if (!function_exists('filamentLink')) {
+if (! function_exists('filamentLink')) {
     function filamentLink($url, $label)
     {
         return new HtmlString("<a class='filament-link inline-flex items-center justify-center font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400' href='{$url}'>{$label}</a>");

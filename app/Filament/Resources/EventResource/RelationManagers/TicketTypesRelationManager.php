@@ -4,9 +4,9 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Resources\TicketTypeResource;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Table;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Table;
 
 class TicketTypesRelationManager extends RelationManager
 {

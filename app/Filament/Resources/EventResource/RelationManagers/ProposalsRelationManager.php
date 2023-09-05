@@ -8,10 +8,10 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
@@ -20,6 +20,27 @@ class ProposalsRelationManager extends RelationManager
     protected static string $relationship = 'proposals';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getSiteColumns()
+    {
+        $uri = request()->getRequestUri();
+        if (Str::of($uri)->startsWith('/livewire')) {
+            $data = request()->json()->get('serverMemo')['dataMeta']['models'];
+            $id = isset($data['record']) ? $data['record']['id'] : $data['ownerRecord']['id'];
+        } else {
+            $id = explode('/', $uri)[3];
+        }
+        $form = ModelsForm::where('event_id', $id)->where('type', 'workshop')->first();
+
+        if ($form) {
+            return collect($form->settings->searchable)
+                ->map(function ($id) {
+                    return TextColumn::make('answers.' . $id)
+                        ->label(strtoupper($id))
+                        ->toggleable();
+                });
+        }
+    }
 
     public function form(Form $form): Form
     {
@@ -83,26 +104,5 @@ class ProposalsRelationManager extends RelationManager
             ->bulkActions([
                 //
             ]);
-    }
-
-    public static function getSiteColumns()
-    {
-        $uri = request()->getRequestUri();
-        if (Str::of($uri)->startsWith('/livewire')) {
-            $data = request()->json()->get('serverMemo')['dataMeta']['models'];
-            $id = isset($data['record']) ? $data['record']['id'] : $data['ownerRecord']['id'];
-        } else {
-            $id = explode('/', $uri)[3];
-        }
-        $form = ModelsForm::where('event_id', $id)->where('type', 'workshop')->first();
-
-        if ($form) {
-            return collect($form->settings->searchable)
-                ->map(function ($id) {
-                    return TextColumn::make('answers.' . $id)
-                        ->label(strtoupper($id))
-                        ->toggleable();
-                });
-        }
     }
 }
