@@ -66,23 +66,7 @@ class Show extends Component
                 $this->response->parent_id = $this->parent->id;
             }
 
-            $this->answers = $this->form->form
-                // allow for new form builder
-                ->when(isset($this->form->form->first()['data']), function ($collection) {
-                    return $collection->map(fn ($item) => [...$item['data'], 'style' => $item['type']]);
-                })
-                ->filter(fn ($item) => $item['style'] === 'question')
-                ->mapWithKeys(function ($item) {
-                    if (isset($item['data']) && isset($this->parent)) {
-                        $parentAnswer = $this->parent->answers[$item['id']];
-                    }
-
-                    if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
-                        return [$item['id'] => $parentAnswer ?? []];
-                    }
-
-                    return [$item['id'] => $parentAnswer ?? ''];
-                })->toArray();
+            $this->answers = $this->buildAnswersArray();
 
             if ($this->form->hasCollaborators) {
                 if (isset($this->parent)) {
@@ -237,7 +221,12 @@ class Show extends Component
         $this->response = Response::find($id);
         $this->response->load('activities.causer');
 
-        $this->answers = $this->response->answers;
+        if ($diff = collect($this->buildAnswersArray())->diffKeys($this->response->answers)) {
+            $this->answers = $this->response->answers->merge($diff);
+        } else {
+            $this->answers = $this->response->answers;
+        }
+
         $this->collaborators = $this->response->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
         $this->invitations = $this->response->invitations;
         $this->emit('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
@@ -318,7 +307,7 @@ class Show extends Component
                 ->log('finalized');
 
             $ticketData = $this->response->collaborators
-                ->filter(fn ($user) => ! $user->isRegisteredFor($this->form->event))
+                ->filter(fn ($user) => !$user->isRegisteredFor($this->form->event))
                 ->map(function ($user) {
                     return [
                         'event_id' => $this->form->event_id,
@@ -342,5 +331,26 @@ class Show extends Component
 
             return redirect()->route('app.forms.thanks', $this->form);
         }
+    }
+
+    private function buildAnswersArray()
+    {
+        return $this->form->form
+            // allow for new form builder
+            ->when(isset($this->form->form->first()['data']), function ($collection) {
+                return $collection->map(fn ($item) => [...$item['data'], 'style' => $item['type']]);
+            })
+            ->filter(fn ($item) => $item['style'] === 'question')
+            ->mapWithKeys(function ($item) {
+                if (isset($item['data']) && isset($this->parent)) {
+                    $parentAnswer = $this->parent->answers[$item['id']];
+                }
+
+                if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                    return [$item['id'] => $parentAnswer ?? []];
+                }
+
+                return [$item['id'] => $parentAnswer ?? ''];
+            })->toArray();
     }
 }
