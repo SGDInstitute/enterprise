@@ -31,6 +31,7 @@ class EventItemsRelationManager extends RelationManager
             ->schema([
                 TextInput::make('name')->required()->maxLength(255),
                 TextInput::make('speaker')->maxLength(255),
+                TextInput::make('location')->maxLength(255),
                 RichEditor::make('description')->columnSpanFull(),
                 Fieldset::make('Duration')
                     ->schema([
