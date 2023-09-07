@@ -307,7 +307,7 @@ class Show extends Component
                 ->log('finalized');
 
             $ticketData = $this->response->collaborators
-                ->filter(fn ($user) => !$user->isRegisteredFor($this->form->event))
+                ->filter(fn ($user) => ! $user->isRegisteredFor($this->form->event))
                 ->map(function ($user) {
                     return [
                         'event_id' => $this->form->event_id,
