@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
-use App\Models\Form as ModelsForm;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
@@ -12,7 +11,6 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
 
 class ProposalsRelationManager extends RelationManager
 {
@@ -38,7 +36,8 @@ class ProposalsRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('id')
                     ->label('Proposal ID')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
+                    ->searchable(
+                        query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
                     )
                     ->sortable()
                     ->toggleable(),
@@ -55,7 +54,6 @@ class ProposalsRelationManager extends RelationManager
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
-                ...static::getSiteColumns(),
             ])
             ->filters([
                 SelectFilter::make('status')
@@ -81,26 +79,5 @@ class ProposalsRelationManager extends RelationManager
             ->bulkActions([
                 //
             ]);
-    }
-
-    public static function getSiteColumns()
-    {
-        $uri = request()->getRequestUri();
-        if (Str::of($uri)->startsWith('/livewire')) {
-            $data = request()->json()->get('serverMemo')['dataMeta']['models'];
-            $id = isset($data['record']) ? $data['record']['id'] : $data['ownerRecord']['id'];
-        } else {
-            $id = explode('/', $uri)[3];
-        }
-        $form = ModelsForm::where('event_id', $id)->where('type', 'workshop')->first();
-
-        if ($form) {
-            return collect($form->settings->searchable)
-                ->map(function ($id) {
-                    return TextColumn::make('answers.' . $id)
-                        ->label(strtoupper($id))
-                        ->toggleable();
-                });
-        }
     }
 }

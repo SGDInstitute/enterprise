@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\FormResource\RelationManagers;
 
 use App\Filament\Resources\ResponseResource;
-use App\Models\Form as ModelsForm;
 use App\Models\Response;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -19,7 +18,6 @@ use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class ResponsesRelationManager extends RelationManager
 {
@@ -83,7 +81,6 @@ class ResponsesRelationManager extends RelationManager
                     ->sortable()
                     ->toggleable()
                     ->wrap(),
-                ...static::getSiteColumns(),
             ])
             ->filters([
                 SelectFilter::make('status')
@@ -103,26 +100,32 @@ class ResponsesRelationManager extends RelationManager
                     ->relationship('user', 'email')
                     ->searchable(),
                 SelectFilter::make('track-first-choice')
-                    ->options(fn ($livewire) => collect($livewire->ownerRecord->questions
-                        ->firstWhere('data.id', 'track-first-choice')['data']['options'])
-                        ->mapWithKeys(function ($option) {
-                            $key = explode(':', $option)[0];
+                    ->options(
+                        fn ($livewire) => collect($livewire->ownerRecord->questions
+                            ->firstWhere('data.id', 'track-first-choice')['data']['options'])
+                            ->mapWithKeys(function ($option) {
+                                $key = explode(':', $option)[0];
 
-                            return [$key => $key];
-                        })
+                                return [$key => $key];
+                            })
                     )
-                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => $query->where('answers->track-first-choice', $data['value'])
+                    ->query(fn ($query, $data) => $query->when(
+                        $data['value'] !== null,
+                        fn ($query) => $query->where('answers->track-first-choice', $data['value'])
                     )),
                 SelectFilter::make('track-second-choice')
-                    ->options(fn ($livewire) => collect($livewire->ownerRecord->questions
-                        ->firstWhere('data.id', 'track-second-choice')['data']['options'])
-                        ->mapWithKeys(function ($option) {
-                            $key = explode(':', $option)[0];
+                    ->options(
+                        fn ($livewire) => collect($livewire->ownerRecord->questions
+                            ->firstWhere('data.id', 'track-second-choice')['data']['options'])
+                            ->mapWithKeys(function ($option) {
+                                $key = explode(':', $option)[0];
 
-                            return [$key => $key];
-                        })
+                                return [$key => $key];
+                            })
                     )
-                    ->query(fn ($query, $data) => $query->when($data['value'] !== null, fn ($query) => $query->where('answers->track-second-choice', $data['value'])
+                    ->query(fn ($query, $data) => $query->when(
+                        $data['value'] !== null,
+                        fn ($query) => $query->where('answers->track-second-choice', $data['value'])
                     )),
             ])
             ->headerActions([
@@ -155,28 +158,6 @@ class ResponsesRelationManager extends RelationManager
                     ])
                     ->deselectRecordsAfterCompletion(),
             ]);
-    }
-
-    private static function getSiteColumns()
-    {
-        $uri = request()->getRequestUri();
-        if (Str::of($uri)->startsWith('/livewire')) {
-            $data = request()->json()->get('serverMemo')['dataMeta']['models'];
-            $id = isset($data['record']) ? $data['record']['id'] : $data['ownerRecord']['id'];
-        } else {
-            $id = explode('/', $uri)[3];
-        }
-        $form = ModelsForm::where('id', $id)->first();
-
-        if ($form) {
-            return collect($form->settings->searchable)
-                ->map(function ($id) {
-                    return TextColumn::make('answers.' . $id)
-                        ->label(Str::of($id)->replace('-', ' ')->title())
-                        ->action(fn ($livewire, $record) => $livewire->tableFilters[$id] = ['value' => $record->answers[$id]])
-                        ->toggleable();
-                });
-        }
     }
 
     protected function getTableActionsPosition(): ?string
