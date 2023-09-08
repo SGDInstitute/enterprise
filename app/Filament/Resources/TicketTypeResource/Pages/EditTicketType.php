@@ -13,7 +13,7 @@ class EditTicketType extends EditRecord
 {
     protected static string $resource = TicketTypeResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             DeleteAction::make(),

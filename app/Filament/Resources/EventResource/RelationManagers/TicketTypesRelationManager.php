@@ -4,7 +4,7 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Resources\TicketTypeResource;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\EditAction;
 
@@ -14,7 +14,7 @@ class TicketTypesRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns(TicketTypeResource::columns())

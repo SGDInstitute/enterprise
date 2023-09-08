@@ -23,6 +23,7 @@ const brandYellow = {
 }
 
 module.exports = {
+    darkMode: 'class',
     content: [
         './resources/**/*.blade.php',
         './vendor/filament/**/*.blade.php', 

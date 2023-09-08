@@ -19,7 +19,7 @@ class EditEvent extends EditRecord
         return true;
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Action::make('Dashboard Report')
@@ -43,12 +43,12 @@ class EditEvent extends EditRecord
                         'filename.pdf'
                     );
                 })
-                ->icon('heroicon-s-download'),
+                ->icon('heroicon-m-arrow-down-tray'),
             DeleteAction::make(),
         ];
     }
 
-    protected function getHeaderWidgetsColumns(): int|array
+    public function getHeaderWidgetsColumns(): int|array
     {
         return 3;
     }
