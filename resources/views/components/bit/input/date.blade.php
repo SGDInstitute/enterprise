@@ -3,7 +3,7 @@
     <span class="inline-flex items-center px-3 text-sm text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600">
         <x-heroicon-o-calendar class="w-4 h-4 text-gray-400" />
     </span>
-    <input x-data="{ value: @entangle($attributes->wire('model')), instance: undefined }"
+    <input x-data="{ value: @entangle($attributes->wire('model')).live, instance: undefined }"
         x-init="() => {
             instance = flatpickr($refs.input, {dateFormat:'m/d/Y', allowInput: true, onChange: function(selectedDates, dateStr, instance) {
                 value = dateStr;
@@ -13,6 +13,6 @@
         x-bind:value="value"
         autocomplete="off"
         class="flex-1 block w-full border-gray-300 rounded-none dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 focus:ring-green-500 focus:border-green-500 rounded-r-md sm:text-sm"
-        {{ $attributes->whereDoesntStartWith('wire:model') }}
+        {{ $attributes->whereDoesntStartWith('wire:model.live') }}
     />
 </div>

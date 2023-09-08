@@ -1,6 +1,6 @@
 <div>
-    <form wire:submit.prevent="login">
-        <x-bit.modal.dialog wire:model="loginModal" max-width="sm">
+    <form wire:submit="login">
+        <x-bit.modal.dialog wire:model.live="loginModal" max-width="sm">
             <x-slot name="title">Login</x-slot>
 
             <x-slot name="content">
@@ -18,8 +18,8 @@
         </x-bit.modal.dialog>
     </form>
 
-    <form wire:submit.prevent="forgot">
-        <x-bit.modal.dialog wire:model="forgotModal" max-width="sm">
+    <form wire:submit="forgot">
+        <x-bit.modal.dialog wire:model.live="forgotModal" max-width="sm">
             <x-slot name="title">Forgot</x-slot>
 
             <x-slot name="content">

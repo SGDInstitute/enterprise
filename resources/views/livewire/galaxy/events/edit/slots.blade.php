@@ -69,8 +69,8 @@
                 <x-bit.table.row wire:key="row-{{ $subItem->id }}">
                     <x-bit.table.cell class="flex items-end space-x-4">
                         @if ($editingItem !== null && $editingItem->id === $subItem->id && $showItemModal === false)
-                        <form wire:submit.prevent="saveLocation">
-                            <x-bit.input.text wire:model="editingItem.location" />
+                        <form wire:submit="saveLocation">
+                            <x-bit.input.text wire:model.live="editingItem.location" />
                         </form>
                         @else
                         <button class="appearance-none" wire:click="setLocation({{ $subItem->id }})">
@@ -121,33 +121,33 @@
     </div>
 
 
-    <form wire:submit.prevent="saveItem">
-        <x-bit.modal.dialog wire:model.defer="showItemModal">
+    <form wire:submit="saveItem">
+        <x-bit.modal.dialog wire:model="showItemModal">
             <x-slot name="title">Create/Edit Item</x-slot>
 
             <x-slot name="content">
                 <div class="space-y-2">
                     <div class="grid grid-cols-1 gap-2 md:grid-cols-5">
                         <x-bit.input.group for="editing-item-name" class="md:col-span-3" label="Name">
-                            <x-bit.input.text class="w-full mt-1" wire:model="editingItem.name" id="editing-item-name" />
+                            <x-bit.input.text class="w-full mt-1" wire:model.live="editingItem.name" id="editing-item-name" />
                         </x-bit.input.group>
                         <x-bit.input.group for="editing-item-location" class="md:col-span-2" label="Location">
-                            <x-bit.input.text class="w-full mt-1" wire:model="editingItem.location" id="editing-item-location" />
+                            <x-bit.input.text class="w-full mt-1" wire:model.live="editingItem.location" id="editing-item-location" />
                         </x-bit.input.group>
                     </div>
                     <x-bit.input.group for="editing-tracks" label="Tracks">
-                        <x-bit.input.text class="w-full mt-1" wire:model="editingTracks" id="editing-tracks" />
+                        <x-bit.input.text class="w-full mt-1" wire:model.live="editingTracks" id="editing-tracks" />
                         <x-bit.input.help>Can be separated by comma</x-bit.input.help>
                     </x-bit.input.group>
                     <x-bit.input.group for="editing-item-warnings" label="Content Warnings">
-                        <x-bit.input.text class="w-full mt-1" wire:model="editingWarnings" id="editing-item-warnings" />
+                        <x-bit.input.text class="w-full mt-1" wire:model.live="editingWarnings" id="editing-item-warnings" />
                         <x-bit.input.help>Can be separated by comma</x-bit.input.help>
                     </x-bit.input.group>
                     <x-bit.input.group for="editing-item-speaker" label="Speaker">
-                        <x-bit.input.text class="w-full mt-1" wire:model="editingItem.speaker" id="editing-item-speaker" />
+                        <x-bit.input.text class="w-full mt-1" wire:model.live="editingItem.speaker" id="editing-item-speaker" />
                     </x-bit.input.group>
                     <x-bit.input.group for="editing-item-description" label="Description">
-                        <x-bit.input.textarea rows="8" class="w-full mt-1" wire:model="editingItem.description" id="editing-item-description" />
+                        <x-bit.input.textarea rows="8" class="w-full mt-1" wire:model.live="editingItem.description" id="editing-item-description" />
                     </x-bit.input.group>
                 </div>
             </x-slot>

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use App\Http\Livewire\App\Orders\Attendee;
+use App\Livewire\App\Orders\Attendee;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;

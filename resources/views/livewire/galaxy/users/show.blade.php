@@ -22,8 +22,8 @@
 
     @include('livewire.galaxy.users.partials.pages')
 
-    <form wire:submit.prevent="deleteUser">
-        <x-bit.modal.confirmation wire:model.defer="showDeleteModal">
+    <form wire:submit="deleteUser">
+        <x-bit.modal.confirmation wire:model="showDeleteModal">
             <x-slot name="title">Delete User</x-slot>
 
             <x-slot name="content">

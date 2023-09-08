@@ -2,7 +2,7 @@
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">
             <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
-                <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search reservations..." />
+                <x-bit.input.text type="text" wire:model.live="filters.search" placeholder="Search reservations..." />
             </div>
             <div class="flex items-end mt-4 space-x-2 md:mt-0">
                 <x-bit.data-table.per-page />
@@ -14,7 +14,7 @@
         <x-bit.table>
             <x-slot name="head">
                 <x-bit.table.heading class="w-8 pr-0">
-                    <x-bit.input.checkbox wire:model="selectPage" />
+                    <x-bit.input.checkbox wire:model.live="selectPage" />
                 </x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
                 @if ($this->user === null)
@@ -57,7 +57,7 @@
                 @forelse ($reservations as $reservation)
                 <x-bit.table.row wire:key="row-{{ $reservation->id }}">
                     <x-bit.table.cell class="pr-0">
-                        <x-bit.input.checkbox wire:model="selected" value="{{ $reservation->id }}" />
+                        <x-bit.input.checkbox wire:model.live="selected" value="{{ $reservation->id }}" />
                     </x-bit.table.cell>
                     <x-bit.table.cell>{{ $reservation->formattedId }}</x-bit.table.cell>
                     @if ($this->user === null)
@@ -101,8 +101,8 @@
         </div>
     </div>
 
-    <form wire:submit.prevent="markAsPaid">
-        <x-bit.modal.dialog wire:model.defer="showInvoiceModal">
+    <form wire:submit="markAsPaid">
+        <x-bit.modal.dialog wire:model="showInvoiceModal">
             <x-slot name="title">Orders</x-slot>
 
             <x-slot name="content">
@@ -112,10 +112,10 @@
                         <span class="dark:text-gray-200">Order {{ $id }}</span>
                         <div class="grid grid-cols-2 gap-8">
                             <x-bit.input.group :for="'check-number-' . $id" label="Check Number">
-                                <x-bit.input.text class="w-full mt-1" wire:model="invoices.{{ $id }}.check" :id="'check-number-' . $id" />
+                                <x-bit.input.text class="w-full mt-1" wire:model.live="invoices.{{ $id }}.check" :id="'check-number-' . $id" />
                             </x-bit.input.group>
                             <x-bit.input.group :for="'amount-' . $id" label="Amount">
-                                <x-bit.input.text leading-add-on="$" wire:model="invoices.{{ $id }}.amount" :id="'amount-' . $id" />
+                                <x-bit.input.text leading-add-on="$" wire:model.live="invoices.{{ $id }}.amount" :id="'amount-' . $id" />
                             </x-bit.input.group>
                         </div>
                     </div>

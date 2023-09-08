@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use App\Http\Livewire\App\Orders\Tickets;
+use App\Livewire\App\Orders\Tickets;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Price;
@@ -37,7 +37,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('delete', $order->tickets->first()->id)
-            ->assertEmitted('notify');
+            ->assertDispatched('notify');
 
         $this->assertCount(4, $order->fresh()->tickets);
     }
@@ -58,7 +58,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('delete', $order->tickets->first()->id)
-            ->assertEmitted('notify');
+            ->assertDispatched('notify');
 
         $this->assertCount(1, $order->fresh()->tickets);
     }
@@ -107,7 +107,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('loadTicket', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+            ->assertDispatched('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
     /** @test */
@@ -133,7 +133,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('loadTicket', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+            ->assertDispatched('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
     /** @test */
@@ -160,7 +160,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('delete', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => 'You cannot delete tickets.', 'type' => 'error']);
+            ->assertDispatched('notify', ['message' => 'You cannot delete tickets.', 'type' => 'error']);
     }
 
     /** @test */
@@ -187,7 +187,7 @@ class TicketsTest extends TestCase
             ->test(Tickets::class, ['order' => $order])
             ->assertOk()
             ->call('removeUserFromTicket', $tickets->first()->id)
-            ->assertEmitted('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+            ->assertDispatched('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
     /** @test */

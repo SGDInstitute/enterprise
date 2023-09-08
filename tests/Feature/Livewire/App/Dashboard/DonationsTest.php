@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Dashboard;
 
-use App\Http\Livewire\App\Dashboard\Donations;
+use App\Livewire\App\Dashboard\Donations;
 use App\Models\Donation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

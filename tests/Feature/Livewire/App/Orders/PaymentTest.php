@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use App\Http\Livewire\App\Orders\Payment;
+use App\Livewire\App\Orders\Payment;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

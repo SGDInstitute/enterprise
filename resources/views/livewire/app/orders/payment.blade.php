@@ -28,7 +28,7 @@
                 <x-form.group type="text" model="name" label="Name" />
                 <x-form.group type="email" model="email" label="Email" />
             </div>
-            <x-form.address wire:model="address" />
+            <x-form.address wire:model.live="address" />
         </div>
 
         <div class="p-4 space-y-4 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700 dark:border">

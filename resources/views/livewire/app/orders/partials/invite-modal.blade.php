@@ -1,5 +1,5 @@
-<form wire:submit.prevent="inviteAttendee">
-    <x-bit.modal.dialog wire:model.defer="showInviteModal" max-width="lg">
+<form wire:submit="inviteAttendee">
+    <x-bit.modal.dialog wire:model="showInviteModal" max-width="lg">
         <x-slot name="title">
             Invite Attendee
         </x-slot>

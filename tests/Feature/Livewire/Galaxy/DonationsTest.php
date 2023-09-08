@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\Galaxy;
 
-use App\Http\Livewire\Galaxy\Donations;
+use App\Livewire\Galaxy\Donations;
 use App\Models\Donation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

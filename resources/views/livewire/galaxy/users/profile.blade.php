@@ -1,7 +1,7 @@
 <div class="grid grid-cols-1 gap-4 mt-8 md:gap-8 md:grid-cols-5">
     <div class="space-y-8 md:col-span-3">
         <x-bit.panel title="Profile">
-            <form wire:submit.prevent="save">
+            <form wire:submit="save">
                 <x-bit.panel.body class="space-y-4">
                     <x-form.group model="user.name" label="Name" type="text" />
                     <x-form.group model="user.email" label="Email" type="email" />
@@ -20,9 +20,9 @@
         </x-bit.panel>
 
         <x-bit.panel title="Address">
-            <form wire:submit.prevent="save">
+            <form wire:submit="save">
                 <x-bit.panel.body class="space-y-4">
-                    <x-form.address wire:model="user.address" />
+                    <x-form.address wire:model.live="user.address" />
 
                     <div class="space-y-4">
                         @if ($addressChanged)
@@ -39,7 +39,7 @@
 
     <div class="space-y-8 md:col-span-2">
         <x-bit.panel title="Password">
-            <form wire:submit.prevent="newPassword">
+            <form wire:submit="newPassword">
                 <x-bit.panel.body class="space-y-4">
                     <x-form.group model="password" label="New Password" type="password" />
                     <x-form.group model="password_confirmation" label="Confirm Password" type="password" />
@@ -57,7 +57,7 @@
         </x-bit.panel>
 
         <x-bit.panel>
-            <form wire:submit.prevent="addRole">
+            <form wire:submit="addRole">
                 <x-bit.panel.heading class="flex items-center justify-between">
                     <h2 class="dark:text-gray-300">Roles</h2>
                     <x-galaxy.help.roles />
@@ -80,9 +80,9 @@
                         @endforelse
                     </ul>
 
-                    <form wire:submit.prevent="addRole" class="text-sm leading-5">
+                    <form wire:submit="addRole" class="text-sm leading-5">
                         <x-bit.input.group for="new-role" label="Role" class="flex" srOnly>
-                            <x-bit.input.select wire:model="newRole" id="new-role" placeholder="Select Role..." class="w-full rounded-r-none">
+                            <x-bit.input.select wire:model.live="newRole" id="new-role" placeholder="Select Role..." class="w-full rounded-r-none">
                                 @foreach ($roles as $id => $value)
                                     <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach

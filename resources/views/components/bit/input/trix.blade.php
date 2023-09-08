@@ -1,13 +1,13 @@
 <div
     class="mt-2 rounded-md shadow-sm"
     x-data="{
-        value: @entangle($attributes->wire('model')),
+        value: @entangle($attributes->wire('model')).live,
         isFocused() { return document.activeElement !== this.$refs.trix },
         setValue() { this.$refs.trix.editor.loadHTML(this.value) },
     }"
     x-init="setValue(); $watch('value', () => isFocused() && setValue())"
     x-on:trix-change="value = $event.target.value"
-    {{ $attributes->whereDoesntStartWith('wire:model') }}
+    {{ $attributes->whereDoesntStartWith('wire:model.live') }}
     wire:ignore
 >
     <style>

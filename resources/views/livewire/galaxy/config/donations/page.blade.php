@@ -9,8 +9,8 @@
                     </button>
                 </div>
                 <div class="relative w-4/5 px-8 py-4 -mt-6 bg-yellow-500 md:w-2/3">
-                    <form wire:submit.prevent="saveTitle">
-                        <input id="page-title" name="page-title" class="text-4xl text-gray-700 bg-transparent font-news-cycle" wire:model="title.payload" />
+                    <form wire:submit="saveTitle">
+                        <input id="page-title" name="page-title" class="text-4xl text-gray-700 bg-transparent font-news-cycle" wire:model.live="title.payload" />
                     </form>
                     <label for="page-title" wire:click="show(false)" class="absolute p-2 text-gray-900 rounded-full top-1 right-4 bg-cyan-500">
                         <x-heroicon-o-pencil class="w-4 h-4" />
@@ -95,7 +95,7 @@
                         </button>
                     </x-bit.panel.heading>
                     <x-bit.panel.body>
-                        <form wire:submit.prevent="saveImage" class="space-y-4">
+                        <form wire:submit="saveImage" class="space-y-4">
                             <x-form.group model="image.payload" label="Image URL" type="text" />
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
                         </form>
@@ -110,8 +110,8 @@
                         </button>
                     </x-bit.panel.heading>
                     <x-bit.panel.body>
-                        <form wire:submit.prevent="saveContent" class="space-y-4">
-                            <x-form.markdown wire:model="content.payload" />
+                        <form wire:submit="saveContent" class="space-y-4">
+                            <x-form.markdown wire:model.live="content.payload" />
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>
                         </form>
                     </x-bit.panel.body>
@@ -145,8 +145,8 @@
                             </li>
                             @endforeach
                             <li class="text-gray-900 dark:text-gray-200">
-                                <form class="inline" wire:submit.prevent="addOption('monthlyOptions')">
-                                    <input class="px-2 py-1 -ml-2 bg-white border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700" wire:model="newPrice" />
+                                <form class="inline" wire:submit="addOption('monthlyOptions')">
+                                    <input class="px-2 py-1 -ml-2 bg-white border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700" wire:model.live="newPrice" />
                                 </form>
                             </li>
                         </ul>
@@ -174,8 +174,8 @@
                             </li>
                             @endforeach
                             <li class="text-gray-900 dark:text-gray-200">
-                                <form class="inline" wire:submit.prevent="addOption('oneTimeOptions')">
-                                    <input class="px-2 py-1 -ml-2 bg-white border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700" wire:model="newPrice" />
+                                <form class="inline" wire:submit="addOption('oneTimeOptions')">
+                                    <input class="px-2 py-1 -ml-2 bg-white border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700" wire:model.live="newPrice" />
                                 </form>
                             </li>
                         </ul>

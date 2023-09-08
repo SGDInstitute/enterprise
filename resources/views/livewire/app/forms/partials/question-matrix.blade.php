@@ -48,7 +48,7 @@
                             class="flex items-center justify-center"
                             :value="$scale"
                             :id="$item['id'].'-'.$option.'-'.$scale"
-                            wire:model="answers.{{ $item['id'] }}.{{ $option }}"
+                            wire:model.live="answers.{{ $item['id'] }}.{{ $option }}"
                             :disabled="!$fillable"
                         />
                     </td>

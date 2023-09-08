@@ -9,12 +9,12 @@
     <div class="p-4 space-y-4 rounded-b-md">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
             <x-bit.input.group :for="'question-id-'.$index" label="ID">
-                <x-bit.input.text type="text" class="w-full mt-1" :id="'question-id-'.$index" wire:model="form.{{ $index }}.id" />
+                <x-bit.input.text type="text" class="w-full mt-1" :id="'question-id-'.$index" wire:model.live="form.{{ $index }}.id" />
                 <x-bit.input.help>Short, unique identifier for question. Use dashes instead of spaces.</x-bit.input.help>
             </x-bit.input.group>
 
             <x-bit.input.group :for="'question-type-'.$index" label="Type of Question">
-                <x-bit.input.select class="w-full mt-1" :id="'question-type-'.$index" wire:model="form.{{ $index }}.type">
+                <x-bit.input.select class="w-full mt-1" :id="'question-type-'.$index" wire:model.live="form.{{ $index }}.type">
                     <option value="" disabled>Select Type</option>
                     @foreach ($typeOptions as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
@@ -27,10 +27,10 @@
             </div>
 
             <x-bit.input.group :for="'question-question-'.$index" label="Question" class="col-span-3">
-                <x-bit.input.text type="text" class="w-full mt-1" :id="'question-question-'.$index" wire:model="form.{{ $index }}.question" />
+                <x-bit.input.text type="text" class="w-full mt-1" :id="'question-question-'.$index" wire:model.live="form.{{ $index }}.question" />
             </x-bit.input.group>
             <x-bit.input.group :for="'question-help-'.$index" label="Help Text" class="col-span-3">
-                <x-bit.input.text type="text" class="w-full mt-1" :id="'question-help-'.$index" wire:model="form.{{ $index }}.help" />
+                <x-bit.input.text type="text" class="w-full mt-1" :id="'question-help-'.$index" wire:model.live="form.{{ $index }}.help" />
             </x-bit.input.group>
         </div>
 

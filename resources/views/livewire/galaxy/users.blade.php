@@ -1,7 +1,7 @@
 <div class="flex-col mt-5 space-y-4">
     <div class="md:flex md:justify-between">
         <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
-            <x-bit.input.text wire:model="filters.search" x-on:keydown.slash="this.focus()" placeholder="Search Users..." />
+            <x-bit.input.text wire:model.live="filters.search" x-on:keydown.slash="this.focus()" placeholder="Search Users..." />
         </div>
         <div class="flex items-end mt-4 space-x-4 md:mt-0">
             <x-bit.data-table.per-page />

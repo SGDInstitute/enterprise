@@ -88,7 +88,7 @@
     </div>
 
     @if ($foundAnswer)
-    <x-bit.modal.dialog wire:model="showModal" max-width="6xl">
+    <x-bit.modal.dialog wire:model.live="showModal" max-width="6xl">
         <x-slot name="title">
             Responses with the selected answer
             <span class="block text-xs truncate max-w-prose">{{ $foundAnswer }}</span>

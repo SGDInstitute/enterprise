@@ -42,7 +42,7 @@ class TicketsTest extends TestCase
     //         ->set('formattedEnd', '08/15/2021 11:59 PM')
     //         ->call('save')
     //         ->assertSet('showModal', false)
-    //         ->assertEmitted('notify')
+    //         ->assertDispatched('notify')
     //         ->assertSee('Regular Registration')
     //         ->assertSee('regular')
     //         ->assertSee('04/05/2021 12:00 PM')
@@ -68,7 +68,7 @@ class TicketsTest extends TestCase
     //         ->set('formattedEnd', '08/15/2021 11:59 PM')
     //         ->call('save')
     //         ->assertSet('showModal', false)
-    //         ->assertEmitted('notify')
+    //         ->assertDispatched('notify')
     //         ->assertSee('Regular Registration')
     //         ->assertSee('regular')
     //         ->assertSee('04/05/2021 12:00 PM')
@@ -85,7 +85,7 @@ class TicketsTest extends TestCase
         Livewire::actingAs($user)
         ->test('galaxy.events.edit.tickets', ['event' => $event])
             ->call('remove', $ticketType->id)
-            ->assertEmitted('notify')
-            ->assertEmitted('refresh');
+            ->assertDispatched('notify')
+            ->assertDispatched('refresh');
     }
 }

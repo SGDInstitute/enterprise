@@ -1,5 +1,5 @@
-<form wire:submit.prevent="saveTicket">
-    <x-bit.modal.dialog wire:model.defer="showTicketholderModal" max-width="lg">
+<form wire:submit="saveTicket">
+    <x-bit.modal.dialog wire:model="showTicketholderModal" max-width="lg">
         <x-slot name="title">
             {{ $editingTicket->user_id !== null ? 'Edit' : 'Add' }} Ticketholder
         </x-slot>
@@ -10,7 +10,7 @@
                 <x-bit.button.round.secondary size="xs" wire:click="loadAuthUser">Load My Information</x-bit.button.round.secondary>
                 @endif
                 <x-bit.input.group for="ticketholder-email" label="Email">
-                    <x-bit.input.text class="w-full mt-1" type="email" id="ticketholder-email" wire:model.lazy="ticketholder.email" />
+                    <x-bit.input.text class="w-full mt-1" type="email" id="ticketholder-email" wire:model.blur="ticketholder.email" />
                 </x-bit.input.group>
                 @if ($emailChanged)
                 <div>
@@ -21,10 +21,10 @@
                 </div>
                 @endif
                 <x-bit.input.group for="ticketholder-name" label="Name">
-                    <x-bit.input.text class="w-full mt-1" type="text" id="ticketholder-name" wire:model="ticketholder.name" />
+                    <x-bit.input.text class="w-full mt-1" type="text" id="ticketholder-name" wire:model.live="ticketholder.name" />
                 </x-bit.input.group>
                 <x-bit.input.group for="ticketholder-pronouns" label="Pronouns">
-                    <x-bit.input.text class="w-full mt-1" type="text" id="ticketholder-pronouns" wire:model="ticketholder.pronouns" />
+                    <x-bit.input.text class="w-full mt-1" type="text" id="ticketholder-pronouns" wire:model.live="ticketholder.pronouns" />
                 </x-bit.input.group>
 
                 @if ($editingTicket !== null && $editingTicket->ticketType->form)

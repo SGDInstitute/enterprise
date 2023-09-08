@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\Galaxy;
 
-use App\Http\Livewire\Galaxy\Responses;
+use App\Livewire\Galaxy\Responses;
 use App\Models\Event;
 use App\Models\Form;
 use App\Models\Response;
@@ -32,7 +32,7 @@ class ResponsesTest extends TestCase
             ->set('notification.type', 'finalize')
             ->set('notification.status', 'confirmed')
             ->call('sendNotifications')
-            ->assertEmitted('notify');
+            ->assertDispatched('notify');
 
         Notification::assertSentTimes(FinalizeWorkshop::class, 5);
     }
