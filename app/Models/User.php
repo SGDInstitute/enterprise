@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasProfilePhoto;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,7 +39,12 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'address' => 'array',
     ];
 
-    public function canAccessFilament(): bool
+    public function canAccessFilament(Panel $panel): bool
+    {
+        return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'mblgtacc', 'developer']);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'mblgtacc', 'developer']);
     }

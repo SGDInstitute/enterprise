@@ -17,7 +17,7 @@
                             <div class="flex-col mt-5 space-y-4">
                                 <div class="md:flex md:justify-between md:items-center">
                                     <div class="flex items-end mt-4 md:mt-0">
-                                        <x-bit.data-table.per-page wire:model="perPage" />
+                                        <x-bit.data-table.per-page wire:model.live="perPage" />
                                     </div>
                                 </div>
 
@@ -128,7 +128,7 @@
                         </button>
                     </x-bit.panel.heading>
                     <x-bit.panel.body>
-                        <form wire:submit.prevent="saveContent" class="space-y-4">
+                        <form wire:submit="saveContent" class="space-y-4">
                             <x-form.group label="Title" name="title" model="title.payload" type="text" />
                             <x-form.group label="Content" name="content" model="content.payload" type="markdown" />
                             <x-bit.button.round.primary type="submit">Save</x-bit.button.round.primary>

@@ -2,7 +2,7 @@
 
     <div class="space-y-2">
         <h2 class="text-gray-900 dark:text-gray-200">Billing Address</h2>
-        <x-form.address wire:model="address" />
+        <x-form.address wire:model.live="address" />
     </div>
 
     <div class="space-y-2">

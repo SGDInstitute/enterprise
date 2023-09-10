@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <x-bit.modal.dialog wire:model="showPreviousOrders" max-width="6xl">
+    <x-bit.modal.dialog wire:model.live="showPreviousOrders" max-width="6xl">
         <x-slot name="title">Previous Reservations & Orders for {{ $event->name }}</x-slot>
 
         <x-slot name="content">

@@ -10,7 +10,6 @@ use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationMa
 use App\Filament\Resources\EventResource\RelationManagers\TicketsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\TicketTypesRelationManager;
 use App\Models\Event;
-use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
@@ -22,11 +21,11 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Support\Carbon;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 
@@ -52,7 +51,7 @@ class EventResource extends Resource
                         'virtual' => 'Virtual',
                     ])
                     ->reactive()
-                    ->afterStateUpdated(function (Closure $set, $state) {
+                    ->afterStateUpdated(function (\Filament\Forms\Set $set, $state) {
                         self::setUpPreset($set, $state);
                     })
                     ->hidden(fn ($record) => $record !== null),
@@ -137,7 +136,7 @@ class EventResource extends Resource
                                         return recordLink($record->workshopForm, 'forms.edit', 'Edit Form');
                                     }
 
-                                    return filamentLink(route('filament.resources.forms.create'), 'Create Form');
+                                    return filamentLink(route('filament.admin.resources.forms.create'), 'Create Form');
                                 })
                                 ->hidden(fn ($record) => ! $record->settings->has_workshops),
                             Checkbox::make('settings.has_tracks')->label('Has workshop tracks')->reactive(),

@@ -3,13 +3,13 @@
 
     <div class="grid grid-cols-1 gap-4 py-8 md:grid-cols-2">
         <x-bit.input.group for="ticket-name" label="Ticket Name">
-            <x-bit.input.text id="ticket-name" class="w-full mt-1" type="text" name="name" wire:model="ticketType.name" />
+            <x-bit.input.text id="ticket-name" class="w-full mt-1" type="text" name="name" wire:model.live="ticketType.name" />
         </x-bit.input.group>
         <x-bit.input.group for="ticket-description" label="Description">
-            <x-bit.input.text id="ticket-description" class="w-full mt-1" type="text" name="description" wire:model="ticketType.description" />
+            <x-bit.input.text id="ticket-description" class="w-full mt-1" type="text" name="description" wire:model.live="ticketType.description" />
         </x-bit.input.group>
         <x-bit.input.group for="ticket-structure" label="Structure">
-            <x-bit.input.select id="ticket-structure" class="w-full mt-1" type="text" name="structure" wire:model="ticketType.structure">
+            <x-bit.input.select id="ticket-structure" class="w-full mt-1" type="text" name="structure" wire:model.live="ticketType.structure">
                 <option value="" disabled>Select Option</option>
                 <option value="flat">Flat</option>
                 <option value="scaled-defined">Scaled (Defined levels)</option>

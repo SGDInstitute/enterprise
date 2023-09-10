@@ -4,7 +4,7 @@
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">
             <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
-                <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search Proposals..." />
+                <x-bit.input.text type="text" wire:model.live="filters.search" placeholder="Search Proposals..." />
             </div>
             <div class="flex items-end mt-4 md:mt-0">
                 <x-bit.data-table.per-page />
@@ -47,7 +47,7 @@
                     <x-bit.table.cell colspan="10">
                         <div class="flex items-center justify-between w-full pl-6">
                             <div class="flex items-center space-x-2">
-                                <x-heroicon-s-exclamation class="w-6 h-6" />
+                                <x-heroicon-s-exclamation-triangle class="w-6 h-6" />
                                 <div>
                                     <p>
                                         <span class="font-bold">Finalize Program Book Details</span>

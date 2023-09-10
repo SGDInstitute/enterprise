@@ -31,7 +31,7 @@ class EventResourceTest extends TestCase
             ->count(5)
             ->create();
 
-        Livewire::test(ReservationsRelationManager::class, ['ownerRecord' => $event])
+        Livewire::test(ReservationsRelationManager::class, ['ownerRecord' => $event, 'pageClass' => EditEvent::class])
             ->assertCanSeeTableRecords($reservations)
             ->callTableBulkAction(SafeDeleteBulkAction::class, $reservations);
 
@@ -56,7 +56,7 @@ class EventResourceTest extends TestCase
             ->count(5)
             ->create();
 
-        Livewire::test(OrdersRelationManager::class, ['ownerRecord' => $event])
+        Livewire::test(OrdersRelationManager::class, ['ownerRecord' => $event, 'pageClass' => EditEvent::class])
             ->assertCanSeeTableRecords($orders)
             ->callTableBulkAction(SafeDeleteBulkAction::class, $orders);
 

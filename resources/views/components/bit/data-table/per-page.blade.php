@@ -1,9 +1,9 @@
 @php
-    $model = $attributes->get('wire:model') ?? 'perPage';
+    $model = $attributes->get('wire:model.live') ?? 'perPage';
 @endphp
 
 <x-bit.input.group inline for="per-page" label="Per Page" inline borderless paddingless>
-    <x-bit.input.select wire:model="{{ $model }}" id="per-page">
+    <x-bit.input.select wire:model.live="{{ $model }}" id="per-page">
         <option>10</option>
         <option>15</option>
         <option>25</option>

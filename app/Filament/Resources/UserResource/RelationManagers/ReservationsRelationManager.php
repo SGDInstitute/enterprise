@@ -5,12 +5,12 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Actions\CompBulkAction;
 use App\Filament\Actions\MarkAsPaidAction;
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class ReservationsRelationManager extends RelationManager
@@ -19,7 +19,12 @@ class ReservationsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'id';
 
-    public static function form(Form $form): Form
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->reservations();
+    }
+
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -29,7 +34,7 @@ class ReservationsRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -75,10 +80,5 @@ class ReservationsRelationManager extends RelationManager
             ->bulkActions([
                 CompBulkAction::make(),
             ]);
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->reservations();
     }
 }

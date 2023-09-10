@@ -51,7 +51,7 @@
                 <h2 class="text-xl text-gray-900 dark:text-gray-200">One-Time Donations</h2>
                 @endif
                 <div class="flex items-end mt-4 md:mt-0">
-                    <x-bit.data-table.per-page wire:model="perPage" />
+                    <x-bit.data-table.per-page wire:model.live="perPage" />
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
         @endif
     </div>
 
-    <x-bit.modal.dialog wire:model="thankYouModal" max-width="sm">
+    <x-bit.modal.dialog wire:model.live="thankYouModal" max-width="sm">
         <x-slot name="title">{{ $thankYouTitle }}</x-slot>
 
         <x-slot name="content">

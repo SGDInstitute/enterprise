@@ -10,22 +10,22 @@
             @endforelse
         </div>
     </div>
-    <form wire:submit.prevent="add">
+    <form wire:submit="add">
         <x-bit.panel>
             <x-bit.panel.body class="space-y-8 divide-y divide-gray-200 dark:divide-gray-900">
                 <div class="space-y-2">
                     <x-bit.input.group for="title" label="Title">
-                        <x-bit.input.text id="title" class="block w-full mt-1" type="text" name="title" wire:model="bulletin.title" />
+                        <x-bit.input.text id="title" class="block w-full mt-1" type="text" name="title" wire:model.live="bulletin.title" />
                     </x-bit.input.group>
                     <x-bit.input.group for="content" label="Content">
-                        <x-bit.input.markdown id="content" class="block w-full mt-1" type="text" name="content" wire:model="bulletin.content" />
+                        <x-bit.input.markdown id="content" class="block w-full mt-1" type="text" name="content" wire:model.live="bulletin.content" />
                     </x-bit.input.group>
                     <x-bit.input.group for="published_at" label="Publish At">
-                        <x-bit.input.date-time class="block w-full mt-1" id="start" name="published_at" wire:model="formattedPublish" />
+                        <x-bit.input.date-time class="block w-full mt-1" id="start" name="published_at" wire:model.live="formattedPublish" />
                     </x-bit.input.group>
 
                     <div class="pt-4">
-                        <x-form.checkbox label="Notify Users" id="notify-users" wire:model="bulletin.notify" />
+                        <x-form.checkbox label="Notify Users" id="notify-users" wire:model.live="bulletin.notify" />
                     </div>
                 </div>
             </x-bit.panel.body>

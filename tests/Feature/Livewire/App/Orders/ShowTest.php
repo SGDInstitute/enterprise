@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use App\Http\Livewire\App\Orders\Show;
+use App\Livewire\App\Orders\Show;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Price;

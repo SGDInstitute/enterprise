@@ -1,17 +1,17 @@
-<div x-data="{tab: @entangle('tab')}" class="lg:grid lg:grid-cols-12 lg:gap-x-5">
+<div x-data="{tab: @entangle('tab').live}" class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <x-ui.aside colspan="lg:col-span-2">
         <x-ui.aside.button tab="info" icon="heroicon-o-information-circle">Information</x-ui.aside.button>
-        <x-ui.aside.button tab="builder" icon="heroicon-o-cursor-click">Builder</x-ui.aside.button>
+        <x-ui.aside.button tab="builder" icon="heroicon-o-cursor-arrow-ripple">Builder</x-ui.aside.button>
     </x-ui.aside>
 
     <div x-show="tab === 'info'" class="space-y-6 sm:px-6 lg:px-0 lg:col-span-10">
-        <form wire:submit.prevent="saveInfo">
+        <form wire:submit="saveInfo">
             <x-ui.card>
                 <div class="px-4 py-6 space-y-6 sm:p-6">
                     <div>
                         <h2 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Information</h2>
                     </div>
-                    <div x-data="{type: @entangle('form.type')}" class="grid grid-cols-2 gap-6">
+                    <div x-data="{type: @entangle('form.type').live}" class="grid grid-cols-2 gap-6">
                         <x-form.group model="form.type" label="Type" type="select" placeholder="Select Form Type" :options="$types" />
 
                         <x-form.group x-show="type && type === 'review' || type === 'availability' || type === 'confirmation' || type === 'finalize'" model="form.parent_id" label="Parent Form" type="select" placeholder="Select Parent Form" :options="$forms" />

@@ -1,10 +1,10 @@
-<div id="form-address" x-data="address(@entangle($attributes->wire('model')))" class="space-y-2">
+<div id="form-address" x-data="address(@entangle($attributes->wire('model')).live)" class="space-y-2">
     <div class="relative" @click.away="open = false">
         <x-form.label>Address</x-form.label>
         <div class="relative">
             <x-form.input x-ref="search" autocomplete="off" x-model.debounce.500ms="address.line1" id="form-line1" placeholder="Street Address" />
             <button type="button" x-show="chosen" @click="clearAddress" class="absolute top-0 right-0 z-10 h-full px-3 py-2 text-green-500 rounded-md dark:text-green-400 hover:bg-green-500 hover:text-white">
-                <x-heroicon-o-x class="w-6 h-6" />
+                <x-heroicon-o-x-markclass="w-6 h-6" />
             </button>
         </div>
         <x-form.error :error="$errors->first('address.line1')" />

@@ -1,5 +1,5 @@
-<form wire:submit.prevent="saveInvoice">
-    <x-bit.modal.dialog wire:model.defer="showInvoiceModal" max-width="lg">
+<form wire:submit="saveInvoice">
+    <x-bit.modal.dialog wire:model="showInvoiceModal" max-width="lg">
         <x-slot name="title">
             Invoice
         </x-slot>
@@ -9,7 +9,7 @@
                 <p>If you need to add specific contact or tax information to your invoice, like your full business name, or address of record, you may add it here.</p>
 
                 <x-bit.input.group for="billable" label="Billing Information">
-                    <x-bit.input.textarea id="billable" class="w-full mt-1" name="billable" wire:model="order.invoice.billable" />
+                    <x-bit.input.textarea id="billable" class="w-full mt-1" name="billable" wire:model.live="order.invoice.billable" />
                 </x-bit.input.group>
             </div>
         </x-slot>

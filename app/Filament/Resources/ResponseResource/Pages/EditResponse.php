@@ -11,7 +11,7 @@ class EditResponse extends EditRecord
 {
     protected static string $resource = ResponseResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             ViewAction::make(),

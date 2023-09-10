@@ -20,7 +20,7 @@ class ViewForm extends ViewRecord
 
     protected static string $view = 'filament.resources.forms.pages.view-form';
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Action::make('notify_approved')
@@ -55,7 +55,7 @@ class ViewForm extends ViewRecord
                 ->color('danger'),
             EditAction::make()
                 ->label('Edit Form')
-                ->color('secondary'),
+                ->color('gray'),
         ];
     }
 

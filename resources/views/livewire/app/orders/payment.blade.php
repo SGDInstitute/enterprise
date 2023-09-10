@@ -8,10 +8,10 @@
         </div>
         <div class="space-x-1">
             <x-bit.button.flat.primary wire:click="downloadInvoice" size="xs" class="space-x-2">
-                <x-heroicon-o-download class="w-4 h-4" /> <span>Download Invoice</span>
+                <x-heroicon-o-arrow-down-tray class="w-4 h-4" /> <span>Download Invoice</span>
             </x-bit.button.flat.primary>
             <x-bit.button.flat.primary wire:click="downloadW9" size="xs" class="space-x-2">
-                <x-heroicon-o-download class="w-4 h-4" /> <span>Download W9</span>
+                <x-heroicon-o-arrow-down-tray class="w-4 h-4" /> <span>Download W9</span>
             </x-bit.button.flat.primary>
         </div>
     </div>
@@ -28,7 +28,7 @@
                 <x-form.group type="text" model="name" label="Name" />
                 <x-form.group type="email" model="email" label="Email" />
             </div>
-            <x-form.address wire:model="address" />
+            <x-form.address wire:model.live="address" />
         </div>
 
         <div class="p-4 space-y-4 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700 dark:border">
@@ -268,7 +268,7 @@
         </div>
 
         <x-bit.button.flat.accent-filled wire:click="downloadInvoice" block id="submit" size="large" class="space-x-2">
-            <x-heroicon-o-download class="w-6 h-6" /> <span>Download Receipt</span>
+            <x-heroicon-o-arrow-down-tray class="w-6 h-6" /> <span>Download Receipt</span>
             </x-bit.button.flat.primary>
             @endif
     </form>

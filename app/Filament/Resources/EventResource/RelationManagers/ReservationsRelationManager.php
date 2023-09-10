@@ -6,12 +6,12 @@ use App\Filament\Actions\CompBulkAction;
 use App\Filament\Actions\MarkAsPaidAction;
 use App\Filament\Actions\SafeDeleteBulkAction;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class ReservationsRelationManager extends RelationManager
@@ -20,7 +20,12 @@ class ReservationsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'id';
 
-    public static function form(Form $form): Form
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->reservations();
+    }
+
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -30,7 +35,7 @@ class ReservationsRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -44,9 +49,8 @@ class ReservationsRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tickets')
-                    ->formatStateUsing(fn ($state) => count($state))
-                    ->label('Number of Tickets'),
+                TextColumn::make('tickets_count')
+                    ->counts('tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
                     ->options([
@@ -70,17 +74,12 @@ class ReservationsRelationManager extends RelationManager
                 //
             ])
             ->actions([
-                ViewAction::make()->url(fn ($record) => route('filament.resources.reservations.view', $record)),
+                ViewAction::make()->url(fn ($record) => route('filament.admin.resources.reservations.view', $record)),
                 MarkAsPaidAction::make(),
             ])
             ->bulkActions([
                 CompBulkAction::make(),
                 SafeDeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->reservations();
     }
 }

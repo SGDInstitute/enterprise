@@ -2,7 +2,7 @@
     <div class="flex-col mt-5 space-y-4">
         <div class="md:flex md:justify-between">
             <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row">
-                <x-bit.input.text type="text" wire:model="filters.search" placeholder="Search orders..." />
+                <x-bit.input.text type="text" wire:model.live="filters.search" placeholder="Search orders..." />
             </div>
             <div class="flex items-end mt-4 space-x-2 md:mt-0">
                 <x-bit.data-table.per-page />
@@ -13,7 +13,7 @@
         <x-bit.table>
             <x-slot name="head">
                 <x-bit.table.heading class="w-8 pr-0">
-                    <x-bit.input.checkbox wire:model="selectPage" />
+                    <x-bit.input.checkbox wire:model.live="selectPage" />
                 </x-bit.table.heading>
                 <x-bit.table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">ID</x-bit.table.heading>
                 @if ($this->user === null)
@@ -56,7 +56,7 @@
                 @forelse ($orders as $order)
                 <x-bit.table.row wire:key="row-{{ $order->id }}">
                     <x-bit.table.cell class="pr-0">
-                        <x-bit.input.checkbox wire:model="selected" value="{{ $order->id }}" />
+                        <x-bit.input.checkbox wire:model.live="selected" value="{{ $order->id }}" />
                     </x-bit.table.cell>
                     <x-bit.table.cell>{{ $order->formattedId }}</x-bit.table.cell>
                     @if ($this->user === null)
@@ -101,15 +101,15 @@
     </div>
 
     @if ($editingOrder)
-    <form wire:submit.prevent="partialRefund">
-        <x-bit.modal.dialog wire:model.defer="showPartialModal">
+    <form wire:submit="partialRefund">
+        <x-bit.modal.dialog wire:model="showPartialModal">
             <x-slot name="title">Partial Refund</x-slot>
 
             <x-slot name="content">
                 <div class="space-y-2">
                     @foreach ($editingOrder->tickets as $ticket)
                     <div class="flex items-center px-3 py-2 space-x-2 border border-gray-900 rounded">
-                        <x-bit.input.checkbox wire:model="editingTickets" value="{{ $ticket->id }}" />
+                        <x-bit.input.checkbox wire:model.live="editingTickets" value="{{ $ticket->id }}" />
                         <span class="dark:text-gray-200">{{ $ticket->user_id ? $ticket->user->name : 'Not filled' }}</span>
                     </div>
                     @endforeach

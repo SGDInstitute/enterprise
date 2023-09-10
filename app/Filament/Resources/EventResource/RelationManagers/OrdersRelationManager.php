@@ -6,20 +6,18 @@ use App\Filament\Actions\MarkAsUnpaidAction;
 use App\Filament\Actions\RefundAction;
 use App\Filament\Actions\SafeDeleteBulkAction;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class OrdersRelationManager extends RelationManager
 {
     protected static string $relationship = 'paidOrders';
 
-    protected static ?string $recordTitleAttribute = 'id';
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -29,9 +27,10 @@ class OrdersRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('id')
             ->columns([
                 TextColumn::make('id')
                     ->copyable()
@@ -43,12 +42,12 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tickets')
-                    ->formatStateUsing(fn ($state) => count($state))
+                TextColumn::make('tickets_count')
+                    ->counts('tickets')
                     ->label('Number of Tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
-                    ->options([
+                    ->icons([
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
                     ]),
@@ -67,7 +66,7 @@ class OrdersRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                ViewAction::make()->url(fn ($record) => route('filament.resources.orders.view', $record)),
+                ViewAction::make()->url(fn ($record) => route('filament.admin.resources.orders.view', $record)),
                 MarkAsUnpaidAction::make(),
                 RefundAction::make(),
             ])

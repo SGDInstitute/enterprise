@@ -1,4 +1,4 @@
-<form wire:submit.prevent="submit">
+<form wire:submit="submit">
     <x-bit.panel title="Print Name Badge">
         <x-bit.panel.body class="space-y-4">
             <x-form.group type="text" model="name" id="name" label="Name" />

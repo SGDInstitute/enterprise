@@ -7,7 +7,7 @@
     wire:ignore
     x-data="{
         multiple: true,
-        value: @entangle($attributes->get('wire:model')),
+        value: @entangle($attributes->get('wire:model.live')).live,
         options: {{ json_encode($options) }},
         init() {
             this.$nextTick(() => {

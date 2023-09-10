@@ -4,9 +4,9 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Resources\TicketTypeResource;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Table;
 
 class TicketTypesRelationManager extends RelationManager
 {
@@ -14,17 +14,17 @@ class TicketTypesRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns(TicketTypeResource::columns())
             ->headerActions([
                 CreateAction::make()
-                    ->url(fn ($livewire) => route('filament.resources.ticket-types.create', ['event_id' => $livewire->ownerRecord->id])),
+                    ->url(fn ($livewire) => route('filament.admin.resources.ticket-types.create', ['event_id' => $livewire->ownerRecord->id])),
             ])
             ->actions([
                 EditAction::make()
-                    ->url(fn ($record) => route('filament.resources.ticket-types.edit', $record)),
+                    ->url(fn ($record) => route('filament.admin.resources.ticket-types.edit', $record)),
             ]);
     }
 }

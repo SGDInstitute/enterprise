@@ -20,11 +20,11 @@
                     </x-bit.table.heading>
                     @elseif ($row === 0 || $column === 0)
                     <x-bit.table.heading class="px-1 py-1" wire:key="row-{{ $row }}-column-{{ $column }}">
-                        <x-form.textarea rows="1" class="text-sm" wire:model="table.{{ $row }}.{{ $column }}" />
+                        <x-form.textarea rows="1" class="text-sm" wire:model.live="table.{{ $row }}.{{ $column }}" />
                     </x-bit.table.heading>
                     @else
                     <x-bit.table.cell class="px-1 py-1" wire:key="row-{{ $row }}-column-{{ $column }}">
-                        <x-form.textarea rows="1" class="text-sm" wire:model="table.{{ $row }}.{{ $column }}" />
+                        <x-form.textarea rows="1" class="text-sm" wire:model.live="table.{{ $row }}.{{ $column }}" />
                     </x-bit.table.cell>
                     @endif
                     @endforeach

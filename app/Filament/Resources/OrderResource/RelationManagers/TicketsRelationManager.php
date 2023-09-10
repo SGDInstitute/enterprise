@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\OrderResource\RelationManagers;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class TicketsRelationManager extends RelationManager
 {
@@ -15,7 +15,7 @@ class TicketsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'id';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -25,7 +25,7 @@ class TicketsRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -36,7 +36,7 @@ class TicketsRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
-                    ->url(fn ($record) => $record->user_id ? route('filament.resources.users.edit', $record->user_id) : ''),
+                    ->url(fn ($record) => $record->user_id ? route('filament.admin.resources.users.edit', $record->user_id) : ''),
                 TextColumn::make('user.email')
                     ->label('Email')
                     ->searchable()

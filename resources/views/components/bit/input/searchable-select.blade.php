@@ -1,6 +1,6 @@
 <div>
     <div
-        x-data="select({ data: {{ $options }}, placeholder: '{{ $attributes->get('placeholder') }}', value: @entangle($attributes->wire('model')) })"
+        x-data="select({ data: {{ $options }}, placeholder: '{{ $attributes->get('placeholder') }}', value: @entangle($attributes->wire('model')).live })"
         x-init="init()"
         @click.away="closeListbox()"
         @keydown.escape="closeListbox()"

@@ -3,7 +3,7 @@
         <div class="md:flex md:justify-between">
             <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row md:w-1/2">
                 <x-bit.input.group for="search" label="Search" sr-only>
-                    <x-bit.input.text id="search" class="block w-full mt-1" type="text" name="search" placeholder="Search forms..." wire:model="filters.search" />
+                    <x-bit.input.text id="search" class="block w-full mt-1" type="text" name="search" placeholder="Search forms..." wire:model.live="filters.search" />
                 </x-bit.input.group>
             </div>
             <div class="flex items-end mt-4 space-x-4 md:mt-0">

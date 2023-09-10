@@ -2,42 +2,42 @@
     <div class="grid grid-cols-5 gap-8">
         <div class="col-span-3 space-y-4">
             <x-filament::card>
-                <x-forms::field-wrapper id="review-form" label="Form" statePath="form.name">
+                <x-filament::input.wrapper id="review-form" label="Form" statePath="form.name">
                     {{ $record->form->name }}
-                </x-forms::field-wrapper>
-                <x-forms::field-wrapper id="review-type" label="Type" statePath="type">
+                </x-filament::input.wrapper>
+                <x-filament::input.wrapper id="review-type" label="Type" statePath="type">
                     {{ $record->type }}
-                </x-forms::field-wrapper>
-                <x-forms::field-wrapper id="review-user-name" label="Creator" statePath="user.name">
+                </x-filament::input.wrapper>
+                <x-filament::input.wrapper id="review-user-name" label="Creator" statePath="user.name">
                     @isset($record->user)
-                    <x-filament-support::link darkMode="true" :href="route('filament.resources.users.edit', $record->user)">
+                    <x-filament::link darkMode="true" :href="route('filament.admin.resources.users.edit', $record->user)">
                         {{ $record->user->name }} <span class="ml-2 text-sm italic">{{ $record->user->pronouns }}</span>
-                    </x-filament-support::link>
+                    </x-filament::link>
                     @else
                     {{ $record->user->name ?? $record->email ?? 'n/a' }}
                     @endif
-                </x-forms::field-wrapper>
-                <x-forms::field-wrapper id="review-co-presenters" label="Co-Presenters" statePath="co-presenters">
+                </x-filament::input.wrapper>
+                <x-filament::input.wrapper id="review-co-presenters" label="Co-Presenters" statePath="co-presenters">
                     @forelse ($record->collaborators->filter(fn ($user) => $user->id !== $record->user_id) as $collaborator)
                     <div>
-                        <x-filament-support::link darkMode="true" :href="route('filament.resources.users.edit', $collaborator)">
+                        <x-filament::link darkMode="true" :href="route('filament.admin.resources.users.edit', $collaborator)">
                             {{ $collaborator->name }} <span class="ml-2 text-sm italic">{{ $collaborator->pronouns }}</span>
-                        </x-filament-support::link>
+                        </x-filament::link>
                     </div>
                     @empty
                     no co-presenters
                     @endforelse
-                </x-forms::field-wrapper>
-                <x-forms::field-wrapper id="review-invitations" label="Invitations" statePath="invitations">
+                </x-filament::input.wrapper>
+                <x-filament::input.wrapper id="review-invitations" label="Invitations" statePath="invitations">
                     @php
                     $emails = $record->invitations->implode('email', ', ');
                     @endphp
 
                     {{ $emails === '' ? 'no pending invitations' : $emails }}
-                </x-forms::field-wrapper>
-                <x-forms::field-wrapper id="review-status" label="Status" statePath="status">
+                </x-filament::input.wrapper>
+                <x-filament::input.wrapper id="review-status" label="Status" statePath="status">
                     {{ $record->status }}
-                </x-forms::field-wrapper>
+                </x-filament::input.wrapper>
             </x-filament::card>
             <x-filament::card>
                 @foreach ($qa as $question => $answer)
@@ -97,7 +97,7 @@
             </x-filament::modal>
 
             <x-filament::card class="mt-4" heading="Review this Proposal">
-                <form wire:submit.prevent="submit">
+                <form wire:submit="submit">
                     {{ $this->form }}
 
                     <x-filament::button type="submit" class="mt-4">Save Review</x-filament::button>
