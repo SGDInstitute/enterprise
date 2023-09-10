@@ -19,6 +19,8 @@ class Payment extends Component
 
     public $email;
 
+    public $transaction;
+
     public function mount()
     {
         $this->name = $this->order->invoice->name ?? auth()->user()->name;
