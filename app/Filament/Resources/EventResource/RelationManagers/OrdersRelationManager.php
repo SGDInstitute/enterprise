@@ -17,8 +17,6 @@ class OrdersRelationManager extends RelationManager
 {
     protected static string $relationship = 'paidOrders';
 
-    protected static ?string $recordTitleAttribute = 'id';
-
     public function form(Form $form): Form
     {
         return $form
@@ -32,6 +30,7 @@ class OrdersRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('id')
             ->columns([
                 TextColumn::make('id')
                     ->copyable()
@@ -43,12 +42,12 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tickets')
-                    ->formatStateUsing(fn ($state) => count($state))
+                TextColumn::make('tickets_count')
+                    ->counts('tickets')
                     ->label('Number of Tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
-                    ->options([
+                    ->icons([
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
                     ]),

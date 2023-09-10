@@ -44,9 +44,8 @@ class ReservationsRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tickets')
-                    ->formatStateUsing(fn ($state) => count($state))
-                    ->label('Number of Tickets'),
+                TextColumn::make('tickets_count')
+                    ->counts('tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
                     ->options([
