@@ -11,6 +11,8 @@ class Payment extends Component
 {
     public Order $order;
 
+    public $clientSecret;
+
     public $address;
 
     public $name;
