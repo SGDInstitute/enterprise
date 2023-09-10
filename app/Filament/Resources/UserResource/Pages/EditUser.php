@@ -32,7 +32,7 @@ class EditUser extends EditRecord
                 ->action(function () {
                     activity()->on($this->record)->log('impersonated');
 
-                    session(['after_impersonation' => route('filament.resources.users.edit', $this->record)]);
+                    session(['after_impersonation' => route('filament.admin.resources.users.edit', $this->record)]);
                     auth()->user()->impersonate($this->record);
 
                     return redirect()->to('/dashboard');

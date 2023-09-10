@@ -38,7 +38,7 @@ class TicketsRelationManager extends RelationManager
                     ->label('Order ID')
                     ->searchable()
                     ->sortable()
-                    ->url(fn ($record) => route('filament.resources.orders.view', $record->order_id)),
+                    ->url(fn ($record) => route('filament.admin.resources.orders.view', $record->order_id)),
                 TextColumn::make('id')
                     ->label('Ticket ID')
                     ->searchable(['tickets.id'])
@@ -51,7 +51,7 @@ class TicketsRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
-                    ->url(fn ($record) => $record->user_id ? route('filament.resources.users.edit', $record->user_id) : ''),
+                    ->url(fn ($record) => $record->user_id ? route('filament.admin.resources.users.edit', $record->user_id) : ''),
                 TextColumn::make('user.email')
                     ->label('Email')
                     ->searchable()

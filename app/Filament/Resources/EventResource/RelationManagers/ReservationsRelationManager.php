@@ -70,7 +70,7 @@ class ReservationsRelationManager extends RelationManager
                 //
             ])
             ->actions([
-                ViewAction::make()->url(fn ($record) => route('filament.resources.reservations.view', $record)),
+                ViewAction::make()->url(fn ($record) => route('filament.admin.resources.reservations.view', $record)),
                 MarkAsPaidAction::make(),
             ])
             ->bulkActions([
