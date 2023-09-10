@@ -47,7 +47,7 @@
                     <x-bit.table.cell colspan="10">
                         <div class="flex items-center justify-between w-full pl-6">
                             <div class="flex items-center space-x-2">
-                                <x-heroicon-s-exclamation class="w-6 h-6" />
+                                <x-heroicon-s-exclamation-triangle class="w-6 h-6" />
                                 <div>
                                     <p>
                                         <span class="font-bold">Finalize Program Book Details</span>
