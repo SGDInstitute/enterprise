@@ -267,7 +267,7 @@ class Responses extends Component
             })
             ->count();
 
-        $this->emit('notify', [
+        $this->dispatch('notify', [
             'message' => "Sent notification to {$count} users. Check progress on Horizon.",
             'type' => 'success',
         ]);
