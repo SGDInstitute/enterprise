@@ -10,7 +10,6 @@ use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationMa
 use App\Filament\Resources\EventResource\RelationManagers\TicketsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\TicketTypesRelationManager;
 use App\Models\Event;
-use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
@@ -24,9 +23,9 @@ use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Support\Carbon;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 

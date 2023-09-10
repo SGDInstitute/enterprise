@@ -7,10 +7,10 @@ use App\Filament\Actions\MarkAsPaidAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class ReservationsRelationManager extends RelationManager
@@ -18,6 +18,11 @@ class ReservationsRelationManager extends RelationManager
     protected static string $relationship = 'reservations';
 
     protected static ?string $recordTitleAttribute = 'id';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->reservations();
+    }
 
     public function form(Form $form): Form
     {
@@ -75,10 +80,5 @@ class ReservationsRelationManager extends RelationManager
             ->bulkActions([
                 CompBulkAction::make(),
             ]);
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->reservations();
     }
 }

@@ -19,6 +19,11 @@ class EditEvent extends EditRecord
         return true;
     }
 
+    public function getHeaderWidgetsColumns(): int|array
+    {
+        return 3;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
@@ -46,11 +51,6 @@ class EditEvent extends EditRecord
                 ->icon('heroicon-m-arrow-down-tray'),
             DeleteAction::make(),
         ];
-    }
-
-    public function getHeaderWidgetsColumns(): int|array
-    {
-        return 3;
     }
 
     protected function getHeaderWidgets(): array
