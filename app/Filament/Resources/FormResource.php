@@ -70,8 +70,8 @@ class FormResource extends Resource
                     ->boolean()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('responses')
-                    ->formatStateUsing(fn ($state) => count($state))
+                TextColumn::make('responses_count')
+                    ->counts('responses')
                     ->label('# Responses'),
                 TextColumn::make('start')
                     ->formatStateUsing(fn ($record) => $record->formattedStart)
