@@ -11,6 +11,10 @@ class Show extends Component
 
     public $showPreviousOrders = false;
 
+    public $order;
+
+    public $tickets;
+
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()

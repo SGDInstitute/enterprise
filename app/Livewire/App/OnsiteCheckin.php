@@ -13,6 +13,8 @@ class OnsiteCheckin extends Component
 
     public $editing;
 
+    public $hideAddButton;
+
     public $notFound = false;
 
     public $user;
