@@ -6,15 +6,14 @@ use App\Filament\Resources\TicketTypeResource\Pages\CreateTicketType;
 use App\Filament\Resources\TicketTypeResource\Pages\EditTicketType;
 use App\Filament\Resources\TicketTypeResource\Pages\ListTicketTypes;
 use App\Models\TicketType;
-use Closure;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TextInput\Mask;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\RawJs;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -69,7 +68,9 @@ class TicketTypeResource extends Resource
                         ->columns(3),
                     TextInput::make('cost') // only show when structure is flat
                         ->hidden(fn (\Filament\Forms\Get $get) => $get('structure') !== 'flat')
-                        ->mask(fn (Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2)),
+                        ->mask(RawJs::make(<<<'JS'
+                            $money($input)
+                        JS)),
                     // @todo scaled range
                 ])->columns(2),
             ]);
