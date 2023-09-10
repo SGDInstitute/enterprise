@@ -9,7 +9,7 @@ class Modals extends Component
 {
     public Event $event;
 
-    public $policyModal;
+    public $policyModal = 'description';
 
     public $showModal = false;
 
