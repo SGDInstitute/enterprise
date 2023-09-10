@@ -41,7 +41,7 @@ class UserResourceTest extends TestCase
 
         Livewire::test(ListUsers::class)
             ->assertCanSeeTableRecords([...$deletableUsers, $verifiedUser, $ticketUser, $orderUser, $donationUser])
-            ->callPageAction('mass-delete-junk');
+            ->callAction('mass-delete-junk');
 
         foreach ($deletableUsers as $user) {
             $this->assertModelMissing($user);
