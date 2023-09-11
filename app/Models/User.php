@@ -39,11 +39,6 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'address' => 'array',
     ];
 
-    public function canAccessFilament(Panel $panel): bool
-    {
-        return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'mblgtacc', 'developer']);
-    }
-
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'mblgtacc', 'developer']);
