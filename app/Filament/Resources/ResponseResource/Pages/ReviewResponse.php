@@ -5,17 +5,29 @@ namespace App\Filament\Resources\ResponseResource\Pages;
 use App\Filament\Resources\ResponseResource;
 use App\Models\Response;
 use App\Models\RfpReview;
+use Filament\Actions\StaticAction;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Infolists\Components\Actions;
+use Filament\Infolists\Components\Actions\Action;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Split;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Concerns\InteractsWithInfolists;
+use Filament\Infolists\Contracts\HasInfolists;
+use Filament\Infolists\Infolist;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
+use Filament\Support\Enums\FontWeight;
 use Illuminate\Support\Arr;
 
-class ReviewResponse extends Page implements HasForms
+class ReviewResponse extends Page implements HasForms, HasInfolists
 {
     use InteractsWithForms;
+    use InteractsWithInfolists;
 
     protected static string $resource = ResponseResource::class;
 
@@ -45,22 +57,75 @@ class ReviewResponse extends Page implements HasForms
         }
     }
 
-    public function getQuestionsAndAnswersProperty()
-    {
-        return $this->record->form->questions
-            ->mapWithKeys(function ($item) {
-                $id = Arr::get($item, isset($item['data']) ? 'data.id' : 'id');
-                $question = Arr::get($item, isset($item['data']) ? 'data.question' : 'question');
-
-                return [$question => $this->record->answers[$id]
-                    ? $this->record->answers[$id]
-                    : 'was not answered', ];
-            });
-    }
-
     public function getReviewsProperty()
     {
         return $this->record->reviews->load('user');
+    }
+
+    public function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->record($this->record)
+            ->schema([
+                Split::make([
+                    Section::make([
+                        ...$this->record->form->questions->map(function ($item) {
+                            $entry = TextEntry::make("answers.{$item['data']['id']}")
+                                ->label($item['data']['question'])
+                                ->placeholder('was not answered');
+
+                            if ($item['data']) {
+                                $entry->html();
+                            }
+
+                            return $entry;
+                        }),
+                    ])->grow(),
+                    Section::make([
+                        Actions::make([
+                            Action::make('view-rubric')
+                                ->icon('heroicon-m-table-cells')
+                                ->modalCancelAction(fn (StaticAction $action) => $action->label('Close'))
+                                ->modalContent(view('filament.resources.response-resource.actions.rubric'))
+                                ->modalSubmitAction(false)
+                                ->modalWidth('6xl')
+                                ->outlined(),
+                            Action::make('view-tracks')
+                                ->icon('heroicon-m-rectangle-group')
+                                ->modalCancelAction(fn (StaticAction $action) => $action->label('Close'))
+                                ->modalContent(view('filament.resources.response-resource.actions.tracks'))
+                                ->modalSubmitAction(false)
+                                ->modalWidth('6xl')
+                                ->outlined(),
+                            Action::make('view-scores-and-notes')
+                                ->icon('heroicon-m-sparkles')
+                                ->modalCancelAction(fn (StaticAction $action) => $action->label('Close'))
+                                ->modalContent(fn () => view('filament.resources.response-resource.actions.scores-n-notes', ['reviews' => $this->reviews]))
+                                ->modalSubmitAction(false)
+                                ->modalWidth('6xl')
+                                ->outlined(),
+                            Action::make('resetStars')
+                                ->icon('heroicon-m-x-mark')
+                                ->color('danger')
+                                ->requiresConfirmation(),
+                        ]),
+                        TextEntry::make('form.name'),
+                        TextEntry::make('type'),
+                        TextEntry::make('user.name'),
+                        TextEntry::make('collaborators.name')
+                            ->listWithLineBreaks()
+                            ->bulleted(),
+                        TextEntry::make('invitations.name')
+                            ->listWithLineBreaks()
+                            ->bulleted(),
+                        TextEntry::make('status'),
+                        TextEntry::make('created_at')
+                            ->dateTime(),
+                        TextEntry::make('updated_at')
+                            ->dateTime(),
+                    ]),
+                ])->from('md')
+            ]);
     }
 
     public function submit()
@@ -87,22 +152,7 @@ class ReviewResponse extends Page implements HasForms
             ->send();
     }
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    protected function getViewData(): array
-    {
-        return [
-            'qa' => $this->questionsAndAnswers,
-            'reviews' => $this->reviews,
-        ];
-    }
-
-    protected function getFormSchema(): array
+    public function reviewForm(): array
     {
         return [
             Radio::make('alignment')
