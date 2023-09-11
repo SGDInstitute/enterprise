@@ -36,7 +36,7 @@ class ReviewResponseTest extends TestCase
     {
         // @todo update to action implementation
         $this->markTestSkipped();
-        
+
         $user = User::factory()->create();
         $form = Form::factory()->create(['form' => [
             ['data' => ['id' => 'timeline-information', 'content' => '<h2>Application Timeline</h2>'], 'type' => 'content'],
