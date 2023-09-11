@@ -31,7 +31,7 @@
         </button>
         @endif
         <button wire:click="duplicate({{ $index }})" class="text-gray-500 hover:text-green-500">
-            <x-heroicon-o-duplicate class="w-4 h-4" />
+            <x-heroicon-o-document-duplicate class="w-4 h-4" />
         </button>
         <button wire:click="delete({{ $index }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" class="text-gray-500 hover:text-green-500">
             <x-heroicon-o-trash class="w-4 h-4" />

@@ -38,9 +38,9 @@
 
                 <x-bit.table.cell>
                     @if ($user->email_verified_at)
-                        <x-heroicon-o-thumb-up class="w-4 h-4 text-green-500" />
+                    <x-heroicon-o-hand-thumb-up class="w-4 h-4 text-green-500" />
                     @else
-                        <x-heroicon-o-thumb-down class="w-4 h-4 text-red-400" />
+                    <x-heroicon-o-hand-thumb-down class="w-4 h-4 text-red-400" />
                     @endif
                 </x-bit.table.cell>
 
@@ -51,13 +51,13 @@
                         <x-heroicon-o-eye class="w-4 h-4 text-blue-500 dark:text-blue-400" />
                     </x-bit.button.link>
                     <x-bit.button.link size="py-1 px-2" wire:click="impersonate({{ $user->id }})">
-                        <x-heroicon-o-support class="w-4 h-4 text-blue-500 dark:text-blue-400" />
+                        <x-heroicon-o-lifebuoy class="w-4 h-4 text-blue-500 dark:text-blue-400" />
                     </x-bit.button.link>
                 </x-bit.table.cell>
 
             </x-bit.table.row>
             @empty
-            <x-bit.table.row >
+            <x-bit.table.row>
                 <x-bit.table.cell colspan="7">
                     <div class="flex items-center justify-center space-x-2">
                         <x-heroicon-o-users class="w-8 h-8 text-gray-400" />
