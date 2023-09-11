@@ -82,7 +82,7 @@ if (! function_exists('array_shove')) {
 if (! function_exists('recordLink')) {
     function recordLink($record, $route, $label)
     {
-        $url = route('filament.resources.' . $route, $record);
+        $url = route('filament.admin.resources.' . $route, $record);
 
         return filamentLink($url, $label);
     }
