@@ -131,7 +131,7 @@ class ResponsesRelationManager extends RelationManager
             ])
             ->actions([
                 Action::make('review')
-                    ->url(fn ($record) => ResponseResource::getUrl('review', $record)),
+                    ->url(fn ($record) => ResponseResource::getUrl('review', ['record' => $record])),
             ])
             ->bulkActions([
                 BulkAction::make('change_status')
