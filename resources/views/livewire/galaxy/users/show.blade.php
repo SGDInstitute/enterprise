@@ -1,6 +1,6 @@
 <div class="mt-5">
     @if (!$user->hasVerifiedEmail())
-        @include('livewire.galaxy.users.partials.verified-email')
+    @include('livewire.galaxy.users.partials.verified-email')
     @endif
 
     <div class="mb-8">
@@ -13,7 +13,7 @@
             Impersonate
         </x-bit.button.round.secondary>
         <x-bit.button.round.secondary wire:click="$toggle('showDeleteModal')">
-            <x-heroicon-o-exclamation class="w-5 h-5 mr-2 -ml-1 text-gray-400" />
+            <x-heroicon-o-exclamation-triangle class="w-5 h-5 mr-2 -ml-1 text-gray-400" />
             Delete User
         </x-bit.button.round.secondary>
     </div>

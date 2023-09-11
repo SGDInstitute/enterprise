@@ -80,7 +80,7 @@
 
                         @isset($collisions[$subItem->location])
                         <span>
-                            <x-heroicon-o-exclamation class="w-4 h-4 text-red-500" />
+                            <x-heroicon-o-exclamation-triangle class="w-4 h-4 text-red-500" />
                         </span>
                         @endisset
                     </x-bit.table.cell>
