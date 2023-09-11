@@ -3,6 +3,7 @@
 namespace Tests\Feature\Filament\Resources;
 
 use App\Filament\Actions\SafeDeleteBulkAction;
+use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
 use App\Models\Event;
@@ -10,6 +11,7 @@ use App\Models\Order;
 use App\Models\Price;
 use App\Models\Ticket;
 use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -17,6 +19,27 @@ use Tests\TestCase;
 class EventResourceTest extends TestCase
 {
     use RefreshDatabase;
+
+    /** @test */
+    public function can_view_events(): void
+    {
+        $user = User::factory()->admin()->create();
+        Event::factory()->count(2)->create();
+
+        $this->actingAs($user)
+            ->get(EventResource::getUrl('index'))
+            ->assertOk();
+    }
+    /** @test */
+    public function can_edit_event(): void
+    {
+        $user = User::factory()->admin()->create();
+        $event = Event::factory()->create();
+
+        $this->actingAs($user)
+            ->get(EventResource::getUrl('edit', ['record' => $event]))
+            ->assertOk();
+    }
 
     /** @test */
     public function can_bulk_delete_reservations()
