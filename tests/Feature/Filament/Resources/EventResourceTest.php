@@ -30,6 +30,7 @@ class EventResourceTest extends TestCase
             ->get(EventResource::getUrl('index'))
             ->assertOk();
     }
+
     /** @test */
     public function can_edit_event(): void
     {
