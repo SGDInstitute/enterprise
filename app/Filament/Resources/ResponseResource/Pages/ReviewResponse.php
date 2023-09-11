@@ -12,7 +12,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Infolists\Components\Actions;
 use Filament\Infolists\Components\Actions\Action;
-use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\Split;
 use Filament\Infolists\Components\TextEntry;
@@ -21,8 +20,6 @@ use Filament\Infolists\Contracts\HasInfolists;
 use Filament\Infolists\Infolist;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
-use Filament\Support\Enums\FontWeight;
-use Illuminate\Support\Arr;
 
 class ReviewResponse extends Page implements HasForms, HasInfolists
 {
@@ -124,7 +121,7 @@ class ReviewResponse extends Page implements HasForms, HasInfolists
                         TextEntry::make('updated_at')
                             ->dateTime(),
                     ]),
-                ])->from('md')
+                ])->from('md'),
             ]);
     }
 
