@@ -12,6 +12,8 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\ActionsPosition;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -129,10 +131,12 @@ class ResponsesRelationManager extends RelationManager
             ->headerActions([
                 //
             ])
+            ], layout: FiltersLayout::AboveContent)
             ->actions([
                 Action::make('review')
                     ->url(fn ($record) => ResponseResource::getUrl('review', ['record' => $record])),
             ])
+            ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 BulkAction::make('change_status')
                     ->size('md')
@@ -156,16 +160,6 @@ class ResponsesRelationManager extends RelationManager
                     ])
                     ->deselectRecordsAfterCompletion(),
             ]);
-    }
-
-    protected function getTableActionsPosition(): ?string
-    {
-        return \Filament\Tables\Enums\ActionsPosition::BeforeCells;
-    }
-
-    protected function getTableFiltersLayout(): ?string
-    {
-        return \Filament\Tables\Enums\FiltersLayout::AboveContent;
     }
 
     protected function shouldPersistTableFiltersInSession(): bool
