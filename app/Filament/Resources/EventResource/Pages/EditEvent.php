@@ -14,7 +14,7 @@ class EditEvent extends EditRecord
 {
     protected static string $resource = EventResource::class;
 
-    public function hasCombinedRelationManagerTabsWithForm(): bool
+    public function hasCombinedRelationManagerTabsWithContent(): bool
     {
         return true;
     }
