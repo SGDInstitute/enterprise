@@ -10,6 +10,10 @@ use App\Filament\Resources\ResponseResource\Pages\ViewResponse;
 use App\Models\Response;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Split;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -34,13 +38,55 @@ class ResponseResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->columns(1)
+            ->schema([
+                Split::make([
+                    Section::make('Answers')
+                        ->schema(fn ($record) => [
+                            ...$record->form->questions->map(function ($item) {
+                                $entry = TextEntry::make("answers.{$item['data']['id']}")
+                                    ->label($item['data']['question'])
+                                    ->placeholder('was not answered');
+
+                                if ($item['data']) {
+                                    $entry->html();
+                                }
+
+                                return $entry;
+                            }),
+                        ])
+                        ->grow(),
+                    Section::make([
+                        TextEntry::make('form.name'),
+                        TextEntry::make('type'),
+                        TextEntry::make('user.name'),
+                        TextEntry::make('collaborators.name')
+                            ->listWithLineBreaks()
+                            ->bulleted(),
+                        TextEntry::make('invitations.name')
+                            ->listWithLineBreaks()
+                            ->bulleted(),
+                        TextEntry::make('status'),
+                        TextEntry::make('created_at')
+                            ->dateTime(),
+                        TextEntry::make('updated_at')
+                            ->dateTime(),
+                    ]),
+                ])->from('md'),
+            ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('id')
                     ->label('Proposal ID')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
+                    ->searchable(
+                        query: fn (Builder $query, string $search): Builder => $query->where('responses.id', 'like', "%{$search}%")
                     )
                     ->sortable()
                     ->toggleable(),
