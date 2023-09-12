@@ -1,5 +1,5 @@
 <x-filament::widget>
-    <x-filament::card>
+    <x-filament::section>
         <table class="w-full">
             <tr>
                 <th class="text-xs text-left">Track</th>
@@ -14,5 +14,5 @@
             </tr>
             @endforeach
         </table>
-    </x-filament::card>
+    </x-filament::section>
 </x-filament::widget>
