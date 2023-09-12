@@ -1,5 +1,5 @@
-@extends('errors::minimal')
-
-@section('title', __('Service Unavailable'))
-@section('code', '503')
-@section('message', __('Service Unavailable'))
+<x-app-layout title="Service Unavailable">
+    <x-http-error code="503" title="Service Unavailable">
+        <p>Whoops! Looks like we're overloaded right now, try back later.</p>
+    </x-http-error>
+</x-app-layout>
