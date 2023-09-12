@@ -8,10 +8,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\ActionsPosition;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -125,14 +127,11 @@ class ResponsesRelationManager extends RelationManager
                         $data['value'] !== null,
                         fn ($query) => $query->where('answers->track-second-choice', $data['value'])
                     )),
-            ])
-            ->headerActions([
-                //
-            ])
+            ], layout: FiltersLayout::AboveContent)
             ->actions([
-                Action::make('review')
-                    ->url(fn ($record) => ResponseResource::getUrl('review', ['record' => $record])),
-            ])
+                ViewAction::make()
+                    ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
+            ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 BulkAction::make('change_status')
                     ->size('md')
@@ -155,26 +154,8 @@ class ResponsesRelationManager extends RelationManager
                             ->required(),
                     ])
                     ->deselectRecordsAfterCompletion(),
-            ]);
-    }
-
-    protected function getTableActionsPosition(): ?string
-    {
-        return \Filament\Tables\Enums\ActionsPosition::BeforeCells;
-    }
-
-    protected function getTableFiltersLayout(): ?string
-    {
-        return \Filament\Tables\Enums\FiltersLayout::AboveContent;
-    }
-
-    protected function shouldPersistTableFiltersInSession(): bool
-    {
-        return true;
-    }
-
-    protected function shouldPersistTableSortInSession(): bool
-    {
-        return true;
+            ])
+            ->persistFiltersInSession()
+            ->persistSortInSession();
     }
 }

@@ -51,10 +51,9 @@ class EventItemsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('duration')
-                    ->searchable()
-                    ->sortable('start')
-                    ->formatStateUsing(fn ($record) => $record->formattedDuration),
+                TextColumn::make('formattedDuration')
+                    ->label('Duration')
+                    ->sortable(['start']),
                 TextColumn::make('location')
                     ->searchable()
                     ->sortable(),

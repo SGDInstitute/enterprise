@@ -83,16 +83,16 @@ class EventResource extends Resource
                         ])->columns(2),
                         Tab::make('Policy Tabs')->schema([
                             Repeater::make('settings.tabs')
-                            ->schema([
-                                TextInput::make('name')->required(),
-                                TextInput::make('slug')->required(),
-                                TextInput::make('icon')->required(),
-                                RichEditor::make('content')->required()->columnSpanFull(),
-                            ])
-                            ->collapsible()
-                            ->collapsed()
-                            ->cloneable()
-                            ->columns(3),
+                                ->schema([
+                                    TextInput::make('name')->required(),
+                                    TextInput::make('slug')->required(),
+                                    TextInput::make('icon')->required(),
+                                    RichEditor::make('content')->required()->columnSpanFull(),
+                                ])
+                                ->collapsible()
+                                ->collapsed()
+                                ->cloneable()
+                                ->columns(3),
                         ])->hidden(fn ($record) => $record === null),
                         Tab::make('Media')->schema([
                             SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->preserveFilenames(),

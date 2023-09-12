@@ -1,5 +1,5 @@
 <x-filament::widget>
-    <x-filament::card>
+    <x-filament::section>
         <table class="w-full">
             <tr>
                 <th class="text-xs text-left">Status</th>
@@ -8,9 +8,9 @@
             @foreach ($data as $label => $count)
             <tr>
                 <td class="py-1 pr-2">{{ $label }}</td>
-                <td class="text-right py-1 pl-2">{{ $count }}</td>
+                <td class="py-1 pl-2 text-right">{{ $count }}</td>
             </tr>
             @endforeach
         </table>
-    </x-filament::card>
+    </x-filament::section>
 </x-filament::widget>
