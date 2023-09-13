@@ -4,12 +4,9 @@ namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
 
 use App\Filament\Resources\EventResource\Pages\EditEvent;
 use App\Filament\Resources\EventResource\RelationManagers\EventItemsRelationManager;
-use App\Filament\Resources\ResponseResource\Pages\ReviewResponse;
 use App\Models\Event;
 use App\Models\EventItem;
-use App\Models\Form;
 use App\Models\Response;
-use App\Models\RfpReview;
 use App\Models\User;
 use App\Notifications\WorkshopScheduled;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,13 +28,13 @@ class EventItemsRelationManagerTest extends TestCase
             'pageClass' => EditEvent::class,
         ])
             ->callTableAction('create', data: [
-                "name" => "Workshop (Session 3)",
-                "speaker" => null,
-                "location" => null,
-                "description" => null,
-                "start" => "2023-11-04 09:00:00",
-                "end" => "2023-11-04 09:45:00",
-                "timezone" => "America/New_York",
+                'name' => 'Workshop (Session 3)',
+                'speaker' => null,
+                'location' => null,
+                'description' => null,
+                'start' => '2023-11-04 09:00:00',
+                'end' => '2023-11-04 09:45:00',
+                'timezone' => 'America/New_York',
             ])
             ->assertHasNoActionErrors();
 
@@ -57,10 +54,10 @@ class EventItemsRelationManagerTest extends TestCase
 
         $event = Event::factory()->create();
         $item = EventItem::factory()->for($event)->create([
-            "name" => "Workshop (Session 3)",
-            "start" => "2023-11-04 13:00:00",
-            "end" => "2023-11-04 13:45:00",
-            "timezone" => "America/New_York",
+            'name' => 'Workshop (Session 3)',
+            'start' => '2023-11-04 13:00:00',
+            'end' => '2023-11-04 13:45:00',
+            'timezone' => 'America/New_York',
         ]);
         $response = Response::factory()
             ->hasCollaborators(User::factory())
@@ -72,7 +69,7 @@ class EventItemsRelationManagerTest extends TestCase
             'pageClass' => EditEvent::class,
         ])
             ->callTableAction('create-sub', data: [
-                "parent_id" => $item->id,
+                'parent_id' => $item->id,
                 'workshop_id' => $response->id,
                 'location' => 'A123',
                 'track' => 'rural',
