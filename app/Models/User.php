@@ -102,6 +102,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         }
     }
 
+    public function getFormattedNameAttribute()
+    {
+        return $this->pronouns ? "{$this->name} ({$this->pronouns})" : $this->name;
+    }
+
     // Methods
 
     public function findOrCreateCustomerId()
