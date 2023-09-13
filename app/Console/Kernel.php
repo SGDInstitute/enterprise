@@ -7,6 +7,7 @@ use App\Notifications\BroadcastBulletin;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Notification;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -19,6 +20,9 @@ class Kernel extends ConsoleKernel
                 Notification::send($bulletin->event->paidAttendees()->unique(), new BroadcastBulletin($bulletin));
             });
         })->everyFiveMinutes();
+
+        $schedule->command(RunHealthChecksCommand::class)->everyMinute();
+        $schedule->command(ScheduleCheckHeartbeatCommand::class)->everyMinute();
     }
 
     protected function commands(): void

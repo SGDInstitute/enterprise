@@ -92,6 +92,12 @@ return [
             'driver' => 'octane',
         ],
 
+        'schedule-check' => [
+            'driver' => 'redis',
+            'connection' => 'cache',
+            'lock_connection' => 'default',
+        ],
+
     ],
 
     /*
