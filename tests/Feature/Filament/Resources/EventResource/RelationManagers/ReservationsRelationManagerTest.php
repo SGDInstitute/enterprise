@@ -3,17 +3,11 @@
 namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
 
 use App\Filament\Actions\MarkAsPaidAction;
-use App\Filament\Actions\MarkAsUnpaidAction;
-use App\Filament\Actions\RefundAction;
 use App\Filament\Resources\EventResource\Pages\EditEvent;
-use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
 use App\Models\Event;
 use App\Models\Order;
-use App\Models\Ticket;
-use App\Notifications\Refund;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use PHPUnit\Framework\Test;
 use Tests\TestCase;
