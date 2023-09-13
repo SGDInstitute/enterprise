@@ -50,4 +50,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('{event:slug}/program/{page?}', App\Livewire\App\Program::class)->name('app.program');
     Route::get('{event:slug}/program/schedule/{item:slug}', App\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
+
+    Route::middleware(['verified', 'has-ticket'])->group(function () {
+        Route::get('events/{event:slug}/message-board', App\Livewire\App\MessageBoard::class)->name('message-board');
+    });
 });
