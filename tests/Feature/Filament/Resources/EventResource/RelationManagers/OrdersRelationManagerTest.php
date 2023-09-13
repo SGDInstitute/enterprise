@@ -88,7 +88,7 @@ class OrdersRelationManagerTest extends TestCase
 
         $event = Event::factory()->create();
         $order = Order::factory()->for($event)->paid()->create([
-            'amount' => 2000
+            'amount' => 2000,
         ]);
         [$ticketA, $ticketB] = Ticket::factory()->for($order)->for($event)->count(2)->create();
 
@@ -113,7 +113,7 @@ class OrdersRelationManagerTest extends TestCase
 
         $event = Event::factory()->create();
         $order = Order::factory()->for($event)->paid()->create([
-            'amount' => 2000
+            'amount' => 2000,
         ]);
         [$ticketA, $ticketB] = Ticket::factory()->for($order)->for($event)->count(2)->create();
 

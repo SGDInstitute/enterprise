@@ -2,13 +2,11 @@
 
 namespace App\Filament\Actions;
 
-use App\Mail\PartialRefund;
 use App\Notifications\Refund;
 use Filament\Forms\Components\Checkbox;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
 
 class RefundAction extends Action
 {
