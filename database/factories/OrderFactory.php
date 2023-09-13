@@ -18,12 +18,12 @@ class OrderFactory extends Factory
         ];
     }
 
-    public function paid()
+    public function paid($driver = 'check')
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function (array $attributes) use ($driver) {
             return [
                 'confirmation_number' => 'CONFIRMATIONNUMBER',
-                'transaction_id' => '#1234',
+                'transaction_id' => $driver === 'check' ? '#1234' : 'pi_test_1234',
                 'status' => 'succeeded',
                 'amount' => 8500,
                 'reservation_ends' => null,
