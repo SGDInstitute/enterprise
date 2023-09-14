@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\EventItem;
 use App\Observers\EventItemObserver;
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -33,6 +35,15 @@ class AppServiceProvider extends ServiceProvider
             UsedDiskSpaceCheck::new()
                 ->warnWhenUsedSpaceIsAbovePercentage(60)
                 ->failWhenUsedSpaceIsAbovePercentage(80),
+        ]);
+
+        FilamentColor::register([
+            'danger' => Color::Red,
+            'gray' => Color::Zinc,
+            'info' => Color::Blue,
+            'primary' => Color::hex('#07807B'),
+            'success' => Color::Green,
+            'warning' => Color::Amber,
         ]);
     }
 
