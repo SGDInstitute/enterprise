@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Livewire\App;
 
-use App\Http\Livewire\App\MessageBoard;
+use App\Livewire\App\MessageBoard;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Post;
@@ -68,6 +68,7 @@ class MessageBoardTest extends TestCase
     /** @test */
     public function cannot_view_if_user_has_not_accepted_terms()
     {
+        $this->markTestIncomplete();
     }
 
     /** @test */
