@@ -12,6 +12,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -45,37 +46,35 @@ class MessageBoard extends Component implements HasForms, HasActions
                 TextInput::make('title')->required(),
                 RichEditor::make('content')->required(),
                 Select::make('tags')
-                    ->options([
-                        'Travel',
-                        'Lodging',
-                        'North Dakota',
-                        'South Dakota',
-                        'Nebraska',
-                        'Kansas',
-                        'Minnesota',
-                        'Iowa',
-                        'Missouri',
-                        'Wisconsin',
-                        'Illinois',
-                        'Michigan',
-                        'Michigan (UP)',
-                        'Indiana',
-                        'Kentucky',
-                        'Ohio',
-                    ])
+                    ->options(Tag::getWithType('posts')->pluck('name', 'name'))
                     ->multiple()
                     ->required(),
             ])
-            ->action(fn () => $this->post->delete());
+            ->action(function ($data) {
+                $post = Post::create([
+                    'event_id' => $this->event->id,
+                    'user_id' => auth()->id(),
+                    'title' => $data['title'],
+                    'content' => $data['content'],
+                ]);
+
+                $post->attachTags($data['tags'], 'posts');
+
+                Notification::make()
+                    ->success()
+                    ->title('Created post')
+                    ->body('Your post was submitted and will be visible once approved.')
+                    ->send();
+            });
     }
 
     public function getTableQuery(): Builder
     {
         return Post::forEvent($this->event)
             ->approved()
-            // ->when($this->tagsFilter !== [], function ($query) {
-            //     $query->withAllTags($this->tagsFilter, 'posts');
-            // })
+            ->when($this->tagsFilter !== [], function ($query) {
+                $query->withAllTags($this->tagsFilter, 'posts');
+            })
             ->when($this->search, function ($query) {
                 $query->where(
                     fn ($query) => $query
