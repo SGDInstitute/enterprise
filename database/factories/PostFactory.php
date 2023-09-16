@@ -15,6 +15,7 @@ class PostFactory extends Factory
     {
         return [
             'event_id' => Event::factory(),
+            'user_id' => User::factory(),
             'title' => 'Traveling to Conference',
             'content' => 'Traveling to KY from IL',
             // 'tags' => ['Illinois', 'Traveling'],

@@ -4,6 +4,8 @@ namespace App\Livewire\App;
 
 use App\Models\Event;
 use App\Models\Post;
+use App\Notifications\PostCreated;
+use App\Notifications\SlackNotifiable;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -59,6 +61,8 @@ class MessageBoard extends Component implements HasForms, HasActions
                 ]);
 
                 $post->attachTags($data['tags'], 'posts');
+
+                (new SlackNotifiable())->notify(new PostCreated($this->event, $post));
 
                 Notification::make()
                     ->success()

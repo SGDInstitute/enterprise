@@ -38,4 +38,12 @@ class Post extends Model
     {
         return $this->approved_at !== null;
     }
+
+    public function approve($user)
+    {
+        $this->update([
+            'approved_by' => $user->id,
+            'approved_at' => now(),
+        ]);
+    }
 }
