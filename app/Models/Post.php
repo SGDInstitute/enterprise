@@ -14,6 +14,11 @@ class Post extends Model
 
     protected $guarded = [];
 
+    public function approvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
