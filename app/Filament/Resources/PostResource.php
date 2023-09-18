@@ -18,7 +18,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class PostResource extends Resource
 {
@@ -69,7 +71,10 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('approved')
+                    ->query(fn (Builder $query): Builder => $query->approved()),
+                Filter::make('needs-review')
+                    ->query(fn (Builder $query): Builder => $query->unapproved()),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
