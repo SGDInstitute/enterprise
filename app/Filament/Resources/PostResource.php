@@ -2,16 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PostResource\Pages;
-use App\Filament\Resources\PostResource\Pages\CreatePost;
-use App\Filament\Resources\PostResource\Pages\EditPost;
 use App\Filament\Resources\PostResource\Pages\ListPosts;
 use App\Models\Post;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
+use Filament\Infolists\Components\Actions;
+use Filament\Infolists\Components\Actions\Action;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
@@ -32,11 +26,22 @@ class PostResource extends Resource
     {
         return $infolist
             ->schema([
+                Actions::make([
+                    Action::make('approve')
+                        ->action(function ($record) {
+                            $record->approve(auth()->user());
+                        }),
+                    Action::make('delete')
+                        ->color('danger')
+                        ->action(function ($record) {
+                            $record->delete();
+                        }),
+                ])->columnSpanFull(),
                 TextEntry::make('event.name'),
                 TextEntry::make('title'),
                 TextEntry::make('user.name'),
-                TextEntry::make('content')->prose(),
-                TextEntry::make('tags'),
+                TextEntry::make('tags.name'),
+                TextEntry::make('content')->columnSpanFull()->prose(),
             ]);
     }
 
@@ -53,7 +58,7 @@ class PostResource extends Resource
                 TextColumn::make('title')
                     ->searchable(),
                 SpatieTagsColumn::make('tags')
-                    ->type('categories'),
+                    ->type('posts'),
                 TextColumn::make('approvedBy.name')
                     ->label('Approved By')
                     ->numeric()
@@ -78,14 +83,6 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 

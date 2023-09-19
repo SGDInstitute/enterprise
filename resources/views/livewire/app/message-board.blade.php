@@ -60,7 +60,7 @@
             </div>
         </aside>
         <section class="mt-6 space-y-6 lg:col-span-3 lg:mt-0 xl:col-span-4">
-            <ul class="space-y-4">
+            <div class="grid grid-cols-1 gap-x-4 gap-y-16 lg:grid-cols-3">
                 @forelse ($records as $post)
                 <x-post wire:key="post-{{ $post->id }}" :event=$event :post=$post />
                 @empty
@@ -71,7 +71,7 @@
                     <span class="block mt-2 font-medium text-gray-900 dark:text-gray-200">No posts {{ $tagsFilter !== [] ? 'found with those filters' : 'found' }}</span>
                 </li>
                 @endforelse
-            </ul>
+            </div>
 
             <div>
                 {{ $records->links() }}

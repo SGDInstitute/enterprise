@@ -51,6 +51,11 @@ class Event extends Model implements HasMedia
         return $this->hasMany(Order::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function paidOrders()
     {
         return $this->hasMany(Order::class)->paid();
