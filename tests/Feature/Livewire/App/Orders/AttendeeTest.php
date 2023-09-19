@@ -16,7 +16,7 @@ class AttendeeTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function the_component_can_render()
+    public function the_component_can_render(): void
     {
         $user = User::factory()->create();
         $order = Order::factory()->create();

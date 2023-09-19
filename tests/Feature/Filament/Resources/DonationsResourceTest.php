@@ -15,7 +15,7 @@ class DonationsResourceTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function can_view_all_donations()
+    public function can_view_all_donations(): void
     {
         $donations = Donation::factory()->count(5)->create();
 
@@ -24,7 +24,7 @@ class DonationsResourceTest extends TestCase
     }
 
     #[Test]
-    public function can_view_one_time_donation()
+    public function can_view_one_time_donation(): void
     {
         $donation = Donation::factory()->create(['type' => 'one-time']);
 

@@ -14,7 +14,7 @@ class UpcomingEventsTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function can_list_future_and_current_events()
+    public function can_list_future_and_current_events(): void
     {
         $future = Event::factory()->future()->create();
         $current = Event::factory()->current()->create();

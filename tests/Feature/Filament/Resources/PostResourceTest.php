@@ -27,7 +27,7 @@ class PostResourceTest extends TestCase
     }
 
     #[Test]
-    public function can_view_posts_list()
+    public function can_view_posts_list(): void
     {
         $posts = Post::factory()->count(2)->create();
 

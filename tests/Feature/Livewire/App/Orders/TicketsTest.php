@@ -192,7 +192,7 @@ class TicketsTest extends TestCase
     }
 
     #[Test]
-    public function can_invite_user_to_ticket()
+    public function can_invite_user_to_ticket(): void
     {
         Notification::fake();
 

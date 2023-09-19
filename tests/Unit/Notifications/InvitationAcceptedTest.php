@@ -17,7 +17,7 @@ class InvitationAcceptedTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function response_notification_has_url()
+    public function response_notification_has_url(): void
     {
         $response = Response::factory()->create();
         $user = User::factory()->create();
@@ -28,7 +28,7 @@ class InvitationAcceptedTest extends TestCase
     }
 
     #[Test]
-    public function ticket_notification_has_url()
+    public function ticket_notification_has_url(): void
     {
         $order = Order::factory()->create();
         $user = User::factory()->create();
@@ -40,7 +40,7 @@ class InvitationAcceptedTest extends TestCase
     }
 
     #[Test]
-    public function ticket_notification_pending_invitation_many()
+    public function ticket_notification_pending_invitation_many(): void
     {
         $order = Order::factory()->hasTickets(2)->create();
         $user = User::factory()->create();
@@ -52,7 +52,7 @@ class InvitationAcceptedTest extends TestCase
     }
 
     #[Test]
-    public function ticket_notification_pending_invitation_single()
+    public function ticket_notification_pending_invitation_single(): void
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();
@@ -64,7 +64,7 @@ class InvitationAcceptedTest extends TestCase
     }
 
     #[Test]
-    public function ticket_notification_to_assign_many()
+    public function ticket_notification_to_assign_many(): void
     {
         $order = Order::factory()->hasTickets(2)->create();
         $user = User::factory()->create();
@@ -75,7 +75,7 @@ class InvitationAcceptedTest extends TestCase
     }
 
     #[Test]
-    public function ticket_notification_to_assign_single()
+    public function ticket_notification_to_assign_single(): void
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();
@@ -86,7 +86,7 @@ class InvitationAcceptedTest extends TestCase
     }
 
     #[Test]
-    public function ticket_payment_reminder_if_reservation()
+    public function ticket_payment_reminder_if_reservation(): void
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();

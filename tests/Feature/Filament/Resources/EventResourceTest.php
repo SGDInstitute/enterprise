@@ -44,7 +44,7 @@ class EventResourceTest extends TestCase
     }
 
     #[Test]
-    public function can_bulk_delete_reservations()
+    public function can_bulk_delete_reservations(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -68,7 +68,7 @@ class EventResourceTest extends TestCase
     }
 
     #[Test]
-    public function can_bulk_delete_orders()
+    public function can_bulk_delete_orders(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();

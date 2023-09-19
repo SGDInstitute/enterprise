@@ -15,7 +15,7 @@ class PaymentTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function the_component_can_render()
+    public function the_component_can_render(): void
     {
         $user = User::factory()->create();
         $order = Order::factory()->for($user)->hasTickets(2)->create();
@@ -26,7 +26,7 @@ class PaymentTest extends TestCase
     }
 
     #[Test]
-    public function can_download_invoice()
+    public function can_download_invoice(): void
     {
         $user = User::factory()->create();
         $order = Order::factory()->for($user)->hasTickets(2)->create();

@@ -18,7 +18,7 @@ class UserResourceTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function can_bulk_delete_users()
+    public function can_bulk_delete_users(): void
     {
         $users = User::factory()->count(5)->create();
 
@@ -32,7 +32,7 @@ class UserResourceTest extends TestCase
     }
 
     #[Test]
-    public function can_delete_all_unverified_users_without_other_data()
+    public function can_delete_all_unverified_users_without_other_data(): void
     {
         $deletableUsers = User::factory()->times(5)->unverified()->create();
         $verifiedUser = User::factory()->create();

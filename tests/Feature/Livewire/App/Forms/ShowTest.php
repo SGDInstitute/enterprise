@@ -66,7 +66,7 @@ class ShowTest extends TestCase
     }
 
     #[Test]
-    public function adding_collaborator_creates_an_invite()
+    public function adding_collaborator_creates_an_invite(): void
     {
         Notification::fake();
 
@@ -98,7 +98,7 @@ class ShowTest extends TestCase
     }
 
     #[Test]
-    public function can_remove_invite()
+    public function can_remove_invite(): void
     {
         Mail::fake();
 
@@ -133,7 +133,7 @@ class ShowTest extends TestCase
     }
 
     #[Test]
-    public function user_must_be_verified_before_filling()
+    public function user_must_be_verified_before_filling(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $form = Form::factory()->for($event)->preset('new-workshop')->create([
@@ -150,7 +150,7 @@ class ShowTest extends TestCase
     }
 
     #[Test]
-    public function can_confirm_if_accepted()
+    public function can_confirm_if_accepted(): void
     {
         $user = User::factory()->create();
         $form = Form::factory()->create(['form' => [

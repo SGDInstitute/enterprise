@@ -17,7 +17,7 @@ class ShowTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function user_must_be_verified_before_filling()
+    public function user_must_be_verified_before_filling(): void
     {
         $user = User::factory()->unverified()->create();
         $event = Event::factory()->preset('mblgtacc')->create();

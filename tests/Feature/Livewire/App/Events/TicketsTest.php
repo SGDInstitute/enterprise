@@ -38,7 +38,7 @@ class TicketsTest extends TestCase
     }
 
     #[Test]
-    public function inputs_are_disabled_if_user_is_unverified()
+    public function inputs_are_disabled_if_user_is_unverified(): void
     {
         $user = User::factory()->unverified()->create();
         $event = Event::factory()->preset('mblgtacc')->create();

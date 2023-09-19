@@ -14,7 +14,7 @@ class OpenFormsTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function can_list_current_forms()
+    public function can_list_current_forms(): void
     {
         $future = Form::factory()->future()->create();
         $current = Form::factory()->current()->create();

@@ -10,7 +10,7 @@ use Tests\TestCase;
 class ChecklistTest extends TestCase
 {
     #[Test]
-    public function the_component_can_render()
+    public function the_component_can_render(): void
     {
         $component = Livewire::test(Checklist::class);
 

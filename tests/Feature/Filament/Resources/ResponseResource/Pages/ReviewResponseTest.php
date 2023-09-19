@@ -17,7 +17,7 @@ class ReviewResponseTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function can_view_details_of_response()
+    public function can_view_details_of_response(): void
     {
         $form = Form::factory()->create(['form' => [
             ['data' => ['id' => 'timeline-information', 'content' => '<h2>Application Timeline</h2>'], 'type' => 'content'],
@@ -33,7 +33,7 @@ class ReviewResponseTest extends TestCase
     }
 
     #[Test]
-    public function can_add_review()
+    public function can_add_review(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();
@@ -71,7 +71,7 @@ class ReviewResponseTest extends TestCase
     }
 
     #[Test]
-    public function can_edit_review()
+    public function can_edit_review(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();
@@ -119,7 +119,7 @@ class ReviewResponseTest extends TestCase
     }
 
     #[Test]
-    public function cannot_review_your_own_proposal()
+    public function cannot_review_your_own_proposal(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();
@@ -152,7 +152,7 @@ class ReviewResponseTest extends TestCase
     }
 
     #[Test]
-    public function cannot_review_a_work_in_progress()
+    public function cannot_review_a_work_in_progress(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();

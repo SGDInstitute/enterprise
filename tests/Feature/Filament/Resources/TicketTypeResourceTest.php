@@ -18,7 +18,7 @@ class TicketTypeResourceTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function can_create_ticket_type()
+    public function can_create_ticket_type(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         Livewire::test(CreateTicketType::class)
@@ -43,7 +43,7 @@ class TicketTypeResourceTest extends TestCase
     }
 
     #[Test]
-    public function can_edit_ticket_type()
+    public function can_edit_ticket_type(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create([
