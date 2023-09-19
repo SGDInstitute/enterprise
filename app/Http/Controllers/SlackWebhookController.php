@@ -13,11 +13,11 @@ class SlackWebhookController extends Controller
     {
         $payload = json_decode($request->get('payload'));
 
-        $slackUser = $payload->user;
-        $user = User::firstWhere('email', $slackUser->username . '@sgdinstitute.org');
-        // handle if user is null
+        $email =  $payload->user->username . '@sgdinstitute.org';
+        $user = User::firstWhere('email', $email);
 
-        // find post
+        abort_if($user === null, 404, "User not found with email: {$email}");
+
         $post = Post::findOrFail($payload->actions[0]->value);
 
         if ($payload->actions[0]->action_id === 'approve_post') {
