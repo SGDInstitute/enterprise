@@ -16,7 +16,7 @@
             <p class="font-semibold text-gray-900">
                 {{ $post->user->formattedName }}
             </p>
-            <p class="text-gray-600">Co-Founder / CTO</p>
+            <p class="text-gray-600">{{ $post->user->email }}</p>
         </div>
     </div>
 </article>
