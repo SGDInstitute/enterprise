@@ -21,6 +21,7 @@
         </div>
     </section>
 
+    @if ($acceptedTerms)
     <div class="max-w-2xl px-4 py-10 mx-auto sm:px-0 lg:max-w-7xl lg:py-16 lg:grid lg:grid-cols-4 lg:gap-x-8 xl:grid-cols-5">
         <aside x-data="{show: false}" x-on:resize.debounce.window="show = (window.innerWidth > 1024) ? true : false" x-init="show = (window.innerWidth > 1024) ? true : false">
             <div class="flex space-x-4">
@@ -78,6 +79,40 @@
             </div>
         </section>
     </div>
+    @else
+    <div class="prose px-4 py-10 mx-auto sm:px-0 lg:py-16">
+        <p>Welcome! The MBLGTACC Attendee Message Board is for those considering or planning to attend MBLGTACC to: </p>
+        <ul>
+            <li>Coordinate rideshares, share a hotel room, and other ways to share the cost of attending MBLGTACC. Ex: you coordinate a bus that picks up students at a few different schools and everyone goes in on the price of booking the bus.</li>
+            <li>Seek out co-presenters for workshop ideas</li>
+        </ul>
+
+        <p>This posting board is NOT for:</p>
+        <ul>
+            <li>Contacting MBLGTACC staff with questions about the conference. For a prompt reply, contact us at <a href="https://mblgtacc.org/contact">mblgtacc.org/contact</a></li>
+            <li>Selling, advertising or any other forms of self-promotion</li>
+            <li>Content that is not directly related to MBLGTACC</li>
+        </ul>
+
+        <p class="italic">The Midwest Institute for Sexuality and Gender Diversity offers this posting board as a service to attendees for the above named purpose(s). We will review each submitted post before it is approved and published; however, we claim no responsibility for any inaccurate or misleading content.</p>
+
+        <p class="italic">By using this board, you agree not to:</p>
+        <ul class="italic">
+            <li>upload, post, display, distribute or otherwise publish on the board any material that is libelous, defamatory, discriminatory, obscene, pornographic, harassing or abusive, infringes any copyright, trademark, or other proprietary right, violates any right of publicity or privacy, or is otherwise illegal;</li>
+            <li>use the board to post deliberately disruptive repetitive messages;</li>
+            <li>impersonate any other person or entity; or,</li>
+            <li>upload any information, files, code or other materials that contain viruses or are able to disrupt or damage our sites, software, hardware or equipment or collect or use information about other users for any purpose.</li>
+        </ul>
+
+        <p class="italic">You acknowledge that messages and any other content you post or submit are not private or confidential.</p>
+
+        <p class="italic">By using this service, you agree that the Midwest Institute for Sexuality and Gender Diversity is not liable for any damages arising out of or in connection with using the board.</p>
+
+        <p class="italic">If you have questions or concerns about the content or use of this board, please contact us.</p>
+
+        {{ $this->acceptAction }}
+    </div>
+    @endif
 
     <x-filament-actions::modals />
 </div>

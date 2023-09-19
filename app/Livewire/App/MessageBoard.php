@@ -28,9 +28,15 @@ class MessageBoard extends Component implements HasForms, HasActions
 
     public Event $event;
 
+    public $acceptedTerms = false;
     public $perPage = 12;
     public $search = '';
     public $tagsFilter = [];
+
+    public function mount()
+    {
+        $this->acceptedTerms = isset(auth()->user()->terms[$this->event->slug]);
+    }
 
     public function render()
     {
@@ -69,6 +75,16 @@ class MessageBoard extends Component implements HasForms, HasActions
                     ->title('Created post')
                     ->body('Your post was submitted and will be visible once approved.')
                     ->send();
+            });
+    }
+
+    public function acceptAction(): Action
+    {
+        return Action::make('accept')
+            ->label('Accept Terms')
+            ->action(function () {
+                auth()->user()->acceptTerms($this->event);
+                $this->acceptedTerms = true;
             });
     }
 

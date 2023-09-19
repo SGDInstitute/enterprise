@@ -68,7 +68,18 @@ class MessageBoardTest extends TestCase
     /** @test */
     public function cannot_view_if_user_has_not_accepted_terms()
     {
-        $this->markTestIncomplete();
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
+        Ticket::factory()->for($user)->for($event)->create();
+        Post::factory()->approved()->create(['title' => 'Hello world']);
+
+        Livewire::actingAs($user)
+            ->test(MessageBoard::class, ['event' => $event])
+            ->assertDontSee('Hello world')
+            ->assertSee('Welcome! The MBLGTACC Attendee Message Board')
+            ->callAction('accept');
+
+        $this->assertNotNull($user->terms[$event->slug]);
     }
 
     /** @test */
@@ -91,7 +102,7 @@ class MessageBoardTest extends TestCase
     public function can_view_posts()
     {
         $event = Event::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         Post::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world']);
 
         Livewire::actingAs($user)
@@ -103,7 +114,7 @@ class MessageBoardTest extends TestCase
     public function can_filter_posts()
     {
         $event = Event::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $tag = Tag::create(['name' => 'illinois']);
         Post::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world']);
 
@@ -118,7 +129,7 @@ class MessageBoardTest extends TestCase
     public function can_search_posts_by_title()
     {
         $event = Event::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         Post::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world']);
         Post::factory()->for($user)->for($event)->approved()->create(['title' => 'New Post']);
 
@@ -136,7 +147,7 @@ class MessageBoardTest extends TestCase
     public function can_search_posts_by_content()
     {
         $event = Event::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         Post::factory()->for($user)->for($event)->approved()->create(['title' => 'Hello world', 'content' => 'Foo Bar']);
         Post::factory()->for($user)->for($event)->approved()->create(['title' => 'New Post', 'content' => 'Baz']);
 
@@ -154,7 +165,7 @@ class MessageBoardTest extends TestCase
     public function filtering_posts_does_not_show_unapproved()
     {
         $event = Event::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $tag = Tag::create(['name' => 'illinois']);
         $post = Post::factory()->for($user)->for($event)->create(['title' => 'Hello world']);
         $post->attachTag($tag);
@@ -170,7 +181,7 @@ class MessageBoardTest extends TestCase
     public function searching_posts_by_title_does_not_show_unapproved()
     {
         $event = Event::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         Post::factory()->for($user)->for($event)->create(['title' => 'New Post']);
 
         Livewire::actingAs($user)
@@ -185,7 +196,7 @@ class MessageBoardTest extends TestCase
     public function searching_posts_by_content_does_not_show_unapproved()
     {
         $event = Event::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $post = Post::factory()->for($user)->for($event)->create([
             'title' => 'Hello world',
             'content' => 'Foo Bar',
