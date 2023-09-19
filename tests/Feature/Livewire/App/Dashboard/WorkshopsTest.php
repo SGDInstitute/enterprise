@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Livewire\App\Dashboard;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Dashboard\Workshops;
 use App\Models\Response;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class WorkshopsTest extends TestCase

@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Notifications;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Invitation;
 use App\Models\Order;
 use App\Models\Response;
@@ -10,6 +9,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\InvitationAccepted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class InvitationAcceptedTest extends TestCase

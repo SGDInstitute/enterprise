@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Orders\Checklist;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ChecklistTest extends TestCase

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Actions\MarkAsPaidAction;
 use App\Filament\Resources\EventResource\Pages\EditEvent;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
@@ -10,6 +9,7 @@ use App\Models\Event;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Test;
 use Tests\TestCase;
 

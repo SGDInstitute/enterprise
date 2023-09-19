@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Livewire\App;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\MessageBoard;
 use App\Models\Event;
 use App\Models\Order;
@@ -11,6 +10,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Tags\Tag;
 use Tests\TestCase;
 

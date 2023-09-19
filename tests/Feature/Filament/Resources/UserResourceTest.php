@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Filament\Resources;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Models\Donation;
 use App\Models\Order;
@@ -11,6 +10,7 @@ use App\Models\User;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class UserResourceTest extends TestCase

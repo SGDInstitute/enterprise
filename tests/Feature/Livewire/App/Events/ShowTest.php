@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Livewire\App\Events;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Events\Show;
 use App\Models\Event;
 use App\Models\TicketType;
@@ -10,6 +9,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ShowTest extends TestCase

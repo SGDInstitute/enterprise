@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Livewire\App\Forms;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Forms\Show;
 use App\Models\Event;
 use App\Models\Form;
@@ -13,6 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ShowTest extends TestCase

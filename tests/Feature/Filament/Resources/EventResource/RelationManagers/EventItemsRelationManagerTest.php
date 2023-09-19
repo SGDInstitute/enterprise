@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\EventResource\Pages\EditEvent;
 use App\Filament\Resources\EventResource\RelationManagers\EventItemsRelationManager;
 use App\Models\Event;
@@ -13,6 +12,7 @@ use App\Notifications\WorkshopScheduled;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class EventItemsRelationManagerTest extends TestCase

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Filament\Resources;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Actions\SafeDeleteBulkAction;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
@@ -15,6 +14,7 @@ use App\Models\TicketType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class EventResourceTest extends TestCase

@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Models;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class ResponseTest extends TestCase

@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Filament\Widgets;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Widgets\UpcomingEvents;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class UpcomingEventsTest extends TestCase

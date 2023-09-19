@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Controllers;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class SlackWebhookControllerTest extends TestCase

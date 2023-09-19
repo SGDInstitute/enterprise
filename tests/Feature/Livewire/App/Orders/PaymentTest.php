@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Orders\Payment;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class PaymentTest extends TestCase

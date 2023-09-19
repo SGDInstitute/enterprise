@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Models;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class FormTest extends TestCase

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Orders\Tickets;
 use App\Models\Event;
 use App\Models\Order;
@@ -15,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class TicketsTest extends TestCase

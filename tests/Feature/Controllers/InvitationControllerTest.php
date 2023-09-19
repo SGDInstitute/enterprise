@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Controllers;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Invitation;
 use App\Models\Response;
 use App\Models\Ticket;
@@ -10,6 +9,7 @@ use App\Models\User;
 use App\Notifications\InvitationAccepted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class InvitationControllerTest extends TestCase

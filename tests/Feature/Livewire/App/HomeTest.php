@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Livewire\App;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Home;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class HomeTest extends TestCase
