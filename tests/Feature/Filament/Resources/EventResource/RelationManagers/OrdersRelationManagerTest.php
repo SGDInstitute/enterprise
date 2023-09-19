@@ -17,7 +17,7 @@ use Livewire\Livewire;
 use PHPUnit\Framework\Test;
 use Tests\TestCase;
 
-class OrdersRelationManagerTest extends TestCase
+final class OrdersRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 

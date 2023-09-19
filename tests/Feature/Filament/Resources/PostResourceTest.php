@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class PostResourceTest extends TestCase
+final class PostResourceTest extends TestCase
 {
     use RefreshDatabase;
 

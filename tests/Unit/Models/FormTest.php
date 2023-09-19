@@ -7,7 +7,7 @@ use App\Models\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class FormTest extends TestCase
+final class FormTest extends TestCase
 {
     use RefreshDatabase;
 

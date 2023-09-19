@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class TicketsTest extends TestCase
+final class TicketsTest extends TestCase
 {
     use RefreshDatabase;
 

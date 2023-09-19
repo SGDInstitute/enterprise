@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class UpcomingEventsTest extends TestCase
+final class UpcomingEventsTest extends TestCase
 {
     use RefreshDatabase;
 

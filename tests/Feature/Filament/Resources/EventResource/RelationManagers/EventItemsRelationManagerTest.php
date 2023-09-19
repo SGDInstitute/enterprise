@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class EventItemsRelationManagerTest extends TestCase
+final class EventItemsRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 

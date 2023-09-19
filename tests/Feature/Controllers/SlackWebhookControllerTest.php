@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
-class SlackWebhookControllerTest extends TestCase
+final class SlackWebhookControllerTest extends TestCase
 {
     use RefreshDatabase;
 

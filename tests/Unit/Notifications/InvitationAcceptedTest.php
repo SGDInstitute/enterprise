@@ -12,7 +12,7 @@ use App\Notifications\InvitationAccepted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class InvitationAcceptedTest extends TestCase
+final class InvitationAcceptedTest extends TestCase
 {
     use RefreshDatabase;
 

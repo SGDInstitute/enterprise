@@ -7,7 +7,7 @@ use App\Models\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
 
-class ResponseTest extends TestCase
+final class ResponseTest extends TestCase
 {
     use RefreshDatabase;
 

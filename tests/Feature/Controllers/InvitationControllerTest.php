@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-class InvitationControllerTest extends TestCase
+final class InvitationControllerTest extends TestCase
 {
     use RefreshDatabase;
 

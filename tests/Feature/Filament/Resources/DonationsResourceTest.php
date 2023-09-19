@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class DonationsResourceTest extends TestCase
+final class DonationsResourceTest extends TestCase
 {
     use RefreshDatabase;
 

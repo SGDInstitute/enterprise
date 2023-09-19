@@ -14,7 +14,7 @@ use Livewire\Livewire;
 use Spatie\Tags\Tag;
 use Tests\TestCase;
 
-class MessageBoardTest extends TestCase
+final class MessageBoardTest extends TestCase
 {
     use RefreshDatabase;
 

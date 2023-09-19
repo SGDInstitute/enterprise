@@ -13,7 +13,7 @@ use Livewire\Livewire;
 use PHPUnit\Framework\Test;
 use Tests\TestCase;
 
-class ReservationsRelationManagerTest extends TestCase
+final class ReservationsRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 

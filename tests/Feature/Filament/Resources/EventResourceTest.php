@@ -17,7 +17,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class EventResourceTest extends TestCase
+final class EventResourceTest extends TestCase
 {
     use RefreshDatabase;
 

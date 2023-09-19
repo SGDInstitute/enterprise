@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class TicketsTest extends TestCase
+final class TicketsTest extends TestCase
 {
     use RefreshDatabase;
 

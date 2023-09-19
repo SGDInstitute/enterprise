@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class OpenFormsTest extends TestCase
+final class OpenFormsTest extends TestCase
 {
     use RefreshDatabase;
 

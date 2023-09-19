@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class UserResourceTest extends TestCase
+final class UserResourceTest extends TestCase
 {
     use RefreshDatabase;
 

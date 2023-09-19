@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class HomeTest extends TestCase
+final class HomeTest extends TestCase
 {
     use RefreshDatabase;
 

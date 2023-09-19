@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class TicketTypeResourceTest extends TestCase
+final class TicketTypeResourceTest extends TestCase
 {
     use RefreshDatabase;
 

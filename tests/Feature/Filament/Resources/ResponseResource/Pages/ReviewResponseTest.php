@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ReviewResponseTest extends TestCase
+final class ReviewResponseTest extends TestCase
 {
     use RefreshDatabase;
 

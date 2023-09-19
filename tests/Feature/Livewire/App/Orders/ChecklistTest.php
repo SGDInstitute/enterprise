@@ -7,7 +7,7 @@ use App\Livewire\App\Orders\Checklist;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ChecklistTest extends TestCase
+final class ChecklistTest extends TestCase
 {
     #[Test]
     public function the_component_can_render(): void

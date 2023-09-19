@@ -14,7 +14,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class OrdersReservationsTest extends TestCase
+final class OrdersReservationsTest extends TestCase
 {
     use RefreshDatabase;
 
