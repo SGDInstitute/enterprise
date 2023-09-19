@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\InvitationController;
-use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\SlackWebhookController;
+use App\Http\Controllers\StripeWebhookController;
 use App\Http\Middleware\VerifySlack;
 use Illuminate\Support\Facades\Route;
 

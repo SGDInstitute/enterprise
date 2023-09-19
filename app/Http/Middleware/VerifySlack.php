@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Exception;
 use Carbon\Carbon;
 use Closure;
-use Illuminate\Support\Facades\Log;
+use Exception;
 
 class VerifySlack
 {
@@ -13,10 +12,9 @@ class VerifySlack
      * Validate a slack request
      * by the slack signing secret (not the token)
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return mixed
+     *
      * @throws Exception
      */
     public function handle($request, Closure $next)
@@ -39,7 +37,7 @@ class VerifySlack
         // the gap should under 5 minutes
         $timestamp = $request->header('X-Slack-Request-Timestamp');
         if (Carbon::now()->diffInMinutes(Carbon::createFromTimestamp($timestamp)) > 5) {
-            throw new Exception("Invalid timstamp, too much gap");
+            throw new Exception('Invalid timstamp, too much gap');
         }
 
         // generate the string base
@@ -54,7 +52,7 @@ class VerifySlack
 
         // check two signs, if not match, throw an error
         if ($remote_signature !== $local_signature) {
-            throw new Exception("Invalid signature");
+            throw new Exception('Invalid signature');
         }
 
         return $next($request);

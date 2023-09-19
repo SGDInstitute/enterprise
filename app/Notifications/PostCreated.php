@@ -43,7 +43,7 @@ class PostCreated extends Notification implements ShouldQueue
                 $block->field($this->post->tags->count() > 0 ? $this->post->tags->implode('name', ', ') : 'none');
             })
             ->sectionBlock(function (SectionBlock $block) {
-                $markdown = (new HtmlConverter())->convert($this->post->content);
+                $markdown = (new HtmlConverter)->convert($this->post->content);
                 $block->text($markdown)->markdown();
             })
             ->actionsBlock(function (ActionsBlock $block) {

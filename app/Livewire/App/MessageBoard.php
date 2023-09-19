@@ -62,7 +62,7 @@ class MessageBoard extends Component implements HasForms, HasActions
 
                 $post->attachTags($data['tags'], 'posts');
 
-                (new SlackNotifiable())->notify(new PostCreated($this->event, $post));
+                (new SlackNotifiable)->notify(new PostCreated($this->event, $post));
 
                 Notification::make()
                     ->success()

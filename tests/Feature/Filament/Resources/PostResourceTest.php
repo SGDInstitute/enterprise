@@ -4,7 +4,6 @@ namespace Tests\Feature\Filament\Resources;
 
 use App\Filament\Resources\PostResource;
 use App\Filament\Resources\PostResource\Pages\ListPosts;
-use App\Models\Event;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
