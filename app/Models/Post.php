@@ -39,6 +39,11 @@ class Post extends Model
         $query->where('event_id', $event->id);
     }
 
+    public function scopeUnapproved(Builder $query): void
+    {
+        $query->whereNull('approved_at')->whereNull('approved_by');
+    }
+
     public function getIsApprovedAttribute()
     {
         return $this->approved_at !== null;
