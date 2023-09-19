@@ -32,7 +32,7 @@
                                 <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <x-bit.input.text x-ref="searchInput" class="w-full pl-10" id="search" wire:model="search" placeholder="Search" type="search" />
+                        <x-bit.input.text x-ref="searchInput" class="w-full pl-10" id="search" wire:model.live="search" placeholder="Search" type="search" />
                         <div class="hidden absolute inset-y-0 right-0 py-1.5 pr-1.5 lg:flex">
                             <kbd class="inline-flex items-center px-2 font-sans text-sm font-medium text-gray-400 border border-gray-200 rounded dark:border-gray-800">⌘K</kbd>
                         </div>
@@ -51,7 +51,7 @@
                     <div class="pt-6 space-y-3">
                         @foreach ($tags as $tag)
                         <div class="flex items-center" wire:key="tags-{{ $tag->id }}">
-                            <input id="tag-{{ $tag->id }}" value="{{ $tag->slug }}" wire:model="tagsFilter" type="checkbox" class="w-4 h-4 bg-white border-gray-300 rounded dark:border-gray-700 dark:bg-gray-800 text-brand-600 focus:ring-brand-500" />
+                            <input id="tag-{{ $tag->id }}" value="{{ $tag->slug }}" wire:model.live="tagsFilter" type="checkbox" class="w-4 h-4 bg-white border-gray-300 rounded dark:border-gray-700 dark:bg-gray-800 text-brand-600 focus:ring-brand-500" />
                             <label for="tag-{{ $tag->id }}" class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ $tag->name }}</label>
                         </div>
                         @endforeach
