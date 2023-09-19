@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Forms;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Forms\Show;
 use App\Models\Event;
 use App\Models\Form;
@@ -18,7 +19,7 @@ class ShowTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function reminders_are_set_when_workshop_response_saved(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -41,7 +42,7 @@ class ShowTest extends TestCase
         $this->assertCount(0, $response->reminders);
     }
 
-    /** @test */
+    #[Test]
     public function only_reminders_available_before_form_end_are_set_when_workshop_response_saved(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -64,7 +65,7 @@ class ShowTest extends TestCase
         $this->assertCount(0, $response->reminders);
     }
 
-    /** @test */
+    #[Test]
     public function adding_collaborator_creates_an_invite()
     {
         Notification::fake();
@@ -96,7 +97,7 @@ class ShowTest extends TestCase
         Notification::assertSentOnDemand(AddedAsCollaborator::class);
     }
 
-    /** @test */
+    #[Test]
     public function can_remove_invite()
     {
         Mail::fake();
@@ -131,7 +132,7 @@ class ShowTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_must_be_verified_before_filling()
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -148,7 +149,7 @@ class ShowTest extends TestCase
             ->assertSet('fillable', false);
     }
 
-    /** @test */
+    #[Test]
     public function can_confirm_if_accepted()
     {
         $user = User::factory()->create();

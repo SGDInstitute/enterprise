@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Orders\Attendee;
 use App\Models\Order;
 use App\Models\Ticket;
@@ -14,7 +15,7 @@ class AttendeeTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function the_component_can_render()
     {
         $user = User::factory()->create();

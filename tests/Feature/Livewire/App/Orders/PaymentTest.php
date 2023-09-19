@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Orders\Payment;
 use App\Models\Order;
 use App\Models\User;
@@ -13,7 +14,7 @@ class PaymentTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function the_component_can_render()
     {
         $user = User::factory()->create();
@@ -24,7 +25,7 @@ class PaymentTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function can_download_invoice()
     {
         $user = User::factory()->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\DonationResource\Pages\ListDonations;
 use App\Filament\Resources\DonationResource\Pages\ViewDonation;
 use App\Models\Donation;
@@ -13,7 +14,7 @@ class DonationsResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_all_donations()
     {
         $donations = Donation::factory()->count(5)->create();
@@ -22,7 +23,7 @@ class DonationsResourceTest extends TestCase
             ->assertCanSeeTableRecords($donations);
     }
 
-    /** @test */
+    #[Test]
     public function can_view_one_time_donation()
     {
         $donation = Donation::factory()->create(['type' => 'one-time']);

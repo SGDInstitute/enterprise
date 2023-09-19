@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Notifications;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Invitation;
 use App\Models\Order;
 use App\Models\Response;
@@ -15,7 +16,7 @@ class InvitationAcceptedTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function response_notification_has_url()
     {
         $response = Response::factory()->create();
@@ -26,7 +27,7 @@ class InvitationAcceptedTest extends TestCase
         $this->assertEquals(route('app.forms.show', ['form' => $response->form, 'edit' => $response]), $notification->actionUrl);
     }
 
-    /** @test */
+    #[Test]
     public function ticket_notification_has_url()
     {
         $order = Order::factory()->create();
@@ -38,7 +39,7 @@ class InvitationAcceptedTest extends TestCase
         $this->assertEquals(route('app.orders.show', $order), $notification->actionUrl);
     }
 
-    /** @test */
+    #[Test]
     public function ticket_notification_pending_invitation_many()
     {
         $order = Order::factory()->hasTickets(2)->create();
@@ -50,7 +51,7 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There are 2 pending invitations.', $notification);
     }
 
-    /** @test */
+    #[Test]
     public function ticket_notification_pending_invitation_single()
     {
         $order = Order::factory()->hasTickets(1)->create();
@@ -62,7 +63,7 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There is 1 pending invitation.', $notification);
     }
 
-    /** @test */
+    #[Test]
     public function ticket_notification_to_assign_many()
     {
         $order = Order::factory()->hasTickets(2)->create();
@@ -73,7 +74,7 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There are 2 tickets that have not been assigned.', $notification);
     }
 
-    /** @test */
+    #[Test]
     public function ticket_notification_to_assign_single()
     {
         $order = Order::factory()->hasTickets(1)->create();
@@ -84,7 +85,7 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There is 1 ticket that has not been assigned.', $notification);
     }
 
-    /** @test */
+    #[Test]
     public function ticket_payment_reminder_if_reservation()
     {
         $order = Order::factory()->hasTickets(1)->create();

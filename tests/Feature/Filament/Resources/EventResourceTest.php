@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Actions\SafeDeleteBulkAction;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
@@ -20,7 +21,7 @@ class EventResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_events(): void
     {
         $user = User::factory()->admin()->create();
@@ -31,7 +32,7 @@ class EventResourceTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function can_edit_event(): void
     {
         $user = User::factory()->admin()->create();
@@ -42,7 +43,7 @@ class EventResourceTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function can_bulk_delete_reservations()
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -66,7 +67,7 @@ class EventResourceTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function can_bulk_delete_orders()
     {
         $event = Event::factory()->preset('mblgtacc')->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\ResponseResource\Pages\ReviewResponse;
 use App\Models\Form;
 use App\Models\Response;
@@ -15,7 +16,7 @@ class ReviewResponseTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_details_of_response()
     {
         $form = Form::factory()->create(['form' => [
@@ -31,7 +32,7 @@ class ReviewResponseTest extends TestCase
             ->assertSee('Hello world');
     }
 
-    /** @test */
+    #[Test]
     public function can_add_review()
     {
         // @todo update to action implementation
@@ -69,7 +70,7 @@ class ReviewResponseTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function can_edit_review()
     {
         // @todo update to action implementation
@@ -117,7 +118,7 @@ class ReviewResponseTest extends TestCase
         $this->assertEquals('Seems pretty bad, like it was automatically filled.', $review->notes);
     }
 
-    /** @test */
+    #[Test]
     public function cannot_review_your_own_proposal()
     {
         // @todo update to action implementation
@@ -150,7 +151,7 @@ class ReviewResponseTest extends TestCase
             ->assertFormFieldIsDisabled('notes');
     }
 
-    /** @test */
+    #[Test]
     public function cannot_review_a_work_in_progress()
     {
         // @todo update to action implementation

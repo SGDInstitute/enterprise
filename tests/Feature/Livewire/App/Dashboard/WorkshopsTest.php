@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Dashboard;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Dashboard\Workshops;
 use App\Models\Response;
 use App\Models\User;
@@ -13,7 +14,7 @@ class WorkshopsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_all_workshops(): void
     {
         $user = User::factory()->create();
@@ -24,7 +25,7 @@ class WorkshopsTest extends TestCase
             ->assertCount('workshops', 5);
     }
 
-    /** @test */
+    #[Test]
     public function collaborator_can_view_workshop(): void
     {
         $collaborator = User::factory()->create();

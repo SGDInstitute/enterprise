@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Widgets;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Widgets\OpenForms as WidgetsOpenForms;
 use App\Models\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +13,7 @@ class OpenFormsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_list_current_forms()
     {
         $future = Form::factory()->future()->create();

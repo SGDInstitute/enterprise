@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Models\Donation;
 use App\Models\Order;
@@ -16,7 +17,7 @@ class UserResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_bulk_delete_users()
     {
         $users = User::factory()->count(5)->create();
@@ -30,7 +31,7 @@ class UserResourceTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function can_delete_all_unverified_users_without_other_data()
     {
         $deletableUsers = User::factory()->times(5)->unverified()->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Events;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Events\Tickets;
 use App\Models\Event;
 use App\Models\TicketType;
@@ -15,7 +16,7 @@ class TicketsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function future_ticket_types_are_disabled(): void
     {
         $user = User::factory()->create();
@@ -36,7 +37,7 @@ class TicketsTest extends TestCase
             ->assertHasErrors();
     }
 
-    /** @test */
+    #[Test]
     public function inputs_are_disabled_if_user_is_unverified()
     {
         $user = User::factory()->unverified()->create();

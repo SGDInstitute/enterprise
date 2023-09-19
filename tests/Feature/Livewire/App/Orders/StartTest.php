@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Orders;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Events\Tickets;
 use App\Models\Event;
 use App\Models\TicketType;
@@ -15,7 +16,7 @@ class StartTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function expired_ticket_types_are_not_shown(): void
     {
         $user = User::factory()->create();

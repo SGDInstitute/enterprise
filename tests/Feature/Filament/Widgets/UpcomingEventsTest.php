@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Widgets;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Widgets\UpcomingEvents;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +13,7 @@ class UpcomingEventsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_list_future_and_current_events()
     {
         $future = Event::factory()->future()->create();

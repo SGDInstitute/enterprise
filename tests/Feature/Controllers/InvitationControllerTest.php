@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Invitation;
 use App\Models\Response;
 use App\Models\Ticket;
@@ -15,7 +16,7 @@ class InvitationControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_accept_invitation_for_workshop()
     {
         Notification::fake();
@@ -40,7 +41,7 @@ class InvitationControllerTest extends TestCase
         Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
 
-    /** @test */
+    #[Test]
     public function can_accept_invitation_for_ticket()
     {
         Notification::fake();
@@ -65,7 +66,7 @@ class InvitationControllerTest extends TestCase
         Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
 
-    /** @test */
+    #[Test]
     public function if_user_exists_but_is_not_logged_in_redirect_to_login_with_flash()
     {
         $user = User::factory()->create(['email' => 'luz@hexide.edu']);
@@ -78,7 +79,7 @@ class InvitationControllerTest extends TestCase
             ->assertSessionHas('url.intended', $invtation->acceptUrl);
     }
 
-    /** @test */
+    #[Test]
     public function if_user_does_not_exist_redirect_to_register_with_flash()
     {
         $response = Response::factory()->create();
@@ -90,7 +91,7 @@ class InvitationControllerTest extends TestCase
             ->assertSessionHas('url.intended', $invtation->acceptUrl);
     }
 
-    /** @test */
+    #[Test]
     public function if_logged_in_user_does_not_match_log_them_out()
     {
         $user = User::factory()->create();

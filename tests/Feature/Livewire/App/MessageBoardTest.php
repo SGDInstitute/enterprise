@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\MessageBoard;
 use App\Models\Event;
 use App\Models\Order;
@@ -17,7 +18,7 @@ class MessageBoardTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function happy_path_http_check(): void
     {
         $user = User::factory()->create();
@@ -29,7 +30,7 @@ class MessageBoardTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function forbidden_if_not_authenticated()
     {
         $event = Event::factory()->create();
@@ -38,7 +39,7 @@ class MessageBoardTest extends TestCase
             ->assertRedirectToRoute('login');
     }
 
-    /** @test */
+    #[Test]
     public function forbidden_if_not_verified()
     {
         $user = User::factory()->unverified()->create();
@@ -48,7 +49,7 @@ class MessageBoardTest extends TestCase
             ->assertRedirectToRoute('verification.notice');
     }
 
-    /** @test */
+    #[Test]
     public function forbidden_if_user_does_not_have_ticket_for_event()
     {
         $event = Event::factory()->create();
@@ -65,7 +66,7 @@ class MessageBoardTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function cannot_view_if_user_has_not_accepted_terms()
     {
         $user = User::factory()->create();
@@ -82,7 +83,7 @@ class MessageBoardTest extends TestCase
         $this->assertNotNull($user->terms[$event->slug]);
     }
 
-    /** @test */
+    #[Test]
     public function cannot_view_posts_that_have_not_been_approved()
     {
         $event = Event::factory()->create();
@@ -98,7 +99,7 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('Hello world');
     }
 
-    /** @test */
+    #[Test]
     public function can_view_posts()
     {
         $event = Event::factory()->create();
@@ -110,7 +111,7 @@ class MessageBoardTest extends TestCase
             ->assertSee('Hello world');
     }
 
-    /** @test */
+    #[Test]
     public function can_filter_posts()
     {
         $event = Event::factory()->create();
@@ -125,7 +126,7 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('Hello world');
     }
 
-    /** @test */
+    #[Test]
     public function can_search_posts_by_title()
     {
         $event = Event::factory()->create();
@@ -143,7 +144,7 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('New Post');
     }
 
-    /** @test */
+    #[Test]
     public function can_search_posts_by_content()
     {
         $event = Event::factory()->create();
@@ -161,7 +162,7 @@ class MessageBoardTest extends TestCase
             ->assertSee('New Post');
     }
 
-    /** @test */
+    #[Test]
     public function filtering_posts_does_not_show_unapproved()
     {
         $event = Event::factory()->create();
@@ -177,7 +178,7 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('Hello world');
     }
 
-    /** @test */
+    #[Test]
     public function searching_posts_by_title_does_not_show_unapproved()
     {
         $event = Event::factory()->create();
@@ -192,7 +193,7 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('New Post');
     }
 
-    /** @test */
+    #[Test]
     public function searching_posts_by_content_does_not_show_unapproved()
     {
         $event = Event::factory()->create();

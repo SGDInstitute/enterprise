@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Dashboard;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Dashboard\Donations;
 use App\Models\Donation;
 use App\Models\User;
@@ -13,7 +14,7 @@ class DonationsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_all_donations(): void
     {
         $user = User::factory()->create();

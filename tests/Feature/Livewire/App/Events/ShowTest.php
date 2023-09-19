@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Events;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Events\Show;
 use App\Models\Event;
 use App\Models\TicketType;
@@ -15,7 +16,7 @@ class ShowTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function user_must_be_verified_before_filling()
     {
         $user = User::factory()->unverified()->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Actions\MarkAsPaidAction;
 use App\Filament\Resources\EventResource\Pages\EditEvent;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
@@ -16,7 +17,7 @@ class ReservationsRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_render_reservations(): void
     {
         $event = Event::factory()->create();
@@ -29,7 +30,7 @@ class ReservationsRelationManagerTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function can_only_view_reservations(): void
     {
         $event = Event::factory()->create();
@@ -44,7 +45,7 @@ class ReservationsRelationManagerTest extends TestCase
             ->assertCanNotSeeTableRecords([$order]);
     }
 
-    /** @test */
+    #[Test]
     public function can_mark_order_as_paid(): void
     {
         $event = Event::factory()->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\TicketTypeResource\Pages\CreateTicketType;
 use App\Filament\Resources\TicketTypeResource\Pages\EditTicketType;
 use App\Models\Event;
@@ -16,7 +17,7 @@ class TicketTypeResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_create_ticket_type()
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -41,7 +42,7 @@ class TicketTypeResourceTest extends TestCase
         $this->assertNotNull($prices->first()->stripe_price_id);
     }
 
-    /** @test */
+    #[Test]
     public function can_edit_ticket_type()
     {
         $event = Event::factory()->preset('mblgtacc')->create();

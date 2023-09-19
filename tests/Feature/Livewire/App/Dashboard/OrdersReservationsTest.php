@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Dashboard;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Livewire\App\Dashboard\OrdersReservations;
 use App\Models\Event;
 use App\Models\Order;
@@ -17,7 +18,7 @@ class OrdersReservationsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_all_orders(): void
     {
         $user = User::factory()->create();
@@ -29,7 +30,7 @@ class OrdersReservationsTest extends TestCase
             ->assertCount('reservations', 0);
     }
 
-    /** @test */
+    #[Test]
     public function can_view_all_reservations(): void
     {
         $user = User::factory()->create();
@@ -41,7 +42,7 @@ class OrdersReservationsTest extends TestCase
             ->assertCount('reservations', 1);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholder_can_view_order(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -56,7 +57,7 @@ class OrdersReservationsTest extends TestCase
             ->assertCount('reservations', 0);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholder_can_view_reservation(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();

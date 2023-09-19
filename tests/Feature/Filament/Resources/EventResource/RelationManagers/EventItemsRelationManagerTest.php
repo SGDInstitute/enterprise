@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\EventResource\Pages\EditEvent;
 use App\Filament\Resources\EventResource\RelationManagers\EventItemsRelationManager;
 use App\Models\Event;
@@ -18,7 +19,7 @@ class EventItemsRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_create_event_item(): void
     {
         $event = Event::factory()->create();
@@ -47,7 +48,7 @@ class EventItemsRelationManagerTest extends TestCase
         $this->assertEquals('America/New_York', $item->timezone);
     }
 
-    /** @test */
+    #[Test]
     public function can_create_sub_item(): void
     {
         Notification::fake();

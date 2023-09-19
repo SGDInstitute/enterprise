@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Filament\Resources;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Filament\Resources\PostResource;
 use App\Filament\Resources\PostResource\Pages\ListPosts;
 use App\Models\Post;
@@ -14,7 +15,7 @@ class PostResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function happy_path_http_check(): void
     {
         $user = User::factory()->admin()->create();
@@ -25,7 +26,7 @@ class PostResourceTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function can_view_posts_list()
     {
         $posts = Post::factory()->count(2)->create();
@@ -34,7 +35,7 @@ class PostResourceTest extends TestCase
             ->assertCanSeeTableRecords($posts);
     }
 
-    /** @test */
+    #[Test]
     public function can_filter_by_if_approved(): void
     {
         $unapprovedPosts = Post::factory()->count(2)->create();
@@ -48,7 +49,7 @@ class PostResourceTest extends TestCase
             ->assertCanSeeTableRecords($approvedPosts);
     }
 
-    /** @test */
+    #[Test]
     public function can_filter_by_if_not_approved(): void
     {
         $unapprovedPosts = Post::factory()->count(2)->create();
