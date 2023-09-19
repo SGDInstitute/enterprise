@@ -64,5 +64,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $tjt = Event::factory()->preset('tjt')->create();
+
+        $this->call([
+            MessageBoardTagsSeeder::class,
+        ]);
     }
 }

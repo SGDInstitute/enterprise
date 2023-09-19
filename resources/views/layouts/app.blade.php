@@ -17,10 +17,8 @@
     <!-- Styles -->
     @vite('resources/css/app.css')
     @livewireStyles
+    @filamentStyles
 
-
-    <script src="https://unpkg.com/trix@1.2.3/dist/trix.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@1.2.3/dist/trix.css">
     @vite('resources/js/app.js')
     @stack('scripts')
 </head>
@@ -35,6 +33,7 @@
 
     @include('layouts.app.footer')
     @livewireScriptConfig
+    @filamentScripts
 </body>
 
 </html>

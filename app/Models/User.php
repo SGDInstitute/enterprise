@@ -37,6 +37,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'address' => 'array',
+        'terms' => 'array',
     ];
 
     public function canAccessPanel(Panel $panel): bool
@@ -108,6 +109,13 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     }
 
     // Methods
+
+    public function acceptTerms($event)
+    {
+        $terms = $this->terms;
+        $terms[$event->slug] = now();
+        $this->update(['terms' => $terms]);
+    }
 
     public function findOrCreateCustomerId()
     {

@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\InvitationController;
-use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\SlackWebhookController;
+use App\Http\Controllers\StripeWebhookController;
+use App\Http\Middleware\VerifySlack;
 use Illuminate\Support\Facades\Route;
 
-Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
+Route::post('stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
+Route::post('slack/webhook', [SlackWebhookController::class, 'handleWebhook'])->middleware(VerifySlack::class);
 
 Route::get('impersonation/leave', App\Http\Controllers\ImpersonationController::class)->name('impersonation.leave');
 
@@ -50,4 +53,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('{event:slug}/program/{page?}', App\Livewire\App\Program::class)->name('app.program');
     Route::get('{event:slug}/program/schedule/{item:slug}', App\Livewire\App\Program\ScheduleItem::class)->name('app.program.schedule-item');
+
+    Route::middleware(['verified', 'has-ticket'])->group(function () {
+        Route::get('events/{event:slug}/message-board', App\Livewire\App\MessageBoard::class)->name('message-board');
+    });
 });

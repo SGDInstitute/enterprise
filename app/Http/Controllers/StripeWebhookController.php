@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Stripe\StripeClient;
 use Stripe\Subscription as StripeSubscription;
 
-class WebhookController extends Controller
+class StripeWebhookController extends Controller
 {
     // public function __construct()
     // {
