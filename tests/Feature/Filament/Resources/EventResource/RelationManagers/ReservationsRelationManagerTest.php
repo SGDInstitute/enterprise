@@ -10,7 +10,6 @@ use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\Test;
 use Tests\TestCase;
 
 final class ReservationsRelationManagerTest extends TestCase

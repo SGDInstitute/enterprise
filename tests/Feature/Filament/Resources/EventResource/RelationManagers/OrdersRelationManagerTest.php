@@ -14,7 +14,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\Test;
 use Tests\TestCase;
 
 final class OrdersRelationManagerTest extends TestCase
