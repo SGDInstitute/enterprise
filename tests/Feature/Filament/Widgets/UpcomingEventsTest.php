@@ -6,14 +6,15 @@ use App\Filament\Widgets\UpcomingEvents;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class UpcomingEventsTest extends TestCase
+final class UpcomingEventsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function can_list_future_and_current_events()
+    #[Test]
+    public function can_list_future_and_current_events(): void
     {
         $future = Event::factory()->future()->create();
         $current = Event::factory()->current()->create();

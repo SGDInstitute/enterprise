@@ -9,14 +9,14 @@ use App\Models\Event;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use PHPUnit\Framework\Test;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ReservationsRelationManagerTest extends TestCase
+final class ReservationsRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_render_reservations(): void
     {
         $event = Event::factory()->create();
@@ -29,7 +29,7 @@ class ReservationsRelationManagerTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function can_only_view_reservations(): void
     {
         $event = Event::factory()->create();
@@ -44,7 +44,7 @@ class ReservationsRelationManagerTest extends TestCase
             ->assertCanNotSeeTableRecords([$order]);
     }
 
-    /** @test */
+    #[Test]
     public function can_mark_order_as_paid(): void
     {
         $event = Event::factory()->create();

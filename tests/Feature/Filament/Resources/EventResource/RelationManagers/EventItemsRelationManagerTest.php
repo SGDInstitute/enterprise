@@ -12,13 +12,14 @@ use App\Notifications\WorkshopScheduled;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class EventItemsRelationManagerTest extends TestCase
+final class EventItemsRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_create_event_item(): void
     {
         $event = Event::factory()->create();
@@ -47,7 +48,7 @@ class EventItemsRelationManagerTest extends TestCase
         $this->assertEquals('America/New_York', $item->timezone);
     }
 
-    /** @test */
+    #[Test]
     public function can_create_sub_item(): void
     {
         Notification::fake();

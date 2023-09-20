@@ -8,15 +8,14 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class EmailVerificationTest extends TestCase
+final class EmailVerificationTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function email_verification_screen_can_be_rendered(): void
     {
         $user = User::factory()->create([
@@ -28,9 +27,7 @@ class EmailVerificationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function email_can_be_verified(): void
     {
         Event::fake();
@@ -52,9 +49,7 @@ class EmailVerificationTest extends TestCase
         $response->assertRedirect(RouteServiceProvider::HOME . '?verified=1');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function email_is_not_verified_with_invalid_hash(): void
     {
         $user = User::factory()->create([

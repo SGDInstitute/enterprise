@@ -6,13 +6,14 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class SlackWebhookControllerTest extends TestCase
+final class SlackWebhookControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_approve_post_via_slack(): void
     {
         Http::fake();
@@ -29,7 +30,7 @@ class SlackWebhookControllerTest extends TestCase
         $this->assertEquals($user->id, $post->fresh()->approved_by);
     }
 
-    /** @test */
+    #[Test]
     public function can_delete_post_via_slack(): void
     {
         Http::fake();
@@ -50,7 +51,7 @@ class SlackWebhookControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function aborted_if_user_not_found(): void
     {
         Http::fake();

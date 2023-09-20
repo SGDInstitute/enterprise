@@ -7,13 +7,14 @@ use App\Models\Donation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class DonationsTest extends TestCase
+final class DonationsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_all_donations(): void
     {
         $user = User::factory()->create();

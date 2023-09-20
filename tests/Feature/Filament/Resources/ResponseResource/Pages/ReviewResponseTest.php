@@ -9,14 +9,15 @@ use App\Models\RfpReview;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ReviewResponseTest extends TestCase
+final class ReviewResponseTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function can_view_details_of_response()
+    #[Test]
+    public function can_view_details_of_response(): void
     {
         $form = Form::factory()->create(['form' => [
             ['data' => ['id' => 'timeline-information', 'content' => '<h2>Application Timeline</h2>'], 'type' => 'content'],
@@ -31,8 +32,8 @@ class ReviewResponseTest extends TestCase
             ->assertSee('Hello world');
     }
 
-    /** @test */
-    public function can_add_review()
+    #[Test]
+    public function can_add_review(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();
@@ -69,8 +70,8 @@ class ReviewResponseTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_edit_review()
+    #[Test]
+    public function can_edit_review(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();
@@ -117,8 +118,8 @@ class ReviewResponseTest extends TestCase
         $this->assertEquals('Seems pretty bad, like it was automatically filled.', $review->notes);
     }
 
-    /** @test */
-    public function cannot_review_your_own_proposal()
+    #[Test]
+    public function cannot_review_your_own_proposal(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();
@@ -150,8 +151,8 @@ class ReviewResponseTest extends TestCase
             ->assertFormFieldIsDisabled('notes');
     }
 
-    /** @test */
-    public function cannot_review_a_work_in_progress()
+    #[Test]
+    public function cannot_review_a_work_in_progress(): void
     {
         // @todo update to action implementation
         $this->markTestSkipped();

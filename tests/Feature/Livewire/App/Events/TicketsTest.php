@@ -9,13 +9,14 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class TicketsTest extends TestCase
+final class TicketsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function future_ticket_types_are_disabled(): void
     {
         $user = User::factory()->create();
@@ -36,8 +37,8 @@ class TicketsTest extends TestCase
             ->assertHasErrors();
     }
 
-    /** @test */
-    public function inputs_are_disabled_if_user_is_unverified()
+    #[Test]
+    public function inputs_are_disabled_if_user_is_unverified(): void
     {
         $user = User::factory()->unverified()->create();
         $event = Event::factory()->preset('mblgtacc')->create();

@@ -6,7 +6,6 @@ export default defineConfig({
         laravel({
             input: ["resources/css/app.css", "resources/js/app.js"],
             refresh: [...refreshPaths, "app/Http/Livewire/**"],
-            valetTls: "enterprise.test",
         }),
     ],
 });

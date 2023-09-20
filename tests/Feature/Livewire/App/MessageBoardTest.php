@@ -10,14 +10,15 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Tags\Tag;
 use Tests\TestCase;
 
-class MessageBoardTest extends TestCase
+final class MessageBoardTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function happy_path_http_check(): void
     {
         $user = User::factory()->create();
@@ -29,8 +30,8 @@ class MessageBoardTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
-    public function forbidden_if_not_authenticated()
+    #[Test]
+    public function forbidden_if_not_authenticated(): void
     {
         $event = Event::factory()->create();
 
@@ -38,8 +39,8 @@ class MessageBoardTest extends TestCase
             ->assertRedirectToRoute('login');
     }
 
-    /** @test */
-    public function forbidden_if_not_verified()
+    #[Test]
+    public function forbidden_if_not_verified(): void
     {
         $user = User::factory()->unverified()->create();
         $event = Event::factory()->create();
@@ -48,8 +49,8 @@ class MessageBoardTest extends TestCase
             ->assertRedirectToRoute('verification.notice');
     }
 
-    /** @test */
-    public function forbidden_if_user_does_not_have_ticket_for_event()
+    #[Test]
+    public function forbidden_if_user_does_not_have_ticket_for_event(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create();
@@ -65,8 +66,8 @@ class MessageBoardTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
-    public function cannot_view_if_user_has_not_accepted_terms()
+    #[Test]
+    public function cannot_view_if_user_has_not_accepted_terms(): void
     {
         $user = User::factory()->create();
         $event = Event::factory()->create();
@@ -82,8 +83,8 @@ class MessageBoardTest extends TestCase
         $this->assertNotNull($user->terms[$event->slug]);
     }
 
-    /** @test */
-    public function cannot_view_posts_that_have_not_been_approved()
+    #[Test]
+    public function cannot_view_posts_that_have_not_been_approved(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create();
@@ -98,8 +99,8 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('Hello world');
     }
 
-    /** @test */
-    public function can_view_posts()
+    #[Test]
+    public function can_view_posts(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
@@ -110,8 +111,8 @@ class MessageBoardTest extends TestCase
             ->assertSee('Hello world');
     }
 
-    /** @test */
-    public function can_filter_posts()
+    #[Test]
+    public function can_filter_posts(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
@@ -125,8 +126,8 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('Hello world');
     }
 
-    /** @test */
-    public function can_search_posts_by_title()
+    #[Test]
+    public function can_search_posts_by_title(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
@@ -143,8 +144,8 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('New Post');
     }
 
-    /** @test */
-    public function can_search_posts_by_content()
+    #[Test]
+    public function can_search_posts_by_content(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
@@ -161,8 +162,8 @@ class MessageBoardTest extends TestCase
             ->assertSee('New Post');
     }
 
-    /** @test */
-    public function filtering_posts_does_not_show_unapproved()
+    #[Test]
+    public function filtering_posts_does_not_show_unapproved(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
@@ -177,8 +178,8 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('Hello world');
     }
 
-    /** @test */
-    public function searching_posts_by_title_does_not_show_unapproved()
+    #[Test]
+    public function searching_posts_by_title_does_not_show_unapproved(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
@@ -192,8 +193,8 @@ class MessageBoardTest extends TestCase
             ->assertDontSee('New Post');
     }
 
-    /** @test */
-    public function searching_posts_by_content_does_not_show_unapproved()
+    #[Test]
+    public function searching_posts_by_content_does_not_show_unapproved(): void
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);

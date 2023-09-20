@@ -13,14 +13,14 @@ use App\Notifications\Refund;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
-use PHPUnit\Framework\Test;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class OrdersRelationManagerTest extends TestCase
+final class OrdersRelationManagerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_render_paid_orders(): void
     {
         $event = Event::factory()->create();
@@ -33,7 +33,7 @@ class OrdersRelationManagerTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function can_only_view_paid_orders(): void
     {
         $event = Event::factory()->create();
@@ -48,7 +48,7 @@ class OrdersRelationManagerTest extends TestCase
             ->assertCanNotSeeTableRecords([$reservation]);
     }
 
-    /** @test */
+    #[Test]
     public function can_mark_order_as_unpaid(): void
     {
         $event = Event::factory()->create();
@@ -64,7 +64,7 @@ class OrdersRelationManagerTest extends TestCase
         $this->assertNull($order->fresh()->transaction_id);
     }
 
-    /** @test */
+    #[Test]
     public function cannot_mark_order_as_unpaid_if_processed_through_stripe(): void
     {
         $event = Event::factory()->create();
@@ -81,7 +81,7 @@ class OrdersRelationManagerTest extends TestCase
         $this->assertNotNull($order->fresh()->transaction_id);
     }
 
-    /** @test */
+    #[Test]
     public function can_refund_ticket_on_order(): void
     {
         Notification::fake();
@@ -106,7 +106,7 @@ class OrdersRelationManagerTest extends TestCase
         Notification::assertSentTo($order->user, Refund::class);
     }
 
-    /** @test */
+    #[Test]
     public function can_refund_entire_order(): void
     {
         Notification::fake();

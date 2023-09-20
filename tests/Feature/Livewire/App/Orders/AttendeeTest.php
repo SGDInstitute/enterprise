@@ -8,14 +8,15 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class AttendeeTest extends TestCase
+final class AttendeeTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function the_component_can_render()
+    #[Test]
+    public function the_component_can_render(): void
     {
         $user = User::factory()->create();
         $order = Order::factory()->create();

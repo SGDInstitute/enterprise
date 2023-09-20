@@ -11,13 +11,14 @@ use App\Models\TicketType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ShowTest extends TestCase
+final class ShowTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_delete_order_if_unpaid(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -38,7 +39,7 @@ class ShowTest extends TestCase
         $this->assertSoftDeleted($order);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_can_view_orders(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -53,7 +54,7 @@ class ShowTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_can_view_reservations(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -68,7 +69,7 @@ class ShowTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_are_shown_tickets_tab(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -82,7 +83,7 @@ class ShowTest extends TestCase
             ->assertSet('page', 'attendee');
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_cannot_view_start_tab(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -96,7 +97,7 @@ class ShowTest extends TestCase
             ->assertSet('page', 'attendee');
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_cannot_view_payment_tab(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -110,7 +111,7 @@ class ShowTest extends TestCase
             ->assertSet('page', 'attendee');
     }
 
-    /** @test */
+    #[Test]
     public function users_cannot_view_orders_they_are_not_attached_to(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();

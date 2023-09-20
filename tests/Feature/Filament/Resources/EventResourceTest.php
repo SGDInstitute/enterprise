@@ -14,13 +14,14 @@ use App\Models\TicketType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class EventResourceTest extends TestCase
+final class EventResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_events(): void
     {
         $user = User::factory()->admin()->create();
@@ -31,7 +32,7 @@ class EventResourceTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function can_edit_event(): void
     {
         $user = User::factory()->admin()->create();
@@ -42,8 +43,8 @@ class EventResourceTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
-    public function can_bulk_delete_reservations()
+    #[Test]
+    public function can_bulk_delete_reservations(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();
@@ -66,8 +67,8 @@ class EventResourceTest extends TestCase
         }
     }
 
-    /** @test */
-    public function can_bulk_delete_orders()
+    #[Test]
+    public function can_bulk_delete_orders(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create();

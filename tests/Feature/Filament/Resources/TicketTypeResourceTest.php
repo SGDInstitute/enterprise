@@ -10,14 +10,15 @@ use App\Models\TicketType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class TicketTypeResourceTest extends TestCase
+final class TicketTypeResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function can_create_ticket_type()
+    #[Test]
+    public function can_create_ticket_type(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         Livewire::test(CreateTicketType::class)
@@ -41,8 +42,8 @@ class TicketTypeResourceTest extends TestCase
         $this->assertNotNull($prices->first()->stripe_price_id);
     }
 
-    /** @test */
-    public function can_edit_ticket_type()
+    #[Test]
+    public function can_edit_ticket_type(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $ticketType = TicketType::factory()->for($event)->create([

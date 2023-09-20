@@ -8,13 +8,14 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class PostResourceTest extends TestCase
+final class PostResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function happy_path_http_check(): void
     {
         $user = User::factory()->admin()->create();
@@ -25,8 +26,8 @@ class PostResourceTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
-    public function can_view_posts_list()
+    #[Test]
+    public function can_view_posts_list(): void
     {
         $posts = Post::factory()->count(2)->create();
 
@@ -34,7 +35,7 @@ class PostResourceTest extends TestCase
             ->assertCanSeeTableRecords($posts);
     }
 
-    /** @test */
+    #[Test]
     public function can_filter_by_if_approved(): void
     {
         $unapprovedPosts = Post::factory()->count(2)->create();
@@ -48,7 +49,7 @@ class PostResourceTest extends TestCase
             ->assertCanSeeTableRecords($approvedPosts);
     }
 
-    /** @test */
+    #[Test]
     public function can_filter_by_if_not_approved(): void
     {
         $unapprovedPosts = Post::factory()->count(2)->create();

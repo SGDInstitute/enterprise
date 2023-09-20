@@ -11,13 +11,14 @@ use App\Models\TicketType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class OrdersReservationsTest extends TestCase
+final class OrdersReservationsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_view_all_orders(): void
     {
         $user = User::factory()->create();
@@ -29,7 +30,7 @@ class OrdersReservationsTest extends TestCase
             ->assertCount('reservations', 0);
     }
 
-    /** @test */
+    #[Test]
     public function can_view_all_reservations(): void
     {
         $user = User::factory()->create();
@@ -41,7 +42,7 @@ class OrdersReservationsTest extends TestCase
             ->assertCount('reservations', 1);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholder_can_view_order(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -56,7 +57,7 @@ class OrdersReservationsTest extends TestCase
             ->assertCount('reservations', 0);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholder_can_view_reservation(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();

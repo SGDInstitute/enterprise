@@ -4,13 +4,14 @@ namespace Tests\Unit\Models;
 
 use App\Models\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class FormTest extends TestCase
+final class FormTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_get_validation_attributes(): void
     {
         $form = Form::factory()->preset('new-workshop')->create([

@@ -10,14 +10,15 @@ use App\Models\User;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class UserResourceTest extends TestCase
+final class UserResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function can_bulk_delete_users()
+    #[Test]
+    public function can_bulk_delete_users(): void
     {
         $users = User::factory()->count(5)->create();
 
@@ -30,8 +31,8 @@ class UserResourceTest extends TestCase
         }
     }
 
-    /** @test */
-    public function can_delete_all_unverified_users_without_other_data()
+    #[Test]
+    public function can_delete_all_unverified_users_without_other_data(): void
     {
         $deletableUsers = User::factory()->times(5)->unverified()->create();
         $verifiedUser = User::factory()->create();

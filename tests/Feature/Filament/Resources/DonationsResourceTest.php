@@ -7,14 +7,15 @@ use App\Filament\Resources\DonationResource\Pages\ViewDonation;
 use App\Models\Donation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class DonationsResourceTest extends TestCase
+final class DonationsResourceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function can_view_all_donations()
+    #[Test]
+    public function can_view_all_donations(): void
     {
         $donations = Donation::factory()->count(5)->create();
 
@@ -22,8 +23,8 @@ class DonationsResourceTest extends TestCase
             ->assertCanSeeTableRecords($donations);
     }
 
-    /** @test */
-    public function can_view_one_time_donation()
+    #[Test]
+    public function can_view_one_time_donation(): void
     {
         $donation = Donation::factory()->create(['type' => 'one-time']);
 

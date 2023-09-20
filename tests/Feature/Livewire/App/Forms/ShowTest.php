@@ -12,13 +12,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ShowTest extends TestCase
+final class ShowTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function reminders_are_set_when_workshop_response_saved(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -41,7 +42,7 @@ class ShowTest extends TestCase
         $this->assertCount(0, $response->reminders);
     }
 
-    /** @test */
+    #[Test]
     public function only_reminders_available_before_form_end_are_set_when_workshop_response_saved(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -64,8 +65,8 @@ class ShowTest extends TestCase
         $this->assertCount(0, $response->reminders);
     }
 
-    /** @test */
-    public function adding_collaborator_creates_an_invite()
+    #[Test]
+    public function adding_collaborator_creates_an_invite(): void
     {
         Notification::fake();
 
@@ -96,8 +97,8 @@ class ShowTest extends TestCase
         Notification::assertSentOnDemand(AddedAsCollaborator::class);
     }
 
-    /** @test */
-    public function can_remove_invite()
+    #[Test]
+    public function can_remove_invite(): void
     {
         Mail::fake();
 
@@ -131,8 +132,8 @@ class ShowTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function user_must_be_verified_before_filling()
+    #[Test]
+    public function user_must_be_verified_before_filling(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
         $form = Form::factory()->for($event)->preset('new-workshop')->create([
@@ -148,8 +149,8 @@ class ShowTest extends TestCase
             ->assertSet('fillable', false);
     }
 
-    /** @test */
-    public function can_confirm_if_accepted()
+    #[Test]
+    public function can_confirm_if_accepted(): void
     {
         $user = User::factory()->create();
         $form = Form::factory()->create(['form' => [

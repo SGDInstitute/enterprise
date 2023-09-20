@@ -9,14 +9,15 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ShowTest extends TestCase
+final class ShowTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_must_be_verified_before_filling()
+    #[Test]
+    public function user_must_be_verified_before_filling(): void
     {
         $user = User::factory()->unverified()->create();
         $event = Event::factory()->preset('mblgtacc')->create();

@@ -9,14 +9,15 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\InvitationAccepted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class InvitationAcceptedTest extends TestCase
+final class InvitationAcceptedTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function response_notification_has_url()
+    #[Test]
+    public function response_notification_has_url(): void
     {
         $response = Response::factory()->create();
         $user = User::factory()->create();
@@ -26,8 +27,8 @@ class InvitationAcceptedTest extends TestCase
         $this->assertEquals(route('app.forms.show', ['form' => $response->form, 'edit' => $response]), $notification->actionUrl);
     }
 
-    /** @test */
-    public function ticket_notification_has_url()
+    #[Test]
+    public function ticket_notification_has_url(): void
     {
         $order = Order::factory()->create();
         $user = User::factory()->create();
@@ -38,8 +39,8 @@ class InvitationAcceptedTest extends TestCase
         $this->assertEquals(route('app.orders.show', $order), $notification->actionUrl);
     }
 
-    /** @test */
-    public function ticket_notification_pending_invitation_many()
+    #[Test]
+    public function ticket_notification_pending_invitation_many(): void
     {
         $order = Order::factory()->hasTickets(2)->create();
         $user = User::factory()->create();
@@ -50,8 +51,8 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There are 2 pending invitations.', $notification);
     }
 
-    /** @test */
-    public function ticket_notification_pending_invitation_single()
+    #[Test]
+    public function ticket_notification_pending_invitation_single(): void
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();
@@ -62,8 +63,8 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There is 1 pending invitation.', $notification);
     }
 
-    /** @test */
-    public function ticket_notification_to_assign_many()
+    #[Test]
+    public function ticket_notification_to_assign_many(): void
     {
         $order = Order::factory()->hasTickets(2)->create();
         $user = User::factory()->create();
@@ -73,8 +74,8 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There are 2 tickets that have not been assigned.', $notification);
     }
 
-    /** @test */
-    public function ticket_notification_to_assign_single()
+    #[Test]
+    public function ticket_notification_to_assign_single(): void
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();
@@ -84,8 +85,8 @@ class InvitationAcceptedTest extends TestCase
         $this->assertStringContainsString('There is 1 ticket that has not been assigned.', $notification);
     }
 
-    /** @test */
-    public function ticket_payment_reminder_if_reservation()
+    #[Test]
+    public function ticket_payment_reminder_if_reservation(): void
     {
         $order = Order::factory()->hasTickets(1)->create();
         $user = User::factory()->create();

@@ -6,14 +6,15 @@ use App\Filament\Widgets\OpenForms as WidgetsOpenForms;
 use App\Models\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class OpenFormsTest extends TestCase
+final class OpenFormsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function can_list_current_forms()
+    #[Test]
+    public function can_list_current_forms(): void
     {
         $future = Form::factory()->future()->create();
         $current = Form::factory()->current()->create();

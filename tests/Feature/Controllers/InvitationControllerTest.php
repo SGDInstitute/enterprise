@@ -9,14 +9,15 @@ use App\Models\User;
 use App\Notifications\InvitationAccepted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class InvitationControllerTest extends TestCase
+final class InvitationControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function can_accept_invitation_for_workshop()
+    #[Test]
+    public function can_accept_invitation_for_workshop(): void
     {
         Notification::fake();
 
@@ -40,8 +41,8 @@ class InvitationControllerTest extends TestCase
         Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
 
-    /** @test */
-    public function can_accept_invitation_for_ticket()
+    #[Test]
+    public function can_accept_invitation_for_ticket(): void
     {
         Notification::fake();
 
@@ -65,8 +66,8 @@ class InvitationControllerTest extends TestCase
         Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
 
-    /** @test */
-    public function if_user_exists_but_is_not_logged_in_redirect_to_login_with_flash()
+    #[Test]
+    public function if_user_exists_but_is_not_logged_in_redirect_to_login_with_flash(): void
     {
         $user = User::factory()->create(['email' => 'luz@hexide.edu']);
         $response = Response::factory()->create();
@@ -78,8 +79,8 @@ class InvitationControllerTest extends TestCase
             ->assertSessionHas('url.intended', $invtation->acceptUrl);
     }
 
-    /** @test */
-    public function if_user_does_not_exist_redirect_to_register_with_flash()
+    #[Test]
+    public function if_user_does_not_exist_redirect_to_register_with_flash(): void
     {
         $response = Response::factory()->create();
         $invtation = Invitation::factory()->for($response, 'inviteable')->create(['email' => 'luz@hexide.edu']);
@@ -90,8 +91,8 @@ class InvitationControllerTest extends TestCase
             ->assertSessionHas('url.intended', $invtation->acceptUrl);
     }
 
-    /** @test */
-    public function if_logged_in_user_does_not_match_log_them_out()
+    #[Test]
+    public function if_logged_in_user_does_not_match_log_them_out(): void
     {
         $user = User::factory()->create();
         $response = Response::factory()->create();

@@ -14,13 +14,14 @@ use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class TicketsTest extends TestCase
+final class TicketsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_delete_ticket(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -42,7 +43,7 @@ class TicketsTest extends TestCase
         $this->assertCount(4, $order->fresh()->tickets);
     }
 
-    /** @test */
+    #[Test]
     public function cannot_delete_ticket_if_has_user(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -63,7 +64,7 @@ class TicketsTest extends TestCase
         $this->assertCount(1, $order->fresh()->tickets);
     }
 
-    /** @test */
+    #[Test]
     public function when_deleting_only_ticket_delete_order(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -83,7 +84,7 @@ class TicketsTest extends TestCase
         $this->assertSoftDeleted($order);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_cannot_edit_other_tickets(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -110,7 +111,7 @@ class TicketsTest extends TestCase
             ->assertDispatched('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_cannot_assign_other_tickets(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -136,7 +137,7 @@ class TicketsTest extends TestCase
             ->assertDispatched('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_cannot_delete_tickets(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -163,7 +164,7 @@ class TicketsTest extends TestCase
             ->assertDispatched('notify', ['message' => 'You cannot delete tickets.', 'type' => 'error']);
     }
 
-    /** @test */
+    #[Test]
     public function ticketholders_cannot_remove_users_from_other_tickets(): void
     {
         $event = Event::factory()->preset('mblgtacc')->create();
@@ -190,8 +191,8 @@ class TicketsTest extends TestCase
             ->assertDispatched('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
     }
 
-    /** @test */
-    public function can_invite_user_to_ticket()
+    #[Test]
+    public function can_invite_user_to_ticket(): void
     {
         Notification::fake();
 

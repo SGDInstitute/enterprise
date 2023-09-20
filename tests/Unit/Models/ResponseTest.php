@@ -4,13 +4,14 @@ namespace Tests\Unit\Models;
 
 use App\Models\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class ResponseTest extends TestCase
+final class ResponseTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function can_score_if_nothing_is_in_array(): void
     {
         $response = Response::factory()->make([

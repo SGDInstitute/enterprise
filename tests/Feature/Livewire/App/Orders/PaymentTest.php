@@ -7,14 +7,15 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class PaymentTest extends TestCase
+final class PaymentTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function the_component_can_render()
+    #[Test]
+    public function the_component_can_render(): void
     {
         $user = User::factory()->create();
         $order = Order::factory()->for($user)->hasTickets(2)->create();
@@ -24,8 +25,8 @@ class PaymentTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
-    public function can_download_invoice()
+    #[Test]
+    public function can_download_invoice(): void
     {
         $user = User::factory()->create();
         $order = Order::factory()->for($user)->hasTickets(2)->create();
