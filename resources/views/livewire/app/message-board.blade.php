@@ -80,7 +80,7 @@
         </section>
     </div>
     @else
-    <div class="prose px-4 py-10 mx-auto sm:px-0 lg:py-16">
+    <div class="prose dark:prose-light px-4 py-10 mx-auto sm:px-0 lg:py-16">
         <p>Welcome! The MBLGTACC Attendee Message Board is for those considering or planning to attend MBLGTACC to: </p>
         <ul>
             <li>Coordinate rideshares, share a hotel room, and other ways to share the cost of attending MBLGTACC. Ex: you coordinate a bus that picks up students at a few different schools and everyone goes in on the price of booking the bus.</li>
