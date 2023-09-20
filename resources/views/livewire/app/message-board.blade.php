@@ -94,21 +94,21 @@
             <li>Content that is not directly related to MBLGTACC</li>
         </ul>
 
-        <p class="italic">The Midwest Institute for Sexuality and Gender Diversity offers this posting board as a service to attendees for the above named purpose(s). We will review each submitted post before it is approved and published; however, we claim no responsibility for any inaccurate or misleading content.</p>
+        <p class="italic text-sm">The Midwest Institute for Sexuality and Gender Diversity offers this posting board as a service to attendees for the above named purpose(s). We will review each submitted post before it is approved and published; however, we claim no responsibility for any inaccurate or misleading content.</p>
 
-        <p class="italic">By using this board, you agree not to:</p>
-        <ul class="italic">
+        <p class="italic text-sm">By using this board, you agree not to:</p>
+        <ul class="italic text-sm">
             <li>upload, post, display, distribute or otherwise publish on the board any material that is libelous, defamatory, discriminatory, obscene, pornographic, harassing or abusive, infringes any copyright, trademark, or other proprietary right, violates any right of publicity or privacy, or is otherwise illegal;</li>
             <li>use the board to post deliberately disruptive repetitive messages;</li>
             <li>impersonate any other person or entity; or,</li>
             <li>upload any information, files, code or other materials that contain viruses or are able to disrupt or damage our sites, software, hardware or equipment or collect or use information about other users for any purpose.</li>
         </ul>
 
-        <p class="italic">You acknowledge that messages and any other content you post or submit are not private or confidential.</p>
+        <p class="italic text-sm">You acknowledge that messages and any other content you post or submit are not private or confidential.</p>
 
-        <p class="italic">By using this service, you agree that the Midwest Institute for Sexuality and Gender Diversity is not liable for any damages arising out of or in connection with using the board.</p>
+        <p class="italic text-sm">By using this service, you agree that the Midwest Institute for Sexuality and Gender Diversity is not liable for any damages arising out of or in connection with using the board.</p>
 
-        <p class="italic">If you have questions or concerns about the content or use of this board, please contact us.</p>
+        <p class="italic text-sm">If you have questions or concerns about the content or use of this board, please contact us.</p>
 
         {{ $this->acceptAction }}
     </div>
