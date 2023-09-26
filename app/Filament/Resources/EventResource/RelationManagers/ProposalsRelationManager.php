@@ -3,9 +3,6 @@
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Resources\ResponseResource;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\ViewField;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
