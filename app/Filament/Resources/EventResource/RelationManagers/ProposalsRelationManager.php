@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\ViewField;
-use Filament\Forms\Form;
+use App\Filament\Resources\ResponseResource;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -17,18 +15,6 @@ class ProposalsRelationManager extends RelationManager
     protected static string $relationship = 'proposals';
 
     protected static ?string $recordTitleAttribute = 'name';
-
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Placeholder::make('creator')
-                    ->content(fn ($record) => recordLink($record->user, 'users.edit', $record->user->name)),
-                Placeholder::make('name')
-                    ->content(fn ($record) => $record->name),
-                ViewField::make('answers')->view('filament.resources.response-resource.answers')->columnSpanFull(),
-            ]);
-    }
 
     public function table(Table $table): Table
     {
@@ -74,7 +60,8 @@ class ProposalsRelationManager extends RelationManager
                 //
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
             ])
             ->bulkActions([
                 //
