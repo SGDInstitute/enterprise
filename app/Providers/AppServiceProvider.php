@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
             EnvironmentCheck::new(),
             HorizonCheck::new(),
             DatabaseCheck::new(),
-            ScheduleCheck::new()->useCacheStore('schedule-check'),
             UsedDiskSpaceCheck::new()
                 ->warnWhenUsedSpaceIsAbovePercentage(60)
                 ->failWhenUsedSpaceIsAbovePercentage(80),
