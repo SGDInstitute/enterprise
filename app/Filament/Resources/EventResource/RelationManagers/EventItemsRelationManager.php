@@ -19,6 +19,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -82,7 +83,8 @@ class EventItemsRelationManager extends RelationManager
                 TextColumn::make('tracks'),
             ])
             ->filters([
-                //
+                Filter::make('is_parent')
+                    ->query(fn (Builder $query): Builder => $query->whereNull('parent_id')),
             ])
             ->headerActions([
                 CreateAction::make()

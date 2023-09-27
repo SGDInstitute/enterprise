@@ -167,4 +167,20 @@ final class EventItemsRelationManagerTest extends TestCase
         $this->assertEquals('2023-11-05 13:45:00', $item->end);
         $this->assertEquals('America/Chicago', $item->timezone);
     }
+
+    #[Test]
+    public function can_filter_by_parent_id_being_null()
+    {
+        $event = Event::factory()->create();
+        $parent = EventItem::factory()->for($event)->create();
+        EventItem::factory()->for($event)->for($parent, 'parent')->create();
+
+        Livewire::test(EventItemsRelationManager::class, [
+            'ownerRecord' => $event,
+            'pageClass' => EditEvent::class,
+        ])
+        ->filterTable('is_parent')
+        ->assertCanSeeTableRecords($event->items->whereNull('parent_id'))
+        ->assertCanNotSeeTableRecords($event->items->whereNotNull('parent_id'));
+    }
 }
