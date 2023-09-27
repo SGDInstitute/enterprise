@@ -12,7 +12,6 @@ use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\HorizonCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
-use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Facades\Health;
 use Stripe\Stripe;
