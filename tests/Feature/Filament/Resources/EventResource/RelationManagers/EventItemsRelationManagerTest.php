@@ -9,6 +9,8 @@ use App\Models\EventItem;
 use App\Models\Response;
 use App\Models\User;
 use App\Notifications\WorkshopScheduled;
+use Filament\Tables\Actions\EditAction;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
@@ -92,5 +94,77 @@ final class EventItemsRelationManagerTest extends TestCase
         $this->assertEquals('scheduled', $response->fresh()->status);
 
         Notification::assertSentTo($response->collaborators, WorkshopScheduled::class);
+    }
+
+    #[Test]
+    public function can_create_manual_sub_item(): void
+    {
+        $event = Event::factory()->create();
+        $item = EventItem::factory()->for($event)->create([
+            'name' => 'Identity Forums',
+            'start' => '2023-11-04 13:00:00',
+            'end' => '2023-11-04 13:45:00',
+            'timezone' => 'America/New_York',
+        ]);
+
+        Livewire::test(EventItemsRelationManager::class, [
+            'ownerRecord' => $event,
+            'pageClass' => EditEvent::class,
+        ])
+            ->callTableAction('create', data: [
+                'parent_id' => $item->id,
+                'name' => 'Ace Forum',
+                'speaker' => null,
+                'location' => 'A123',
+                'description' => null,
+            ])
+            ->assertHasNoActionErrors();
+
+        $this->assertCount(2, $event->items);
+        $item = $event->items->last();
+        $this->assertEquals('Ace Forum', $item->name);
+        $this->assertEquals('ace-forum', $item->slug);
+        $this->assertEquals('A123', $item->location);
+        $this->assertEquals('2023-11-04 13:00:00', $item->start);
+        $this->assertEquals('2023-11-04 13:45:00', $item->end);
+        $this->assertEquals('America/New_York', $item->timezone);
+    }
+
+    /** @test */
+    public function can_edit_parent_of_sub_item()
+    {
+        $event = Event::factory()->create();
+        [$parentA, $parentB] = EventItem::factory()
+            ->for($event)
+            ->count(2)
+            ->state(new Sequence(
+                ['name' => 'Parent A', 'start' => '2023-11-04 13:00:00', 'end' => '2023-11-04 13:45:00', 'timezone' => 'America/New_York'],
+                ['name' => 'Parent B', 'start' => '2023-11-05 13:00:00', 'end' => '2023-11-05 13:45:00', 'timezone' => 'America/Chicago'],
+            ))
+            ->create();
+        $item = EventItem::factory()->for($event)->create([
+            'name' => 'Ace Forum',
+            'parent_id' => $parentA->id,
+            'start' => '2023-11-04 13:00:00',
+            'end' => '2023-11-04 13:45:00',
+            'timezone' => 'America/Chicago',
+        ]);
+
+        Livewire::test(EventItemsRelationManager::class, [
+            'ownerRecord' => $event,
+            'pageClass' => EditEvent::class,
+        ])
+        ->callTableAction(EditAction::class, $item, data: [
+            'parent_id' => $parentB->id,
+            'name' => 'Ace Forum',
+        ])
+        ->assertHasNoActionErrors();
+
+        $item->refresh();
+        $this->assertEquals('Ace Forum', $item->name);
+        $this->assertEquals('ace-forum', $item->slug);
+        $this->assertEquals('2023-11-05 13:00:00', $item->start);
+        $this->assertEquals('2023-11-05 13:45:00', $item->end);
+        $this->assertEquals('America/Chicago', $item->timezone);
     }
 }
