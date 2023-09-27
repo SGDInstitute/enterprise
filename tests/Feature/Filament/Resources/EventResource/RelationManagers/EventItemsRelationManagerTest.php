@@ -121,16 +121,16 @@ final class EventItemsRelationManagerTest extends TestCase
             ->assertHasNoActionErrors();
 
         $this->assertCount(2, $event->items);
-        $item = $event->items->last();
-        $this->assertEquals('Ace Forum', $item->name);
-        $this->assertEquals('ace-forum', $item->slug);
-        $this->assertEquals('A123', $item->location);
-        $this->assertEquals('2023-11-04 13:00:00', $item->start);
-        $this->assertEquals('2023-11-04 13:45:00', $item->end);
-        $this->assertEquals('America/New_York', $item->timezone);
+        $newItem = $event->items->last();
+        $this->assertEquals('Ace Forum', $newItem->name);
+        $this->assertEquals('ace-forum', $newItem->slug);
+        $this->assertEquals('A123', $newItem->location);
+        $this->assertEquals($item->start, $newItem->start);
+        $this->assertEquals($item->end, $newItem->end);
+        $this->assertEquals($item->timezone, $newItem->timezone);
     }
 
-    /** @test */
+    #[Test]
     public function can_edit_parent_of_sub_item()
     {
         $event = Event::factory()->create();
