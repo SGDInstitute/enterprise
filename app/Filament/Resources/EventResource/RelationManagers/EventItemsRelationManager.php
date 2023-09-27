@@ -20,6 +20,8 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
@@ -39,7 +41,12 @@ class EventItemsRelationManager extends RelationManager
                 Select::make('parent_id')
                     ->label('Parent')
                     ->live()
-                    ->options($this->ownerRecord->items()->whereNull('parent_id')->pluck('name', 'id')),
+                    ->relationship(
+                        name: 'parent',
+                        modifyQueryUsing: fn (Builder $query) => $query->whereNull('parent_id')->where('event_id', $this->ownerRecord->id),
+                    )
+                    ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} ({$record->start->format('D')})")
+                    ->searchable(),
                 TextInput::make('name')->required()->maxLength(255),
                 TextInput::make('speaker')->maxLength(255),
                 TextInput::make('location')->maxLength(255),
@@ -97,7 +104,12 @@ class EventItemsRelationManager extends RelationManager
                     ->form([
                         Select::make('parent_id')
                             ->label('Parent')
-                            ->options($this->ownerRecord->items()->whereNull('parent_id')->pluck('name', 'id')),
+                            ->relationship(
+                                name: 'parent',
+                                modifyQueryUsing: fn (Builder $query) => $query->whereNull('parent_id')->where('event_id', $this->ownerRecord->id),
+                            )
+                            ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} ({$record->start->format('D')})")
+                            ->searchable(),
                         Select::make('workshop_id')
                             ->label('Proposal')
                             ->options($this->ownerRecord->proposals()->where('status', 'confirmed')->get()->pluck('name', 'id')),
