@@ -11,6 +11,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\CreateAction;
@@ -35,6 +36,10 @@ class EventItemsRelationManager extends RelationManager
     {
         return $form
             ->schema([
+                Select::make('parent_id')
+                    ->label('Parent')
+                    ->live()
+                    ->options($this->ownerRecord->items()->whereNull('parent_id')->pluck('name', 'id')),
                 TextInput::make('name')->required()->maxLength(255),
                 TextInput::make('speaker')->maxLength(255),
                 TextInput::make('location')->maxLength(255),
@@ -49,7 +54,8 @@ class EventItemsRelationManager extends RelationManager
                             ->searchable()
                             ->required(),
                     ])
-                    ->columns(3),
+                    ->columns(3)
+                    ->hidden(fn (Get $get): bool => $get('parent_id') !== null),
             ]);
     }
 
@@ -74,8 +80,15 @@ class EventItemsRelationManager extends RelationManager
             ->headerActions([
                 CreateAction::make()
                     ->mutateFormDataUsing(function (array $data): array {
-                        $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
-                        $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
+                        if ($data['parent_id'] !== null) {
+                            $parent = EventItem::find($data['parent_id']);
+                            $data['start'] = $parent->start;
+                            $data['end'] = $parent->end;
+                            $data['timezone'] = $parent->timezone;
+                        } else {
+                            $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
+                            $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
+                        }
 
                         return $data;
                     }),
@@ -122,8 +135,15 @@ class EventItemsRelationManager extends RelationManager
                         return $data;
                     })
                     ->mutateFormDataUsing(function (array $data): array {
-                        $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
-                        $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
+                        if ($data['parent_id'] !== null) {
+                            $parent = EventItem::find($data['parent_id']);
+                            $data['start'] = $parent->start;
+                            $data['end'] = $parent->end;
+                            $data['timezone'] = $parent->timezone;
+                        } else {
+                            $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
+                            $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
+                        }
 
                         return $data;
                     }),
