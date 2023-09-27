@@ -163,9 +163,9 @@ final class EventItemsRelationManagerTest extends TestCase
         $item->refresh();
         $this->assertEquals('Ace Forum', $item->name);
         $this->assertEquals('ace-forum', $item->slug);
-        $this->assertEquals('2023-11-05 13:00:00', $item->start);
-        $this->assertEquals('2023-11-05 13:45:00', $item->end);
-        $this->assertEquals('America/Chicago', $item->timezone);
+        $this->assertEquals($parentB->start, $item->start);
+        $this->assertEquals($parentB->end, $item->end);
+        $this->assertEquals($parentB->timezone, $item->timezone);
     }
 
     #[Test]
