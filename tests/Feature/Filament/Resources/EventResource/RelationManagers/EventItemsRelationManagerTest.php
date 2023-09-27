@@ -121,16 +121,16 @@ final class EventItemsRelationManagerTest extends TestCase
             ->assertHasNoActionErrors();
 
         $this->assertCount(2, $event->items);
-        $item = $event->items->last();
-        $this->assertEquals('Ace Forum', $item->name);
-        $this->assertEquals('ace-forum', $item->slug);
-        $this->assertEquals('A123', $item->location);
-        $this->assertEquals('2023-11-04 13:00:00', $item->start);
-        $this->assertEquals('2023-11-04 13:45:00', $item->end);
-        $this->assertEquals('America/New_York', $item->timezone);
+        $newItem = $event->items->last();
+        $this->assertEquals('Ace Forum', $newItem->name);
+        $this->assertEquals('ace-forum', $newItem->slug);
+        $this->assertEquals('A123', $newItem->location);
+        $this->assertEquals($item->start, $newItem->start);
+        $this->assertEquals($item->end, $newItem->end);
+        $this->assertEquals($item->timezone, $newItem->timezone);
     }
 
-    /** @test */
+    #[Test]
     public function can_edit_parent_of_sub_item()
     {
         $event = Event::factory()->create();
@@ -163,8 +163,24 @@ final class EventItemsRelationManagerTest extends TestCase
         $item->refresh();
         $this->assertEquals('Ace Forum', $item->name);
         $this->assertEquals('ace-forum', $item->slug);
-        $this->assertEquals('2023-11-05 13:00:00', $item->start);
-        $this->assertEquals('2023-11-05 13:45:00', $item->end);
-        $this->assertEquals('America/Chicago', $item->timezone);
+        $this->assertEquals($parentB->start, $item->start);
+        $this->assertEquals($parentB->end, $item->end);
+        $this->assertEquals($parentB->timezone, $item->timezone);
+    }
+
+    #[Test]
+    public function can_filter_by_parent_id_being_null()
+    {
+        $event = Event::factory()->create();
+        $parent = EventItem::factory()->for($event)->create();
+        EventItem::factory()->for($event)->for($parent, 'parent')->create();
+
+        Livewire::test(EventItemsRelationManager::class, [
+            'ownerRecord' => $event,
+            'pageClass' => EditEvent::class,
+        ])
+        ->filterTable('is_parent')
+        ->assertCanSeeTableRecords($event->items->whereNull('parent_id'))
+        ->assertCanNotSeeTableRecords($event->items->whereNotNull('parent_id'));
     }
 }

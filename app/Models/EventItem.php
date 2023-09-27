@@ -6,6 +6,7 @@ use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -40,7 +41,12 @@ class EventItem extends Model
         return $this->belongsTo(Event::class);
     }
 
-    public function children()
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(EventItem::class, 'parent_id');
+    }
+
+    public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
     }
@@ -56,12 +62,12 @@ class EventItem extends Model
         }
     }
 
-    public function getShortNameAttribute()
+    public function getShortNameAttribute(): string
     {
         return Str::limit($this->name, 30);
     }
 
-    public function getShortDescriptionAttribute()
+    public function getShortDescriptionAttribute(): string
     {
         return Str::limit($this->description, 40);
     }
