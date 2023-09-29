@@ -7,7 +7,6 @@ use App\Models\Event;
 use App\Models\Shift;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -69,7 +68,7 @@ class VolunteerTest extends TestCase
             ->test(Volunteer::class, ['event' => $event])
             ->fillForm([
                 'shifts' => [
-                    $shift->id
+                    $shift->id,
                 ],
             ])
             ->call('signup')

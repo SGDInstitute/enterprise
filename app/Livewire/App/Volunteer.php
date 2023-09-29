@@ -37,6 +37,7 @@ class Volunteer extends Component implements HasForms
                     ->options($this->shifts->mapWithKeys(fn ($shift) => [$shift->id => "{$shift->name}"]))
                     ->descriptions($this->shifts->mapWithKeys(function ($shift) {
                         $person = $shift->slots === 1 ? 'person' : 'people';
+
                         return [$shift->id => "{$shift->formattedDuration} - {$shift->slots} {$person} needed"];
                     }))
                     ->searchable(),
