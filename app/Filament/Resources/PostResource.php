@@ -9,6 +9,10 @@ use Filament\Infolists\Components\Actions\Action;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -30,7 +34,8 @@ class PostResource extends Resource
                     Action::make('approve')
                         ->action(function ($record) {
                             $record->approve(auth()->user());
-                        }),
+                        })
+                        ->disabled(fn ($record) => $record->isApproved),
                     Action::make('delete')
                         ->color('danger')
                         ->action(function ($record) {
@@ -82,7 +87,14 @@ class PostResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->unapproved()),
             ])
             ->actions([
-                ViewAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ]),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
             ]);
     }
 
