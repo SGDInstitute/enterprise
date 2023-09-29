@@ -57,4 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['verified', 'has-ticket'])->group(function () {
         Route::get('events/{event:slug}/message-board', App\Livewire\App\MessageBoard::class)->name('message-board');
     });
+
+    Route::middleware(['verified'])->group(function () {
+        Route::get('events/{event:slug}/volunteer', App\Livewire\App\Volunteer::class)->name('app.volunteer');
+    });
 });
