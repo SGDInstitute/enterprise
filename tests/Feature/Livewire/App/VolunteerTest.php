@@ -6,6 +6,7 @@ use App\Livewire\App\Volunteer;
 use App\Models\Event;
 use App\Models\Shift;
 use App\Models\User;
+use Filament\Forms\Components\CheckboxList;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
@@ -74,7 +75,7 @@ class VolunteerTest extends TestCase
             ->call('signup')
             ->assertHasNoFormErrors();
 
-        $this->assertContains($shift->id, $user->shifts->pluck('id'));
+        $this->assertContains($shift->id, $user->fresh()->shifts->pluck('id'));
     }
 
     #[Test]
@@ -190,7 +191,7 @@ class VolunteerTest extends TestCase
     }
 
     #[Test]
-    public function shifts_with_its_slots_filled_are_disabled()
+    public function cannot_sign_up_for_filled_shifts()
     {
         $event = Event::factory()->create();
         $user = User::factory()->create();
@@ -199,15 +200,23 @@ class VolunteerTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Volunteer::class, ['event' => $event])
-            ->fillForm([
-                'shifts' => [
-                    $shift->id,
-                ],
-            ])
-            ->call('signup')
-            ->assertHasNoFormErrors();
+            ->assertFormFieldExists('shifts', function (CheckboxList $field) use ($shift) {
+                return $field->isOptionDisabled($shift->id, 'shifts');
+            });
+    }
 
-        $this->assertNotContains($shiftA->id, $user->fresh()->shifts->fresh()->pluck('id'));
-        $this->assertContains($shiftB->id, $user->fresh()->shifts->fresh()->pluck('id'));
+    #[Test]
+    public function can_change_volunteer_signup_for_filled_shifts()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        $shift = Shift::factory()->for($event)->create(['slots' => 1]);
+        $shift->users()->attach($user);
+
+        Livewire::actingAs($user)
+            ->test(Volunteer::class, ['event' => $event])
+            ->assertFormFieldExists('shifts', function (CheckboxList $field) use ($shift) {
+                return ! $field->isOptionDisabled($shift->id, 'shifts');
+            });
     }
 }

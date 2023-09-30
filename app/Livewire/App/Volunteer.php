@@ -26,7 +26,7 @@ class Volunteer extends Component implements HasForms
 
     public function getShiftsProperty()
     {
-        return $this->event->shifts()->withCount('users')->get();
+        return $this->event->shifts()->with('users:id')->withCount('users')->get();
     }
 
     public function getFilledShiftsProperty()
@@ -39,15 +39,17 @@ class Volunteer extends Component implements HasForms
         return $form
             ->schema([
                 CheckboxList::make('shifts')
+                    ->required()
                     ->searchable()
                     ->options($this->shifts->mapWithKeys(fn ($shift) => [$shift->id => "{$shift->name}"]))
-                    ->disableOptionWhen(fn (string $value): bool => $this->filledShifts->contains($value))
+                    ->disableOptionWhen(fn (string $value): bool => $this->isOptionDisabledForUser($value))
                     ->descriptions($this->shifts->mapWithKeys(function ($shift) {
                         $person = $shift->slots === 1 ? 'person' : 'people';
                         $count = $shift->slots - $shift->users_count;
 
                         return [$shift->id => "{$shift->formattedDuration} - {$count} {$person} needed"];
-                    })),
+                    }))
+                    ->in(fn (CheckboxList $component): array => $component->getEnabledOptions()),
             ])
             ->statePath('data');
     }
@@ -66,5 +68,10 @@ class Volunteer extends Component implements HasForms
     public function render()
     {
         return view('livewire.app.volunteer');
+    }
+
+    private function isOptionDisabledForUser($shiftId): bool
+    {
+        return $this->shifts->firstWhere('id', $shiftId)->users->doesntContain(auth()->id()) && $this->filledShifts->contains($shiftId);
     }
 }
