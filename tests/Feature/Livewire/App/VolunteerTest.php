@@ -78,7 +78,7 @@ class VolunteerTest extends TestCase
     }
 
     #[Test]
-    public function can_update_volunteer_signup()
+    public function can_change_volunteer_signup()
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
@@ -101,7 +101,113 @@ class VolunteerTest extends TestCase
             ->call('signup')
             ->assertHasNoFormErrors();
 
-        $this->assertNotContains($shiftA->id, $user->shifts->fresh()->pluck('id'));
-        $this->assertContains($shiftB->id, $user->shifts->fresh()->pluck('id'));
+        $this->assertNotContains($shiftA->id, $user->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertContains($shiftB->id, $user->fresh()->shifts->fresh()->pluck('id'));
+    }
+
+    #[Test]
+    public function can_remove_volunteer_signup()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
+        $shift = Shift::factory()->for($event)->create(['name' => 'Hello world']);
+        $shift->users()->attach($user);
+
+        Livewire::actingAs($user)
+            ->test(Volunteer::class, ['event' => $event])
+            ->assertFormSet([
+                'shifts' => [
+                    $shift->id,
+                ],
+            ])
+            ->fillForm([
+                'shifts' => [],
+            ])
+            ->call('signup')
+            ->assertHasNoFormErrors();
+
+        $this->assertNotContains($shift->id, $user->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertEmpty($shift->users);
+    }
+
+    #[Test]
+    public function can_add_volunteer_signup()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
+        $shiftA = Shift::factory()->for($event)->create(['name' => 'Hello world']);
+        $shiftB = Shift::factory()->for($event)->create(['name' => 'Foo Bar']);
+        $shiftA->users()->attach($user);
+
+        Livewire::actingAs($user)
+            ->test(Volunteer::class, ['event' => $event])
+            ->assertFormSet([
+                'shifts' => [
+                    $shiftA->id,
+                ],
+            ])
+            ->fillForm([
+                'shifts' => [
+                    $shiftA->id,
+                    $shiftB->id,
+                ],
+            ])
+            ->call('signup')
+            ->assertHasNoFormErrors();
+
+        $this->assertContains($shiftA->id, $user->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertContains($shiftB->id, $user->fresh()->shifts->fresh()->pluck('id'));
+    }
+
+    #[Test]
+    public function changing_shifts_does_not_affect_others_assigned_to_that_shift()
+    {
+        $event = Event::factory()->create();
+        [$userA, $userB] = User::factory()->count(2)->create();
+        [$shiftA, $shiftB] = Shift::factory()->for($event)->count(2)->create(['name' => 'Hello world']);
+        $shiftA->users()->attach($userA);
+        $shiftA->users()->attach($userB);
+
+        Livewire::actingAs($userA)
+            ->test(Volunteer::class, ['event' => $event])
+            ->assertFormSet([
+                'shifts' => [
+                    $shiftA->id,
+                ],
+            ])
+            ->fillForm([
+                'shifts' => [
+                    $shiftB->id,
+                ],
+            ])
+            ->call('signup')
+            ->assertHasNoFormErrors();
+
+        $this->assertNotContains($shiftA->id, $userA->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertContains($shiftB->id, $userA->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertContains($shiftA->id, $userB->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertNotContains($shiftB->id, $userB->fresh()->shifts->fresh()->pluck('id'));
+    }
+
+    #[Test]
+    public function shifts_with_its_slots_filled_are_disabled()
+    {
+        $event = Event::factory()->create();
+        $user = User::factory()->create();
+        $shift = Shift::factory()->for($event)->create(['slots' => 2]);
+        $shift->users()->attach(User::factory()->count(2)->create()->pluck('id'));
+
+        Livewire::actingAs($user)
+            ->test(Volunteer::class, ['event' => $event])
+            ->fillForm([
+                'shifts' => [
+                    $shift->id,
+                ],
+            ])
+            ->call('signup')
+            ->assertHasNoFormErrors();
+
+        $this->assertNotContains($shiftA->id, $user->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertContains($shiftB->id, $user->fresh()->shifts->fresh()->pluck('id'));
     }
 }

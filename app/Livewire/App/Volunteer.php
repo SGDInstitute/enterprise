@@ -16,7 +16,7 @@ class Volunteer extends Component implements HasForms
     public Event $event;
 
     public ?array $data = [];
-    public ?array $original = [];
+    public $original;
 
     public function mount(): void
     {
@@ -26,7 +26,12 @@ class Volunteer extends Component implements HasForms
 
     public function getShiftsProperty()
     {
-        return $this->event->shifts;
+        return $this->event->shifts()->withCount('users')->get();
+    }
+
+    public function getFilledShiftsProperty()
+    {
+        return $this->shifts->filter(fn ($shift) => $shift->users_count >= $shift->slots);
     }
 
     public function form(Form $form): Form
@@ -37,18 +42,24 @@ class Volunteer extends Component implements HasForms
                     ->options($this->shifts->mapWithKeys(fn ($shift) => [$shift->id => "{$shift->name}"]))
                     ->descriptions($this->shifts->mapWithKeys(function ($shift) {
                         $person = $shift->slots === 1 ? 'person' : 'people';
+                        $count = $shift->slots - $shift->users_count;
 
-                        return [$shift->id => "{$shift->formattedDuration} - {$shift->slots} {$person} needed"];
+                        return [$shift->id => "{$shift->formattedDuration} - {$count} {$person} needed"];
                     }))
-                    ->searchable(),
+                    ->searchable()
+                    ->disableOptionWhen(fn (string $value): bool => $this->filledShifts->contains($value)),
             ])
             ->statePath('data');
     }
 
     public function signup(): void
     {
-        // if user unselects need to remove it from thier shifts
         $selectedShifts = $this->shifts->whereIn('id', $this->form->getState()['shifts']);
+
+        // if user unselects a shift, remove it from their shifts
+        auth()->user()->shifts()->detach($this->original->diff($selectedShifts));
+
+        // attach user to shifts selected
         $selectedShifts->each(fn ($shift) => $shift->users()->attach(auth()->user()));
     }
 
