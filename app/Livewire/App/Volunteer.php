@@ -39,15 +39,15 @@ class Volunteer extends Component implements HasForms
         return $form
             ->schema([
                 CheckboxList::make('shifts')
+                    ->searchable()
                     ->options($this->shifts->mapWithKeys(fn ($shift) => [$shift->id => "{$shift->name}"]))
+                    ->disableOptionWhen(fn (string $value): bool => $this->filledShifts->contains($value))
                     ->descriptions($this->shifts->mapWithKeys(function ($shift) {
                         $person = $shift->slots === 1 ? 'person' : 'people';
                         $count = $shift->slots - $shift->users_count;
 
                         return [$shift->id => "{$shift->formattedDuration} - {$count} {$person} needed"];
-                    }))
-                    ->searchable()
-                    ->disableOptionWhen(fn (string $value): bool => $this->filledShifts->contains($value)),
+                    })),
             ])
             ->statePath('data');
     }
