@@ -83,8 +83,8 @@ class VolunteerTest extends TestCase
     {
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
-        $shiftA = Shift::factory()->for($event)->create(['name' => 'Hello world']);
-        $shiftB = Shift::factory()->for($event)->create(['name' => 'Foo Bar']);
+        $shiftA = Shift::factory()->for($event)->create();
+        $shiftB = Shift::factory()->for($event)->create();
         $shiftA->users()->attach($user);
 
         Livewire::actingAs($user)
