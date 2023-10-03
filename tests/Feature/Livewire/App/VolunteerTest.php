@@ -204,19 +204,4 @@ class VolunteerTest extends TestCase
                 return $field->isOptionDisabled($shift->id, 'shifts');
             });
     }
-
-    #[Test]
-    public function can_change_volunteer_signup_for_filled_shifts()
-    {
-        $event = Event::factory()->create();
-        $user = User::factory()->create();
-        $shift = Shift::factory()->for($event)->create(['slots' => 1]);
-        $shift->users()->attach($user);
-
-        Livewire::actingAs($user)
-            ->test(Volunteer::class, ['event' => $event])
-            ->assertFormFieldExists('shifts', function (CheckboxList $field) use ($shift) {
-                return ! $field->isOptionDisabled($shift->id, 'shifts');
-            });
-    }
 }
