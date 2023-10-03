@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
@@ -76,7 +77,12 @@ class Event extends Model implements HasMedia
         return $this->hasMany(EventBulletin::class)->where('published_at', '<', now());
     }
 
-    public function ticketTypes()
+    public function shifts(): HasMany
+    {
+        return $this->hasMany(Shift::class);
+    }
+
+    public function ticketTypes(): HasMany
     {
         return $this->hasMany(TicketType::class);
     }
