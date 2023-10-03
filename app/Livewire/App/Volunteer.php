@@ -7,6 +7,7 @@ use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class Volunteer extends Component implements HasForms
@@ -39,7 +40,6 @@ class Volunteer extends Component implements HasForms
         return $form
             ->schema([
                 CheckboxList::make('shifts')
-                    ->required()
                     ->searchable()
                     ->options($this->shifts->mapWithKeys(fn ($shift) => [$shift->id => "{$shift->name}"]))
                     ->descriptions($this->shifts->mapWithKeys(function ($shift) {
@@ -62,6 +62,8 @@ class Volunteer extends Component implements HasForms
 
         // attach user to shifts selected
         $selectedShifts->each(fn ($shift) => $shift->users()->attach(auth()->user()));
+
+        Notification::make()->success()->title('Successfully saved shifts')->send();
     }
 
     public function render()
