@@ -48,7 +48,7 @@ class Volunteer extends Component implements HasForms
 
                         return [$shift->id => "{$shift->formattedDuration} - {$count} {$person} needed"];
                     }))
-                    ->disableOptionWhen(fn (string $value): bool => $this->filledShifts->contains($value)),
+                    ->disableOptionWhen(fn (string $value): bool => $this->isOptionDisabled($value)),
             ])
             ->statePath('data');
     }
@@ -69,5 +69,10 @@ class Volunteer extends Component implements HasForms
     public function render()
     {
         return view('livewire.app.volunteer');
+    }
+
+    private function isOptionDisabled($value): bool
+    {
+        return $this->filledShifts->contains($value) && $this->filledShifts->firstWhere('id', $value)->users->doesntContain(auth()->id());
     }
 }
