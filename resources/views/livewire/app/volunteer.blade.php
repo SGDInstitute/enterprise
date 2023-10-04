@@ -22,11 +22,15 @@
 
     <div class="max-w-2xl px-4 py-10 mx-auto">
         <div class="bg-white dark:bg-gray-800 p-6">
+            <div class="prose dark:prose-light mb-4">
+                <p>Please select the shifts you would like to volunteer for. You can come back to this page later to edit/cancel your shifts if you need to, just deselect the shifts you need to cancel.</p>
+                <p>If you volunteer for a total of 4 hours (2 shifts), you’ll get a free ticket to attend MBLGTACC 2023.</p>
+            </div>
             <form wire:submit="signup">
                 {{ $this->form }}
 
                 <x-bit.button.flat.primary type="submit" class="mt-8">
-                    {{ __('Sign up') }}
+                    {{ __('Sign up/Save Changes') }}
                 </x-bit.button.flat.primary>
             </form>
         </div>
