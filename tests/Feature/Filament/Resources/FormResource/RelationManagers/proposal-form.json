@@ -1,0 +1,359 @@
+[
+    {
+        "data": {
+            "id": "name",
+            "help": "This can be updated/edited at a later date.",
+            "type": "text",
+            "other": false,
+            "rules": "required|max:100",
+            "scale": null,
+            "options": [],
+            "question": "Name of Workshop",
+            "conditions": {
+                "6b338a43-b111-499e-8e9f-579516907086": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": null,
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": true
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "description",
+            "help": "This will be printed in the conference program. You’ll have a chance to edit this later.",
+            "type": "textarea",
+            "other": false,
+            "rules": "required|max:500",
+            "scale": null,
+            "options": [],
+            "question": "Provide a 75 word summary of your workshop.",
+            "conditions": {
+                "f487f545-20d0-4439-b2b9-d4c906877203": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": null,
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": true
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "content-warnings",
+            "help": null,
+            "type": "list",
+            "other": true,
+            "rules": "required",
+            "scale": null,
+            "options": {
+                "abuse": "Abuse (physical, mental, emotional, verbal)",
+                "death": "Death",
+                "racism": "Racism",
+                "sexism": "Sexism",
+                "ableism": "Ableism",
+                "suicide": "Suicide",
+                "biphobia": "Biphobia or homophobia",
+                "classism": "Classism",
+                "misogyny": "Misogyny",
+                "violence": "Violence",
+                "fatphobia": "Fatphobia",
+                "self-harm": "Self-harm or self-injury",
+                "xenophobia": "Xenophobia",
+                "transphobia": "Transphobia",
+                "sexual-violence": "Sexual violence",
+                "substance-abuse": "Substance abuse",
+                "eating-disorders": "Eating disorders",
+                "relationship-violence": "Relationship violence"
+            },
+            "question": "Please select any applicable content warnings.",
+            "conditions": {
+                "bb1f9753-b259-4fa8-af5c-c05c0dd635ba": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": "checkbox",
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "collaborators"
+        },
+        "type": "collaborators"
+    },
+    {
+        "data": {
+            "id": "session",
+            "help": "You’ll have a chance to edit this later.",
+            "type": "list",
+            "other": false,
+            "rules": "required",
+            "scale": null,
+            "options": {
+                "breakout-1": "Saturday, Nov. 4, 9:00-10:15 a.m.",
+                "breakout-2": "Saturday, Nov, 4, 10:45 a.m.-12:00 p.m.",
+                "breakout-4": "Saturday, Nov. 4, 3:45-5:00 p.m.",
+                "breakout-6": "Sunday, Nov. 5, 10:45 a.m.-12:00 p.m."
+            },
+            "question": "Which time(s) are you available to present at?",
+            "conditions": {
+                "42933b5a-e868-4ca9-b21a-d5e397fea38c": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": "checkbox",
+            "visibility": null,
+            "option-data": null,
+            "visibility-andor": null,
+            "editable_after_submission": true
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "format",
+            "help": null,
+            "type": "list",
+            "other": false,
+            "rules": "required",
+            "scale": null,
+            "options": {
+                "identity": "Identity Forum (Ex: a closed group for queer folks in STEM)",
+                "discussion": "Facilitated Discussion (Ex: leading a group conversation about campus policy)",
+                "interactive": "Interactive Activity (Ex: Skill Share, heavy group involvement, Crafts/Art)",
+                "presentation": "Presentation (Ex: lecture, presenting research)"
+            },
+            "question": "Which format best describes your workshop? ",
+            "conditions": {
+                "aa1fc585-2d59-4534-b625-e5dd5e26a755": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": "radio",
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "content-outline",
+            "content": "<h2>Detailed Description</h2>"
+        },
+        "type": "content"
+    },
+    {
+        "data": {
+            "id": "outline-method",
+            "help": "We offer these options for those who may feel more confident providing an outline in either a written format or a verbalized/oral format.",
+            "type": "list",
+            "other": false,
+            "rules": "required",
+            "scale": null,
+            "options": {
+                "text": "Written Outline",
+                "video": "Video/Audio Recording"
+            },
+            "question": "How would you like to submit your outline?",
+            "conditions": {
+                "1ea02a3a-ff81-47f7-8fc3-d781b4b9e877": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": "radio",
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "outline-method-option-video",
+            "help": "Provide a link",
+            "type": "text",
+            "other": false,
+            "rules": "required_if:outline-method,video",
+            "scale": null,
+            "options": [],
+            "question": "Video/Audio Recording",
+            "conditions": [
+                {
+                    "field": "outline-method",
+                    "value": "video",
+                    "method": "equals"
+                }
+            ],
+            "list-style": null,
+            "visibility": "conditional",
+            "visibility-andor": "and",
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "outline-method-option-text",
+            "help": null,
+            "type": "rich-editor",
+            "other": false,
+            "rules": "required_if:outline-method,text",
+            "scale": null,
+            "options": [],
+            "question": "Written Outline",
+            "conditions": [
+                {
+                    "field": "outline-method",
+                    "value": "text",
+                    "method": "equals"
+                }
+            ],
+            "list-style": null,
+            "visibility": "conditional",
+            "visibility-andor": "and",
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "track-first-choice",
+            "help": "If none apply, click “General Session”",
+            "type": "list",
+            "other": false,
+            "rules": "required",
+            "scale": null,
+            "options": {
+                "1": "media:Art, Media & Design",
+                "2": "college:Change on College Campuses",
+                "3": "activism:Justice - Activism & Protest",
+                "4": "rural:Small-town Queerness",
+                "5": "care:Self and Community Care",
+                "6": "advisor:Advisor Track",
+                "7": "general:General Session"
+            },
+            "question": "Workshops will be considered for inclusion in either one of six tracks or as a general session. What workshop track does your workshop MOST align with?",
+            "conditions": {
+                "aed31458-11bd-42f2-a29b-666cceedd65f": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": "radio",
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "track-second-choice",
+            "help": "If none apply, click “General Session”",
+            "type": "list",
+            "other": false,
+            "rules": "required",
+            "scale": null,
+            "options": {
+                "1": "media:Art, Media & Design",
+                "2": "college:Change on College Campuses",
+                "3": "activism:Justice - Activism & Protest",
+                "4": "rural:Small-town Queerness",
+                "5": "care:Self and Community Care",
+                "6": "advisor:Advisor Track",
+                "7": "general:General Session"
+            },
+            "question": "Is there an additional track your workshop closely aligns with?",
+            "conditions": {
+                "0cbd6bd0-2585-4242-b8d8-ce2b564398c9": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": "radio",
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "experience",
+            "help": "Ex: lived experiences, extensive work or research around this topic, previous presentations, occupation, etc.",
+            "type": "textarea",
+            "other": false,
+            "rules": "required",
+            "scale": null,
+            "options": [],
+            "question": "What personal, academic, and/or advocacy experiences prepare you/your group to give this presentation?",
+            "conditions": {
+                "849b823a-2bb2-4455-a9b1-11c14073e32b": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": null,
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "other",
+            "help": null,
+            "type": "textarea",
+            "other": false,
+            "rules": "nullable",
+            "scale": null,
+            "options": [],
+            "question": "Is there anything else we should know about you and your presentation?",
+            "conditions": {
+                "9aab6134-157f-4ff1-a285-b4c978856707": {
+                    "field": null,
+                    "value": null,
+                    "method": null
+                }
+            },
+            "list-style": null,
+            "visibility": null,
+            "visibility-andor": null,
+            "editable_after_submission": false
+        },
+        "type": "question"
+    },
+    {
+        "data": {
+            "id": "presenter-guidelines",
+            "content": "<h2>Presenter Guidelines</h2>"
+        },
+        "type": "content"
+    }
+]

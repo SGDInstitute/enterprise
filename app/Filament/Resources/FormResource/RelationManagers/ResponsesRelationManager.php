@@ -8,6 +8,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
@@ -24,16 +25,6 @@ class ResponsesRelationManager extends RelationManager
     protected static string $relationship = 'responses';
 
     protected static ?string $recordTitleAttribute = 'name';
-
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-            ]);
-    }
 
     public function table(Table $table): Table
     {
@@ -129,8 +120,12 @@ class ResponsesRelationManager extends RelationManager
                     )),
             ], layout: FiltersLayout::AboveContent)
             ->actions([
-                ViewAction::make()
-                    ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
+                    // Action::make('create_order')
+                    //     ->hidden(fn ($record) => in_array($record->status, ['confirmed', 'scheduled']))
+                ]),
             ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 BulkAction::make('change_status')
@@ -153,6 +148,19 @@ class ResponsesRelationManager extends RelationManager
                             ])
                             ->required(),
                     ])
+                    ->deselectRecordsAfterCompletion(),
+                BulkAction::make('create_orders')
+                    ->action(function (Collection $records) {
+                        $records = $records->filter(fn ($record) => in_array($record->status, ['scheduled', 'confirmed']));
+
+                        $collaborators = $records->flatMap->collaborators->unique();
+
+                        // filter out proposals with invitations
+                            // send out reminder that we can't create order w/ pending invitations
+                        // create comped orders for user & all collaborators
+                            // send out to users notification that order was created
+                        // send toast notification that action is done
+                    })
                     ->deselectRecordsAfterCompletion(),
             ])
             ->persistFiltersInSession()
