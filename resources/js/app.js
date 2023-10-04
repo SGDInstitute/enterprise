@@ -1,8 +1,13 @@
+import * as Sentry from "@sentry/browser";
 import {
     Livewire,
     Alpine,
 } from "../../vendor/livewire/livewire/dist/livewire.esm";
 import address from "./address.js";
+
+Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
+});
 
 Alpine.data("address", address);
 
