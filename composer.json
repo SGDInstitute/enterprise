@@ -32,6 +32,7 @@
         "livewire/livewire": "^3.0",
         "lukeraymonddowning/honey": "^0.5.0",
         "maatwebsite/excel": "^3.1",
+        "sentry/sentry-laravel": "^3.8",
         "shuvroroy/filament-spatie-laravel-health": "^2.0",
         "spatie/browsershot": "^3.57",
         "spatie/laravel-activitylog": "^4.7",
@@ -65,7 +66,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true
         }
     },
     "extra": {
