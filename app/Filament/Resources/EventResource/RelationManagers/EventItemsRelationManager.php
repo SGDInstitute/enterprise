@@ -5,6 +5,7 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\EventItem;
 use App\Models\Response;
 use App\Notifications\WorkshopScheduled;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\RichEditor;
@@ -87,58 +88,73 @@ class EventItemsRelationManager extends RelationManager
                     ->query(fn (Builder $query): Builder => $query->whereNull('parent_id')),
             ])
             ->headerActions([
-                CreateAction::make()
-                    ->mutateFormDataUsing(function (array $data): array {
-                        if ($data['parent_id'] !== null) {
+                Action::make('export-copyable-schedule')
+                    ->label('Export (txt)')
+                    ->action(function () {
+                        $parents = $this->ownerRecord->items()->whereNull('parent_id')->orderBy('start')->with('children')->get();
+                        $contents = view('exports.copyable-schedule', ['items' => $parents])->render();
+
+                        $date = now()->format('Y-m-d');
+
+                        return response()->streamDownload(
+                            fn () => print($contents),
+                            "schedule-export-{$date}.txt"
+                        );
+                    }),
+                ActionGroup::make([
+                    CreateAction::make()
+                        ->mutateFormDataUsing(function (array $data): array {
+                            if ($data['parent_id'] !== null) {
+                                $parent = EventItem::find($data['parent_id']);
+                                $data['start'] = $parent->start;
+                                $data['end'] = $parent->end;
+                                $data['timezone'] = $parent->timezone;
+                            } else {
+                                $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
+                                $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
+                            }
+
+                            return $data;
+                        }),
+                    Action::make('create-sub')
+                        ->label('Link Item')
+                        ->form([
+                            Select::make('parent_id')
+                                ->label('Parent')
+                                ->relationship(
+                                    name: 'parent',
+                                    modifyQueryUsing: fn (Builder $query) => $query->whereNull('parent_id')->where('event_id', $this->ownerRecord->id),
+                                )
+                                ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} ({$record->start->format('D')})")
+                                ->searchable(),
+                            Select::make('workshop_id')
+                                ->label('Proposal')
+                                ->options($this->ownerRecord->proposals()->where('status', 'confirmed')->get()->pluck('name', 'id')),
+                            TextInput::make('location'),
+                            Select::make('track')
+                                ->options(collect($this->ownerRecord->settings->tracks)->pluck('name', 'id')),
+                        ])
+                        ->action(function (array $data): void {
                             $parent = EventItem::find($data['parent_id']);
-                            $data['start'] = $parent->start;
-                            $data['end'] = $parent->end;
-                            $data['timezone'] = $parent->timezone;
-                        } else {
-                            $data['start'] = Carbon::parse($data['start'], $data['timezone'])->timezone('UTC');
-                            $data['end'] = Carbon::parse($data['end'], $data['timezone'])->timezone('UTC');
-                        }
+                            $workshop = Response::find($data['workshop_id']);
 
-                        return $data;
-                    }),
-                Action::make('create-sub')
-                    ->label('Link Item')
-                    ->form([
-                        Select::make('parent_id')
-                            ->label('Parent')
-                            ->relationship(
-                                name: 'parent',
-                                modifyQueryUsing: fn (Builder $query) => $query->whereNull('parent_id')->where('event_id', $this->ownerRecord->id),
-                            )
-                            ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} ({$record->start->format('D')})")
-                            ->searchable(),
-                        Select::make('workshop_id')
-                            ->label('Proposal')
-                            ->options($this->ownerRecord->proposals()->where('status', 'confirmed')->get()->pluck('name', 'id')),
-                        TextInput::make('location'),
-                        Select::make('track')
-                            ->options(collect($this->ownerRecord->settings->tracks)->pluck('name', 'id')),
-                    ])
-                    ->action(function (array $data): void {
-                        $parent = EventItem::find($data['parent_id']);
-                        $workshop = Response::find($data['workshop_id']);
+                            $item = EventItem::create([
+                                'event_id' => $parent->event_id,
+                                'parent_id' => $parent->id,
+                                'name' => $workshop->name,
+                                'description' => $workshop->description,
+                                'start' => $parent->start,
+                                'end' => $parent->end,
+                                'timezone' => $parent->timezone,
+                                'location' => $data['location'],
+                                'settings' => ['workshop_id' => $workshop->id],
+                                'speaker' => $workshop->collaborators->map(fn ($user) => $user->formattedName)->join(', '),
+                            ]);
 
-                        $item = EventItem::create([
-                            'event_id' => $parent->event_id,
-                            'parent_id' => $parent->id,
-                            'name' => $workshop->name,
-                            'description' => $workshop->description,
-                            'start' => $parent->start,
-                            'end' => $parent->end,
-                            'timezone' => $parent->timezone,
-                            'location' => $data['location'],
-                            'settings' => ['workshop_id' => $workshop->id],
-                            'speaker' => $workshop->collaborators->map(fn ($user) => $user->formattedName)->join(', '),
-                        ]);
-
-                        $workshop->update(['status' => 'scheduled']);
-                        Notification::send($workshop->collaborators, new WorkshopScheduled($workshop, $item));
-                    }),
+                            $workshop->update(['status' => 'scheduled']);
+                            Notification::send($workshop->collaborators, new WorkshopScheduled($workshop, $item));
+                        }),
+                ]),
             ])
             ->actions([
                 EditAction::make()

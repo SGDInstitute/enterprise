@@ -1,0 +1,25 @@
+@foreach ($items as $item)
+Name: {!! htmlspecialchars_decode($item->name) !!}
+Time: {{ $item->formattedDuration }}
+Speaker: {{ $item->speaker }}
+Location: {{ $item->location }}
+Description: {!! htmlspecialchars_decode($item->description) !!}
+Track:
+Warnings:
+
+@if ($item->children->isNotEmpty())
+Children:
+
+@foreach ($item->children as $child)
+Name: {!! htmlspecialchars_decode($child->name) !!}
+Speaker: {{ $child->speaker }}
+Location: {{ $child->location }}
+Description: {!! htmlspecialchars_decode($child->description) !!}
+Track:
+Warnings:
+
+@endforeach
+@endif
+-------------------------------------
+
+@endforeach
