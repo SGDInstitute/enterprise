@@ -6,7 +6,6 @@ Location: {{ $item->location }}
 Description: {!! htmlspecialchars_decode($item->description) !!}
 Track: {{ $item->tracks }}
 Warnings: {{ $item->warnings }}
-Warnings:
 
 @if ($item->children->isNotEmpty())
 Children:

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
+use App\Exports\ScheduleExport;
 use App\Models\EventItem;
 use App\Models\Response;
 use App\Notifications\WorkshopScheduled;
@@ -26,6 +27,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
+use Maatwebsite\Excel\Facades\Excel;
 use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 
 class EventItemsRelationManager extends RelationManager
@@ -88,19 +90,32 @@ class EventItemsRelationManager extends RelationManager
                     ->query(fn (Builder $query): Builder => $query->whereNull('parent_id')),
             ])
             ->headerActions([
-                Action::make('export-copyable-schedule')
-                    ->label('Export (txt)')
-                    ->action(function () {
-                        $parents = $this->ownerRecord->items()->whereNull('parent_id')->orderBy('start')->with('children')->get();
-                        $contents = view('exports.copyable-schedule', ['items' => $parents])->render();
+                ActionGroup::make([
+                    Action::make('export-schedule-txt')
+                        ->label('Schedule Export (txt)')
+                        ->action(function () {
+                            $parents = $this->ownerRecord->items()->whereNull('parent_id')->orderBy('start')->with('children')->get();
+                            $contents = view('exports.copyable-schedule', ['items' => $parents])->render();
 
-                        $date = now()->format('Y-m-d');
+                            $date = now()->format('Y-m-d');
 
-                        return response()->streamDownload(
-                            fn () => print($contents),
-                            "schedule-export-{$date}.txt"
-                        );
-                    }),
+                            return response()->streamDownload(
+                                fn () => print($contents),
+                                "schedule-export-{$date}.txt"
+                            );
+                        }),
+                    Action::make('export-schedule-xlsx')
+                        ->label('Schedule Export (xlsx)')
+                        ->action(function () {
+                            $date = now()->format('Y-m-d');
+
+                            return Excel::download(new ScheduleExport($this->ownerRecord->id), "schedule-export-{$date}.xlsx");
+                        }),
+                ])
+                ->icon('heroicon-m-arrow-down-tray')
+                ->button()
+                ->label('Exports')
+                ->outlined(),
                 ActionGroup::make([
                     CreateAction::make()
                         ->mutateFormDataUsing(function (array $data): array {
@@ -169,7 +184,9 @@ class EventItemsRelationManager extends RelationManager
                                 ]);
                             }
                         }),
-                ]),
+                ])
+                ->button()
+                ->label('Actions'),
             ])
             ->actions([
                 EditAction::make()
