@@ -198,7 +198,7 @@ final class EventItemsRelationManagerTest extends TestCase
             'ownerRecord' => $event,
             'pageClass' => EditEvent::class,
         ])
-        ->callTableAction('export-copyable-schedule')
+        ->callTableAction('export-schedule-txt')
         ->assertHasNoActionErrors();
     }
 
