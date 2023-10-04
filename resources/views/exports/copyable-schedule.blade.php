@@ -4,7 +4,8 @@ Time: {{ $item->formattedDuration }}
 Speaker: {{ $item->speaker }}
 Location: {{ $item->location }}
 Description: {!! htmlspecialchars_decode($item->description) !!}
-Track:
+Track: {{ $item->tracks }}
+Warnings: {{ $item->warnings }}
 Warnings:
 
 @if ($item->children->isNotEmpty())
@@ -15,8 +16,8 @@ Name: {!! htmlspecialchars_decode($child->name) !!}
 Speaker: {{ $child->speaker }}
 Location: {{ $child->location }}
 Description: {!! htmlspecialchars_decode($child->description) !!}
-Track:
-Warnings:
+Track: {{ $item->tracks }}
+Warnings: {{ $item->warnings }}
 
 @endforeach
 @endif
