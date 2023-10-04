@@ -5,7 +5,6 @@ namespace App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\EventItem;
 use App\Models\Response;
 use App\Notifications\WorkshopScheduled;
-use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\RichEditor;
@@ -15,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -160,7 +160,7 @@ class EventItemsRelationManager extends RelationManager
                             $items = $this->ownerRecord->items()->whereNotNull('settings')->get();
                             // @todo maybe move `workshop_id` to a real relationship and FK
 
-                            foreach($items as $item) {
+                            foreach ($items as $item) {
                                 $workshop = Response::find($item->settings->workshop_id);
                                 $item->update([
                                     'name' => $workshop->name,
@@ -168,7 +168,7 @@ class EventItemsRelationManager extends RelationManager
                                     'speaker' => $workshop->collaborators->map(fn ($user) => $user->formattedName)->join(', '),
                                 ]);
                             }
-                        })
+                        }),
                 ]),
             ])
             ->actions([

@@ -216,7 +216,6 @@ final class EventItemsRelationManagerTest extends TestCase
         $answers['name'] = 'Intro to Soups';
         $response->update(['answers' => $answers]);
 
-
         Livewire::test(EventItemsRelationManager::class, [
             'ownerRecord' => $event,
             'pageClass' => EditEvent::class,
