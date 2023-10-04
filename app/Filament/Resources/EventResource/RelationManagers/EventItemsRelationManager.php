@@ -154,6 +154,21 @@ class EventItemsRelationManager extends RelationManager
                             $workshop->update(['status' => 'scheduled']);
                             Notification::send($workshop->collaborators, new WorkshopScheduled($workshop, $item));
                         }),
+                    Action::make('refresh-proposals')
+                        ->label('Refresh data from Proposals')
+                        ->action(function (): void {
+                            $items = $this->ownerRecord->items()->whereNotNull('settings')->get();
+                            // @todo maybe move `workshop_id` to a real relationship and FK
+
+                            foreach($items as $item) {
+                                $workshop = Response::find($item->settings->workshop_id);
+                                $item->update([
+                                    'name' => $workshop->name,
+                                    'description' => $workshop->description,
+                                    'speaker' => $workshop->collaborators->map(fn ($user) => $user->formattedName)->join(', '),
+                                ]);
+                            }
+                        })
                 ]),
             ])
             ->actions([

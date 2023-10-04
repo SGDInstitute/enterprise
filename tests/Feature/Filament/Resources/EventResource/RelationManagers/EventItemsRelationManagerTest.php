@@ -198,6 +198,33 @@ final class EventItemsRelationManagerTest extends TestCase
             'ownerRecord' => $event,
             'pageClass' => EditEvent::class,
         ])
-        ->callTableAction('export-copyable-schedule');
+        ->callTableAction('export-copyable-schedule')
+        ->assertHasNoActionErrors();
+    }
+
+    #[Test]
+    public function can_refresh_data_from_workshops()
+    {
+        $event = Event::factory()->create();
+        $response = Response::factory()->create(['answers' => ['name' => 'Intro to Soup', 'description' => 'Hello world']]);
+
+        $parent = EventItem::factory()->for($event)->create(['name' => 'Workshop Session 1']);
+        $item = EventItem::factory()->for($event)->for($parent, 'parent')->create(['name' => 'Intro to Soup', 'settings' => ['workshop_id' => $response->id]]);
+
+        // Simulate user changing details
+        $answers = $response->answers;
+        $answers['name'] = 'Intro to Soups';
+        $response->update(['answers' => $answers]);
+
+
+        Livewire::test(EventItemsRelationManager::class, [
+            'ownerRecord' => $event,
+            'pageClass' => EditEvent::class,
+        ])
+        ->callTableAction('refresh-proposals')
+        ->assertHasNoActionErrors();
+
+        $this->assertEquals('Intro to Soups', $item->fresh()->name);
+        $this->assertEquals('Hello world', $item->fresh()->description);
     }
 }
