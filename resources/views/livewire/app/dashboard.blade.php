@@ -4,6 +4,10 @@
             @foreach (config('nav.app.dashboard') as $link)
                 <x-galaxy.nav-link :href="route($link['route'], $link['route-param'])" :icon="$link['icon']" :active="$link['route-param'] === $page" >{{ $link['name'] }}</x-galaxy.nav-link>
             @endforeach
+            <x-galaxy.nav-link :href="route('app.dashboard', 'orders-reservations')" icon="heroicon-o-calendar" :active="'orders-reservations' === $page" >Event Tickets</x-galaxy.nav-link>
+            <x-galaxy.nav-link :href="route('app.dashboard', 'workshops')" icon="heroicon-o-light-bulb" :active="'workshops' === $page" >Workshop Submissions</x-galaxy.nav-link>
+            <x-galaxy.nav-link :href="route('app.dashboard', 'donations')" icon="heroicon-o-gift" :active="'donations' === $page" >Donations</x-galaxy.nav-link>
+            <x-galaxy.nav-link :href="route('app.dashboard', 'settings')" icon="heroicon-o-cog" :active="'settings' === $page" >Settings</x-galaxy.nav-link>
         </nav>
 
         <div class="col-span-3 text-gray-200">
