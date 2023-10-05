@@ -114,6 +114,4 @@ class Ticket extends Model
     {
         return $this->isQueued() && $this->queue->printed;
     }
-
-
 }
