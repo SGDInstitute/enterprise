@@ -27,14 +27,20 @@ final class DashboardTest extends TestCase
     #[Test]
     public function the_component_can_render(): void
     {
-        Livewire::test(Dashboard::class)
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Dashboard::class)
             ->assertStatus(200);
     }
 
     #[Test]
     public function by_default_the_page_is_orders_resources()
     {
-        Livewire::test(Dashboard::class)
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Dashboard::class)
             ->assertSet('page', 'orders-reservations');
     }
 

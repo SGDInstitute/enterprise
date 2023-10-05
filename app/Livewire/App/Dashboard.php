@@ -10,7 +10,7 @@ class Dashboard extends Component
 
     public function mount($page = 'orders-reservations')
     {
-        if (auth()->user()->has_invitations) {
+        if (auth()->check() && auth()->user()->has_invitations) {
             $page = 'invitations';
         }
 
