@@ -73,6 +73,15 @@ class Response extends Model
 
     // Attributes
 
+    public function getDescriptionAttribute()
+    {
+        if (isset($this->answers['question-description']) && $this->answers['question-description'] === '') {
+            return 'Not answered';
+        }
+
+        return $this->answers['question-description'] ?? $this->answers['description'] ?? 'Indertiminable';
+    }
+
     public function getNameAttribute()
     {
         if (isset($this->answers['question-name']) && $this->answers['question-name'] === '') {

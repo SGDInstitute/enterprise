@@ -183,4 +183,47 @@ final class EventItemsRelationManagerTest extends TestCase
         ->assertCanSeeTableRecords($event->items->whereNull('parent_id'))
         ->assertCanNotSeeTableRecords($event->items->whereNotNull('parent_id'));
     }
+
+    #[Test]
+    public function can_export_list_for_program_book()
+    {
+        $event = Event::factory()->create();
+        $parent = EventItem::factory()->for($event)->create(['name' => 'Workshop Session 1']);
+        EventItem::factory()->for($event)->for($parent, 'parent')->count(2)->state(new Sequence(
+            ['name' => 'Intro to Soup'],
+            ['name' => 'Advanced Soup'],
+        ))->create();
+
+        Livewire::test(EventItemsRelationManager::class, [
+            'ownerRecord' => $event,
+            'pageClass' => EditEvent::class,
+        ])
+        ->callTableAction('export-schedule-txt')
+        ->assertHasNoActionErrors();
+    }
+
+    #[Test]
+    public function can_refresh_data_from_workshops()
+    {
+        $event = Event::factory()->create();
+        $response = Response::factory()->create(['answers' => ['name' => 'Intro to Soup', 'description' => 'Hello world']]);
+
+        $parent = EventItem::factory()->for($event)->create(['name' => 'Workshop Session 1']);
+        $item = EventItem::factory()->for($event)->for($parent, 'parent')->create(['name' => 'Intro to Soup', 'settings' => ['workshop_id' => $response->id]]);
+
+        // Simulate user changing details
+        $answers = $response->answers;
+        $answers['name'] = 'Intro to Soups';
+        $response->update(['answers' => $answers]);
+
+        Livewire::test(EventItemsRelationManager::class, [
+            'ownerRecord' => $event,
+            'pageClass' => EditEvent::class,
+        ])
+        ->callTableAction('refresh-proposals')
+        ->assertHasNoActionErrors();
+
+        $this->assertEquals('Intro to Soups', $item->fresh()->name);
+        $this->assertEquals('Hello world', $item->fresh()->description);
+    }
 }
