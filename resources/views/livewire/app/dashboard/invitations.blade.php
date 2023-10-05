@@ -9,7 +9,7 @@
             </x-ui.alert>
         @endif
 
-        @foreach($invitations as $invitation)
+        @foreach ($invitations as $invitation)
         <div class="bg-white dark:bg-gray-800 shadow flex items-center justify-between p-4 space-x-4">
             <div class="flex items-center space-x-4">
                 @if ($invitation->inviteable_type === App\Models\Ticket::class)
@@ -26,7 +26,7 @@
                 </div>
                 @endif
             </div>
-            @if($verified)
+            @if ($verified)
             <x-bit.button.flat.primary :href="$invitation->acceptUrl">Accept Invite</x-bit.button.flat.primary>
             @else
             <x-bit.button.flat.primary disabled>Accept Invite</x-bit.button.flat.primary>
