@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Notifications\AddedToTicket;
 use App\Traits\HasInvitations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Notification;
 
 class Ticket extends Model
 {
@@ -82,6 +84,22 @@ class Ticket extends Model
         }
     }
 
+    public function invite($email, $causer = null)
+    {
+        if ($causer === null) {
+            $causer = auth()->user();
+        }
+
+        $invitation = $this->invitations()->create([
+            'invited_by' => $causer->id,
+            'email' => $email,
+        ]);
+
+        Notification::route('mail', $email)->notify(new AddedToTicket($this, $invitation, $causer->name));
+
+        return $invitation;
+    }
+
     public function isFilled()
     {
         return $this->user_id !== null;
@@ -96,4 +114,6 @@ class Ticket extends Model
     {
         return $this->isQueued() && $this->queue->printed;
     }
+
+
 }
