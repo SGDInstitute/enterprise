@@ -114,6 +114,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->pronouns ? "{$this->name} ({$this->pronouns})" : $this->name;
     }
 
+    public function getHasInvitationsAttribute()
+    {
+        return Invitation::where('email', $this->email)->exists();
+    }
+
     // Methods
 
     public function acceptTerms($event)
