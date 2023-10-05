@@ -4,7 +4,7 @@ namespace App\Filament\Resources\EventResource\Widgets;
 
 use App\Models\Order;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Widgets\StatsOverviewWidget\Card;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Model;
 
 class StatsOverview extends BaseWidget
@@ -60,13 +60,13 @@ class StatsOverview extends BaseWidget
     protected function getCards(): array
     {
         return [
-            Card::make('Days until Event', $this->daysLeft)->extraAttributes([
+            Stat::make('Days until Event', $this->daysLeft)->extraAttributes([
                 'class' => 'col-span-2',
             ]),
-            Card::make('Reservations', $this->reservationTotals),
-            Card::make('Orders', $this->orderTotals),
-            Card::make('Potential Money from Reservations', $this->potentialMoney),
-            Card::make('Money Made from Orders', $this->moneyMade),
+            Stat::make('Reservations', $this->reservationTotals),
+            Stat::make('Orders', $this->orderTotals),
+            Stat::make('Potential Money from Reservations', $this->potentialMoney),
+            Stat::make('Money Made from Orders', $this->moneyMade),
         ];
     }
 }
