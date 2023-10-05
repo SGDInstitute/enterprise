@@ -3,11 +3,12 @@
 namespace App\Filament\Resources\EventResource\Pages;
 
 use App\Filament\Resources\EventResource;
+use App\Filament\Resources\EventResource\Widgets\EventMultiWidget;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
 use App\Filament\Resources\EventResource\Widgets\TicketBreakdown;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\DeleteAction;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditEvent extends EditRecord
@@ -56,7 +57,7 @@ class EditEvent extends EditRecord
     protected function getHeaderWidgets(): array
     {
         return [
-            StatsOverview::class,
+            EventMultiWidget::class,
             TicketBreakdown::class,
         ];
     }

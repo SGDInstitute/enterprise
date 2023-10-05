@@ -11,8 +11,6 @@ class StatsOverview extends BaseWidget
 {
     public ?Model $record = null;
 
-    protected int|string|array $columnSpan = 2;
-
     public function getDaysLeftProperty()
     {
         return $this->record->daysUntil;
@@ -57,7 +55,7 @@ class StatsOverview extends BaseWidget
         return 2;
     }
 
-    protected function getCards(): array
+    protected function getStats(): array
     {
         return [
             Stat::make('Days until Event', $this->daysLeft)->extraAttributes([
