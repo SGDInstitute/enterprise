@@ -121,7 +121,7 @@ class Tickets extends Component
     {
         return Ticket::query()
             ->where('order_id', $this->order->id)
-            ->with('price', 'ticketType', 'user')
+            ->with('price', 'ticketType', 'user', 'invitations')
             ->paginate($this->perPage);
     }
 
@@ -178,12 +178,7 @@ class Tickets extends Component
     {
         $this->validate(['invite.email' => ['required', 'email', 'confirmed']]);
 
-        $invitation = $this->editingTicket->invitations()->create([
-            'invited_by' => auth()->id(),
-            'email' => $this->invite['email'],
-        ]);
-
-        Notification::route('mail', $this->invite['email'])->notify(new AddedToTicket($this->editingTicket, $invitation, auth()->user()->name));
+        $this->editingTicket->invite($this->invite['email']);
 
         $this->reset('editingTicket', 'invite');
     }
@@ -229,6 +224,19 @@ class Tickets extends Component
         }
 
         $this->showTicketholderModal = true;
+    }
+
+    public function removeInviteFromTicket($id)
+    {
+        $ticket = $this->tickets->find($id);
+
+        if (! auth()->user()->can('update', $ticket)) {
+            return $this->dispatch('notify', ['message' => 'You cannot edit other tickets.', 'type' => 'error']);
+        }
+
+        $ticket->invitations->each->delete();
+
+        $this->dispatch('refresh');
     }
 
     public function removeUserFromTicket($id)

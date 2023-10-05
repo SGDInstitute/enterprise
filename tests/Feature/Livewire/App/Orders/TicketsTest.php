@@ -219,4 +219,50 @@ final class TicketsTest extends TestCase
 
         Notification::assertSentOnDemand(AddedToTicket::class);
     }
+
+    #[Test]
+    public function can_remove_invitation_from_ticket(): void
+    {
+        Notification::fake();
+
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $user = User::factory()->create();
+        $order = Order::factory()->hasTickets(3)->for($event)->for($user)->create();
+        $order->tickets->first()->invite('adora@eternia.gov', $user);
+
+        Livewire::actingAs($user)
+            ->test(Tickets::class, ['order' => $order])
+            ->call('removeInviteFromTicket', $order->tickets->first()->id)
+            ->assertHasNoErrors()
+            ->assertDontSee('adora@eternia.gov')
+            ->assertDispatched('refresh');
+
+        $this->assertDatabaseMissing('users', ['email' => 'adora@eternia.gov']);
+        $this->assertDatabaseMissing('invitations', [
+            'invited_by' => $user->id,
+            'inviteable_type' => 'App\Models\Ticket',
+            'inviteable_id' => $order->tickets->first()->id,
+            'email' => 'adora@eternia.gov',
+        ]);
+    }
+
+    #[Test]
+    public function can_remove_user_from_ticket()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->preset('mblgtacc')->create();
+        $user = User::factory()->create();
+        $order = Order::factory()->for($event)->for($user)->create();
+        $ticket = Ticket::factory()->for($order)->for($user)->create();
+
+        Livewire::actingAs($user)
+            ->test(Tickets::class, ['order' => $order])
+            ->call('removeUserFromTicket', $order->tickets->first()->id)
+            ->assertHasNoErrors()
+            ->assertDispatched('refresh');
+
+        $this->assertNull($ticket->fresh()->user_id);
+        $this->assertNull($ticket->fresh()->answers);
+    }
 }

@@ -23,11 +23,11 @@
         </div>
         @elseif ($ticket->invitations->isNotEmpty())
         <div class="flex items-center justify-between">
-            <p class="text-lg text-gray-900 dark:text-gray-200">{{ $ticket->invitations()->first()->email }}</p>
+            <p class="text-lg text-gray-900 dark:text-gray-200">{{ $ticket->invitations()->first()->email ?? 'Removing' }}</p>
             <div>
                 @can('update', $ticket)
                 <x-bit.button.round.secondary size="xs" wire:click="loadTicket({{ $ticket->id }})">Remind User</x-bit.button.round.secondary>
-                <x-bit.button.round.secondary size="xs" wire:click="removeUserFromTicket({{ $ticket->id }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">Remove Invite</x-bit.button.round.secondary>
+                <x-bit.button.round.secondary size="xs" wire:click="removeInviteFromTicket({{ $ticket->id }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">Remove Invite</x-bit.button.round.secondary>
                 @endcan
             </div>
         </div>
