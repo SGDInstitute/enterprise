@@ -16,6 +16,7 @@ class Invitations extends Component
         return view('livewire.app.dashboard.invitations')
             ->with([
                 'invitations' => $this->invitations,
+                'verified' => auth()->user()->hasVerifiedEmail(),
             ]);
     }
 
