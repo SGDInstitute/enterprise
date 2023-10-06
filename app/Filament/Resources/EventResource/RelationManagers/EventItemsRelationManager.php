@@ -177,11 +177,16 @@ class EventItemsRelationManager extends RelationManager
 
                             foreach ($items as $item) {
                                 $workshop = Response::find($item->settings->workshop_id);
+
                                 $item->update([
                                     'name' => $workshop->name,
                                     'description' => $workshop->description,
                                     'speaker' => $workshop->collaborators->map(fn ($user) => $user->formattedName)->join(', '),
                                 ]);
+
+                                if (isset($workshop->answers['content-warnings'])) {
+                                    $item->syncTagsWithType($workshop->answers['content-warnings'], 'warnings');
+                                }
                             }
                         }),
                 ])
