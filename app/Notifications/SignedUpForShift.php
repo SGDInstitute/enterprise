@@ -28,8 +28,10 @@ class SignedUpForShift extends Notification implements ShouldQueue
 
         return (new MailMessage)
                     ->subject("Shift Reminder for {$this->event->name}")
-                    ->line("Thank you for signing up to volunteer for {$this->event->name}. You have signed up for the following shifts:")
-                    ->lines($shifts)
+                    ->line("Thank you for signing up to volunteer for {$this->event->name}.")
+                    ->lineIf($shifts->isNotEmpty(), "You have signed up for the following shifts:")
+                    ->linesIf($shifts->isNotEmpty(), $shifts)
+                    ->lineIf($shifts->isEmpty(), 'You have not signed up for any shifts.')
                     ->action('Change shifts', route('app.volunteer', $this->event));
     }
 
