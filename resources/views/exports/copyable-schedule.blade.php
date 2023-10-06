@@ -15,8 +15,8 @@ Name: {!! htmlspecialchars_decode($child->name) !!}
 Speaker: {{ $child->speaker }}
 Location: {{ $child->location }}
 Description: {!! htmlspecialchars_decode($child->description) !!}
-Track: {{ $item->tracks }}
-Warnings: {{ $item->warnings }}
+Track: {{ $child->tracks }}
+Warnings: {{ $child->warnings }}
 
 @endforeach
 @endif
