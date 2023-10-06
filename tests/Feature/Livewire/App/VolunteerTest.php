@@ -6,8 +6,10 @@ use App\Livewire\App\Volunteer;
 use App\Models\Event;
 use App\Models\Shift;
 use App\Models\User;
+use App\Notifications\SignedUpForShift;
 use Filament\Forms\Components\CheckboxList;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -61,6 +63,8 @@ class VolunteerTest extends TestCase
     #[Test]
     public function can_sign_up_to_volunteer()
     {
+        Notification::fake();
+
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $shift = Shift::factory()->for($event)->create(['name' => 'Hello world']);
@@ -76,11 +80,15 @@ class VolunteerTest extends TestCase
             ->assertHasNoFormErrors();
 
         $this->assertContains($shift->id, $user->fresh()->shifts->pluck('id'));
+
+        Notification::assertSentTo($user, SignedUpForShift::class);
     }
 
     #[Test]
     public function can_change_volunteer_signup()
     {
+        Notification::fake();
+
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $shiftA = Shift::factory()->for($event)->create();
@@ -109,6 +117,8 @@ class VolunteerTest extends TestCase
     #[Test]
     public function can_remove_volunteer_signup()
     {
+        Notification::fake();
+
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $shift = Shift::factory()->for($event)->create(['name' => 'Hello world']);
@@ -132,8 +142,10 @@ class VolunteerTest extends TestCase
     }
 
     #[Test]
-    public function can_add_volunteer_signup()
+    public function can_signup_for_additional_shifts()
     {
+        Notification::fake();
+
         $event = Event::factory()->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $shiftA = Shift::factory()->for($event)->create(['name' => 'Hello world']);
@@ -163,6 +175,8 @@ class VolunteerTest extends TestCase
     #[Test]
     public function changing_shifts_does_not_affect_others_assigned_to_that_shift()
     {
+        Notification::fake();
+
         $event = Event::factory()->create();
         [$userA, $userB] = User::factory()->count(2)->create();
         [$shiftA, $shiftB] = Shift::factory()->for($event)->count(2)->create(['name' => 'Hello world']);
@@ -193,6 +207,8 @@ class VolunteerTest extends TestCase
     #[Test]
     public function cannot_sign_up_for_filled_shifts()
     {
+        Notification::fake();
+
         $event = Event::factory()->create();
         $user = User::factory()->create();
         $shift = Shift::factory()->for($event)->create(['slots' => 2]);
