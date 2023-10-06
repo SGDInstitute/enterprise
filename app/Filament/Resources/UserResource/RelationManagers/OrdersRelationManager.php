@@ -42,12 +42,12 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tickets')
-                    ->formatStateUsing(fn ($state) => count($state))
+                TextColumn::make('tickets_count')
+                    ->counts('tickets')
                     ->label('Number of Tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
-                    ->options([
+                    ->icons([
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
                     ]),
