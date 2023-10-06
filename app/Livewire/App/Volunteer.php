@@ -3,6 +3,7 @@
 namespace App\Livewire\App;
 
 use App\Models\Event;
+use App\Notifications\SignedUpForShift;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -64,6 +65,8 @@ class Volunteer extends Component implements HasForms
         $selectedShifts->each(fn ($shift) => $shift->users()->attach(auth()->user()));
 
         Notification::make()->success()->title('Successfully saved shifts')->send();
+
+        auth()->user()->notify(new SignedUpForShift($this->event));
     }
 
     public function render()
