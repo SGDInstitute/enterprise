@@ -10,6 +10,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -67,6 +68,10 @@ class EventItemsRelationManager extends RelationManager
                     ])
                     ->columns(3)
                     ->hidden(fn (Get $get): bool => $get('parent_id') !== null),
+                SpatieTagsInput::make('tracks')
+                    ->type('tracks'),
+                SpatieTagsInput::make('warnings')
+                    ->type('warnings'),
             ]);
     }
 
