@@ -55,4 +55,16 @@ final class DashboardTest extends TestCase
             ->test(Dashboard::class)
             ->assertSet('page', 'invitations');
     }
+
+    #[Test]
+    public function can_switch_pages_with_pending_invitations()
+    {
+        $user = User::factory()->create(['email' => 'adora@eternia.gov']);
+        $order = Order::factory()->hasTickets(1)->create();
+        $order->tickets->first()->invite('adora@eternia.gov', $order->user);
+
+        Livewire::actingAs($user)
+            ->test(Dashboard::class, ['page' => 'orders-reservations'])
+            ->assertSet('page', 'orders-reservations');
+    }
 }

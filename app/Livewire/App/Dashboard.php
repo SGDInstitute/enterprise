@@ -8,10 +8,12 @@ class Dashboard extends Component
 {
     public $page;
 
-    public function mount($page = 'orders-reservations')
+    public function mount($page = null)
     {
-        if (auth()->check() && auth()->user()->has_invitations) {
+        if (auth()->check() && auth()->user()->has_invitations && $page === null) {
             $page = 'invitations';
+        } elseif ($page === null) {
+            $page = 'orders-reservations';
         }
 
         $this->page = $page;
