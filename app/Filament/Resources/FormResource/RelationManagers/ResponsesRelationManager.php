@@ -5,8 +5,6 @@ namespace App\Filament\Resources\FormResource\RelationManagers;
 use App\Filament\Resources\ResponseResource;
 use App\Models\Response;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
@@ -142,7 +140,7 @@ class ResponsesRelationManager extends RelationManager
                                     'canceled' => 'Canceled',
                                 ])
                                 ->required(),
-                        ])
+                        ]),
                 ]),
             ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
@@ -174,9 +172,9 @@ class ResponsesRelationManager extends RelationManager
                         $collaborators = $records->flatMap->collaborators->unique();
 
                         // filter out proposals with invitations
-                            // send out reminder that we can't create order w/ pending invitations
+                        // send out reminder that we can't create order w/ pending invitations
                         // create comped orders for user & all collaborators
-                            // send out to users notification that order was created
+                        // send out to users notification that order was created
                         // send toast notification that action is done
                     })
                     ->deselectRecordsAfterCompletion(),

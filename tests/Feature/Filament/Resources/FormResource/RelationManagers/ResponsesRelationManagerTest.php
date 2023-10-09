@@ -25,7 +25,7 @@ final class ResponsesRelationManagerTest extends TestCase
         $form = Form::factory()->create(['form' => $schema]);
         $responses = Response::factory()->for($form)->count(5)->create(['answers' => ['name' => 'Hello world', 'format' => 'presentation', 'session' => ['breakout-1'], 'track-first-choice' => 'rural', 'track-second-choice' => 'rural']]);
 
-        Livewire::test(ResponsesRelationManager::class, ['ownerRecord' => $form,'pageClass' => ViewForm::class])
+        Livewire::test(ResponsesRelationManager::class, ['ownerRecord' => $form, 'pageClass' => ViewForm::class])
             ->assertSuccessful()
             ->assertCanSeeTableRecords($responses);
     }
@@ -53,7 +53,7 @@ final class ResponsesRelationManagerTest extends TestCase
             ->has(User::factory()->count(2), 'collaborators')
             ->create(['answers' => ['name' => 'Hello world', 'format' => 'presentation', 'session' => ['breakout-1'], 'track-first-choice' => 'rural', 'track-second-choice' => 'rural']]);
 
-        Livewire::test(ResponsesRelationManager::class, ['ownerRecord' => $form,'pageClass' => ViewForm::class])
+        Livewire::test(ResponsesRelationManager::class, ['ownerRecord' => $form, 'pageClass' => ViewForm::class])
             ->callTableBulkAction('create_orders', [...$responses, $scheduled, $confirmed]);
 
         $this->assertCount(4, Order::all());
