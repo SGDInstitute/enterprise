@@ -181,7 +181,6 @@ class ResponsesRelationManager extends RelationManager
                                 $user
                             ));
 
-
                         // send out reminder that we can't create order w/ pending invitations
                         $records->filter(fn ($record) => $record->invitations->isNotEmpty())
                             ->each(fn ($proposal) => $proposal->invitations

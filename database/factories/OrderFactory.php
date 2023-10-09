@@ -20,7 +20,7 @@ class OrderFactory extends Factory
 
     public function paid(string $transactionType = 'check')
     {
-        $transactionId = match($transactionType) {
+        $transactionId = match ($transactionType) {
             'check' => '#1234',
             'card' => 'pi_test_1234',
             'comped' => 'comped',

@@ -2,10 +2,7 @@
 
 namespace Tests\Unit\Notifications;
 
-use App\Models\Invitation;
-use App\Models\Order;
 use App\Models\Response;
-use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\AcceptInviteReminder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
