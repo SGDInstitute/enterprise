@@ -4,6 +4,7 @@ namespace App\Filament\Resources\FormResource\RelationManagers;
 
 use App\Filament\Resources\ResponseResource;
 use App\Models\Response;
+use App\Notifications\AcceptInviteReminder;
 use Facades\App\Actions\GenerateCompedOrder;
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -19,6 +20,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Notification;
 
 class ResponsesRelationManager extends RelationManager
 {
@@ -178,10 +180,12 @@ class ResponsesRelationManager extends RelationManager
                                 $user
                             ));
 
-                        // send out reminder that we can't create order w/ pending invitations
-                        // $records->filter(fn ($record) => $record->invitations->isNotEmpty());
 
-                        // send toast notification that action is done
+                        // send out reminder that we can't create order w/ pending invitations
+                        $records->filter(fn ($record) => $record->invitations->isNotEmpty())
+                            ->each(fn ($proposal) => $proposal->invitations
+                                ->each(fn ($invitation) => Notification::route('mail', $invitation->eamil)
+                                    ->notify(new AcceptInviteReminder($invitation, $proposal))));
                     })
                     ->deselectRecordsAfterCompletion(),
             ])

@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Response;
 use App\Models\TicketType;
 use App\Models\User;
+use App\Notifications\AcceptInviteReminder;
 use App\Notifications\OrderCreatedForPresentation;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -97,5 +98,25 @@ final class ResponsesRelationManagerTest extends TestCase
         $orders->each(fn ($order) => $this->assertTrue($order->isPaid()));
 
         Notification::assertSentTimes(OrderCreatedForPresentation::class, 4);
+    }
+
+    #[Test]
+    public function making_orders_in_bulk_sends_reminder_to_invites()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
+        $schema = json_decode(file_get_contents(base_path('tests/Feature/Filament/Resources/FormResource/RelationManagers/proposal-form.json')), true);
+        $form = Form::factory()->for($event)->create(['form' => $schema]);
+        $proposal = Response::factory()->for($form)
+            ->create(['status' => 'scheduled', 'answers' => ['name' => 'Hello world', 'format' => 'presentation', 'session' => ['breakout-1'], 'track-first-choice' => 'rural', 'track-second-choice' => 'rural']]);
+        $proposal->invite('adora@eternia.gov', $proposal->user);
+
+        Livewire::test(ResponsesRelationManager::class, ['ownerRecord' => $form, 'pageClass' => ViewForm::class])
+            ->callTableBulkAction('create_orders', [$proposal])
+            ->assertHasNoTableActionErrors();
+
+        $this->assertEmpty(Order::all());
+        Notification::assertSentOnDemand(AcceptInviteReminder::class);
     }
 }
