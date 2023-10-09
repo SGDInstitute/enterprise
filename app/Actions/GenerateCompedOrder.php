@@ -7,8 +7,12 @@ use App\Notifications\OrderCreatedForPresentation;
 
 class GenerateCompedOrder
 {
-    public function presenter($event, $proposal, $user)
+    public function presenter($event, $proposal, $user): void
     {
+        if ($user->hasCompedTicketFor($event)) {
+            return;
+        }
+
         $order = Order::create(['event_id' => $event->id, 'user_id' => $user->id]);
         $order->tickets()->create([
             'user_id' => $user->id,

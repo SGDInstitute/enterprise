@@ -17,4 +17,9 @@ class ResponseFactory extends Factory
             'answers' => ['question-name' => 'Foo Bar'],
         ];
     }
+
+    public function withCollaborator(User $user)
+    {
+        return $this->afterCreating(fn ($response) => $response->collaborators()->attach($user));
+    }
 }
