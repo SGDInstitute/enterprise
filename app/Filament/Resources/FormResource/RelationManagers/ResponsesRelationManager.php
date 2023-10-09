@@ -8,6 +8,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ViewAction;
@@ -123,8 +124,25 @@ class ResponsesRelationManager extends RelationManager
                 ActionGroup::make([
                     ViewAction::make()
                         ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
-                    // Action::make('create_order')
-                    //     ->hidden(fn ($record) => in_array($record->status, ['confirmed', 'scheduled']))
+                    Action::make('change_status')
+                        ->size('md')
+                        ->action(fn ($record, $data) => $record->update(['status' => $data['status']]))
+                        ->form([
+                            Select::make('status')
+                                ->label('Status')
+                                ->options([
+                                    'work-in-progress' => 'Work in Progress',
+                                    'submitted' => 'Submitted',
+                                    'in-review' => 'In Review',
+                                    'approved' => 'Approved',
+                                    'rejected' => 'Rejected',
+                                    'waiting-list' => 'Waiting List',
+                                    'confirmed' => 'Confirmed',
+                                    'scheduled' => 'Scheduled',
+                                    'canceled' => 'Canceled',
+                                ])
+                                ->required(),
+                        ])
                 ]),
             ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
