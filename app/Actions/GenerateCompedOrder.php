@@ -5,9 +5,9 @@ namespace App\Actions;
 use App\Models\Order;
 use App\Notifications\OrderCreatedForPresentation;
 
-class GeneratePresenterOrderForEvent
+class GenerateCompedOrder
 {
-    public function __invoke($event, $proposal, $user)
+    public function presenter($event, $proposal, $user)
     {
         $order = Order::create(['event_id' => $event->id, 'user_id' => $user->id]);
         $order->tickets()->create([

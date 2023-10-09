@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Event;
+use App\Models\Price;
+use App\Models\TicketType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketTypeFactory extends Factory
@@ -17,5 +19,12 @@ class TicketTypeFactory extends Factory
             'timezone' => 'America/Chicago',
             'event_id' => Event::factory(),
         ];
+    }
+
+    public function withPrice(): static
+    {
+        return $this->afterCreating(function (TicketType $ticketType) {
+            Price::factory()->for($ticketType)->create();
+        });
     }
 }

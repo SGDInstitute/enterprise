@@ -4,6 +4,7 @@ namespace App\Filament\Resources\FormResource\RelationManagers;
 
 use App\Filament\Resources\ResponseResource;
 use App\Models\Response;
+use Facades\App\Actions\GenerateCompedOrder;
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\Action;
@@ -169,12 +170,17 @@ class ResponsesRelationManager extends RelationManager
                     ->action(function (Collection $records) {
                         $records = $records->filter(fn ($record) => in_array($record->status, ['scheduled', 'confirmed']));
 
-                        $collaborators = $records->flatMap->collaborators->unique();
-
-                        // filter out proposals with invitations
-                        // send out reminder that we can't create order w/ pending invitations
                         // create comped orders for user & all collaborators
-                        // send out to users notification that order was created
+                        $records->flatMap->collaborators->unique()
+                            ->each(fn ($user) => GenerateCompedOrder::presenter(
+                                $this->ownerRecord->event,
+                                $records->firstWhere('id', $user->pivot->response_id),
+                                $user
+                            ));
+
+                        // send out reminder that we can't create order w/ pending invitations
+                        // $records->filter(fn ($record) => $record->invitations->isNotEmpty());
+
                         // send toast notification that action is done
                     })
                     ->deselectRecordsAfterCompletion(),
