@@ -55,7 +55,8 @@ final class ResponsesRelationManagerTest extends TestCase
 
         Livewire::test(ResponsesRelationManager::class, ['ownerRecord' => $form, 'pageClass' => ViewForm::class])
             ->callTableBulkAction('create_orders', $proposals)
-            ->assertHasNoTableActionErrors();
+            ->assertHasNoTableActionErrors()
+            ->assertNotified();
 
         $orders = Order::all();
         $this->assertCount(4, $orders);

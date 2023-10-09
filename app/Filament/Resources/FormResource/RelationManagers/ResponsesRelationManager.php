@@ -7,6 +7,7 @@ use App\Models\Response;
 use App\Notifications\AcceptInviteReminder;
 use Facades\App\Actions\GenerateCompedOrder;
 use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification as Toast;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
@@ -172,7 +173,7 @@ class ResponsesRelationManager extends RelationManager
                     ->action(function (Collection $records) {
                         $records = $records->filter(fn ($record) => in_array($record->status, ['scheduled', 'confirmed']));
 
-                        // create comped orders for user & all collaborators
+                        // create comped orders for all collaborators
                         $records->flatMap->collaborators->unique()
                             ->each(fn ($user) => GenerateCompedOrder::presenter(
                                 $this->ownerRecord->event,
@@ -186,6 +187,11 @@ class ResponsesRelationManager extends RelationManager
                             ->each(fn ($proposal) => $proposal->invitations
                                 ->each(fn ($invitation) => Notification::route('mail', $invitation->eamil)
                                     ->notify(new AcceptInviteReminder($invitation, $proposal))));
+
+                        Toast::make()
+                            ->title('Created orders for presenters and sent reminders to invites')
+                            ->success()
+                            ->send();
                     })
                     ->deselectRecordsAfterCompletion(),
             ])
