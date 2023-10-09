@@ -67,7 +67,7 @@ class Start extends Component
                 $canDelete = $this->order->tickets->whereNull('user_id')->take($item['original'] - $item['amount']);
 
                 if ($canDelete === null) {
-                    $this->dispatch('notify', ['message' => 'Cannot delte a ticket, because they are all filled.', 'type' => 'error']);
+                    $this->dispatch('notify', ['message' => 'Cannot delete a ticket, because they are all filled.', 'type' => 'error']);
                 } else {
                     $canDelete->each->delete();
                 }
