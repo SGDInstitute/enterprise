@@ -13,6 +13,7 @@ use App\Models\TicketType;
 use App\Models\User;
 use App\Notifications\AcceptInviteReminder;
 use App\Notifications\OrderCreatedForPresentation;
+use App\Notifications\WorkshopCanceled;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
@@ -145,5 +146,39 @@ final class ResponsesRelationManagerTest extends TestCase
             ->assertHasNoTableActionErrors();
 
         $this->assertCount(1, $user->orders);
+    }
+
+    #[Test]
+    public function when_canceling_single_presentation_cancel_orders()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
+        $schema = json_decode(file_get_contents(base_path('tests/Feature/Filament/Resources/FormResource/RelationManagers/proposal-form.json')), true);
+        $form = Form::factory()->for($event)->create(['form' => $schema]);
+        $collaboratorA = User::factory()->create();
+        $collaboratorB = User::factory()->create();
+        $proposal = Response::factory()->for($form)
+            ->withCollaborator($collaboratorA)
+            ->withCollaborator($collaboratorB)
+            ->create(['status' => 'scheduled', 'answers' => ['name' => 'Hello world', 'format' => 'presentation', 'session' => ['breakout-1'], 'track-first-choice' => 'rural', 'track-second-choice' => 'rural']]);
+
+        $proposal->invite('adora@eternia.gov', $collaboratorA);
+        (new GenerateCompedOrder)->presenter($event, $proposal, $collaboratorA);
+        (new GenerateCompedOrder)->presenter($event, $proposal, $collaboratorB);
+
+        Livewire::test(ResponsesRelationManager::class, ['ownerRecord' => $form, 'pageClass' => ViewForm::class])
+            ->callTableAction('change_status', $proposal, data: [
+                'status' => 'canceled',
+            ])
+            ->assertHasNoTableActionErrors();
+
+        $this->assertEquals('canceled', $proposal->fresh()->status);
+        $this->assertEmpty($proposal->fresh()->invitations);
+        $this->assertFalse($collaboratorA->fresh()->hasCompedTicketFor($event));
+        $this->assertFalse($collaboratorB->fresh()->hasCompedTicketFor($event));
+
+        Notification::assertSentTo($collaboratorA, WorkshopCanceled::class);
+        Notification::assertSentTo($collaboratorB, WorkshopCanceled::class);
     }
 }
