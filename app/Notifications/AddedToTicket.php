@@ -39,7 +39,7 @@ class AddedToTicket extends Notification implements ShouldQueue
 
         return (new MailMessage)
             ->subject('Invited to attend ' . $event)
-            ->line('Hi there,')
+            ->line("This invitation was sent to: {$this->invitation->email}")
             ->line("You have been invited to attend {$event} by {$this->causer}. Click the link below to accept and add your information (e.g. pronouns, accessibility requests) to the ticket.")
             ->action('Accept Invitation', $this->invitation->acceptUrl);
     }

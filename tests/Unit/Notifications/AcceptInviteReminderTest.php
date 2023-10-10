@@ -22,12 +22,12 @@ final class AcceptInviteReminderTest extends TestCase
         $invitation = $response->invite('adora@eternia.gov', $user);
         $notification = (new AcceptInviteReminder($invitation, $response))->toMail($user);
 
-        $this->assertCount(2, $notification->introLines);
+        $this->assertCount(3, $notification->introLines);
 
         $response = Response::factory()->create(['status' => 'work-in-progress']);
         $invitation = $response->invite('adora@eternia.gov', $user);
         $notification = (new AcceptInviteReminder($invitation, $response))->toMail($user);
 
-        $this->assertCount(1, $notification->introLines);
+        $this->assertCount(2, $notification->introLines);
     }
 }
