@@ -4,10 +4,13 @@ namespace App\Filament\Resources\FormResource\RelationManagers;
 
 use App\Filament\Resources\ResponseResource;
 use App\Models\Response;
+use App\Notifications\AcceptInviteReminder;
+use Facades\App\Actions\GenerateCompedOrder;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
+use Filament\Notifications\Notification as Toast;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
@@ -18,22 +21,13 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Notification;
 
 class ResponsesRelationManager extends RelationManager
 {
     protected static string $relationship = 'responses';
 
     protected static ?string $recordTitleAttribute = 'name';
-
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-            ]);
-    }
 
     public function table(Table $table): Table
     {
@@ -129,8 +123,29 @@ class ResponsesRelationManager extends RelationManager
                     )),
             ], layout: FiltersLayout::AboveContent)
             ->actions([
-                ViewAction::make()
-                    ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
+                    Action::make('change_status')
+                        ->size('md')
+                        ->action(fn ($record, $data) => $record->update(['status' => $data['status']]))
+                        ->form([
+                            Select::make('status')
+                                ->label('Status')
+                                ->options([
+                                    'work-in-progress' => 'Work in Progress',
+                                    'submitted' => 'Submitted',
+                                    'in-review' => 'In Review',
+                                    'approved' => 'Approved',
+                                    'rejected' => 'Rejected',
+                                    'waiting-list' => 'Waiting List',
+                                    'confirmed' => 'Confirmed',
+                                    'scheduled' => 'Scheduled',
+                                    'canceled' => 'Canceled',
+                                ])
+                                ->required(),
+                        ]),
+                ]),
             ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 BulkAction::make('change_status')
@@ -153,6 +168,30 @@ class ResponsesRelationManager extends RelationManager
                             ])
                             ->required(),
                     ])
+                    ->deselectRecordsAfterCompletion(),
+                BulkAction::make('create_orders')
+                    ->action(function (Collection $records) {
+                        $records = $records->filter(fn ($record) => in_array($record->status, ['scheduled', 'confirmed']));
+
+                        // create comped orders for all collaborators
+                        $records->flatMap->collaborators->unique()
+                            ->each(fn ($user) => GenerateCompedOrder::presenter(
+                                $this->ownerRecord->event,
+                                $records->firstWhere('id', $user->pivot->response_id),
+                                $user
+                            ));
+
+                        // send out reminder that we can't create order w/ pending invitations
+                        $records->filter(fn ($record) => $record->invitations->isNotEmpty())
+                            ->each(fn ($proposal) => $proposal->invitations
+                                ->each(fn ($invitation) => Notification::route('mail', $invitation->eamil)
+                                    ->notify(new AcceptInviteReminder($invitation, $proposal))));
+
+                        Toast::make()
+                            ->title('Created orders for presenters and sent reminders to invites')
+                            ->success()
+                            ->send();
+                    })
                     ->deselectRecordsAfterCompletion(),
             ])
             ->persistFiltersInSession()

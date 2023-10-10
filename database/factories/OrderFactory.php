@@ -18,12 +18,18 @@ class OrderFactory extends Factory
         ];
     }
 
-    public function paid($driver = 'check')
+    public function paid(string $transactionType = 'check')
     {
-        return $this->state(function (array $attributes) use ($driver) {
+        $transactionId = match ($transactionType) {
+            'check' => '#1234',
+            'card' => 'pi_test_1234',
+            'comped' => 'comped',
+        };
+
+        return $this->state(function (array $attributes) use ($transactionId) {
             return [
                 'confirmation_number' => 'CONFIRMATIONNUMBER',
-                'transaction_id' => $driver === 'check' ? '#1234' : 'pi_test_1234',
+                'transaction_id' => $transactionId,
                 'status' => 'succeeded',
                 'amount' => 8500,
                 'reservation_ends' => null,

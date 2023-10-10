@@ -2,9 +2,12 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Models\Event;
+use App\Models\Form;
 use App\Models\Invitation;
 use App\Models\Response;
 use App\Models\Ticket;
+use App\Models\TicketType;
 use App\Models\User;
 use App\Notifications\InvitationAccepted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -102,5 +105,27 @@ final class InvitationControllerTest extends TestCase
             ->get($invtation->acceptUrl);
 
         $this->assertFalse(auth()->check());
+    }
+
+    #[Test]
+    public function if_user_accepts_an_invitation_for_a_confirmed_or_scheduled_proposal_an_order_is_created()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
+        $creator = User::factory()->create(['email' => 'luz@hexide.edu']);
+        $user = User::factory()->create(['email' => 'king@hexide.edu']);
+
+        $form = Form::factory()->for($event)->create();
+        $response = Response::factory()->for($form)->create(['status' => 'confirmed']);
+        $invitation = Invitation::factory()->for($response, 'inviteable')->create(['email' => $user->email, 'invited_by' => $creator->id]);
+
+        $this->actingAs($user)
+            ->get($invitation->acceptUrl)
+            ->assertRedirectToRoute('app.forms.show', ['form' => $response->form, 'edit' => $response]);
+
+        $user->hasCompedTicketFor($response->form->event);
+
+        Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
 }

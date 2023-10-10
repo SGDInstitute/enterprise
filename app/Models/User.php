@@ -6,6 +6,7 @@ use App\Traits\HasProfilePhoto;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -148,6 +149,15 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function hasRecurringDonation()
     {
         return $this->donations()->whereNull('parent_id')->whereNotNull('subscription_id')->where('status', 'succeeded')->exists();
+    }
+
+    public function hasCompedTicketFor($event)
+    {
+        return $this->tickets()->whereHas('order', function (Builder $query) use ($event) {
+            $query
+                ->where('event_id', $event->id)
+                ->where('transaction_id', 'like', '%comped%');
+        })->exists();
     }
 
     public function hasTicketFor($event)

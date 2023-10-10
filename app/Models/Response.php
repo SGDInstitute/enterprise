@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Notifications\AddedAsCollaborator;
 use App\Traits\HasInvitations;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -110,6 +112,21 @@ class Response extends Model
     }
 
     // Methods
+    public function invite($email, $causer = null)
+    {
+        if ($causer === null) {
+            $causer = auth()->user();
+        }
+
+        $invitation = $this->invitations()->create([
+            'invited_by' => $causer->id,
+            'email' => $email,
+        ]);
+
+        Notification::route('mail', $email)->notify(new AddedAsCollaborator($invitation, $this));
+
+        return $invitation;
+    }
 
     public function safeDelete()
     {

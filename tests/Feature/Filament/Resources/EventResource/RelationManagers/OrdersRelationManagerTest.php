@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Filament\Resources\ResponseResource\Pages;
+namespace Tests\Feature\Filament\Resources\EventResource\Pages;
 
 use App\Filament\Actions\MarkAsUnpaidAction;
 use App\Filament\Actions\RefundAction;
