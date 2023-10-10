@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\FormResource\RelationManagers;
 
+use App\Events\WorkshopStatusChanged;
 use App\Filament\Resources\ResponseResource;
 use App\Models\Response;
 use App\Notifications\AcceptInviteReminder;
@@ -128,7 +129,10 @@ class ResponsesRelationManager extends RelationManager
                         ->url(fn ($record) => ResponseResource::getUrl('view', ['record' => $record])),
                     Action::make('change_status')
                         ->size('md')
-                        ->action(fn ($record, $data) => $record->update(['status' => $data['status']]))
+                        ->action(function ($record, $data) {
+                            $record->update(['status' => $data['status']]);
+                            WorkshopStatusChanged::dispatch($record);
+                        })
                         ->form([
                             Select::make('status')
                                 ->label('Status')
@@ -150,8 +154,12 @@ class ResponsesRelationManager extends RelationManager
             ->bulkActions([
                 BulkAction::make('change_status')
                     ->size('md')
-                    ->action(fn (Collection $records, $data) => Response::whereIn('id', $records->pluck('id'))
-                        ->update(['status' => $data['status']]))
+                    ->action(function (Collection $records, $data) {
+                        // did it this way to cut down on queries now there's 1 + n+1 rather than n+2
+                        Response::whereIn('id', $records->pluck('id'))->update(['status' => $data['status']]);
+                        Response::whereIn('id', $records->pluck('id'))->select('id')->get()
+                            ->each(fn ($response) => WorkshopStatusChanged::dispatch($response));
+                    })
                     ->form([
                         Select::make('status')
                             ->label('Status')
