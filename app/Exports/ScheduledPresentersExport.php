@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Event;
 use App\Models\EventItem;
 use App\Models\Response;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -9,13 +10,13 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class ScheduledPresentersExport implements FromCollection, WithHeadings
 {
-    public function __construct(public $event)
+    public function __construct(public Event $event)
     {
     }
 
     public function collection()
     {
-        return EventItem::where('event_id', 8)
+        return EventItem::where('event_id', $this->event->id)
             ->where('settings->workshop_id', '<>', null)
             ->get()
             ->flatMap(function ($item) {

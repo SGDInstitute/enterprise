@@ -2,21 +2,21 @@
 
 namespace App\Exports;
 
+use App\Models\Event;
 use App\Models\Ticket;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class TicketUsersExport implements FromCollection, WithHeadings
 {
-    public function __construct(public $eventId, public $ticketType, public $status)
+    public function __construct(public Event $event, public $status)
     {
     }
 
     public function collection()
     {
         return Ticket::join('orders', 'tickets.order_id', 'orders.id')
-            ->where('orders.event_id', $this->eventId)
-            ->when($this->ticketType !== '', fn ($query) => $query->where('ticket_type_id', $this->ticketType))
+            ->where('orders.event_id', $this->event->id)
             ->when($this->status === 'paid', fn ($query) => $query->whereNotNull('paid_at'))
             ->when($this->status === 'unpaid', fn ($query) => $query->whereNull('paid_at'))
             ->select('tickets.*', 'orders.paid_at')
