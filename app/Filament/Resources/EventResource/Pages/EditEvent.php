@@ -59,12 +59,12 @@ class EditEvent extends EditRecord
                         );
                     }),
                 Action::make('scheduled-presenters')
-                    ->action(fn () =>
-                        Excel::download(new ScheduledPresentersExport($this->record), "{$this->record->slug}-scheduled-presenters.xlsx")
+                    ->action(fn () => Excel::download(new ScheduledPresentersExport($this->record), "{$this->record->slug}-scheduled-presenters.xlsx")
                     ),
                 Action::make('ticket-answers')
                     ->form(function () {
                         $keys = $this->record->ticketTypes->pluck('form')->map->pluck('id')->flatten()->unique();
+
                         return [
                             Select::make('question')
                                 ->options($keys->combine($keys)),
@@ -75,8 +75,7 @@ class EditEvent extends EditRecord
                                 ]),
                         ];
                     })
-                    ->action(fn ($data) =>
-                        Excel::download(
+                    ->action(fn ($data) => Excel::download(
                             new TicketAnswersExport($this->record, $data['question'], $data['status']),
                             "{$this->record->slug}-ticket-answers.xlsx"
                         )
@@ -89,8 +88,7 @@ class EditEvent extends EditRecord
                                 'unpaid' => 'Unpaid',
                             ]),
                     ])
-                    ->action(fn ($data) =>
-                        Excel::download(new TicketUsersExport($this->record, $data['status']), "{$this->record->slug}-ticket-users.xlsx")
+                    ->action(fn ($data) => Excel::download(new TicketUsersExport($this->record, $data['status']), "{$this->record->slug}-ticket-users.xlsx")
                     ),
                 Action::make('export-schedule-txt')
                     ->label('Schedule Export (txt)')
