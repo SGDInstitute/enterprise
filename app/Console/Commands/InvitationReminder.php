@@ -25,6 +25,7 @@ class InvitationReminder extends Command
 
         $invitations->each(function ($invitation) {
             Notification::route('mail', $invitation->email)->notify(new AcceptInviteReminder($invitation));
+            $invitation->touch();
         });
 
         $this->info('Invitation Reminder Complete');
