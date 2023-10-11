@@ -2,14 +2,17 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
+use App\Exports\ScheduledPresentersExport;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\Widgets\EventMultiWidget;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
 use App\Filament\Resources\EventResource\Widgets\TicketBreakdown;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EditEvent extends EditRecord
 {
@@ -28,28 +31,37 @@ class EditEvent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('Dashboard Report')
-                ->action(function () {
-                    $breakdown = new TicketBreakdown;
-                    $breakdown->record = $this->record;
-                    $stats = new StatsOverview;
-                    $stats->record = $this->record;
-                    $pdf = Pdf::loadView('pdf.event-dashboard', [
-                        'daysLeft' => $stats->daysLeft,
-                        'reservations' => $stats->reservationTotals,
-                        'orders' => $stats->orderTotals,
-                        'potentialMoney' => $stats->potentialMoney,
-                        'moneyMade' => $stats->moneyMade,
-                        'tablePaid' => $breakdown->tablePaidData(),
-                        'tableFilled' => $breakdown->tableFilledData(),
-                    ]);
+            ActionGroup::make([
+                Action::make('Dashboard Report')
+                    ->action(function () {
+                        $breakdown = new TicketBreakdown;
+                        $breakdown->record = $this->record;
+                        $stats = new StatsOverview;
+                        $stats->record = $this->record;
+                        $pdf = Pdf::loadView('pdf.event-dashboard', [
+                            'daysLeft' => $stats->daysLeft,
+                            'reservations' => $stats->reservationTotals,
+                            'orders' => $stats->orderTotals,
+                            'potentialMoney' => $stats->potentialMoney,
+                            'moneyMade' => $stats->moneyMade,
+                            'tablePaid' => $breakdown->tablePaidData(),
+                            'tableFilled' => $breakdown->tableFilledData(),
+                        ]);
 
-                    return response()->streamDownload(
-                        fn () => print($pdf->output()),
-                        'filename.pdf'
-                    );
-                })
-                ->icon('heroicon-m-arrow-down-tray'),
+                        return response()->streamDownload(
+                            fn () => print($pdf->output()),
+                            "{$this->record->slug}-event-dashboard.pdf"
+                        );
+                    }),
+                Action::make('Scheduled Presenters')
+                    ->action(fn () =>
+                        Excel::download(new ScheduledPresentersExport($this->record), "{$this->record->slug}-scheduled-presenters.xlsx")
+                    ),
+            ])
+            ->button()
+            ->label('Exports')
+            ->icon('heroicon-m-arrow-down-tray')
+            ->outlined(),
             DeleteAction::make(),
         ];
     }
