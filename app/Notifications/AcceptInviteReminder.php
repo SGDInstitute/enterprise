@@ -21,7 +21,7 @@ class AcceptInviteReminder extends Notification implements ShouldQueue
     public function __construct(Invitation $invitation, $model = null)
     {
         $this->invitation = $invitation;
-        $this->model = ($model === null) ? $invitation->model : $model;
+        $this->model = ($model === null) ? $invitation->inviteable : $model;
     }
 
     public function via(object $notifiable): array

@@ -192,7 +192,7 @@ class ResponsesRelationManager extends RelationManager
                         // send out reminder that we can't create order w/ pending invitations
                         $records->filter(fn ($record) => $record->invitations->isNotEmpty())
                             ->each(fn ($proposal) => $proposal->invitations
-                                ->each(fn ($invitation) => Notification::route('mail', $invitation->eamil)
+                                ->each(fn ($invitation) => Notification::route('mail', $invitation->email)
                                     ->notify(new AcceptInviteReminder($invitation, $proposal))));
 
                         Toast::make()
