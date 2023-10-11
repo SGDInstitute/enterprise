@@ -17,7 +17,7 @@ class InvitationReminder extends Command
     {
         $this->info('Running reminder emails to pending invitations...');
 
-        $invitations = Invitation::where('updated_at', '>', now()->subWeek())->all();
+        $invitations = Invitation::where('updated_at', '<=', now()->subWeek())->get();
 
         $this->info($invitations->count() . ' reminders need to be sent.');
 
