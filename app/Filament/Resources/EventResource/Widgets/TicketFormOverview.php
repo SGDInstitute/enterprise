@@ -16,16 +16,16 @@ class TicketFormOverview extends Widget
         $answers = $this->record->tickets->whereNotNull('answers')->pluck('answers');
         $keys = $this->record->ticketTypes->pluck('form')->map(function ($form) {
             return $form->map(function ($question) {
-              if ($question['list-other']) {
-                return [
-                  $question['id'],
-                  "{$question['id']}-other",
-                ];
-              }
+                if ($question['list-other']) {
+                    return [
+                        $question['id'],
+                        "{$question['id']}-other",
+                    ];
+                }
 
-              return [$question['id']];
+                return [$question['id']];
             });
-          })->flatten()->unique();
+        })->flatten()->unique();
 
         $stats = [];
         foreach ($keys as $key) {
