@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ShiftsFellBelowLimit;
 use App\Events\WorkshopStatusChanged;
 use App\Listeners\CancelWorkshop;
+use App\Listeners\DeleteCompedOrder;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         WorkshopStatusChanged::class => [
             CancelWorkshop::class,
+        ],
+        ShiftsFellBelowLimit::class => [
+            DeleteCompedOrder::class,
         ],
     ];
 

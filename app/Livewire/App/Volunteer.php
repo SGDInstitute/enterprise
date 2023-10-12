@@ -2,8 +2,10 @@
 
 namespace App\Livewire\App;
 
+use App\Events\ShiftsFellBelowLimit;
 use App\Models\Event;
 use App\Notifications\SignedUpForShift;
+use Facades\App\Actions\GenerateCompedOrder;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -66,6 +68,18 @@ class Volunteer extends Component implements HasForms
 
         Notification::make()->success()->title('Successfully saved shifts')->send();
 
+        $shiftsCount = auth()->user()->shifts()->where('event_id', $this->event->id)->count();
+        if ($shiftsCount >= 2 && ! auth()->user()->hasCompedTicketFor($this->event)) {
+            GenerateCompedOrder::volunteer(
+                $this->event,
+                auth()->user()
+            );
+            Notification::make()->success()->title('Generated comped order')->send();
+        } elseif ($shiftsCount < 2 && auth()->user()->hasCompedTicketFor($this->event)) {
+            ShiftsFellBelowLimit::dispatch($this->event, auth()->user());
+
+            Notification::make()->success()->title('Removed comped order')->send();
+        }
         auth()->user()->notify(new SignedUpForShift($this->event));
     }
 
