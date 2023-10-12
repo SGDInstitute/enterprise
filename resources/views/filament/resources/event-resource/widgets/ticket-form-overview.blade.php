@@ -5,9 +5,17 @@
             <x-slot name="heading">
                 {{ ucfirst(str_replace('question-', '', $key)) }}
             </x-slot>
+            @if (str_contains($key, '-other'))
+            <ul class="list-disc">
+                @foreach ($stat as $label => $count)
+                <li>{{ $label === '' ? 'Empty' : $label }}</li>
+                @endforeach
+            </ul>
+            @else
             @foreach ($stat as $label => $count)
             <p><strong>{{ $label === '' ? 'Empty' : $label }}:</strong> {{ $count }}</p>
             @endforeach
+            @endif
         </x-filament::section>
         @endforeach
     </div>
