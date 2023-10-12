@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Livewire\App;
 
+use App\Actions\GenerateCompedOrder;
 use App\Livewire\App\Volunteer;
 use App\Models\Event;
 use App\Models\Shift;
+use App\Models\TicketType;
 use App\Models\User;
 use App\Notifications\SignedUpForShift;
 use Filament\Forms\Components\CheckboxList;
@@ -146,7 +148,7 @@ class VolunteerTest extends TestCase
     {
         Notification::fake();
 
-        $event = Event::factory()->create();
+        $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
         $user = User::factory()->create(['terms' => [$event->slug => now()]]);
         $shiftA = Shift::factory()->for($event)->create(['name' => 'Hello world']);
         $shiftB = Shift::factory()->for($event)->create(['name' => 'Foo Bar']);
@@ -219,5 +221,87 @@ class VolunteerTest extends TestCase
             ->assertFormFieldExists('shifts', function (CheckboxList $field) use ($shift) {
                 return $field->isOptionDisabled($shift->id, 'shifts');
             });
+    }
+
+    #[Test]
+    public function order_is_generated_when_user_signs_up_for_two_shifts()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
+        $shiftA = Shift::factory()->for($event)->create(['name' => 'Hello world']);
+        $shiftB = Shift::factory()->for($event)->create(['name' => 'Foo Bar']);
+        $shiftA->users()->attach($user);
+
+        Livewire::actingAs($user)
+            ->test(Volunteer::class, ['event' => $event])
+            ->fillForm([
+                'shifts' => [
+                    $shiftA->id,
+                    $shiftB->id,
+                ],
+            ])
+            ->call('signup')
+            ->assertHasNoFormErrors();
+
+        $this->assertTrue($user->hasCompedTicketFor($event));
+    }
+
+    #[Test]
+    public function order_is_deleted_when_user_falls_below_two_shifts()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
+        $shift = Shift::factory()->for($event)->create(['name' => 'Hello world']);
+        $shift->users()->attach($user);
+        (new GenerateCompedOrder)->volunteer($event, $user);
+
+        Livewire::actingAs($user)
+            ->test(Volunteer::class, ['event' => $event])
+            ->assertFormSet([
+                'shifts' => [
+                    $shift->id,
+                ],
+            ])
+            ->fillForm([
+                'shifts' => [],
+            ])
+            ->call('signup')
+            ->assertHasNoFormErrors();
+
+        $this->assertNotContains($shift->id, $user->fresh()->shifts->fresh()->pluck('id'));
+        $this->assertEmpty($shift->users);
+
+        $this->assertFalse($user->hasCompedTicketFor($event));
+    }
+
+    #[Test]
+    public function second_order_is_not_created_if_already_have_one()
+    {
+        Notification::fake();
+
+        $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
+        $user = User::factory()->create(['terms' => [$event->slug => now()]]);
+        $shiftA = Shift::factory()->for($event)->create(['name' => 'Hello world']);
+        $shiftB = Shift::factory()->for($event)->create(['name' => 'Foo Bar']);
+        $shiftA->users()->attach($user);
+        (new GenerateCompedOrder)->volunteer($event, $user);
+
+        Livewire::actingAs($user)
+            ->test(Volunteer::class, ['event' => $event])
+            ->fillForm([
+                'shifts' => [
+                    $shiftA->id,
+                    $shiftB->id,
+                ],
+            ])
+            ->call('signup')
+            ->assertHasNoFormErrors();
+
+        $this->assertTrue($user->hasCompedTicketFor($event));
+        $this->assertCount(1, $user->orders);
     }
 }
