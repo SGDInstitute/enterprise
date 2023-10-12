@@ -2,10 +2,7 @@
 
 namespace App\Filament\Resources\ShiftResource\RelationManagers;
 
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables;
 use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DetachAction;
@@ -34,7 +31,7 @@ class UsersRelationManager extends RelationManager
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DetachBulkAction::make()
+                    DetachBulkAction::make(),
                 ]),
             ]);
     }
