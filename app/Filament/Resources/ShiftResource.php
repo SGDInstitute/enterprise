@@ -3,11 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ShiftResource\Pages;
+use App\Filament\Resources\ShiftResource\RelationManagers\UsersRelationManager;
 use App\Models\Event;
 use App\Models\Shift;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -15,6 +17,8 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ReplicateAction;
 use Filament\Tables\Columns\TextColumn;
@@ -30,31 +34,32 @@ class ShiftResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(3)
             ->schema([
-                Select::make('event_id')
-                    ->relationship('event', 'name')
-                    ->live()
-                    ->afterStateUpdated(function (Set $set, $state) {
-                        $event = Event::find($state);
-                        $set('start', $event->start->timezone($event->timezone)->toDateTimeString());
-                        $set('end', $event->end->timezone($event->timezone)->toDateTimeString());
-                        $set('timezone', $event->timezone);
-                    }),
-                TextInput::make('name')->required()->maxLength(255),
-                TextInput::make('slots')->required()->numeric(),
-                RichEditor::make('description')->columnSpanFull(),
-                Fieldset::make('Duration')
-                    ->schema([
-                        DateTimePicker::make('start')
-                            ->required(),
-                        DateTimePicker::make('end')
-                            ->required(),
-                        TimezoneSelect::make('timezone')
-                            ->searchable()
-                            ->required(),
-                    ])
-                    ->columns(3),
+                Section::make([
+                    Select::make('event_id')
+                        ->relationship('event', 'name')
+                        ->live()
+                        ->afterStateUpdated(function (Set $set, $state) {
+                            $event = Event::find($state);
+                            $set('start', $event->start->timezone($event->timezone)->toDateTimeString());
+                            $set('end', $event->end->timezone($event->timezone)->toDateTimeString());
+                            $set('timezone', $event->timezone);
+                        }),
+                    TextInput::make('name')->required()->maxLength(255),
+                    TextInput::make('slots')->required()->numeric(),
+                    RichEditor::make('description')->columnSpanFull(),
+                    Fieldset::make('Duration')
+                        ->schema([
+                            DateTimePicker::make('start')
+                                ->required(),
+                            DateTimePicker::make('end')
+                                ->required(),
+                            TimezoneSelect::make('timezone')
+                                ->searchable()
+                                ->required(),
+                        ])
+                        ->columns(3),
+                ])->columns(3),
             ]);
     }
 
@@ -75,9 +80,6 @@ class ShiftResource extends Resource
                     ->counts('users')
                     ->sortable(),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 ActionGroup::make([
                     EditAction::make(),
@@ -85,8 +87,8 @@ class ShiftResource extends Resource
                 ]),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -94,7 +96,7 @@ class ShiftResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UsersRelationManager::class,
         ];
     }
 
