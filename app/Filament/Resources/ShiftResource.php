@@ -70,7 +70,9 @@ class ShiftResource extends Resource
                     ->sortable(['start']),
                 TextColumn::make('slots')
                     ->sortable(),
-                TextColumn::make('filled_slots')
+                TextColumn::make('users_count')
+                    ->label('Filled Users')
+                    ->counts('users')
                     ->sortable(),
             ])
             ->filters([
