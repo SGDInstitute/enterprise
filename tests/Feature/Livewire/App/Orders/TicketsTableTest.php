@@ -233,4 +233,17 @@ class TicketsTableTest extends TestCase
 
         $this->assertNotNull($ticket->fresh()->user);
     }
+
+    #[Test]
+    public function cannot_add_self_to_ticket_if_already_on_order()
+    {
+        $order = Order::factory()->create();
+        $luffy = User::factory()->create(['email' => 'luffy@strawhat.pirate']);
+        Ticket::factory()->for($order)->for($luffy)->create();
+        $ticket = Ticket::factory()->for($order)->create();
+
+        Livewire::actingAs($luffy)
+            ->test(TicketsTable::class, ['order' => $order])
+            ->assertTableActionHidden('add-self', $ticket);
+    }
 }

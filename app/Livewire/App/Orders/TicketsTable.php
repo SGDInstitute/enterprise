@@ -88,7 +88,7 @@ class TicketsTable extends Component implements HasForms, HasTable
                 Action::make('add-self')
                     ->action(fn (Ticket $record) => $record->update(['user_id' => auth()->id()])
                     )
-                    ->hidden(fn ($record) => $record->status !== 'unfilled'),
+                    ->hidden(fn ($record) => $record->status !== 'unfilled' || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
             ])
             ->headerActions([
                 // Invite
