@@ -279,7 +279,13 @@ class TicketsTableTest extends TestCase
     #[Test]
     public function cannot_invite_in_bulk_if_no_unassigned_tickets()
     {
+        $order = Order::factory()->create();
+        Ticket::factory()->for($order)->completed()->create();
+        Ticket::factory()->for($order)->invited()->create();
 
+        Livewire::actingAs(User::factory()->create())
+            ->test(TicketsTable::class, ['order' => $order])
+            ->assertTableActionHidden('invite-bulk');
     }
 
     // Filters

@@ -137,6 +137,7 @@ class TicketsTable extends Component implements HasForms, HasTable
                             $unassigned[$index]->invite($email);
                         }
                     })
+                    ->hidden($unassignedCount === 0)
             ]);
     }
 
