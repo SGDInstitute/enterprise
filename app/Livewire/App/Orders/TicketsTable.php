@@ -13,7 +13,10 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
@@ -34,9 +37,9 @@ class TicketsTable extends Component implements HasForms, HasTable
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'invited' => 'gray',
-                        'unfilled' => 'warning',
-                        'filled' => 'success',
+                        Ticket::INVITED => 'gray',
+                        Ticket::UNASSIGNED => 'warning',
+                        Ticket::COMPLETE => 'success',
                     }),
                 TextColumn::make('user.email')
                     ->label('Email')
@@ -47,9 +50,20 @@ class TicketsTable extends Component implements HasForms, HasTable
                     ->label('Pronouns'),
             ])
             ->filters([
-                // Filled
-                // Unfilled
-                // Invited
+                SelectFilter::make('status')
+                    ->options([
+                        Ticket::COMPLETE => 'Complete tickets',
+                        Ticket::INVITED => 'Invited tickets',
+                        Ticket::UNASSIGNED => 'Unassigned tickets'
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return match ($data['value']) {
+                            Ticket::COMPLETE => $query->filled(), // @todo update all references of "filled"
+                            Ticket::INVITED => $query->whereHas('invitations'),
+                            Ticket::UNASSIGNED => $query->whereDoesntHave('invitations')->whereNull('user_id'),
+                            default => $query,
+                        };
+                    }),
             ])
             ->actions([
                 Action::make('invite')
@@ -65,30 +79,30 @@ class TicketsTable extends Component implements HasForms, HasTable
 
                         Toast::make()->title('Invited')->send();
                     })
-                    ->hidden(fn ($record) => $record->status !== 'unfilled'),
+                    ->hidden(fn ($record) => $record->status !== Ticket::UNASSIGNED),
                 Action::make('remove-invite')
                     ->action(function (Ticket $record): void {
                         $record->invitations->each->delete();
 
                         Toast::make()->title('Removed invitation')->send();
                     })
-                    ->hidden(fn ($record) => $record->status !== 'invited'),
+                    ->hidden(fn ($record) => $record->status !== Ticket::INVITED),
                 Action::make('remove-user')
                     ->action(function (Ticket $record): void {
                         $record->update(['user_id' => null, 'answers' => null]);
 
                         Toast::make()->title('Removed user from ticket')->send();
                     })
-                    ->hidden(fn ($record) => $record->status !== 'filled'),
+                    ->hidden(fn ($record) => $record->status !== Ticket::COMPLETE),
                 Action::make('remind-invite')
                     ->action(fn (Ticket $record) => Notification::route('mail', $record->invitations->first()->email)
                             ->notify(new AcceptInviteReminder($record->invitations->first(), $record))
                     )
-                    ->hidden(fn ($record) => $record->status !== 'invited'),
+                    ->hidden(fn ($record) => $record->status !== Ticket::INVITED),
                 Action::make('add-self')
                     ->action(fn (Ticket $record) => $record->update(['user_id' => auth()->id()])
                     )
-                    ->hidden(fn ($record) => $record->status !== 'unfilled' || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
+                    ->hidden(fn ($record) => $record->status !== Ticket::UNASSIGNED || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
             ])
             ->headerActions([
                 // Invite

@@ -208,7 +208,7 @@ class TicketsTableTest extends TestCase
     }
 
     #[Test]
-    public function cannot_remind_unfilled_ticket_to_accept()
+    public function cannot_remind_unassigned_ticket_to_accept()
     {
         $order = Order::factory()->create();
         $luffy = User::factory()->create(['email' => 'luffy@strawhat.pirate']);
@@ -231,7 +231,7 @@ class TicketsTableTest extends TestCase
             ->callTableAction('add-self', $ticket)
             ->assertHasNoActionErrors();
 
-        $this->assertNotNull($ticket->fresh()->user);
+        $this->assertEquals($luffy->id, $ticket->fresh()->user_id);
     }
 
     #[Test]
@@ -246,4 +246,55 @@ class TicketsTableTest extends TestCase
             ->test(TicketsTable::class, ['order' => $order])
             ->assertTableActionHidden('add-self', $ticket);
     }
+
+    // Header Actions
+
+    // Filters
+
+    #[Test]
+    public function can_filter_by_complete_tickets()
+    {
+        $order = Order::factory()->create();
+        $complete = Ticket::factory()->for($order)->completed()->create();
+        $invited = Ticket::factory()->for($order)->invited()->create();
+        $unassigned = Ticket::factory()->for($order)->create();
+
+        Livewire::test(TicketsTable::class, ['order' => $order])
+            ->assertCanSeeTableRecords([$complete, $invited, $unassigned])
+            ->filterTable('status', Ticket::COMPLETE)
+            ->assertCanSeeTableRecords([$complete])
+            ->assertCanNotSeeTableRecords([$invited, $unassigned]);
+    }
+
+    #[Test]
+    public function can_filter_by_invited_tickets()
+    {
+        $order = Order::factory()->create();
+        $complete = Ticket::factory()->for($order)->completed()->create();
+        $invited = Ticket::factory()->for($order)->invited()->create();
+        $unassigned = Ticket::factory()->for($order)->create();
+
+        Livewire::test(TicketsTable::class, ['order' => $order])
+            ->assertCanSeeTableRecords([$complete, $invited, $unassigned])
+            ->filterTable('status', Ticket::INVITED)
+            ->assertCanSeeTableRecords([$invited])
+            ->assertCanNotSeeTableRecords([$complete, $unassigned]);
+    }
+
+    #[Test]
+    public function can_filter_by_unassigned_tickets()
+    {
+        $order = Order::factory()->create();
+        $complete = Ticket::factory()->for($order)->completed()->create();
+        $invited = Ticket::factory()->for($order)->invited()->create();
+        $unassigned = Ticket::factory()->for($order)->create();
+
+        Livewire::test(TicketsTable::class, ['order' => $order])
+            ->assertCanSeeTableRecords([$complete, $invited, $unassigned])
+            ->filterTable('status', Ticket::UNASSIGNED)
+            ->assertCanSeeTableRecords([$unassigned])
+            ->assertCanNotSeeTableRecords([$complete, $invited]);
+    }
+
+    // @todo searching/sorting
 }
