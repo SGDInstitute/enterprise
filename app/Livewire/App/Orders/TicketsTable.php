@@ -78,6 +78,7 @@ class TicketsTable extends Component implements HasForms, HasTable
                             ->confirmed(),
                         TextInput::make('email_confirmation'),
                     ])
+                    ->modalWidth('md')
                     ->action(function (array $data, Ticket $record): void {
                         $record->invite($data['email'], auth()->user());
 
