@@ -34,7 +34,10 @@ class TicketFactory extends Factory
     public function invited(): static
     {
         return $this->afterCreating(function (Ticket $ticket) {
-            $ticket->invite(fake()->safeEmail(), User::factory()->create());
+            $ticket->invitations()->create([
+                'invited_by' => User::factory()->create()->id,
+                'email' => fake()->safeEmail(),
+            ]);
         });
     }
 }
