@@ -62,6 +62,17 @@ class Ticket extends Model
 
     // Attributes
 
+    public function getStatusAttribute()
+    {
+        if ($this->user()->exists()) {
+            return 'filled';
+        } else if ($this->invitations()->exists()) {
+            return 'invited';
+        } else {
+            return 'unfilled';
+        }
+    }
+
     public function getTypeLabelAttribute()
     {
         if ($this->ticketType->name === $this->price->name) {
