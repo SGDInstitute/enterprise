@@ -6,7 +6,6 @@ use App\Models\Order;
 use App\Models\Ticket;
 use App\Notifications\AcceptInviteReminder;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -31,7 +30,7 @@ class TicketsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
-        $unassigned = $this->order->tickets->where('status', Ticket::UNASSIGNED);
+        $unassigned = $this->order->tickets->where('status', Ticket::UNASSIGNED)->values();
         $unassignedCount = $unassigned->count();
 
         return $table
