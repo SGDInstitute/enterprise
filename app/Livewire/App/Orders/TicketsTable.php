@@ -14,7 +14,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Notification;
@@ -54,7 +53,7 @@ class TicketsTable extends Component implements HasForms, HasTable
                     ->options([
                         Ticket::COMPLETE => 'Complete tickets',
                         Ticket::INVITED => 'Invited tickets',
-                        Ticket::UNASSIGNED => 'Unassigned tickets'
+                        Ticket::UNASSIGNED => 'Unassigned tickets',
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return match ($data['value']) {
