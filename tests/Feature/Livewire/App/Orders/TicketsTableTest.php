@@ -249,6 +249,26 @@ class TicketsTableTest extends TestCase
 
     // Header Actions
 
+    #[Test]
+    public function can_invite_in_bulk()
+    {
+        $order = Order::factory()->create();
+        Ticket::factory()->for($order)->count(5)->create();
+
+        Livewire::actingAs(User::factory()->create())
+            ->test(TicketsTable::class, ['order' => $order])
+            ->callTableAction('invite-bulk', data: [
+                'invitations' => [
+                    ['email' => fake()->email()],
+                    ['email' => fake()->email()],
+                    ['email' => fake()->email()],
+                ],
+            ])
+            ->assertHasNoActionErrors();
+
+        $this->assertCount(2, $order->tickets->where('status', Ticket::UNASSIGNED));
+    }
+
     // Filters
 
     #[Test]

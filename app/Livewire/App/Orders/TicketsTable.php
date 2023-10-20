@@ -5,7 +5,10 @@ namespace App\Livewire\App\Orders;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Notifications\AcceptInviteReminder;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ViewField;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification as Toast;
@@ -28,6 +31,9 @@ class TicketsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
+        $unassigned = $this->order->tickets->where('status', Ticket::UNASSIGNED);
+        $unassignedCount = $unassigned->count();
+
         return $table
             ->query(Ticket::where('order_id', $this->order->id)->with('ticketType', 'user', 'invitations'))
             ->columns([
@@ -104,7 +110,34 @@ class TicketsTable extends Component implements HasForms, HasTable
                     ->hidden(fn ($record) => $record->status !== Ticket::UNASSIGNED || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
             ])
             ->headerActions([
-                // Invite
+                Action::make('invite-bulk')
+                    ->label('Fill unassigned tickets')
+                    ->slideOver()
+                    ->modalWidth('md')
+                    ->form([
+                        ViewField::make('instructions')
+                            ->view('livewire.app.orders.partials.invite-bulk-instructions', ['count' => $unassignedCount]),
+                        Repeater::make('invitations')
+                            ->label('Invitations to send')
+                            ->helperText(function ($state) use ($unassignedCount) {
+                                $min = count($state);
+                                return "$min of $unassignedCount";
+                            })
+                            ->simple(
+                                TextInput::make('email')
+                                    ->email()
+                                    ->required(),
+                            )
+                            ->defaultItems(0)
+                            ->reorderable(false)
+                            ->maxItems($unassignedCount)
+                            ->addActionLabel('Add email')
+                    ])
+                    ->action(function ($data) use ($unassigned){
+                        foreach ($data['invitations'] as $index => $email) {
+                            $unassigned[$index]->invite($email);
+                        }
+                    })
             ]);
     }
 
