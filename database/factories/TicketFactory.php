@@ -31,12 +31,12 @@ class TicketFactory extends Factory
         });
     }
 
-    public function invited(): static
+    public function invited($email = null): static
     {
-        return $this->afterCreating(function (Ticket $ticket) {
+        return $this->afterCreating(function (Ticket $ticket) use ($email) {
             $ticket->invitations()->create([
                 'invited_by' => User::factory()->create()->id,
-                'email' => fake()->safeEmail(),
+                'email' => $email ? $email : fake()->safeEmail(),
             ]);
         });
     }

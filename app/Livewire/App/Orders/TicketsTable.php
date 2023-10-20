@@ -37,21 +37,30 @@ class TicketsTable extends Component implements HasForms, HasTable
             ->query(Ticket::where('order_id', $this->order->id)->with('ticketType', 'user', 'invitations'))
             ->columns([
                 TextColumn::make('ticketType.name')
-                    ->label('Ticket Type'),
+                    ->label('Ticket Type')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         Ticket::INVITED => 'gray',
                         Ticket::UNASSIGNED => 'warning',
                         Ticket::COMPLETE => 'success',
-                    }),
+                    })
+                    ->toggleable(),
                 TextColumn::make('user.email')
                     ->label('Email')
-                    ->default(fn ($record) => $record->invitations->first()?->email),
+                    ->default(fn ($record) => $record->invitations->first()?->email)
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('user.name')
-                    ->label('Name'),
+                    ->label('Name')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('user.pronouns')
-                    ->label('Pronouns'),
+                    ->label('Pronouns')
+                    ->toggleable(),
             ])
             ->filters([
                 SelectFilter::make('status')
