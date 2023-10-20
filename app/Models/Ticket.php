@@ -66,7 +66,7 @@ class Ticket extends Model
     {
         if ($this->user()->exists()) {
             return 'filled';
-        } else if ($this->invitations()->exists()) {
+        } elseif ($this->invitations()->exists()) {
             return 'invited';
         } else {
             return 'unfilled';

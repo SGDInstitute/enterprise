@@ -81,16 +81,14 @@ class TicketsTable extends Component implements HasForms, HasTable
                     })
                     ->hidden(fn ($record) => $record->status !== 'filled'),
                 Action::make('remind-invite')
-                    ->action(fn (Ticket $record) =>
-                        Notification::route('mail', $record->invitations->first()->email)
+                    ->action(fn (Ticket $record) => Notification::route('mail', $record->invitations->first()->email)
                             ->notify(new AcceptInviteReminder($record->invitations->first(), $record))
                     )
                     ->hidden(fn ($record) => $record->status !== 'invited'),
                 Action::make('add-self')
-                    ->action(fn (Ticket $record) =>
-                        $record->update(['user_id' => auth()->id()])
+                    ->action(fn (Ticket $record) => $record->update(['user_id' => auth()->id()])
                     )
-                    ->hidden(fn ($record) => $record->status !== 'unfilled')
+                    ->hidden(fn ($record) => $record->status !== 'unfilled'),
             ])
             ->headerActions([
                 // Invite

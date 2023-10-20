@@ -76,7 +76,7 @@ class TicketsTableTest extends TestCase
             'invited_by' => $luffy->id,
             'inviteable_type' => "App\Models\Ticket",
             'inviteable_id' => $ticket->id,
-            'email' => "zoro@strawhat.pirate",
+            'email' => 'zoro@strawhat.pirate',
         ]);
     }
 
@@ -122,7 +122,7 @@ class TicketsTableTest extends TestCase
             'invited_by' => $luffy->id,
             'inviteable_type' => "App\Models\Ticket",
             'inviteable_id' => $ticket->id,
-            'email' => "zoro@strawhat.pirate",
+            'email' => 'zoro@strawhat.pirate',
         ]);
     }
 
