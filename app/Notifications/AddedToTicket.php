@@ -49,6 +49,6 @@ class AddedToTicket extends Notification implements ShouldQueue
 
     public function shouldSend(): bool
     {
-        return $this->invitation === null;
+        return $this->invitation !== null;
     }
 }

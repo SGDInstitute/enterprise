@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\AcceptInviteReminder;
+use App\Notifications\AddedToTicket;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
@@ -252,6 +253,8 @@ class TicketsTableTest extends TestCase
     #[Test]
     public function can_invite_in_bulk()
     {
+        Notification::fake();
+
         $order = Order::factory()->create();
         Ticket::factory()->for($order)->completed()->create();
         Ticket::factory()->for($order)->invited()->create();
@@ -261,14 +264,16 @@ class TicketsTableTest extends TestCase
             ->test(TicketsTable::class, ['order' => $order])
             ->callTableAction('invite-bulk', data: [
                 'invitations' => [
-                    ['email' => fake()->email()],
-                    ['email' => fake()->email()],
-                    ['email' => fake()->email()],
+                    ['email' => 'luffy@strawhat.pirate'],
+                    ['email' => 'zoro@strawhat.pirate'],
+                    ['email' => 'nami@strawhat.pirate'],
                 ],
             ])
             ->assertHasNoActionErrors();
 
         $this->assertCount(2, $order->tickets->where('status', Ticket::UNASSIGNED));
+
+        Notification::assertSentOnDemand(AddedToTicket::class, 3);
     }
 
     #[Test]
