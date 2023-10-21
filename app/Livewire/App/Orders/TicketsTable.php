@@ -121,9 +121,11 @@ class TicketsTable extends Component implements HasForms, HasTable
                     )
                     ->hidden(fn ($record) => $record->status !== Ticket::UNASSIGNED || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
             ])
+            ->heading($this->order->tickets->count() . ' Tickets')
             ->headerActions([
                 Action::make('invite-bulk')
                     ->label('Fill unassigned tickets')
+                    ->color('gray')
                     ->slideOver()
                     ->modalWidth('md')
                     ->form([
