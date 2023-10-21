@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\FormResource\Pages;
 
 use App\Filament\Resources\FormResource;
-use Filament\Actions\Actions\CreateAction;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListForms extends ListRecords
