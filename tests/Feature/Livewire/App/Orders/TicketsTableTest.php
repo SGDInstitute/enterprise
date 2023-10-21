@@ -365,4 +365,19 @@ class TicketsTableTest extends TestCase
             ->assertCanSeeTableRecords([$invited])
             ->assertCanNotSeeTableRecords($unassigned);
     }
+
+    #[Test]
+    public function can_search_by_user_name()
+    {
+        $order = Order::factory()->create();
+        $user = User::factory()->create(['name' => 'Monkey D. Luffy']);
+        $complete = Ticket::factory()->for($order)->for($user)->create();
+        $unassigned = Ticket::factory()->for($order)->count(5)->create();
+
+        Livewire::test(TicketsTable::class, ['order' => $order])
+            ->assertCanSeeTableRecords([$complete, ...$unassigned])
+            ->searchTable('Monkey')
+            ->assertCanSeeTableRecords([$complete])
+            ->assertCanNotSeeTableRecords($unassigned);
+    }
 }

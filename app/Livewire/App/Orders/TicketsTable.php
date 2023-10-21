@@ -17,7 +17,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
@@ -50,7 +50,10 @@ class TicketsTable extends Component implements HasForms, HasTable
                 TextColumn::make('user.email')
                     ->label('Email')
                     ->default(fn ($record) => $record->invitations->first()?->email)
-                    ->searchable()
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        return $query->whereRelation('user', 'email', 'like', "%{$search}%")
+                            ->orWhereRelation('invitations', 'email', 'like', "%{$search}%");
+                    })
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('user.name')
