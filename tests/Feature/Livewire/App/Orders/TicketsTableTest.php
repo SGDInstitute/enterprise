@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\AcceptInviteReminder;
 use App\Notifications\AddedToTicket;
+use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
@@ -246,6 +247,34 @@ class TicketsTableTest extends TestCase
         Livewire::actingAs($luffy)
             ->test(TicketsTable::class, ['order' => $order])
             ->assertTableActionHidden('add-self', $ticket);
+    }
+
+    #[Test]
+    public function can_delete_ticket()
+    {
+        $order = Order::factory()->create();
+        $luffy = User::factory()->create(['email' => 'luffy@strawhat.pirate']);
+        $ticket = Ticket::factory()->for($order)->create();
+
+        Livewire::actingAs($luffy)
+            ->test(TicketsTable::class, ['order' => $order])
+            ->callTableAction(DeleteAction::class, $ticket)
+            ->assertHasNoActionErrors();
+
+        $this->assertDatabaseMissing('tickets', $ticket->toArray());
+    }
+
+    #[Test]
+    public function cannot_delete_ticket_from_paid_order()
+    {
+        $order = Order::factory()->paid()->create();
+        $luffy = User::factory()->create(['email' => 'luffy@strawhat.pirate']);
+        Ticket::factory()->for($order)->for($luffy)->create();
+        $ticket = Ticket::factory()->for($order)->create();
+
+        Livewire::actingAs($luffy)
+            ->test(TicketsTable::class, ['order' => $order])
+            ->assertTableActionHidden(DeleteAction::class, $ticket);
     }
 
     // Header Actions

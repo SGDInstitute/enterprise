@@ -12,6 +12,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification as Toast;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -120,6 +121,9 @@ class TicketsTable extends Component implements HasForms, HasTable
                     ->action(fn (Ticket $record) => $record->update(['user_id' => auth()->id()])
                     )
                     ->hidden(fn ($record) => $record->status !== Ticket::UNASSIGNED || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
+                DeleteAction::make()
+                    ->label('')
+                    ->hidden($this->order->isPaid()),
             ])
             ->heading($this->order->tickets->count() . ' Tickets')
             ->headerActions([
