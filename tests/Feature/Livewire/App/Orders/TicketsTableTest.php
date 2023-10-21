@@ -288,6 +288,36 @@ class TicketsTableTest extends TestCase
             ->assertTableActionHidden('invite-bulk');
     }
 
+    #[Test]
+    public function can_remind_in_bulk()
+    {
+        Notification::fake();
+
+        $order = Order::factory()->create();
+        Ticket::factory()->for($order)->completed()->create();
+        Ticket::factory()->for($order)->invited()->count(5)->create();
+        Ticket::factory()->for($order)->create();
+
+        Livewire::actingAs(User::factory()->create())
+            ->test(TicketsTable::class, ['order' => $order])
+            ->callTableAction('remind-bulk')
+            ->assertHasNoActionErrors();
+
+        Notification::assertSentOnDemand(AcceptInviteReminder::class, 5);
+    }
+
+    #[Test]
+    public function cannot_remind_in_bulk_if_no_invites()
+    {
+        $order = Order::factory()->create();
+        Ticket::factory()->for($order)->completed()->create();
+        Ticket::factory()->for($order)->create();
+
+        Livewire::actingAs(User::factory()->create())
+            ->test(TicketsTable::class, ['order' => $order])
+            ->assertTableActionHidden('remind-bulk');
+    }
+
     // Filters
 
     #[Test]

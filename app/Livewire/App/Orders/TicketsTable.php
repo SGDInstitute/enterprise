@@ -150,7 +150,18 @@ class TicketsTable extends Component implements HasForms, HasTable
                             $unassigned[$index]->invite($email);
                         }
                     })
-                    ->hidden($unassignedCount === 0)
+                    ->hidden($unassignedCount === 0),
+                Action::make('remind-bulk')
+                    ->label('Remind all invitees')
+                    ->color('gray')
+                    ->action(fn () => $this->order->tickets->where('status', Ticket::INVITED)
+                        ->flatMap->invitations
+                        ->each(function ($invitation) {
+                            Notification::route('mail', $invitation->email)->notify(new AcceptInviteReminder($invitation));
+                            $invitation->touch();
+                        })
+                    )
+                    ->hidden($this->order->tickets->where('status', Ticket::INVITED)->count() === 0)
             ]);
     }
 
