@@ -123,7 +123,8 @@ class TicketsTable extends Component implements HasForms, HasTable
                     ->hidden(fn ($record) => $record->status !== Ticket::UNASSIGNED || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
                 DeleteAction::make()
                     ->label('')
-                    ->hidden($this->order->isPaid()),
+                    ->hidden($this->order->isPaid())
+                    ->before(fn ($record) => $record->invitations->each->delete()),
             ])
             ->heading($this->order->tickets->count() . ' Tickets')
             ->headerActions([

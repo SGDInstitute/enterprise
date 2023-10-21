@@ -265,6 +265,27 @@ class TicketsTableTest extends TestCase
     }
 
     #[Test]
+    public function deleting_ticket_deletes_invitation()
+    {
+        $order = Order::factory()->create();
+        $ticket = Ticket::factory()->for($order)->invited('luffy@strawhat.pirate')->create();
+        $this->assertDatabaseHas('invitations', [
+            'inviteable_type' => Ticket::class,
+            'email' => 'luffy@strawhat.pirate',
+        ]);
+
+        Livewire::test(TicketsTable::class, ['order' => $order])
+            ->callTableAction(DeleteAction::class, $ticket)
+            ->assertHasNoActionErrors();
+
+        $this->assertDatabaseMissing('tickets', $ticket->toArray());
+        $this->assertDatabaseMissing('invitations', [
+            'inviteable_type' => Ticket::class,
+            'email' => 'luffy@strawhat.pirate',
+        ]);
+    }
+
+    #[Test]
     public function cannot_delete_ticket_from_paid_order()
     {
         $order = Order::factory()->paid()->create();
