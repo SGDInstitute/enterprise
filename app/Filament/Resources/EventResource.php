@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EventResource\Pages;
+use App\Filament\Resources\EventResource\Pages\CreateEvent;
+use App\Filament\Resources\EventResource\Pages\EditEvent;
+use App\Filament\Resources\EventResource\Pages\ListEvents;
 use App\Filament\Resources\EventResource\RelationManagers\EventItemsRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ProposalsRelationManager;
@@ -225,9 +227,9 @@ class EventResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListEvents::route('/'),
-            'create' => Pages\CreateEvent::route('/create'),
-            'edit' => Pages\EditEvent::route('/{record}/edit'),
+            'index' => ListEvents::route('/'),
+            'create' => CreateEvent::route('/create'),
+            'edit' => EditEvent::route('/{record}/edit'),
         ];
     }
 

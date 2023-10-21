@@ -4,8 +4,8 @@ namespace App\Filament\Resources\ShiftResource\Pages;
 
 use App\Filament\Resources\ShiftResource;
 use App\Models\Event;
-use Filament\Actions;
 use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 
@@ -24,7 +24,7 @@ class ListShifts extends ListRecords
                 ])
                 ->outlined()
                 ->action(fn ($data) => redirect()->route('app.volunteer', $data['event'])),
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

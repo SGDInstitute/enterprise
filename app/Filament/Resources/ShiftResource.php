@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ShiftResource\Pages;
+use App\Filament\Resources\ShiftResource\Pages\CreateShift;
+use App\Filament\Resources\ShiftResource\Pages\EditShift;
+use App\Filament\Resources\ShiftResource\Pages\ListShifts;
 use App\Filament\Resources\ShiftResource\RelationManagers\UsersRelationManager;
 use App\Models\Event;
 use App\Models\Shift;
@@ -102,9 +104,9 @@ class ShiftResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListShifts::route('/'),
-            'create' => Pages\CreateShift::route('/create'),
-            'edit' => Pages\EditShift::route('/{record}/edit'),
+            'index' => ListShifts::route('/'),
+            'create' => CreateShift::route('/create'),
+            'edit' => EditShift::route('/{record}/edit'),
         ];
     }
 }

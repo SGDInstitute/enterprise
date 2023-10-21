@@ -4,7 +4,7 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Filament\Actions\CompBulkAction;
 use App\Filament\Actions\MarkAsPaidAction;
-use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\ViewAction;
@@ -28,7 +28,7 @@ class ReservationsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
+                TextInput::make('id')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -53,7 +53,7 @@ class ReservationsRelationManager extends RelationManager
                     ->label('Number of Tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
-                    ->options([
+                    ->icons([
                         '',
                         'heroicon-o-check-circle' => fn ($state): bool => $state !== null,
                     ]),

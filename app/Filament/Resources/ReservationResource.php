@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReservationResource\Pages;
+use App\Filament\Resources\ReservationResource\Pages\ListReservations;
+use App\Filament\Resources\ReservationResource\Pages\ViewReservation;
 use App\Filament\Resources\ReservationResource\RelationManagers\TicketsRelationManager;
 use App\Models\Reservation;
 use Filament\Forms\Components\Grid;
@@ -118,8 +119,8 @@ class ReservationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListReservations::route('/'),
-            'view' => Pages\ViewReservation::route('/{record}'),
+            'index' => ListReservations::route('/'),
+            'view' => ViewReservation::route('/{record}'),
         ];
     }
 

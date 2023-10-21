@@ -4,7 +4,7 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Filament\Actions\MarkAsUnpaidAction;
 use App\Filament\Actions\RefundAction;
-use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\ViewAction;
@@ -22,7 +22,7 @@ class OrdersRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
+                TextInput::make('id')
                     ->required()
                     ->maxLength(255),
             ]);
