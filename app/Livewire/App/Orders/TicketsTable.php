@@ -140,7 +140,8 @@ class TicketsTable extends Component implements HasForms, HasTable
                             ->label('Invitations to send')
                             ->helperText(function ($state) use ($unassignedCount) {
                                 $min = count($state);
-                                return "$min of $unassignedCount";
+
+                                return "{$min} of {$unassignedCount}";
                             })
                             ->simple(
                                 TextInput::make('email')
@@ -150,9 +151,9 @@ class TicketsTable extends Component implements HasForms, HasTable
                             ->defaultItems(0)
                             ->reorderable(false)
                             ->maxItems($unassignedCount)
-                            ->addActionLabel('Add email')
+                            ->addActionLabel('Add email'),
                     ])
-                    ->action(function ($data) use ($unassigned){
+                    ->action(function ($data) use ($unassigned) {
                         foreach ($data['invitations'] as $index => $email) {
                             $unassigned[$index]->invite($email);
                         }
@@ -168,7 +169,7 @@ class TicketsTable extends Component implements HasForms, HasTable
                             $invitation->touch();
                         })
                     )
-                    ->hidden($this->order->tickets->where('status', Ticket::INVITED)->count() === 0)
+                    ->hidden($this->order->tickets->where('status', Ticket::INVITED)->count() === 0),
             ]);
     }
 
