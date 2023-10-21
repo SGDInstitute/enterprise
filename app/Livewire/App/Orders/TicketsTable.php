@@ -109,17 +109,22 @@ class TicketsTable extends Component implements HasForms, HasTable
                     ->action(function (Ticket $record): void {
                         $record->update(['user_id' => null, 'answers' => null]);
 
-                        Toast::make()->title('Removed user from ticket')->send();
+                        Toast::make()->title('Removed user from ticket')->success()->send();
                     })
                     ->hidden(fn ($record) => $record->status !== Ticket::COMPLETE),
                 Action::make('remind-invite')
-                    ->action(fn (Ticket $record) => Notification::route('mail', $record->invitations->first()->email)
-                            ->notify(new AcceptInviteReminder($record->invitations->first(), $record))
-                    )
+                    ->action(function (Ticket $record) {
+                        Notification::route('mail', $record->invitations->first()->email)
+                            ->notify(new AcceptInviteReminder($record->invitations->first(), $record));
+
+                        Toast::make()->title('Sent invite reminder')->success()->send();
+                    })
                     ->hidden(fn ($record) => $record->status !== Ticket::INVITED),
                 Action::make('add-self')
-                    ->action(fn (Ticket $record) => $record->update(['user_id' => auth()->id()])
-                    )
+                    ->action(function (Ticket $record) {
+                        $record->update(['user_id' => auth()->id()]);
+                        Toast::make()->title('Added yourself to ticket.')->success()->send();
+                    })
                     ->hidden(fn ($record) => $record->status !== Ticket::UNASSIGNED || $this->order->tickets->pluck('user_id')->contains(auth()->id())),
                 DeleteAction::make()
                     ->label('')
@@ -157,18 +162,22 @@ class TicketsTable extends Component implements HasForms, HasTable
                         foreach ($data['invitations'] as $index => $email) {
                             $unassigned[$index]->invite($email);
                         }
+
+                        Toast::make()->title('Sent invites to ' . count($data['invitations']) . ' people')->success()->send();
                     })
                     ->hidden($unassignedCount === 0),
                 Action::make('remind-bulk')
                     ->label('Remind all invitees')
                     ->color('gray')
-                    ->action(fn () => $this->order->tickets->where('status', Ticket::INVITED)
-                        ->flatMap->invitations
-                        ->each(function ($invitation) {
-                            Notification::route('mail', $invitation->email)->notify(new AcceptInviteReminder($invitation));
-                            $invitation->touch();
-                        })
-                    )
+                    ->action(function () {
+                        $this->order->tickets->where('status', Ticket::INVITED)
+                            ->flatMap->invitations
+                            ->each(function ($invitation) {
+                                Notification::route('mail', $invitation->email)->notify(new AcceptInviteReminder($invitation));
+                                $invitation->touch();
+                            });
+                        Toast::make()->title('Sent bulk invite reminder')->success()->send();
+                    })
                     ->hidden($this->order->tickets->where('status', Ticket::INVITED)->count() === 0),
             ]);
     }
