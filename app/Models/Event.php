@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -37,27 +38,27 @@ class Event extends Model implements HasMedia
 
     // Relations
 
-    public function bulletins()
+    public function bulletins(): HasMany
     {
         return $this->hasMany(EventBulletin::class);
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(EventItem::class);
     }
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    public function paidOrders()
+    public function paidOrders(): HasMany
     {
         return $this->hasMany(Order::class)->paid();
     }
@@ -67,12 +68,12 @@ class Event extends Model implements HasMedia
         return $this->hasManyThrough(Response::class, Form::class)->where('responses.type', 'workshop');
     }
 
-    public function reservations()
+    public function reservations(): HasMany
     {
         return $this->hasMany(Order::class)->reservations();
     }
 
-    public function publishedBulletins()
+    public function publishedBulletins(): HasMany
     {
         return $this->hasMany(EventBulletin::class)->where('published_at', '<', now());
     }
@@ -92,7 +93,7 @@ class Event extends Model implements HasMedia
         return $this->hasManyThrough(Ticket::class, Order::class);
     }
 
-    public function workshopForm()
+    public function workshopForm(): HasOne
     {
         return $this->hasOne(Form::class)->where('type', 'workshop');
     }
