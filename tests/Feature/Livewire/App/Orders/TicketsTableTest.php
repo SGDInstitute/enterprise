@@ -368,6 +368,31 @@ class TicketsTableTest extends TestCase
             ->assertTableActionHidden('remind-bulk');
     }
 
+    #[Test]
+    public function can_add_another_ticket()
+    {
+        $order = Order::factory()->create();
+        Ticket::factory()->for($order)->create();
+
+        Livewire::actingAs(User::factory()->create())
+            ->test(TicketsTable::class, ['order' => $order])
+            ->callTableAction('add-ticket')
+            ->assertHasNoActionErrors();
+
+        $this->assertCount(2, $order->fresh()->tickets);
+    }
+
+    #[Test]
+    public function cannot_add_another_ticket_if_order_is_paid()
+    {
+        $order = Order::factory()->paid()->create();
+        Ticket::factory()->for($order)->create();
+
+        Livewire::actingAs(User::factory()->create())
+            ->test(TicketsTable::class, ['order' => $order])
+            ->assertTableActionHidden('add-ticket');
+    }
+
     // Filters
 
     #[Test]

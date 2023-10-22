@@ -179,6 +179,16 @@ class TicketsTable extends Component implements HasForms, HasTable
                         Toast::make()->title('Sent bulk invite reminder')->success()->send();
                     })
                     ->hidden($this->order->tickets->where('status', Ticket::INVITED)->count() === 0),
+                Action::make('add-ticket')
+                    ->label('Add Another Ticket')
+                    ->color('gray')
+                    ->action(function () {
+                        $data = $this->order->tickets->first()->only(['order_id', 'event_id', 'ticket_type_id', 'price_id']);
+                        Ticket::create($data);
+
+                        Toast::make()->title('Successfully added a ticket')->success()->send();
+                    })
+                    ->hidden($this->order->isPaid()),
             ]);
     }
 
