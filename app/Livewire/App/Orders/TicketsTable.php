@@ -131,7 +131,7 @@ class TicketsTable extends Component implements HasForms, HasTable
                     ->hidden($this->order->isPaid())
                     ->before(fn ($record) => $record->invitations->each->delete()),
             ])
-            ->heading($this->order->tickets->count() . ' Tickets')
+            ->heading('Tickets')
             ->headerActions([
                 Action::make('invite-bulk')
                     ->label('Fill unassigned tickets')
