@@ -21,6 +21,12 @@
                     <span>Tickets</span>
                     <span aria-hidden="true" class="{{ $page === 'tickets' ? 'bg-green-500' : 'bg-transparent' }} absolute inset-x-0 bottom-0 h-0.5"></span>
                 </a>
+                @if ($order->tickets->pluck('user_id')->contains(auth()->id()))
+                <a href="{{ route('app.orders.show', [$this->order, 'attendee']) }}" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 group relative min-w-0 flex-1 overflow-hidden bg-white dark:bg-gray-800 py-4 px-4 text-center font-medium hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10">
+                    <span>Attendee</span>
+                    <span aria-hidden="true" class="{{ $page === 'attendee' ? 'bg-green-500' : 'bg-transparent' }} absolute inset-x-0 bottom-0 h-0.5"></span>
+                </a>
+                @endif
                 <a href="{{ route('app.orders.show', [$this->order, 'checklist']) }}" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 group relative min-w-0 flex-1 overflow-hidden bg-white dark:bg-gray-800 py-4 px-4 text-center font-medium hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10">
                     <span>Checklist</span>
                     <span aria-hidden="true" class="{{ $page === 'checklist' ? 'bg-green-500' : 'bg-transparent' }} absolute inset-x-0 bottom-0 h-0.5"></span>
