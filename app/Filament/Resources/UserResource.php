@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\Pages\CreateUser;
+use App\Filament\Resources\UserResource\Pages\EditUser;
+use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Filament\Resources\UserResource\RelationManagers\DonationsRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\ReservationsRelationManager;
 use App\Models\User;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,7 +34,7 @@ class UserResource extends Resource
             ->schema([
                 Grid::make(3)
                     ->schema([
-                        Card::make()->schema([
+                        Section::make()->schema([
                             TextInput::make('name')
                                 ->maxLength(255),
                             TextInput::make('email')
@@ -42,7 +44,7 @@ class UserResource extends Resource
                             TextInput::make('pronouns')
                                 ->maxLength(255),
                         ])->columnSpan(2),
-                        Card::make()->schema([
+                        Section::make()->schema([
                             TextInput::make('password')
                                 ->password()
                                 ->required()
@@ -52,7 +54,7 @@ class UserResource extends Resource
                                 ->required()
                                 ->maxLength(255),
                         ])->columnSpan(1),
-                        Card::make()->schema([
+                        Section::make()->schema([
                             TextInput::make('address.line1'),
                             TextInput::make('address.line2'),
                             TextInput::make('address.city'),
@@ -79,7 +81,7 @@ class UserResource extends Resource
                     ->searchable(),
                 TextColumn::make('pronouns'),
                 IconColumn::make('email_verified_at')
-                    ->options([
+                    ->icons([
                         'heroicon-o-x-circle',
                         'heroicon-o-hand-thumb-up' => fn ($state): bool => $state !== null,
                     ]),
@@ -110,9 +112,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => ListUsers::route('/'),
+            'create' => CreateUser::route('/create'),
+            'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 }

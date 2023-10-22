@@ -15,6 +15,10 @@ class Ticket extends Model
     use HasInvitations;
     use SoftDeletes;
 
+    public const COMPLETE = 'complete';
+    public const INVITED = 'invited';
+    public const UNASSIGNED = 'unassigned';
+
     public $guarded = [];
 
     protected $casts = [
@@ -61,6 +65,17 @@ class Ticket extends Model
     }
 
     // Attributes
+
+    public function getStatusAttribute()
+    {
+        if ($this->user()->exists()) {
+            return self::COMPLETE;
+        } elseif ($this->invitations()->exists()) {
+            return self::INVITED;
+        } else {
+            return self::UNASSIGNED;
+        }
+    }
 
     public function getTypeLabelAttribute()
     {

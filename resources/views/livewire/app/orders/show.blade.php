@@ -33,7 +33,7 @@
             @elseif ($page === 'payment')
             <livewire:app.orders.payment :order="$order" />
             @elseif ($page === 'tickets')
-            <livewire:app.orders.tickets :order="$order" />
+            <livewire:app.orders.tickets-table :order="$order" />
             @elseif ($page === 'attendee')
             <livewire:app.orders.attendee :order="$order" />
             @endif

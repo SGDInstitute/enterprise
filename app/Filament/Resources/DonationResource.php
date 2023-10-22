@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DonationResource\Pages;
+use App\Filament\Resources\DonationResource\Pages\ListDonations;
+use App\Filament\Resources\DonationResource\Pages\ViewDonation;
 use App\Models\Donation;
-use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\ViewAction;
@@ -23,23 +25,23 @@ class DonationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
+                TextInput::make('user_id')
                     ->required(),
-                Forms\Components\TextInput::make('parent_id'),
-                Forms\Components\TextInput::make('transaction_id')
+                TextInput::make('parent_id'),
+                TextInput::make('transaction_id')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('subscription_id')
+                TextInput::make('subscription_id')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('amount')
+                TextInput::make('amount')
                     ->required(),
-                Forms\Components\TextInput::make('type')
+                TextInput::make('type')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('status')
+                TextInput::make('status')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('next_bill_date'),
-                Forms\Components\DateTimePicker::make('ends_at'),
+                DateTimePicker::make('next_bill_date'),
+                DateTimePicker::make('ends_at'),
             ]);
     }
 
@@ -87,8 +89,8 @@ class DonationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDonations::route('/'),
-            'view' => Pages\ViewDonation::route('/{record}'),
+            'index' => ListDonations::route('/'),
+            'view' => ViewDonation::route('/{record}'),
         ];
     }
 }
