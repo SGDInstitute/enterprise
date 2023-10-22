@@ -2,49 +2,65 @@
 
 namespace App\Filament\Resources\EventResource\Widgets;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
 
-class WhoNeedsWhat extends Widget
+class WhoNeedsWhat extends Widget implements HasForms
 {
+    use InteractsWithForms;
+
     protected static string $view = 'filament.resources.event-resource.widgets.who-needs-what';
 
     public ?Model $record = null;
 
-    public $question = '';
-    public $option = '';
-
-    public $options = [];
+    public ?array $data = [];
 
     public $report = [];
 
-    protected function getViewData(): array
+    public function mount(): void
     {
-        return [
-            'questions' => $this->questions,
-        ];
+        $this->form->fill();
     }
 
-    public function getQuestionsProperty()
+    public function form(Form $form): Form
     {
-        return $this->record->ticketTypes->flatMap->form->unique('id');
-    }
+        $questions = $this->record->ticketTypes->flatMap->form->unique('id');
 
-    public function updatedQuestion()
-    {
-        if ($this->questions->firstWhere('id', $this->question)['type'] === 'list') {
-            $this->options = $this->questions->firstWhere('id', $this->question)['options'];
-        }
+        return $form
+            ->columns(2)
+            ->schema([
+                Select::make('question')
+                    ->options($questions->pluck('question', 'id'))
+                    ->required()
+                    ->live(),
+                Select::make('option')
+                    ->options(function (Get $get) use ($questions): array {
+                        if ($get('question') === null) {
+                            return [];
+                        }
+                        $options = $questions->firstWhere('id', $get('question'))['options'];
+
+                        return array_combine($options, $options);
+                    })
+                    ->required()
+                    ->multiple(),
+            ])
+            ->statePath('data');
     }
 
     public function run()
     {
+        $data = $this->form->getState();
+
         $this->report = $this->record->tickets()
-            ->whereJsonContains("answers->{$this->question}", $this->option)
+            ->whereJsonContains("answers->{$data['question']}", $data['option'])
             ->with('user')
             ->get();
     }

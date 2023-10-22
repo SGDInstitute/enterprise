@@ -1,26 +1,8 @@
 <x-filament-widgets::widget>
     <x-filament::section>
         <x-slot name="heading">Who Needs What</x-slot>
-        <div class="flex gap-x-3 items-center pb-4">
-            <x-filament::input.wrapper>
-                <x-filament::input.select wire:model.live="question">
-                    <option value="">Select Question</option>
-                    @foreach($questions as $question)
-                    <option value="{{ $question['id'] }}">{{ $question['question'] }}</option>
-                    @endforeach
-                </x-filament::input.select>
-            </x-filament::input.wrapper>
-
-            @if ($options !== [])
-            <x-filament::input.wrapper>
-                <x-filament::input.select wire:model.live="option">
-                    <option value="">Select Option</option>
-                    @foreach($options as $option)
-                    <option>{{ $option }}</option>
-                    @endforeach
-                </x-filament::input.select>
-            </x-filament::input.wrapper>
-            @endif
+        <div class="flex gap-x-3 items-end pb-4">
+            {{ $this->form }}
 
             <x-filament::button wire:click="run">Run</x-filament::button>
         </div>
