@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\EventResource\Pages;
 
 use App\Filament\Resources\EventResource;
+use App\Filament\Resources\EventResource\Widgets\WhoNeedsWhat;
 use App\Models\Event;
 use Filament\Resources\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
@@ -18,5 +19,12 @@ class ReportEvent extends Page
     public function getTitle(): string | Htmlable
     {
         return $this->record->name . ' Reports';
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            WhoNeedsWhat::make(['record' => $this->record]),
+        ];
     }
 }
