@@ -9,13 +9,17 @@
         <div class="fi-section-content-ctn border-t pt-4 border-gray-200 dark:border-white/10">
             <table class="fi-ta-table w-full table-auto divide-y divide-gray-200 text-start dark:divide-white/5">
                 <tbody class="divide-y divide-gray-200 dark:divide-white/5">
-                    @foreach ($report as $item)
+                    @forelse ($report as $item)
                     <tr>
                         <td>{{ $item->user->name }} <small>({{ $item->user->pronouns }})</small></td>
                         <td>{{ $item->user->email }}</td>
                         <td>{{ $item->id }}</td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="3">No tickets found</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
