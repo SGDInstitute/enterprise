@@ -10,6 +10,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -49,42 +50,42 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     // Relationships
 
-    public function donations()
+    public function donations(): HasMany
     {
         return $this->hasMany(Donation::class);
     }
 
-    public function incompleteDonations()
+    public function incompleteDonations(): HasMany
     {
         return $this->donations()->where('status', 'incomplete');
     }
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function paidOrders()
+    public function paidOrders(): HasMany
     {
         return $this->hasMany(Order::class)->paid();
     }
 
-    public function reservations()
+    public function reservations(): HasMany
     {
         return $this->hasMany(Order::class)->reservations();
     }
 
-    public function responseOwner()
+    public function responseOwner(): HasMany
     {
         return $this->hasMany(Response::class);
     }
 
-    public function responses()
+    public function responses(): BelongsToMany
     {
         return $this->belongsToMany(Response::class, 'collaborators');
     }
 
-    public function schedule()
+    public function schedule(): BelongsToMany
     {
         return $this->belongsToMany(EventItem::class, 'user_schedule', 'user_id', 'item_id');
     }
@@ -94,7 +95,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->belongsToMany(Shift::class);
     }
 
-    public function tickets()
+    public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
     }
