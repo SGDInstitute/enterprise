@@ -12,7 +12,16 @@
                     @forelse ($report as $item)
                     <tr>
                         <td>{{ $item->user->name }} <small>({{ $item->user->pronouns }})</small></td>
-                        <td>{{ $item->user->email }}</td>
+                        <td>
+                            <button
+                                x-on:click="
+                                    window.navigator.clipboard.writeText(@js($item->user->email))
+                                    $tooltip('Email copied')
+                                "
+                            >
+                                {{ $item->user->email }}
+                            </button>
+                        </td>
                         <td>{{ $item->id }}</td>
                     </tr>
                     @empty
