@@ -192,6 +192,11 @@ class TicketsTable extends Component implements HasForms, HasTable
             ]);
     }
 
+    public function downloadW9()
+    {
+        return response()->download(public_path('documents/SGD-Institute-W9.pdf'));
+    }
+
     public function render()
     {
         return view('livewire.app.orders.tickets-table');
