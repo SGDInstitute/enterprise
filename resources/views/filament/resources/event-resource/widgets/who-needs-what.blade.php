@@ -18,6 +18,7 @@
                                     window.navigator.clipboard.writeText(@js($item->user->email))
                                     $tooltip('Email copied')
                                 "
+                                class="hover:underline"
                             >
                                 {{ $item->user->email }}
                             </button>
@@ -26,7 +27,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3">No tickets found</td>
+                        <td colspan="3">{{ $hasRun ? 'No tickets found' : ''}}</td>
                     </tr>
                     @endforelse
                 </tbody>

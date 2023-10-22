@@ -22,6 +22,7 @@ class WhoNeedsWhat extends Widget implements HasForms
 
     public ?array $data = [];
 
+    public bool $hasRun = false;
     public $report = [];
 
     public function mount(): void
@@ -57,6 +58,7 @@ class WhoNeedsWhat extends Widget implements HasForms
 
     public function run()
     {
+        $this->hasRun = true;
         $data = $this->form->getState();
 
         $this->report = $this->record->tickets()
