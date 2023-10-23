@@ -12,6 +12,7 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class TicketsRelationManager extends RelationManager
 {
@@ -32,6 +33,7 @@ class TicketsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['user', 'invitations']))
             ->columns([
                 TextColumn::make('order_id')
                     ->formatStateUsing(function (RelationManager $livewire, Ticket $record): string {
@@ -50,13 +52,25 @@ class TicketsRelationManager extends RelationManager
                     ->boolean()
                     ->trueIcon('heroicon-o-check-badge')
                     ->falseIcon('heroicon-o-x-circle'),
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        Ticket::INVITED => 'gray',
+                        Ticket::UNASSIGNED => 'warning',
+                        Ticket::COMPLETE => 'success',
+                    })
+                    ->toggleable(),
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
                     ->url(fn ($record) => $record->user_id ? route('filament.admin.resources.users.edit', $record->user_id) : ''),
                 TextColumn::make('user.email')
                     ->label('Email')
-                    ->searchable()
+                    ->default(fn ($record) => $record->invitations->first()?->email)
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        return $query->whereRelation('user', 'email', 'like', "%{$search}%")
+                            ->orWhereRelation('invitations', 'email', 'like', "%{$search}%");
+                    })
                     ->sortable(),
                 TextColumn::make('user.pronouns')
                     ->label('Pronouns')
