@@ -78,8 +78,7 @@ class EditEvent extends EditRecord
                     ->action(fn ($data) => Excel::download(
                         new TicketAnswersExport($this->record, $data['question'], $data['status']),
                         "{$this->record->slug}-ticket-answers.xlsx"
-                    )
-                    ),
+                    )),
                 Action::make('ticket-users')
                     ->form([
                         Radio::make('status')
