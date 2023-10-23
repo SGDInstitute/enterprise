@@ -78,6 +78,7 @@ class EventItemsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['tags']))
             ->columns([
                 TextColumn::make('formattedDuration')
                     ->label('Duration')
