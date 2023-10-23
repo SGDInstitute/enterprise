@@ -6,6 +6,7 @@ use App\Models\EventItem;
 use App\Observers\EventItemObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -43,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
             'success' => Color::Green,
             'warning' => Color::Amber,
         ]);
+
+        Model::preventLazyLoading(! app()->isProduction());
     }
 
     public function register(): void

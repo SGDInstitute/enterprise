@@ -18,12 +18,12 @@ class StatsOverview extends BaseWidget
 
     public function getReservationsProperty()
     {
-        return Order::forEvent($this->record)->reservations()->with('tickets')->get();
+        return Order::forEvent($this->record)->reservations()->with('tickets.price')->get();
     }
 
     public function getOrdersProperty()
     {
-        return Order::forEvent($this->record)->paid()->with('tickets')->get();
+        return Order::forEvent($this->record)->paid()->with('tickets.price')->get();
     }
 
     public function getReservationTotalsProperty()
