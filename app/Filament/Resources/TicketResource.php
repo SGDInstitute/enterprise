@@ -47,7 +47,7 @@ class TicketResource extends Resource
                                 TextEntry::make('user.pronouns')
                                     ->label('Pronouns')
                                     ->hidden(fn (Ticket $record) => $record->status !== Ticket::COMPLETE),
-                                TextEntry::make('invitations')
+                                TextEntry::make('invitations.email')
                                     ->hidden(fn (Ticket $record) => $record->status === Ticket::COMPLETE)
                                     ->default('No email invited')
                             ]),
