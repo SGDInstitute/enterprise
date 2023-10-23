@@ -16,7 +16,7 @@ class ReportEvent extends Page
 
     public Event $record;
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return $this->record->name . ' Reports';
     }

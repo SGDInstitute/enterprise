@@ -27,7 +27,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3">{{ $hasRun ? 'No tickets found' : ''}}</td>
+                        <td colspan="3">{{ $hasRun ? 'No tickets found' : '' }}</td>
                     </tr>
                     @endforelse
                 </tbody>

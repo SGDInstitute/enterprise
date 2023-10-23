@@ -12,8 +12,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Facades\Excel;

@@ -4,10 +4,9 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Resources\FormResource;
 use App\Models\Form;
-use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Database\Eloquent\Builder;
 
 class OpenForms extends BaseWidget
 {
