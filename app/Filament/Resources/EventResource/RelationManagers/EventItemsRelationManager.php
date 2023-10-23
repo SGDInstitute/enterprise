@@ -100,7 +100,7 @@ class EventItemsRelationManager extends RelationManager
                     Action::make('export-schedule-txt')
                         ->label('Schedule Export (txt)')
                         ->action(function () {
-                            $parents = $this->ownerRecord->items()->whereNull('parent_id')->orderBy('start')->with('children')->get();
+                            $parents = $this->ownerRecord->items()->with('tags')->whereNull('parent_id')->orderBy('start')->with('children.tags')->get();
                             $contents = view('exports.copyable-schedule', ['items' => $parents])->render();
 
                             $date = now()->format('Y-m-d');

@@ -92,6 +92,7 @@ class MessageBoard extends Component implements HasForms, HasActions
     {
         return Post::forEvent($this->event)
             ->approved()
+            ->with(['tags', 'user'])
             ->when($this->tagsFilter !== [], function ($query) {
                 $query->withAllTags($this->tagsFilter, 'posts');
             })

@@ -23,6 +23,7 @@ class Payment extends Component
 
     public function mount()
     {
+        $this->order->load('tickets.price');
         $this->name = $this->order->invoice->name ?? auth()->user()->name;
         $this->email = $this->order->invoice->email ?? auth()->user()->email;
         $this->address = $this->order->invoice->address ?? [
@@ -51,7 +52,7 @@ class Payment extends Component
         }
 
         $pdf = Pdf::loadView('pdf.invoice', [
-            'order' => $this->order->fresh(),
+            'order' => $this->order->fresh()->load('tickets.price', 'tickets.ticketType'),
             'transaction' => $this->order->transactionDetails(),
         ])->output();
 

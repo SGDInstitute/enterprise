@@ -36,7 +36,7 @@ class Workshops extends Component
     {
         return Response::query()
             ->leftJoin('collaborators', 'collaborators.response_id', '=', 'responses.id')
-            ->with('collaborators')
+            ->with('collaborators', 'form')
             ->where(function ($query) {
                 $query->where('responses.user_id', auth()->id())
                     ->orWhere('collaborators.user_id', auth()->id());
