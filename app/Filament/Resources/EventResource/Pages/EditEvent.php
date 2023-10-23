@@ -36,6 +36,10 @@ class EditEvent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('reports')
+                ->url(EventResource::getUrl('report', ['record' => $this->record]))
+                ->button()
+                ->outlined(),
             ActionGroup::make([
                 Action::make('dashboard-report')
                     ->action(function () {
