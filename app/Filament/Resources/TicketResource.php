@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TicketResource\Pages\ListTickets;
 use App\Filament\Resources\TicketResource\Pages\ViewTicket;
 use App\Models\Ticket;
-use Filament\Infolists\Components\Fieldset;
 use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
@@ -49,7 +48,7 @@ class TicketResource extends Resource
                                     ->hidden(fn (Ticket $record) => $record->status !== Ticket::COMPLETE),
                                 TextEntry::make('invitations.email')
                                     ->hidden(fn (Ticket $record) => $record->status === Ticket::COMPLETE)
-                                    ->default('No email invited')
+                                    ->default('No email invited'),
                             ]),
                         Section::make('Answers')
                             ->columnSpan(1)
