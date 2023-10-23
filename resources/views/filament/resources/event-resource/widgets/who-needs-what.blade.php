@@ -24,7 +24,7 @@
                             </button>
                         </td>
                         <td>
-                            <x-filament::link :href="route('filament.admin.resources.orders.view', ['record' => $item->order_id])">
+                            <x-filament::link :href="route('filament.admin.resources.tickets.view', ['record' => $item->id])">
                                 View
                             </x-filament::link>
                         </td>
