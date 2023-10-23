@@ -36,8 +36,8 @@ class TicketsRelationManager extends RelationManager
             ->modifyQueryUsing(fn (Builder $query) => $query->with(['order', 'user', 'invitations']))
             ->columns([
                 TextColumn::make('order_id')
-                    ->formatStateUsing(function (RelationManager $livewire, Ticket $record): string {
-                        return $livewire->ownerRecord->order_prefix . $record->order_id;
+                    ->formatStateUsing(function (RelationManager $livewire): string {
+                        return $livewire->ownerRecord->formatted_id;
                     })
                     ->label('Order ID')
                     ->searchable()
