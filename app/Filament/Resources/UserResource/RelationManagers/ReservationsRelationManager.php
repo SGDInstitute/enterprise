@@ -6,7 +6,6 @@ use App\Filament\Actions\CompBulkAction;
 use App\Filament\Actions\MarkAsPaidAction;
 use App\Filament\Resources\ReservationResource;
 use App\Models\Order;
-use App\Models\Reservation;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
