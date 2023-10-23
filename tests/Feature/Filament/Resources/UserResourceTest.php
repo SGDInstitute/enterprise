@@ -90,9 +90,14 @@ final class UserResourceTest extends TestCase
             ->get(UserResource::getUrl('edit', ['record' => $user, 'activeRelationManager' => 1]))
             ->assertOk();
 
-        // Donations
+        // Tickets
         $this->actingAs($user)
             ->get(UserResource::getUrl('edit', ['record' => $user, 'activeRelationManager' => 2]))
+            ->assertOk();
+
+            // Donations
+        $this->actingAs($user)
+            ->get(UserResource::getUrl('edit', ['record' => $user, 'activeRelationManager' => 3]))
             ->assertOk();
     }
 

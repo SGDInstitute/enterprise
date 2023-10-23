@@ -8,6 +8,7 @@ use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Filament\Resources\UserResource\RelationManagers\DonationsRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\ReservationsRelationManager;
+use App\Filament\Resources\UserResource\RelationManagers\TicketsRelationManager;
 use App\Models\User;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
@@ -105,6 +106,7 @@ class UserResource extends Resource
         return [
             OrdersRelationManager::class,
             ReservationsRelationManager::class,
+            TicketsRelationManager::class,
             DonationsRelationManager::class,
         ];
     }
