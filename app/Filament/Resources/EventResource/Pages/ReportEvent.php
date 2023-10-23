@@ -7,6 +7,7 @@ use App\Exports\ScheduleExport;
 use App\Exports\TicketAnswersExport;
 use App\Exports\TicketUsersExport;
 use App\Filament\Resources\EventResource;
+use App\Filament\Resources\EventResource\Widgets\PresenterCheckIn;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
 use App\Filament\Resources\EventResource\Widgets\TicketBreakdown;
 use App\Filament\Resources\EventResource\Widgets\WhoNeedsWhat;
@@ -36,7 +37,13 @@ class ReportEvent extends Page
     {
         return [
             WhoNeedsWhat::make(['record' => $this->record]),
+            PresenterCheckIn::make(['record' => $this->record]),
         ];
+    }
+
+    public function getHeaderWidgetsColumns(): int | array
+    {
+        return 1;
     }
 
     protected function getHeaderActions(): array

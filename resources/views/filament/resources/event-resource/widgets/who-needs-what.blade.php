@@ -1,5 +1,5 @@
 <x-filament-widgets::widget>
-    <x-filament::section>
+    <x-filament::section collapsible collapsed>
         <x-slot name="heading">Who Needs What</x-slot>
 
         <div class="flex gap-x-3 items-end pb-4">
