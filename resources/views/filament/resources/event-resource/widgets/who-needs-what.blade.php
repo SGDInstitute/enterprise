@@ -1,6 +1,7 @@
 <x-filament-widgets::widget>
     <x-filament::section>
         <x-slot name="heading">Who Needs What</x-slot>
+
         <div class="flex gap-x-3 items-end pb-4">
             {{ $this->form }}
 
@@ -38,4 +39,5 @@
             </table>
         </div>
     </x-filament::section>
+
 </x-filament-widgets::widget>
