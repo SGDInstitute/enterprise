@@ -10,6 +10,7 @@ use App\Models\Shift;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -18,7 +19,8 @@ final class ShiftResourceTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function happy_path_http_check_shifts_index(): void
+    #[Group('http_happy_path')]
+    public function can_view_shifts(): void
     {
         $user = User::factory()->admin()->create();
         Shift::factory()->count(2)->create();
@@ -29,7 +31,8 @@ final class ShiftResourceTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_http_check_shifts_create()
+    #[Group('http_happy_path')]
+    public function can_view_shifts_create()
     {
         $user = User::factory()->admin()->create();
 
@@ -39,7 +42,8 @@ final class ShiftResourceTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_http_check_shifts_edit()
+    #[Group('http_happy_path')]
+    public function can_view_shift_edit()
     {
         $user = User::factory()->admin()->create();
         $shift = Shift::factory()->create();
