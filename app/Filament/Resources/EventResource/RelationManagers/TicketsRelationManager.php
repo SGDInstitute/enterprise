@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\EventResource\RelationManagers;
 
+use App\Filament\Resources\TicketResource;
 use App\Models\Ticket;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -68,6 +70,8 @@ class TicketsRelationManager extends RelationManager
                 //
             ])
             ->actions([
+                ViewAction::make()
+                    ->url(fn ($record) => TicketResource::getUrl('view', ['record' => $record])),
                 Action::make('remove_user')
                     ->action(fn ($record) => $record->update(['user_id' => null, 'answers' => null])),
             ])

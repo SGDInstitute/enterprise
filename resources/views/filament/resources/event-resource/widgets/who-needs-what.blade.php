@@ -23,7 +23,11 @@
                                 {{ $item->user->email }}
                             </button>
                         </td>
-                        <td>{{ $item->id }}</td>
+                        <td>
+                            <x-filament::link :href="route('filament.admin.resources.orders.view', ['record' => $item->order_id])">
+                                View
+                            </x-filament::link>
+                        </td>
                     </tr>
                     @empty
                     <tr>
