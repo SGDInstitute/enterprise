@@ -4,6 +4,8 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Filament\Actions\MarkAsUnpaidAction;
 use App\Filament\Actions\RefundAction;
+use App\Filament\Resources\OrderResource;
+use App\Models\Order;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -11,6 +13,7 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class OrdersRelationManager extends RelationManager
 {
@@ -31,6 +34,7 @@ class OrdersRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['event', 'tickets']))
             ->columns([
                 TextColumn::make('id')
                     ->copyable()
@@ -66,7 +70,8 @@ class OrdersRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->url(fn (Order $record) => OrderResource::getUrl('view', ['record' => $record])),
                 MarkAsUnpaidAction::make(),
                 RefundAction::make(),
             ])

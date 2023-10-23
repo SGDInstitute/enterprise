@@ -10,6 +10,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Spatie\Tags\Tag;
 use Tests\TestCase;
@@ -19,7 +20,8 @@ final class MessageBoardTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function happy_path_http_check(): void
+    #[Group('http_happy_path')]
+    public function can_view_message_board(): void
     {
         $user = User::factory()->create();
         $event = Event::factory()->create();

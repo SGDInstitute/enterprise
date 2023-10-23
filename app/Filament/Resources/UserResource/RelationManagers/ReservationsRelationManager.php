@@ -4,6 +4,9 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Filament\Actions\CompBulkAction;
 use App\Filament\Actions\MarkAsPaidAction;
+use App\Filament\Resources\ReservationResource;
+use App\Models\Order;
+use App\Models\Reservation;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -37,6 +40,7 @@ class ReservationsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['event', 'tickets.price']))
             ->columns([
                 TextColumn::make('id')
                     ->copyable()
@@ -48,8 +52,8 @@ class ReservationsRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tickets')
-                    ->formatStateUsing(fn ($state) => count($state))
+                TextColumn::make('tickets_count')
+                    ->counts('tickets')
                     ->label('Number of Tickets'),
                 IconColumn::make('invoice')
                     ->label('Has Invoice')
@@ -74,7 +78,8 @@ class ReservationsRelationManager extends RelationManager
                 //
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->url(fn (Order $record) => ReservationResource::getUrl('view', ['record' => $record])),
                 MarkAsPaidAction::make(),
             ])
             ->bulkActions([

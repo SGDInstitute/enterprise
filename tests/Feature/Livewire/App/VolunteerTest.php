@@ -13,6 +13,7 @@ use Filament\Forms\Components\CheckboxList;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -21,14 +22,15 @@ class VolunteerTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function happy_path_http_check(): void
+    #[Group('http_happy_path')]
+    public function can_view_app_volunteer(): void
     {
         $user = User::factory()->create();
         $event = Event::factory()->has(Shift::factory()->count(5))->create();
 
         $this->actingAs($user)
             ->get(route('app.volunteer', $event))
-            ->assertSuccessful();
+            ->assertOk();
     }
 
     #[Test]
