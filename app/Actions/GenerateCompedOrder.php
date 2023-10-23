@@ -10,6 +10,8 @@ class GenerateCompedOrder
 {
     public function presenter($event, $proposal, $user): void
     {
+        $event->load('ticketTypes.prices');
+
         if ($user->hasCompedTicketFor($event)) {
             return;
         }
@@ -29,6 +31,8 @@ class GenerateCompedOrder
 
     public function volunteer($event, $user): void
     {
+        $event->load('ticketTypes.prices');
+
         if ($user->hasCompedTicketFor($event)) {
             return;
         }

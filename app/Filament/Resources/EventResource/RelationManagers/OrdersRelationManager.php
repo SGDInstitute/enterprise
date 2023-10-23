@@ -12,6 +12,7 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class OrdersRelationManager extends RelationManager
 {
@@ -31,6 +32,7 @@ class OrdersRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('id')
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['event']))
             ->columns([
                 TextColumn::make('id')
                     ->copyable()

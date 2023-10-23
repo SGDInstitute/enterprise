@@ -33,7 +33,7 @@ class TicketsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->with(['user', 'invitations']))
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['order', 'user', 'invitations']))
             ->columns([
                 TextColumn::make('order_id')
                     ->formatStateUsing(function (RelationManager $livewire, Ticket $record): string {

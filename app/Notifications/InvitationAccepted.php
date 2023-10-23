@@ -50,7 +50,7 @@ class InvitationAccepted extends Notification
 
     private function getTicketMessage()
     {
-        $order = $this->model->order;
+        $order = $this->model->load('order')->order;
         $numberOfOutstandingInvitations = Ticket::whereOrderId($order->id)->whereNull('user_id')->whereHas('invitations')->count();
         $numberOfTicketsThatNeedInvitations = Ticket::whereOrderId($order->id)->whereNull('user_id')->whereDoesntHave('invitations')->count();
 

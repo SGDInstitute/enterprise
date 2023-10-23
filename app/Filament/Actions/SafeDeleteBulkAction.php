@@ -20,7 +20,7 @@ class SafeDeleteBulkAction extends BulkAction
         $this->label('Bulk Delete')
             ->action(function (Collection $records): void {
                 $count = count($records);
-                $records->each(fn ($record) => $record->safeDelete());
+                $records->each(fn ($record) => $record->load('tickets')->safeDelete());
 
                 Notification::make()->title('Safely deleted ' . $count . ' records.')->success()->send();
             })

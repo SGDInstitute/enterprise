@@ -7,6 +7,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class TicketTypesRelationManager extends RelationManager
 {
@@ -17,6 +18,7 @@ class TicketTypesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['prices']))
             ->columns(TicketTypeResource::columns())
             ->headerActions([
                 CreateAction::make()

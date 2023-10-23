@@ -20,7 +20,7 @@ class AcceptInviteReminder extends Notification implements ShouldQueue
 
     public function __construct(Invitation $invitation, $model = null)
     {
-        $this->invitation = $invitation;
+        $this->invitation = $invitation->load('inviteable');
         $this->model = ($model === null) ? $invitation->inviteable : $model;
     }
 

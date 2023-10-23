@@ -54,7 +54,7 @@ class RefundAction extends Action
 
     private function ticketCheckboxes($record)
     {
-        return $record->tickets->map(
+        return $record->tickets->load(['user', 'ticketType', 'price'])->map(
             fn ($ticket) => Checkbox::make($ticket->id)
                 ->label(($ticket->user->name ?? 'Ticket ' . $ticket->id) . " ({$ticket->ticketType->name} - {$ticket->price->formattedCost})")
         );

@@ -38,6 +38,7 @@ class ReservationsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['event', 'tickets.price']))
             ->columns([
                 TextColumn::make('id')
                     ->copyable()

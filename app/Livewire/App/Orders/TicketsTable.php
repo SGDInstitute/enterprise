@@ -29,6 +29,11 @@ class TicketsTable extends Component implements HasForms, HasTable
 
     public Order $order;
 
+    public function mount()
+    {
+        $this->order->load('tickets.ticketType', 'tickets.price', 'tickets.invitations');
+    }
+
     public function table(Table $table): Table
     {
         $unassigned = $this->order->tickets->where('status', Ticket::UNASSIGNED)->values();
