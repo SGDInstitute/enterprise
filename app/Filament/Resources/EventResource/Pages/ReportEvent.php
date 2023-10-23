@@ -68,6 +68,7 @@ class ReportEvent extends Page
                     ->action(fn () => Excel::download(new ScheduledPresentersExport($this->record), "{$this->record->slug}-scheduled-presenters.xlsx")
                     ),
                 Action::make('ticket-answers')
+                    ->label('Who Needs What (Ticket Answers)')
                     ->form(function () {
                         $keys = $this->record->ticketTypes->pluck('form')->map->pluck('id')->flatten()->unique();
 
