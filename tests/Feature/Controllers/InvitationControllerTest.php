@@ -128,4 +128,33 @@ final class InvitationControllerTest extends TestCase
 
         Notification::assertSentTo([$creator], InvitationAccepted::class);
     }
+
+    #[Test]
+    public function lower_and_upper_case_differences_are_okay()
+    {
+        Notification::fake();
+
+        $creator = User::factory()->create(['email' => 'luz@hexide.edu']);
+        $user = User::factory()->create(['email' => 'King@hexide.edu']);
+        $ticket = Ticket::factory()->create();
+        $invitation = Invitation::factory()->for($ticket, 'inviteable')
+            ->create([
+                'email' => 'king@hexide.edu',
+                'invited_by' => $creator->id
+            ]);
+
+        $this->actingAs($user)
+            ->get($invitation->acceptUrl)
+            ->assertRedirectToRoute('app.orders.show', ['order' => $ticket->order]);
+
+        $this->assertTrue($ticket->fresh()->user_id === $user->id);
+
+        $this->assertDatabaseMissing('invitations', [
+            'inviteable_type' => 'App\Models\Ticket',
+            'inviteable_id' => $ticket->id,
+            'email' => 'king@hexide.edu',
+        ]);
+
+        Notification::assertSentTo([$creator], InvitationAccepted::class);
+    }
 }
