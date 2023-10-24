@@ -140,7 +140,7 @@ final class InvitationControllerTest extends TestCase
         $invitation = Invitation::factory()->for($ticket, 'inviteable')
             ->create([
                 'email' => 'king@hexide.edu',
-                'invited_by' => $creator->id
+                'invited_by' => $creator->id,
             ]);
 
         $this->actingAs($user)
