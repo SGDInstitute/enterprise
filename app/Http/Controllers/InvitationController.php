@@ -14,11 +14,11 @@ class InvitationController extends Controller
     public function accept(Request $request, $invitationId)
     {
         $invitation = Invitation::find($invitationId);
-        if (auth()->check() && auth()->user()->email === $invitation->email) {
+        if (auth()->check() && strtolower(auth()->user()->email) === strtolower($invitation->email)) {
             return $invitation->accept();
         }
 
-        if (auth()->check() && auth()->user()->email !== $invitation->email) {
+        if (auth()->check() && strtolower(auth()->user()->email) !== strtolower($invitation->email)) {
             auth()->logout();
         }
 
