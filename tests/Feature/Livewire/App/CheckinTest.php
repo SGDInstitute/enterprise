@@ -76,6 +76,49 @@ final class CheckinTest extends TestCase
     }
 
     #[Test]
+    public function see_need_ticket_if_user_has_none()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('app.checkin'))
+            ->assertSee('you can purchase one.');
+    }
+
+    #[Test]
+    public function show_login_reminder_if_not_authenticated()
+    {
+        $this->get(route('app.checkin'))
+            ->assertSee('Please create an account or log in before checking in.');
+    }
+
+    #[Test]
+    public function show_reminder_to_pay_if_ticket_is_unpaid()
+    {
+        $user = User::factory()->create();
+        $order = Order::factory()->create();
+        $ticket = Ticket::factory()->for($user)->for($order)->create();
+
+        $this->actingAs($user)
+            ->get(route('app.checkin', ['ticket' => $ticket]))
+            ->assertSee('This ticket has not been paid for yet.')
+            ->assertDontSee('Pay Now');
+    }
+
+    #[Test]
+    public function order_owner_sees_redirect_to_payment_page()
+    {
+        $user = User::factory()->create();
+        $order = Order::factory()->for($user)->create();
+        $ticket = Ticket::factory()->for($user)->for($order)->create();
+
+        $this->actingAs($user)
+            ->get(route('app.checkin', ['ticket' => $ticket]))
+            ->assertSee('This ticket has not been paid for yet.')
+            ->assertSee('Pay Now');
+    }
+
+    #[Test]
     public function the_component_can_render(): void
     {
         $user = User::factory()->create();
@@ -86,11 +129,40 @@ final class CheckinTest extends TestCase
             ->assertOk();
     }
 
+    #[Test]
+    public function can_add_ticket_to_queue()
+    {
+        $user = User::factory()->create();
+        $ticket = Ticket::factory()->for($user)->create();
 
+        Livewire::actingAs($user)
+            ->test(Checkin::class, ['ticket' => $ticket])
+            ->assertSet('user.email', $user->email)
+            ->assertSet('user.name', $user->name)
+            ->assertSet('user.pronouns', $user->pronouns)
+            ->set('user.notifications_via', ['mail'])
+            ->call('add')
+            ->assertHasNoErrors()
+            ->assertDispatched('notify');
 
-    // ability to submit checkin form
+        $this->assertTrue($ticket->fresh()->isQueued());
+    }
 
-    // if no ticket for user show need ticket
+    #[Test]
+    public function phone_is_required_if_they_want_texts()
+    {
+        $user = User::factory()->create();
+        $ticket = Ticket::factory()->for($user)->create();
 
-    // if not authenticated show need to login
+        Livewire::actingAs($user)
+            ->test(Checkin::class, ['ticket' => $ticket])
+            ->assertSet('user.email', $user->email)
+            ->assertSet('user.name', $user->name)
+            ->assertSet('user.pronouns', $user->pronouns)
+            ->set('user.notifications_via', ['vonage'])
+            ->call('add')
+            ->assertHasErrors('user.phone');
+
+        $this->assertFalse($ticket->fresh()->isQueued());
+    }
 }

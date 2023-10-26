@@ -2,6 +2,7 @@
     <h1 class="text-4xl font-bold text-center text-gray-700 dark:text-gray-100">Check In for MBLGTACC</h1>
 
     @isset($ticket)
+        @includeWhen(auth()->check() && $ticket->order->isReservation(), 'livewire.app.checkin.unpaid-ticket')
         @includeWhen(auth()->check() && $ticket->isQueued(), 'livewire.app.checkin.in-queue')
         @includeWhen(auth()->check() && ! $ticket->isQueued() && $ticket !== null, 'livewire.app.checkin.add-to-queue')
     @endif
