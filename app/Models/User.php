@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Benchmark;
 use Illuminate\Support\Str;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Cashier\Billable;
@@ -187,11 +186,9 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         $registered = $this->isRegisteredFor($event);
 
         return $this->tickets()
-            ->when($registered, fn ($query) =>
-                $query->orderFor($event)
+            ->when($registered, fn ($query) => $query->orderFor($event)
             )
-            ->when(! $registered, fn ($query) =>
-                $query->where('event_id', $event->id)
+            ->when(! $registered, fn ($query) => $query->where('event_id', $event->id)
             )
             ->first();
     }

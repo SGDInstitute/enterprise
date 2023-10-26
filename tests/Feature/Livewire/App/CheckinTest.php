@@ -3,7 +3,6 @@
 namespace Tests\Feature\Livewire\App;
 
 use App\Livewire\App\Checkin;
-use App\Livewire\App\Dashboard;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Ticket;
