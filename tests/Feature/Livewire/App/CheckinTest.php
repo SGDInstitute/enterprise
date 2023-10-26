@@ -4,10 +4,12 @@ namespace Tests\Feature\Livewire\App;
 
 use App\Livewire\App\Checkin;
 use App\Livewire\App\Dashboard;
+use App\Models\Event;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -164,5 +166,21 @@ final class CheckinTest extends TestCase
             ->assertHasErrors('user.phone');
 
         $this->assertFalse($ticket->fresh()->isQueued());
+    }
+
+    #[Test]
+    public function if_no_ticket_passed_in_select_ticket_from_upcoming_event()
+    {
+        $mbl2022 = Event::factory()->create(['name' => '2022', 'start' => now()->subWeek(), 'end' => now()->subWeek()]);
+        $mbl2023 = Event::factory()->create(['name' => '2023', 'start' => now()->addWeek(), 'end' => now()->addWeek()]);
+
+        $user = User::factory()->create();
+        Ticket::factory()->for($mbl2022)->for($user)->create();
+        $mbl2023Ticket = Ticket::factory()->for($mbl2023)->for($user)->create();
+
+        Livewire::actingAs($user)
+            ->test(Checkin::class)
+            ->assertSet('event.id', $mbl2023->id)
+            ->assertSet('ticket.id', $mbl2023Ticket->id);
     }
 }

@@ -35,17 +35,19 @@ class Checkin extends Component
 
     public function mount($ticket = null)
     {
-        $this->event = Event::find(8);
-
         if ($ticket) {
-            $this->ticket = $ticket;
-            $this->authorize('update', $this->ticket);
+            $this->authorize('update', $ticket);
+
+            $this->ticket = $ticket->load('event', 'order', 'user');
+            $this->event = $this->ticket->event;
             $this->user = $this->ticket->user;
         } elseif (auth()->check()) {
+            $this->event = Event::where('end', '>=', now())->first();
             $ticket = auth()->user()->ticketForEvent($this->event);
+
             if ($ticket !== null) {
+                $this->authorize('update', $ticket);
                 $this->ticket = $ticket;
-                $this->authorize('update', $this->ticket);
                 $this->user = $this->ticket->user;
             }
         }
