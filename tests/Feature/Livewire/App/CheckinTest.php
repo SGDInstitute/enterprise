@@ -9,7 +9,6 @@ use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -104,6 +103,15 @@ final class CheckinTest extends TestCase
         $this->actingAs($user)
             ->get(route('app.checkin', ['ticket' => $ticket]))
             ->assertSee('This ticket has not been paid for yet.')
+            ->assertDontSee('Pay Now');
+
+        $user = User::factory()->create();
+        $order = Order::factory()->paid()->create();
+        $ticket = Ticket::factory()->for($user)->for($order)->create();
+
+        $this->actingAs($user)
+            ->get(route('app.checkin', ['ticket' => $ticket]))
+            ->assertDontSee('This ticket has not been paid for yet.')
             ->assertDontSee('Pay Now');
     }
 
