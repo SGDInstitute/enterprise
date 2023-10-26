@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Benchmark;
 use Illuminate\Support\Str;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Cashier\Billable;
@@ -168,9 +169,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function isRegisteredFor($event)
     {
-        return $this->tickets()->with('order:id,transaction_id')
-            ->where('event_id', $event->id)->get()
-            ->whereNotNull('order.transaction_id')->isNotEmpty();
+        return $this->tickets()->orderFor($event)->exists();
     }
 
     public function isInSchedule($item)
@@ -185,7 +184,16 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function ticketForEvent($event)
     {
-        return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->first();
+        $registered = $this->isRegisteredFor($event);
+
+        return $this->tickets()
+            ->when($registered, fn ($query) =>
+                $query->orderFor($event)
+            )
+            ->when(! $registered, fn ($query) =>
+                $query->where('event_id', $event->id)
+            )
+            ->first();
     }
 
     protected function notificationsVia(): Attribute

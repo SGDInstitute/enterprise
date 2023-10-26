@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\AddedToTicket;
 use App\Traits\HasInvitations;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,6 +31,14 @@ class Ticket extends Model
     public function scopeFilled($query)
     {
         return $query->whereNotNull('user_id');
+    }
+
+    public function scopeOrderFor($query, $event)
+    {
+        $query->whereHas('order', function (Builder $query) use ($event) {
+            $query->whereNotNull('transaction_id')
+                ->where('event_id', $event->id);
+        });
     }
 
     // Relations

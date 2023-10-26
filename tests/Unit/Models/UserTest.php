@@ -30,4 +30,41 @@ final class UserTest extends TestCase
         $this->assertFalse($userA->hasCompedTicketFor($event));
         $this->assertTrue($userB->hasCompedTicketFor($event));
     }
+
+    #[Test]
+    public function can_see_if_user_is_registered_for_event()
+    {
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
+        $order = Order::factory()->for($event)->paid()->create();
+        Ticket::factory()->for($event)->for($order)->for($user)->create();
+
+        $this->assertTrue($user->isRegisteredFor($event));
+
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
+        $order = Order::factory()->for($event)->create();
+        Ticket::factory()->for($event)->for($order)->for($user)->create();
+
+        $this->assertFalse($user->isRegisteredFor($event));
+    }
+
+    #[Test]
+    public function can_get_ticket_for_user()
+    {
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
+        Ticket::factory()->for($event)->for($user)->create();
+
+        $order = Order::factory()->for($event)->paid()->create();
+        $paidTicket = Ticket::factory()->for($event)->for($order)->for($user)->create();
+
+        $this->assertEquals($paidTicket->id, $user->ticketForEvent($event)->id);
+
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
+        $unpaidTicket = Ticket::factory()->for($event)->for($user)->create();
+
+        $this->assertEquals($unpaidTicket->id, $user->ticketForEvent($event)->id);
+    }
 }
