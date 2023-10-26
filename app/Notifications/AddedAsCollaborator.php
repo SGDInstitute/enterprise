@@ -26,7 +26,7 @@ class AddedAsCollaborator extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('Invited to be co-presenter on ' . $this->response->name)
-            ->line("This invitation was sent to: {$this->invitation->email}")
+            ->line("This invitation was sent to: {$this->invitation->email}. You must use this email address to log in and accept your invitation. It is possible to update your email later.")
             ->line('We are letting you know that you have been added as a co-presenter to ' . $this->response->name . '.')
             ->line('You can work on the submission with the other presenters and submit it for review.')
             ->line('If your presentation is accepted, you will have a ticket automatically created for you.')
