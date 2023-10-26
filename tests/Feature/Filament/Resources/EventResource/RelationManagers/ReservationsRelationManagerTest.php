@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Filament\Resources\EventResource\Pages;
+namespace Tests\Feature\Filament\Resources\EventResource\RelationManagers;
 
 use App\Filament\Actions\MarkAsPaidAction;
 use App\Filament\Resources\EventResource\Pages\EditEvent;
