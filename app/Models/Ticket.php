@@ -90,9 +90,7 @@ class Ticket extends Model
 
     public function addToQueue($user = null, $printed = false)
     {
-        if ($this->ticket_type_id === 30) {
-            $this->queue()->create(['user_id' => $this->user->id, 'name' => 'Meal ticket for:', 'email' => $this->user->email, 'pronouns' => $this->user->name, 'printed' => $printed]);
-        } elseif ($user === null) {
+        if ($user === null) {
             $this->queue()->create(['user_id' => $this->user->id, 'name' => $this->user->name, 'email' => $this->user->email, 'pronouns' => $this->user->pronouns, 'printed' => $printed]);
         } else {
             $this->queue()->create(['user_id' => $this->user->id, 'name' => $user->name, 'email' => $user->email, 'pronouns' => $user->pronouns, 'printed' => $printed]);
