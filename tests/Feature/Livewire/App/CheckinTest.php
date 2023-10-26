@@ -65,6 +65,17 @@ final class CheckinTest extends TestCase
     }
 
     #[Test]
+    public function see_form_if_not_in_queue()
+    {
+        $user = User::factory()->create();
+        $ticket = Ticket::factory()->for($user)->create();
+
+        $this->actingAs($user)
+            ->get(route('app.checkin', ['ticket' => $ticket]))
+            ->assertSee('Are your name and pronouns correct?');
+    }
+
+    #[Test]
     public function the_component_can_render(): void
     {
         $user = User::factory()->create();
@@ -75,7 +86,7 @@ final class CheckinTest extends TestCase
             ->assertOk();
     }
 
-    // if not in queue see form
+
 
     // ability to submit checkin form
 
