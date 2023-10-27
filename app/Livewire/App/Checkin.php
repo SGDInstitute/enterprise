@@ -8,7 +8,6 @@ use App\Models\Ticket;
 use App\Models\User;
 use Filament\Notifications\Notification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
