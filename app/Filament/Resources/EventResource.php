@@ -100,6 +100,7 @@ class EventResource extends Resource
                         Tab::make('Media')->schema([
                             SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->preserveFilenames(),
                             SpatieMediaLibraryFileUpload::make('background')->collection('background')->preserveFilenames(),
+                            SpatieMediaLibraryFileUpload::make('name_badge')->collection('name_badge')->preserveFilenames(),
                         ])->hidden(fn ($record) => $record === null),
                         Tab::make('Tickets')->schema([
                             Checkbox::make('settings.reservations')
