@@ -32,8 +32,9 @@ class Checkin extends Component implements HasForms
 
     public $event;
 
-    protected $listeners = ['refresh' => '$refresh'];
     public ?array $data = [];
+
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function mount($ticket = null)
     {
@@ -134,11 +135,11 @@ class Checkin extends Component implements HasForms
                                 ->required(fn (Get $get) => in_array('vonage', $get('notifications_via')))
                                 ->tel(),
                         ]),
-                ])->submitAction(new HtmlString(Blade::render(<<<BLADE
+                ])->submitAction(new HtmlString(Blade::render(<<<'BLADE'
                     <x-filament::button type="submit" size="sm">
                         Submit
                     </x-filament::button>
-                BLADE)))
+                BLADE))),
             ])
             ->statePath('data');
     }
