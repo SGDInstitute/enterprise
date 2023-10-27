@@ -67,4 +67,14 @@ final class UserTest extends TestCase
 
         $this->assertEquals($unpaidTicket->id, $user->ticketForEvent($event)->id);
     }
+
+    #[Test]
+    public function can_see_if_user_is_checked_in()
+    {
+        $user = User::factory()->create();
+        $ticket = Ticket::factory()->for($user)->create();
+        $ticket->addToQueue();
+
+        $this->assertTrue($user->isCheckedInFor($ticket->event));
+    }
 }
