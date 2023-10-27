@@ -55,7 +55,24 @@ class Checkin extends Component
 
     public function render()
     {
-        return view('livewire.app.checkin');
+        return view('livewire.app.checkin', [
+            'partial' => $this->partial,
+        ]);
+    }
+
+    public function getPartialProperty()
+    {
+        if (! auth()->check()) {
+            return 'need-to-login';
+        } elseif ($this->ticket === null) {
+            return 'need-ticket';
+        } elseif ($this->ticket->order->isReservation()) {
+            return 'unpaid-ticket';
+        } elseif ($this->ticket->isQueued()) {
+            return 'in-queue';
+        }
+
+        return 'add-to-queue';
     }
 
     public function getPositionProperty()
