@@ -152,7 +152,7 @@ final class CheckinTest extends TestCase
             ->set('user.notifications_via', ['mail'])
             ->call('add')
             ->assertHasNoErrors()
-            ->assertDispatched('notify');
+            ->assertNotified();
 
         $this->assertTrue($ticket->fresh()->isQueued());
     }
