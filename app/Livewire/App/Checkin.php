@@ -5,6 +5,7 @@ namespace App\Livewire\App;
 use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -88,6 +89,10 @@ class Checkin extends Component
         $this->user->save();
         $this->ticket->addToQueue();
 
-        $this->dispatch('notify', ['message' => 'Successfully checked in.', 'type' => 'success']);
+        Notification::make()
+            ->success()
+            ->title('Successfully checked in')
+            ->body('You will receive an when your name badge is ready')
+            ->send();
     }
 }
