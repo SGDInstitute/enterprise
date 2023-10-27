@@ -142,7 +142,7 @@ final class CheckinTest extends TestCase
     public function can_add_ticket_to_queue()
     {
         $user = User::factory()->create();
-        $ticket = Ticket::factory()->for($user)->create();
+        $ticket = Ticket::factory()->for($user)->withPaidOrder()->create();
 
         Livewire::actingAs($user)
             ->test(Checkin::class, ['ticket' => $ticket])
@@ -183,7 +183,7 @@ final class CheckinTest extends TestCase
     public function phone_is_required_if_they_want_texts()
     {
         $user = User::factory()->create();
-        $ticket = Ticket::factory()->for($user)->create();
+        $ticket = Ticket::factory()->for($user)->withPaidOrder()->create();
 
         Livewire::actingAs($user)
             ->test(Checkin::class, ['ticket' => $ticket])
