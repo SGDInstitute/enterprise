@@ -3,6 +3,7 @@
 namespace App\Livewire\App;
 
 use App\Models\Event;
+use App\Models\EventBadgeQueue;
 use App\Models\Ticket;
 use App\Models\User;
 use Filament\Notifications\Notification;
@@ -21,7 +22,7 @@ class Checkin extends Component
 
     public $event;
 
-    public $editing = false;
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function rules()
     {
@@ -78,8 +79,8 @@ class Checkin extends Component
 
     public function getPositionProperty()
     {
-        if (auth()->check() && isset($this->ticket) && $this->ticket->isQueued() && ! $this->ticket->isPrinted()) {
-            return DB::table('event_badge_queue')->select('id')->where('printed', false)->where('id', '<', $this->ticket->queue->id)->count();
+        if ($this->partial === 'in-queue' && ! $this->ticket->isPrinted()) {
+            return EventBadgeQueue::where('printed', false)->where('id', '<', $this->ticket->queue->id)->count();
         }
     }
 
@@ -94,5 +95,7 @@ class Checkin extends Component
             ->title('Successfully checked in')
             ->body('You will receive an when your name badge is ready')
             ->send();
+
+        $this->dispatch('refresh');
     }
 }
