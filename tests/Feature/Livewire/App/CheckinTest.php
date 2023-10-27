@@ -44,7 +44,7 @@ final class CheckinTest extends TestCase
     public function can_see_if_ticket_is_in_queue()
     {
         $user = User::factory()->create();
-        $ticket = Ticket::factory()->for($user)->create();
+        $ticket = Ticket::factory()->for($user)->withPaidOrder()->create();
         $ticket->addToQueue();
 
         $this->actingAs($user)
@@ -56,7 +56,7 @@ final class CheckinTest extends TestCase
     public function can_see_if_ticket_has_been_printed()
     {
         $user = User::factory()->create();
-        $ticket = Ticket::factory()->for($user)->create();
+        $ticket = Ticket::factory()->for($user)->withPaidOrder()->create();
         $ticket->addToQueue(printed: true);
 
         $this->actingAs($user)
@@ -68,7 +68,7 @@ final class CheckinTest extends TestCase
     public function see_form_if_not_in_queue()
     {
         $user = User::factory()->create();
-        $ticket = Ticket::factory()->for($user)->create();
+        $ticket = Ticket::factory()->for($user)->withPaidOrder()->create();
 
         $this->actingAs($user)
             ->get(route('app.checkin', ['ticket' => $ticket]))
@@ -96,22 +96,22 @@ final class CheckinTest extends TestCase
     public function show_reminder_to_pay_if_ticket_is_unpaid()
     {
         $user = User::factory()->create();
-        $order = Order::factory()->create();
-        $ticket = Ticket::factory()->for($user)->for($order)->create();
+        $ticket = Ticket::factory()->for($user)->create();
 
         $this->actingAs($user)
             ->get(route('app.checkin', ['ticket' => $ticket]))
             ->assertSee('This ticket has not been paid for yet.')
-            ->assertDontSee('Pay Now');
+            ->assertDontSee('Pay Now')
+            ->assertDontSee('Are your name and pronouns correct?');
 
         $user = User::factory()->create();
-        $order = Order::factory()->paid()->create();
-        $ticket = Ticket::factory()->for($user)->for($order)->create();
+        $ticket = Ticket::factory()->for($user)->withPaidOrder()->create();
 
         $this->actingAs($user)
             ->get(route('app.checkin', ['ticket' => $ticket]))
             ->assertDontSee('This ticket has not been paid for yet.')
-            ->assertDontSee('Pay Now');
+            ->assertDontSee('Pay Now')
+            ->assertSee('Are your name and pronouns correct?');
     }
 
     #[Test]
