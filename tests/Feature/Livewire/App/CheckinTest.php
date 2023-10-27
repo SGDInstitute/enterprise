@@ -72,7 +72,7 @@ final class CheckinTest extends TestCase
 
         $this->actingAs($user)
             ->get(route('app.checkin', ['ticket' => $ticket]))
-            ->assertSee('Are your name and pronouns correct?');
+            ->assertSee('Please ensure your name and pronouns are listed as you would like them to appear on your name badge.');
     }
 
     #[Test]
@@ -102,7 +102,7 @@ final class CheckinTest extends TestCase
             ->get(route('app.checkin', ['ticket' => $ticket]))
             ->assertSee('This ticket has not been paid for yet.')
             ->assertDontSee('Pay Now')
-            ->assertDontSee('Are your name and pronouns correct?');
+            ->assertDontSee('Please ensure your name and pronouns are listed as you would like them to appear on your name badge.');
 
         $user = User::factory()->create();
         $ticket = Ticket::factory()->for($user)->withPaidOrder()->create();
@@ -111,7 +111,7 @@ final class CheckinTest extends TestCase
             ->get(route('app.checkin', ['ticket' => $ticket]))
             ->assertDontSee('This ticket has not been paid for yet.')
             ->assertDontSee('Pay Now')
-            ->assertSee('Are your name and pronouns correct?');
+            ->assertSee('Please ensure your name and pronouns are listed as you would like them to appear on your name badge.');
     }
 
     #[Test]
@@ -146,10 +146,12 @@ final class CheckinTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Checkin::class, ['ticket' => $ticket])
-            ->assertSet('user.email', $user->email)
-            ->assertSet('user.name', $user->name)
-            ->assertSet('user.pronouns', $user->pronouns)
-            ->set('user.notifications_via', ['mail'])
+            ->assertFormSet([
+                'email' => $user->email,
+                'name' => $user->name,
+                'pronouns' => $user->pronouns,
+            ])
+            ->fillForm(['notifications_via' => ['mail']])
             ->call('add')
             ->assertHasNoErrors()
             ->assertNotified();
@@ -165,12 +167,15 @@ final class CheckinTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Checkin::class, ['ticket' => $ticket])
-            ->assertSet('user.email', $user->email)
-            ->assertSet('user.name', $user->name)
-            ->assertSet('user.pronouns', $user->pronouns)
-            ->set('user.notifications_via', ['vonage'])
+            ->fillForm([
+                'email' => $user->email,
+                'name' => $user->name,
+                'pronouns' => $user->pronouns,
+                'notifications_via' => ['vonage'],
+                'phone' => null,
+            ])
             ->call('add')
-            ->assertHasErrors('user.phone');
+            ->assertHasErrors('data.phone');
 
         $this->assertFalse($ticket->fresh()->isQueued());
     }
