@@ -89,6 +89,14 @@ class Checkin extends Component implements HasForms
 
     public function add()
     {
+        if ($this->ticket->order->isReservation()) {
+            return Notification::make()
+                ->danger()
+                ->title('Cannot checkin an unpaid ticket.')
+                ->body('Please pay order before trying to checkin')
+                ->send();
+        }
+
         $data = collect($this->form->getState())->except('name-badge-info', 'notifications-contact-info');
         $this->user->update($data->toArray());
         $this->ticket->addToQueue();

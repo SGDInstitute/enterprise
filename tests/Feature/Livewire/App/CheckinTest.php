@@ -160,6 +160,26 @@ final class CheckinTest extends TestCase
     }
 
     #[Test]
+    public function cannot_add_ticket_to_queue_if_unpaid()
+    {
+        $user = User::factory()->create();
+        $ticket = Ticket::factory()->for($user)->create();
+
+        Livewire::actingAs($user)
+            ->test(Checkin::class, ['ticket' => $ticket])
+            ->fillForm([
+                'email' => $user->email,
+                'name' => $user->name,
+                'pronouns' => $user->pronouns,
+                'notifications_via' => ['mail'],
+            ])
+            ->call('add')
+            ->assertNotified();
+
+        $this->assertFalse($ticket->fresh()->isQueued());
+    }
+
+    #[Test]
     public function phone_is_required_if_they_want_texts()
     {
         $user = User::factory()->create();
