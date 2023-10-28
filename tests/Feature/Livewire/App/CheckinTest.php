@@ -49,7 +49,7 @@ final class CheckinTest extends TestCase
 
         $this->actingAs($user)
             ->get(route('app.checkin', ['ticket' => $ticket]))
-            ->assertSee('Please wait for the notification that your badge is ready');
+            ->assertSee('Thanks for checking in.');
     }
 
     #[Test]
