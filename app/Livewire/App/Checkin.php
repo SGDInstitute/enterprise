@@ -57,7 +57,7 @@ class Checkin extends Component implements HasForms
                 $this->user = $this->ticket->user;
             }
 
-            $this->form->fill($this->user->only(['name', 'pronouns', 'notifications_via', 'email', 'phone']));
+            $this->form->fill(auth()->user()->only(['name', 'pronouns', 'notifications_via', 'email', 'phone']));
         }
     }
 
