@@ -3,6 +3,13 @@
         <x-slot name="heading">Presenter Check-in</x-slot>
 
         <table class="fi-ta-table w-full table-auto divide-y divide-gray-200 text-start dark:divide-white/5">
+            <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th></th>
+            </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-white/5">
                 @forelse ($presenters as $user)
                 <tr>
@@ -30,7 +37,7 @@
                         </button>
                     </td>
                     <td>
-                        Check-in / Not check-in
+                        {{ $user->isCheckedInFor($record) ? '✅' : '🚨' }}
                     </td>
                     <td>
                         <x-filament::link :href="route('filament.admin.resources.users.edit', ['record' => $user->id])">
