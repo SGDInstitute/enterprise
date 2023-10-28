@@ -3,11 +3,9 @@
 namespace Tests\Feature\Commands;
 
 use App\Console\Commands\CompleteTicketsReminder;
-use App\Console\Commands\PaymentReminder;
 use App\Models\Event;
 use App\Models\Order;
 use App\Notifications\CompleteTicketsReminder as NotificationsCompleteTicketsReminder;
-use App\Notifications\PaymentReminder as NotificationsPaymentReminder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use PHPUnit\Framework\Attributes\Test;
