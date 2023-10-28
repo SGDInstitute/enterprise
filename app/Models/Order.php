@@ -43,7 +43,8 @@ class Order extends Model
 
     public function scopeReservations($query)
     {
-        return $query->whereNull('paid_at');
+        return $query->whereNull('paid_at')
+            ->orWhereNull('transaction_id');
     }
 
     public function scopePaid($query)
