@@ -38,12 +38,15 @@ class Checkin extends Component implements HasForms
 
     public function mount($ticket = null)
     {
+        // @todo simplify?
         if ($ticket) {
             $this->authorize('update', $ticket);
 
             $this->ticket = $ticket->load('event', 'order', 'user');
             $this->event = $this->ticket->event;
             $this->user = $this->ticket->user;
+
+            $this->form->fill($this->user->only(['name', 'pronouns', 'notifications_via', 'email', 'phone']));
         } elseif (auth()->check()) {
             $this->event = Event::where('end', '>=', now())->first();
             $ticket = auth()->user()->ticketForEvent($this->event);
@@ -53,9 +56,9 @@ class Checkin extends Component implements HasForms
                 $this->ticket = $ticket;
                 $this->user = $this->ticket->user;
             }
-        }
 
-        $this->form->fill($this->user->only(['name', 'pronouns', 'notifications_via', 'email', 'phone']));
+            $this->form->fill($this->user->only(['name', 'pronouns', 'notifications_via', 'email', 'phone']));
+        }
     }
 
     public function render()
