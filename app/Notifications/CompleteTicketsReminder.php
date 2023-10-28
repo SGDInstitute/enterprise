@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Order;
+use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,7 +15,7 @@ class CompleteTicketsReminder extends Notification implements ShouldQueue
 
     public function __construct(public Order $order)
     {
-        $this->order->load('event')->loadCount('tickets');
+        $this->order->load('event', 'tickets.invitations');
     }
 
     public function via(object $notifiable): array
@@ -24,12 +25,19 @@ class CompleteTicketsReminder extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
+        $ticketsCount = $this->order->tickets->count();
+        [$invited, $unassigned] = $this->order->tickets->whereNull('user_id')->partition(function ($ticket) {
+            return $ticket->invitations->isNotEmpty();
+        });
+
         return (new MailMessage)
-            ->line("This is a reminder that you have an outstanding reservation for {$this->order->tickets_count} tickets to {$this->order->event->name}.")
-            ->line('Orders can be paid by credit card or by check')
-            ->line("If paying by card, once the payment is successful, you'll receive a receipt and confirmation that your order is paid. If you have any issues with your credit card payment, please contact us and we'll do our best to troubleshoot.")
-            ->line('If paying by check, please make it payable to "Midwest Institute for Sexuality and Gender Diversity" and mailed to P.O. BOX 1053, East Lansing, MI 48826-1053. As soon as we receive your check, your order will be marked as paid. Mail must be received by Oct 31 or you can pay with check on site.')
-            ->action('Pay Now', route('app.orders.show', ['order' => $this->order]));
+            ->line('This ' . ($this->order->isReservation() ? 'reservation' : 'order') . ' has ' . $ticketsCount . ' ticket(s).')
+            ->lineIf($invited->count() === 1, "There is {$invited->count()} pending invitation.")
+            ->lineIf($invited->count() > 1, "There are {$invited->count()} pending invitations.")
+            ->lineIf($unassigned->count() === 1, "There is {$unassigned->count()} ticket that has not been assigned.")
+            ->lineIf($unassigned->count() > 1, "There are {$unassigned->count()} tickets that have not been assigned.")
+            ->lineIf($this->order->isReservation(), "Please remember, your payment is due by {$this->order->formattedReservationEnds}.")
+            ->action('View Order', route('app.orders.show', ['order' => $this->order]));
     }
 
     public function toArray(object $notifiable): array
