@@ -1,4 +1,4 @@
-<div class="relative">
+<div {{ $attributes->merge(['class' => 'relative']) }}>
     <div class="absolute flex items-center justify-center w-full h-1/2 bottom-8">
         <div>
             <h1 id="name" class="mb-2 text-4xl font-semibold leading-none tracking-wide text-center font-raleway">{{ $user->name }}</h1>
