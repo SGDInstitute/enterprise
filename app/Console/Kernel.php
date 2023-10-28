@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CompleteTicketsReminder;
 use App\Models\EventBulletin;
 use App\Notifications\BroadcastBulletin;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,8 +22,9 @@ class Kernel extends ConsoleKernel
             });
         })->everyFiveMinutes();
 
-        $schedule->command(InvitationReminder::class)->weeklyOn(Schedule::TUESDAY);
         $schedule->command(PaymentReminder::class)->weeklyOn(Schedule::SUNDAY);
+        $schedule->command(CompleteTicketsReminder::class)->weeklyOn(Schedule::MONDAY);
+        $schedule->command(InvitationReminder::class)->weeklyOn(Schedule::TUESDAY);
 
         $schedule->command(RunHealthChecksCommand::class)->everyMinute();
     }
