@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Event;
 use App\Models\Order;
 use App\Notifications\PaymentReminder as NotificationsPaymentReminder;
 use Illuminate\Console\Command;
