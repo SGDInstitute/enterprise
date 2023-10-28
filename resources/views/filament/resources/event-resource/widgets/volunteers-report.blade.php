@@ -3,7 +3,7 @@
         <x-slot name="heading">Volunteers</x-slot>
 
         <div class="grid md:grid-cols-2 gap-4">
-            @foreach($shifts as $shift)
+            @foreach ($shifts as $shift)
             <div>
                 <h3 class="fi-section-header-heading text-base font-semibold leading-6 text-gray-950 dark:text-white mb-2">
                     {{ $shift->name }}
@@ -12,7 +12,7 @@
 
                 <table>
                     <tbody>
-                        @forelse($shift->users->unique() as $user)
+                        @forelse ($shift->users->unique() as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->pronouns }}</td>
