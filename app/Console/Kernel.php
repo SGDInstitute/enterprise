@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
             });
         })->everyFiveMinutes();
 
-        $schedule->command(InvitationReminder::class)->weeklyOn(2, '12:00');
+        $schedule->command(InvitationReminder::class)->weeklyOn(Schedule::TUESDAY);
+        $schedule->command(PaymentReminder::class)->weeklyOn(Schedule::SUNDAY);
 
         $schedule->command(RunHealthChecksCommand::class)->everyMinute();
     }
