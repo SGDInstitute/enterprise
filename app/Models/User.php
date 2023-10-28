@@ -166,11 +166,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->tickets()->where('event_id', $event->id)->exists();
     }
 
+    public function isCheckedInFor($event)
+    {
+        return $this->ticketForEvent($event)->isQueued();
+    }
+
     public function isRegisteredFor($event)
     {
-        return $this->tickets()->with('order:id,transaction_id')
-            ->where('event_id', $event->id)->get()
-            ->whereNotNull('order.transaction_id')->isNotEmpty();
+        return $this->tickets()->orderFor($event)->exists();
     }
 
     public function isInSchedule($item)
@@ -185,7 +188,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function ticketForEvent($event)
     {
-        return Ticket::where('event_id', $event->id)->where('user_id', $this->id)->first();
+        $registered = $this->isRegisteredFor($event);
+
+        return $this->tickets()
+            ->when($registered, fn ($query) => $query->orderFor($event)
+            )
+            ->when(! $registered, fn ($query) => $query->where('event_id', $event->id)
+            )
+            ->first();
     }
 
     protected function notificationsVia(): Attribute

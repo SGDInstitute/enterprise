@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\AddedToTicket;
 use App\Traits\HasInvitations;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,6 +31,14 @@ class Ticket extends Model
     public function scopeFilled($query)
     {
         return $query->whereNotNull('user_id');
+    }
+
+    public function scopeOrderFor($query, $event)
+    {
+        $query->whereHas('order', function (Builder $query) use ($event) {
+            $query->whereNotNull('transaction_id')
+                ->where('event_id', $event->id);
+        });
     }
 
     // Relations
@@ -90,9 +99,7 @@ class Ticket extends Model
 
     public function addToQueue($user = null, $printed = false)
     {
-        if ($this->ticket_type_id === 30) {
-            $this->queue()->create(['user_id' => $this->user->id, 'name' => 'Meal ticket for:', 'email' => $this->user->email, 'pronouns' => $this->user->name, 'printed' => $printed]);
-        } elseif ($user === null) {
+        if ($user === null) {
             $this->queue()->create(['user_id' => $this->user->id, 'name' => $this->user->name, 'email' => $this->user->email, 'pronouns' => $this->user->pronouns, 'printed' => $printed]);
         } else {
             $this->queue()->create(['user_id' => $this->user->id, 'name' => $user->name, 'email' => $user->email, 'pronouns' => $user->pronouns, 'printed' => $printed]);

@@ -40,4 +40,11 @@ class TicketFactory extends Factory
             ]);
         });
     }
+
+    public function withPaidOrder()
+    {
+        return $this->afterCreating(function (Ticket $ticket) {
+            $ticket->order->markAsPaid('comped', 0);
+        });
+    }
 }
