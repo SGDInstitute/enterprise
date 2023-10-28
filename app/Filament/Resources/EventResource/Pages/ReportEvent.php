@@ -10,6 +10,7 @@ use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\Widgets\PresenterCheckIn;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
 use App\Filament\Resources\EventResource\Widgets\TicketBreakdown;
+use App\Filament\Resources\EventResource\Widgets\VolunteersReport;
 use App\Filament\Resources\EventResource\Widgets\WhoNeedsWhat;
 use App\Models\Event;
 use Filament\Actions\Action;
@@ -43,6 +44,7 @@ class ReportEvent extends Page
         return [
             WhoNeedsWhat::make(['record' => $this->record]),
             PresenterCheckIn::make(['record' => $this->record]),
+            VolunteersReport::make(['record' => $this->record]),
         ];
     }
 
