@@ -1,13 +1,13 @@
 <div class="mt-8 space-y-4">
-    <x-name-badge :user=$user :event=$event>
-        <div class="absolute flex items-center px-4 py-2 ml-4 bg-green-500 shadow-[0_6px_2px_-2px_rgba(0,0,0,0.3)] md:ml-8 -right-1 bottom-4 text-gray-200">
-            @if ($ticket->isPrinted())
-                <p>Your badge is ready!!</p>
-            @else
-                <p wire:poll.750ms>Please wait for the notification that your badge is ready, and then come to the check-in desk to pick it up.</p>
-            @endif
-        </div>
-    </x-name-badge>
+    <x-name-badge :user=$user :event=$event/>
+
+    <div class="prose dark:prose-light prose-xl">
+        @if ($ticket->isPrinted())
+            <p>Your badge is ready!!</p>
+        @else
+            <p wire:poll.750ms>Thanks for checking in. You&apos;ll receive a notification when your name badge is ready to pick up. In the meantime, check out the maker market in Ballroom 1 (starting at 5 p.m.) or review the program to pick your sessions.</p>
+        @endif
+    </div>
 
     <div class="flex justify-center">
         <x-bit.button.flat.secondary size="lg" :href="route('app.program', $ticket->event)">View Virtual Program Book</x-bit.button.flat.secondary>
