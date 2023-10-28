@@ -33,17 +33,17 @@ class ReportEvent extends Page
         return $this->record->name . ' Reports';
     }
 
+    public function getHeaderWidgetsColumns(): int|array
+    {
+        return 1;
+    }
+
     protected function getHeaderWidgets(): array
     {
         return [
             WhoNeedsWhat::make(['record' => $this->record]),
             PresenterCheckIn::make(['record' => $this->record]),
         ];
-    }
-
-    public function getHeaderWidgetsColumns(): int | array
-    {
-        return 1;
     }
 
     protected function getHeaderActions(): array
