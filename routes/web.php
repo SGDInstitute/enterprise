@@ -6,6 +6,10 @@ use App\Http\Controllers\StripeWebhookController;
 use App\Http\Middleware\VerifySlack;
 use Illuminate\Support\Facades\Route;
 
+if (app()->environment('local')) {
+    require __DIR__ . '/dev.php';
+}
+
 Route::post('stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 Route::post('slack/webhook', [SlackWebhookController::class, 'handleWebhook'])->middleware(VerifySlack::class);
 
