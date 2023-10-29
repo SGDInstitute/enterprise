@@ -3,16 +3,71 @@
 namespace App\Livewire\App\Dashboard;
 
 use App\Models\User;
-use Illuminate\Validation\Rule;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 
-class Settings extends Component
+class Settings extends Component implements HasForms
 {
-    public User $user;
+    use InteractsWithForms;
+
+    public ?array $profile = [];
+    public ?array $password = [];
 
     public function mount()
     {
-        $this->user = auth()->user();
+        $this->profileForm->fill(auth()->user()->only(['name', 'email', 'pronouns', 'phone']));
+        $this->passwordForm->fill();
+    }
+
+    protected function getForms(): array
+    {
+        return [
+            'profileForm',
+            'passwordForm',
+        ];
+    }
+
+    public function profileForm(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('name')
+                    ->required(),
+                TextInput::make('email')
+                    ->email()
+                    ->unique(table: User::class, ignorable: auth()->user())
+                    ->required(),
+                TextInput::make('pronouns')
+                    ->required(),
+                TextInput::make('phone')
+                    ->tel()
+                    ->mask('(999) 999-9999'),
+            ])
+            ->statePath('profile');
+    }
+
+    public function passwordForm(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('current_password')
+                    ->required()
+                    ->password()
+                    ->rules(['current_password']),
+                TextInput::make('password')
+                    ->password()
+                    ->rules(['required', Password::defaults(), 'confirmed']),
+                TextInput::make('password_confirmation')
+                    ->password()
+                    ->required(),
+            ])
+            ->statePath('password');
     }
 
     public function render()
@@ -20,21 +75,28 @@ class Settings extends Component
         return view('livewire.app.dashboard.settings');
     }
 
-    public function save()
+    public function saveProfile()
     {
-        $this->validate();
+        $data = $this->profileForm->getState();
 
-        $this->user->save();
-        $this->dispatch('notify', ['message' => 'Successfully saved your settings', 'type' => 'success']);
+        if (auth()->user()->email !== $data['email']) {
+            $data['email_verified_at'] = null;
+        }
+
+        auth()->user()->update($data);
+
+        Notification::make()
+            ->success()
+            ->title('Successfully saved your settings')
+            ->send();
     }
 
-    protected function rules()
+    public function savePassword()
     {
-        return [
-            'user.name' => ['required', 'string', 'max:255'],
-            'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user->id)],
-            'user.pronouns' => [],
-            'user.phone' => [],
-        ];
+        $data = $this->passwordForm->getState();
+
+        auth()->user()->update([
+            'password' => Hash::make($data['password']),
+        ]);
     }
 }
