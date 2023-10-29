@@ -4,32 +4,25 @@
         <div class="px-4 py-5 bg-white shadow dark:bg-gray-800 sm:p-6">
             <div class="md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1">
-                    <h1 class="text-2xl font-medium leading-6 text-gray-900 dark:text-gray-200">Profile</h1>
+                    <h2 class="text-2xl font-medium leading-6 text-gray-900 dark:text-gray-200">Profile</h2>
                 </div>
                 <div class="mt-5 md:mt-0 md:col-span-2">
-                    <form wire:submit="save" class="space-y-6">
-                        <div class="grid grid-cols-3 gap-6">
-                            <x-bit.input.group for="name" class="col-span-3 sm:col-span-2" label="Name" :error="$errors->first('user.name')">
-                                <x-bit.input.text class="w-full mt-1" id="name" name="name" type="text" wire:model.live="user.name" />
-                            </x-bit.input.group>
-                        </div>
+                    <form wire:submit="saveProfile" class="space-y-6">
+                        {{ $this->profileForm }}
 
-                        <div class="grid grid-cols-3 gap-6">
-                            <x-bit.input.group for="email" class="col-span-3 sm:col-span-2" label="Email" :error="$errors->first('user.email')">
-                                <x-bit.input.text class="w-full mt-1" id="email" name="email" type="email" wire:model.live="user.email" />
-                            </x-bit.input.group>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-6">
-                            <x-bit.input.group for="pronouns" class="col-span-3 sm:col-span-2" label="Pronouns" :error="$errors->first('user.pronouns')">
-                                <x-bit.input.text class="w-full mt-1" id="pronouns" name="pronouns" type="text" wire:model.live="user.pronouns" />
-                            </x-bit.input.group>
-                        </div>
-                        <div x-data class="grid grid-cols-3 gap-6">
-                            <x-bit.input.group for="phone" class="col-span-3 sm:col-span-2" label="Phone Number" :error="$errors->first('user.phone')">
-                                <x-bit.input.text class="w-full mt-1" id="phone" x-mask="(999) 999-9999" placeholder="(123)-555-1234" name="phone" type="text" wire:model.live="user.phone" />
-                            </x-bit.input.group>
-                        </div>
+                        <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 py-5 bg-white shadow dark:bg-gray-800 sm:p-6">
+            <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="md:col-span-1">
+                    <h2 class="text-2xl font-medium leading-6 text-gray-900 dark:text-gray-200">Password</h2>
+                </div>
+                <div class="mt-5 md:mt-0 md:col-span-2">
+                    <form wire:submit="savePassword" class="space-y-6">
+                        {{ $this->passwordForm }}
 
                         <x-bit.button.flat.primary type="submit">Save</x-bit.button.flat.primary>
                     </form>
