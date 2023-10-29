@@ -6,6 +6,7 @@ use App\Exports\ScheduledPresentersExport;
 use App\Exports\ScheduleExport;
 use App\Exports\TicketAnswersExport;
 use App\Exports\TicketUsersExport;
+use App\Exports\VolunteersExport;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\Widgets\EventMultiWidget;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
@@ -64,6 +65,9 @@ class EditEvent extends EditRecord
                     }),
                 Action::make('scheduled-presenters')
                     ->action(fn () => Excel::download(new ScheduledPresentersExport($this->record), "{$this->record->slug}-scheduled-presenters.xlsx")
+                    ),
+                Action::make('volunteers')
+                    ->action(fn () => Excel::download(new VolunteersExport($this->record), "{$this->record->slug}-volunteers.xlsx")
                     ),
                 Action::make('ticket-answers')
                     ->label('Who Needs What (Ticket Answers)')

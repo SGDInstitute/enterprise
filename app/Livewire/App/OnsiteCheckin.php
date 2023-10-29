@@ -3,6 +3,7 @@
 namespace App\Livewire\App;
 
 use App\Models\Order;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class OnsiteCheckin extends Component
@@ -79,7 +80,11 @@ class OnsiteCheckin extends Component
 
         $this->order->refresh();
 
-        $this->dispatch('notify', ['message' => 'Successfully saved.', 'type' => 'success']);
         $this->reset('user', 'editing');
+
+        Notification::make()
+            ->success()
+            ->title('Successfully saved.')
+            ->send();
     }
 }

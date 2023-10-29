@@ -6,10 +6,12 @@ use App\Exports\ScheduledPresentersExport;
 use App\Exports\ScheduleExport;
 use App\Exports\TicketAnswersExport;
 use App\Exports\TicketUsersExport;
+use App\Exports\VolunteersExport;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\Widgets\PresenterCheckIn;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
 use App\Filament\Resources\EventResource\Widgets\TicketBreakdown;
+use App\Filament\Resources\EventResource\Widgets\VolunteersReport;
 use App\Filament\Resources\EventResource\Widgets\WhoNeedsWhat;
 use App\Models\Event;
 use Filament\Actions\Action;
@@ -43,6 +45,7 @@ class ReportEvent extends Page
         return [
             WhoNeedsWhat::make(['record' => $this->record]),
             PresenterCheckIn::make(['record' => $this->record]),
+            VolunteersReport::make(['record' => $this->record]),
         ];
     }
 
@@ -73,6 +76,9 @@ class ReportEvent extends Page
                     }),
                 Action::make('scheduled-presenters')
                     ->action(fn () => Excel::download(new ScheduledPresentersExport($this->record), "{$this->record->slug}-scheduled-presenters.xlsx")
+                    ),
+                Action::make('volunteers')
+                    ->action(fn () => Excel::download(new VolunteersExport($this->record), "{$this->record->slug}-volunteers.xlsx")
                     ),
                 Action::make('ticket-answers')
                     ->label('Who Needs What (Ticket Answers)')

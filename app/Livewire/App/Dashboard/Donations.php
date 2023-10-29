@@ -6,6 +6,7 @@ use App\Livewire\Traits\WithFiltering;
 use App\Livewire\Traits\WithSorting;
 use App\Models\Donation;
 use App\Models\Setting;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Stripe\BillingPortal\Session;
@@ -65,8 +66,12 @@ class Donations extends Component
     {
         $this->subscription->cancel();
 
-        $this->dispatch('notify', ['message' => 'Successfully canceled subscription.', 'type' => 'success']);
         $this->dispatch('$refresh');
+
+        Notification::make()
+            ->success()
+            ->title('Successfully canceled subscription')
+            ->send();
     }
 
     public function openPortal()

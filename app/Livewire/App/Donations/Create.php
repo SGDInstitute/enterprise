@@ -5,6 +5,7 @@ namespace App\Livewire\App\Donations;
 use App\Models\Donation;
 use App\Models\Setting;
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -119,7 +120,10 @@ class Create extends Component
         $user = User::firstWhere('email', $email);
 
         if (! $user && auth()->check()) {
-            $this->dispatch('notify', ['message' => 'Looks like the email entered does not match the email that is logged in.', 'type' => 'error']);
+            Notification::make()
+                ->danger()
+                ->title('Looks like the email entered does not match the email that is logged in.')
+                ->send();
         } elseif (! $user && $email !== '') {
             $this->newUser = true;
         } elseif ($user && ! auth()->check() && $this->email !== '') {
@@ -179,9 +183,15 @@ class Create extends Component
 
             auth()->attempt(['email' => $this->email, 'password' => $password]);
         } elseif (auth()->guest()) {
-            return $this->dispatch('notify', ['message' => 'Please login before continuing.', 'type' => 'error']);
+            Notification::make()
+                ->danger()
+                ->title('Please login before continuing')
+                ->send();
         } elseif ($this->type === 'monthly' && auth()->user()->hasRecurringDonation()) {
-            return $this->dispatch('notify', ['message' => 'You already have an active recurring donation.', 'type' => 'error']);
+            Notification::make()
+                ->danger()
+                ->title('You already have an active recurring donation')
+                ->send();
         } else {
             $user = auth()->user();
         }
