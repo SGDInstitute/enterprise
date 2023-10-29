@@ -3,6 +3,7 @@
 namespace App\Livewire\App\Orders;
 
 use App\Models\Order;
+use Filament\Notifications\Notification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
@@ -35,7 +36,10 @@ class Show extends Component
     public function delete()
     {
         if ($this->order->isPaid()) {
-            return $this->dispatch('notify', ['message' => 'Cannot delete a paid order', 'type' => 'error']);
+            return Notification::make()
+                ->danger()
+                ->title('Cannot delete a paid order')
+                ->send();
         }
 
         $this->order->safeDelete();

@@ -35,7 +35,7 @@ final class ShowTest extends TestCase
         Livewire::actingAs($user)
             ->test(Show::class, ['form' => $form])
             ->set('answers.question-name', 'Rubber Ducky')
-            ->assertDispatched('notify');
+            ->assertNotified();
 
         $this->assertNotNull($response = $user->responses()->where('form_id', $form->id)->first());
 
@@ -58,7 +58,7 @@ final class ShowTest extends TestCase
         Livewire::actingAs($user)
             ->test(Show::class, ['form' => $form])
             ->set('answers.question-name', 'Rubber Ducky')
-            ->assertDispatched('notify');
+            ->assertNotified();
 
         $this->assertNotNull($response = $user->responses()->where('form_id', $form->id)->first());
 

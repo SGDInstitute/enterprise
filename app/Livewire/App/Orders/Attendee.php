@@ -4,6 +4,7 @@ namespace App\Livewire\App\Orders;
 
 use App\Models\Order;
 use App\Models\Ticket;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class Attendee extends Component
@@ -53,7 +54,10 @@ class Attendee extends Component
             'answers' => $this->answers,
         ]);
 
-        $this->dispatch('notify', ['message' => 'Successfully saved information', 'type' => 'success']);
+        Notification::make()
+            ->success()
+            ->title('Successfully saved information.')
+            ->send();
     }
 
     private function getAnswerForm($ticket)

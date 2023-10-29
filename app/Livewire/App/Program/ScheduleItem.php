@@ -4,6 +4,7 @@ namespace App\Livewire\App\Program;
 
 use App\Models\Event;
 use App\Models\EventItem;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class ScheduleItem extends Component
@@ -32,15 +33,23 @@ class ScheduleItem extends Component
     {
         auth()->user()->schedule()->attach($this->item);
 
-        $this->dispatch('notify', ['message' => 'Successfully added ' . $this->item->name . ' to your schedule.', 'type' => 'success']);
         $this->dispatch('refresh');
+
+        Notification::make()
+            ->success()
+            ->title('Successfully added ' . $this->item->name . ' to your schedule.')
+            ->send();
     }
 
     public function remove()
     {
         auth()->user()->schedule()->detach($this->item);
 
-        $this->dispatch('notify', ['message' => 'Successfully removed ' . $this->item->name . ' from your schedule.', 'type' => 'success']);
         $this->dispatch('refresh');
+
+        Notification::make()
+            ->success()
+            ->title('Successfully removed ' . $this->item->name . ' from your schedule.')
+            ->send();
     }
 }

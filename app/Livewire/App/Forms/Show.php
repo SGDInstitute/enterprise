@@ -9,6 +9,7 @@ use App\Models\Response;
 use App\Models\User;
 use App\Notifications\AddedAsCollaborator;
 use App\Notifications\RemovedAsCollaborator;
+use Filament\Notifications\Notification as Toast;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
@@ -56,7 +57,10 @@ class Show extends Component
             }
 
             if (auth()->check() && $this->form->type === 'finalize' && $this->previousResponses->count() > 0) {
-                $this->dispatch('notify', ['message' => 'You have already submitted a response for this form.', 'type' => 'error']);
+                Toast::make()
+                    ->danger()
+                    ->title('You have already submitted a response for this form.')
+                    ->send();
 
                 return redirect()->route('app.dashboard', ['page' => 'workshops']);
             }
@@ -162,7 +166,11 @@ class Show extends Component
         $this->previousResponses->firstWhere('id', $id)->safeDelete();
 
         $this->dispatch('refresh');
-        $this->dispatch('notify', ['message' => 'Successfully deleted previous submission.', 'type' => 'success']);
+
+        Toast::make()
+            ->success()
+            ->title('Successfully deleted previous submission.')
+            ->send();
     }
 
     public function deleteCollaborator($id)
@@ -173,7 +181,10 @@ class Show extends Component
 
         $this->collaborators = $this->collaborators->filter(fn ($collaborator) => $collaborator['id'] !== $id);
 
-        $this->dispatch('notify', ['message' => 'Successfully removed presenter.', 'type' => 'success']);
+        Toast::make()
+            ->success()
+            ->title('Successfully removed presenter.')
+            ->send();
     }
 
     public function deleteInvitation($id)
@@ -181,8 +192,12 @@ class Show extends Component
         Invitation::whereId($id)->delete();
         $this->invitations = $this->response->fresh()->invitations;
 
-        $this->dispatch('notify', ['message' => 'Successfully removed presenter invitation.', 'type' => 'success']);
         $this->dispatch('refresh');
+
+        Toast::make()
+            ->success()
+            ->title('Successfully removed presenter invitation.')
+            ->send();
     }
 
     public function isVisible($item)
@@ -229,8 +244,12 @@ class Show extends Component
 
         $this->collaborators = $this->response->collaborators->map(fn ($user) => $user->only('id', 'name', 'email', 'pronouns'));
         $this->invitations = $this->response->invitations;
-        $this->dispatch('notify', ['message' => 'Successfully loaded previous submission.', 'type' => 'success']);
         $this->showPreviousResponses = false;
+
+        Toast::make()
+            ->success()
+            ->title('Successfully loaded previous submission.')
+            ->send();
     }
 
     public function save($withNotification = true, $status = 'work-in-progress')
@@ -259,7 +278,11 @@ class Show extends Component
         }
 
         if ($withNotification) {
-            $this->dispatch('notify', ['message' => 'Successfully saved submission. You can leave this page and come back to continue working on the submission.', 'type' => 'success']);
+            Toast::make()
+            ->success()
+            ->title('Successfully saved submission.')
+            ->body('You can leave this page and come back to continue working on the submission.')
+            ->send();
         }
     }
 
@@ -293,9 +316,16 @@ class Show extends Component
         $this->save(false, 'submitted');
 
         if ($this->form->type === 'workshop') {
-            $this->dispatch('notify', ['message' => 'Successfully submitted submission for review.', 'type' => 'success']);
+            Toast::make()
+                ->success()
+                ->title('Successfully submitted submission for review.')
+                ->send();
         } elseif ($this->form->type === 'finalize') {
-            $this->dispatch('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
+            Toast::make()
+                ->success()
+                ->title('Successfully submitted.')
+                ->send();
+
             $this->response->update(['parent_id' => $this->parent->id]);
             $this->parent->update(['status' => 'finalized']);
 
@@ -327,7 +357,10 @@ class Show extends Component
                 return redirect()->route('app.forms.thanks', $this->form);
             }
         } else {
-            $this->dispatch('notify', ['message' => 'Successfully submitted.', 'type' => 'success']);
+            Toast::make()
+                ->success()
+                ->title('Successfully submitted.')
+                ->send();
 
             return redirect()->route('app.forms.thanks', $this->form);
         }
