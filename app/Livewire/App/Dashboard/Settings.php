@@ -3,6 +3,7 @@
 namespace App\Livewire\App\Dashboard;
 
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -25,7 +26,11 @@ class Settings extends Component
         $this->validate();
 
         $this->user->save();
-        $this->dispatch('notify', ['message' => 'Successfully saved your settings', 'type' => 'success']);
+
+        Notification::make()
+            ->success()
+            ->title('Successfully saved your settings')
+            ->send();
     }
 
     protected function rules()

@@ -4,6 +4,7 @@ namespace App\Livewire\App\Orders;
 
 use App\Models\Order;
 use App\Models\Ticket;
+use Filament\Notifications\Notification;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -67,7 +68,10 @@ class Start extends Component
                 $canDelete = $this->order->tickets->whereNull('user_id')->take($item['original'] - $item['amount']);
 
                 if ($canDelete === null) {
-                    $this->dispatch('notify', ['message' => 'Cannot delete a ticket, because they are all filled.', 'type' => 'error']);
+                    Notification::make()
+                        ->danger()
+                        ->title('Cannot delete a ticket, because they are all filled.')
+                        ->send();
                 } else {
                     $canDelete->each->delete();
                 }

@@ -4,6 +4,7 @@ namespace App\Livewire\App\Program;
 
 use App\Mail\SupportEmail;
 use App\Models\Event;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
@@ -37,6 +38,10 @@ class Contact extends Component
         Mail::to('support@sgdinstitute.org')->send(new SupportEmail($this->contact));
 
         $this->reset('contact');
-        $this->dispatch('notify', ['message' => 'Successfully sent email to support.', 'type' => 'success']);
+
+        Notification::make()
+            ->success()
+            ->title('Successfully sent email to support.')
+            ->send();
     }
 }

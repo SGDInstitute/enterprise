@@ -5,6 +5,7 @@ namespace App\Livewire\App\Dashboard;
 use App\Livewire\Traits\WithFiltering;
 use App\Livewire\Traits\WithSorting;
 use App\Models\Response;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -51,8 +52,12 @@ class Workshops extends Component
     {
         $this->workshops->find($id)->safeDelete();
 
-        $this->dispatch('notify', ['message' => 'Successfully deleted workshop submission', 'type' => 'success']);
         $this->dispatch('refresh');
+
+        Notification::make()
+            ->success()
+            ->title('Successfully deleted workshop submission')
+            ->send();
     }
 
     public function finalizeFormNeeded($workshop)
