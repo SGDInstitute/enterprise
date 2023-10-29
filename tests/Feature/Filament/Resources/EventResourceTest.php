@@ -96,12 +96,12 @@ final class EventResourceTest extends TestCase
     }
 
     #[Test]
-    public function can_open_registration()
+    public function can_open_checkin()
     {
         Notification::fake();
 
         $user = User::factory()->admin()->create();
-        $event = Event::factory()->create();
+        $event = Event::factory()->create(['start' => now()->addDay()]);
         $paidOrder = Order::factory()->for($event)->paid()->create();
         Ticket::factory()->for($event)->for($paidOrder)->for($user)->create();
         $unpaidOrder = Order::factory()->for($event)->create();
@@ -117,5 +117,31 @@ final class EventResourceTest extends TestCase
         $this->assertTrue($event->fresh()->settings->allow_checkin);
 
         Notification::assertSentTimes(EventCheckIn::class, 1);
+    }
+
+    #[Test]
+    public function checkin_action_is_hidden_if_event_is_more_than_14_days_away()
+    {
+        $user = User::factory()->admin()->create();
+        $event = Event::factory()->create(['start' => now()->addDays(16)]);
+
+        Livewire::actingAs($user)
+            ->test(EditEvent::class, [
+                'record' => $event->getRouteKey(),
+            ])
+            ->assertActionHidden('open-checkin');
+    }
+
+    #[Test]
+    public function checkin_action_is_disabled_when_already_open()
+    {
+        $user = User::factory()->admin()->create();
+        $event = Event::factory()->create(['start' => now()->addDay(), 'settings' => ['allow_checkin' => true]]);
+
+        Livewire::actingAs($user)
+            ->test(EditEvent::class, [
+                'record' => $event->getRouteKey(),
+            ])
+            ->assertActionDisabled('open-checkin');
     }
 }
