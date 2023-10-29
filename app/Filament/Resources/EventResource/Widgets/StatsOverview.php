@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EventResource\Widgets;
 
+use App\Models\EventBadgeQueue;
 use App\Models\Order;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -50,6 +51,14 @@ class StatsOverview extends BaseWidget
         return '$' . number_format($this->orders->sum('amount') / 100, 2);
     }
 
+    public function getCheckedInTotalProperty()
+    {
+        return EventBadgeQueue::query()
+            ->join('tickets', 'tickets.id', '=', 'event_badge_queue.ticket_id')
+            ->where('tickets.event_id', $this->record->id)
+            ->count();
+    }
+
     protected function getColumns(): int
     {
         return 2;
@@ -65,6 +74,9 @@ class StatsOverview extends BaseWidget
             Stat::make('Orders', $this->orderTotals),
             Stat::make('Potential Money from Reservations', $this->potentialMoney),
             Stat::make('Money Made from Orders', $this->moneyMade),
+            ...($this->record->settings->allow_checkin
+                ? [Stat::make('Folks Checked In', $this->checkedInTotal)]
+                : []),
         ];
     }
 }

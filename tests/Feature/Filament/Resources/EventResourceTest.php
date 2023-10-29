@@ -133,7 +133,7 @@ final class EventResourceTest extends TestCase
     }
 
     #[Test]
-    public function checkin_action_is_disabled_when_already_open()
+    public function checkin_action_is_hidden_when_already_open()
     {
         $user = User::factory()->admin()->create();
         $event = Event::factory()->create(['start' => now()->addDay(), 'settings' => ['allow_checkin' => true]]);
@@ -142,6 +142,20 @@ final class EventResourceTest extends TestCase
             ->test(EditEvent::class, [
                 'record' => $event->getRouteKey(),
             ])
-            ->assertActionDisabled('open-checkin');
+            ->assertActionHidden('open-checkin');
+    }
+
+    #[Test]
+    public function can_close_checkin_when_already_open()
+    {
+        $user = User::factory()->admin()->create();
+        $event = Event::factory()->create(['start' => now()->addDay(), 'settings' => ['allow_checkin' => true]]);
+
+        Livewire::actingAs($user)
+            ->test(EditEvent::class, [
+                'record' => $event->getRouteKey(),
+            ])
+            ->callAction('close-checkin')
+            ->assertHasNoActionErrors();
     }
 }

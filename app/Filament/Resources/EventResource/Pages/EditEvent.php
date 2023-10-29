@@ -39,6 +39,15 @@ class EditEvent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('close-checkin')
+                ->action(function () {
+                    $this->record->settings->allow_checkin = false;
+                    $this->record->save();
+                })
+                ->button()
+                ->color('gray')
+                ->outlined()
+                ->hidden($this->record->start->diffInDays(now()) > 14 || $this->record->settings->allow_checkin !== true),
             Action::make('open-checkin')
                 ->action(function () {
                     $this->record->settings->allow_checkin = true;
@@ -52,8 +61,7 @@ class EditEvent extends EditRecord
                 ->button()
                 ->color('gray')
                 ->outlined()
-                ->disabled($this->record->settings->allow_checkin ?? false)
-                ->hidden($this->record->start->diffInDays(now()) > 14),
+                ->hidden($this->record->start->diffInDays(now()) > 14 || $this->record->settings->allow_checkin === true),
             Action::make('reports')
                 ->url(EventResource::getUrl('report', ['record' => $this->record]))
                 ->button()
