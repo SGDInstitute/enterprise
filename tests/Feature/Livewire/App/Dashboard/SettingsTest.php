@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Livewire\App\Dashboard;
 
-use App\Livewire\App\Dashboard\Donations;
 use App\Livewire\App\Dashboard\Settings;
-use App\Models\Donation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +13,6 @@ use Tests\TestCase;
 final class SettingsTest extends TestCase
 {
     use RefreshDatabase;
-
 
     #[Test]
     public function can_see_profile_form()

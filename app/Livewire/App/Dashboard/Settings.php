@@ -25,14 +25,6 @@ class Settings extends Component implements HasForms
         $this->passwordForm->fill();
     }
 
-    protected function getForms(): array
-    {
-        return [
-            'profileForm',
-            'passwordForm',
-        ];
-    }
-
     public function profileForm(Form $form): Form
     {
         return $form
@@ -98,5 +90,13 @@ class Settings extends Component implements HasForms
         auth()->user()->update([
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function getForms(): array
+    {
+        return [
+            'profileForm',
+            'passwordForm',
+        ];
     }
 }
