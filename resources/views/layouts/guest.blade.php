@@ -16,9 +16,14 @@
 
         <!-- Styles -->
         @vite('resources/css/app.css')
+        @livewireStyles
+        @filamentStyles
 
         <!-- Scripts -->
+        @livewireScriptConfig
+        @filamentScripts
         @vite('resources/js/app.js')
+        @stack('scripts')
     </head>
     <body class="font-sans antialiased text-gray-900 bg-gray-100 dark:bg-gray-900">
         {{ $slot }}
