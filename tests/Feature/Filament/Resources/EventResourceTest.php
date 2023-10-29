@@ -4,6 +4,7 @@ namespace Tests\Feature\Filament\Resources;
 
 use App\Filament\Actions\SafeDeleteBulkAction;
 use App\Filament\Resources\EventResource;
+use App\Filament\Resources\EventResource\Pages\EditEvent;
 use App\Filament\Resources\EventResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\EventResource\RelationManagers\ReservationsRelationManager;
 use App\Models\Event;
@@ -12,7 +13,9 @@ use App\Models\Price;
 use App\Models\Ticket;
 use App\Models\TicketType;
 use App\Models\User;
+use App\Notifications\EventCheckIn;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -90,5 +93,29 @@ final class EventResourceTest extends TestCase
             $this->assertNotNull($order->deleted_at);
             $this->assertEmpty($order->tickets);
         }
+    }
+
+    #[Test]
+    public function can_open_registration()
+    {
+        Notification::fake();
+
+        $user = User::factory()->admin()->create();
+        $event = Event::factory()->create();
+        $paidOrder = Order::factory()->for($event)->paid()->create();
+        Ticket::factory()->for($event)->for($paidOrder)->for($user)->create();
+        $unpaidOrder = Order::factory()->for($event)->create();
+        Ticket::factory()->for($event)->for($unpaidOrder)->for(User::factory())->create();
+
+        Livewire::actingAs($user)
+            ->test(EditEvent::class, [
+                'record' => $event->getRouteKey(),
+            ])
+            ->callAction('open-checkin')
+            ->assertHasNoActionErrors();
+
+        $this->assertTrue($event->fresh()->settings->allow_checkin);
+
+        Notification::assertSentTimes(EventCheckIn::class, 1);
     }
 }
