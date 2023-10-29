@@ -11,6 +11,7 @@ use App\Filament\Resources\EventResource;
 use App\Filament\Resources\EventResource\Widgets\EventMultiWidget;
 use App\Filament\Resources\EventResource\Widgets\StatsOverview;
 use App\Filament\Resources\EventResource\Widgets\TicketBreakdown;
+use App\Notifications\EventCheckIn;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -18,6 +19,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Notification;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EditEvent extends EditRecord
@@ -37,6 +39,29 @@ class EditEvent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('close-checkin')
+                ->action(function () {
+                    $this->record->settings->allow_checkin = false;
+                    $this->record->save();
+                })
+                ->button()
+                ->color('gray')
+                ->outlined()
+                ->hidden($this->record->start->diffInDays(now()) > 14 || $this->record->settings->allow_checkin !== true),
+            Action::make('open-checkin')
+                ->action(function () {
+                    $this->record->settings->allow_checkin = true;
+                    $this->record->save();
+
+                    Notification::send($this->record->paidInPersonAttendees(), new EventCheckIn($this->record));
+                })
+                ->requiresConfirmation()
+                ->modalHeading('Open Checkin')
+                ->modalDescription('Are you sure you\'d like to open & allow attendees to check-in. This will send a notification to all paid attendees.')
+                ->button()
+                ->color('gray')
+                ->outlined()
+                ->hidden($this->record->start->diffInDays(now()) > 14 || $this->record->settings->allow_checkin === true),
             Action::make('reports')
                 ->url(EventResource::getUrl('report', ['record' => $this->record]))
                 ->button()
