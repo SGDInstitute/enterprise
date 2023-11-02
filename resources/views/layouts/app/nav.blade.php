@@ -102,7 +102,7 @@
                                 @else
                                     @can ('galaxy.view')
                                     <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('app.dashboard') }}">Frontend</a>
-                                    <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="{{ route('galaxy.dashboard') }}">Galaxy</a>
+                                    <a class="p-3 -m-3 space-x-4 font-medium leading-6 text-gray-900 transition duration-150 ease-in-out rounded-lg dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700" href="/admin}">Galaxy</a>
                                     @endcan
 
                                     @impersonating
