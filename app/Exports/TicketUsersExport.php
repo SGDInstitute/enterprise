@@ -24,6 +24,9 @@ class TicketUsersExport implements FromCollection, WithHeadings
             ->groupBy('order_id')
             ->flatMap(function ($tickets, $orderId) {
                 $order = $tickets->first()->order;
+                if (is_null($order)) {
+                    return;
+                }
                 $owner = [
                     'order_id' => $order->id,
                     'name' => $order->user->name ?? '',

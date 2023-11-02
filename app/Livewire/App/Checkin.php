@@ -57,6 +57,8 @@ class Checkin extends Component implements HasForms
                 $this->user = $this->ticket->user;
                 $this->form->fill(auth()->user()->only(['name', 'pronouns', 'notifications_via', 'email', 'phone']));
             }
+        } else {
+            $this->event = Event::where('end', '>=', now())->first();
         }
     }
 
@@ -142,7 +144,7 @@ class Checkin extends Component implements HasForms
                                 ->required(),
                             TextInput::make('phone')
                                 ->mask('(999) 999-9999')
-                                ->required(fn (Get $get) => in_array('vonage', $get('notifications_via')))
+                                ->required(fn (Get $get) => in_array('vonage', $get('notifications_via') ?? []))
                                 ->tel(),
                         ]),
                 ])->submitAction(new HtmlString(Blade::render(<<<'BLADE'
