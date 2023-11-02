@@ -19,8 +19,6 @@
 
             <a href="{{ route('app.program', [$event, 'schedule']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">In-person Schedule</a>
 
-            <a href="{{ route('app.program', [$event, 'virtual-schedule']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Virtual Schedule</a>
-
             <a href="{{ route('app.program', [$event, 'my-schedule']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">My Schedule</a>
 
             <a href="{{ route('app.program', [$event, 'badge']) }}" class="px-3 py-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 hover:bg-gray-700 hover:text-white">Virtual Badge</a>
