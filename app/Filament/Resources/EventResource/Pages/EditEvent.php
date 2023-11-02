@@ -114,6 +114,7 @@ class EditEvent extends EditRecord
                         "{$this->record->slug}-ticket-answers.xlsx"
                     )),
                 Action::make('ticket-users')
+                    ->label('Attendees')
                     ->form([
                         Radio::make('status')
                             ->options([
