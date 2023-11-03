@@ -4,9 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Spatie\Browsershot\Browsershot;
+use Wnx\SidecarBrowsershot\BrowsershotLambda;
 
 class PrintOneOffBadge extends Command implements PromptsForMissingInput
 {
@@ -14,39 +14,32 @@ class PrintOneOffBadge extends Command implements PromptsForMissingInput
 
     protected $description = 'Print One Off Badge';
 
-    protected $label = ['name' => '50x100', 'width' => 1109, 'height' => 600];
+    protected $label = ['name' => '50', 'width' => 1164, 'height' => 554];
 
     public function handle(): void
     {
         $this->process($this->label, $this->argument('name'), $this->argument('pronouns'));
     }
 
-    public function process($label, $name, $pronouns, $ticketId = null)
+    public function process($label, $name, $pronouns)
     {
         $pronouns = $this->formatPronouns($pronouns);
         $slug = Str::slug($name);
         $view = view('components.bit.namebadge-label', ['name' => $name, 'pronouns' => $pronouns])->render();
         $path = storage_path("app/labels/{$slug}.png");
 
-        $result = Browsershot::html($view)
-            ->newHeadless()
-            ->setNodeBinary('/usr/local/bin/node')
-            ->setNpmBinary('/usr/local/bin/npm')
+        $result = BrowsershotLambda::html($view)
             ->windowSize($label['width'], $label['height'])
             ->save($path);
 
-        dd($result);
+        $this->info("Printing: {$name} : {$pronouns}");
 
-        // $this->info("Printing: {$name} : {$pronouns}");
+        $output = null;
+        $result = null;
+        exec("brother_ql -b pyusb print -l {$label['name']} {$path} 2>&1", $output, $result);
 
-        // $output = null;
-        // $result = null;
-        // exec("brother_ql -b pyusb print -l {$label['name']} {$path} 2>&1", $output, $result);
-
-        // if ($ticketId && $this->printSucceeded($output)) {
-        //     $this->info('Marking as printed');
-        //     Http::post(config('app.url') . "/api/queue/{$ticketId}/printed");
-        // }
+        Log::debug($output);
+        Log::debug($result);
     }
 
     protected function promptForMissingArgumentsUsing()

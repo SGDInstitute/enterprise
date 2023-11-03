@@ -1,15 +1,14 @@
 <?php
 
 use Hammerstone\Sidecar\Architecture;
+use Wnx\SidecarBrowsershot\Functions\BrowsershotFunction;
 
 return [
     /*
      * All of your function classes that you'd like to deploy go here.
      */
     'functions' => [
-        \Wnx\SidecarBrowsershot\Functions\BrowsershotFunction::class,
-        // \App\Sidecar\RenderOgImage::class,
-        // \App\Sidecar\ProcessThumbnail::class,
+        BrowsershotFunction::class,
     ],
 
     /*
