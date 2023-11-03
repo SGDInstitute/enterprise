@@ -169,6 +169,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function isCheckedInFor($event)
     {
         $ticket = $this->ticketForEvent($event);
+
         return $ticket ? $ticket->isQueued() : false;
     }
 
