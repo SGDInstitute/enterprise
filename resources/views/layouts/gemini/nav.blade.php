@@ -38,15 +38,15 @@
     <div class="px-2 pt-2 pb-3 space-y-1">
       <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
       <!-- <a href="{{ route('app.program', [$event, 'bulletin-board']) }}" class="block px-3 py-2 text-base font-medium text-white bg-gray-800 rounded-md" aria-current="page">Bulletin Board</a> -->
-      <a href="{{ route('app.program', [$event, 'bulletin-board']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Bulletin Board</a>
+      <a href="{{ route('app.program', [$event, 'bulletin-board']) }}" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Bulletin Board</a>
 
-      <a href="{{ route('app.program', [$event, 'schedule']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Schedule</a>
+      <a href="{{ route('app.program', [$event, 'schedule']) }}" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Schedule</a>
 
-      <a href="{{ route('app.program', [$event, 'my-schedule']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">My Schedule</a>
+      <a href="{{ route('app.program', [$event, 'my-schedule']) }}" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">My Schedule</a>
 
-      <a href="{{ route('app.program', [$event, 'badge']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Virtual Badge</a>
+      <a href="{{ route('app.program', [$event, 'badge']) }}" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Virtual Badge</a>
 
-      <a href="{{ route('app.program', [$event, 'contact']) }}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Contact</a>
+      <a href="{{ route('app.program', [$event, 'contact']) }}" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Contact</a>
     </div>
   </div>
 </nav>
