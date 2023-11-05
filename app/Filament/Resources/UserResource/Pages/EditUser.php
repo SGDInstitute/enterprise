@@ -4,8 +4,8 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
 use Filament\Notifications\Notification;
-use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\DeleteAction;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\Password;
 
