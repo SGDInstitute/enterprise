@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages\CreateUser;
 use App\Filament\Resources\UserResource\Pages\EditUser;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
+use App\Filament\Resources\UserResource\Pages\ViewUser;
 use App\Filament\Resources\UserResource\RelationManagers\DonationsRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\ReservationsRelationManager;
@@ -14,9 +15,11 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -29,41 +32,14 @@ class UserResource extends Resource
 
     protected static ?int $navigationSort = 6;
 
-    public static function form(Form $form): Form
+    public static function infolist(Infolist $infolist): Infolist
     {
-        return $form
+        return $infolist
             ->schema([
-                Grid::make(3)
-                    ->schema([
-                        Section::make()->schema([
-                            TextInput::make('name')
-                                ->maxLength(255),
-                            TextInput::make('email')
-                                ->email()
-                                ->required()
-                                ->maxLength(255),
-                            TextInput::make('pronouns')
-                                ->maxLength(255),
-                        ])->columnSpan(2),
-                        Section::make()->schema([
-                            TextInput::make('password')
-                                ->password()
-                                ->required()
-                                ->maxLength(255),
-                            TextInput::make('password_confirmation')
-                                ->password()
-                                ->required()
-                                ->maxLength(255),
-                        ])->columnSpan(1),
-                        Section::make()->schema([
-                            TextInput::make('address.line1'),
-                            TextInput::make('address.line2'),
-                            TextInput::make('address.city'),
-                            TextInput::make('address.state'),
-                            TextInput::make('address.zip'),
-                            TextInput::make('address.country'),
-                        ])->columns(2)->columnSpan(2),
-                    ]),
+                TextEntry::make('name'),
+                TextEntry::make('email'),
+                TextEntry::make('notes')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -72,10 +48,8 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->copyable()
                     ->searchable(),
                 TextColumn::make('name')
-                    ->copyable()
                     ->searchable(),
                 TextColumn::make('email')
                     ->copyable()
@@ -94,7 +68,7 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                EditAction::make(),
+                ViewAction::make(),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
@@ -116,6 +90,7 @@ class UserResource extends Resource
         return [
             'index' => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
+            'view' => ViewUser::route('/{record}'),
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }
