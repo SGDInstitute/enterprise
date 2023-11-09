@@ -38,6 +38,7 @@ class ViewForm extends ViewRecord
                 ->modalContent(view('filament.resources.form-resource.actions.notification-list', ['status' => 'approved']))
                 ->modalSubmitActionLabel('Yes, notify them')
                 ->color('primary')
+                ->hidden(fn ($record) => $record->type !== 'workshop'),
             Action::make('notify_rejected')
                 ->action(function () {
                     $proposals = $this->record->responses()->where('status', 'rejected')->get();
@@ -53,6 +54,7 @@ class ViewForm extends ViewRecord
                 ->modalContent(view('filament.resources.form-resource.actions.notification-list', ['status' => 'rejected']))
                 ->modalSubmitActionLabel('Yes, notify them')
                 ->color('danger')
+                ->hidden(fn ($record) => $record->type !== 'workshop'),
             EditAction::make()
                 ->label('Edit Form')
                 ->color('gray'),
@@ -61,11 +63,15 @@ class ViewForm extends ViewRecord
 
     protected function getHeaderWidgets(): array
     {
-        return [
-            StatusBreakdown::class,
-            TrackBreakdown::class,
-            SessionChart::class,
-            FormatChart::class,
-        ];
+        if ($this->record->type === 'workshop') {
+            return [
+                StatusBreakdown::class,
+                TrackBreakdown::class,
+                SessionChart::class,
+                FormatChart::class,
+            ];
+        }
+
+        return [];
     }
 }
