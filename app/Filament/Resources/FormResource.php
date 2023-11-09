@@ -161,7 +161,8 @@ class FormResource extends Resource
                         ->filter(fn ($question) => $question['data']['type'] !== 'textarea')
                         ->filter(fn ($question) => $question['data']['type'] !== 'rich-editor')
                         ->mapWithKeys(fn ($question) => [$question['data']['id'] => $question['data']['question']]))
-                    ->multiple(),
+                    ->multiple()
+                    ->hidden(fn ($record) => $record === null),
             ])
             ->columns(2);
     }
@@ -191,7 +192,7 @@ class FormResource extends Resource
     {
         return Block::make('question')
             ->columns(2)
-            ->label(fn (array $state): ?string => isset($state['id']) ? str($state['id'])->replace('-', ' ')->title() : null)
+            ->label(fn ($state) => isset($state['id']) ? str($state['id'])->replace('-', ' ')->title() : null)
             ->schema([
                 TextInput::make('id')
                     ->label('ID')
