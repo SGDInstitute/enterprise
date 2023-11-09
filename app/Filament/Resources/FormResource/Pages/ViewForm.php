@@ -56,9 +56,11 @@ class ViewForm extends ViewRecord
                 ->color('danger')
                 ->hidden(fn ($record) => $record->type !== 'workshop'),
             Action::make('view_frontend')
-                ->modalWidth('sm')
                 ->outlined()
-                ->action(fn ($data) => redirect()->route('app.forms.show', $this->record)),
+                ->url(route('app.forms.show', $this->record))
+                ->extraAttributes([
+                    'target' => '_blank',
+                ]),
             EditAction::make()
                 ->label('Edit Form')
                 ->color('gray'),
