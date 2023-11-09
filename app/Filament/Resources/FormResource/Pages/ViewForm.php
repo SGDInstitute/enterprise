@@ -55,6 +55,10 @@ class ViewForm extends ViewRecord
                 ->modalSubmitActionLabel('Yes, notify them')
                 ->color('danger')
                 ->hidden(fn ($record) => $record->type !== 'workshop'),
+            Action::make('view_frontend')
+                ->modalWidth('sm')
+                ->outlined()
+                ->action(fn ($data) => redirect()->route('app.forms.show', $this->record)),
             EditAction::make()
                 ->label('Edit Form')
                 ->color('gray'),
