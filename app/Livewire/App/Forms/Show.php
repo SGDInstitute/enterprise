@@ -86,8 +86,7 @@ class Show extends Component
 
     public function updatedAnswers()
     {
-        // @todo remember why this if is here
-        if ($this->form->type !== 'finalize') {
+        if ($this->isWorkshopForm) {
             $this->save(status: $this->response->status ?? 'work-in-progress');
         }
     }
@@ -266,10 +265,6 @@ class Show extends Component
                 'answers' => $this->answers,
                 'status' => $status,
             ]);
-
-            if ($this->form->has_reminders) {
-                // $this->response->setUpReminders($this->form->settings->reminders);
-            }
         }
 
         // if form has collaborators
