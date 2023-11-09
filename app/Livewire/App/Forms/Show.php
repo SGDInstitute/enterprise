@@ -383,6 +383,10 @@ class Show extends Component
                     return [$item['id'] => $parentAnswer ?? []];
                 }
 
+                if ($item['type'] === 'opinion-scale') {
+                    return [$item['id'] => $parentAnswer ?? null];
+                }
+
                 return [$item['id'] => $parentAnswer ?? ''];
             })->toArray();
     }
