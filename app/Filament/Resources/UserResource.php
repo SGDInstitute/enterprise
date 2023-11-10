@@ -10,8 +10,8 @@ use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\ReservationsRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\TicketsRelationManager;
 use App\Models\User;
+use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\Split;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
@@ -33,17 +33,25 @@ class UserResource extends Resource
     {
         return $infolist
             ->schema([
-                Section::make([
-                    TextEntry::make('name'),
-                    TextEntry::make('email')->copyable(),
-                    TextEntry::make('pronouns'),
-                    TextEntry::make('phone')->copyable(),
-                    TextEntry::make('formattedAddress'),
-                ])->columns(2),
-                Section::make([
-                    TextEntry::make('created_at')
-                        ->dateTime(),
-                ]),
+                Grid::make([
+                    'md' => 3
+                ])
+                    ->schema([
+                        Section::make([
+                            TextEntry::make('name'),
+                            TextEntry::make('email')->copyable(),
+                            TextEntry::make('pronouns'),
+                            TextEntry::make('phone')->copyable(),
+                            TextEntry::make('formattedAddress'),
+                        ])
+                            ->columns(2)
+                            ->columnSpan(['md' => 2]),
+                        Section::make([
+                            TextEntry::make('created_at')
+                                ->dateTime(),
+                        ])
+                            ->columnSpan(['md' => 1]),
+                    ])
             ]);
     }
 

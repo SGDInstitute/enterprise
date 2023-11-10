@@ -3,10 +3,14 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
+use App\Models\User;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class ViewUser extends ViewRecord
@@ -48,7 +52,60 @@ class ViewUser extends ViewRecord
 
                     Notification::make()->title('Marked user as verified.')->success()->send();
                 }),
-            DeleteAction::make()->icon('heroicon-o-exclamation-triangle'),
+            ActionGroup::make([
+                Action::make('edit_information')
+                    ->action(function (array $data, User $record): void {
+                        if ($record->email !== $data['email']) {
+                            $data['email_verified_at'] = null;
+                        }
+                        $record->update($data);
+                        Notification::make()->title('Updated user\'s information.')->success()->send();
+                    })
+                    ->fillForm(fn (User $record): array => $record->attributesToArray())
+                    ->form([
+                        TextInput::make('name')
+                            ->required(),
+                        TextInput::make('pronouns')
+                            ->required(),
+                        TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->unique(table: User::class, ignorable: $this->record),
+                        TextInput::make('phone')
+                            ->mask('(999) 999-9999')
+                            ->tel(),
+                    ]),
+                Action::make('change_password')
+                    ->action(function (array $data, User $record) {
+                        $record->update(['password' => Hash::make($data['password'])]);
+                        Notification::make()->title('Updated user\'s password.')->success()->send();
+                    })
+                    ->form([
+                        TextInput::make('password')
+                            ->password()
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('password_confirmation')
+                            ->password()
+                            ->required()
+                            ->maxLength(255),
+                    ]),
+                Action::make('edit_address')
+                    ->action(function (array $data, User $record) {
+                        $record->update($data);
+                        Notification::make()->title('Updated user\'s address.')->success()->send();
+                    })
+                    ->fillForm(fn (User $record): array => $record->attributesToArray())
+                    ->form([
+                        TextInput::make('address.line1'),
+                        TextInput::make('address.line2'),
+                        TextInput::make('address.city'),
+                        TextInput::make('address.state'),
+                        TextInput::make('address.zip'),
+                        TextInput::make('address.country'),
+                    ]),
+                DeleteAction::make()->icon('heroicon-o-exclamation-triangle'),
+            ])
         ];
     }
 }
