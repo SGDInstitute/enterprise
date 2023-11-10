@@ -40,7 +40,7 @@
                         {{ $user->isCheckedInFor($record) ? '✅' : '🚨' }}
                     </td>
                     <td>
-                        <x-filament::link :href="route('filament.admin.resources.users.edit', ['record' => $user->id])">
+                        <x-filament::link :href="route('filament.admin.resources.users.view', ['record' => $user->id])">
                             View
                         </x-filament::link>
                     </td>

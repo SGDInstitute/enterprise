@@ -48,7 +48,7 @@ class TicketsRelationManager extends RelationManager
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
-                    ->url(fn ($record) => $record->user_id ? route('filament.admin.resources.users.edit', $record->user_id) : ''),
+                    ->url(fn ($record) => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : ''),
                 TextColumn::make('user.email')
                     ->label('Email')
                     ->default(fn ($record) => $record->invitations->first()?->email)
