@@ -57,6 +57,7 @@ class FormResource extends Resource
                                 TextEntry::make('event.name'),
                                 TextEntry::make('formattedDuration'),
                             ])
+                            ->collapsible()
                             ->columnSpan(1),
                         Section::make('Questions')
                             ->schema([
