@@ -37,7 +37,7 @@ class TicketResource extends Resource
                                 TextEntry::make('ticketType.name'),
                                 TextEntry::make('user.name')
                                     ->label('User\'s Name')
-                                    ->url(fn (Ticket $record) => $record->user_id ? UserResource::getUrl('edit', ['record' => $record->user_id]) : null)
+                                    ->url(fn (Ticket $record) => $record->user_id ? UserResource::getUrl('view', ['record' => $record->user_id]) : null)
                                     ->default('No user assigned'),
                                 TextEntry::make('user.email')
                                     ->label('Email')
