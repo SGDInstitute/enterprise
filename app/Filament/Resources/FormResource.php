@@ -24,6 +24,11 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Grid;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
@@ -38,6 +43,41 @@ class FormResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-document';
 
     protected static ?int $navigationSort = 2;
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Grid::make()
+                    ->schema([
+                        Section::make('Information')
+                            ->schema([
+                                TextEntry::make('type'),
+                                TextEntry::make('name'),
+                                TextEntry::make('event.name'),
+                                TextEntry::make('formattedDuration'),
+                            ])
+                            ->collapsible()
+                            ->columnSpan(1),
+                        Section::make('Questions')
+                            ->schema([
+                                RepeatableEntry::make('form')
+                                    ->schema([
+                                        TextEntry::make('data.question')
+                                            ->label('Question')
+                                            ->placeholder('Content or collaborator'),
+                                        TextEntry::make('data.type')
+                                            ->label('Type'),
+                                    ])
+                                    ->columns(2)
+                                    ->contained(false),
+                            ])
+                            ->collapsible()
+                            ->collapsed()
+                            ->columnSpan(1),
+                    ]),
+            ]);
+    }
 
     public static function form(Form $form): Form
     {
