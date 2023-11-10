@@ -36,7 +36,7 @@ class ViewUser extends ViewRecord
                 ->action(function () {
                     activity()->on($this->record)->log('impersonated');
 
-                    session(['after_impersonation' => route('filament.admin.resources.users.edit', $this->record)]);
+                    session(['after_impersonation' => route('filament.admin.resources.users.view', $this->record)]);
                     auth()->user()->impersonate($this->record);
 
                     return redirect()->to('/dashboard');
