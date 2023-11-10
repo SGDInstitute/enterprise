@@ -105,7 +105,7 @@ class ViewUser extends ViewRecord
                         TextInput::make('address.country'),
                     ]),
                 DeleteAction::make()->icon('heroicon-o-exclamation-triangle'),
-            ])
+            ]),
         ];
     }
 }

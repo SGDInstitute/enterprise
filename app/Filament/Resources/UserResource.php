@@ -34,7 +34,7 @@ class UserResource extends Resource
         return $infolist
             ->schema([
                 Grid::make([
-                    'md' => 3
+                    'md' => 3,
                 ])
                     ->schema([
                         Section::make([
@@ -51,7 +51,7 @@ class UserResource extends Resource
                                 ->dateTime(),
                         ])
                             ->columnSpan(['md' => 1]),
-                    ])
+                    ]),
             ]);
     }
 
