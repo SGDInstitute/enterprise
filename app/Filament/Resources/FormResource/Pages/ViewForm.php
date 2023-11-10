@@ -18,8 +18,6 @@ class ViewForm extends ViewRecord
 {
     protected static string $resource = FormResource::class;
 
-    protected static string $view = 'filament.resources.forms.pages.view-form';
-
     protected function getHeaderActions(): array
     {
         return [
