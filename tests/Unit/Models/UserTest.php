@@ -71,10 +71,22 @@ final class UserTest extends TestCase
     #[Test]
     public function can_see_if_user_is_checked_in()
     {
+        // Scenario 1, user has ticket and is checked in
         $user = User::factory()->create();
         $ticket = Ticket::factory()->for($user)->create();
         $ticket->addToQueue();
 
         $this->assertTrue($user->isCheckedInFor($ticket->event));
+
+        // Scenario 2, user has ticket and is not checked in
+        $user = User::factory()->create();
+        $ticket = Ticket::factory()->for($user)->create();
+
+        $this->assertFalse($user->isCheckedInFor($ticket->event));
+
+        // Scenario 3, user does not have ticket
+        $user = User::factory()->create();
+
+        $this->assertFalse($user->isCheckedInFor($ticket->event));
     }
 }

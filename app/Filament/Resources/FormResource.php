@@ -161,7 +161,8 @@ class FormResource extends Resource
                         ->filter(fn ($question) => $question['data']['type'] !== 'textarea')
                         ->filter(fn ($question) => $question['data']['type'] !== 'rich-editor')
                         ->mapWithKeys(fn ($question) => [$question['data']['id'] => $question['data']['question']]))
-                    ->multiple(),
+                    ->multiple()
+                    ->hidden(fn ($record) => $record === null),
             ])
             ->columns(2);
     }
@@ -191,7 +192,7 @@ class FormResource extends Resource
     {
         return Block::make('question')
             ->columns(2)
-            ->label(fn (array $state): ?string => isset($state['id']) ? str($state['id'])->replace('-', ' ')->title() : null)
+            ->label(fn ($state) => isset($state['id']) ? str($state['id'])->replace('-', ' ')->title() : null)
             ->schema([
                 TextInput::make('id')
                     ->label('ID')
@@ -214,6 +215,18 @@ class FormResource extends Resource
                 Textarea::make('scale')
                     ->helperText('Put each option on a new line or separate by commas.')
                     ->hidden(fn ($get) => ! ($get('type') === 'matrix')),
+                Fieldset::make('Opinion Scale Options')
+                    ->schema([
+                        TextInput::make('range')
+                            ->numeric()
+                            ->helperText('The range of options will start at 1 and end at this number.'),
+                        TextInput::make('low_label')
+                            ->helperText('Label under 1'),
+                        TextInput::make('high_label')
+                            ->helperText(fn ($get) => 'Label under ' . $get('range')),
+                    ])
+                    ->hidden(fn ($get) => ! ($get('type') === 'opinion-scale'))
+                    ->columns(3),
                 Radio::make('list-style')
                     ->helperText('Choose checkbox if multiple can be selected.')
                     ->hidden(fn ($get) => ! ($get('type') === 'list'))
@@ -263,7 +276,6 @@ class FormResource extends Resource
                                     ->required(),
                                 TextInput::make('value')->required(),
                             ])->columns(3),
-                        Toggle::make('editable_after_submission'),
                     ]),
             ]);
     }
