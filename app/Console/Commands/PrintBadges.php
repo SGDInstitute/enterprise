@@ -9,12 +9,13 @@ use Spatie\Browsershot\Browsershot;
 
 class PrintBadges extends Command
 {
-    protected $signature = 'app:print-badges {name?} {pronouns?} {label=62x100} {--queue}';
+    protected $signature = 'app:print-badges {name?} {pronouns?} {label=50x100} {--queue}';
 
     protected $description = 'Print MBLGTACC conference badges';
 
     protected $labels = [
         '62x100' => ['name' => '62x100', 'width' => 1109, 'height' => 696],
+        '50x100' => ['name' => '50x100', 'width' => 1109, 'height' => 600],
         '29x90' => ['name' => '29x90', 'width' => 991, 'height' => 306],
     ];
 

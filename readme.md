@@ -18,6 +18,7 @@ export BROTHER_QL_MODEL=QL-800
 
 ```
 export BROTHER_QL_PRINTER=usb://{vendor}:{product}/{serial}
+<!-- export BROTHER_QL_PRINTER=usb://Brother:QL-800/000D2G545128 -->
 ```
 
 The vendor, product and serial can be found in `System Information` [GitHub issue with more information](https://github.com/pklaus/brother_ql/issues/110)
@@ -29,3 +30,7 @@ php artisan app:print-badges
 ```
 
 Make sure to have Raleway and Lato fonts installed locally
+
+| Python | 3.11 |
+| Pillow | 9.5  |
+| psyusb |      |
