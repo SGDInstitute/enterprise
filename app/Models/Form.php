@@ -68,6 +68,15 @@ class Form extends Model
         return $this->end->timezone($this->timezone)->diffInDays();
     }
 
+    public function getFormattedDurationAttribute()
+    {
+        if ($this->start->diffInHours($this->end) > 24) {
+            return $this->start->timezone($this->timezone)->format('D, M j') . ' - ' . $this->end->timezone($this->timezone)->format('D, M j, Y');
+        } else {
+            return $this->start->timezone($this->timezone)->format('D, M j Y g:i a') . ' - ' . $this->end->timezone($this->timezone)->format('g:i a');
+        }
+    }
+
     public function getFormattedEndAttribute($override = null)
     {
         if ($override) {
