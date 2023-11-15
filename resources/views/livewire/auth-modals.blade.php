@@ -5,7 +5,7 @@
 
             <x-slot name="content">
                 <div class="space-y-2">
-                    <x-form.group label="Email" model="form.email" type="email" autocomplete="email" />
+                    <x-form.group label="Email" model="form.email" id="login-email" type="email" autocomplete="email" />
                     <x-form.group label="Password" model="form.password" type="password" autocomplete="password" />
                 </div>
             </x-slot>
