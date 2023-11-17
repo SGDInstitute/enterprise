@@ -41,20 +41,20 @@ class ResponsesRelationManager extends RelationManager
                     ->label('# Reviews')
                     ->sortable()
                     ->toggleable()
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
                 TextColumn::make('reviews_avg_score')
                     ->avg('reviews', 'score')
                     ->label('Avg. Score')
                     ->sortable()
                     ->toggleable()
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
                 IconColumn::make('reviewed')
                     ->label('You Reviewed')
                     ->boolean()
                     ->getStateUsing(fn (Model $record) => $record->reviews->pluck('user_id')->contains(auth()->id()))
                     ->falseIcon('')
                     ->toggleable()
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
                 TextColumn::make('id')
                     ->label('Proposal ID')
                     ->sortable()
@@ -69,12 +69,12 @@ class ResponsesRelationManager extends RelationManager
                     ->formatStateUsing(fn ($state) => $state - 1)
                     ->label('# Co-presenters')
                     ->toggleable()
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
                 TextColumn::make('invitations_count')
                     ->counts('invitations')
                     ->label('# Invitations')
                     ->toggleable()
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
                 TextColumn::make('status')
                     ->sortable()
                     ->action(fn ($livewire, $record) => $livewire->tableFilters['status'] = ['values' => [$record->status]])
@@ -115,7 +115,7 @@ class ResponsesRelationManager extends RelationManager
                         $data['value'] !== null,
                         fn ($query) => $query->where('answers->track-first-choice', $data['value'])
                     ))
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
                 SelectFilter::make('track-second-choice')
                     ->options(
                         fn ($livewire) => collect($livewire->ownerRecord->questions
@@ -130,7 +130,7 @@ class ResponsesRelationManager extends RelationManager
                         $data['value'] !== null,
                         fn ($query) => $query->where('answers->track-second-choice', $data['value'])
                     ))
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
             ], layout: FiltersLayout::AboveContent)
             ->actions([
                 ActionGroup::make([
@@ -210,7 +210,7 @@ class ResponsesRelationManager extends RelationManager
                             ->send();
                     })
                     ->deselectRecordsAfterCompletion()
-                    ->hidden($this->ownerRecord->type !== 'workshop'),
+                    ->hidden($this->ownerRecord->id !== 35),
             ])
             ->persistFiltersInSession()
             ->persistSortInSession();
