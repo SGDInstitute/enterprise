@@ -136,7 +136,7 @@ class EventResource extends Resource
                             Checkbox::make('settings.has_workshops')->label('Has workshop proposals'),
                             Placeholder::make('workshop-form')
                                 ->content(function ($record) {
-                                    if ($record->has('workshopForm')) {
+                                    if ($record->workshopForm !== null) {
                                         return recordLink($record->workshopForm, 'forms.edit', 'Edit Form');
                                     }
 
