@@ -2,16 +2,21 @@
 
 namespace App\Filament\Resources\FormResource\Widgets;
 
-use Filament\Widgets\BarChartWidget;
+use Filament\Widgets\ChartWidget;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class FormatChart extends BarChartWidget
+class FormatChart extends ChartWidget
 {
     protected static ?string $heading = 'Format';
 
     public ?Model $record = null;
+
+    protected function getType(): string
+    {
+        return 'bar';
+    }
 
     protected function getData(): array
     {

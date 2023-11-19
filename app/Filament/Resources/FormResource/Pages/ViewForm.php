@@ -67,7 +67,7 @@ class ViewForm extends ViewRecord
 
     protected function getHeaderWidgets(): array
     {
-        if ($this->record->type === 'workshop') {
+        if ($this->record->id === 35) {
             return [
                 StatusBreakdown::class,
                 TrackBreakdown::class,
