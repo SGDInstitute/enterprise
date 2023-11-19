@@ -136,13 +136,13 @@ class EventResource extends Resource
                             Checkbox::make('settings.has_workshops')->label('Has workshop proposals'),
                             Placeholder::make('workshop-form')
                                 ->content(function ($record) {
-                                    if ($record->has('workshopForm')) {
+                                    if ($record->workshopForm !== null) {
                                         return recordLink($record->workshopForm, 'forms.edit', 'Edit Form');
                                     }
 
                                     return filamentLink(route('filament.admin.resources.forms.create'), 'Create Form');
                                 })
-                                ->hidden(fn ($record) => ! $record->settings->has_workshops),
+                                ->hidden(fn ($record) => $record === null || ! $record->settings->has_workshops),
                             Checkbox::make('settings.has_tracks')->label('Has workshop tracks')->reactive(),
                             Repeater::make('settings.tracks')->label('Tracks')
                                 ->collapsible()
