@@ -44,7 +44,7 @@ final class ResponsesRelationManagerTest extends TestCase
 
         $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
         $schema = json_decode(file_get_contents(base_path('tests/Feature/Filament/Resources/FormResource/RelationManagers/proposal-form.json')), true);
-        $form = Form::factory()->for($event)->create(['form' => $schema]);
+        $form = Form::factory()->for($event)->create(['id' => 35, 'form' => $schema]);
         $proposals = Response::factory()->for($form)
             ->count(2)
             ->state(new Sequence(
@@ -73,7 +73,7 @@ final class ResponsesRelationManagerTest extends TestCase
 
         $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
         $schema = json_decode(file_get_contents(base_path('tests/Feature/Filament/Resources/FormResource/RelationManagers/proposal-form.json')), true);
-        $form = Form::factory()->for($event)->create(['form' => $schema]);
+        $form = Form::factory()->for($event)->create(['id' => 35, 'form' => $schema]);
         $responses = Response::factory()->for($form)
             ->count(5)
             ->state(new Sequence(
@@ -110,7 +110,7 @@ final class ResponsesRelationManagerTest extends TestCase
 
         $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
         $schema = json_decode(file_get_contents(base_path('tests/Feature/Filament/Resources/FormResource/RelationManagers/proposal-form.json')), true);
-        $form = Form::factory()->for($event)->create(['form' => $schema]);
+        $form = Form::factory()->for($event)->create(['id' => 35, 'form' => $schema]);
         $proposal = Response::factory()->for($form)
             ->create(['status' => 'scheduled', 'answers' => ['name' => 'Hello world', 'format' => 'presentation', 'session' => ['breakout-1'], 'track-first-choice' => 'rural', 'track-second-choice' => 'rural']]);
         $proposal->invite('adora@eternia.gov', $proposal->user);
@@ -130,7 +130,7 @@ final class ResponsesRelationManagerTest extends TestCase
 
         $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
         $schema = json_decode(file_get_contents(base_path('tests/Feature/Filament/Resources/FormResource/RelationManagers/proposal-form.json')), true);
-        $form = Form::factory()->for($event)->create(['form' => $schema]);
+        $form = Form::factory()->for($event)->create(['id' => 35, 'form' => $schema]);
         $user = User::factory()->create();
         [$proposalA, $proposalB] = Response::factory()->for($form)
             ->count(2)
@@ -155,7 +155,7 @@ final class ResponsesRelationManagerTest extends TestCase
 
         $event = Event::factory()->has(TicketType::factory()->withPrice()->count(2))->create();
         $schema = json_decode(file_get_contents(base_path('tests/Feature/Filament/Resources/FormResource/RelationManagers/proposal-form.json')), true);
-        $form = Form::factory()->for($event)->create(['form' => $schema]);
+        $form = Form::factory()->for($event)->create(['id' => 35, 'form' => $schema]);
         $collaboratorA = User::factory()->create();
         $collaboratorB = User::factory()->create();
         $proposal = Response::factory()->for($form)
