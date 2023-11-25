@@ -126,6 +126,7 @@ class Create extends Component implements HasForms
                     })
                     ->label('Address Search')
                     ->live()
+                    ->placeholder('Search for your billing address')
                     ->prefixIcon('heroicon-o-map-pin')
                     ->searchable(),
                 Grid::make(2)
