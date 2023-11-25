@@ -8,7 +8,6 @@
         if (! empty($amount) && $amount > 0) {
             $clientSecret = $getClientSecret();
         }
-        $options = $getOptions();
     @endphp
 
     @isset($clientSecret)
@@ -19,12 +18,8 @@
             const clientSecret = @js($clientSecret);
 
             elements = stripe.elements({ clientSecret });
-
-            @if ($options)
-            const paymentElement = elements.create('payment', @js($options));
-            @else
             const paymentElement = elements.create('payment');
-            @endif
+
             paymentElement.mount($refs.payment);
         "
     >
