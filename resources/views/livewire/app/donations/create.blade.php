@@ -14,13 +14,16 @@
     <x-ui.alert id="verification-alert">You must <a href="{{ route('verification.notice') }}" class="font-bold text-white underline">verify your email</a> before filling out this form.</x-ui.alert>
     @endauth
 
-    <form wire:submit="create" class="max-w-lg mx-auto prose dark:prose-light">
-        {{ $this->form }}
-
-        <button type="submit" class="mt-8">
-            Submit
-        </button>
-    </form>
+    <div class="relative grid grid-cols-1 gap-20 px-12 pt-12 mx-auto md:px-0 md:max-w-4xl md:grid-cols-2">
+        <div>
+            {{ $this->form }}
+        </div>
+        <div class="prose dark:prose-light">
+            <div class="md:sticky md:top-24">
+                {!! markdown($content) !!}
+            </div>
+        </div>
+    </div>
 
     <x-filament-actions::modals />
 </div>
