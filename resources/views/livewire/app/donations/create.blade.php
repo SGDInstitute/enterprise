@@ -8,19 +8,21 @@
         </div>
     </section>
 
-    <div class="relative grid grid-cols-1 gap-20 px-12 pt-12 mx-auto md:px-0 md:max-w-4xl md:grid-cols-2">
-        <div class="space-y-8">
-            @includeWhen($step === 1, 'livewire.app.donations.partials.step1')
-            @includeWhen($step === 2, 'livewire.app.donations.partials.step2')
-        </div>
-        <div class="prose dark:prose-light">
-            <div class="md:sticky md:top-24">
-                {!! markdown($content) !!}
-            </div>
-        </div>
-    </div>
+    @guest
+    <x-ui.alert id="authentication-alert">You must <a href="/login" class="font-bold text-white underline">Login</a> or <a href="/register" class="font-bold text-white underline">Create an Account</a> before making a donation.</x-ui.alert>
+    @elseif (! auth()->user()->hasVerifiedEmail())
+    <x-ui.alert id="verification-alert">You must <a href="{{ route('verification.notice') }}" class="font-bold text-white underline">verify your email</a> before filling out this form.</x-ui.alert>
+    @endauth
 
-    <livewire:auth-modals />
+    <form wire:submit="create" class="max-w-lg mx-auto prose dark:prose-light">
+        {{ $this->form }}
+
+        <button type="submit" class="mt-8">
+            Submit
+        </button>
+    </form>
+
+    <x-filament-actions::modals />
 </div>
 
 @push('scripts')
