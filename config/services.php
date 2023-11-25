@@ -44,4 +44,8 @@ return [
         'signing_secret' => env('SLACK_BOT_SIGNING_SECRET'),
     ],
 
+    'mapbox' => [
+        'key' => env('MAPBOX_KEY'),
+    ]
+
 ];
