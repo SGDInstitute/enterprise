@@ -5,10 +5,7 @@ namespace App\Livewire\App\Donations;
 use App\Forms\Components\Payment;
 use App\Models\Donation;
 use App\Models\Setting;
-use App\Models\User;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -20,13 +17,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Notifications\Livewire\Notifications;
-use Filament\Notifications\Notification;
-use Filament\Support\RawJs;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Stripe\PaymentIntent;
 use Stripe\Subscription;
@@ -79,7 +70,7 @@ class Create extends Component implements HasForms
                                 ->disabled($this->formIsDisabled)
                                 ->live()
                                 ->options(function (Get $get) {
-                                    return match($get('type')) {
+                                    return match ($get('type')) {
                                         'monthly' => [
                                             '500' => '$5 / month',
                                             '1000' => '$10 / month',
@@ -128,21 +119,22 @@ class Create extends Component implements HasForms
                                 ->getSearchResultsUsing(function (string $search) {
                                     $results = Http::retry(3, 100)
                                         ->withQueryParameters([
-                                            "country" => "us",
-                                            "limit" => "5",
-                                            "types" => "address,place",
-                                            "language" => "en-US",
-                                            "access_token" => config("services.mapbox.key")
+                                            'country' => 'us',
+                                            'limit' => '5',
+                                            'types' => 'address,place',
+                                            'language' => 'en-US',
+                                            'access_token' => config('services.mapbox.key'),
                                         ])
                                         ->get(
-                                            "https://api.mapbox.com/geocoding/v5/mapbox.places/" . $search . ".json"
+                                            'https://api.mapbox.com/geocoding/v5/mapbox.places/' . $search . '.json'
                                         )
                                         ->onError(
-                                        fn() => Notifications::make()
-                                            ->title("Address API Issue")
-                                            ->send()
+                                            fn () => Notifications::make()
+                                                ->title('Address API Issue')
+                                                ->send()
                                         )
                                         ->json()['features'];
+
                                     return collect($results)->pluck('place_name', 'place_name');
                                 })
                                 ->label('Address Search')
@@ -178,7 +170,7 @@ class Create extends Component implements HasForms
                                 ->returnUrl(url('/donations/process'))
                                 ->hidden($this->formIsDisabled),
                         ]),
-                ])->disabled($this->formIsDisabled)
+                ])->disabled($this->formIsDisabled),
             ])
             ->statePath('data');
     }
@@ -227,7 +219,6 @@ class Create extends Component implements HasForms
                 'amount' => $this->amount,
                 'type' => $data['type'],
             ]);
-
         }
 
         $this->clientSecret = $paymentIntent->client_secret;

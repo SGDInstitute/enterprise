@@ -2,6 +2,7 @@
 
 namespace App\Forms\Components;
 
+use Closure;
 use Filament\Forms\Components\Field;
 
 class Payment extends Field
@@ -12,8 +13,8 @@ class Payment extends Field
     protected $clientSecret = null;
     protected string $returnUrl = '';
     protected string $receiptEmail = '';
-    protected array | \Closure $appearance = [];
-    protected array | \Closure $options = [];
+    protected array|Closure $appearance = [];
+    protected array|Closure $options = [];
 
     public function amount($amount): static
     {
@@ -43,14 +44,14 @@ class Payment extends Field
         return $this;
     }
 
-    public function appearance(array | \Closure | null $appearance): static
+    public function appearance(array|Closure|null $appearance): static
     {
         $this->appearance = $appearance;
 
         return $this;
     }
 
-    public function options(array | \Closure | null $options): static
+    public function options(array|Closure|null $options): static
     {
         $this->options = $options;
 

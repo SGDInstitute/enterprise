@@ -110,6 +110,6 @@ class CreateTest extends TestCase
                 'address.city' => 'Downers Grove',
                 'address.state' => 'Illinois',
                 'address.zip' => '60516',
-            ]);;
+            ]);
     }
 }
