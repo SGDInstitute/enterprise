@@ -13,12 +13,12 @@ return new class extends Migration
 
         Setting::create(['group' => 'donations.page', 'name' => 'onetime', 'type' => 'array', 'payload' => [10, 20, 50, 100, 'other']]);
         Setting::create(['group' => 'donations.page', 'name' => 'monthly', 'type' => 'array', 'payload' => [
-            'price_1KUfATI7BmcylBPUUj62a4SP' => '5',
-            'price_1KUfAaI7BmcylBPUEx5dn0Ky' => '10',
-            'price_1KUfAeI7BmcylBPU51hT3mIC' => '20',
-            'price_1KUfAjI7BmcylBPUjAGaWUE6' => '25',
-            'price_1KUfAmI7BmcylBPUHNKw7EpJ' => '50',
-            'price_1KUfApI7BmcylBPUTgdop1HT' => '100',
+            500 => 'price_1KUfATI7BmcylBPUUj62a4SP',
+            1000 => 'price_1KUfAaI7BmcylBPUEx5dn0Ky',
+            2000 => 'price_1KUfAeI7BmcylBPU51hT3mIC',
+            2500 => 'price_1KUfAjI7BmcylBPUjAGaWUE6',
+            5000 => 'price_1KUfAmI7BmcylBPUHNKw7EpJ',
+            10000 => 'price_1KUfApI7BmcylBPUTgdop1HT',
         ]]);
 
         Setting::create(['group' => 'donations.thank-you-modal', 'name' => 'title', 'type' => 'string', 'payload' => 'Thank You!']);

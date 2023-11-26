@@ -208,7 +208,7 @@ class Create extends Component implements HasForms
             $subscription = Subscription::create([
                 'customer' => auth()->user()->createOrGetStripeCustomer()->id,
                 'items' => [[
-                    'price' => array_search($this->amount, $this->monthlyOptions),
+                    'price' => $this->monthlyOptions[$data['amount']],
                 ]],
                 'payment_behavior' => 'default_incomplete',
                 'expand' => ['latest_invoice.payment_intent'],
@@ -217,9 +217,9 @@ class Create extends Component implements HasForms
             $paymentIntent = $subscription->latest_invoice->payment_intent;
             $this->donation = Donation::create([
                 'user_id' => auth()->id(),
-                'transaction_id' => $this->paymentIntent->id,
+                'transaction_id' => $paymentIntent->id,
                 'subscription_id' => $subscription->id,
-                'amount' => $this->amount,
+                'amount' => $data['amount'],
                 'type' => $data['type'],
             ]);
         }
