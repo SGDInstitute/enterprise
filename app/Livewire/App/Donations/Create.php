@@ -49,7 +49,7 @@ class Create extends Component implements HasForms
         $this->monthlyOptions = $settings->firstWhere('name', 'monthly')->payload;
 
         $this->form->fill([
-            'type' => 'monthly',
+            'type' => auth()->user()->hasRecurringDonation() ? 'one-time' : 'monthly',
             'address' => auth()->user()->address ?? [],
         ]);
     }
@@ -63,11 +63,15 @@ class Create extends Component implements HasForms
                         ->schema([
                             Radio::make('type')
                                 ->disabled($this->formIsDisabled)
+                                ->disableOptionWhen(fn (string $value): bool => $value === 'monthly' && auth()->user()->hasRecurringDonation())
                                 ->live()
                                 ->options([
                                     'monthly' => 'Monthly',
                                     'one-time' => 'One Time',
                                 ])
+                                ->afterStateUpdated(function (Set $set, ?string $state) {
+                                    $set('amount', null);
+                                })
                                 ->required(),
                             Radio::make('amount')
                                 ->disabled($this->formIsDisabled)
