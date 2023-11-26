@@ -5,7 +5,6 @@ namespace Tests\Feature\Livewire\App\Donations;
 use App\Livewire\App\Donations\Create;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -79,7 +78,7 @@ class CreateTest extends TestCase
     #[Test]
     public function other_amount_is_visible_when_amount_is_set_to_other()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->withAddress()->create();
 
         Livewire::actingAs($user)
             ->test(Create::class)
