@@ -102,7 +102,8 @@ class Create extends Component implements HasForms
                                 ->disabled($this->formIsDisabled)
                                 ->hidden(fn (Get $get) => $get('amount') !== 'other')
                                 ->live()
-                                ->money(),
+                                ->money()
+                                ->requiredIf('amount', 'other'),
                         ]),
                     Step::make('Billing Address')
                         ->afterValidation(function () {
