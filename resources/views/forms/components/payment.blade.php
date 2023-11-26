@@ -39,7 +39,7 @@
                                 email: @js($getReceiptEmail()),
                                 address: {
                                     country: 'us',
-                                    postal_code: @js(auth()->user()->address['zip'])
+                                    postal_code: @js(auth()->user()->address['zip'] ?? '')
                                 }
                             }
                         },

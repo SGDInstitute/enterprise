@@ -20,6 +20,7 @@ use Filament\Notifications\Livewire\Notifications;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Stripe\PaymentIntent;
+use Stripe\Price;
 use Stripe\Subscription;
 
 class Create extends Component implements HasForms
@@ -27,10 +28,10 @@ class Create extends Component implements HasForms
     use InteractsWithForms;
 
     public $title;
-
     public $image;
-
     public $content;
+    public $oneTimeOptions;
+    public $monthlyOptions;
 
     public ?array $data = [];
 
@@ -44,6 +45,8 @@ class Create extends Component implements HasForms
         $this->title = $settings->firstWhere('name', 'title')->payload;
         $this->image = $settings->firstWhere('name', 'image')->payload;
         $this->content = $settings->firstWhere('name', 'content')->payload;
+        $this->oneTimeOptions = $settings->firstWhere('name', 'onetime')->payload;
+        $this->monthlyOptions = $settings->firstWhere('name', 'monthly')->payload;
 
         $this->form->fill([
             'type' => 'monthly',
