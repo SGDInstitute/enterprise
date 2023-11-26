@@ -89,4 +89,28 @@ class CreateTest extends TestCase
             ])
             ->assertFormFieldIsVisible('other_amount');
     }
+
+    #[Test]
+    public function address_is_set_if_user_has_existing_one_saved()
+    {
+        $user = User::factory()->create([
+            'address' => [
+                'line1' => '123 Main',
+                'line2' => 'Suite 2',
+                'city' => 'Downers Grove',
+                'state' => 'Illinois',
+                'zip' => '60516',
+            ],
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(Create::class)
+            ->assertFormSet([
+                'address.line1' => '123 Main',
+                'address.line2' => 'Suite 2',
+                'address.city' => 'Downers Grove',
+                'address.state' => 'Illinois',
+                'address.zip' => '60516',
+            ]);;
+    }
 }

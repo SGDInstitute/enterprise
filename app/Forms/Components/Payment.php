@@ -3,28 +3,49 @@
 namespace App\Forms\Components;
 
 use Filament\Forms\Components\Field;
-use Illuminate\Contracts\Support\Htmlable;
-use Stripe\PaymentIntent;
 
 class Payment extends Field
 {
     protected string $view = 'forms.components.payment';
 
+    protected $amount = null;
+    protected $clientSecret = null;
+    protected string $returnUrl = '';
+    protected string $receiptEmail = '';
     protected array | \Closure $appearance = [];
-    protected \Closure $calculateAmount;
     protected array | \Closure $options = [];
-    protected string | Htmlable | null $submitAction = null;
 
-    public function appearance(array | \Closure | null $appearance): static
+    public function amount($amount): static
     {
-        $this->appearance = $appearance;
+        $this->amount = $amount;
 
         return $this;
     }
 
-    public function calculateAmount(\Closure | null $calculateAmount): static
+    public function clientSecret($clientSecret): static
     {
-        $this->calculateAmount = $calculateAmount;
+        $this->clientSecret = $clientSecret;
+
+        return $this;
+    }
+
+    public function returnUrl(string $returnUrl): static
+    {
+        $this->returnUrl = $returnUrl;
+
+        return $this;
+    }
+
+    public function receiptEmail(string $receiptEmail): static
+    {
+        $this->receiptEmail = $receiptEmail;
+
+        return $this;
+    }
+
+    public function appearance(array | \Closure | null $appearance): static
+    {
+        $this->appearance = $appearance;
 
         return $this;
     }
@@ -36,11 +57,24 @@ class Payment extends Field
         return $this;
     }
 
-    public function submitAction(string | Htmlable | null $action): static
+    public function getAmount(): mixed
     {
-        $this->submitAction = $action;
+        return $this->evaluate($this->amount);
+    }
 
-        return $this;
+    public function getClientSecret(): mixed
+    {
+        return $this->evaluate($this->clientSecret);
+    }
+
+    public function getReturnUrl(): mixed
+    {
+        return $this->evaluate($this->returnUrl);
+    }
+
+    public function getReceiptEmail(): mixed
+    {
+        return $this->receiptEmail ?? auth()->user()->email;
     }
 
     public function getAppearance(): mixed
@@ -48,26 +82,8 @@ class Payment extends Field
         return $this->evaluate($this->appearance);
     }
 
-    public function getClientSecret(): mixed
-    {
-        return PaymentIntent::create([
-            'amount' => $this->getCalculatedAmount(),
-            'currency' => 'usd',
-        ])->client_secret;
-    }
-
-    public function getCalculatedAmount(): mixed
-    {
-        return $this->evaluate($this->calculateAmount);
-    }
-
     public function getOptions(): mixed
     {
         return $this->evaluate($this->options);
-    }
-
-    public function getSubmitAction(): string | Htmlable | null
-    {
-        return $this->submitAction;
     }
 }
