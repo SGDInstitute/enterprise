@@ -48,7 +48,7 @@ class Create extends Component implements HasForms
         $this->monthlyOptions = $settings->firstWhere('name', 'monthly')->payload;
 
         $this->form->fill([
-            'type' => auth()->user()->hasRecurringDonation() ? 'one-time' : 'monthly',
+            'type' => auth()->user()?->hasRecurringDonation() ? 'one-time' : 'monthly',
             'address' => auth()->user()->address ?? [],
         ]);
     }
