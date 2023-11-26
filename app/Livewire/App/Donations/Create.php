@@ -196,7 +196,9 @@ class Create extends Component implements HasForms
     {
         $this->amount = $data['amount'] === 'other' ? $data['other_amount'] * 100 : $data['amount'];
 
-        if ($data['type'] === 'one-time') {
+        if ($donation = auth()->user()->incompleteDonations()->where('amount', $data['amount'])->where('type', $data['type'])->first()) {
+            $paymentIntent = PaymentIntent::retrieve($donation->transaction_id);
+        } elseif ($data['type'] === 'one-time') {
             $paymentIntent = PaymentIntent::create([
                 'amount' => $this->amount,
                 'currency' => 'usd',
