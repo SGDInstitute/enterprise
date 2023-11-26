@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
+use Filament\Forms\Components\TextInput;
+use Filament\Support\RawJs;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -57,5 +59,18 @@ class FilamentServiceProvider extends ServiceProvider
             'content.start',
             fn (): string => Blade::render('<div id="main-content"></div>')
         );
+
+        TextInput::macro('money', function (): TextInput {
+            /**
+             * @var TextInput $this
+             */
+            $this->mask(RawJs::make(<<<'JS'
+                $money($input)
+            JS))
+            ->prefix('$')
+            ->suffix('.00');
+
+            return $this;
+        });
     }
 }

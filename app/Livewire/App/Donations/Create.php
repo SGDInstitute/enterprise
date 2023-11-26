@@ -2,85 +2,44 @@
 
 namespace App\Livewire\App\Donations;
 
+use App\Forms\Components\Payment;
 use App\Models\Donation;
 use App\Models\Setting;
-use App\Models\User;
-use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Wizard\Step;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Notifications\Livewire\Notifications;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Stripe\PaymentIntent;
 use Stripe\Subscription;
 
-class Create extends Component
+class Create extends Component implements HasForms
 {
-    public $type = 'monthly';
-
-    public $amount = '';
-
-    public $name = '';
-
-    public $email = '';
-
-    public $address = [
-        'line1' => '',
-        'line2' => '',
-        'city' => '',
-        'state' => '',
-        'zip' => '',
-        'country' => '',
-    ];
-
-    public $clientSecret;
-
-    public $donation;
-
-    public $hasLogin = false;
-
-    public $newUser = null;
-
-    public $otherAmount = false;
-
-    public $step = 1;
+    use InteractsWithForms;
 
     public $title;
-
     public $image;
-
     public $content;
-
     public $oneTimeOptions;
-
     public $monthlyOptions;
 
-    protected $listeners = ['refresh' => '$refresh'];
+    public ?array $data = [];
 
-    protected $rules = [
-        'type' => 'required',
-        'amount' => 'required',
-    ];
-
-    protected $messages = [
-        'type.required' => 'Please select a one-time or monthly donation.',
-        'amount.required' => 'Please select an amount to donate before continuing.',
-    ];
-
-    protected $queryString = [
-        'type' => ['except' => 'monthly'],
-        'name' => ['except' => ''],
-        'email' => ['except' => ''],
-    ];
+    public $amount;
+    public Donation $donation;
+    public $clientSecret;
 
     public function mount()
     {
-        if (auth()->check()) {
-            $this->name = auth()->user()->name;
-            $this->email = auth()->user()->email;
-            if (auth()->user()->address) {
-                $this->address = auth()->user()->address;
-            }
-        }
-
         $settings = Setting::where('group', 'donations.page')->get();
         $this->title = $settings->firstWhere('name', 'title')->payload;
         $this->image = $settings->firstWhere('name', 'image')->payload;
@@ -88,150 +47,194 @@ class Create extends Component
         $this->oneTimeOptions = $settings->firstWhere('name', 'onetime')->payload;
         $this->monthlyOptions = $settings->firstWhere('name', 'monthly')->payload;
 
-        $this->checkEmail($this->email);
+        $this->form->fill([
+            'type' => auth()->user()?->hasRecurringDonation() ? 'one-time' : 'monthly',
+            'address' => auth()->user()->address ?? [],
+        ]);
     }
 
-    public function updatedEmail($value)
+    public function form(Form $form): Form
     {
-        $this->checkEmail($value);
+        return $form
+            ->schema([
+                Wizard::make([
+                    Step::make('Choose Type & Amount')
+                        ->schema([
+                            Radio::make('type')
+                                ->disabled($this->formIsDisabled)
+                                ->disableOptionWhen(fn (string $value): bool => $value === 'monthly' && auth()->user()->hasRecurringDonation())
+                                ->live()
+                                ->options([
+                                    'monthly' => 'Monthly',
+                                    'one-time' => 'One Time',
+                                ])
+                                ->afterStateUpdated(function (Set $set, ?string $state) {
+                                    $set('amount', null);
+                                })
+                                ->required(),
+                            Radio::make('amount')
+                                ->disabled($this->formIsDisabled)
+                                ->live()
+                                ->options(function (Get $get) {
+                                    return match ($get('type')) {
+                                        'monthly' => [
+                                            '500' => '$5 / month',
+                                            '1000' => '$10 / month',
+                                            '2000' => '$20 / month',
+                                            '2500' => '$25 / month',
+                                            '5000' => '$50 / month',
+                                            '10000' => '$100 / month',
+                                        ],
+                                        'one-time' => [
+                                            '1000' => '$10',
+                                            '2000' => '$20',
+                                            '5000' => '$50',
+                                            '10000' => '$100',
+                                            'other' => 'Other Amount',
+                                        ],
+                                    };
+                                })
+                                ->required(),
+                            TextInput::make('other_amount')
+                                ->disabled($this->formIsDisabled)
+                                ->hidden(fn (Get $get) => $get('amount') !== 'other')
+                                ->live()
+                                ->money()
+                                ->requiredIf('amount', 'other'),
+                        ]),
+                    Step::make('Billing Address')
+                        ->afterValidation(function () {
+                            $data = $this->form->getState();
+                            $this->saveAddress($data['address']);
+
+                            $this->setupPayment($data);
+                        })
+                        ->schema([
+                            Select::make('search')
+                                ->afterStateUpdated(function (Set $set, ?string $state) {
+                                    $parts = explode(', ', $state);
+
+                                    $set('address.line1', $parts[0]);
+                                    $set('address.city', $parts[1]);
+                                    // $parts[2] will be state and zip i.e. Illinois 60516
+                                    $set('address.state', explode(' ', $parts[2])[0]);
+                                    $set('address.zip', explode(' ', $parts[2])[1]);
+                                    $set('address.country', $parts[3]);
+                                })
+                                ->disabled($this->formIsDisabled)
+                                ->getSearchResultsUsing(function (string $search) {
+                                    $results = Http::retry(3, 100)
+                                        ->withQueryParameters([
+                                            'country' => 'us',
+                                            'limit' => '5',
+                                            'types' => 'address,place',
+                                            'language' => 'en-US',
+                                            'access_token' => config('services.mapbox.key'),
+                                        ])
+                                        ->get(
+                                            'https://api.mapbox.com/geocoding/v5/mapbox.places/' . $search . '.json'
+                                        )
+                                        ->onError(
+                                            fn () => Notifications::make()
+                                                ->title('Address API Issue')
+                                                ->send()
+                                        )
+                                        ->json()['features'];
+
+                                    return collect($results)->pluck('place_name', 'place_name');
+                                })
+                                ->label('Address Search')
+                                ->live()
+                                ->placeholder('Search for your billing address')
+                                ->prefixIcon('heroicon-o-map-pin')
+                                ->searchable(),
+                            Grid::make(2)
+                                ->disabled($this->formIsDisabled)
+                                ->schema([
+                                    TextInput::make('address.line1')
+                                        ->label('Address')
+                                        ->required(),
+                                    TextInput::make('address.line2')
+                                        ->label('Address 2'),
+                                ]),
+                            Grid::make(3)
+                                ->disabled($this->formIsDisabled)
+                                ->schema([
+                                    TextInput::make('address.city')
+                                        ->required(),
+                                    TextInput::make('address.state')
+                                        ->required(),
+                                    TextInput::make('address.zip')
+                                        ->required(),
+                                ]),
+                        ]),
+                    Step::make('Payment Details')
+                        ->schema([
+                            Payment::make('payment')
+                                ->amount($this->amount)
+                                ->clientSecret($this->clientSecret)
+                                ->returnUrl(url('/donations/process'))
+                                ->hidden($this->formIsDisabled),
+                        ]),
+                ])->disabled($this->formIsDisabled),
+            ])
+            ->statePath('data');
+    }
+
+    public function getFormIsDisabledProperty(): bool
+    {
+        return auth()->guest() || auth()->user()->hasVerifiedEmail() === false;
     }
 
     public function render()
     {
-        return view('livewire.app.donations.create')
-            ->with([
-                'amountLabel' => $this->amountLabel,
-            ]);
+        return view('livewire.app.donations.create');
     }
 
-    // Properties
-
-    public function getAmountLabelProperty()
+    private function setupPayment($data)
     {
-        if ($this->amount != '') {
-            return '$' . $this->amount . ' ';
-        }
-    }
+        $this->amount = $data['amount'] === 'other' ? $data['other_amount'] * 100 : $data['amount'];
 
-    // Methods
-
-    public function checkEmail($email)
-    {
-        $user = User::firstWhere('email', $email);
-
-        if (! $user && auth()->check()) {
-            Notification::make()
-                ->danger()
-                ->title('Looks like the email entered does not match the email that is logged in.')
-                ->send();
-        } elseif (! $user && $email !== '') {
-            $this->newUser = true;
-        } elseif ($user && ! auth()->check() && $this->email !== '') {
-            $this->hasLogin = true;
-            $this->showLogin($email);
-        }
-    }
-
-    public function chooseAmount($amount)
-    {
-        $this->amount = $amount;
-        if ($this->type === 'one-time' && $this->otherAmount) {
-            $this->otherAmount = false;
-        }
-    }
-
-    public function chooseOther()
-    {
-        $this->otherAmount = true;
-        $this->amount = '';
-    }
-
-    public function showLogin($email = null)
-    {
-        $this->dispatch('showLogin', ['email' => $email ?? $this->email]);
-    }
-
-    public function saveAddress()
-    {
-        $data = $this->validate([
-            'address.line1' => ['required'],
-            'address.line2' => ['nullable'],
-            'address.city' => ['required'],
-            'address.state' => ['required'],
-            'address.zip' => ['required'],
-            'address.country' => ['required'],
-        ], [
-            'address.line1.required' => 'Street address is required',
-            'address.city.required' => 'City is required',
-            'address.state.required' => 'State is required',
-            'address.zip.required' => 'ZIP or Postal Code is required',
-            'address.country.required' => 'Country is required',
-        ]);
-
-        auth()->user()->address = $data['address'];
-        auth()->user()->save();
-    }
-
-    public function startPayment()
-    {
-        $this->validate();
-
-        if (auth()->guest() && $this->newUser) {
-            $password = Str::random(15);
-            $user = User::create(['name' => $this->name, 'email' => $this->email, 'password' => Hash::make($password)]);
-            session(['was_created' => true]);
-
-            auth()->attempt(['email' => $this->email, 'password' => $password]);
-        } elseif (auth()->guest()) {
-            Notification::make()
-                ->danger()
-                ->title('Please login before continuing')
-                ->send();
-        } elseif ($this->type === 'monthly' && auth()->user()->hasRecurringDonation()) {
-            Notification::make()
-                ->danger()
-                ->title('You already have an active recurring donation')
-                ->send();
-        } else {
-            $user = auth()->user();
-        }
-
-        if ($donation = auth()->user()->incompleteDonations()->where('amount', $this->amount * 100)->where('type', $this->type)->first()) {
+        if ($donation = auth()->user()->incompleteDonations()->where('amount', $data['amount'])->where('type', $data['type'])->first()) {
             $paymentIntent = PaymentIntent::retrieve($donation->transaction_id);
-        } elseif ($this->type === 'one-time') {
+        } elseif ($data['type'] === 'one-time') {
             $paymentIntent = PaymentIntent::create([
-                'amount' => $this->amount * 100,
+                'amount' => $this->amount,
                 'currency' => 'usd',
             ]);
 
-            $donation = Donation::create([
-                'user_id' => $user->id,
+            $this->donation = Donation::create([
+                'user_id' => auth()->id(),
                 'transaction_id' => $paymentIntent->id,
-                'amount' => $this->amount * 100,
-                'type' => $this->type,
+                'amount' => $this->amount,
+                'type' => $data['type'],
             ]);
-        } elseif ($this->type === 'monthly') {
+        } elseif ($data['type'] === 'monthly') {
             $subscription = Subscription::create([
-                'customer' => $user->createOrGetStripeCustomer()->id,
+                'customer' => auth()->user()->createOrGetStripeCustomer()->id,
                 'items' => [[
-                    'price' => array_search($this->amount, $this->monthlyOptions),
+                    'price' => $this->monthlyOptions[$data['amount']],
                 ]],
                 'payment_behavior' => 'default_incomplete',
                 'expand' => ['latest_invoice.payment_intent'],
             ]);
 
             $paymentIntent = $subscription->latest_invoice->payment_intent;
-            $donation = Donation::create([
-                'user_id' => $user->id,
+            $this->donation = Donation::create([
+                'user_id' => auth()->id(),
                 'transaction_id' => $paymentIntent->id,
                 'subscription_id' => $subscription->id,
-                'amount' => $this->amount * 100,
-                'type' => $this->type,
+                'amount' => $data['amount'],
+                'type' => $data['type'],
             ]);
         }
 
         $this->clientSecret = $paymentIntent->client_secret;
+    }
 
-        $this->step = 2;
+    private function saveAddress($address)
+    {
+        // save address
+        auth()->user()->update(['address' => $address]);
     }
 }

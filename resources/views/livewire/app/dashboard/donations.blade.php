@@ -95,7 +95,9 @@
         <x-slot name="title">{{ $thankYouTitle }}</x-slot>
 
         <x-slot name="content">
-            {!! markdown($thankYouContent) !!}
+            <div class="prose dark:prose-light">
+                {!! markdown($thankYouContent) !!}
+            </div>
         </x-slot>
 
         <x-slot name="footer">

@@ -57,6 +57,7 @@ class Donations extends Component
         return Donation::query()
             ->where('user_id', auth()->id())
             ->where('type', 'monthly')
+            ->where('status', 'succeeded')
             ->first();
     }
 
