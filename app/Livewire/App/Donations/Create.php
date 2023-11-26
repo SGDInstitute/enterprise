@@ -56,7 +56,6 @@ class Create extends Component implements HasForms
 
         $this->form->fill([
             'type' => 'monthly',
-            'amount' => 2000,
             'address' => auth()->user()->address ?? [],
         ]);
     }
