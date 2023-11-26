@@ -20,7 +20,6 @@ use Filament\Notifications\Livewire\Notifications;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Stripe\PaymentIntent;
-use Stripe\Price;
 use Stripe\Subscription;
 
 class Create extends Component implements HasForms
