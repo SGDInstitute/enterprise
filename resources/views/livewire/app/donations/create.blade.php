@@ -14,7 +14,7 @@
     <x-ui.alert id="verification-alert">You must <a href="{{ route('verification.notice') }}" class="font-bold text-white underline">verify your email</a> before filling out this form.</x-ui.alert>
     @endauth
 
-    <div class="relative grid grid-cols-1 gap-20 px-12 pt-12 mx-auto md:px-0 md:max-w-6xl md:grid-cols-2">
+    <div class="relative grid grid-cols-1 gap-8 px-12 pt-12 mx-auto lg:px-0 lg:max-w-6xl lg:grid-cols-2">
         <div>
             {{ $this->form }}
         </div>
