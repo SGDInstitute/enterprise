@@ -1,12 +1,6 @@
 name: Run Tests
 
 on:
-  # Commits made in Duster Fix will not trigger any workflows
-  # This workflow is configured to run after Duster finishes
-  workflow_run:
-    workflows: ["Duster Fix"]
-    types:
-      - completed
   pull_request:
 
 jobs:

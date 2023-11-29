@@ -11,8 +11,8 @@ use Livewire\Component;
 
 class WorkshopForm extends Component
 {
-    use WithTimezones;
     use WithFormBuilder;
+    use WithTimezones;
 
     public Event $event;
 

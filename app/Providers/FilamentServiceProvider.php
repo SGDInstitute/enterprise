@@ -67,8 +67,8 @@ class FilamentServiceProvider extends ServiceProvider
             $this->mask(RawJs::make(<<<'JS'
                 $money($input)
             JS))
-            ->prefix('$')
-            ->suffix('.00');
+                ->prefix('$')
+                ->suffix('.00');
 
             return $this;
         });

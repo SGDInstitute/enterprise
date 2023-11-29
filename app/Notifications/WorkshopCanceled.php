@@ -24,8 +24,8 @@ class WorkshopCanceled extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line("We wanted to let you know that {$this->workshop->name} has been canceled")
-                    ->line('Please contact us with any questions.');
+            ->line("We wanted to let you know that {$this->workshop->name} has been canceled")
+            ->line('Please contact us with any questions.');
     }
 
     public function toArray(object $notifiable): array

@@ -10,8 +10,8 @@ use Livewire\WithPagination;
 
 class Donations extends Component
 {
-    use WithPagination;
     use WithFiltering;
+    use WithPagination;
     use WithSorting;
 
     public $user;

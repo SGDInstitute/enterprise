@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\ResponseResource\Pages;
 
 use App\Filament\Resources\ResponseResource;
+use Filament\Actions\Action;
 use Filament\Actions\StaticAction;
-use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewResponse extends ViewRecord

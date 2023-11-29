@@ -24,8 +24,8 @@ use Livewire\Component;
 
 class TicketsTable extends Component implements HasForms, HasTable
 {
-    use InteractsWithTable;
     use InteractsWithForms;
+    use InteractsWithTable;
 
     public Order $order;
 

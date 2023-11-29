@@ -18,8 +18,8 @@ class Event extends Model implements HasMedia
 {
     use HasFactory;
     use HasSettings;
-    use InteractsWithMedia;
     use HasSlug;
+    use InteractsWithMedia;
 
     protected $guarded = [];
 

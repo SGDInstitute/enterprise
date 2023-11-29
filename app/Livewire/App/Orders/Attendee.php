@@ -64,18 +64,18 @@ class Attendee extends Component
     {
         if (isset($ticket->ticketType->form)) {
             return $ticket->ticketType->form
-                        ->filter(fn ($item) => $item['style'] !== 'content')
-                        ->mapWithKeys(function ($item) {
-                            if ($item['style'] === 'question') {
-                                if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
-                                    return [$item['id'] => []];
-                                }
+                ->filter(fn ($item) => $item['style'] !== 'content')
+                ->mapWithKeys(function ($item) {
+                    if ($item['style'] === 'question') {
+                        if ($item['type'] === 'list' && $item['list-style'] === 'checkbox') {
+                            return [$item['id'] => []];
+                        }
 
-                                return [$item['id'] => ''];
-                            } elseif ($item['style'] === 'collaborators') {
-                                return [$item['id'] => auth()->user()->email ?? ''];
-                            }
-                        })->toArray();
+                        return [$item['id'] => ''];
+                    } elseif ($item['style'] === 'collaborators') {
+                        return [$item['id'] => auth()->user()->email ?? ''];
+                    }
+                })->toArray();
         }
     }
 }

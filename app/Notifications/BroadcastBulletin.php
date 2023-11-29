@@ -40,7 +40,7 @@ class BroadcastBulletin extends Notification implements ShouldQueue
     public function toVonage($notifiable)
     {
         return (new VonageMessage)
-                    ->content("{$this->bulletin->title}\n\nView Full Text: https://apps.sgdinstitute.org/mblgtacc-2022/program/bulletin-board");
+            ->content("{$this->bulletin->title}\n\nView Full Text: https://apps.sgdinstitute.org/mblgtacc-2022/program/bulletin-board");
     }
 
     public function toArray($notifiable): array

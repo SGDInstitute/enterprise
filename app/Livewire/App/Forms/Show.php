@@ -274,10 +274,10 @@ class Show extends Component
 
         if ($withNotification) {
             Toast::make()
-            ->success()
-            ->title('Successfully saved submission.')
-            ->body('You can leave this page and come back to continue working on the submission.')
-            ->send();
+                ->success()
+                ->title('Successfully saved submission.')
+                ->body('You can leave this page and come back to continue working on the submission.')
+                ->send();
         }
     }
 

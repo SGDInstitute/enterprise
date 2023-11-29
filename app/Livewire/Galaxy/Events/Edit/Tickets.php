@@ -12,9 +12,9 @@ use Livewire\WithPagination;
 
 class Tickets extends Component
 {
-    use WithSorting;
     use WithFiltering;
     use WithPagination;
+    use WithSorting;
 
     public Event $event;
 

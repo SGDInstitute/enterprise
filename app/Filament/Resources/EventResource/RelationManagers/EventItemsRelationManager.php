@@ -114,10 +114,10 @@ class EventItemsRelationManager extends RelationManager
                             return Excel::download(new ScheduleExport($this->ownerRecord->id), "schedule-export-{$date}.xlsx");
                         }),
                 ])
-                ->icon('heroicon-m-arrow-down-tray')
-                ->button()
-                ->label('Exports')
-                ->outlined(),
+                    ->icon('heroicon-m-arrow-down-tray')
+                    ->button()
+                    ->label('Exports')
+                    ->outlined(),
                 ActionGroup::make([
                     CreateAction::make()
                         ->mutateFormDataUsing(function (array $data): array {
@@ -192,8 +192,8 @@ class EventItemsRelationManager extends RelationManager
                             }
                         }),
                 ])
-                ->button()
-                ->label('Actions'),
+                    ->button()
+                    ->label('Actions'),
             ])
             ->actions([
                 EditAction::make()

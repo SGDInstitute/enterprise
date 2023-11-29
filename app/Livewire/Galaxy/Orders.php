@@ -12,9 +12,9 @@ use Livewire\WithPagination;
 
 class Orders extends Component
 {
+    use WithFiltering;
     use WithPagination;
     use WithSorting;
-    use WithFiltering;
 
     public $event;
 
