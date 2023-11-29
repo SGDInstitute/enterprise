@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Duster Lint"
-        uses: vendor/bin/duster lint
+        run: vendor/bin/duster lint
         with:
           args: lint
