@@ -1,6 +1,6 @@
 <x-filament::page>
     @foreach ($responses as $qa)
-    <x-filament::section>
+    <x-filament::section collapsible>
         <x-slot name="heading">
             {{ $qa['question']['question'] }}
         </x-slot>
