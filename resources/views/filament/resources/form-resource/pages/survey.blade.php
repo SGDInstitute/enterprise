@@ -37,7 +37,26 @@
             @endisset
         </div>
         @elseif ($qa['question']['type'] === 'matrix')
-        <span>Data was not stored correctly 😬, Andy is fixing the frontend and will fix this section as well.</span>
+        <span>Data was not stored correctly prior to November 11th 😬</span>
+        <x-bit.table>
+            <x-slot name="head">
+                <x-bit.table.heading></x-bit.table.heading>
+                @foreach ($qa['question']['scale'] as $scale)
+                    <x-bit.table.heading>{{ $scale }}</x-bit.table.heading>
+                @endforeach
+            </x-slot>
+
+            <x-slot name="body">
+                @foreach ($qa['question']['options'] as $option)
+                <x-bit.table.row>
+                    <x-bit.table.cell>{{ $option }}</x-bit.table.cell>
+                    @foreach ($qa['question']['scale'] as $scale)
+                    <x-bit.table.cell>{{ $qa['answers'][$option][$scale] ?? 0 }}</x-bit.table.cell>
+                    @endforeach
+                </x-bit.table.row>
+                @endforeach
+            </x-slot>
+        </x-bit.table>
         @else
         <ul class="list-disc space-y-2 max-w-prose" style="margin-left: 1em;">
             @foreach ($qa['answers'] as $answer)
