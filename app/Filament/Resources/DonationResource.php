@@ -58,7 +58,7 @@ class DonationResource extends Resource
                 TextColumn::make('type')
                     ->sortable(),
                 TextColumn::make('amount')
-                    ->money('usd')
+                    ->formatStateUsing(fn ($record) => $record->formattedAmount)
                     ->sortable(),
                 TextColumn::make('status')
                     ->sortable()
