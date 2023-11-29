@@ -382,6 +382,10 @@ class Show extends Component
                     return [$item['id'] => $parentAnswer ?? null];
                 }
 
+                if ($item['type'] === 'matrix') {
+                    return [$item['id'] => []];
+                }
+
                 return [$item['id'] => $parentAnswer ?? ''];
             })->toArray();
     }
