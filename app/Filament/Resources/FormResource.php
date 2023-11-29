@@ -6,6 +6,7 @@ use App\Filament\Resources\FormResource\Pages\CreateForm;
 use App\Filament\Resources\FormResource\Pages\EditForm;
 use App\Filament\Resources\FormResource\Pages\ListForms;
 use App\Filament\Resources\FormResource\Pages\ViewForm;
+use App\Filament\Resources\FormResource\Pages\ViewSurveyForm;
 use App\Filament\Resources\FormResource\RelationManagers\ResponsesRelationManager;
 use App\Models\Form as FormModel;
 use Filament\Forms\Components\Builder;
@@ -131,7 +132,15 @@ class FormResource extends Resource
                 //
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->url(function ($record) {
+                        $view = match ($record->type) {
+                            'survey' => 'survey',
+                            default => 'view',
+                        };
+
+                        return FormResource::getUrl($view, ['record' => $record]);
+                    }),
                 EditAction::make(),
             ])
             ->bulkActions([
@@ -152,6 +161,7 @@ class FormResource extends Resource
             'index' => ListForms::route('/'),
             'create' => CreateForm::route('/create'),
             'view' => ViewForm::route('/{record}'),
+            'survey' => ViewSurveyForm::route('/{record}/survey'),
             'edit' => EditForm::route('/{record}/edit'),
         ];
     }
