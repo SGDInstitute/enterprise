@@ -13,9 +13,9 @@ use Stripe\BillingPortal\Session;
 
 class Donations extends Component
 {
+    use WithFiltering;
     use WithPagination;
     use WithSorting;
-    use WithFiltering;
 
     public $perPage = 10;
 

@@ -19,9 +19,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class Responses extends Component
 {
+    use WithFiltering;
     use WithPagination;
     use WithSorting;
-    use WithFiltering;
 
     public Event $event;
 

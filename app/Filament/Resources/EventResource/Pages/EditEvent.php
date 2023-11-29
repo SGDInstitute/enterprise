@@ -145,10 +145,10 @@ class EditEvent extends EditRecord
                         return Excel::download(new ScheduleExport($this->record->id), "schedule-export-{$date}.xlsx");
                     }),
             ])
-            ->button()
-            ->label('Exports')
-            ->icon('heroicon-m-arrow-down-tray')
-            ->outlined(),
+                ->button()
+                ->label('Exports')
+                ->icon('heroicon-m-arrow-down-tray')
+                ->outlined(),
             DeleteAction::make(),
         ];
     }

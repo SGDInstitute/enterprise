@@ -13,8 +13,8 @@ use Spatie\Sluggable\SlugOptions;
 class Form extends Model
 {
     use HasFactory;
-    use HasSlug;
     use HasSettings;
+    use HasSlug;
 
     public $guarded = [];
 

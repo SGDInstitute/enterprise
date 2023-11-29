@@ -72,6 +72,7 @@ if (! function_exists('array_shove')) {
                     // Re-add $last to $new_array
                     $new_array["{$last['key']}"] = $last['value'];
                 }
+
                 // Merge new and old array
                 return $new_array + $array;
             }

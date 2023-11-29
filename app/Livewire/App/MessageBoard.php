@@ -20,7 +20,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Tags\Tag;
 
-class MessageBoard extends Component implements HasForms, HasActions
+class MessageBoard extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;

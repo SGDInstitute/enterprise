@@ -10,7 +10,7 @@ Route::prefix('notifications')->group(function () {
         $order = Order::reservations()->where('event_id', 9)->first();
 
         return (new PaymentReminder($order))
-                    ->toMail($order->user);
+            ->toMail($order->user);
     });
 
     Route::get('complete-tickets-reminder/{order?}', function (Order $order) {
@@ -27,6 +27,6 @@ Route::prefix('notifications')->group(function () {
         }
 
         return (new CompleteTicketsReminder($order))
-                    ->toMail($order->user);
+            ->toMail($order->user);
     });
 });

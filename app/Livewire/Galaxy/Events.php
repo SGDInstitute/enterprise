@@ -10,9 +10,9 @@ use Livewire\WithPagination;
 
 class Events extends Component
 {
-    use WithSorting;
     use WithFiltering;
     use WithPagination;
+    use WithSorting;
 
     public $filters = [
         'search' => '',

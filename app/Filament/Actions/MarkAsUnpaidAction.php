@@ -22,6 +22,6 @@ class MarkAsUnpaidAction extends Action
 
             Notification::make()->title('Successfully marked order as unpaid.')->success()->send();
         })
-             ->disabled(fn ($record) => $record->isStripe());
+            ->disabled(fn ($record) => $record->isStripe());
     }
 }

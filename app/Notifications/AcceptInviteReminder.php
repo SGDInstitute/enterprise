@@ -32,20 +32,20 @@ class AcceptInviteReminder extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->cc($this->invitation->inviter->email)
-                    ->when(get_class($this->model) === Response::class, function ($message) {
-                        $message
-                            ->line("This invitation was sent to: {$this->invitation->email}. You must use this email address to log in and accept your invitation. It is possible to update your email later.")
-                            ->line("This is a reminder that you have a pending invitation to co-present {$this->model->name}.")
-                            ->lineIf(in_array($this->model->status, ['confirmed', 'scheduled']), 'It is important to accept the invitation if you plan on presenting. We cannot generate a free ticket for you until the invitation is accepted.');
-                    })
-                    ->when(get_class($this->model) === Ticket::class, function ($message) {
-                        $message
-                            ->line("This invitation was sent to: {$this->invitation->email}. You must use this email address to log in and accept your invitation. It is possible to update your email later.")
-                            ->line("This is a reminder that you have a pending invitation to attend {$this->model->name}.")
-                            ->line('It is important to accept the invitation if you plan on attending, so you can fill out dietary restrictions and accessibility requests.');
-                    })
-                    ->action('Accept Invitation', $this->invitation->acceptUrl);
+            ->cc($this->invitation->inviter->email)
+            ->when(get_class($this->model) === Response::class, function ($message) {
+                $message
+                    ->line("This invitation was sent to: {$this->invitation->email}. You must use this email address to log in and accept your invitation. It is possible to update your email later.")
+                    ->line("This is a reminder that you have a pending invitation to co-present {$this->model->name}.")
+                    ->lineIf(in_array($this->model->status, ['confirmed', 'scheduled']), 'It is important to accept the invitation if you plan on presenting. We cannot generate a free ticket for you until the invitation is accepted.');
+            })
+            ->when(get_class($this->model) === Ticket::class, function ($message) {
+                $message
+                    ->line("This invitation was sent to: {$this->invitation->email}. You must use this email address to log in and accept your invitation. It is possible to update your email later.")
+                    ->line("This is a reminder that you have a pending invitation to attend {$this->model->name}.")
+                    ->line('It is important to accept the invitation if you plan on attending, so you can fill out dietary restrictions and accessibility requests.');
+            })
+            ->action('Accept Invitation', $this->invitation->acceptUrl);
     }
 
     /**

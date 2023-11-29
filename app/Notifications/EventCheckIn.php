@@ -25,11 +25,11 @@ class EventCheckIn extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject("Time to check-in for {$this->event->name}!")
-                    ->line("It's time to check-in for {$this->event->name}!")
-                    ->action('Check-in Now', route('app.checkin', $notifiable->ticketForEvent($this->event)))
-                    ->line("Checking in now will help save time when you arrive at {$this->event->name}. Be sure to double check that your name and pronouns are accurate.")
-                    ->line('We look forward to greeting you soon!');
+            ->subject("Time to check-in for {$this->event->name}!")
+            ->line("It's time to check-in for {$this->event->name}!")
+            ->action('Check-in Now', route('app.checkin', $notifiable->ticketForEvent($this->event)))
+            ->line("Checking in now will help save time when you arrive at {$this->event->name}. Be sure to double check that your name and pronouns are accurate.")
+            ->line('We look forward to greeting you soon!');
     }
 
     public function toArray($notifiable): array

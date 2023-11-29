@@ -26,15 +26,15 @@ class BadgePrinted extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('Your MBLGTACC Name Badge is Ready!')
-                    ->line('Your name badge is hot off the presses. Please come to the registration table to pick it up.')
-                    ->line('See you soon!');
+            ->subject('Your MBLGTACC Name Badge is Ready!')
+            ->line('Your name badge is hot off the presses. Please come to the registration table to pick it up.')
+            ->line('See you soon!');
     }
 
     public function toVonage($notifiable)
     {
         return (new VonageMessage)
-                    ->content("Your MBLGTACC name badge is hot off the presses. Please come to the registration table to pick it up.\n\n(No Reply. Text 810-666-1053 for support)");
+            ->content("Your MBLGTACC name badge is hot off the presses. Please come to the registration table to pick it up.\n\n(No Reply. Text 810-666-1053 for support)");
     }
 
     public function toArray($notifiable): array

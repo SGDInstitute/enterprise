@@ -154,11 +154,11 @@ final class EventItemsRelationManagerTest extends TestCase
             'ownerRecord' => $event,
             'pageClass' => EditEvent::class,
         ])
-        ->callTableAction(EditAction::class, $item, data: [
-            'parent_id' => $parentB->id,
-            'name' => 'Ace Forum',
-        ])
-        ->assertHasNoActionErrors();
+            ->callTableAction(EditAction::class, $item, data: [
+                'parent_id' => $parentB->id,
+                'name' => 'Ace Forum',
+            ])
+            ->assertHasNoActionErrors();
 
         $item->refresh();
         $this->assertEquals('Ace Forum', $item->name);
@@ -179,9 +179,9 @@ final class EventItemsRelationManagerTest extends TestCase
             'ownerRecord' => $event,
             'pageClass' => EditEvent::class,
         ])
-        ->filterTable('is_parent')
-        ->assertCanSeeTableRecords($event->items->whereNull('parent_id'))
-        ->assertCanNotSeeTableRecords($event->items->whereNotNull('parent_id'));
+            ->filterTable('is_parent')
+            ->assertCanSeeTableRecords($event->items->whereNull('parent_id'))
+            ->assertCanNotSeeTableRecords($event->items->whereNotNull('parent_id'));
     }
 
     #[Test]
@@ -198,8 +198,8 @@ final class EventItemsRelationManagerTest extends TestCase
             'ownerRecord' => $event,
             'pageClass' => EditEvent::class,
         ])
-        ->callTableAction('export-schedule-txt')
-        ->assertHasNoActionErrors();
+            ->callTableAction('export-schedule-txt')
+            ->assertHasNoActionErrors();
     }
 
     #[Test]
@@ -220,8 +220,8 @@ final class EventItemsRelationManagerTest extends TestCase
             'ownerRecord' => $event,
             'pageClass' => EditEvent::class,
         ])
-        ->callTableAction('refresh-proposals')
-        ->assertHasNoActionErrors();
+            ->callTableAction('refresh-proposals')
+            ->assertHasNoActionErrors();
 
         $this->assertEquals('Intro to Soups', $item->fresh()->name);
         $this->assertEquals('Hello world', $item->fresh()->description);

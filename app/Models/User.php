@@ -22,13 +22,13 @@ use Stripe\Customer;
 
 class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
+    use Billable;
     use HasApiTokens;
     use HasFactory;
-    use Notifiable;
-    use HasRoles;
-    use Billable;
     use HasProfilePhoto;
+    use HasRoles;
     use Impersonate;
+    use Notifiable;
 
     protected $guarded = [];
 

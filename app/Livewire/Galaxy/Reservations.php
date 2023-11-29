@@ -10,9 +10,9 @@ use Livewire\WithPagination;
 
 class Reservations extends Component
 {
+    use WithFiltering;
     use WithPagination;
     use WithSorting;
-    use WithFiltering;
 
     public $event;
 

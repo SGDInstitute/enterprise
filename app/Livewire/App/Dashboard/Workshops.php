@@ -11,9 +11,9 @@ use Livewire\WithPagination;
 
 class Workshops extends Component
 {
+    use WithFiltering;
     use WithPagination;
     use WithSorting;
-    use WithFiltering;
 
     public $form;
 
