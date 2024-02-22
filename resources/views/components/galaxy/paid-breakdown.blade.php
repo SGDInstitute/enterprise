@@ -1,14 +1,14 @@
 <table class="w-full">
     <tr>
-        <th class="text-xs text-left">Ticket Type</th>
-        <th class="text-xs text-right">Unpaid</th>
-        <th class="text-xs text-right">Paid</th>
+        <th class="text-left text-xs">Ticket Type</th>
+        <th class="text-right text-xs">Unpaid</th>
+        <th class="text-right text-xs">Paid</th>
     </tr>
     @foreach ($data as $row)
-    <tr>
-        <td class="py-1 pr-2">{{ $row['ticket-type'] }}</td>
-        <td class="text-right py-1 px-2">{{ $row['reservations'] }}</td>
-        <td class="text-right py-1 pl-2">{{ $row['orders'] }}</td>
-    </tr>
+        <tr>
+            <td class="py-1 pr-2">{{ $row['ticket-type'] }}</td>
+            <td class="px-2 py-1 text-right">{{ $row['reservations'] }}</td>
+            <td class="py-1 pl-2 text-right">{{ $row['orders'] }}</td>
+        </tr>
     @endforeach
 </table>

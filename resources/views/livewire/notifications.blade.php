@@ -1,5 +1,5 @@
-<div class="fixed top-0 right-0 z-50 pt-6 pr-6 pointer-events-none">
+<div class="pointer-events-none fixed right-0 top-0 z-50 pr-6 pt-6">
     @foreach ($notifications as $notification)
-    <x-bit.notification :notification="$notification" :key="$loop->index" />
+        <x-bit.notification :notification="$notification" :key="$loop->index" />
     @endforeach
 </div>

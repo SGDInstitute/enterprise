@@ -2,33 +2,59 @@
     <thead>
         <tr class="divide-x divide-gray-200 dark:divide-gray-700">
             <th scope="col"></th>
-            <th scope="col" class="text-xs -rotate-[50deg] origin-top-left leading-none translate-y-2">Alignment</th>
-            <th scope="col" class="text-xs -rotate-[50deg] origin-top-left leading-none translate-y-2">Presenter <br>Experience</th>
-            <th scope="col" class="text-xs -rotate-[50deg] origin-top-left leading-none translate-y-2">Priority</th>
-            <th scope="col" class="text-xs -rotate-[50deg] origin-top-left leading-none translate-y-2">Track</th>
-            <th scope="col" class="text-xs -rotate-[50deg] origin-top-left leading-none translate-y-2">Score</th>
+            <th scope="col" class="origin-top-left translate-y-2 -rotate-[50deg] text-xs leading-none">Alignment</th>
+            <th scope="col" class="origin-top-left translate-y-2 -rotate-[50deg] text-xs leading-none">
+                Presenter
+                <br />
+                Experience
+            </th>
+            <th scope="col" class="origin-top-left translate-y-2 -rotate-[50deg] text-xs leading-none">Priority</th>
+            <th scope="col" class="origin-top-left translate-y-2 -rotate-[50deg] text-xs leading-none">Track</th>
+            <th scope="col" class="origin-top-left translate-y-2 -rotate-[50deg] text-xs leading-none">Score</th>
         </tr>
     </thead>
-    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+    <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($reviews as $review)
-        <tr class="divide-x divide-gray-200 dark:divide-gray-700">
-            <td class="p-1 pl-0 text-sm font-medium text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ $review->user->name }}</td>
-            <td class="p-1 text-sm text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $review->alignment }}</td>
-            <td class="p-1 text-sm text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $review->experience }}</td>
-            <td class="p-1 text-sm text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $review->priority }}</td>
-            <td class="p-1 text-sm text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $review->track }}</td>
-            <td class="p-1 text-sm text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $review->score }}</td>
-        </tr>
+            <tr class="divide-x divide-gray-200 dark:divide-gray-700">
+                <td class="whitespace-nowrap p-1 pl-0 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    {{ $review->user->name }}
+                </td>
+                <td class="whitespace-nowrap p-1 text-right text-sm text-gray-500 dark:text-gray-400">
+                    {{ $review->alignment }}
+                </td>
+                <td class="whitespace-nowrap p-1 text-right text-sm text-gray-500 dark:text-gray-400">
+                    {{ $review->experience }}
+                </td>
+                <td class="whitespace-nowrap p-1 text-right text-sm text-gray-500 dark:text-gray-400">
+                    {{ $review->priority }}
+                </td>
+                <td class="whitespace-nowrap p-1 text-right text-sm text-gray-500 dark:text-gray-400">
+                    {{ $review->track }}
+                </td>
+                <td class="whitespace-nowrap p-1 text-right text-sm text-gray-500 dark:text-gray-400">
+                    {{ $review->score }}
+                </td>
+            </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr class="divide-x divide-gray-200 dark:divide-gray-700">
-            <td class="p-1 pl-0 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">Total</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('alignment'), 2) }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('experience'), 2) }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('priority'), 2) }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('track'), 2) }}</td>
-            <td class="p-1 text-sm text-right text-gray-900 dark:text-gray-200 whitespace-nowrap">{{ round($reviews->avg('score'), 2) }}</td>
+            <td class="whitespace-nowrap p-1 pl-0 text-right text-sm text-gray-900 dark:text-gray-200">Total</td>
+            <td class="whitespace-nowrap p-1 text-right text-sm text-gray-900 dark:text-gray-200">
+                {{ round($reviews->avg('alignment'), 2) }}
+            </td>
+            <td class="whitespace-nowrap p-1 text-right text-sm text-gray-900 dark:text-gray-200">
+                {{ round($reviews->avg('experience'), 2) }}
+            </td>
+            <td class="whitespace-nowrap p-1 text-right text-sm text-gray-900 dark:text-gray-200">
+                {{ round($reviews->avg('priority'), 2) }}
+            </td>
+            <td class="whitespace-nowrap p-1 text-right text-sm text-gray-900 dark:text-gray-200">
+                {{ round($reviews->avg('track'), 2) }}
+            </td>
+            <td class="whitespace-nowrap p-1 text-right text-sm text-gray-900 dark:text-gray-200">
+                {{ round($reviews->avg('score'), 2) }}
+            </td>
         </tr>
     </tfoot>
 </table>

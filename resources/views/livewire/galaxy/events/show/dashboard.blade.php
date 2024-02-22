@@ -4,11 +4,10 @@
     <x-bit.stat icon="heroicon-o-currency-dollar" title="Orders" :value="$orders" color="green" />
 
     @foreach ($tickets as $ticket)
-    <x-bit.stat icon="heroicon-o-ticket" :title="$ticket['ticketType']['name']" color="green">
-        <x-slot name="value">
-            Reservations: {{ $ticket['reservations_count'] }}
-            Orders: {{ $ticket['orders_count'] }}
-        </x-slot>
-    </x-bit.stat>
+        <x-bit.stat icon="heroicon-o-ticket" :title="$ticket['ticketType']['name']" color="green">
+            <x-slot name="value">
+                Reservations: {{ $ticket['reservations_count'] }} Orders: {{ $ticket['orders_count'] }}
+            </x-slot>
+        </x-bit.stat>
     @endforeach
 </div>

@@ -2,7 +2,7 @@
     <x-auth.card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="h-12 text-gray-500 fill-current" />
+                <x-application-logo class="h-12 fill-current text-gray-500" />
             </a>
         </x-slot>
 
@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <div class="flex items-center justify-between mt-4">
+        <div class="mt-4 flex items-center justify-between">
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
 

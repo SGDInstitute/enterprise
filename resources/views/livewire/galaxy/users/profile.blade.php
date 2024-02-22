@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 gap-4 mt-8 md:gap-8 md:grid-cols-5">
+<div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-5 md:gap-8">
     <div class="space-y-8 md:col-span-3">
         <x-bit.panel title="Profile">
             <form wire:submit="save">
@@ -65,29 +65,40 @@
                 <x-bit.panel.body class="space-y-4">
                     <ul class="ml-8 list-disc">
                         @forelse ($userRoles as $role)
-                        <li class="dark:text-gray-200">
-                            <div class="flex items-center space-x-4 group">
-                                <span>{{ $role->name }}</span>
-                                <x-bit.button.link type="button" wire:click="removeRole('{{ $role->name }}')">
-                                    <x-heroicon-o-trash class="w-4 h-4 text-blue-500 transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
-                                </x-bit.button.link>
-                            </div>
-                        </li>
+                            <li class="dark:text-gray-200">
+                                <div class="group flex items-center space-x-4">
+                                    <span>{{ $role->name }}</span>
+                                    <x-bit.button.link type="button" wire:click="removeRole('{{ $role->name }}')">
+                                        <x-heroicon-o-trash
+                                            class="h-4 w-4 text-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                        />
+                                    </x-bit.button.link>
+                                </div>
+                            </li>
                         @empty
-                        <li class="dark:text-gray-400">
-                            <span class="py-8 italic font-medium text-gray-500 dark:text-gray-400 ">No Roles for this User</span>
-                        </li>
+                            <li class="dark:text-gray-400">
+                                <span class="py-8 font-medium italic text-gray-500 dark:text-gray-400">
+                                    No Roles for this User
+                                </span>
+                            </li>
                         @endforelse
                     </ul>
 
                     <form wire:submit="addRole" class="text-sm leading-5">
                         <x-bit.input.group for="new-role" label="Role" class="flex" srOnly>
-                            <x-bit.input.select wire:model.live="newRole" id="new-role" placeholder="Select Role..." class="w-full rounded-r-none">
+                            <x-bit.input.select
+                                wire:model.live="newRole"
+                                id="new-role"
+                                placeholder="Select Role..."
+                                class="w-full rounded-r-none"
+                            >
                                 @foreach ($roles as $id => $value)
                                     <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
                             </x-bit.input.select>
-                            <x-bit.button.round.secondary type="submit" class="-ml-px rounded-l-none">Add</x-bit.button.round.secondary>
+                            <x-bit.button.round.secondary type="submit" class="-ml-px rounded-l-none">
+                                Add
+                            </x-bit.button.round.secondary>
                         </x-bit.input.group>
                     </form>
                 </x-bit.panel.body>

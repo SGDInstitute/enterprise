@@ -9,29 +9,37 @@
 @endphp
 
 @if ($leading && $trailing)
-<div class="flex mt-1 rounded-md shadow-sm">
-    <span class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md dark:border-gray-700 dark:bg-gray-800 bg-gray-50 dark:text-gray-400">
-        {{ $leading }}
-    </span>
-    <input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses]) }} >
-    <span class="inline-flex items-center px-3 text-gray-500 border border-l-0 border-gray-300 rounded-r-md dark:border-gray-700 dark:bg-gray-800 bg-gray-50 dark:text-gray-400">
-        {{ $trailing }}
-    </span>
-</div>
+    <div class="mt-1 flex rounded-md shadow-sm">
+        <span
+            class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+        >
+            {{ $leading }}
+        </span>
+        <input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses]) }} />
+        <span
+            class="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-3 text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+        >
+            {{ $trailing }}
+        </span>
+    </div>
 @elseif ($leading)
-<div class="flex mt-1 rounded-md shadow-sm">
-    <span class="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md dark:border-gray-700 dark:bg-gray-800 bg-gray-50 dark:text-gray-400">
-        {{ $leading }}
-    </span>
-    <input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses . ' rounded-r-md']) }} >
-</div>
+    <div class="mt-1 flex rounded-md shadow-sm">
+        <span
+            class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+        >
+            {{ $leading }}
+        </span>
+        <input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses . ' rounded-r-md']) }} />
+    </div>
 @elseif ($trailing)
-<div class="flex mt-1 rounded-md shadow-sm">
-    <input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses . ' rounded-l-md']) }} >
-    <span class="inline-flex items-center px-3 text-gray-500 border border-l-0 border-gray-300 rounded-r-md dark:border-gray-700 dark:bg-gray-800 bg-gray-50 dark:text-gray-400">
-        {{ $trailing }}
-    </span>
-</div>
+    <div class="mt-1 flex rounded-md shadow-sm">
+        <input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses . ' rounded-l-md']) }} />
+        <span
+            class="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-3 text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+        >
+            {{ $trailing }}
+        </span>
+    </div>
 @else
-<input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses . ' rounded-md']) }} >
+    <input {{ $attributes->merge(['type' => 'text', 'class' => $inputClasses . ' rounded-md']) }} />
 @endif

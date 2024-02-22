@@ -1,4 +1,5 @@
-<div x-data
+<div
+    x-data
     x-init="
         easyMDE = new EasyMDE({element: $refs.textarea, forceSync: true, autoRefresh: true})
         easyMDE.codemirror.on('change', function(){

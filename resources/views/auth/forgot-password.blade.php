@@ -2,7 +2,7 @@
     <x-auth.card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="h-12 text-gray-500 fill-current" />
+                <x-application-logo class="h-12 fill-current text-gray-500" />
             </a>
         </x-slot>
 
@@ -21,10 +21,18 @@
 
             <!-- Email Address -->
             <x-bit.input.group for="email" :value="__('Email')">
-                <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
+                <x-bit.input.text
+                    id="email"
+                    class="mt-1 block w-full"
+                    type="email"
+                    name="email"
+                    :value="old('email')"
+                    required
+                    autofocus
+                />
             </x-bit.input.group>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="mt-4 flex items-center justify-end">
                 <x-bit.button.flat.primary type="submit">
                     {{ __('Email Password Reset Link') }}
                 </x-bit.button.flat.primary>

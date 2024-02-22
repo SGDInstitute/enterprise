@@ -1,40 +1,111 @@
 <div>
     <div
-        x-data="select({ data: {{ $options }}, placeholder: '{{ $attributes->get('placeholder') }}', value: @entangle($attributes->wire('model')).live })"
+        x-data="select({
+                    data: {{ $options }},
+                    placeholder: '{{ $attributes->get('placeholder') }}',
+                    value: @entangle($attributes->wire('model')).live,
+                })"
         x-init="init()"
         @click.away="closeListbox()"
         @keydown.escape="closeListbox()"
         class="relative"
     >
         <span class="inline-block w-full rounded-md shadow-sm">
-            <button type="button" x-ref="button" @click="toggleListboxVisibility()" :aria-expanded="open" aria-haspopup="listbox" class="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default dark:bg-gray-500 dark:border-gray-400 dark:text-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
-                <span x-show="! open" x-text="value in options ? options[value] : placeholder" :class="{ 'text-gray-500': ! (value in options) }" class="block truncate"></span>
+            <button
+                type="button"
+                x-ref="button"
+                @click="toggleListboxVisibility()"
+                :aria-expanded="open"
+                aria-haspopup="listbox"
+                class="focus:shadow-outline-blue relative z-0 w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out focus:border-blue-300 focus:outline-none dark:border-gray-400 dark:bg-gray-500 dark:text-gray-200 sm:text-sm sm:leading-5"
+            >
+                <span
+                    x-show="! open"
+                    x-text="value in options ? options[value] : placeholder"
+                    :class="{ 'text-gray-500': ! (value in options) }"
+                    class="block truncate"
+                ></span>
 
-                <input x-ref="search" x-show="open" x-model="search" @keydown.enter.stop.prevent="selectOption()" @keydown.arrow-up.prevent="focusPreviousOption()" @keydown.arrow-down.prevent="focusNextOption()" type="search" class="w-full h-full bg-transparent focus:outline-none" />
+                <input
+                    x-ref="search"
+                    x-show="open"
+                    x-model="search"
+                    @keydown.enter.stop.prevent="selectOption()"
+                    @keydown.arrow-up.prevent="focusPreviousOption()"
+                    @keydown.arrow-down.prevent="focusNextOption()"
+                    type="search"
+                    class="h-full w-full bg-transparent focus:outline-none"
+                />
 
-                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                        <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                        <path
+                            d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
                     </svg>
                 </span>
             </button>
         </span>
 
-        <div x-show="open" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-cloak class="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg">
-            <ul x-ref="listbox" @keydown.enter.stop.prevent="selectOption()" @keydown.arrow-up.prevent="focusPreviousOption()" @keydown.arrow-down.prevent="focusNextOption()" role="listbox" :aria-activedescendant="focusedOptionIndex ? name + 'Option' + focusedOptionIndex : null" tabindex="-1" class="py-1 overflow-auto text-base leading-6 rounded-md shadow-xs max-h-60 focus:outline-none sm:text-sm sm:leading-5">
+        <div
+            x-show="open"
+            x-transition:leave="transition duration-100 ease-in"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            x-cloak
+            class="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg"
+        >
+            <ul
+                x-ref="listbox"
+                @keydown.enter.stop.prevent="selectOption()"
+                @keydown.arrow-up.prevent="focusPreviousOption()"
+                @keydown.arrow-down.prevent="focusNextOption()"
+                role="listbox"
+                :aria-activedescendant="focusedOptionIndex ? name + 'Option' + focusedOptionIndex : null"
+                tabindex="-1"
+                class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
+            >
                 <template x-for="(key, index) in Object.keys(options)" :key="index">
-                    <li :id="name + 'Option' + focusedOptionIndex" @click="selectOption()" @mouseenter="focusedOptionIndex = index" @mouseleave="focusedOptionIndex = null" role="option" :aria-selected="focusedOptionIndex === index" :class="{ 'text-white bg-indigo-600': index === focusedOptionIndex, 'text-gray-900': index !== focusedOptionIndex }" class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9">
-                        <span x-text="Object.values(options)[index]" :class="{ 'font-semibold': index === focusedOptionIndex, 'font-normal': index !== focusedOptionIndex }" class="block font-normal truncate"></span>
+                    <li
+                        :id="name + 'Option' + focusedOptionIndex"
+                        @click="selectOption()"
+                        @mouseenter="focusedOptionIndex = index"
+                        @mouseleave="focusedOptionIndex = null"
+                        role="option"
+                        :aria-selected="focusedOptionIndex === index"
+                        :class="{ 'text-white bg-indigo-600': index === focusedOptionIndex, 'text-gray-900': index !== focusedOptionIndex }"
+                        class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900"
+                    >
+                        <span
+                            x-text="Object.values(options)[index]"
+                            :class="{ 'font-semibold': index === focusedOptionIndex, 'font-normal': index !== focusedOptionIndex }"
+                            class="block truncate font-normal"
+                        ></span>
 
-                        <span x-show="key === value" :class="{ 'text-white': index === focusedOptionIndex, 'text-indigo-600': index !== focusedOptionIndex }" class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
-                            <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        <span
+                            x-show="key === value"
+                            :class="{ 'text-white': index === focusedOptionIndex, 'text-indigo-600': index !== focusedOptionIndex }"
+                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600"
+                        >
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"
+                                />
                             </svg>
                         </span>
                     </li>
                 </template>
 
-                <div x-show="! Object.keys(options).length" x-text="emptyOptionsMessage" class="px-3 py-2 text-gray-900 cursor-default select-none"></div>
+                <div
+                    x-show="! Object.keys(options).length"
+                    x-text="emptyOptionsMessage"
+                    class="cursor-default select-none px-3 py-2 text-gray-900"
+                ></div>
             </ul>
         </div>
     </div>
@@ -60,81 +131,82 @@
 
                 value: config.value,
 
-                closeListbox: function() {
-                    this.open = false
+                closeListbox: function () {
+                    this.open = false;
 
-                    this.focusedOptionIndex = null
+                    this.focusedOptionIndex = null;
 
-                    this.search = ''
+                    this.search = '';
                 },
 
-                focusNextOption: function() {
-                    if (this.focusedObjectIndex === null) return this.focusedObjectIndex = Object.keys(this.options).length - 1
+                focusNextOption: function () {
+                    if (this.focusedObjectIndex === null)
+                        return (this.focusedObjectIndex = Object.keys(this.options).length - 1);
 
-                    if (this.focusedOptionIndex + 1 >= Object.keys(this.options).length) return
+                    if (this.focusedOptionIndex + 1 >= Object.keys(this.options).length) return;
 
-                    this.focusedOptionIndex++
+                    this.focusedOptionIndex++;
 
                     this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
-                        block: "center",
-                    })
+                        block: 'center',
+                    });
                 },
 
-                focusPreviousOption: function() {
-                    if (this.focusedObjectIndex === null) return this.focusedObjectIndex = 0
+                focusPreviousOption: function () {
+                    if (this.focusedObjectIndex === null) return (this.focusedObjectIndex = 0);
 
-                    if (this.focusedOptionIndex <= 0) return
+                    if (this.focusedOptionIndex <= 0) return;
 
-                    this.focusedOptionIndex--
+                    this.focusedOptionIndex--;
 
                     this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
-                        block: "center",
-                    })
+                        block: 'center',
+                    });
                 },
 
-                init: function() {
-                    this.options = this.data
+                init: function () {
+                    this.options = this.data;
 
-                    if (!(this.value in this.options)) this.value = null
+                    if (!(this.value in this.options)) this.value = null;
 
-                    this.$watch('search', ((value) => {
-                        if (!this.open || !value) return this.options = this.data
+                    this.$watch('search', (value) => {
+                        if (!this.open || !value) return (this.options = this.data);
 
                         this.options = Object.keys(this.data)
                             .filter((key) => this.data[key].toLowerCase().includes(value.toLowerCase()))
                             .reduce((options, key) => {
-                                options[key] = this.data[key]
-                                return options
-                            }, {})
-                    }))
+                                options[key] = this.data[key];
+                                return options;
+                            }, {});
+                    });
                 },
 
-                selectOption: function() {
-                    if (!this.open) return this.toggleListboxVisibility()
+                selectOption: function () {
+                    if (!this.open) return this.toggleListboxVisibility();
 
-                    this.value = Object.keys(this.options)[this.focusedOptionIndex]
+                    this.value = Object.keys(this.options)[this.focusedOptionIndex];
 
-                    this.closeListbox()
+                    this.closeListbox();
                 },
 
-                toggleListboxVisibility: function() {
-                    if (this.open) return this.closeListbox()
+                toggleListboxVisibility: function () {
+                    if (this.open) return this.closeListbox();
 
-                    this.focusedOptionIndex = Object.keys(this.options).indexOf(this.value)
+                    this.focusedOptionIndex = Object.keys(this.options).indexOf(this.value);
 
-                    if (this.focusedOptionIndex < 0) this.focusedOptionIndex = 0
+                    if (this.focusedOptionIndex < 0) this.focusedOptionIndex = 0;
 
-                    this.open = true
+                    this.open = true;
 
                     this.$nextTick(() => {
-                        this.$refs.search.focus()
+                        this.$refs.search.focus();
 
                         this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
-                            block: "nearest"
-                        })
-                    })
+                            block: 'nearest',
+                        });
+                    });
                 },
-            }
+            };
         }
     </script>
 </div>

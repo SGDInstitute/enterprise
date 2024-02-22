@@ -2,7 +2,7 @@
     <x-auth.card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="h-12 text-gray-500 fill-current" />
+                <x-application-logo class="h-12 fill-current text-gray-500" />
             </a>
         </x-slot>
 
@@ -18,10 +18,17 @@
 
             <!-- Password -->
             <x-bit.input.group for="password" :value="__('Password')">
-                <x-bit.input.text id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
+                <x-bit.input.text
+                    id="password"
+                    class="mt-1 block w-full"
+                    type="password"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                />
             </x-bit.input.group>
 
-            <div class="flex justify-end mt-4">
+            <div class="mt-4 flex justify-end">
                 <x-bit.button.flat.primary>
                     {{ __('Confirm') }}
                 </x-bit.button.flat.primary>

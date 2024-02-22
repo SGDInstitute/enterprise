@@ -6,10 +6,7 @@
     ])
 >
     @capture($form)
-        <x-filament-panels::form
-            :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
-            wire:submit="save"
-        >
+        <x-filament-panels::form :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()" wire:submit="save">
             {{ $this->form }}
 
             <x-filament-panels::form.actions
@@ -24,7 +21,7 @@
         $hasCombinedRelationManagerTabsWithContent = $this->hasCombinedRelationManagerTabsWithContent();
     @endphp
 
-    @if ((! $hasCombinedRelationManagerTabsWithContent) || (! count($relationManagers)))
+    @if (! $hasCombinedRelationManagerTabsWithContent || ! count($relationManagers))
         {{ $form() }}
     @endif
 </x-filament-panels::page>

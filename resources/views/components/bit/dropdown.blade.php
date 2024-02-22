@@ -1,7 +1,7 @@
 @props(['placement' => 'left', 'title' => 'Button'])
 
 @php
-    $placement = ($placement === 'left') ? 'left-0' : 'right-0';
+    $placement = $placement === 'left' ? 'left-0' : 'right-0';
 @endphp
 
 <div class="flex justify-center">
@@ -21,7 +21,7 @@
                 this.open = false
 
                 focusAfter && focusAfter.focus()
-            }
+            },
         }"
         x-on:keydown.escape.prevent.stop="close($refs.button)"
         x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
@@ -48,10 +48,10 @@
             x-transition.origin.top.left
             x-on:click.outside="close($refs.button)"
             :id="$id('dropdown-button')"
-            style="display: none;"
-            class="absolute {{ $placement }} w-48 mt-2 overflow-hidden bg-white border border-black rounded shadow-md"
+            style="display: none"
+            class="{{ $placement }} absolute mt-2 w-48 overflow-hidden rounded border border-black bg-white shadow-md"
         >
-           {{ $slot }}
+            {{ $slot }}
         </div>
     </div>
 </div>

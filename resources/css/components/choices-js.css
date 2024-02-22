@@ -4,9 +4,9 @@
 
 @media (prefers-color-scheme: dark) {
     .choices__inner {
-        @apply bg-gray-800 border-gray-600;
+        @apply border-gray-600 bg-gray-800;
     }
     .choices__input {
-        @apply text-gray-200 bg-gray-800;
+        @apply bg-gray-800 text-gray-200;
     }
 }
