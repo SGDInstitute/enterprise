@@ -5,7 +5,7 @@
         'url' => '/',
         'label' => 'Go home',
     ],
-    
+
 ])
 
 <div>

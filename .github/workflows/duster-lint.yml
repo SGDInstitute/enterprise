@@ -12,4 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Duster Lint"
-        run: vendor/bin/duster lint
+        uses: tighten/duster-action@v2
+        with:
+          args: lint
