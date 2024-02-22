@@ -19,6 +19,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install -D
+        run: npm install
       - name: Check formatting with Prettier
         run: npm run prettier:check:ci
