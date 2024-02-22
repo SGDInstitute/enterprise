@@ -1,30 +1,64 @@
 <div>
     <section class="bg-green-500">
-        <div class="px-8 py-4 border-b border-green-600 md:px-0">
+        <div class="border-b border-green-600 px-8 py-4 md:px-0">
             <div class="container mx-auto">
-                <nav class="items-center hidden text-sm font-medium leading-5 sm:flex">
-                    <a href="/events" class="text-gray-200 transition duration-150 ease-in-out hover:text-white hover:underline">Events</a>
-                    <svg class="w-5 h-5 mx-2 text-gray-200 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                <nav class="hidden items-center text-sm font-medium leading-5 sm:flex">
+                    <a
+                        href="/events"
+                        class="text-gray-200 transition duration-150 ease-in-out hover:text-white hover:underline"
+                    >
+                        Events
+                    </a>
+                    <svg
+                        class="mx-2 h-5 w-5 shrink-0 text-gray-200"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"
+                        />
                     </svg>
-                    <a href="/events/{{ $event->slug }}" class="text-gray-200 transition duration-150 ease-in-out hover:text-white hover:underline">{{ $event->name }}</a>
-                    <svg class="w-5 h-5 mx-2 text-gray-200 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    <a
+                        href="/events/{{ $event->slug }}"
+                        class="text-gray-200 transition duration-150 ease-in-out hover:text-white hover:underline"
+                    >
+                        {{ $event->name }}
+                    </a>
+                    <svg
+                        class="mx-2 h-5 w-5 shrink-0 text-gray-200"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"
+                        />
                     </svg>
                     <span class="text-white">Volunteer</span>
                 </nav>
             </div>
         </div>
-        <div class="container flex justify-between px-8 py-4 mx-auto md:px-0">
+        <div class="container mx-auto flex justify-between px-8 py-4 md:px-0">
             <h1 class="text-xl text-white lg:text-4xl">{{ $event->name }} Volunteer Opportunities</h1>
         </div>
     </section>
 
-    <div class="max-w-2xl px-4 py-10 mx-auto">
-        <div class="bg-white dark:bg-gray-800 p-6">
-            <div class="prose dark:prose-light mb-4">
-                <p>Please select the shifts you would like to volunteer for. You can come back to this page later to edit/cancel your shifts if you need to, just deselect the shifts you need to cancel.</p>
-                <p>If you volunteer for a total of 4 hours (2 shifts), you’ll get a free ticket to attend MBLGTACC 2023.</p>
+    <div class="mx-auto max-w-2xl px-4 py-10">
+        <div class="bg-white p-6 dark:bg-gray-800">
+            <div class="prose mb-4 dark:prose-light">
+                <p>
+                    Please select the shifts you would like to volunteer for. You can come back to this page later to
+                    edit/cancel your shifts if you need to, just deselect the shifts you need to cancel.
+                </p>
+                <p>
+                    If you volunteer for a total of 4 hours (2 shifts), you’ll get a free ticket to attend MBLGTACC
+                    2023.
+                </p>
             </div>
             <form wire:submit="signup">
                 {{ $this->form }}

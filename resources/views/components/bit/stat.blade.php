@@ -1,14 +1,22 @@
-@props(['icon', 'title', 'value', 'color', 'route', 'subtitle' => null])
+@props([
+    'icon',
+    'title',
+    'value',
+    'color',
+    'route',
+    'subtitle' => null,
+])
 
-<div class="flex flex-col justify-between overflow-hidden bg-white rounded-lg shadow dark:bg-gray-700">
+<div class="flex flex-col justify-between overflow-hidden rounded-lg bg-white shadow dark:bg-gray-700">
     <div class="px-4 py-5 sm:p-6">
         <div class="flex items-center">
             @isset($icon)
-            <div class="flex-shrink-0 p-3 bg-{{ $color }}-500 rounded-md">
-                <x-dynamic-component :component="$icon" class="w-6 h-6 text-white" />
-            </div>
+                <div class="bg-{{ $color }}-500 flex-shrink-0 rounded-md p-3">
+                    <x-dynamic-component :component="$icon" class="h-6 w-6 text-white" />
+                </div>
             @endif
-            <div class="flex-1 w-0 {{ isset($icon) ? 'ml-5' : '' }}">
+
+            <div class="{{ isset($icon) ? 'ml-5' : '' }} w-0 flex-1">
                 <dl>
                     <dt class="text-sm font-medium leading-5 text-gray-500 dark:text-gray-300">
                         <span class="truncate">{{ $title }}</span>
@@ -24,12 +32,15 @@
         </div>
     </div>
     @isset($route)
-    <div class="px-4 py-4 bg-gray-100 dark:bg-gray-500 sm:px-6">
-        <div class="text-sm leading-5">
-            <a href="{{ route($route) }}" class="font-medium text-{{ $color }}-600 dark:text-{{ $color }}-300 transition duration-150 ease-in-out hover:text-{{ $color }}-500 dark:hover:text-{{ $color }}-200">
-                View all
-            </a>
+        <div class="bg-gray-100 px-4 py-4 dark:bg-gray-500 sm:px-6">
+            <div class="text-sm leading-5">
+                <a
+                    href="{{ route($route) }}"
+                    class="text-{{ $color }}-600 dark:text-{{ $color }}-300 hover:text-{{ $color }}-500 dark:hover:text-{{ $color }}-200 font-medium transition duration-150 ease-in-out"
+                >
+                    View all
+                </a>
+            </div>
         </div>
-    </div>
     @endif
 </div>

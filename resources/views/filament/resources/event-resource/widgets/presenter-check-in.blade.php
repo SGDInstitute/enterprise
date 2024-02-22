@@ -12,46 +12,50 @@
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-white/5">
                 @forelse ($presenters as $user)
-                <tr>
-                    <td>{{ $user->name }} <small>({{ $user->pronouns }})</small></td>
-                    <td>
-                        <button
-                            x-on:click="
-                                window.navigator.clipboard.writeText(@js($user->email))
-                                $tooltip('Email copied')
-                            "
-                            class="hover:underline"
-                        >
-                            {{ $user->email }}
-                        </button>
-                    </td>
-                    <td>
-                        <button
-                            x-on:click="
-                                window.navigator.clipboard.writeText(@js($user->phone))
-                                $tooltip('Email copied')
-                            "
-                            class="hover:underline"
-                        >
-                            {{ $user->phone }}
-                        </button>
-                    </td>
-                    <td>
-                        {{ $user->isCheckedInFor($record) ? '✅' : '🚨' }}
-                    </td>
-                    <td>
-                        <x-filament::link :href="route('filament.admin.resources.users.view', ['record' => $user->id])">
-                            View
-                        </x-filament::link>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            {{ $user->name }}
+                            <small>({{ $user->pronouns }})</small>
+                        </td>
+                        <td>
+                            <button
+                                x-on:click="
+                                    window.navigator.clipboard.writeText(@js($user->email))
+                                    $tooltip('Email copied')
+                                "
+                                class="hover:underline"
+                            >
+                                {{ $user->email }}
+                            </button>
+                        </td>
+                        <td>
+                            <button
+                                x-on:click="
+                                    window.navigator.clipboard.writeText(@js($user->phone))
+                                    $tooltip('Email copied')
+                                "
+                                class="hover:underline"
+                            >
+                                {{ $user->phone }}
+                            </button>
+                        </td>
+                        <td>
+                            {{ $user->isCheckedInFor($record) ? '✅' : '🚨' }}
+                        </td>
+                        <td>
+                            <x-filament::link
+                                :href="route('filament.admin.resources.users.view', ['record' => $user->id])"
+                            >
+                                View
+                            </x-filament::link>
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="3">No presenters found</td>
-                </tr>
+                    <tr>
+                        <td colspan="3">No presenters found</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>
     </x-filament::section>
-
 </x-filament-widgets::widget>

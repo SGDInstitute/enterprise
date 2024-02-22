@@ -11,11 +11,14 @@
         @apply bg-transparent;
     }
 
-    .media-library-row-drag, .media-library-filled.media-library-sortable .media-library-add .media-library-dropzone:before {
-        @apply text-gray-300 bg-gray-600;
+    .media-library-row-drag,
+    .media-library-filled.media-library-sortable .media-library-add .media-library-dropzone:before {
+        @apply bg-gray-600 text-gray-300;
     }
 
-    .media-library-help, .media-library-property, .media-library-label {
+    .media-library-help,
+    .media-library-property,
+    .media-library-label {
         @apply text-gray-300;
     }
 }

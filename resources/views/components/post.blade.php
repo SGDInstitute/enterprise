@@ -1,8 +1,10 @@
-<article class="flex flex-col items-start justify-between bg-white shadow-md dark:bg-gray-800 p-4">
+<article class="flex flex-col items-start justify-between bg-white p-4 shadow-md dark:bg-gray-800">
     <div class="flex items-center gap-x-4 text-xs">
-        <time datetime="{{ $post->created_at }}" class="text-gray-500 dark:text-grat-400">{{ $post->created_at->format('M j, Y') }}</time>
+        <time datetime="{{ $post->created_at }}" class="dark:text-grat-400 text-gray-500">
+            {{ $post->created_at->format('M j, Y') }}
+        </time>
         @foreach ($post->tags as $tag)
-        <x-bit.badge>{{ $tag->name }}</x-bit.badge>
+            <x-bit.badge>{{ $tag->name }}</x-bit.badge>
         @endforeach
     </div>
     <div class="relative">

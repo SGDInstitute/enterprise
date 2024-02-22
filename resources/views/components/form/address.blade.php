@@ -2,15 +2,34 @@
     <div class="relative" @click.away="open = false">
         <x-form.label>Address</x-form.label>
         <div class="relative">
-            <x-form.input x-ref="search" autocomplete="off" x-model.debounce.500ms="address.line1" id="form-line1" placeholder="Street Address" />
-            <button type="button" x-show="chosen" @click="clearAddress" class="absolute top-0 right-0 z-10 h-full px-3 py-2 text-green-500 rounded-md dark:text-green-400 hover:bg-green-500 hover:text-white">
-                <x-heroicon-o-x-markclass="w-6 h-6" />
+            <x-form.input
+                x-ref="search"
+                autocomplete="off"
+                x-model.debounce.500ms="address.line1"
+                id="form-line1"
+                placeholder="Street Address"
+            />
+            <button
+                type="button"
+                x-show="chosen"
+                @click="clearAddress"
+                class="absolute right-0 top-0 z-10 h-full rounded-md px-3 py-2 text-green-500 hover:bg-green-500 hover:text-white dark:text-green-400"
+            >
+                <x-heroicon-o-x-markclass ="w-6 h-6" />
             </button>
         </div>
         <x-form.error :error="$errors->first('address.line1')" />
-        <div x-show="open" class="absolute z-10 mt-2 overflow-hidden text-gray-900 bg-white border-gray-300 divide-y divide-gray-300 rounded-md shadow dark:bg-gray-700 border-x dark:divide-gray-600 dark:border-gray-600 dark:text-gray-200">
+        <div
+            x-show="open"
+            class="absolute z-10 mt-2 divide-y divide-gray-300 overflow-hidden rounded-md border-x border-gray-300 bg-white text-gray-900 shadow dark:divide-gray-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+        >
             <template x-for="option in options">
-                <button @click="choose(option)" type="button" class="w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700" x-text="option.place_name"></button>
+                <button
+                    @click="choose(option)"
+                    type="button"
+                    class="w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
+                    x-text="option.place_name"
+                ></button>
             </template>
         </div>
     </div>

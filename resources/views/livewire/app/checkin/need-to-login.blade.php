@@ -1,5 +1,5 @@
 <div class="space-y-4">
-    <div class="px-4 py-2 text-gray-200 bg-red-500 rounded">
+    <div class="rounded bg-red-500 px-4 py-2 text-gray-200">
         <p>Please create an account or log in before checking in.</p>
         <p>If you have never logged in, but know you have a ticket click the "Forgot Password" button.</p>
     </div>

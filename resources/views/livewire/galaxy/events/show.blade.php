@@ -3,22 +3,28 @@
 
     @switch($page)
         @case('dashboard')
-        <livewire:galaxy.events.show.dashboard :event="$event" />
-        @break
+            <livewire:galaxy.events.show.dashboard :event="$event" />
+
+            @break
         @case('reservations')
-        <livewire:galaxy.reservations :event="$event" />
-        @break
+            <livewire:galaxy.reservations :event="$event" />
+
+            @break
         @case('orders')
-        <livewire:galaxy.orders :event="$event" />
-        @break
+            <livewire:galaxy.orders :event="$event" />
+
+            @break
         @case('workshops')
-        <livewire:galaxy.responses :event="$event" />
-        @break
+            <livewire:galaxy.responses :event="$event" />
+
+            @break
         @case('schedule')
-        <livewire:galaxy.events.show.schedule :event="$event" />
-        @break
+            <livewire:galaxy.events.show.schedule :event="$event" />
+
+            @break
         @case('exports')
-        <livewire:galaxy.events.show.exports :event="$event" />
-        @break
+            <livewire:galaxy.events.show.exports :event="$event" />
+
+            @break
     @endswitch
 </div>

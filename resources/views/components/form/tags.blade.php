@@ -12,16 +12,16 @@
         init() {
             this.$nextTick(() => {
                 let choices = new Choices(this.$refs.select, {
-                    items: this.value
+                    items: this.value,
                 })
 
                 this.$refs.select.addEventListener('change', () => {
                     this.value = choices.getValue(true)
                 })
             })
-        }
+        },
     }"
-    class="w-full mt-1"
+    class="mt-1 w-full"
 >
     <input x-ref="select" :multiple="multiple" />
 </div>

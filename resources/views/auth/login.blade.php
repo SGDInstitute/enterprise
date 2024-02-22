@@ -2,7 +2,7 @@
     <x-auth.card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="h-12 text-gray-500 fill-current" />
+                <x-application-logo class="h-12 fill-current text-gray-500" />
             </a>
         </x-slot>
 
@@ -17,22 +17,40 @@
 
             <!-- Email Address -->
             <x-bit.input.group for="email" :label="__('Email')">
-                <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
+                <x-bit.input.text
+                    id="email"
+                    class="mt-1 block w-full"
+                    type="email"
+                    name="email"
+                    :value="old('email')"
+                    required
+                    autofocus
+                />
             </x-bit.input.group>
 
             <!-- Password -->
             <x-bit.input.group for="password" :label="__('Password')" class="mt-4">
-                <x-bit.input.text id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
+                <x-bit.input.text
+                    id="password"
+                    class="mt-1 block w-full"
+                    type="password"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                />
             </x-bit.input.group>
 
             <!-- Remember Me -->
-            <div class="block mt-4">
+            <div class="mt-4 block">
                 <x-bit.input.checkbox id="remember_me" name="remember" :label="__('Remember me')" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="mt-4 flex items-center justify-end">
                 @if (Route::has('password.request'))
-                    <a class="text-sm text-gray-600 underline dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" href="{{ route('password.request') }}">
+                    <a
+                        class="text-sm text-gray-600 underline hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                        href="{{ route('password.request') }}"
+                    >
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif

@@ -8,6 +8,10 @@
             <li>The link that was clicked has expired, please request a new link.</li>
         </ul>
 
-        <p>Send us a quick message from the chat in the bottom right corner of this page (or any page of our site) and let us know how we can help you. You can also email use at <a href="mailto:hello@sgdinstitute.org">hello@sgdinstitute.org</a></p>
+        <p>
+            Send us a quick message from the chat in the bottom right corner of this page (or any page of our site) and
+            let us know how we can help you. You can also email use at
+            <a href="mailto:hello@sgdinstitute.org">hello@sgdinstitute.org</a>
+        </p>
     </x-http-error>
 </x-app-layout>

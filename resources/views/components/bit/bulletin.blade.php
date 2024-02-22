@@ -1,10 +1,10 @@
-<div class="relative p-4 space-y-2 prose bg-gray-100 rounded shadow dark:bg-gray-700 dark:prose-light">
-    @if (!$bulletin->isPublished)
-    <div title="Scheduled" class="absolute top-0 left-0 z-30 p-2 -ml-4 bg-green-500 rounded-full">
-        <x-heroicon-o-clock class="w-4 h-4 text-white" />
-    </div>
+<div class="prose relative space-y-2 rounded bg-gray-100 p-4 shadow dark:prose-light dark:bg-gray-700">
+    @if (! $bulletin->isPublished)
+        <div title="Scheduled" class="absolute left-0 top-0 z-30 -ml-4 rounded-full bg-green-500 p-2">
+            <x-heroicon-o-clock class="h-4 w-4 text-white" />
+        </div>
     @else
-    <div></div>
+        <div></div>
     @endif
     <h2>{{ $bulletin->title }}</h2>
     <p>{!! markdown($bulletin->content) !!}</p>

@@ -70,7 +70,7 @@ class ReportEvent extends Page
                         ]);
 
                         return response()->streamDownload(
-                            fn () => print($pdf->output()),
+                            fn () => print ($pdf->output()),
                             "{$this->record->slug}-event-dashboard.pdf"
                         );
                     }),
@@ -119,7 +119,7 @@ class ReportEvent extends Page
                         $date = now()->format('Y-m-d');
 
                         return response()->streamDownload(
-                            fn () => print($contents),
+                            fn () => print ($contents),
                             "schedule-export-{$date}.txt"
                         );
                     }),
