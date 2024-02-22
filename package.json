@@ -3,7 +3,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "prettier:format": "prettier --write resources/"
+        "prettier:format": "prettier --write resources/",
+        "prettier:check:ci": "prettier --check resources/"
     },
     "devDependencies": {
         "@alpinejs/mask": "^3.10.4",
