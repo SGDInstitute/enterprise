@@ -3,7 +3,13 @@
 
     <div x-data="{ focused: false }">
         <span class="ml-5 rounded-md shadow-sm">
-            <input @focus="focused = true" @blur="focused = false" class="sr-only" type="file" {{ $attributes }} />
+            <input
+                @focus="focused = true"
+                @blur="focused = false"
+                class="sr-only"
+                type="file"
+                {{ $attributes }}
+            />
             <label
                 for="{{ $attributes['id'] }}"
                 :class="{ 'outline-none border-blue-300 shadow-outline-blue': focused }"

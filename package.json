@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "prettier:format": "prettier --write resources/"
     },
     "devDependencies": {
         "@alpinejs/mask": "^3.10.4",
