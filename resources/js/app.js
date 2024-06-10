@@ -4,6 +4,12 @@ import {
 } from "../../vendor/livewire/livewire/dist/livewire.esm";
 import address from "./address.js";
 
+import * as Sentry from "@sentry/browser";
+
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
+});
+
 Alpine.data("address", address);
 
 Livewire.start();
