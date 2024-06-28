@@ -17,21 +17,6 @@ class TicketPolicy
         }
     }
 
-    public function viewAny(User $user): bool
-    {
-        //
-    }
-
-    public function view(User $user, Ticket $ticket): bool
-    {
-        //
-    }
-
-    public function create(User $user): bool
-    {
-        //
-    }
-
     public function update(User $user, Ticket $ticket): bool
     {
         return $user->id === $ticket->user_id || $user->id === $ticket->order->user_id;
@@ -40,15 +25,5 @@ class TicketPolicy
     public function delete(User $user, Ticket $ticket): bool
     {
         return $user->id === $ticket->order->user_id;
-    }
-
-    public function restore(User $user, Ticket $ticket): bool
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Ticket $ticket): bool
-    {
-        //
     }
 }
