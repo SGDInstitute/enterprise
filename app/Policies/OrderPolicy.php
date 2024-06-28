@@ -17,11 +17,6 @@ class OrderPolicy
         }
     }
 
-    public function viewAny(User $user): bool
-    {
-        //
-    }
-
     public function view(User $user, Order $order): bool
     {
         $ticketHolders = $order->tickets()->select('user_id')->whereNotNull('user_id')->pluck('user_id');
@@ -31,7 +26,7 @@ class OrderPolicy
 
     public function create(User $user): bool
     {
-        //
+        return $user->hasVerifiedEmail();
     }
 
     public function update(User $user, Order $order): bool
@@ -42,15 +37,5 @@ class OrderPolicy
     public function delete(User $user, Order $order): bool
     {
         return $order->user_id === $user->id;
-    }
-
-    public function restore(User $user, Order $order): bool
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Order $order): bool
-    {
-        //
     }
 }
