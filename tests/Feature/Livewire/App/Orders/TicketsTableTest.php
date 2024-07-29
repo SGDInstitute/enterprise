@@ -76,7 +76,7 @@ class TicketsTableTest extends TestCase
 
         $this->assertDatabaseHas('invitations', [
             'invited_by' => $luffy->id,
-            'inviteable_type' => "App\Models\Ticket",
+            'inviteable_type' => \App\Models\Ticket::class,
             'inviteable_id' => $ticket->id,
             'email' => 'zoro@strawhat.pirate',
         ]);
@@ -122,7 +122,7 @@ class TicketsTableTest extends TestCase
 
         $this->assertDatabaseMissing('invitations', [
             'invited_by' => $luffy->id,
-            'inviteable_type' => "App\Models\Ticket",
+            'inviteable_type' => \App\Models\Ticket::class,
             'inviteable_id' => $ticket->id,
             'email' => 'zoro@strawhat.pirate',
         ]);
