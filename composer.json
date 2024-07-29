@@ -12,7 +12,6 @@
         "akaunting/laravel-version": "^1.0",
         "barryvdh/laravel-dompdf": "^2.1",
         "blade-ui-kit/blade-icons": "^1.6",
-        "doctrine/dbal": "^3.5",
         "erusev/parsedown-extra": "^0.8.1",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.0-stable",
