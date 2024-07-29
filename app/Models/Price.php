@@ -12,10 +12,13 @@ class Price extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'end' => 'datetime',
-        'start' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'end' => 'datetime',
+            'start' => 'datetime',
+        ];
+    }
 
     protected static function booted(): void
     {

@@ -13,11 +13,14 @@ class TicketType extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'end' => 'datetime',
-        'form' => 'collection',
-        'start' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'end' => 'datetime',
+            'form' => 'collection',
+            'start' => 'datetime',
+        ];
+    }
 
     public static function createFlatWithStripe($data, $cost)
     {

@@ -18,14 +18,17 @@ class Form extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'auth_required' => 'boolean',
-        'end' => 'datetime',
-        'form' => 'collection',
-        'is_internal' => 'boolean',
-        'settings' => 'array',
-        'start' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'auth_required' => 'boolean',
+            'end' => 'datetime',
+            'form' => 'collection',
+            'is_internal' => 'boolean',
+            'settings' => 'array',
+            'start' => 'datetime',
+        ];
+    }
 
     public function getSlugOptions(): SlugOptions
     {

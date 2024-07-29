@@ -22,9 +22,12 @@ class Ticket extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'answers' => 'collection',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'answers' => 'collection',
+        ];
+    }
 
     // Scopes
 

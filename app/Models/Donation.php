@@ -15,7 +15,12 @@ class Donation extends Model
 
     public $guarded = [];
 
-    public $casts = ['is_anonymous' => 'boolean', 'is_company' => 'boolean'];
+    protected function casts(): array
+    {
+        return [
+            'is_anonymous' => 'boolean', 'is_company' => 'boolean'
+        ];
+    }
 
     // Scopes
 

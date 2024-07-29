@@ -18,11 +18,14 @@ class Order extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'invoice' => 'collection',
-        'reservation_ends' => 'datetime',
-        'paid_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'invoice' => 'collection',
+            'reservation_ends' => 'datetime',
+            'paid_at' => 'datetime',
+        ];
+    }
 
     // Scopes
 

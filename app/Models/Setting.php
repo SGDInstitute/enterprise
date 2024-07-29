@@ -12,13 +12,16 @@ class Setting extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'payload' => Multi::class,
-    ];
-
     // Relations
 
     // Attributes
 
     // Methods
+
+    protected function casts(): array
+    {
+        return [
+            'payload' => Multi::class,
+        ];
+    }
 }

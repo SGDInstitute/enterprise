@@ -37,11 +37,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'address' => 'array',
-        'terms' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'address' => 'array',
+            'terms' => 'array',
+        ];
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {
