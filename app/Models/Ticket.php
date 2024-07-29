@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Notifications\AddedToTicket;
 use App\Traits\HasInvitations;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -46,32 +48,32 @@ class Ticket extends Model
 
     // Relations
 
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function order()
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }
 
-    public function price()
+    public function price(): BelongsTo
     {
         return $this->belongsTo(Price::class);
     }
 
-    public function queue()
+    public function queue(): HasOne
     {
         return $this->hasOne(EventBadgeQueue::class);
     }
 
-    public function ticketType()
+    public function ticketType(): BelongsTo
     {
         return $this->belongsTo(TicketType::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

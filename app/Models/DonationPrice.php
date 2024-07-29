@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ class DonationPrice extends Model
     public $guarded = [];
 
     // Relations
-    public function plan()
+    public function plan(): BelongsTo
     {
         return $this->belongsTo(DonationPlan::class);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Stripe\Price as StripePrice;
@@ -31,7 +32,7 @@ class Price extends Model
 
     // Relations
 
-    public function ticketType()
+    public function ticketType(): BelongsTo
     {
         return $this->belongsTo(TicketType::class);
     }

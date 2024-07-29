@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,27 +42,27 @@ class Form extends Model
 
     // Relations
 
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function responses()
+    public function responses(): HasMany
     {
         return $this->hasMany(Response::class);
     }
 
-    public function confirmation()
+    public function confirmation(): HasOne
     {
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'confirmation');
     }
 
-    public function finalizeForm()
+    public function finalizeForm(): HasOne
     {
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'finalize');
     }
 
-    public function review()
+    public function review(): HasOne
     {
         return $this->hasOne(Form::class, 'parent_id', 'id')->where('type', 'review');
     }

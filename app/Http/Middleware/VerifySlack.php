@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Closure;
 use Exception;
@@ -17,7 +19,7 @@ class VerifySlack
      *
      * @throws Exception
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if (config('app.env') === 'testing') {
             return $next($request);
