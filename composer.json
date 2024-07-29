@@ -18,7 +18,7 @@
         "filament/spatie-laravel-media-library-plugin": "^3.0-stable",
         "filament/spatie-laravel-tags-plugin": "^3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
-        "hammerstone/sidecar": "^0.5",
+        "hammerstone/sidecar": "^0.6",
         "kenepa/multi-widget": "^2.0",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/cashier": "^15.2",
@@ -35,7 +35,7 @@
         "maatwebsite/excel": "^3.1",
         "sentry/sentry-laravel": "^4.5",
         "shuvroroy/filament-spatie-laravel-health": "^2.0",
-        "spatie/browsershot": "^3.57",
+        "spatie/browsershot": "^4.0",
         "spatie/laravel-activitylog": "^4.8",
         "spatie/laravel-health": "^1.27",
         "spatie/laravel-ignition": "^2.4",
@@ -45,11 +45,11 @@
         "spatie/laravel-schemaless-attributes": "^2.5",
         "spatie/laravel-sluggable": "^3.6",
         "spatie/laravel-tags": "^4.6",
-        "stripe/stripe-php": "^7.116",
+        "stripe/stripe-php": "^13.0",
         "symfony/http-client": "^7.0",
         "symfony/postmark-mailer": "^7.0",
         "tapp/filament-timezone-field": "^3.0",
-        "wnx/sidecar-browsershot": "^1.12"
+        "wnx/sidecar-browsershot": "^2.3.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.10",
