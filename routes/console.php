@@ -1,12 +1,11 @@
 <?php
 
 use App\Console\Commands\CompleteTicketsReminder;
-use App\Models\EventBulletin;
-use App\Notifications\BroadcastBulletin;
+use App\Console\Commands\InvitationReminder;
+use App\Console\Commands\PaymentReminder;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Schedule;
+use Illuminate\Console\Scheduling\Schedule;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 
 Artisan::command('inspire', function () {
@@ -14,16 +13,16 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-Schedule::command('horizon:snapshot')->everyFiveMinutes();
+Artisan::command('horizon:snapshot')->everyFiveMinutes();
 
-Schedule::call(function () {
-    EventBulletin::with('event')->where('published_at', '<', now())->where('published_at', '>', now()->subMinutes(5))->where('notify', 1)->get()->each(function ($bulletin) {
-        Notification::send($bulletin->event->paidAttendees()->unique(), new BroadcastBulletin($bulletin));
-    });
-})->everyFiveMinutes();
+// Schedule::call(function () {
+//     EventBulletin::with('event')->where('published_at', '<', now())->where('published_at', '>', now()->subMinutes(5))->where('notify', 1)->get()->each(function ($bulletin) {
+//         Notification::send($bulletin->event->paidAttendees()->unique(), new BroadcastBulletin($bulletin));
+//     });
+// })->everyFiveMinutes();
 
-Schedule::command(PaymentReminder::class)->weeklyOn(Schedule::SUNDAY);
-Schedule::command(CompleteTicketsReminder::class)->weeklyOn(Schedule::MONDAY);
-Schedule::command(InvitationReminder::class)->weeklyOn(Schedule::TUESDAY);
+Artisan::command(PaymentReminder::class)->weeklyOn(Schedule::SUNDAY);
+Artisan::command(CompleteTicketsReminder::class)->weeklyOn(Schedule::MONDAY);
+Artisan::command(InvitationReminder::class)->weeklyOn(Schedule::TUESDAY);
 
-Schedule::command(RunHealthChecksCommand::class)->everyMinute();
+Artisan::command(RunHealthChecksCommand::class)->everyMinute();
