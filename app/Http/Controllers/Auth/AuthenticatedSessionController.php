@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Providers\AppServiceProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -37,7 +38,7 @@ class AuthenticatedSessionController extends Controller
             return redirect(session('url.intended'));
         }
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(AppServiceProvider::HOME);
     }
 
     /**
