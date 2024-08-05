@@ -16,12 +16,6 @@ class Shift extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'end' => 'datetime',
-        'settings' => 'array',
-        'start' => 'datetime',
-    ];
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -50,6 +44,15 @@ class Shift extends Model
         } else {
             return $this->start->timezone($this->timezone)->format('D, M j Y g:i') . ' - ' . $this->end->timezone($this->timezone)->format('g:i a');
         }
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'end' => 'datetime',
+            'settings' => 'array',
+            'start' => 'datetime',
+        ];
     }
 
     // Methods

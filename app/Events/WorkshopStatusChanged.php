@@ -13,6 +13,5 @@ class WorkshopStatusChanged
 
     public function __construct(
         public Response $workshop,
-    ) {
-    }
+    ) {}
 }

@@ -12,9 +12,7 @@ class WorkshopCanceled extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Response $workshop)
-    {
-    }
+    public function __construct(public Response $workshop) {}
 
     public function via(object $notifiable): array
     {

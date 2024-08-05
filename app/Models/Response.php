@@ -7,6 +7,11 @@ use App\Traits\HasInvitations;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Notification;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -20,11 +25,6 @@ class Response extends Model
 
     public $guarded = [];
 
-    protected $casts = [
-        'answers' => 'collection',
-        'settings' => 'array',
-    ];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -32,43 +32,43 @@ class Response extends Model
             ->logOnlyDirty();
     }
 
-    public function child()
+    public function child(): HasOne
     {
         return $this->hasOne(Response::class, 'parent_id', 'id')->where('form_id', 28);
     }
 
-    public function collaborators()
+    public function collaborators(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'collaborators');
     }
 
-    public function form()
+    public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);
     }
 
-    public function owner()
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function reminders()
+    public function reminders(): MorphMany
     {
         return $this->morphMany(Reminder::class, 'model');
     }
 
-    public function parent()
+    public function parent(): HasOne
     {
         return $this->hasOne(Response::class, 'id', 'parent_id');
     }
 
-    public function reviews()
+    public function reviews(): HasMany
     {
         return $this->hasMany(RfpReview::class);
         // return $this->hasMany(Response::class, 'parent_id', 'id')->where('type', 'review');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -150,5 +150,13 @@ class Response extends Model
             ->map(fn ($d) => ['send_at' => $d]);
 
         $this->reminders()->createMany($dates);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'answers' => 'collection',
+            'settings' => 'array',
+        ];
     }
 }

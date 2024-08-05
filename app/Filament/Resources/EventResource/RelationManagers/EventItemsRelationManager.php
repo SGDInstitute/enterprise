@@ -102,7 +102,7 @@ class EventItemsRelationManager extends RelationManager
                             $date = now()->format('Y-m-d');
 
                             return response()->streamDownload(
-                                fn () => print($contents),
+                                fn () => print ($contents),
                                 "schedule-export-{$date}.txt"
                             );
                         }),

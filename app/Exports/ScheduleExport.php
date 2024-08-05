@@ -7,9 +7,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ScheduleExport implements FromCollection
 {
-    public function __construct(public $eventId)
-    {
-    }
+    public function __construct(public $eventId) {}
 
     public function collection()
     {

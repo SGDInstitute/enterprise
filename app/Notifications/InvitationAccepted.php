@@ -14,9 +14,7 @@ class InvitationAccepted extends Notification
 {
     use Queueable;
 
-    public function __construct(public Model $model, public User $user)
-    {
-    }
+    public function __construct(public Model $model, public User $user) {}
 
     public function via(object $notifiable): array
     {

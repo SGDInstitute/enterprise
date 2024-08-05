@@ -12,7 +12,7 @@ class CompleteTicketsReminder extends Command
 
     protected $description = 'Send reminder emails to folks with incomplete tickets';
 
-    public function handle()
+    public function handle(): void
     {
         $this->info('Running reminder emails to orders with incomplete tickets...');
 

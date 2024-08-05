@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EventBulletin extends Model
 {
@@ -11,11 +12,9 @@ class EventBulletin extends Model
 
     public $guarded = [];
 
-    protected $casts = ['published_at' => 'datetime'];
-
     // Relations
 
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
@@ -30,6 +29,13 @@ class EventBulletin extends Model
     public function getIsPublishedAttribute()
     {
         return $this->published_at < now();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'published_at' => 'datetime',
+        ];
     }
 
     // Methods

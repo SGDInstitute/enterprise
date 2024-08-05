@@ -13,7 +13,7 @@ class InvitationReminder extends Command
 
     protected $description = 'Send reminder emails to folks with pending invitations';
 
-    public function handle()
+    public function handle(): void
     {
         $this->info('Running reminder emails to pending invitations...');
 

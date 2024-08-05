@@ -12,7 +12,7 @@ class PaymentReminder extends Command
 
     protected $description = 'Send reminder emails to folks with unpaid orders';
 
-    public function handle()
+    public function handle(): void
     {
         $this->info('Running reminder emails to unpaid orders...');
 

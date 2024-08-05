@@ -36,7 +36,7 @@ final class InvitationControllerTest extends TestCase
         $this->assertTrue($response->collaborators->contains($user->id));
 
         $this->assertDatabaseMissing('invitations', [
-            'inviteable_type' => 'App\Models\Response',
+            'inviteable_type' => \App\Models\Response::class,
             'inviteable_id' => $response->id,
             'email' => 'king@hexide.edu',
         ]);
@@ -61,7 +61,7 @@ final class InvitationControllerTest extends TestCase
         $this->assertTrue($ticket->fresh()->user_id === $user->id);
 
         $this->assertDatabaseMissing('invitations', [
-            'inviteable_type' => 'App\Models\Ticket',
+            'inviteable_type' => \App\Models\Ticket::class,
             'inviteable_id' => $ticket->id,
             'email' => 'king@hexide.edu',
         ]);
@@ -150,7 +150,7 @@ final class InvitationControllerTest extends TestCase
         $this->assertTrue($ticket->fresh()->user_id === $user->id);
 
         $this->assertDatabaseMissing('invitations', [
-            'inviteable_type' => 'App\Models\Ticket',
+            'inviteable_type' => \App\Models\Ticket::class,
             'inviteable_id' => $ticket->id,
             'email' => 'king@hexide.edu',
         ]);

@@ -17,9 +17,7 @@ class PostCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Event $event, public Post $post)
-    {
-    }
+    public function __construct(public Event $event, public Post $post) {}
 
     /**
      * Get the notification's delivery channels.

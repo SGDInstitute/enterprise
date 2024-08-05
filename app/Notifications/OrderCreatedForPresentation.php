@@ -13,9 +13,7 @@ class OrderCreatedForPresentation extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Order $order, public Response $proposal)
-    {
-    }
+    public function __construct(public Order $order, public Response $proposal) {}
 
     public function via(object $notifiable): array
     {

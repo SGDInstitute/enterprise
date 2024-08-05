@@ -61,7 +61,7 @@ class EditEvent extends EditRecord
                 ->button()
                 ->color('gray')
                 ->outlined()
-                ->hidden($this->record->start->diffInDays(now()) > 14 || $this->record->settings->allow_checkin === true),
+                ->hidden(fn () => now()->diffInDays($this->record->start) > 14 || $this->record->settings->allow_checkin === true),
             Action::make('reports')
                 ->url(EventResource::getUrl('report', ['record' => $this->record]))
                 ->button()
@@ -84,7 +84,7 @@ class EditEvent extends EditRecord
                         ]);
 
                         return response()->streamDownload(
-                            fn () => print($pdf->output()),
+                            fn () => print ($pdf->output()),
                             "{$this->record->slug}-event-dashboard.pdf"
                         );
                     }),
@@ -133,7 +133,7 @@ class EditEvent extends EditRecord
                         $date = now()->format('Y-m-d');
 
                         return response()->streamDownload(
-                            fn () => print($contents),
+                            fn () => print ($contents),
                             "schedule-export-{$date}.txt"
                         );
                     }),

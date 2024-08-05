@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Carbon\Carbon;
 use Closure;
 use Exception;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VerifySlack
 {
@@ -12,12 +14,11 @@ class VerifySlack
      * Validate a slack request
      * by the slack signing secret (not the token)
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      *
      * @throws Exception
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if (config('app.env') === 'testing') {
             return $next($request);

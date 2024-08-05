@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Stripe\Price as StripePrice;
 
 class Price extends Model
@@ -11,11 +12,6 @@ class Price extends Model
     use HasFactory;
 
     public $guarded = [];
-
-    protected $casts = [
-        'end' => 'datetime',
-        'start' => 'datetime',
-    ];
 
     protected static function booted(): void
     {
@@ -28,7 +24,7 @@ class Price extends Model
 
     // Relations
 
-    public function ticketType()
+    public function ticketType(): BelongsTo
     {
         return $this->belongsTo(TicketType::class);
     }
@@ -63,6 +59,14 @@ class Price extends Model
     public function getMinInDollarsAttribute()
     {
         return number_format($this->min / 100, 2);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'end' => 'datetime',
+            'start' => 'datetime',
+        ];
     }
 
     // Methods

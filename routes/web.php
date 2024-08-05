@@ -66,3 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::get('events/{event:slug}/volunteer', App\Livewire\App\Volunteer::class)->name('app.volunteer');
     });
 });
+
+Route::prefix('galaxy')
+    ->middleware(['web', 'auth', 'can:galaxy.view'])
+    ->group(base_path('routes/galaxy.php'));

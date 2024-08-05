@@ -37,12 +37,6 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'address' => 'array',
-        'terms' => 'array',
-    ];
-
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasAnyRole(['institute', 'mblgtacc_planner', 'mblgtacc', 'developer']);
@@ -198,6 +192,15 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
             ->when(! $registered, fn ($query) => $query->where('event_id', $event->id)
             )
             ->first();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'address' => 'array',
+            'terms' => 'array',
+        ];
     }
 
     protected function notificationsVia(): Attribute

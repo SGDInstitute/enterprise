@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
@@ -17,12 +19,6 @@ class Order extends Model
     use SoftDeletes;
 
     public $guarded = [];
-
-    protected $casts = [
-        'invoice' => 'collection',
-        'reservation_ends' => 'datetime',
-        'paid_at' => 'datetime',
-    ];
 
     // Scopes
 
@@ -54,17 +50,17 @@ class Order extends Model
 
     // Relations
 
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function tickets()
+    public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class, 'order_id');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -239,5 +235,14 @@ class Order extends Model
                 'total' => '$' . number_format($group->count() * $price / 100, 2),
             ];
         });
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'invoice' => 'collection',
+            'reservation_ends' => 'datetime',
+            'paid_at' => 'datetime',
+        ];
     }
 }

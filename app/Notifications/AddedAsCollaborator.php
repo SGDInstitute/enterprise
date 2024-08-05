@@ -13,9 +13,7 @@ class AddedAsCollaborator extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Invitation $invitation, public Response $response)
-    {
-    }
+    public function __construct(public Invitation $invitation, public Response $response) {}
 
     public function via($notifiable): array
     {

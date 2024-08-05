@@ -11,9 +11,10 @@ class HasTicketForEvent
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $event = Event::where('slug', $request->route('event'))->firstOrFail();
-
-        abort_if(! $request->user()->hasTicketFor($event), 403, "You must have a ticket for {$event->name} to view the message board.");
+        $event = $request->route('event');
+        if ($event && get_class($event) === Event::class) {
+            abort_if(! $request->user()->hasTicketFor($event), 403, "You must have a ticket for {$event->name} to view the message board.");
+        }
 
         return $next($request);
     }

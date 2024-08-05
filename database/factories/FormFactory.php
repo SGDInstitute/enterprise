@@ -16,6 +16,7 @@ class FormFactory extends Factory
             'type' => 'workshop',
             'start' => now()->subDay(),
             'end' => now()->addDay(),
+            'timezone' => 'America/Chicago',
         ];
     }
 
