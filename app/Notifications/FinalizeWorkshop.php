@@ -16,8 +16,7 @@ class FinalizeWorkshop extends Notification implements ShouldQueue
     public function __construct(
         public Form $finalize,
         public Response $workshop,
-    ) {
-    }
+    ) {}
 
     public function via($notifiable): array
     {

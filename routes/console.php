@@ -3,8 +3,6 @@
 use App\Console\Commands\CompleteTicketsReminder;
 use App\Console\Commands\InvitationReminder;
 use App\Console\Commands\PaymentReminder;
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 

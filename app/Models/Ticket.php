@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Notifications\AddedToTicket;
 use App\Traits\HasInvitations;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Notification;
 
@@ -23,13 +23,6 @@ class Ticket extends Model
     public const UNASSIGNED = 'unassigned';
 
     public $guarded = [];
-
-    protected function casts(): array
-    {
-        return [
-            'answers' => 'collection',
-        ];
-    }
 
     // Scopes
 
@@ -140,5 +133,12 @@ class Ticket extends Model
     public function isPrinted()
     {
         return $this->isQueued() && $this->queue->printed;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'answers' => 'collection',
+        ];
     }
 }

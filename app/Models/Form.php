@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
@@ -20,18 +20,6 @@ class Form extends Model
     use HasSlug;
 
     public $guarded = [];
-
-    protected function casts(): array
-    {
-        return [
-            'auth_required' => 'boolean',
-            'end' => 'datetime',
-            'form' => 'collection',
-            'is_internal' => 'boolean',
-            'settings' => 'array',
-            'start' => 'datetime',
-        ];
-    }
 
     public function getSlugOptions(): SlugOptions
     {
@@ -154,5 +142,17 @@ class Form extends Model
         return collect($this->rules)
             ->map(fn ($rule, $key) => Str::of($key)->replace('answers.', '')->replace('-', ' ')->replace('_', ' ')->toString())
             ->toArray();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'auth_required' => 'boolean',
+            'end' => 'datetime',
+            'form' => 'collection',
+            'is_internal' => 'boolean',
+            'settings' => 'array',
+            'start' => 'datetime',
+        ];
     }
 }

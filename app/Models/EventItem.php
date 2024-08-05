@@ -21,15 +21,6 @@ class EventItem extends Model
 
     public $guarded = [];
 
-    protected function casts(): array
-    {
-        return [
-            'end' => 'datetime',
-            'settings' => 'array',
-            'start' => 'datetime',
-        ];
-    }
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -83,6 +74,15 @@ class EventItem extends Model
     public function getWarningsAttribute()
     {
         return $this->tagsWithType('warnings')->pluck('name')->join(', ');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'end' => 'datetime',
+            'settings' => 'array',
+            'start' => 'datetime',
+        ];
     }
 
     // Methods

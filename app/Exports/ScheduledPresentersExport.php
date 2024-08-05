@@ -10,9 +10,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class ScheduledPresentersExport implements FromCollection, WithHeadings
 {
-    public function __construct(public Event $event)
-    {
-    }
+    public function __construct(public Event $event) {}
 
     public function collection()
     {

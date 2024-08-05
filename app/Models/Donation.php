@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Stripe\PaymentMethod;
@@ -15,13 +15,6 @@ class Donation extends Model
     use HasFactory;
 
     public $guarded = [];
-
-    protected function casts(): array
-    {
-        return [
-            'is_anonymous' => 'boolean', 'is_company' => 'boolean'
-        ];
-    }
 
     // Scopes
 
@@ -105,5 +98,12 @@ class Donation extends Model
             $this->status = 'canceled';
             $this->save();
         }
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'is_anonymous' => 'boolean', 'is_company' => 'boolean',
+        ];
     }
 }

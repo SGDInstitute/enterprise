@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Notifications\AddedAsCollaborator;
 use App\Traits\HasInvitations;
 use App\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Notification;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -24,14 +24,6 @@ class Response extends Model
     use LogsActivity;
 
     public $guarded = [];
-
-    protected function casts(): array
-    {
-        return [
-            'answers' => 'collection',
-            'settings' => 'array',
-        ];
-    }
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -158,5 +150,13 @@ class Response extends Model
             ->map(fn ($d) => ['send_at' => $d]);
 
         $this->reminders()->createMany($dates);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'answers' => 'collection',
+            'settings' => 'array',
+        ];
     }
 }

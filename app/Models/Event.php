@@ -23,15 +23,6 @@ class Event extends Model implements HasMedia
 
     protected $guarded = [];
 
-    protected function casts(): array
-    {
-        return [
-            'end' => 'datetime',
-            'settings' => 'array',
-            'start' => 'datetime',
-        ];
-    }
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -187,5 +178,14 @@ class Event extends Model implements HasMedia
             ->filter(fn ($ticket) => ! Str::contains($ticket->ticketType->name, ['Virtual', 'virtual']))
             ->filter(fn ($ticket) => $ticket->user_id !== null)
             ->map->user;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'end' => 'datetime',
+            'settings' => 'array',
+            'start' => 'datetime',
+        ];
     }
 }
