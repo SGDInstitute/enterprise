@@ -61,7 +61,7 @@ class EditEvent extends EditRecord
                 ->button()
                 ->color('gray')
                 ->outlined()
-                ->hidden($this->record->start->diffInDays(now()) > 14 || $this->record->settings->allow_checkin === true),
+                ->hidden(fn () => now()->diffInDays($this->record->start) > 14 || $this->record->settings->allow_checkin === true),
             Action::make('reports')
                 ->url(EventResource::getUrl('report', ['record' => $this->record]))
                 ->button()
