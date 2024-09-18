@@ -58,7 +58,7 @@ class Payment extends Component
 
         $filename = ($this->order->isPaid() ? 'Receipt-' : 'Invoice-') . $this->order->formattedId . '.pdf';
 
-        return response()->streamDownload(fn () => print($pdf), $filename);
+        return response()->streamDownload(fn () => print ($pdf), $filename);
     }
 
     public function downloadW9()

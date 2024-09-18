@@ -10,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 
 class FilamentServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->registerSkipToContentLink();
     }

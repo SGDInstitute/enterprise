@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Stripe\Price as StripePrice;
 use Stripe\Product as StripeProduct;
 
@@ -12,12 +14,6 @@ class TicketType extends Model
     use HasFactory;
 
     public $guarded = [];
-
-    protected $casts = [
-        'end' => 'datetime',
-        'form' => 'collection',
-        'start' => 'datetime',
-    ];
 
     public static function createFlatWithStripe($data, $cost)
     {
@@ -45,12 +41,12 @@ class TicketType extends Model
     }
     // Relationships
 
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function prices()
+    public function prices(): HasMany
     {
         return $this->hasMany(Price::class);
     }
@@ -89,5 +85,14 @@ class TicketType extends Model
     {
         $this->prices->each(fn ($price) => $price->delete());
         $this->delete();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'end' => 'datetime',
+            'form' => 'collection',
+            'start' => 'datetime',
+        ];
     }
 }

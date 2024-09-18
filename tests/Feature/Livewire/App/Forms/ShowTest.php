@@ -89,7 +89,7 @@ final class ShowTest extends TestCase
         $this->assertDatabaseMissing('users', ['email' => 'adora@eternia.gov']);
         $this->assertDatabaseHas('invitations', [
             'invited_by' => $user->id,
-            'inviteable_type' => 'App\Models\Response',
+            'inviteable_type' => \App\Models\Response::class,
             'inviteable_id' => $savedResponse->id,
             'email' => 'adora@eternia.gov',
         ]);
@@ -126,7 +126,7 @@ final class ShowTest extends TestCase
 
         $this->assertDatabaseMissing('invitations', [
             'invited_by' => $user->id,
-            'inviteable_type' => 'App\Models\Response',
+            'inviteable_type' => \App\Models\Response::class,
             'inviteable_id' => $response->id,
             'email' => 'adora@eternia.gov',
         ]);

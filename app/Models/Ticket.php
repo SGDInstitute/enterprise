@@ -7,6 +7,8 @@ use App\Traits\HasInvitations;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Notification;
 
@@ -21,10 +23,6 @@ class Ticket extends Model
     public const UNASSIGNED = 'unassigned';
 
     public $guarded = [];
-
-    protected $casts = [
-        'answers' => 'collection',
-    ];
 
     // Scopes
 
@@ -43,32 +41,32 @@ class Ticket extends Model
 
     // Relations
 
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function order()
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }
 
-    public function price()
+    public function price(): BelongsTo
     {
         return $this->belongsTo(Price::class);
     }
 
-    public function queue()
+    public function queue(): HasOne
     {
         return $this->hasOne(EventBadgeQueue::class);
     }
 
-    public function ticketType()
+    public function ticketType(): BelongsTo
     {
         return $this->belongsTo(TicketType::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -135,5 +133,12 @@ class Ticket extends Model
     public function isPrinted()
     {
         return $this->isQueued() && $this->queue->printed;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'answers' => 'collection',
+        ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DonationPrice extends Model
 {
@@ -12,7 +13,7 @@ class DonationPrice extends Model
     public $guarded = [];
 
     // Relations
-    public function plan()
+    public function plan(): BelongsTo
     {
         return $this->belongsTo(DonationPlan::class);
     }

@@ -6,7 +6,10 @@ use App\Models\EventItem;
 use App\Observers\EventItemObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -19,6 +22,8 @@ use Stripe\Stripe;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public const HOME = '/dashboard';
+
     public function boot(): void
     {
         EventItem::observe(EventItemObserver::class);
@@ -46,10 +51,20 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Model::preventLazyLoading(! app()->isProduction());
+
+        $this->bootRoute();
     }
 
     public function register(): void
     {
         //
+    }
+
+    public function bootRoute(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
     }
 }

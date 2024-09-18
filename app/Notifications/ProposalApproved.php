@@ -12,9 +12,7 @@ class ProposalApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Response $response)
-    {
-    }
+    public function __construct(public Response $response) {}
 
     public function via(object $notifiable): array
     {
