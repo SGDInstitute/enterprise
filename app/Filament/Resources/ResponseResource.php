@@ -97,6 +97,10 @@ class ResponseResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
+                TextColumn::make('user.email')
+                    ->label('Owner Email')
+                    ->copyable()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->searchable()
                     ->sortable()
