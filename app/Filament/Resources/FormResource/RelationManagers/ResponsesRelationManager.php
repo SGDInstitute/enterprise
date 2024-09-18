@@ -64,6 +64,10 @@ class ResponsesRelationManager extends RelationManager
                     ->action(fn ($livewire, $record) => $livewire->tableFilters['user'] = ['value' => $record->user_id])
                     ->sortable()
                     ->toggleable(),
+                TextColumn::make('user.email')
+                    ->label('Owner Email')
+                    ->copyable()
+                    ->toggleable(),
                 TextColumn::make('collaborators_count')
                     ->counts('collaborators')
                     ->formatStateUsing(fn ($state) => $state - 1)
