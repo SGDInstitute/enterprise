@@ -83,7 +83,7 @@ class ReportEvent extends Page
                 Action::make('ticket-answers')
                     ->label('Who Needs What (Ticket Answers)')
                     ->form(function () {
-                        $keys = $this->record->ticketTypes->pluck('form')->map->pluck('id')->flatten()->unique();
+                        $keys = $this->record->ticketTypes->pluck('form')->filter()->map->pluck('id')->flatten()->unique();
 
                         return [
                             Select::make('question')
