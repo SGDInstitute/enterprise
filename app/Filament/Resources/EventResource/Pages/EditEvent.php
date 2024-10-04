@@ -84,7 +84,7 @@ class EditEvent extends EditRecord
                         ]);
 
                         return response()->streamDownload(
-                            fn () => print($pdf->output()),
+                            fn () => print ($pdf->output()),
                             "{$this->record->slug}-event-dashboard.pdf"
                         );
                     }),
@@ -133,7 +133,7 @@ class EditEvent extends EditRecord
                         $date = now()->format('Y-m-d');
 
                         return response()->streamDownload(
-                            fn () => print($contents),
+                            fn () => print ($contents),
                             "schedule-export-{$date}.txt"
                         );
                     }),

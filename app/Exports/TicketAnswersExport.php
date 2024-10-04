@@ -9,9 +9,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class TicketAnswersExport implements FromCollection, WithHeadings
 {
-    public function __construct(public Event $event, public string $question, public string $status)
-    {
-    }
+    public function __construct(public Event $event, public string $question, public string $status) {}
 
     public function collection()
     {

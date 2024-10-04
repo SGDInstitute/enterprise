@@ -12,9 +12,7 @@ class SignedUpForShift extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Event $event)
-    {
-    }
+    public function __construct(public Event $event) {}
 
     public function via(object $notifiable): array
     {
