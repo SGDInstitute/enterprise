@@ -24,7 +24,7 @@
         <div class="bg-white dark:bg-gray-800 p-6">
             <div class="prose dark:prose-light mb-4">
                 <p>Please select the shifts you would like to volunteer for. You can come back to this page later to edit/cancel your shifts if you need to, just deselect the shifts you need to cancel.</p>
-                <p>If you volunteer for a total of 4 hours (2 shifts), you’ll get a free ticket to attend MBLGTACC 2023.</p>
+                <p>If you volunteer for a total of 4 hours (2 shifts), you’ll get a free ticket to attend the conference.</p>
             </div>
             <form wire:submit="signup">
                 {{ $this->form }}
