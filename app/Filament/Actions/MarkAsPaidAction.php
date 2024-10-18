@@ -36,7 +36,7 @@ class MarkAsPaidAction extends Action
             ->action(function (Model $record, array $data): void {
                 $record->markAsPaid(
                     Str::start($data['check_number'], '#'),
-                    $data['amount'] * 100
+                    Str::replace(',', '', $data['amount']) * 100
                 );
 
                 Notification::make()->title('Successfully marked order as paid.')->success()->send();
