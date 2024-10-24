@@ -138,11 +138,7 @@ class EventItemsRelationManager extends RelationManager
                         ->form([
                             Select::make('parent_id')
                                 ->label('Parent')
-                                ->relationship(
-                                    name: 'parent',
-                                    modifyQueryUsing: fn (Builder $query) => $query->whereNull('parent_id')->where('event_id', $this->ownerRecord->id),
-                                )
-                                ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} ({$record->start->format('D')})")
+                                ->options($this->ownerRecord->items()->whereNull('parent_id')->pluck('name', 'id'))
                                 ->searchable(),
                             Select::make('workshop_id')
                                 ->label('Proposal')
