@@ -40,20 +40,20 @@ class ResponsesRelationManager extends RelationManager
                     ->counts('reviews')
                     ->label('# Reviews')
                     ->sortable()
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->hidden(! in_array($this->ownerRecord->id, [35, 38])),
                 TextColumn::make('reviews_avg_score')
                     ->avg('reviews', 'score')
                     ->label('Avg. Score')
                     ->sortable()
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->hidden(! in_array($this->ownerRecord->id, [35, 38])),
                 IconColumn::make('reviewed')
                     ->label('You Reviewed')
                     ->boolean()
                     ->getStateUsing(fn (Model $record) => $record->reviews->pluck('user_id')->contains(auth()->id()))
                     ->falseIcon('')
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->hidden(! in_array($this->ownerRecord->id, [35, 38])),
                 TextColumn::make('id')
                     ->label('Proposal ID')
@@ -105,36 +105,36 @@ class ResponsesRelationManager extends RelationManager
                 SelectFilter::make('user')
                     ->relationship('user', 'email')
                     ->searchable(),
-                SelectFilter::make('track-first-choice')
-                    ->options(
-                        fn ($livewire) => collect($livewire->ownerRecord->questions
-                            ->firstWhere('data.id', 'track-first-choice')['data']['options'])
-                            ->mapWithKeys(function ($option) {
-                                $key = explode(':', $option)[0];
+                // SelectFilter::make('track-first-choice')
+                //     ->options(
+                //         fn ($livewire) => collect($livewire->ownerRecord->questions
+                //             ->firstWhere('data.id', 'track-first-choice')['data']['options'])
+                //             ->mapWithKeys(function ($option) {
+                //                 $key = explode(':', $option)[0];
 
-                                return [$key => $key];
-                            })
-                    )
-                    ->query(fn ($query, $data) => $query->when(
-                        $data['value'] !== null,
-                        fn ($query) => $query->where('answers->track-first-choice', $data['value'])
-                    ))
-                    ->hidden(! in_array($this->ownerRecord->id, [35, 38])),
-                SelectFilter::make('track-second-choice')
-                    ->options(
-                        fn ($livewire) => collect($livewire->ownerRecord->questions
-                            ->firstWhere('data.id', 'track-second-choice')['data']['options'])
-                            ->mapWithKeys(function ($option) {
-                                $key = explode(':', $option)[0];
+                //                 return [$key => $key];
+                //             })
+                //     )
+                //     ->query(fn ($query, $data) => $query->when(
+                //         $data['value'] !== null,
+                //         fn ($query) => $query->where('answers->track-first-choice', $data['value'])
+                //     ))
+                //     ->hidden(! in_array($this->ownerRecord->id, [35, 38])),
+                // SelectFilter::make('track-second-choice')
+                //     ->options(
+                //         fn ($livewire) => collect($livewire->ownerRecord->questions
+                //             ->firstWhere('data.id', 'track-second-choice')['data']['options'])
+                //             ->mapWithKeys(function ($option) {
+                //                 $key = explode(':', $option)[0];
 
-                                return [$key => $key];
-                            })
-                    )
-                    ->query(fn ($query, $data) => $query->when(
-                        $data['value'] !== null,
-                        fn ($query) => $query->where('answers->track-second-choice', $data['value'])
-                    ))
-                    ->hidden(! in_array($this->ownerRecord->id, [35, 38])),
+                //                 return [$key => $key];
+                //             })
+                //     )
+                //     ->query(fn ($query, $data) => $query->when(
+                //         $data['value'] !== null,
+                //         fn ($query) => $query->where('answers->track-second-choice', $data['value'])
+                //     ))
+                //     ->hidden(! in_array($this->ownerRecord->id, [35, 38])),
             ], layout: FiltersLayout::AboveContent)
             ->actions([
                 ActionGroup::make([
