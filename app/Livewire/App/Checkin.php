@@ -73,6 +73,8 @@ class Checkin extends Component implements HasForms
     {
         if (! auth()->check()) {
             return 'need-to-login';
+        } elseif (! isset($this->ticket)) {
+            return 'no-ticket';
         } elseif ($this->ticket === null) {
             return 'need-ticket';
         } elseif ($this->ticket->order->isReservation()) {
